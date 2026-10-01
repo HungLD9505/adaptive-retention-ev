@@ -1,0 +1,14 @@
+[
+  {
+    "entity_id": "charged:AMS:0",
+    "reason": "coverage"
+  },
+  {
+    "entity_id": "charged:AMS:1",
+    "reason": "sparse"
+  },
+  {
+    "entity_id": "charged:AMS:10",
+    "reason": "gaps"
+  }
+]

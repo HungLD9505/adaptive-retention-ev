@@ -1,0 +1,14 @@
+{
+  "dataset": "charged",
+  "run_id": "charged_full_20261002_02",
+  "transform": "hourly_audit_v1",
+  "limit": null,
+  "raw_sha256": "1ec9c9513b64f3f492fe73261bf08a5955c268dfb876ef0fe283d05cc5a02fab",
+  "timestamp_bin_mapping": "released displayed hour; NOT confirmed event interval",
+  "timezone": "unknown",
+  "availability": "unknown",
+  "imputation": null,
+  "scaling": null,
+  "split": null,
+  "seed": 20261002
+}

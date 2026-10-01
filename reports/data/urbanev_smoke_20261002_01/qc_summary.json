@@ -1,0 +1,21 @@
+{
+  "dataset": "urbanev",
+  "run_id": "urbanev_smoke_20261002_01",
+  "entities_succeeded": 0,
+  "entities_failed": 3,
+  "scope": "smoke",
+  "panel_status": "candidate only: released timezone/bin/availability require verification",
+  "strict_online_ready": false,
+  "upstream_status": "structured station-raw release, already derived volume; original pile events unavailable",
+  "independence_status": "Shenzhen overlap not established; no cross-release native-ID mapping",
+  "source_sha256": "9d3f0aec34434546d082509efcdeeaea116eaa841701cc5854a9b62a27881a79",
+  "code_sha256": "47d74801c0a13c93d1523c6acd3054ba70d586c4015e0a43f480a559f601ba1a",
+  "runtime": {
+    "pandas": "3.0.1",
+    "numpy": "2.5.3",
+    "pyarrow": "25.0.1"
+  },
+  "totals": {},
+  "reconciliation_pass": false,
+  "panels": []
+}

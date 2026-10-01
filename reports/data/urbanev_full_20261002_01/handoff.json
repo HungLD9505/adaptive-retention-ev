@@ -1,0 +1,20 @@
+{
+  "conclusions": [
+    "Đã xử lý 1,682 entities; 7,306,608 bin giờ; missing/invalid theo file 21.36%.",
+    "1,901,982 bin giờ zero hợp lệ số học được giữ nguyên; thiếu label không được điền.",
+    "Energy là estimate từ trạng thái/công suất, không phải số đo công tơ. Original-observation status và label availability chưa xác minh.",
+    "Panel là candidate theo giờ hiển thị; không chứng nhận strict online, timezone/DST/bin semantics hoặc upstream causality.",
+    "EDA toàn kỳ chỉ mô tả. Split/cohort/dates, imputation/scaling, features và windows chuyển development.",
+    "Nghiệm thu: đủ để tiếp tục audit/development trên published-data candidate, chưa đạt gate strict causal experiment.",
+    "Metadata local: 1,682 station IDs, 22,650 pile IDs; 82 rated-power records thiếu/không dương. Không dùng số paper thay số local.",
+    "Auxiliary QC được lưu riêng; static inventory không được mặc định known-at-origin. {'busy_balance_mismatch_rows': 0, 'idle_balance_mismatch_rows': 0, 'negative_fee_rows': 0}"
+  ],
+  "pending": [
+    "time semantics",
+    "label availability",
+    "upstream masks",
+    "Shenzhen independence",
+    "development decisions"
+  ],
+  "accepted": "published-data candidate; strict causal gate not met"
+}

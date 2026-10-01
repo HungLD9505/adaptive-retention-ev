@@ -1,0 +1,20 @@
+{
+  "conclusions": [
+    "Đã xử lý 4,280 entities; 18,797,760 bin giờ; missing/invalid theo file 0.00%.",
+    "6,936,073 bin giờ zero hợp lệ số học được giữ nguyên; thiếu label không được điền.",
+    "Energy là estimate từ trạng thái/công suất, không phải số đo công tơ. Original-observation status và label availability chưa xác minh.",
+    "Panel là candidate theo giờ hiển thị; không chứng nhận strict online, timezone/DST/bin semantics hoặc upstream causality.",
+    "EDA toàn kỳ chỉ mô tả. Split/cohort/dates, imputation/scaling, features và windows chuyển development.",
+    "Nghiệm thu: đủ để tiếp tục audit/development trên published-data candidate, chưa đạt gate strict causal experiment.",
+    "CHARGED license CC BY4.0 theo record; upstream IQR correction/zero interpolation, original masks không xác nhận. Shenzhen independence chưa xác minh.",
+    "MEL/SPO metadata dùng cột site, các city khác site_id; alias đã ghi city_metadata_audit. Một số info headers malformed, không dùng làm predictors."
+  ],
+  "pending": [
+    "time semantics",
+    "label availability",
+    "upstream masks",
+    "Shenzhen independence",
+    "development decisions"
+  ],
+  "accepted": "published-data candidate; strict causal gate not met"
+}

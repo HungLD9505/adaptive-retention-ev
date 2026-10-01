@@ -1,0 +1,4 @@
+input_rows,exact_duplicates,conflicting_timestamps,malformed_timestamps,offgrid_rows,negative_values,nonfinite_values,expected_intervals,valid_intervals,missing_intervals,zero_intervals,output_hours,valid_hours,invalid_hours,zero_hours,start,end,energy_kwh,reconciliation_source_kwh,reconciliation_pass,entity_id,city,native_id
+4392,0,0,0,0,0,0,4392,4392,0,4392,4392,4392,0,4392,2023-04-01 00:00:00,2023-09-30 23:00:00,0.0,0.0,True,charged:AMS:0,AMS,0
+4392,0,0,0,0,0,0,4392,4392,0,4392,4392,4392,0,4392,2023-04-01 00:00:00,2023-09-30 23:00:00,0.0,0.0,True,charged:AMS:1,AMS,1
+4392,0,0,0,0,0,0,4392,4392,0,0,4392,4392,0,0,2023-04-01 00:00:00,2023-09-30 23:00:00,17236.026041666668,17236.026041666668,True,charged:AMS:10,AMS,10

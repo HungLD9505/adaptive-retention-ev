@@ -1,0 +1,12 @@
+{
+  "metadata_rows": 1682,
+  "unique_station_ids": 1682,
+  "duplicate_station_ids": 0,
+  "pile_rows": 22650,
+  "unique_pile_ids": 22650,
+  "duplicate_pile_ids": 0,
+  "nonpositive_or_missing_rated_power": 82,
+  "raw_entities_without_metadata": [],
+  "metadata_inventory_temporal_validity": "unknown: release static inventory must not be assumed historically available",
+  "coordinate_system": "GCJ-02 per official repository"
+}

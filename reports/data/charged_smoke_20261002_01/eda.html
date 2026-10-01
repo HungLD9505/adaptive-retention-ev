@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>EV Data Audit</title><style>body{font:16px Arial;max-width:1200px;margin:32px auto;padding:20px;background:#f7fafc;color:#203744}img{width:100%;height:auto}pre{white-space:pre-wrap;background:white;padding:20px}</style><h1>Data audit — charged</h1><p>Full-period EDA is descriptive only; not used for split/model/threshold selection.</p><p>publisher processed, masks unknown</p><p>candidate only: released timezone/bin/availability require verification</p><p>No scaler/imputed label/split/features/windows were created.</p><pre>{
+  &quot;dataset&quot;: &quot;charged&quot;,
+  &quot;run_id&quot;: &quot;charged_smoke_20261002_01&quot;,
+  &quot;entities_succeeded&quot;: 3,
+  &quot;entities_failed&quot;: 0,
+  &quot;scope&quot;: &quot;smoke&quot;,
+  &quot;panel_status&quot;: &quot;candidate only: released timezone/bin/availability require verification&quot;,
+  &quot;strict_online_ready&quot;: false,
+  &quot;upstream_status&quot;: &quot;publisher processed, masks unknown&quot;,
+  &quot;independence_status&quot;: &quot;Shenzhen overlap not established; no cross-release native-ID mapping&quot;,
+  &quot;source_sha256&quot;: &quot;1ec9c9513b64f3f492fe73261bf08a5955c268dfb876ef0fe283d05cc5a02fab&quot;,
+  &quot;code_sha256&quot;: &quot;ec47ea74e8036dd7962985f4e0cca50a7a465be51d3ddfae3ef25b24e8f86553&quot;,
+  &quot;runtime&quot;: {
+    &quot;pandas&quot;: &quot;3.0.1&quot;,
+    &quot;numpy&quot;: &quot;2.5.3&quot;,
+    &quot;pyarrow&quot;: &quot;25.0.1&quot;
+  },
+  &quot;totals&quot;: {
+    &quot;input_rows&quot;: 13176,
+    &quot;exact_duplicates&quot;: 0,
+    &quot;conflicting_timestamps&quot;: 0,
+    &quot;malformed_timestamps&quot;: 0,
+    &quot;negative_values&quot;: 0,
+    &quot;nonfinite_values&quot;: 0,
+    &quot;valid_hours&quot;: 13176,
+    &quot;invalid_hours&quot;: 0,
+    &quot;zero_hours&quot;: 8784
+  },
+  &quot;reconciliation_pass&quot;: true,
+  &quot;panels&quot;: [
+    &quot;data\\processed\\charged\\charged_smoke_20261002_01\\AMS_hourly_candidate.parquet&quot;
+  ]
+}</pre><h2>Daily coverage — released timestamps</h2><p>3 entities; coverage is file validity, not original-observation proof.</p><img src="figures/coverage_heatmap.png" alt="Daily coverage — released timestamps"><h2>Zero and missing are separate</h2><p>Invalid hours: 0; valid zero hours: 8,784.</p><img src="figures/zero_missing.png" alt="Zero and missing are separate"><h2>Estimated hourly energy — descriptive sample</h2><p>Up to256 evenly spaced valid bins per entity, fixed deterministic rule; not full-distribution quantiles.</p><img src="figures/energy_distribution.png" alt="Estimated hourly energy — descriptive sample"><h2>Daily totals over available valid bins</h2><p>Coverage changes can drive totals; not a complete metered demand series.</p><img src="figures/daily_energy.png" alt="Daily totals over available valid bins"><h2>Before/after examples</h2><p>Only validity masking/aggregation; no imputation, scaling or outlier removal.</p><img src="figures/before_after_examples.png" alt="Before/after examples"><h2>Hour × weekday pattern</h2><p>Released clock only; timezone and DST semantics unverified. Weighted across valid entity-hour bins.</p><img src="figures/hour_weekday.png" alt="Hour × weekday pattern"><h2>Invalid/missing run lengths</h2><p>0 invalid runs; file missingness only, not hidden upstream imputation.</p><img src="figures/gap_lengths.png" alt="Invalid/missing run lengths"></html>

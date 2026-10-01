@@ -1,0 +1,6 @@
+pandas>=2.2,<4
+numpy>=2,<3
+requests>=2.32,<3
+pyarrow>=20,<26
+matplotlib>=3.9,<4
+filelock>=3,<5

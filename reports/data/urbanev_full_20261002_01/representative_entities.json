@@ -1,0 +1,14 @@
+[
+  {
+    "entity_id": "urbanev:SZH:1037",
+    "reason": "coverage"
+  },
+  {
+    "entity_id": "urbanev:SZH:1334",
+    "reason": "sparse"
+  },
+  {
+    "entity_id": "urbanev:SZH:1034",
+    "reason": "gaps"
+  }
+]

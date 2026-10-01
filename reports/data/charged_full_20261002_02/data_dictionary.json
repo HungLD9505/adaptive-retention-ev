@@ -1,0 +1,12 @@
+[
+  {
+    "field": "time",
+    "dtype": "str",
+    "role": "released timestamp (semantics pending)"
+  },
+  {
+    "field": "volume",
+    "dtype": "float64",
+    "role": "target estimated kWh"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "entity": "1001",
+    "source": "UrbanEVDataset/20220901-20230228_station-raw/charge_5min/1001.csv",
+    "error": ""
+  },
+  {
+    "entity": "1002",
+    "source": "UrbanEVDataset/20220901-20230228_station-raw/charge_5min/1002.csv",
+    "error": ""
+  },
+  {
+    "entity": "1003",
+    "source": "UrbanEVDataset/20220901-20230228_station-raw/charge_5min/1003.csv",
+    "error": ""
+  }
+]
