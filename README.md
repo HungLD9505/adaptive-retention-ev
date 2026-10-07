@@ -35,6 +35,7 @@ Kết quả chi tiết và trạng thái lịch sử được phân biệt tại
 - [CHARGED audit/EDA](reports/data/charged_full_20261002_02/audit_report.md)
 - [CLI và lệnh tái chạy](src/data/README.md)
 - [Hướng dẫn đồ án](HUONG_DAN_LAM_DO_AN_CHUNG.md)
+- [Research roadmap, workflows và gate triển khai](docs/RESEARCH_ROADMAP.md)
 
 Panel là **candidate**, chưa được chứng nhận dùng cho strict online evaluation. Timezone/bin semantics, label availability, upstream processing và tính độc lập Shenzhen còn cần xác minh. UrbanEV có 21,36% bin giờ missing/invalid. CHARGED không thiếu trong file phát hành không chứng minh mọi giá trị đều observed gốc.
 
