@@ -42,7 +42,7 @@ flowchart TD
     SR --> RL
     FL --> TOTAL["Total loss = forecast + λ × retention"]
     RL --> TOTAL
-    TOTAL --> TB["Backward + optimizer step: target encoder/head בלבד"]
+    TOTAL --> TB["Backward + optimizer step: target encoder/head"]
 ```
 
 ## 3. Online lifecycle đúng thứ tự nhân quả
