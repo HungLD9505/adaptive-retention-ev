@@ -6,7 +6,7 @@
 
 **Trạng thái cập nhật 02/10/2026:** đã tải release UrbanEV/CHARGED, chạy full audit và tạo panel giờ candidate, EDA/visual và readback checks. Xem mục 11 cho số liệu local và đường dẫn thực. Chưa chứng nhận strict causal replay vì time/bin semantics, label availability và upstream observation masks còn cần xác minh. Theo phạm vi đã chọn, split/cohort, imputation, scaling, features và windows chuyển sang development; không huấn luyện trong phase này.
 
-Các mục 1–10 giữ đặc tả và nguồn khảo sát trước thực thi; các trạng thái chưa chạy ở đó là lịch sử thiết kế, được thay thế bởi evidence mục 11.
+Các mục 1–10 giữ đặc tả và nguồn khảo sát trước thực thi; các trạng thái chưa chạy ở đó là lịch sử thiết kế, được thay thế bởi evidence mục 11. Cập nhật liên phase ngày **04/10/2026** ở mục 12: split/cohort, scaling, features/windows và QC Input đã chạy riêng trong phase đầu vào; model và thực nghiệm chưa chạy.
 
 ## 1. Quyết định chọn dữ liệu
 
@@ -287,6 +287,30 @@ src/data/test_acquire.py
 
 Lỗi đã sửa: boolean-index alignment trong smoke; schema site/site_id; partial download CHARGED sai kích thước do concurrent writers (đã thêm file lock, giữ rejected partial và tải/checksum thành công). Các failed/smoke runs giữ để truy vết. Lỗi còn mở: mirror Dryad README401, time/provenance/independence audit chưa hoàn tất.
 
-**Chưa thực hiện:** source/dev/final split, dates/cohort/QC admission, input imputation, scaler, features/windows24→24 và training. Các quyết định này thuộc development theo phạm vi đã chọn.
+**Tại mốc bàn giao data 02/10/2026, chưa thực hiện:** source/dev/final split, dates/cohort/QC admission, input imputation, scaler, features/windows24→24 và training. Trạng thái đầu vào mới ngày 04/10/2026 được cập nhật tại mục 12; không thay đổi evidence của run data cũ.
 
 Kiểm tra bàn giao cuối: `python -m unittest discover -s src/data -p 'test_*.py'` chạy 13 tests, exit code 0. Gallery chuyển UrbanEV/CHARGED đúng counts; coverage heatmap UrbanEV và weekday/weekend CHARGED đã xem trực tiếp. Preview lưu tại `reports/data/gallery_preview.png`. Exception checksum và warning trong test là fixtures kiểm tra failure path, không phải lỗi full run.
+
+## 12. Cập nhật liên phase — 04/10/2026
+
+Đã đối chiếu execution summaries, active input manifest và QC/readback artifacts trong repository. Phase data hoàn tất acquisition, audit, EDA và panel giờ candidate; phase đầu vào hoàn tất cho **published-data benchmark**, chưa chứng nhận strict online.
+
+| Hạng mục | UrbanEV | CHARGED |
+|---|---:|---:|
+| Entity ở panel data | 1.682 | 4.280 |
+| Bin giờ candidate | 7.306.608 | 18.797.760 |
+| Source đủ điều kiện / tổng | 898 / 1.009 | 2.567 / 2.567 |
+| Development đủ điều kiện / tổng | 292 / 336 | 856 / 856 |
+| Final đủ điều kiện / tổng | 292 / 337 | 857 / 857 |
+| Window records đầu vào | 226.486 | 782.616 |
+| Mẫu tensor readback | 39 | 234 |
+| Mẫu stream future perturbation | 18 | 108 |
+
+Window records gồm source/warmup/stream theo entity × budget × origin; budgets 7/14/28 là các thí nghiệm riêng. Không diễn giải tổng records thành số dự báo độc lập.
+
+- **Data QC:** artifacts ghi 13 tests pass và readback hai full runs PASS; không có entity failures.
+- **Input/QC Input:** artifacts ghi 11 fixtures pass; split/cohort/scalers/index/audit khớp toàn bộ giữa primary và rebuild; tensor samples bit-exact, mọi scaler tính lại từ prefix được phép. Có 10 visual đầu vào, bên cạnh 20 visual data.
+- **Protocol đã chạy:** split entity hash 60/20/20; cohort target chung từ prefix 7 ngày; windows 24→24; scale-only p95 và fallback source hợp lệ; missing input = scaled0/mask0, zero hợp lệ mask1; không fill Y. Không dùng final stream để fit scaler hoặc chọn cohort.
+- **Chưa hoàn thành:** xác minh timezone/DST/bin, actual label arrival, upstream observation masks và Shenzhen independence; model/loss/latent retention, controller/baselines và thực nghiệm nhiều seed chưa thực hiện. Mirror Dryad README trả HTTP401 ở run acquisition cũ; nguồn Drive chính thức đã tải thành công.
+
+Evidence đầu vào: [bàn giao](BAO_CAO_DAU_VAO_MODEL.md), [active runs](reports/inputs/active_runs.json), [execution summary](reports/inputs/execution_summary.json), [UrbanEV QC](reports/inputs/urbanev_inputs_full_20261004_02/qc_supplement.md), [CHARGED QC](reports/inputs/charged_inputs_full_20261004_02/qc_supplement.md). Bước tiếp theo là model/loss trên development theo [plan.md](plan.md), chưa phải final experiment.

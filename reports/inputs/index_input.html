@@ -1,0 +1,27 @@
+<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Input phase QC — Adaptive Retention</title><style>body{font:16px system-ui;background:#f5f7fb;color:#17243b;margin:0}main{max-width:1250px;margin:auto;padding:30px}header{background:#17243b;color:white;padding:30px;border-radius:15px}header a{color:#ade3ff}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(480px,1fr));gap:20px}figure{margin:0;background:white;border:1px solid #dce2ed;border-radius:12px;overflow:hidden}img{width:100%;display:block}figcaption{padding:14px}table{border-collapse:collapse;background:white;width:100%}td,th{border:1px solid #dce2ed;padding:12px}section{margin-top:35px}@media(max-width:600px){.grid{grid-template-columns:1fr}main{padding:12px}}</style><main><header><h1>Adaptive Retention · đầu vào model</h1><p>Published-data benchmark · 24→24 · hash split60/20/20 · budgets7/14/28</p><p>Không model training. Timezone, original masks và label arrival chưa xác minh; CHARGED Shenzhen chưa độc lập.</p><a href="#urbanev">UrbanEV</a> · <a href="#charged">CHARGED</a></header><h2>Run bàn giao đã kiểm tra</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Dataset</th>
+      <th>Source đủ/total</th>
+      <th>Development đủ/total</th>
+      <th>Final đủ/total</th>
+      <th>Window records</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>urbanev</td>
+      <td>898/1009</td>
+      <td>292/336</td>
+      <td>292/337</td>
+      <td>226486</td>
+    </tr>
+    <tr>
+      <td>charged</td>
+      <td>2567/2567</td>
+      <td>856/856</td>
+      <td>857/857</td>
+      <td>782616</td>
+    </tr>
+  </tbody>
+</table><p>Window records bao gồm budgets riêng. Source chỉ cần full24Y/nonemptyX; target cohort cần full48 trong warmup7 ngày. V1/partial được giữ để truy vết, không phải active.</p><section id="urbanev"><h2>URBANEV</h2><p>226,486 window records · final eligible 292 · <a href="urbanev_inputs_full_20261004_02/input_report.md">Report</a> · <a href="urbanev_inputs_full_20261004_02/qc_supplement.md">QC</a></p><div class="grid"><figure><a href="urbanev_inputs_full_20261004_02/figures/01_cohort.png" target="_blank"><img src="urbanev_inputs_full_20261004_02/figures/01_cohort.png" alt="Split/cohort từ prefix được phép"></a><figcaption>Split/cohort từ prefix được phép</figcaption></figure><figure><a href="urbanev_inputs_full_20261004_02/figures/02_scales.png" target="_blank"><img src="urbanev_inputs_full_20261004_02/figures/02_scales.png" alt="Scales trước cutoff"></a><figcaption>Scales trước cutoff</figcaption></figure><figure><a href="urbanev_inputs_full_20261004_02/figures/03_mask_window.png" target="_blank"><img src="urbanev_inputs_full_20261004_02/figures/03_mask_window.png" alt="Window minh họa và file-valid mask"></a><figcaption>Window minh họa và file-valid mask</figcaption></figure><figure><a href="urbanev_inputs_full_20261004_02/figures/04_prefix_zero.png" target="_blank"><img src="urbanev_inputs_full_20261004_02/figures/04_prefix_zero.png" alt="Zero trong prefix, giữ zero series"></a><figcaption>Zero trong prefix, giữ zero series</figcaption></figure><figure><a href="urbanev_inputs_full_20261004_02/figures/05_prefix_quality.png" target="_blank"><img src="urbanev_inputs_full_20261004_02/figures/05_prefix_quality.png" alt="Missing và zero distributions trong prefix"></a><figcaption>Missing và zero distributions trong prefix</figcaption></figure></div></section><section id="charged"><h2>CHARGED</h2><p>782,616 window records · final eligible 857 · <a href="charged_inputs_full_20261004_02/input_report.md">Report</a> · <a href="charged_inputs_full_20261004_02/qc_supplement.md">QC</a></p><div class="grid"><figure><a href="charged_inputs_full_20261004_02/figures/01_cohort.png" target="_blank"><img src="charged_inputs_full_20261004_02/figures/01_cohort.png" alt="Split/cohort từ prefix được phép"></a><figcaption>Split/cohort từ prefix được phép</figcaption></figure><figure><a href="charged_inputs_full_20261004_02/figures/02_scales.png" target="_blank"><img src="charged_inputs_full_20261004_02/figures/02_scales.png" alt="Scales trước cutoff"></a><figcaption>Scales trước cutoff</figcaption></figure><figure><a href="charged_inputs_full_20261004_02/figures/03_mask_window.png" target="_blank"><img src="charged_inputs_full_20261004_02/figures/03_mask_window.png" alt="Window minh họa và file-valid mask"></a><figcaption>Window minh họa và file-valid mask</figcaption></figure><figure><a href="charged_inputs_full_20261004_02/figures/04_prefix_zero.png" target="_blank"><img src="charged_inputs_full_20261004_02/figures/04_prefix_zero.png" alt="Zero trong prefix, giữ zero series"></a><figcaption>Zero trong prefix, giữ zero series</figcaption></figure><figure><a href="charged_inputs_full_20261004_02/figures/05_prefix_quality.png" target="_blank"><img src="charged_inputs_full_20261004_02/figures/05_prefix_quality.png" alt="Missing và zero distributions trong prefix"></a><figcaption>Missing và zero distributions trong prefix</figcaption></figure></div></section><footer><p>11 input fixtures +13 data regression pass. Full/readback/rebuild checks và lệnh tại các báo cáo. PNG giữ local trong repository; nhấn ảnh để phóng lớn.</p></footer></main></html>

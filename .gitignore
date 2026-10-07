@@ -4,3 +4,7 @@ __pycache__/
 *.pyc
 data/raw/
 data/processed/
+data/inputs/
+
+# Local handoff exports; do not version duplicate ZIP packages
+handoff/

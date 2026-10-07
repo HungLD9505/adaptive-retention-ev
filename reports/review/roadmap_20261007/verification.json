@@ -1,0 +1,27 @@
+{
+  "date_local": "2026-10-07",
+  "input_fixtures": {
+    "tests": 11,
+    "passed": true
+  },
+  "data_regression": {
+    "tests": 13,
+    "passed": true
+  },
+  "local_doc_links": {
+    "files": [
+      "README.md",
+      "docs/RESEARCH_ROADMAP.md",
+      "docs/REPOSITORY_STRUCTURE.md",
+      "plan.md",
+      "BAO_CAO_PHASE_DATA.md",
+      "BAO_CAO_DAU_VAO_MODEL.md"
+    ],
+    "passed": true
+  },
+  "full_rebuild_rerun": false,
+  "model_training": false,
+  "mermaid_browser_render_checked": false,
+  "runtime": "bundled Python 3.12",
+  "notes": "Expected checksum failure and timestamp warning fixtures; both test suites exit 0. Added missing Input gallery index; no visual browser verification in this pass."
+}

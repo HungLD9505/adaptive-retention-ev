@@ -1,0 +1,14 @@
+city,role,budget_days,phase,windows,first_origin,last_origin
+SZH,development,7,stream,21691,2022-12-01,2023-02-28
+SZH,development,7,warmup,1752,2022-11-25,2022-11-30
+SZH,development,14,stream,21691,2022-12-01,2023-02-28
+SZH,development,14,warmup,3792,2022-11-18,2022-11-30
+SZH,development,28,stream,21691,2022-12-01,2023-02-28
+SZH,development,28,warmup,7709,2022-11-04,2022-11-30
+SZH,final,7,stream,22215,2022-12-01,2023-02-28
+SZH,final,7,warmup,1752,2022-11-25,2022-11-30
+SZH,final,14,stream,22215,2022-12-01,2023-02-28
+SZH,final,14,warmup,3795,2022-11-18,2022-11-30
+SZH,final,28,stream,22215,2022-12-01,2023-02-28
+SZH,final,28,warmup,7738,2022-11-04,2022-11-30
+SZH,source,0,source_train,68230,2022-09-02,2022-11-30

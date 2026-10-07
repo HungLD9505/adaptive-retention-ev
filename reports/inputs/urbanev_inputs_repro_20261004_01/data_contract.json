@@ -1,0 +1,83 @@
+{
+  "dataset": "urbanev",
+  "accepted_use": "published raw-derived benchmark",
+  "strict_online_claim_allowed": false,
+  "shenzhen_independence": {
+    "status": "unknown",
+    "claim": "No reliable cross-release station/site mapping; CHARGED is replication within CHARGED.",
+    "evidence": "reports/data/urbanev_full_20261002_01/handoff.json"
+  },
+  "fields": [
+    {
+      "field": "entity_id/native_id",
+      "status": "verified",
+      "meaning": "station for UrbanEV; site for CHARGED; no zone-level substitution",
+      "evidence": "reports/data/urbanev_full_20261002_01/entity_audit.csv"
+    },
+    {
+      "field": "energy_kwh",
+      "status": "verified",
+      "meaning": "Released energy estimate in kWh; not independently verified metered energy",
+      "evidence": "reports/data/urbanev_full_20261002_01/audit_report.md"
+    },
+    {
+      "field": "file_value_valid",
+      "status": "verified",
+      "meaning": "Canonical numerical/coverage validity; not original observation mask",
+      "evidence": "src/data/process.py"
+    },
+    {
+      "field": "interval_start_local/end_local",
+      "status": "assumed",
+      "meaning": "Released naive start label and one-hour end; physical bin convention remains unverified",
+      "evidence": "src/data/process.py; reports/data/urbanev_full_20261002_01/handoff.json"
+    },
+    {
+      "field": "timezone/DST",
+      "status": "unknown",
+      "meaning": "Use released clock; do not localize to UTC or infer physical DST",
+      "evidence": "reports/data/urbanev_full_20261002_01/handoff.json"
+    },
+    {
+      "field": "original_observation_status",
+      "status": "unknown",
+      "meaning": "Upstream masks unavailable; valid released value is not proof of original observation",
+      "evidence": "reports/data/urbanev_full_20261002_01/handoff.json"
+    },
+    {
+      "field": "publisher_processed",
+      "status": "verified",
+      "meaning": "CHARGED interpolation/IQR; UrbanEV raw station release already derived from status/power",
+      "evidence": "reports/data/urbanev_full_20261002_01/audit_report.md"
+    },
+    {
+      "field": "label_available_at",
+      "status": "unknown",
+      "meaning": "Actual publication/arrival time remains unknown and canonical panel is unchanged",
+      "evidence": "reports/data/urbanev_full_20261002_01/handoff.json"
+    },
+    {
+      "field": "assumed_available_at",
+      "status": "assumed",
+      "meaning": "Next midnight = exclusive horizon end; benchmark labels may be used at this boundary",
+      "evidence": "User approved 2026-10-04 protocol"
+    },
+    {
+      "field": "calendar",
+      "status": "assumed",
+      "meaning": "Released-clock hour/day/weekend; no weather/pricing/future-demand predictors",
+      "evidence": "User approved 2026-10-04 protocol"
+    }
+  ],
+  "strict_online_requirements": [
+    "Verified physical bin/timezone/DST semantics",
+    "Verified arrival timestamps for all labels",
+    "Auditable causal upstream processing and original masks"
+  ],
+  "sources": [
+    "reports/data/urbanev_full_20261002_01/handoff.json",
+    "reports/data/urbanev_full_20261002_01/audit_report.md",
+    "src/data/process.py",
+    "data/raw/urbanev/official_2026_05_11/repository_README.md"
+  ]
+}

@@ -1,0 +1,14 @@
+city,role,budget_days,phase,candidate_origins,accepted_windows,missing_labels,all_history_missing,outside_panel
+SZH,development,7,stream,26280,21691,4589,0,0
+SZH,development,7,warmup,1752,1752,0,0,0
+SZH,development,14,stream,26280,21691,4589,0,0
+SZH,development,14,warmup,3796,3792,4,0,0
+SZH,development,28,stream,26280,21691,4589,0,0
+SZH,development,28,warmup,7884,7709,175,0,0
+SZH,final,7,stream,26280,22215,4065,0,0
+SZH,final,7,warmup,1752,1752,0,0,0
+SZH,final,14,stream,26280,22215,4065,0,0
+SZH,final,14,warmup,3796,3795,1,0,0
+SZH,final,28,stream,26280,22215,4065,0,0
+SZH,final,28,warmup,7884,7738,146,0,0
+SZH,source,0,source_train,80820,68230,12590,0,0

@@ -1,0 +1,41 @@
+{
+  "run_id": "urbanev_inputs_full_20261004_02",
+  "dataset": "urbanev",
+  "created_at_utc": "2026-10-03 18:07:34.195889+00:00",
+  "input_dir": "D:\\Đồ Án\\data\\inputs\\urbanev\\urbanev_inputs_full_20261004_02",
+  "source_hashes_sha256": {
+    "data/processed/urbanev/urbanev_full_20261002_01/SZH_hourly_candidate.parquet": "f8a97ef34c718e0a007de99ccfa7b8177295e73c6fae873a20fa43301fc2d205",
+    "data/raw/urbanev/official_2026_05_11/UrbanEVDataset.zip": "9d3f0aec34434546d082509efcdeeaea116eaa841701cc5854a9b62a27881a79"
+  },
+  "code_hashes_sha256": {
+    "src/inputs/__init__.py": "a27790991a6c9a86033a2e707cf57a2d223a86216e4a4b81bfb50b756c3b39cd",
+    "src/inputs/build.py": "217634d2a033275fa0ae539cdc6ea9c938c696570eb3f70dfee35fe86fae66c2",
+    "src/inputs/core.py": "2d4377b9a4133133afbbe086806c275f52dded96302aea7e7b666578871ae565",
+    "src/inputs/qa.py": "76c2455a159411ebc997dc0ca96e7688a10ffea23abd03871f035ec9e1c555e7",
+    "src/inputs/test_inputs.py": "d408e803a749cf49ff5ee02ee89aac95be2aa88032a2f780ce5ae8e3b5c741a7"
+  },
+  "git_base_commit": "b381a0b3ef7029351aebf88180c3cb1e5dc3a7cc",
+  "code_state": "working tree; exact source snapshots and hashes stored",
+  "config_sha256": "b7a44ca370b8ccd0c635232332b6206293aaaf99ba4267f5cbe242500d7c3d69",
+  "split_manifest_sha256": "97107c71b2f8490234a2f1d5e31a5a491b9432d24ca8e8aafec328ee5ef39d9d",
+  "source_positive_count": 1195888,
+  "source_positive_p95_fallback_kwh": 117.24999999999999,
+  "index_sha256": "49904aeb1ec1d0adc63bac83493353127cb85c8b998fd58c9f55a6ef8a8d0447",
+  "scope": "full",
+  "training_performed": false,
+  "artifact_hashes_sha256": {
+    "allowed_prefix_counts.csv": "9fa19d4cf841b6f67e620f4dd82f2b87ccb98e3af54d108dc0dce2c364e350a9",
+    "cohort_counts.csv": "287f41e198171f121ee29915f72550fb8b85c66b304adf821e6fab6ae4608d6b",
+    "cohort_manifest.csv": "e887d4d3ad878c05d825956a42674024f4efc80cebcfe540b7554a52617a3e53",
+    "scalers.csv": "f606d2f6a3306164936e06549f53c912e78af3a5d818e761f24cca315da968b9",
+    "split_manifest.csv": "97107c71b2f8490234a2f1d5e31a5a491b9432d24ca8e8aafec328ee5ef39d9d",
+    "window_audit.csv": "62dd08cd50e69705eab9161a8b31575c0ff38c3662ce1cddba3cd3ee178c4538",
+    "window_counts.csv": "cd9e4582d7424aa0bef75c42e48b0c566b2b0538ef4814b068170a40a1ddb638"
+  },
+  "runtime": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.1",
+    "pyarrow": "25.0.1",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]"
+  }
+}

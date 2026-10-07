@@ -1,0 +1,38 @@
+Locked 4280 IDs before scaler/cohort fits
+Source-prefix scan 300/4280 IDs
+Source-prefix scan 600/4280 IDs
+Source-prefix scan 900/4280 IDs
+Source-prefix scan 1200/4280 IDs
+Source-prefix scan 1500/4280 IDs
+Source-prefix scan 1800/4280 IDs
+Source-prefix scan 2100/4280 IDs
+Source-prefix scan 2400/4280 IDs
+Source-prefix scan 2700/4280 IDs
+Source-prefix scan 3000/4280 IDs
+Source-prefix scan 3300/4280 IDs
+Source-prefix scan 3600/4280 IDs
+Source-prefix scan 3900/4280 IDs
+Source-prefix scan 4200/4280 IDs
+Source-only positive fallback 175.085625 kWh from 3138412 hours
+Processed 200/4280 entities
+Processed 400/4280 entities
+Processed 600/4280 entities
+Processed 800/4280 entities
+Processed 1000/4280 entities
+Processed 1200/4280 entities
+Processed 1400/4280 entities
+Processed 1600/4280 entities
+Processed 1800/4280 entities
+Processed 2000/4280 entities
+Processed 2200/4280 entities
+Processed 2400/4280 entities
+Processed 2600/4280 entities
+Processed 2800/4280 entities
+Processed 3000/4280 entities
+Processed 3200/4280 entities
+Processed 3400/4280 entities
+Processed 3600/4280 entities
+Processed 3800/4280 entities
+Processed 4000/4280 entities
+Processed 4200/4280 entities
+Finished charged_inputs_full_20261004_01; handoff=True; checks={'unique_key': True, 'midnight_origins': True, 'source_boundary': True, 'label_count_24': True, 'warmup_boundary': True, 'stream_boundary': True, 'availability': True, 'tensor_samples': 234, 'counts_match_audit': True, 'split_disjoint': True, 'passed': True}

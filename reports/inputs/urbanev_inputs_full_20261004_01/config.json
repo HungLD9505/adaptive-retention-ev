@@ -1,0 +1,45 @@
+{
+  "dataset": "urbanev",
+  "run_id": "urbanev_inputs_full_20261004_01",
+  "split_seed": "20261004",
+  "split": [
+    60,
+    20,
+    20
+  ],
+  "rounding": "Python round for source/development; final remainder, within city",
+  "deployment_cutoff": "2022-12-01 00:00:00",
+  "budgets_days": [
+    7,
+    14,
+    28
+  ],
+  "origin": "released-clock midnight",
+  "history_hours": 24,
+  "horizon_hours": 24,
+  "scale": "p95 linear, scale-only",
+  "target_eligibility": "one fully file-valid 48h midnight-aligned window in seven-day warmup",
+  "source_eligibility": "one fully file-valid 48h midnight-aligned window before cutoff",
+  "missing_inputs": "scaled energy=0; file_valid_mask=0",
+  "missing_labels": "exclude scoring/training window",
+  "availability": "assumed at exclusive horizon end/next midnight",
+  "timezone": "unknown",
+  "scope": "full",
+  "limit": null,
+  "X_hist": [
+    "energy_scaled",
+    "file_valid_mask",
+    "hour_sin",
+    "hour_cos",
+    "weekday_sin",
+    "weekday_cos",
+    "weekend"
+  ],
+  "C_future": [
+    "hour_sin",
+    "hour_cos",
+    "weekday_sin",
+    "weekday_cos",
+    "weekend"
+  ]
+}

@@ -1,0 +1,8 @@
+city,role,budget_days,valid_hours,zero_hours,all_zero_entities,fallback_entities
+SZH,development,7,49055,16893,21,31
+SZH,development,14,97796,32950,19,26
+SZH,development,28,192596,61228,13,21
+SZH,final,7,49055,17373,17,29
+SZH,final,14,97881,34998,16,26
+SZH,final,28,193236,65317,10,18
+SZH,source,0,1756083,560301,27,49

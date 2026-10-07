@@ -1,0 +1,275 @@
+[
+  {
+    "index": 68236,
+    "entity_id": "urbanev:SZH:1937",
+    "origin": "2022-12-01 00:00:00",
+    "role": "development",
+    "budget_days": 7
+  },
+  {
+    "index": 107252,
+    "entity_id": "urbanev:SZH:2035",
+    "origin": "2022-12-13 00:00:00",
+    "role": "development",
+    "budget_days": 7
+  },
+  {
+    "index": 146335,
+    "entity_id": "urbanev:SZH:1259",
+    "origin": "2023-02-28 00:00:00",
+    "role": "development",
+    "budget_days": 7
+  },
+  {
+    "index": 68230,
+    "entity_id": "urbanev:SZH:1937",
+    "origin": "2022-11-25 00:00:00",
+    "role": "development",
+    "budget_days": 7
+  },
+  {
+    "index": 107752,
+    "entity_id": "urbanev:SZH:1675",
+    "origin": "2022-11-25 00:00:00",
+    "role": "development",
+    "budget_days": 7
+  },
+  {
+    "index": 146245,
+    "entity_id": "urbanev:SZH:1259",
+    "origin": "2022-11-30 00:00:00",
+    "role": "development",
+    "budget_days": 7
+  },
+  {
+    "index": 68301,
+    "entity_id": "urbanev:SZH:1937",
+    "origin": "2022-12-01 00:00:00",
+    "role": "development",
+    "budget_days": 14
+  },
+  {
+    "index": 107355,
+    "entity_id": "urbanev:SZH:2035",
+    "origin": "2022-12-13 00:00:00",
+    "role": "development",
+    "budget_days": 14
+  },
+  {
+    "index": 146438,
+    "entity_id": "urbanev:SZH:1259",
+    "origin": "2023-02-28 00:00:00",
+    "role": "development",
+    "budget_days": 14
+  },
+  {
+    "index": 68288,
+    "entity_id": "urbanev:SZH:1937",
+    "origin": "2022-11-18 00:00:00",
+    "role": "development",
+    "budget_days": 14
+  },
+  {
+    "index": 107811,
+    "entity_id": "urbanev:SZH:1675",
+    "origin": "2022-11-19 00:00:00",
+    "role": "development",
+    "budget_days": 14
+  },
+  {
+    "index": 146348,
+    "entity_id": "urbanev:SZH:1259",
+    "origin": "2022-11-30 00:00:00",
+    "role": "development",
+    "budget_days": 14
+  },
+  {
+    "index": 68380,
+    "entity_id": "urbanev:SZH:1937",
+    "origin": "2022-12-01 00:00:00",
+    "role": "development",
+    "budget_days": 28
+  },
+  {
+    "index": 107472,
+    "entity_id": "urbanev:SZH:2035",
+    "origin": "2022-12-13 00:00:00",
+    "role": "development",
+    "budget_days": 28
+  },
+  {
+    "index": 146555,
+    "entity_id": "urbanev:SZH:1259",
+    "origin": "2023-02-28 00:00:00",
+    "role": "development",
+    "budget_days": 28
+  },
+  {
+    "index": 68353,
+    "entity_id": "urbanev:SZH:1937",
+    "origin": "2022-11-04 00:00:00",
+    "role": "development",
+    "budget_days": 28
+  },
+  {
+    "index": 108154,
+    "entity_id": "urbanev:SZH:2581",
+    "origin": "2022-11-05 00:00:00",
+    "role": "development",
+    "budget_days": 28
+  },
+  {
+    "index": 146465,
+    "entity_id": "urbanev:SZH:1259",
+    "origin": "2022-11-30 00:00:00",
+    "role": "development",
+    "budget_days": 28
+  },
+  {
+    "index": 146562,
+    "entity_id": "urbanev:SZH:2378",
+    "origin": "2022-12-01 00:00:00",
+    "role": "final",
+    "budget_days": 7
+  },
+  {
+    "index": 186451,
+    "entity_id": "urbanev:SZH:2322",
+    "origin": "2022-12-14 00:00:00",
+    "role": "final",
+    "budget_days": 7
+  },
+  {
+    "index": 226265,
+    "entity_id": "urbanev:SZH:2033",
+    "origin": "2023-02-28 00:00:00",
+    "role": "final",
+    "budget_days": 7
+  },
+  {
+    "index": 146556,
+    "entity_id": "urbanev:SZH:2378",
+    "origin": "2022-11-25 00:00:00",
+    "role": "final",
+    "budget_days": 7
+  },
+  {
+    "index": 186634,
+    "entity_id": "urbanev:SZH:2458",
+    "origin": "2022-11-25 00:00:00",
+    "role": "final",
+    "budget_days": 7
+  },
+  {
+    "index": 226175,
+    "entity_id": "urbanev:SZH:2033",
+    "origin": "2022-11-30 00:00:00",
+    "role": "final",
+    "budget_days": 7
+  },
+  {
+    "index": 146665,
+    "entity_id": "urbanev:SZH:2378",
+    "origin": "2022-12-01 00:00:00",
+    "role": "final",
+    "budget_days": 14
+  },
+  {
+    "index": 186516,
+    "entity_id": "urbanev:SZH:2322",
+    "origin": "2022-12-14 00:00:00",
+    "role": "final",
+    "budget_days": 14
+  },
+  {
+    "index": 226368,
+    "entity_id": "urbanev:SZH:2033",
+    "origin": "2023-02-28 00:00:00",
+    "role": "final",
+    "budget_days": 14
+  },
+  {
+    "index": 146652,
+    "entity_id": "urbanev:SZH:2378",
+    "origin": "2022-11-18 00:00:00",
+    "role": "final",
+    "budget_days": 14
+  },
+  {
+    "index": 186730,
+    "entity_id": "urbanev:SZH:2458",
+    "origin": "2022-11-18 00:00:00",
+    "role": "final",
+    "budget_days": 14
+  },
+  {
+    "index": 226278,
+    "entity_id": "urbanev:SZH:2033",
+    "origin": "2022-11-30 00:00:00",
+    "role": "final",
+    "budget_days": 14
+  },
+  {
+    "index": 146782,
+    "entity_id": "urbanev:SZH:2378",
+    "origin": "2022-12-01 00:00:00",
+    "role": "final",
+    "budget_days": 28
+  },
+  {
+    "index": 186595,
+    "entity_id": "urbanev:SZH:2322",
+    "origin": "2022-12-14 00:00:00",
+    "role": "final",
+    "budget_days": 28
+  },
+  {
+    "index": 226485,
+    "entity_id": "urbanev:SZH:2033",
+    "origin": "2023-02-28 00:00:00",
+    "role": "final",
+    "budget_days": 28
+  },
+  {
+    "index": 146755,
+    "entity_id": "urbanev:SZH:2378",
+    "origin": "2022-11-04 00:00:00",
+    "role": "final",
+    "budget_days": 28
+  },
+  {
+    "index": 186835,
+    "entity_id": "urbanev:SZH:2458",
+    "origin": "2022-11-06 00:00:00",
+    "role": "final",
+    "budget_days": 28
+  },
+  {
+    "index": 226395,
+    "entity_id": "urbanev:SZH:2033",
+    "origin": "2022-11-30 00:00:00",
+    "role": "final",
+    "budget_days": 28
+  },
+  {
+    "index": 0,
+    "entity_id": "urbanev:SZH:1587",
+    "origin": "2022-09-02 00:00:00",
+    "role": "source",
+    "budget_days": 0
+  },
+  {
+    "index": 34115,
+    "entity_id": "urbanev:SZH:1357",
+    "origin": "2022-10-13 00:00:00",
+    "role": "source",
+    "budget_days": 0
+  },
+  {
+    "index": 68229,
+    "entity_id": "urbanev:SZH:1074",
+    "origin": "2022-11-30 00:00:00",
+    "role": "source",
+    "budget_days": 0
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "run_id": "charged_inputs_full_20261004_02",
+  "dataset": "charged",
+  "created_at_utc": "2026-10-03 18:12:51.107160+00:00",
+  "input_dir": "D:\\Đồ Án\\data\\inputs\\charged\\charged_inputs_full_20261004_02",
+  "source_hashes_sha256": {
+    "data/processed/charged/charged_full_20261002_02/AMS_hourly_candidate.parquet": "7c81ff3ec2a633c3ae2576f72634d6a44c54dfa1b9d0198f4056ff6d79805310",
+    "data/processed/charged/charged_full_20261002_02/JHB_hourly_candidate.parquet": "e68fcd2f536611e91d918d133b2d5e0be3629788ef8ce3370605e86257e93c39",
+    "data/processed/charged/charged_full_20261002_02/LOA_hourly_candidate.parquet": "150c083ce9061afc75678207129a1cde8337b1191c5efa895daf1d9184d160a8",
+    "data/processed/charged/charged_full_20261002_02/MEL_hourly_candidate.parquet": "304d9ec3b62c7f25eb46a023a31f303ce2f441683ee0d00c0bab7c0b213a8eea",
+    "data/processed/charged/charged_full_20261002_02/SPO_hourly_candidate.parquet": "a68c257664cbfce31d8aee2ca300d3565c7937768b255da1a834b0d12f4130b6",
+    "data/processed/charged/charged_full_20261002_02/SZH_hourly_candidate.parquet": "3606e5b6bfe08103afabb3d88301a3e9ba26a564faf4d233a48440a8b7fe0c19",
+    "data/raw/charged/zenodo_15814263/Hourly.zip": "1ec9c9513b64f3f492fe73261bf08a5955c268dfb876ef0fe283d05cc5a02fab"
+  },
+  "code_hashes_sha256": {
+    "src/inputs/__init__.py": "a27790991a6c9a86033a2e707cf57a2d223a86216e4a4b81bfb50b756c3b39cd",
+    "src/inputs/build.py": "217634d2a033275fa0ae539cdc6ea9c938c696570eb3f70dfee35fe86fae66c2",
+    "src/inputs/core.py": "2d4377b9a4133133afbbe086806c275f52dded96302aea7e7b666578871ae565",
+    "src/inputs/qa.py": "76c2455a159411ebc997dc0ca96e7688a10ffea23abd03871f035ec9e1c555e7",
+    "src/inputs/test_inputs.py": "d408e803a749cf49ff5ee02ee89aac95be2aa88032a2f780ce5ae8e3b5c741a7"
+  },
+  "git_base_commit": "b381a0b3ef7029351aebf88180c3cb1e5dc3a7cc",
+  "code_state": "working tree; exact source snapshots and hashes stored",
+  "config_sha256": "a196b088006d55d43b370b5eb01654f4eb7de67923acfc8c257542ca84ef2ff7",
+  "split_manifest_sha256": "d02f6e9e9a7b68e5a80583a5f05fa52a5dde4e7a290c7ff842c51ebbdee4e859",
+  "source_positive_count": 3138412,
+  "source_positive_p95_fallback_kwh": 175.08562549204706,
+  "index_sha256": "2e1d49111448f893bfa28cf9fd4ded77761cd7a5597ed1c24eff0fd3599c5f62",
+  "scope": "full",
+  "training_performed": false,
+  "artifact_hashes_sha256": {
+    "allowed_prefix_counts.csv": "67aee3a8eb1a8fe8e5ee4eb9a6d3e453d44767155a27d8ff1c439f887edc6c29",
+    "cohort_counts.csv": "517fe3d81b439d5c605752928e08d3ec4a0e8d823bdbbaa54618232e2df66c7f",
+    "cohort_manifest.csv": "577b2079d86a7fbffbad9e496cccb51ccff4b0657ec11a6d6f2b6cc495ff206f",
+    "scalers.csv": "8c6de597311860b988c451ad424c6f328390129efd079ddce9ac33dcf4a6efe6",
+    "split_manifest.csv": "d02f6e9e9a7b68e5a80583a5f05fa52a5dde4e7a290c7ff842c51ebbdee4e859",
+    "window_audit.csv": "fb3bf92ad892bcdfc2a142150f807adf9e74c6b8abff0b0b40d7b6a3bad34187",
+    "window_counts.csv": "6ecfaab3114116236a9eff47b5d422d65d5bdc048692cb784ec045280f0cd08b"
+  },
+  "runtime": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.1",
+    "pyarrow": "25.0.1",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]"
+  }
+}
