@@ -1,3 +1,3 @@
-# Ownership ban đầu là cả team; một peer khác tác giả review mỗi PR.
-# Enforcement còn phụ thuộc GitHub settings; xem docs/WORKFLOW.md.
+# Initial ownership covers the whole team; each PR needs a peer other than its author.
+# Enforcement depends on GitHub settings; see docs/WORKFLOW.md.
 * @HungLD9505 @Qyroven @huuduc32 @hung00cyber

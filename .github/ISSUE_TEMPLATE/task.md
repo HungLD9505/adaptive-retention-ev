@@ -1,23 +1,23 @@
 ---
 name: Task
-about: Công việc nhỏ có owner và điều kiện hoàn thành
+about: A small task with an owner and completion criteria
 ---
 
-## Mục tiêu
+## Goal
 
 ## Owner
 
 @username
 
-## Phạm vi
+## Scope
 
-Làm gì / ngoài phạm vi:
+Included / excluded work:
 
 ## Acceptance criteria
 
-- [ ] Kết quả có thể kiểm tra:
-- [ ] Tests/checks phù hợp và peer review:
+- [ ] Verifiable outcome:
+- [ ] Appropriate tests/checks and peer review:
 
 ## Dependencies
 
-Issue/PR liên quan hoặc không có.
+Related issues/PRs, or none.

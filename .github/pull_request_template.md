@@ -1,25 +1,27 @@
-Issue: #... (PR vào `dev`; cập nhật/đóng issue khi acceptance criteria đạt).
+Issue: #... (target `dev`; update/close the issue when acceptance criteria are met).
 
-## Vấn đề và kết quả
+## Problem and outcome
 
-Mô tả vấn đề, phạm vi và hành vi sau thay đổi.
+Describe the problem, scope, and resulting behavior.
 
-## Phạm vi phương pháp / dữ liệu
+## Method / data scope
 
-- Có thay đổi phương pháp, protocol hoặc nguồn dữ liệu không? Nếu có, chỉ rõ quyết định cần review.
-- Source/input/run IDs và config liên quan:
+- Does this change the method, protocol, or data sources? If so, identify the decision requiring review.
+- Relevant source/input/run IDs and config:
 
-## Kiểm tra và evidence
+## Checks and evidence
 
-- Commands đã chạy và kết quả:
-- Report bàn giao / artifacts nhỏ có thể review:
-- Phần chưa chạy, assumptions và giới hạn:
+- Commands run and results:
+- Handoff report / small reviewable artifacts:
+- Checks not run, assumptions, and limitations:
 
 ## Checklist
 
-- [ ] Tests, lint, format và diff checks phù hợp đã pass.
-- [ ] Không commit raw, checkpoints, environment hoặc secrets.
-- [ ] Không ghi đè raw/run cũ hoặc dùng future data trái protocol.
-- [ ] Report và tài liệu liên quan khớp implementation thực tế.
-- [ ] Target là `dev`; vào `main` phải có chỉ đạo riêng cho lần cập nhật này.
-- [ ] Có peer khác tác giả duyệt commit mới nhất (Approve review hoặc comment `approved merge` + SHA theo WORKFLOW).
+- [ ] Appropriate tests, lint, format, and diff checks pass.
+- [ ] No raw data, checkpoints, environments, or secrets are committed.
+- [ ] Raw archives and old runs are preserved; future data is not used outside the protocol.
+- [ ] Reports and documentation match the actual implementation.
+- [ ] The target is `dev`; updating `main` requires separate authorization for this update.
+- [ ] A peer other than the author approved the latest commit (Approve review or `approved merge` + SHA comment under WORKFLOW).
+
+After merge: verify the work is preserved, delete the working branch, and close the issue when all acceptance criteria are met. Keep `main`, `dev`, and `master`.

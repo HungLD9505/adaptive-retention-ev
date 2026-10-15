@@ -1,53 +1,53 @@
-# Bàn giao foundation thay main — 15/10/2026
+# Foundation handoff — 2026-10-15
 
-## Mục tiêu và phạm vi
+## Goal and scope
 
-Tạo working tree sạch để nhóm làm lại processing và phát triển các phase sau theo review. Bản trước ở commit `528680dd73791322ed12f32b2c72a3b58618a428` được giữ bằng remote branch `master`; không rewrite lịch sử hoặc force-push main.
+Create a clean working tree for rebuilding processing and developing later phases through review. The previous codebase, commit `528680dd73791322ed12f32b2c72a3b58618a428`, is preserved on remote branch `master`. Git history was not rewritten and `main` was not force-pushed.
 
-Nhánh đề xuất: `feat/research-foundation`. Đây là implementation để review, chưa đồng nghĩa main đã được thay thế hoặc reviewer đã nghiệm thu. PR #3 về Master Flow thay thế PR #2 sau khi đổi tên nhánh; vẫn được review riêng, chưa merge.
+This report records the foundation proposal on `feat/research-foundation`, before merge. At that point, Master Flow PR #3 replaced PR #2 after a branch rename and was reviewed separately. Subsequent integration is recorded in [merged foundation PR #4](https://github.com/HungLD9505/adaptive-retention-ev/pull/4) and [merged flow PR #3](https://github.com/HungLD9505/adaptive-retention-ev/pull/3). Current development rules are in [WORKFLOW](WORKFLOW.md).
 
-## Những gì mang sang
+## Preserved inputs
 
-- Report 1 nguyên bytes, SHA-256 `cafc1db09a7fda4e196808a96cedf1b18098a4e7ff859d272402e049ebd65bbc`.
-- URL/release, số bytes, SHA-256 và publisher checksum của ba archive trong acquisition manifest ngày 02/10/2026: UrbanEV chính, supplemental tùy chọn và CHARGED Hourly standard.
-- Provenance trỏ chính xác về commit/path của manifest cũ, giữ khác biệt giữa SHA team quan sát và checksum publisher.
+- Report 1, byte-for-byte, SHA-256 `cafc1db09a7fda4e196808a96cedf1b18098a4e7ff859d272402e049ebd65bbc`.
+- URLs/releases, byte sizes, SHA-256 hashes, and publisher checksums for the three archives in the 2026-10-02 acquisition manifest: UrbanEV main, optional supplemental, and CHARGED standard Hourly.
+- Provenance pointing to the exact historical commit/manifest path, distinguishing team-observed hashes from publisher checksums.
 
-Không mang code Data/Input cũ, processed data, window indices, reports hoặc PASS flags cũ sang làm pipeline/evidence mới. Chúng vẫn truy cập được trong backup và Git history. Không có raw directories trong checkout lúc bắt đầu; không có raw file nào bị sửa/xóa trong task này.
+Old Data/Input code, processed data, window indices, reports, and PASS flags were not carried forward as new pipeline code or evidence. They remain accessible through the backup and Git history. No raw directories existed in the checkout at task start; no raw files were modified or deleted.
 
-## Đã triển khai trên nhánh mới
+## Implemented foundation
 
-- `data/sources.json` và hướng dẫn lấy đúng archive, vị trí đặt file và giới hạn dữ liệu.
-- `python -m tools.sources list`: liệt kê nguồn đã ghi, không gọi mạng.
-- `python -m tools.sources verify`: kiểm tra local size/SHA-256/publisher checksum, không ghi hoặc tải data; failure có exit code khác 0.
-- Guards cho catalog, duplicate IDs/paths và resolved paths; unit fixtures không phụ thuộc data thật.
-- Python 3.12, venv, Ruff pin chính xác; không mang dependencies xử lý/ML cũ sang.
-- CI Ubuntu/Windows: catalog, tests, lint, format và diff checks; actions pin theo commit SHA.
-- AGENTS, CODEOWNERS, PR template, ignore rules và quy trình branch → checks/report → review → main.
-- Text dùng LF; binary/raw checksum không phụ thuộc chuyển line endings.
+- `data/sources.json` and instructions for acquiring the correct archives, local paths, and source limitations.
+- `python -m tools.sources list`: list recorded sources without network requests.
+- `python -m tools.sources verify`: read local size/SHA-256/publisher checksums without downloading or modifying data; failures return nonzero exit codes.
+- Catalog, duplicate ID/path, and resolved path guards; unit fixtures independent of real datasets.
+- Python 3.12, virtual environments, and exactly pinned Ruff; old processing/ML dependencies were not carried forward.
+- Ubuntu/Windows CI covering the catalog, tests, lint, format, and diff checks; actions pinned to commit SHAs.
+- AGENTS, CODEOWNERS, PR template, ignore rules, and the review workflow in effect at the foundation proposal.
+- LF text handling; binary/raw checksums are unaffected by text line-ending conversion.
 
-## Kiểm tra local
+## Local verification at foundation handoff
 
-Commands chạy từ repository root bằng Python 3.12; môi trường phát triển tạo ở thư mục tạm ngoài repo.
+Commands ran from the repository root using Python 3.12 with a temporary development environment outside the repository.
 
-| Kiểm tra | Kết quả |
+| Check | Result |
 |---|---|
-| Unit fixtures | 9 tests PASS: selection, missing, valid file, size mismatch, same-size corruption, publisher checksum, path guards và CLI exit codes |
-| Archive identities so với manifest lịch sử | 3/3 khớp URL, size, SHA-256, publisher checksum |
-| Report 1 so với `origin/main` | Nguyên bytes, hash khớp |
-| `tools.sources list` | PASS; không tải data |
-| Ruff, dependency check, links và diff | PASS: Ruff lint/format, pip check; local document links và git diff --check |
-| CI trên GitHub | Chờ chạy và team review; không coi cấu hình workflow là một run PASS |
+| Unit fixtures | 9 tests PASS: selection, missing/valid files, size mismatch, same-size corruption, publisher checksums, path guards, and CLI exit codes |
+| Archive identities against the historical manifest | 3/3 match URLs, sizes, SHA-256, and publisher checksums |
+| Report 1 against the pre-reset `origin/main` | Identical bytes and hash |
+| `tools.sources list` | PASS; no data downloaded |
+| Ruff, dependencies, links, and diff | PASS: lint/format, pip check, local document links, and git diff --check |
+| GitHub CI at report creation | Pending execution/review then; workflow configuration alone was not treated as a successful run |
 
-Tests dùng bytes tổng hợp, không phải ZIP dataset thật và không là bằng chứng data đã tải được. Checksum PASS trong fixtures chỉ kiểm tra hành vi tool.
+Tests use synthetic bytes, not actual dataset ZIPs, and do not demonstrate download availability. Fixture checksum matches verify tool behavior only. Later CI evidence is available in the merged PRs linked above; it does not prove data reproduction.
 
-## Chưa làm / giới hạn
+## Limitations
 
-- Chưa tải, extract hoặc checksum lại các archive thật. Download endpoints giữ theo provenance lịch sử; không khẳng định link đang tải được.
-- Chưa có acquisition/processing pipeline mới, data audit mới, inputs, model, loss/controller hoặc experiments.
-- Các unknown về upstream processing/masks, time/bin/label arrival và Shenzhen independence vẫn cần audit; chưa claim strict online.
-- Branch protection chưa được cấu hình: tài khoản thực thi không có admin; API còn báo giới hạn private-repo rulesets. CI/CODEOWNERS không tự tạo enforcement.
-- Chưa xác nhận mọi thành viên hiểu method hoặc đã setup máy. Peer review còn cần thực hiện trước merge.
+- Real archives were not downloaded, extracted, or rehashed. Download endpoints retain historical provenance; current availability is not asserted.
+- No new acquisition/processing pipeline, data audit, model inputs, model, loss/controller, or experiments were implemented.
+- Upstream processing/masks, time/bin/label arrival, and Shenzhen independence still require audit. Strict online claims remain unsupported.
+- Branch protection was not configured: the executing account lacks admin access and the API reported private-repository ruleset restrictions. CI/CODEOWNERS do not enable enforcement themselves.
+- Team-wide method understanding and environment setup were not verified. Peer review was required before merging the proposal.
 
-## Bước bàn giao tiếp theo
+## Next handoff
 
-Sau khi foundation được review/merge: tạo nhánh acquisition để tải hoặc phục hồi đúng raw, xác nhận size/checksums và ghi manifest mới. Sau đó mới triển khai processing mới với acceptance criteria, fixtures và report riêng. Không sửa expected hashes để nhận một release khác hoặc đánh dấu phase sau hoàn thành từ evidence cũ.
+After foundation review/merge, acquire or restore the correct raw archives on a separate branch, verify sizes/checksums, and record a new acquisition manifest. Then implement new processing with acceptance criteria, fixtures, and its own report under the current WORKFLOW. Do not alter expected hashes to accept a different release or mark later phases complete using historical evidence.
