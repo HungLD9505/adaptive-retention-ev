@@ -4,10 +4,11 @@ Nguồn chuẩn thiết kế: [Report 1](adaptive_retention_report_1.pdf).
 
 ## Đọc theo thứ tự
 
-1. [Roadmap nghiên cứu và phân công](docs/RESEARCH_ROADMAP.md).
-2. [Plan hiện hành](plan.md).
-3. [Báo cáo Data](BAO_CAO_PHASE_DATA.md) và [Input/QC](BAO_CAO_DAU_VAO_MODEL.md).
-4. [Cấu trúc repository và inventory dọn dẹp](docs/REPOSITORY_STRUCTURE.md).
+1. [Master Research Flow — WHY → HOW → PROVE](docs/MASTER_RESEARCH_FLOW.md): bản đồ đọc hiểu toàn bài, trạng thái và evidence; bắt đầu ở đây nếu mới tham gia nhóm.
+2. [Roadmap nghiên cứu và phân công](docs/RESEARCH_ROADMAP.md).
+3. [Plan hiện hành](plan.md).
+4. [Báo cáo Data](BAO_CAO_PHASE_DATA.md) và [Input/QC](BAO_CAO_DAU_VAO_MODEL.md).
+5. [Cấu trúc repository và inventory dọn dẹp](docs/REPOSITORY_STRUCTURE.md).
 
 ## Trạng thái tổng hợp — 04/10/2026
 
