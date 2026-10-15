@@ -1,28 +1,28 @@
-# Nguồn dữ liệu — tải về để xây pipeline mới
+# Data sources — acquire raw archives for the new pipeline
 
-Catalog chuẩn: [sources.json](sources.json). File này chứa URL tải, release, đường dẫn local, số bytes, SHA-256 và publisher checksum nếu có. Các giá trị được trích từ [acquisition manifest lịch sử](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/data/acquisition_20261002_03/source_manifest.json), ngày 02/10/2026.
+The reference catalog is [sources.json](sources.json). It records download URLs, releases, local paths, byte sizes, SHA-256 hashes, and publisher checksums where available. Values are recorded in the [acquisition manifest](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/data/acquisition_20261002_03/source_manifest.json), dated 2026-10-02.
 
-**Chưa tải hoặc kiểm tra lại archive thật trong lần dựng foundation này.** SHA-256 là fingerprints team ghi ở lần acquisition trước, không trình bày như SHA-256 do publisher công bố. CHARGED còn có MD5 publisher được ghi trong manifest. Lệnh `list` chỉ đọc catalog, không xác nhận URL đang tải được.
+**Real archives were not downloaded or reverified in this foundation task.** SHA-256 values are fingerprints recorded by the team during the earlier acquisition, not publisher-provided SHA-256 hashes. The manifest also records the publisher's MD5 for CHARGED. The `list` command reads the catalog; it does not verify current URL availability.
 
-## Lấy những gói nào?
+## Which archives are needed?
 
-| Source ID | Gói | Bytes đã ghi | Bắt buộc? |
+| Source ID | Archive | Recorded bytes | Required? |
 |---|---|---:|---|
-| `urbanev-main` | `UrbanEVDataset.zip` từ official Drive mirror | 647.305.188 | Có, khi làm UrbanEV |
-| `urbanev-supplemental` | `UrbanEVSupplemental.zip` | 6.052.188 | Không; chưa mặc định dùng weather/POI làm features |
-| `charged-hourly` | Standard `Hourly.zip`, Zenodo record 15814263 | 268.720.500 | Có, khi làm CHARGED |
+| `urbanev-main` | `UrbanEVDataset.zip` from the official Drive mirror | 647,305,188 | Yes, for UrbanEV |
+| `urbanev-supplemental` | `UrbanEVSupplemental.zip` | 6,052,188 | No; weather/POI features are not enabled by default |
+| `charged-hourly` | Standard `Hourly.zip`, Zenodo record 15814263 | 268,720,500 | Yes, for CHARGED |
 
-Nguồn chính thức: [UrbanEV repository](https://github.com/IntelligentSystemsLab/UrbanEV), [CHARGED Zenodo release](https://zenodo.org/records/15814263), [CHARGED repository](https://github.com/IntelligentSystemsLab/CHARGED).
+Official sources: [UrbanEV repository](https://github.com/IntelligentSystemsLab/UrbanEV), [CHARGED Zenodo release](https://zenodo.org/records/15814263), [CHARGED repository](https://github.com/IntelligentSystemsLab/CHARGED).
 
-## Cách tải và kiểm tra
+## Download and verify
 
-1. Từ root repo, xem URL và đúng vị trí cần đặt file:
+1. From the repository root, list the URLs and required local paths:
 
    ```sh
    python -m tools.sources list
    ```
 
-2. Nếu team còn bản raw cũ, sao chép nguyên bytes về đúng đường dẫn; nếu chưa có, mở URL trong catalog để tải từ provider. Không ghi đè một file đã có; kiểm tra file đó trước. Gói Drive có thể cần thao tác trong browser. Nếu link hết hiệu lực, quay lại nguồn chính thức và ghi evidence; không thay release/hash âm thầm.
+2. If the team still has the original raw archives, copy their bytes unchanged to the correct paths. Otherwise, open the catalog URLs to download from the providers. Verify existing files before considering a replacement; do not overwrite them. Drive downloads may require browser interaction. If a link expires, consult the official source and record evidence; do not silently change releases or hashes.
 
    ```text
    data/raw/urbanev/official_2026_05_11/UrbanEVDataset.zip
@@ -30,35 +30,31 @@ Nguồn chính thức: [UrbanEV repository](https://github.com/IntelligentSystem
    data/raw/charged/zenodo_15814263/Hourly.zip
    ```
 
-3. Kiểm tra size, SHA-256 và publisher checksum đã ghi:
+3. Verify the recorded size, SHA-256, and publisher checksum:
 
    ```sh
    python -m tools.sources verify --dataset urbanev
    python -m tools.sources verify --dataset charged
    ```
 
-   Không chỉ định dataset thì kiểm tra cả hai gói bắt buộc. Muốn kiểm tra cả supplemental, thêm `--include-optional`; khi đó thiếu supplemental cũng trả failure.
+   Without a dataset argument, both required archives are checked. Add `--include-optional` to check the supplemental archive as well; a missing supplemental file then also returns failure.
 
-   Có thể giữ data trên ổ khác có cùng cây `data/raw/`:
+   Data may live on another drive with the same `data/raw/` structure:
 
    ```sh
    python -m tools.sources verify --root /path/to/storage-root
    ```
 
-4. Exit code **0**: tất cả file được chọn khớp; **1**: có file thiếu/sai size/checksum; **2**: catalog/path hoặc lỗi đọc không hợp lệ. Tool chỉ đọc, không tải, extract, sửa, quarantine hoặc thay raw. File sai checksum cần giữ riêng để điều tra; không sửa expected hash để làm PASS.
+4. Exit code **0** means all selected files match; **1** means files are missing or have incorrect sizes/checksums; **2** means an invalid catalog/path or a read error. The tool only reads: it does not download, extract, modify, quarantine, or replace raw files. Preserve checksum failures separately for investigation; never change an expected hash just to obtain PASS.
 
-Không chạy `verify --include-optional` nếu chưa chủ định tải supplemental. CI chỉ kiểm tra catalog và synthetic fixtures; không tải hàng trăm MB dữ liệu.
+Only use `verify --include-optional` when you intend to acquire the supplemental archive. CI checks the catalog and synthetic fixtures; it does not download hundreds of MB of data.
 
-## Phân biệt raw, processed và inputs
+## Raw, processed data, and inputs
 
-- **Raw:** archive nguyên bytes nhận từ publisher. Giữ ngoài Git và bảo toàn làm đầu vào có thể truy vết.
-- **Processed:** output do pipeline mới tạo; chưa được xây trong foundation này.
-- **Inputs:** split/scalers/windows/tensors do phase tiếp theo tạo; chưa được xây trên foundation mới.
+- **Raw:** original archive bytes received from the publisher, preserved outside Git as traceable inputs.
+- **Processed:** outputs produced by the new pipeline, which is not implemented yet.
+- **Inputs:** splits/scalers/windows/tensors produced by the next phase, not implemented in the new foundation yet.
 
-"Raw" không có nghĩa mọi giá trị đều là quan sát vật lý chưa xử lý. UrbanEV station volume đã là estimate/derived; archive có cả raw và processed variants. CHARGED Hourly là dữ liệu đã được publisher xử lý. Checksum PASS chỉ xác nhận đúng bytes đã ghi, không chứng minh upstream causality, dữ liệu không thiếu hay phù hợp mô hình.
+"Raw" does not imply every value is an unprocessed physical observation. UrbanEV station volume is estimated/derived, and the archive includes raw and processed variants. CHARGED Hourly has already been processed by its publisher. A checksum match confirms recorded bytes, not upstream causality, completeness, or suitability for modeling.
 
-Pipeline mới cần tự audit target/unit, schema, time/bin/availability, missing/zero và khả năng tái lập trước khi bàn giao. Không lấy zone-level thay station-level; CHARGED site là cụm charger. Không coi Shenzhen là external độc lập khi chưa có mapping/evidence. Chưa claim strict online-ready.
-
-## Nguồn lịch sử còn ở đâu?
-
-Code và reports trước reset vẫn ở [backup main](https://github.com/HungLD9505/adaptive-retention-ev/tree/master). Các manifest là bằng chứng acquisition cũ, không phải chứng nhận pipeline mới đã chạy. Nếu cần dùng release khác, tạo PR catalog mới kèm provenance và ảnh hưởng protocol; không đổi catalog hiện tại cho khớp file bất kỳ.
+The new pipeline must audit target/unit definitions, schema, time/bin/availability, missing/zero treatment, and reproducibility before handoff. Do not replace station-level data with zone-level data; a CHARGED site is a charger cluster. Do not claim Shenzhen is an independent external dataset without mapping/evidence. Strict online readiness remains unverified.

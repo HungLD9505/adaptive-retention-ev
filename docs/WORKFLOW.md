@@ -1,57 +1,71 @@
-# Cách nhóm phát triển và chốt main
+# Team workflow through dev
 
-`main` chứa quy trình và implementation đã được review, có checks và report tương ứng. Nhánh backup giữ codebase cũ; foundation mới bắt đầu từ nguồn dữ liệu có thể truy vết.
+- `main`: the version agreed by the team. Do not push or merge here without a separate instruction for that update.
+- `dev`: daily integration through PRs, CI, and peer review.
+- `master`: retained backup; do not modify or delete.
+- `feat/*`, `fix/*`, `docs/*`, `chore/*`: one working branch per issue, created from `dev`; delete after merging.
 
-## Một vòng làm việc
+## One work cycle
 
 ```mermaid
 flowchart TB
-    A["Chốt phạm vi và acceptance criteria"] --> B["Tạo nhánh từ main"]
-    B --> C["Implement và tạo tests"]
-    C --> D["Chạy checks và ghi report"]
-    D --> E["Mở PR, CI và peer review"]
-    E -- "Cần sửa" --> C
-    E -- "Đủ evidence và được duyệt" --> F["Merge main"]
-    F --> G["Các nhánh sau cập nhật từ main"]
+    A["Issue: owner, scope, acceptance criteria"] --> B["Branch from dev"]
+    B --> C["Implement and add tests"]
+    C --> D["Run checks and record evidence"]
+    D --> E["PR into dev, CI and peer review"]
+    E -- "Changes needed" --> C
+    E -- "Evidence accepted and approved" --> F["Merge into dev"]
+    F --> G["Update issue and delete merged branch"]
 ```
 
-1. Mỗi task nhỏ có owner, mục tiêu, input/output, acceptance criteria và phần ngoài phạm vi. Nếu đụng protocol/method, chỉ rõ trước khi code.
-2. Mỗi developer dùng nhánh riêng. Dùng `feat/<topic>`, `fix/<topic>`, `docs/<topic>` hoặc `chore/<topic>` theo nội dung thay đổi, áp dụng cho cả thành viên và coding agent. Nhánh lưu lịch sử dùng `archive/<topic>`. Không dùng chung một nhánh để sửa đồng thời.
-3. Tests phù hợp, lint, format và diff checks phải pass. Đừng chỉ kiểm tra happy path: failure phải trả failure thật. CI thông thường không cần raw, mạng tải dữ liệu hoặc GPU.
-4. PR implementation có report trong `docs/reports/<topic>.md`: vấn đề, thiết kế, file/config thay đổi, commands, kết quả, evidence/run IDs và giới hạn. PR chỉ sửa typo/link nhỏ có thể ghi report ngay trong PR body.
-5. Ít nhất một peer khác tác giả review; người triển khai không tự xác nhận nghiệm thu của mình. Có thể yêu cầu thêm người khi thay đổi method hoặc shared contract.
-6. Merge khi checks pass, report khớp kết quả và reviewer đồng ý. Không merge chỉ vì đã có code; không ghi "verified" khi mới đọc code hoặc chưa chạy.
+1. Every task has a GitHub Issue with an owner, goal, scope, acceptance criteria, and dependencies. Link the PR to the issue. Identify any protocol/method changes before coding.
+2. Each developer uses a separate branch. Choose `feat/<topic>`, `fix/<topic>`, `docs/<topic>`, or `chore/<topic>` by purpose; this applies to people and coding agents. Use `archive/<topic>` for historical snapshots. Do not edit concurrently on one shared working branch.
+3. Appropriate tests, lint, format, and diff checks must pass. Cover failure behavior as well as successful cases. Routine CI needs no raw data, dataset downloads, or GPU.
+4. Record the problem, changes, commands/results, and limitations in the PR. Add a report in `docs/reports/` for an actual pipeline/experiment handoff; small changes do not need a separate report.
+5. At least one peer other than the author must approve the latest commit, preferably using GitHub **Approve review**. For manual review, an explicit `approved merge` comment with the commit SHA is acceptable from a peer who reviewed the changes. Such a comment is not a technical approval under branch protection. New commits require renewed peer confirmation.
+6. Team members merge into `dev` after checks pass, evidence matches, and peer approval is recorded. Agents do not merge autonomously. Update/close the issue once its acceptance criteria are met; a PR into `dev` may not close it automatically. Never promote `dev` to `main` automatically.
 
-## Trạng thái GitHub enforcement
+## Cleanup after completion
 
-Tại thời điểm dựng foundation, GitHub API báo `main.protected=false`; tài khoản làm task có push nhưng không có admin. Rulesets API trả 403 với thông báo giới hạn tính năng trên private repository. Actions-permissions API trả 404, vì vậy không xác nhận được settings qua endpoint đó.
+- After a PR merges, confirm its commits/work are preserved on the target branch, switch off the working branch, then delete it remotely and locally. Keep `main`, `dev`, and `master`. Do not delete unmerged work or a branch supporting an active PR.
+- Close the issue when all acceptance criteria are met, linking the merged PR/results. If it spans multiple PRs, keep it open until the remaining work is complete. Check closure manually for PRs targeting `dev`.
+- Merged PRs are already closed. Close abandoned or superseded PRs with a reason and replacement link where applicable; preserve their review history.
+- The person or agent completing the handoff performs this cleanup without another confirmation. This does not authorize an agent to merge a PR. GitHub automatic head-branch deletion is currently disabled (`delete_branch_on_merge=false`); enabling it requires repository admin access. Until then, perform the cleanup explicitly.
 
-PR này bổ sung workflow CI trên Ubuntu/Windows và CODEOWNERS nhưng **không đồng nghĩa branch protection đã bật**. Owner cần kiểm tra gói/settings hiện có để yêu cầu PR, một approval, hai checks `checks (ubuntu-24.04)` / `checks (windows-latest)` và chặn force-push nếu tính năng được hỗ trợ. Nếu chưa hỗ trợ enforcement, nhóm phải giữ quy ước review/merge thủ công và ghi rõ giới hạn; không mô tả nó như bảo vệ kỹ thuật đã có.
+## GitHub enforcement status
 
-## Làm song song với bốn người
+When the foundation was created, the GitHub API reported `main.protected=false`. The executing account had push access but no admin access. The rulesets API returned 403 indicating private-repository feature restrictions. The Actions permissions API returned 404, so that endpoint did not confirm the settings.
 
-Chốt interface, tensor contract và forecast/checkpoint schema trước khi chia implementation. Sau đó có thể chia: model/loss/training; runner/controller; baselines/configs; metrics/reporting. Chưa gán tên cá nhân khi team chưa thống nhất.
+Ubuntu/Windows CI and CODEOWNERS **do not mean branch protection is enabled**. The owner needs to check the available plan/settings: restrict updates to `main`; for `dev`, require a PR, one approval, both `checks (ubuntu-24.04)` / `checks (windows-latest)`, and block force-pushes where supported. Until enforcement is available, follow the review/merge convention manually and disclose the limitation.
 
-- Dùng một prequential runner chung khi protocol tương thích; không mỗi baseline một vòng thời gian khác nhau.
-- Shared contracts/protocol cần người sử dụng interface review. Không sửa source constants để đổi input run hoặc experiment.
-- Mỗi run ID duy nhất, mỗi người ghi vào output riêng. Không cùng ghi active pointer hoặc cùng directory.
-- Một người tổng hợp tiến độ của phase; các thành viên bàn giao bằng PR và run/report IDs. Chỉ có một plan hiện hành khi nhóm chốt kế hoạch triển khai, không tự tạo nhiều bản plan riêng.
+## Coding rules
 
-## Data và artifacts
+The short [coding essentials in AGENTS.md](../AGENTS.md#coding-essentials) apply to people and agents. Reviews focus on correctness, readability, and reproducibility. Use English for maintained documentation, code comments, issues, and PR descriptions; preserve original source documents and historical evidence.
 
-Raw giữ nguyên, Git ignore. Processing mới phải tạo output mới có source identities, config, code version, runtime, run ID và trạng thái acceptance rõ. Verification đọc dữ liệu; report/QA mới không ghi đè evidence cũ. Thiếu required input hoặc QC không đạt phải dừng với failure rõ ràng. Nguồn tài liệu phụ tùy chọn có thể warning nếu không ảnh hưởng input bắt buộc.
+## Four-person development
 
-Checkpoints/runs lớn giữ local hoặc nơi lưu trữ chung được team chốt. Git giữ code, config và reports/artifacts nhỏ đủ review. Chưa cần service orchestration hay experiment server.
+Agree on interfaces, the tensor contract, and forecast/checkpoint schemas before splitting implementation. Possible work areas are model/loss/training, runner/controller, baselines/configs, and metrics/reporting. Assign individuals after team agreement.
 
-## Các phase sắp tới — chưa triển khai
+- Share one prequential runner where protocols are compatible; do not implement different timelines for each baseline.
+- Have interface consumers review shared contracts/protocols. Do not change source constants to select an input run or experiment.
+- Use unique run IDs and separate output locations. Do not write concurrently to one directory or active pointer.
+- One person summarizes phase progress; handoffs use PRs and run/report IDs. Maintain one current plan once the team agrees on it.
 
-| Thứ tự | Phạm vi | Điều kiện bàn giao |
+## Data and artifacts
+
+Preserve raw files and keep them ignored by Git. New processing must produce new outputs with source identities, config, code version, runtime, run ID, and explicit acceptance status. Verification reads data; new QA/reports must not overwrite old evidence. Missing required input or failed QC must stop with a clear failure. Optional supplementary sources may produce warnings when required inputs are unaffected.
+
+Keep large checkpoints/runs locally or in storage agreed by the team. Git stores code, config, and small reviewable reports/artifacts. No orchestration service or experiment server is needed yet.
+
+## Upcoming phases — not implemented
+
+| Order | Scope | Handoff criteria |
 |---|---|---|
-| 1 | Lấy lại raw theo catalog | Size/checksum và manifest acquisition mới; giữ nguyên raw |
-| 2 | Data audit và processing mới | Schema/units/time assumptions, missing/zero, fixtures và report có run identity |
-| 3 | Protocol và model inputs | Split/cohort/scaling/windows được chốt, prefix/leakage checks và report |
-| 4 | Model/loss và baselines | Bám Report 1, shape/gradient/freeze checks, development evidence |
-| 5 | Runner và controller | Lưu forecast trước nhãn, availability/update/switch/checkpoint tests |
-| 6 | Lock/final experiments | Config khóa trước final, đối chứng công bằng, metrics và costs có evidence |
+| 1 | Restore raw archives from the catalog | Size/checksum verification and a new acquisition manifest; raw bytes preserved |
+| 2 | Fresh data audit and processing | Schema/units/time assumptions, missing/zero treatment, fixtures, and a report with run identity |
+| 3 | Protocol and model inputs | Agreed splits/cohorts/scaling/windows, prefix/leakage checks, and a report |
+| 4 | Model/loss and baselines | Follow Report 1; shape/gradient/freeze checks and development evidence |
+| 5 | Runner and controller | Store forecasts before labels; availability/update/switch/checkpoint tests |
+| 6 | Lock and final experiments | Config locked before final evaluation, fair comparisons, metrics and cost evidence |
 
-Đây là thứ tự bàn giao, không phải checklist đã hoàn thành. Core method vẫn theo Report 1; các thông số cần chọn trên development không được tune bằng final results.
+This is a handoff order, not a completed checklist. The core method follows Report 1. Parameters selected on development must not be tuned using final results.
