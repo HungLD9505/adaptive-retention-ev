@@ -1,6 +1,6 @@
 # Adaptive Retention — Research Foundation
 
-Nền tảng mới cho khóa luận **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. Nhóm phát triển trên nhánh riêng; `main` chỉ nhận thay đổi đã có checks, báo cáo và review.
+Nền tảng mới cho khóa luận **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. Nhóm làm việc qua **Issue → nhánh riêng → PR → `dev`**. `main` chỉ cập nhật khi có chỉ đạo riêng; `master` giữ backup cũ.
 
 **Trạng thái của bản này:** đã lập catalog nguồn dữ liệu và công cụ kiểm tra file sau tải. Chưa tải raw, chưa xây pipeline xử lý mới, chưa có model hoặc kết quả thực nghiệm trên nền tảng mới.
 
@@ -52,7 +52,7 @@ data/sources.json       Catalog URL, release, size và checksum của raw archiv
 data/README.md          Cách lấy dữ liệu và giới hạn nguồn
 tools/sources.py        Liệt kê nguồn / kiểm tra file local, không ghi hoặc tải data
 tests/                  Unit tests không phụ thuộc dataset thật
-docs/WORKFLOW.md         Branch → implementation → checks → report → review → main
+docs/WORKFLOW.md         Issue → branch → checks/review → dev; main cần chỉ đạo riêng
 docs/FOUNDATION_REPORT.md Phạm vi và evidence của lần dựng foundation
 .github/                CI, CODEOWNERS và PR template
 ```

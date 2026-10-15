@@ -1,32 +1,39 @@
-# Cách nhóm phát triển và chốt main
+# Cách nhóm phát triển qua dev
 
-`main` chứa quy trình và implementation đã được review, có checks và report tương ứng. Nhánh backup giữ codebase cũ; foundation mới bắt đầu từ nguồn dữ liệu có thể truy vết.
+- `main`: phiên bản nhóm đã chốt. Không push/merge vào đây nếu chưa có chỉ đạo riêng cho lần cập nhật đó.
+- `dev`: tích hợp công việc hằng ngày qua PR, CI và peer review.
+- `master`: backup codebase trước reset, giữ nguyên.
+- `feat/*`, `fix/*`, `docs/*`, `chore/*`: nhánh cho từng issue, tạo từ `dev`; xóa sau merge.
 
 ## Một vòng làm việc
 
 ```mermaid
 flowchart TB
-    A["Chốt phạm vi và acceptance criteria"] --> B["Tạo nhánh từ main"]
+    A["Issue: owner, phạm vi, acceptance criteria"] --> B["Tạo nhánh từ dev"]
     B --> C["Implement và tạo tests"]
     C --> D["Chạy checks và ghi report"]
-    D --> E["Mở PR, CI và peer review"]
+    D --> E["PR vào dev, CI và peer review"]
     E -- "Cần sửa" --> C
-    E -- "Đủ evidence và được duyệt" --> F["Merge main"]
-    F --> G["Các nhánh sau cập nhật từ main"]
+    E -- "Đủ evidence và được duyệt" --> F["Merge dev"]
+    F --> G["Cập nhật issue và xóa nhánh đã merge"]
 ```
 
-1. Mỗi task nhỏ có owner, mục tiêu, input/output, acceptance criteria và phần ngoài phạm vi. Nếu đụng protocol/method, chỉ rõ trước khi code.
+1. Mỗi task có một GitHub Issue với owner, mục tiêu, phạm vi, acceptance criteria và dependencies; PR liên kết issue. Nếu đụng protocol/method, chỉ rõ trước khi code.
 2. Mỗi developer dùng nhánh riêng. Dùng `feat/<topic>`, `fix/<topic>`, `docs/<topic>` hoặc `chore/<topic>` theo nội dung thay đổi, áp dụng cho cả thành viên và coding agent. Nhánh lưu lịch sử dùng `archive/<topic>`. Không dùng chung một nhánh để sửa đồng thời.
 3. Tests phù hợp, lint, format và diff checks phải pass. Đừng chỉ kiểm tra happy path: failure phải trả failure thật. CI thông thường không cần raw, mạng tải dữ liệu hoặc GPU.
-4. PR implementation có report trong `docs/reports/<topic>.md`: vấn đề, thiết kế, file/config thay đổi, commands, kết quả, evidence/run IDs và giới hạn. PR chỉ sửa typo/link nhỏ có thể ghi report ngay trong PR body.
-5. Ít nhất một peer khác tác giả review; người triển khai không tự xác nhận nghiệm thu của mình. Có thể yêu cầu thêm người khi thay đổi method hoặc shared contract.
-6. Merge khi checks pass, report khớp kết quả và reviewer đồng ý. Không merge chỉ vì đã có code; không ghi "verified" khi mới đọc code hoặc chưa chạy.
+4. Ghi vấn đề, thay đổi, commands/kết quả và giới hạn trong PR. Pipeline/experiment có bàn giao thực tế thì thêm report trong `docs/reports/`; không tạo report riêng cho thay đổi nhỏ.
+5. Ít nhất một peer khác tác giả duyệt commit mới nhất, ưu tiên GitHub **Approve review**. Khi review thủ công, chấp nhận comment rõ `approved merge` kèm commit SHA từ peer đã đọc thay đổi; comment này không phải approval kỹ thuật của branch protection. Có commit mới thì cần peer xác nhận lại.
+6. Thành viên merge vào `dev` khi checks pass, evidence khớp và peer đã duyệt. Agent không tự merge. Cập nhật/đóng issue sau khi acceptance criteria đạt; PR vào `dev` có thể không tự đóng issue. Không tự động đưa `dev` lên `main`.
 
 ## Trạng thái GitHub enforcement
 
 Tại thời điểm dựng foundation, GitHub API báo `main.protected=false`; tài khoản làm task có push nhưng không có admin. Rulesets API trả 403 với thông báo giới hạn tính năng trên private repository. Actions-permissions API trả 404, vì vậy không xác nhận được settings qua endpoint đó.
 
-PR này bổ sung workflow CI trên Ubuntu/Windows và CODEOWNERS nhưng **không đồng nghĩa branch protection đã bật**. Owner cần kiểm tra gói/settings hiện có để yêu cầu PR, một approval, hai checks `checks (ubuntu-24.04)` / `checks (windows-latest)` và chặn force-push nếu tính năng được hỗ trợ. Nếu chưa hỗ trợ enforcement, nhóm phải giữ quy ước review/merge thủ công và ghi rõ giới hạn; không mô tả nó như bảo vệ kỹ thuật đã có.
+Repo có workflow CI trên Ubuntu/Windows và CODEOWNERS nhưng **không đồng nghĩa branch protection đã bật**. Owner cần kiểm tra gói/settings hiện có: hạn chế cập nhật `main`; với `dev` yêu cầu PR, một approval, hai checks `checks (ubuntu-24.04)` / `checks (windows-latest)` và chặn force-push nếu tính năng được hỗ trợ. Nếu chưa hỗ trợ enforcement, nhóm phải giữ quy ước review/merge thủ công và ghi rõ giới hạn; không mô tả nó như bảo vệ kỹ thuật đã có.
+
+## Coding rules
+
+Quy tắc code ngắn gọn ở [AGENTS.md](../AGENTS.md#code-tối-thiểu-cần-giữ), áp dụng cho cả người và agent. Review tập trung vào tính đúng, dễ đọc và khả năng tái chạy.
 
 ## Làm song song với bốn người
 

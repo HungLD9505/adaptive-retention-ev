@@ -245,7 +245,7 @@ Các mốc và số liệu trên được giữ để truy vết; không dùng �
 |---|---|
 | [Report 1](../adaptive_retention_report_1.pdf) | Chuẩn phương pháp; thay đổi core cần quyết định/review riêng. |
 | **Master Flow này** | Giải thích từng stage, liên kết evidence và snapshot trạng thái; không tạo task IDs hay lịch chạy riêng. |
-| [Workflow hiện hành](WORKFLOW.md) | Quy trình branch → checks/report → peer review → main và thứ tự bàn giao. |
+| [Workflow hiện hành](WORKFLOW.md) | Quy trình Issue → branch → checks/report → peer review → dev; main chỉ cập nhật khi có chỉ đạo riêng. |
 | [Research roadmap lịch sử](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/docs/RESEARCH_ROADMAP.md) | Tham khảo chi tiết method/gates trước reset; không phải tiến độ hiện tại. |
 | [plan.md lịch sử](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/plan.md) | Nhật ký trước reset; không cập nhật như kế hoạch hiện hành. Chưa tạo plan mới khi team chưa chốt phạm vi. |
 | Báo cáo mới trong `docs/reports/`, PR và run IDs | Evidence của implementation mới; không ghi đè reports cũ trên snapshot lịch sử. |
