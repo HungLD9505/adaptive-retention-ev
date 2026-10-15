@@ -6,6 +6,8 @@ Nền tảng mới cho khóa luận **Adaptive Transfer Learning for Cold-Start 
 
 ## Bắt đầu
 
+Đọc [Master Research Flow — WHY → HOW → PROVE](docs/MASTER_RESEARCH_FLOW.md) để hiểu bài toán, phương pháp và bằng chứng cần có.
+
 1. Đọc [quy trình làm việc](docs/WORKFLOW.md) và [quy tắc cho coding agents](AGENTS.md).
 2. Đọc [nguồn dữ liệu và cách tải/kiểm tra](data/README.md).
 3. Xem [báo cáo bàn giao foundation](docs/FOUNDATION_REPORT.md).
@@ -59,6 +61,6 @@ docs/FOUNDATION_REPORT.md Phạm vi và evidence của lần dựng foundation
 
 Bản trước được giữ tại [backup `master`](https://github.com/HungLD9505/adaptive-retention-ev/tree/master), commit `528680dd73791322ed12f32b2c72a3b58618a428`. Code processing, processed outputs và trạng thái PASS cũ không được mang sang làm pipeline hoặc kết quả của foundation mới.
 
-[Master Research Flow (PR #3, lịch sử ở #2)](https://github.com/HungLD9505/adaptive-retention-ev/blob/d9dc073a827cb56cb6de36548bcbac898931c7d4/docs/MASTER_RESEARCH_FLOW.md) vẫn là tài liệu học tham khảo; trạng thái triển khai trong đó thuộc codebase trước. PR #3 thay thế PR #2 sau khi đổi tên nhánh thành `docs/master-research-flow`; chưa merge vào foundation này.
+[Master Research Flow](docs/MASTER_RESEARCH_FLOW.md) đã đối chiếu trạng thái với foundation mới. Evidence và các quyết định Data/Input từ codebase trước được dẫn về commit lịch sử, không tính là tiến độ implementation mới.
 
 Raw archives nếu đã có ở máy khác phải giữ nguyên và kiểm tra checksum trước khi dùng. Raw, processed data, virtualenv, checkpoints và run outputs không được commit vào Git.
