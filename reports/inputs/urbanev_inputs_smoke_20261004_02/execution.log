@@ -1,8 +1,0 @@
-Locked 1682 IDs before scaler/cohort fits
-Source-prefix scan 300/1682 IDs
-Source-prefix scan 600/1682 IDs
-Source-prefix scan 900/1682 IDs
-Source-prefix scan 1200/1682 IDs
-Source-prefix scan 1500/1682 IDs
-Source-only positive fallback 202.416667 kWh from 1237386 hours
-Finished urbanev_inputs_smoke_20261004_02; handoff=False; checks={'unique_key': True, 'midnight_origins': True, 'source_boundary': True, 'label_count_24': True, 'warmup_boundary': True, 'stream_boundary': True, 'availability': True, 'tensor_samples': 39, 'counts_match_audit': True, 'split_disjoint': True, 'passed': True}

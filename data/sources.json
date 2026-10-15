@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "provenance": {
+    "repository": "https://github.com/HungLD9505/adaptive-retention-ev",
+    "commit": "528680dd73791322ed12f32b2c72a3b58618a428",
+    "manifest_path": "reports/data/acquisition_20261002_03/source_manifest.json",
+    "manifest_url": "https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/data/acquisition_20261002_03/source_manifest.json",
+    "acquisition_date": "2026-10-02",
+    "catalog_created_date": "2026-10-15",
+    "sha256_origin": "Team-observed archive hashes recorded in historical acquisition; not publisher-provided SHA-256.",
+    "availability_status": "Download endpoints retained from historical acquisition; archives not downloaded or reverified in this foundation task."
+  },
+  "datasets": [
+    {
+      "dataset": "urbanev",
+      "release": "Official Drive mirror recorded as 2026-05-11",
+      "homepage": "https://github.com/IntelligentSystemsLab/UrbanEV",
+      "entity_level": "station",
+      "scope": "Use station-raw/charge_5min members for the planned station task; do not substitute GitHub zone matrices.",
+      "limits": [
+        "Archive also contains publisher-processed variants.",
+        "Raw station volume is estimated/derived, not independently verified meter readings.",
+        "Physical time/bin semantics and true label arrival require fresh audit."
+      ]
+    },
+    {
+      "dataset": "charged",
+      "release": "Zenodo record 15814263, standard Hourly.zip",
+      "homepage": "https://zenodo.org/records/15814263",
+      "repository": "https://github.com/IntelligentSystemsLab/CHARGED",
+      "entity_level": "clustered site",
+      "scope": "Published hourly standard data; do not silently select remove_zero variants.",
+      "limits": [
+        "Publisher processing/imputation and original observation masks require explicit treatment.",
+        "Shenzhen independence from UrbanEV remains unverified.",
+        "True label arrival, timezone/DST/bin semantics remain unverified."
+      ]
+    }
+  ],
+  "archives": [
+    {
+      "source_id": "urbanev-main",
+      "dataset": "urbanev",
+      "download_url": "https://drive.usercontent.google.com/download?id=1OEpo-XDocd33aK3MbgDt9S5bcqwiAFPQ&export=download&confirm=t",
+      "relative_path": "data/raw/urbanev/official_2026_05_11/UrbanEVDataset.zip",
+      "size_bytes": 647305188,
+      "sha256": "9d3f0aec34434546d082509efcdeeaea116eaa841701cc5854a9b62a27881a79",
+      "required": true,
+      "publisher_checksum": null
+    },
+    {
+      "source_id": "urbanev-supplemental",
+      "dataset": "urbanev",
+      "download_url": "https://drive.usercontent.google.com/download?id=1ojGWoQ13w2o59DjEAuUk2-CPzG08NRIT&export=download&confirm=t",
+      "relative_path": "data/raw/urbanev/official_2026_05_11/UrbanEVSupplemental.zip",
+      "size_bytes": 6052188,
+      "sha256": "621992ceb9d6e0d4d01e3dde331853515a0f5e678dddc30a1c5b39392fe18afd",
+      "required": false,
+      "publisher_checksum": null
+    },
+    {
+      "source_id": "charged-hourly",
+      "dataset": "charged",
+      "download_url": "https://zenodo.org/api/records/15814263/files/Hourly.zip/content",
+      "relative_path": "data/raw/charged/zenodo_15814263/Hourly.zip",
+      "size_bytes": 268720500,
+      "sha256": "1ec9c9513b64f3f492fe73261bf08a5955c268dfb876ef0fe283d05cc5a02fab",
+      "required": true,
+      "publisher_checksum": "md5:099a592653ca74fa1f1051e9c23d6456"
+    }
+  ]
+}
