@@ -1,8 +1,0 @@
-{
-  "accepted": true,
-  "scope": "full",
-  "eligible_final_entities": 292,
-  "conclusion": "published-data benchmark inputs ready for model development",
-  "strict_online": false,
-  "model_training_performed": false
-}

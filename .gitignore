@@ -1,10 +1,24 @@
+.venv/
 .deps/
 .cache/
 __pycache__/
-*.pyc
+*.py[cod]
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
 data/raw/
 data/processed/
 data/inputs/
-
-# Local handoff exports; do not version duplicate ZIP packages
+checkpoints/
+runs/
 handoff/
+*.pt
+*.pth
+*.ckpt

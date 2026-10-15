@@ -1,4 +1,0 @@
-{
-  "active_run": "charged_inputs_full_20261004_02",
-  "reason": "Correct source gate permits masked history; fallback restricted to eligible source-training prefix. Final split IDs/dates/target eligibility unchanged."
-}

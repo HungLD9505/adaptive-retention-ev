@@ -1,8 +1,0 @@
-{
-  "accepted": false,
-  "scope": "smoke subset",
-  "eligible_final_entities": 3,
-  "conclusion": "smoke only or acceptance gate failed",
-  "strict_online": false,
-  "model_training_performed": false
-}
