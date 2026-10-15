@@ -185,10 +185,10 @@ The defense follows context → difficulty → hypothesis → comparison → evi
 |---|---|---|
 | Research method and flow | Design follows Report 1; effectiveness/novelty unproven | [Report 1](../adaptive_retention_report_1.pdf), WHY/HOW/PROVE above |
 | Raw sources and local file verification | Catalog and verification tool implemented; fixture-based tests | [Data sources](../data/README.md), [source tool](../tools/sources.py), [tests](../tests/test_sources.py) |
-| Raw acquisition on the new foundation | No real archives downloaded/checked in the foundation/flow tasks | Historical URLs/checksums do not prove a fresh acquisition |
+| Raw acquisition | Both required archives downloaded and verified locally; provider files extracted | [Acquisition report](reports/data-acquisition.md); data remains outside Git |
 | Processing, audit, and model inputs | Not implemented | New PRs, tests, and reports required under [WORKFLOW](WORKFLOW.md) |
 | Model/loss, runner/controller, baselines, experiments | Planned; not implemented | Follow Report 1; verify each implementation with its own evidence |
-| Full reproduction / strict online / external independence | Unverified | Missing local raw data and evidence about upstream/time/availability/overlap |
+| Full reproduction / strict online / external independence | Unverified | Processing/input reproduction and upstream/time/availability/overlap evidence are still pending |
 
 Foundation handoff: [FOUNDATION_REPORT](FOUNDATION_REPORT.md). Its local results belong to the foundation implementation snapshot; check each PR's corresponding CI run separately.
 
