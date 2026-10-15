@@ -2,7 +2,7 @@
 
 ## Mục tiêu và phạm vi
 
-Tạo working tree sạch để nhóm làm lại processing và phát triển các phase sau theo review. Bản trước ở commit `528680dd73791322ed12f32b2c72a3b58618a428` được giữ bằng remote branch `archive/main-before-reset-20261015`; không rewrite lịch sử hoặc force-push main.
+Tạo working tree sạch để nhóm làm lại processing và phát triển các phase sau theo review. Bản trước ở commit `528680dd73791322ed12f32b2c72a3b58618a428` được giữ bằng remote branch `master`; không rewrite lịch sử hoặc force-push main.
 
 Nhánh đề xuất: `feat/research-foundation`. Đây là implementation để review, chưa đồng nghĩa main đã được thay thế hoặc reviewer đã nghiệm thu. PR #3 về Master Flow thay thế PR #2 sau khi đổi tên nhánh; vẫn được review riêng, chưa merge.
 

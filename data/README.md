@@ -61,4 +61,4 @@ Pipeline mới cần tự audit target/unit, schema, time/bin/availability, miss
 
 ## Nguồn lịch sử còn ở đâu?
 
-Code và reports trước reset vẫn ở [backup main](https://github.com/HungLD9505/adaptive-retention-ev/tree/archive/main-before-reset-20261015). Các manifest là bằng chứng acquisition cũ, không phải chứng nhận pipeline mới đã chạy. Nếu cần dùng release khác, tạo PR catalog mới kèm provenance và ảnh hưởng protocol; không đổi catalog hiện tại cho khớp file bất kỳ.
+Code và reports trước reset vẫn ở [backup main](https://github.com/HungLD9505/adaptive-retention-ev/tree/master). Các manifest là bằng chứng acquisition cũ, không phải chứng nhận pipeline mới đã chạy. Nếu cần dùng release khác, tạo PR catalog mới kèm provenance và ảnh hưởng protocol; không đổi catalog hiện tại cho khớp file bất kỳ.

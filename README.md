@@ -57,7 +57,7 @@ docs/FOUNDATION_REPORT.md Phạm vi và evidence của lần dựng foundation
 
 ## Lịch sử và chuyển đổi
 
-Bản trước được giữ tại [backup `archive/main-before-reset-20261015`](https://github.com/HungLD9505/adaptive-retention-ev/tree/archive/main-before-reset-20261015), commit `528680dd73791322ed12f32b2c72a3b58618a428`. Code processing, processed outputs và trạng thái PASS cũ không được mang sang làm pipeline hoặc kết quả của foundation mới.
+Bản trước được giữ tại [backup `master`](https://github.com/HungLD9505/adaptive-retention-ev/tree/master), commit `528680dd73791322ed12f32b2c72a3b58618a428`. Code processing, processed outputs và trạng thái PASS cũ không được mang sang làm pipeline hoặc kết quả của foundation mới.
 
 [Master Research Flow (PR #3, lịch sử ở #2)](https://github.com/HungLD9505/adaptive-retention-ev/blob/d9dc073a827cb56cb6de36548bcbac898931c7d4/docs/MASTER_RESEARCH_FLOW.md) vẫn là tài liệu học tham khảo; trạng thái triển khai trong đó thuộc codebase trước. PR #3 thay thế PR #2 sau khi đổi tên nhánh thành `docs/master-research-flow`; chưa merge vào foundation này.
 
