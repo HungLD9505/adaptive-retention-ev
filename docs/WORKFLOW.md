@@ -2,7 +2,7 @@
 
 - `main`: the version agreed by the team. Do not push or merge here without a separate instruction for that update.
 - `dev`: daily integration through PRs, CI, and peer review.
-- `master`: unchanged backup of the codebase before the reset.
+- `master`: retained backup; do not modify or delete.
 - `feat/*`, `fix/*`, `docs/*`, `chore/*`: one working branch per issue, created from `dev`; delete after merging.
 
 ## One work cycle

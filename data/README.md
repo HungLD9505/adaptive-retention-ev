@@ -1,6 +1,6 @@
 # Data sources — acquire raw archives for the new pipeline
 
-The reference catalog is [sources.json](sources.json). It records download URLs, releases, local paths, byte sizes, SHA-256 hashes, and publisher checksums where available. Values were copied from the [historical acquisition manifest](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/data/acquisition_20261002_03/source_manifest.json), dated 2026-10-02.
+The reference catalog is [sources.json](sources.json). It records download URLs, releases, local paths, byte sizes, SHA-256 hashes, and publisher checksums where available. Values are recorded in the [acquisition manifest](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/data/acquisition_20261002_03/source_manifest.json), dated 2026-10-02.
 
 **Real archives were not downloaded or reverified in this foundation task.** SHA-256 values are fingerprints recorded by the team during the earlier acquisition, not publisher-provided SHA-256 hashes. The manifest also records the publisher's MD5 for CHARGED. The `list` command reads the catalog; it does not verify current URL availability.
 
@@ -58,7 +58,3 @@ Only use `verify --include-optional` when you intend to acquire the supplemental
 "Raw" does not imply every value is an unprocessed physical observation. UrbanEV station volume is estimated/derived, and the archive includes raw and processed variants. CHARGED Hourly has already been processed by its publisher. A checksum match confirms recorded bytes, not upstream causality, completeness, or suitability for modeling.
 
 The new pipeline must audit target/unit definitions, schema, time/bin/availability, missing/zero treatment, and reproducibility before handoff. Do not replace station-level data with zone-level data; a CHARGED site is a charger cluster. Do not claim Shenzhen is an independent external dataset without mapping/evidence. Strict online readiness remains unverified.
-
-## Historical sources
-
-Code and reports from before the reset remain on [backup branch `master`](https://github.com/HungLD9505/adaptive-retention-ev/tree/master). Historical manifests document the earlier acquisition, not successful execution of the new pipeline. A different release requires a reviewed catalog PR with provenance and protocol implications; do not adjust this catalog to match an arbitrary file.

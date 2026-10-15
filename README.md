@@ -1,8 +1,8 @@
 # Adaptive Retention — Research Foundation
 
-Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. Work follows **Issue → working branch → PR → `dev`**. Updating `main` requires a separate instruction; `master` preserves the previous codebase.
+Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. Work follows **Issue → working branch → PR → `dev`**. Updating `main` requires a separate instruction.
 
-**Current status:** the data source catalog and local archive verification tool are implemented. Raw archives have not been downloaded in this foundation task. The new processing pipeline, models, and experimental results are not implemented yet.
+**Current status:** the data source catalog and local archive verification tool are implemented. Raw archives have not been downloaded in this foundation task. The processing pipeline, models, and experiments are not implemented yet.
 
 ## Start here
 
@@ -56,11 +56,3 @@ docs/WORKFLOW.md          Issue → branch → checks/review → dev; main needs
 docs/FOUNDATION_REPORT.md Foundation scope and evidence
 .github/                 CI, CODEOWNERS, issue and PR templates
 ```
-
-## History and transition
-
-The previous codebase is preserved on [backup branch `master`](https://github.com/HungLD9505/adaptive-retention-ev/tree/master), commit `528680dd73791322ed12f32b2c72a3b58618a428`. Old processing code, processed outputs, and PASS statuses are not carried forward as the new pipeline or its results.
-
-The [Master Research Flow](docs/MASTER_RESEARCH_FLOW.md) distinguishes the new foundation from historical Data/Input evidence and decisions, linked to fixed historical commits. Those records do not count as progress on the new implementation.
-
-If raw archives already exist on another machine, preserve their bytes and verify checksums before use. Do not commit raw or processed data, virtual environments, checkpoints, or run outputs to Git. Maintained repository content, issues, and PR descriptions use English; original source documents and historical evidence remain unchanged.

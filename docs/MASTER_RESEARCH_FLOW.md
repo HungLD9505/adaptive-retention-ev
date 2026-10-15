@@ -1,8 +1,6 @@
 # Master Research Flow — WHY → HOW → PROVE
 
-**Foundation snapshot: 2026-10-15, based on `main` commit `6f8bd97`.**
-
-The previous codebase is preserved on `master`, commit `528680dd73791322ed12f32b2c72a3b58618a428`. Historical evidence links below are pinned to that commit and do not certify implementation of the new pipeline. Current working instructions are in [WORKFLOW](WORKFLOW.md); acquisition instructions are in [data/README](../data/README.md).
+Working instructions: [WORKFLOW](WORKFLOW.md). Data acquisition: [data/README](../data/README.md).
 
 Reference repository: [HungLD9505/adaptive-retention-ev](https://github.com/HungLD9505/adaptive-retention-ev).
 
@@ -10,7 +8,7 @@ This map explains why the research exists, how the proposed method works, and wh
 
 ## 1. How to read this map and interpret status
 
-Read WHY, then HOW, then PROVE. Data/protocol must be ready before running models, even though they are explained under PROVE for readability. Stages 1–14 are conceptual stages, not DEV task IDs from the historical plan.
+Read WHY, then HOW, then PROVE. Data/protocol must be ready before running models, even though they are explained under PROVE for readability. Stages 1–14 describe the research concepts; implementation tasks are tracked in GitHub Issues.
 
 | Label | Meaning and conditions |
 |---|---|
@@ -20,7 +18,7 @@ Read WHY, then HOW, then PROVE. Data/protocol must be ready before running model
 | **Verified by evidence** | A specific artifact/run/check supports a defined PASS scope. Distinguish stored evidence from a fresh rerun. |
 | **Blocked / unknown** | State the missing condition, limited claim, or pending decision. An unknown does not automatically block all development. |
 
-Labels may coexist in a snapshot: the previous Input pipeline had code and stored benchmark evidence while strict online validity remained unverified. The current foundation has no new Data/Input pipeline. In learning discussions, WHY and Retention/Adaptive Retention have been explained; the next topic is the Confidence-based Controller. Team-wide understanding has not been signed off.
+The data catalog and archive verification tool are implemented. Processing, model inputs, models, and controllers remain planned. Learning discussions have covered WHY and Retention/Adaptive Retention; the next topic is the Confidence-based Controller. Team-wide understanding has not been signed off.
 
 ```mermaid
 flowchart TB
@@ -52,7 +50,7 @@ flowchart TB
 
 ### 1. Research Context — Operational setting
 
-Charging demand changes by hour. Forecasting may support power planning, load management, and charging coordination. The task is to use the **latest 24 hours to predict 24 hourly energy values for the next day**, at a fixed daily forecast time, with known calendar information and a missing-value mask. Based on the previous codebase audit, describe the target as **estimated/derived energy**, not independently measured meter readings.
+Charging demand changes by hour. Forecasting may support power planning, load management, and charging coordination. The task is to use the **latest 24 hours to predict 24 hourly energy values for the next day**, at a fixed daily forecast time, with known calendar information and a missing-value mask. Describe the target as **estimated/derived energy**, not independently measured meter readings.
 
 ### 2. Problem Statement — Limited target data
 
@@ -69,7 +67,7 @@ Each target receives **7, 14, or 28 days of initial history**. Limited data may 
 | Transfer Learning | Learn from sources first, transfer a checkpoint, then adapt to each target. |
 | Meta-Learning | Learn to adapt rapidly to new tasks/stations; included as a conceptual comparison. |
 
-This is a literature map, **not a mandatory baseline list**. Transfer Learning is not assumed superior to every alternative. Check interpretations of specific papers against their originals before using them as novelty evidence; see [historical roadmap, section 6][roadmap-evaluation].
+This is a literature map, **not a mandatory baseline list**. Transfer Learning is not assumed superior to every alternative. Check interpretations of specific papers against their originals before using them as novelty evidence.
 
 ### 4. Research Gap — A question whose novelty is unverified
 
@@ -81,7 +79,7 @@ The difference describes a past block, not the entire value of source knowledge 
 
 ## 3. HOW — Proposed method
 
-This section explains the **design**, not executed model code. Detailed equations and gradients are in [historical roadmap, sections 2–3][roadmap-loss] and Report 1 §5–7.
+This section explains the **design**, not executed model code. Detailed equations and gradients are specified in Report 1 §5–7.
 
 ### 5. Source Pretraining — Establish an initialization
 
@@ -137,11 +135,11 @@ Decisions affect future forecasts only; never reselect past predictions after ob
 
 ### 9. Data and Protocol — Determine permitted information
 
-UrbanEV station-level data is the planned primary dataset; CHARGED is site-level and currently a benchmark within its own release. The pre-reset Input implementation used entity-hash splits of 60/20/20, with separate CHARGED splits per city. These are historical settings to consult during rebuilding, not evidence for the new pipeline. Source entities support pretraining; development entities support design/hyperparameter selection; final unseen targets evaluate the locked design. Final-stream labels may support correctly timed online updates, not design revision.
+UrbanEV station-level data is the planned primary dataset; CHARGED is site-level and currently a benchmark within its own release. Source entities support pretraining; development entities support design/hyperparameter selection; final unseen targets evaluate the locked design. Final-stream labels may support correctly timed online updates, not design revision.
 
-The previous implementation's contract was `X_hist[24,7]`, `C_future[24,5]`, `Y[24]`, with p95 scaling from the permitted prefix, separate missing-X masks, and no filling of Y. Calendar information is known in advance; do not add unavailable weather/price features. Historical deployment dates were UrbanEV 2022-12-01 and CHARGED 2023-07-01 under the published clock. Historical details, not execution instructions for the new foundation: [Input README][input-readme], [Input handoff][input-handoff], and [plan section 7][plan-input].
+Reference settings for input implementation are entity-hash splits of 60/20/20, separate CHARGED splits per city, `X_hist[24,7]`, `C_future[24,5]`, and `Y[24]`. Use p95 scaling from the permitted prefix, separate missing-X masks, and no filling of Y. Calendar information is known in advance; do not add unavailable weather/price features. Reference deployment dates are UrbanEV 2022-12-01 and CHARGED 2023-07-01 under the published clock. These settings require implementation, protocol review, and verification before use in experiments.
 
-Historical replay streams data chronologically to simulate limited target history. The previous protocol **assumed** labels were available at the exclusive horizon end; actual arrival, timezone/DST/bin semantics, and upstream masks remain unverified. Local causal checks cannot undo possible upstream future-dependent processing. Describe results only as a published-data benchmark; the strict causal gate remains open.
+Historical replay streams data chronologically to simulate limited target history. Label availability at the exclusive horizon end is an **assumption**; actual arrival, timezone/DST/bin semantics, and upstream masks remain unverified. Local causal checks cannot undo possible upstream future-dependent processing. Describe results only as a published-data benchmark until the strict causal gate is resolved.
 
 ### 10. Main Experiments — Required comparisons
 
@@ -181,55 +179,18 @@ Possible proposals include mismatch, behavioral drift, missing-data scenarios, a
 
 The defense follows context → difficulty → hypothesis → comparison → evidence → limitations. If confidence provides no benefit or overhead is excessive, narrow claims accordingly. Good results do not prove novelty; no forecasting findings support conclusions yet.
 
-## 5. Foundation status and historical evidence
-
-### Current status after the reset
+## 5. Implementation status
 
 | Scope | Status | Reference |
 |---|---|---|
 | Research method and flow | Design follows Report 1; effectiveness/novelty unproven | [Report 1](../adaptive_retention_report_1.pdf), WHY/HOW/PROVE above |
 | Raw sources and local file verification | Catalog and verification tool implemented; fixture-based tests | [Data sources](../data/README.md), [source tool](../tools/sources.py), [tests](../tests/test_sources.py) |
 | Raw acquisition on the new foundation | No real archives downloaded/checked in the foundation/flow tasks | Historical URLs/checksums do not prove a fresh acquisition |
-| New processing, audit, and model inputs | Not implemented | New PRs, tests, and reports required under [WORKFLOW](WORKFLOW.md) |
-| Model/loss, runner/controller, baselines, experiments | Planned; not implemented | Follow Report 1; old PASS statuses are not new results |
+| Processing, audit, and model inputs | Not implemented | New PRs, tests, and reports required under [WORKFLOW](WORKFLOW.md) |
+| Model/loss, runner/controller, baselines, experiments | Planned; not implemented | Follow Report 1; verify each implementation with its own evidence |
 | Full reproduction / strict online / external independence | Unverified | Missing local raw data and evidence about upstream/time/availability/overlap |
 
 Foundation handoff: [FOUNDATION_REPORT](FOUNDATION_REPORT.md). Its local results belong to the foundation implementation snapshot; check each PR's corresponding CI run separately.
-
-### Pre-reset snapshot — traceability only
-
-The table and figures below refer to commit `528680d`, preserved on `master`, not the current working tree. Implemented/Verified labels apply only to that historical snapshot. The new pipeline needs new acceptance and evidence; old modules have not been restored to main.
-
-The earlier audit read Report 1, README, roadmap, plan, Data/Input handoffs, `src/data`, `src/inputs`, and linked evidence. This was **inspection of stored code/documents/artifacts**, not a test rerun, full rebuild, or training within the documentation task.
-
-| Historical scope | Status at `528680d` | Evidence / limitation |
-|---|---|---|
-| WHY: context, scarce data, learning approaches | Conceptually discussed; no team-wide signoff | Report 1 §1–4; does not imply all algorithms were implemented. |
-| Gap/novelty | Proposed; novelty/effectiveness unknown | Report 1 §1–3, §9; original literature still needs review. |
-| Data acquisition, processing, audit, EDA | Implemented; stored evidence for candidate panels | [Code][data-code], [execution summary][data-summary], [Data report][data-report]. |
-| Plan development DEV1–DEV3: contract, splits, inputs | Implemented; stored benchmark evidence | [Input core][input-core], [build][input-build], [active runs][input-active], [execution summary][input-summary]. |
-| Source model/training and target adaptation | Proposed / planned; no tracked model/training module in `src` | [Plan section 2, DEV4][plan-development]; Input summary records training false. |
-| Latent retention loss | Concept discussed; implementation planned | No model loss/latent-scale/gradient checks; Report 1 §5. |
-| Adaptive / confidence controller | Adaptive discussed; confidence next in learning; implementation planned | [Roadmap section 3][roadmap-online]; plan DEV5. |
-| Runner, baselines, metrics, ablations, final experiments | Proposed / planned; no execution evidence | Plan DEV5–DEV6, EXP; input windows are not forecasts. |
-| Synthetic stress scenarios | Optional proposed extension | No code/runs; separate scope review required. |
-| Strict online / external independence | Unknown; strict online or independent CHARGED external claims blocked | [UrbanEV contract][urbanev-contract], [CHARGED contract][charged-contract]. Does not block development within the chosen benchmark. |
-| Full reproduction in the audited checkout | Blocked by missing local raw/panels/indices | `data/raw`, `data/processed`, and `data/inputs` were absent on 2026-10-15 and ignored by Git. Restore correct sources/hashes and runtime. |
-
-### Historical evidence stored in Git
-
-- Data summary records 13 tests and readback of two full runs as PASS. Input summary records 11 fixtures + 13 regression tests as PASS. [Verification on 2026-10-07][verification] records both suites rerun successfully with bundled Python 3.12, without a full rebuild or training.
-- Active Input runs were `urbanev_inputs_full_20261004_02` and `charged_inputs_full_20261004_02`. The summary records **226,486 / 782,616 window records**, **39 / 234 readback samples**, and **18 / 108 future-perturbation samples**, respectively. These are entity × budget × origin records, not independent forecasts or model metrics.
-- [UrbanEV QC][urbanev-qc] and [CHARGED QC][charged-qc] record full rebuild agreement for splits/cohorts/scalers/indices/audits and bit-exact tensor samples. The scope covers the checked data/pipeline and samples; it does not prove upstream causality.
-
-### Common historical interpretation errors
-
-1. The 2026-10-02 Data summary says splits/scaling/windows had not run **during the Data phase**. The 2026-10-04 Input summary/handoff records the later Input phase. These are different milestones; do not rewrite history to make them identical. Data report section 12 explains the cross-phase update.
-2. Plan section 7 marks DEV1–DEV5 **of the Input phase** complete, while the section 2 development table leaves model DEV4/controller DEV5/smoke DEV6 unfinished. Read scope as well as task IDs.
-3. The Input handoff retains a Python 3.13 import failure from 2026-10-04, followed by a successful 2026-10-07 rerun with the correct runtime. The older failure is not the latest test status; a stored PASS is not a fresh local rerun.
-4. Report 1 retains its pre-audit proposal status. Execution figures come from historical active artifacts; do not turn the PDF's unaudited proposal status into current implementation progress. Those updates do not resolve strict online assumptions.
-
-Preserve these milestones and figures for traceability; they do not establish completion of Data/Input on the new foundation. Record the exact source/section of any design conflict found during review and handle the decision in a separate PR.
 
 ## 6. Decisions and verification still needed
 
@@ -237,7 +198,7 @@ Preserve these milestones and figures for traceability; they do not establish co
 - **Model/development:** exact model/loss specification, training/update schedule, latent scale, λlow/λhigh/initial level, Bmin, δ, alpha, bootstrap block length, multiple challengers, and tie-breaking. Follow requirements already fixed by Report 1; initial settings are not proven optimal.
 - **Runner/evaluation:** forecast-before-label storage, boundary ordering, checkpoint/optimizer/RNG handling; NTR definition, proxy estimators/calibration, seed list, tuning/cost budgets, and audit branch before final evaluation.
 - **Data claims:** insufficient evidence about timestamps/bin/timezone/DST, actual label arrival, upstream masks, and Shenzhen overlap. CHARGED is not currently established as independent external validation of UrbanEV.
-- **Reproduction:** acquire the catalog's raw archives and verify checksums; build new processing/inputs with reports. Reproduce old snapshots in a separate checkout/runtime; do not assume historical paths exist on another machine.
+- **Reproduction:** acquire the catalog's raw archives and verify checksums; build new processing/inputs with reports. Record source identities, config, runtime, code version, and run IDs.
 
 ## 7. Keep documentation consistent
 
@@ -246,35 +207,11 @@ Preserve these milestones and figures for traceability; they do not establish co
 | [Report 1](../adaptive_retention_report_1.pdf) | Method reference; core changes require a separate decision/review. |
 | **This Master Flow** | Explain stages, link evidence, and record status snapshots; no separate task IDs or schedule. |
 | [Current workflow](WORKFLOW.md) | Issue → branch → checks/report → peer review → dev; main updates need separate authorization. |
-| [Historical research roadmap][roadmap] | Pre-reset method/gate reference, not current progress. |
-| [Historical plan.md][plan] | Pre-reset journal, not a current execution plan. No new plan exists until the team agrees on scope. |
-| New `docs/reports/`, PRs, and run IDs | New implementation evidence; do not overwrite historical reports. |
+| `docs/reports/`, PRs, and run IDs | Implementation evidence and phase handoffs. |
 | [README](../README.md) | Entry point and links to these sources. |
 
 ChatGPT supports theory, literature, and critique; Codex supports inspection, implementation, testing, and technical documentation; GitHub versions work for team review. Discussion conclusions become team decisions only after being recorded in the appropriate document and reviewed.
 
-**After completing a stage:** record code/run IDs, checks, and conclusion scope in the PR/report under WORKFLOW; update the matching status row/link in Master Flow in the same PR. Maintain one current plan once agreed. Do not edit historical plans/roadmaps to represent new progress or copy entire result tables/logs into this flow. Reviewers must check evidence before assigning Implemented/Verified. Learning progress records who discussed what; it is not technical acceptance.
+**After completing a stage:** record code/run IDs, checks, and conclusion scope in the PR/report under WORKFLOW; update the matching status row/link in Master Flow in the same PR. Maintain one current plan once agreed. Do not copy entire result tables/logs into this flow. Reviewers must check evidence before assigning Implemented/Verified. Learning progress records who discussed what; it is not technical acceptance.
 
 After each stage, every member should be able to explain: **What problem does it address? How does it work? What comparison is needed if it is removed? What evidence supports a conclusion?** Answers must match actual understanding, design, and available results.
-
-[roadmap-evaluation]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/docs/RESEARCH_ROADMAP.md#6-evaluation-v%C3%A0-ti%C3%AAu-ch%C3%AD-k%E1%BA%BFt-lu%E1%BA%ADn
-[roadmap-loss]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/docs/RESEARCH_ROADMAP.md#2-model-loss-v%C3%A0-gradient--c%C3%A1i-g%C3%AC-%C4%91%C6%B0%E1%BB%A3c-h%E1%BB%8Dc
-[roadmap-online]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/docs/RESEARCH_ROADMAP.md#3-online-lifecycle-%C4%91%C3%BAng-th%E1%BB%A9-t%E1%BB%B1-nh%C3%A2n-qu%E1%BA%A3
-[input-readme]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/src/inputs/README.md
-[input-handoff]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/BAO_CAO_DAU_VAO_MODEL.md
-[plan-input]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/plan.md#7-phase-%C4%91%E1%BA%A7u-v%C3%A0o-model--quy%E1%BA%BFt-%C4%91%E1%BB%8Bnh-v%C3%A0-checklist-%C4%91ang-tri%E1%BB%83n-khai
-[data-code]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/src/data/README.md
-[data-summary]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/data/execution_summary.json
-[data-report]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/BAO_CAO_PHASE_DATA.md
-[input-core]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/src/inputs/core.py
-[input-build]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/src/inputs/build.py
-[input-active]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/inputs/active_runs.json
-[input-summary]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/inputs/execution_summary.json
-[plan-development]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/plan.md#2-k%E1%BA%BF-ho%E1%BA%A1ch-development
-[urbanev-contract]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/inputs/urbanev_inputs_full_20261004_02/data_contract.json
-[charged-contract]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/inputs/charged_inputs_full_20261004_02/data_contract.json
-[verification]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/review/roadmap_20261007/verification.json
-[urbanev-qc]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/inputs/urbanev_inputs_full_20261004_02/qc_supplement.md
-[charged-qc]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/inputs/charged_inputs_full_20261004_02/qc_supplement.md
-[roadmap]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/docs/RESEARCH_ROADMAP.md
-[plan]: https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/plan.md

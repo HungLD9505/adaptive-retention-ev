@@ -2,7 +2,7 @@
 
 - Read the issue and acceptance criteria, `README.md`, `docs/WORKFLOW.md`, and `data/README.md` before starting. Stay within the issue scope and record findings outside it.
 - Report 1 is the method reference. Do not silently change the 24→24 task, history budgets, loss, retention, or controller. Submit method changes separately for review.
-- Do not present the research gap, novelty, or effectiveness as proven. Old code results and fixtures are not evidence for the new implementation.
+- Do not present the research gap, novelty, or effectiveness as proven. Test fixtures alone are not evidence of research effectiveness.
 - Use a separate branch and PR for each implementation. Choose `feat/`, `fix/`, `docs/`, or `chore/` by purpose; use `archive/` for historical snapshots. This applies to people and coding agents. Never push directly or force-push to `main`.
 - Branch from `dev`, target PRs at `dev`, and link the issue. Do not merge PRs autonomously. CI must pass and a peer other than the author must approve. Updating `main` requires a separate user/team instruction for that update; `master` preserves the backup.
 - `data/sources.json` records download sources and historical fingerprints. State when real archives have not been checked locally; historical checksums are not proof of a fresh download.
