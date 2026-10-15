@@ -1,53 +1,38 @@
-# Bàn giao foundation thay main — 15/10/2026
+# Foundation verification — 2026-10-15
 
-## Mục tiêu và phạm vi
+## Scope
 
-Tạo working tree sạch để nhóm làm lại processing và phát triển các phase sau theo review. Bản trước ở commit `528680dd73791322ed12f32b2c72a3b58618a428` được giữ bằng remote branch `master`; không rewrite lịch sử hoặc force-push main.
+The repository provides the research flow, collaboration rules, data source catalog, and local archive verification tool for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. [Report 1](../adaptive_retention_report_1.pdf) defines the method; [WORKFLOW](WORKFLOW.md) defines development and review.
 
-Nhánh đề xuất: `feat/research-foundation`. Đây là implementation để review, chưa đồng nghĩa main đã được thay thế hoặc reviewer đã nghiệm thu. PR #3 về Master Flow thay thế PR #2 sau khi đổi tên nhánh; vẫn được review riêng, chưa merge.
+## Implemented
 
-## Những gì mang sang
+- `data/sources.json`: archive URLs/releases, sizes, SHA-256 hashes, publisher checksums, and acquisition provenance.
+- `python -m tools.sources list`: list recorded sources without network requests.
+- `python -m tools.sources verify`: read local sizes/checksums without downloading or modifying data; failures return nonzero exit codes.
+- Catalog, duplicate ID/path, and resolved path guards; tests independent of real datasets.
+- Python 3.12, Ruff, Ubuntu/Windows CI, working rules, CODEOWNERS, and PR workflow.
 
-- Report 1 nguyên bytes, SHA-256 `cafc1db09a7fda4e196808a96cedf1b18098a4e7ff859d272402e049ebd65bbc`.
-- URL/release, số bytes, SHA-256 và publisher checksum của ba archive trong acquisition manifest ngày 02/10/2026: UrbanEV chính, supplemental tùy chọn và CHARGED Hourly standard.
-- Provenance trỏ chính xác về commit/path của manifest cũ, giữ khác biệt giữa SHA team quan sát và checksum publisher.
+## Verification
 
-Không mang code Data/Input cũ, processed data, window indices, reports hoặc PASS flags cũ sang làm pipeline/evidence mới. Chúng vẫn truy cập được trong backup và Git history. Không có raw directories trong checkout lúc bắt đầu; không có raw file nào bị sửa/xóa trong task này.
+Local checks use Python 3.12 with a temporary development environment outside the repository.
 
-## Đã triển khai trên nhánh mới
-
-- `data/sources.json` và hướng dẫn lấy đúng archive, vị trí đặt file và giới hạn dữ liệu.
-- `python -m tools.sources list`: liệt kê nguồn đã ghi, không gọi mạng.
-- `python -m tools.sources verify`: kiểm tra local size/SHA-256/publisher checksum, không ghi hoặc tải data; failure có exit code khác 0.
-- Guards cho catalog, duplicate IDs/paths và resolved paths; unit fixtures không phụ thuộc data thật.
-- Python 3.12, venv, Ruff pin chính xác; không mang dependencies xử lý/ML cũ sang.
-- CI Ubuntu/Windows: catalog, tests, lint, format và diff checks; actions pin theo commit SHA.
-- AGENTS, CODEOWNERS, PR template, ignore rules và quy trình branch → checks/report → review → main.
-- Text dùng LF; binary/raw checksum không phụ thuộc chuyển line endings.
-
-## Kiểm tra local
-
-Commands chạy từ repository root bằng Python 3.12; môi trường phát triển tạo ở thư mục tạm ngoài repo.
-
-| Kiểm tra | Kết quả |
+| Check | Result |
 |---|---|
-| Unit fixtures | 9 tests PASS: selection, missing, valid file, size mismatch, same-size corruption, publisher checksum, path guards và CLI exit codes |
-| Archive identities so với manifest lịch sử | 3/3 khớp URL, size, SHA-256, publisher checksum |
-| Report 1 so với `origin/main` | Nguyên bytes, hash khớp |
-| `tools.sources list` | PASS; không tải data |
-| Ruff, dependency check, links và diff | PASS: Ruff lint/format, pip check; local document links và git diff --check |
-| CI trên GitHub | Chờ chạy và team review; không coi cấu hình workflow là một run PASS |
+| Unit fixtures | 9 tests PASS: selection, missing/valid files, size mismatch, same-size corruption, publisher checksums, path guards, and CLI exit codes |
+| Archive identities against the acquisition manifest | 3/3 match URLs, sizes, SHA-256, and publisher checksums |
+| Report 1 integrity | SHA-256 `cafc1db09a7fda4e196808a96cedf1b18098a4e7ff859d272402e049ebd65bbc` |
+| `tools.sources list` | PASS; no data downloaded |
+| Ruff and dependencies | Lint/format and pip check PASS |
 
-Tests dùng bytes tổng hợp, không phải ZIP dataset thật và không là bằng chứng data đã tải được. Checksum PASS trong fixtures chỉ kiểm tra hành vi tool.
+Check each PR's CI run for its exact commit. Fixture checksum matches verify tool behavior; they do not establish real dataset availability or reproduction.
 
-## Chưa làm / giới hạn
+## Pending work and limits
 
-- Chưa tải, extract hoặc checksum lại các archive thật. Download endpoints giữ theo provenance lịch sử; không khẳng định link đang tải được.
-- Chưa có acquisition/processing pipeline mới, data audit mới, inputs, model, loss/controller hoặc experiments.
-- Các unknown về upstream processing/masks, time/bin/label arrival và Shenzhen independence vẫn cần audit; chưa claim strict online.
-- Branch protection chưa được cấu hình: tài khoản thực thi không có admin; API còn báo giới hạn private-repo rulesets. CI/CODEOWNERS không tự tạo enforcement.
-- Chưa xác nhận mọi thành viên hiểu method hoặc đã setup máy. Peer review còn cần thực hiện trước merge.
+- Real archives have not been downloaded, extracted, or rehashed in this foundation task. Current endpoint availability is unverified.
+- Acquisition/processing pipelines, data audits, model inputs, models, loss/controller, and experiments are not implemented.
+- Upstream processing/masks, time/bin/label arrival, and Shenzhen independence require audit. Strict online claims remain unsupported.
+- Branch protection is not configured. The executing account has no admin access. CI/CODEOWNERS do not enable enforcement themselves.
 
-## Bước bàn giao tiếp theo
+## Next phase
 
-Sau khi foundation được review/merge: tạo nhánh acquisition để tải hoặc phục hồi đúng raw, xác nhận size/checksums và ghi manifest mới. Sau đó mới triển khai processing mới với acceptance criteria, fixtures và report riêng. Không sửa expected hashes để nhận một release khác hoặc đánh dấu phase sau hoàn thành từ evidence cũ.
+Acquire the catalog's raw archives, verify sizes/checksums, and record an acquisition manifest. Implement processing with acceptance criteria, fixtures, and a report under WORKFLOW. Keep dataset identity and run evidence traceable.

@@ -1,15 +1,26 @@
-# Quy tắc làm việc
+# Working rules
 
-- Đọc `README.md`, `docs/WORKFLOW.md` và `data/README.md` trước khi làm task.
-- Report 1 là nguồn chuẩn phương pháp. Không âm thầm đổi task 24→24, budgets, loss, retention hoặc controller; ghi đề xuất thay đổi riêng để review.
-- Không coi research gap, novelty hoặc hiệu quả là đã chứng minh. Không dùng kết quả/fixtures của code cũ như kết quả của implementation mới.
-- Mọi implementation trên nhánh riêng và qua PR. Dùng prefix theo mục đích: `feat/`, `fix/`, `docs/`, `chore/`; nhánh lưu lịch sử dùng `archive/`. Quy tắc áp dụng cho cả thành viên và coding agent. Không push trực tiếp hoặc force-push `main`.
-- `main` chỉ nhận phần có tests/checks phù hợp, báo cáo bàn giao và ít nhất một reviewer khác tác giả. Không tự merge khi chưa có review theo quy trình nhóm.
-- `data/sources.json` giữ nguồn tải và fingerprints lịch sử. Nêu rõ chưa kiểm tra file thật nếu raw chưa có; checksum lịch sử không phải bằng chứng vừa tải lại.
-- Không ghi đè, chỉnh sửa hoặc xóa raw archives. Không fill target labels, coi missing là zero hoặc dùng future labels trước availability.
-- Dataset, environment, checkpoints và runs lớn giữ ngoài Git. Không commit secrets hoặc credentials.
-- Foundation chưa có processing/model. Chỉ tạo module khi có implementation cần thiết; tránh framework hoặc abstraction chưa có use case.
-- Với pipeline mới: ghi config, source/input identity, code version, runtime, run ID và acceptance scope; tạo output mới, không ghi đè run cũ.
-- Tests phải dùng fixtures độc lập khi có thể. Tests/CI thông thường không tải raw hoặc chạy training dài.
-- Chạy các commands kiểm tra trong README, báo rõ pass/fail/chưa chạy và giới hạn. Không sửa expected hashes hoặc fixtures để che một thay đổi chưa giải thích.
-- Đưa report của phase/PR vào `docs/reports/` khi có bàn giao thực tế; không tạo nhiều bản plan mâu thuẫn.
+- Read the issue and acceptance criteria, `README.md`, `docs/WORKFLOW.md`, and `data/README.md` before starting. Stay within the issue scope and record findings outside it.
+- Report 1 is the method reference. Do not silently change the 24→24 task, history budgets, loss, retention, or controller. Submit method changes separately for review.
+- Do not present the research gap, novelty, or effectiveness as proven. Test fixtures alone are not evidence of research effectiveness.
+- Use a separate branch and PR for each implementation. Choose `feat/`, `fix/`, `docs/`, or `chore/` by purpose; use `archive/` for historical snapshots. This applies to people and coding agents. Never push directly or force-push to `main`.
+- Branch from `dev`, target PRs at `dev`, and link the issue. Do not merge PRs autonomously. CI must pass and a peer other than the author must approve. Updating `main` requires a separate user/team instruction for that update; `master` preserves the backup.
+- `data/sources.json` records download sources and historical fingerprints. State when real archives have not been checked locally; historical checksums are not proof of a fresh download.
+- Never overwrite, modify, or delete raw archives. Do not fill target labels, treat missing values as zero, or use future labels before availability.
+- Keep datasets, environments, checkpoints, and large runs outside Git. Never commit secrets or credentials.
+- The foundation has no processing pipeline or model yet. Create modules only when implementing a concrete need; avoid speculative frameworks and abstractions.
+- New pipelines must record config, source/input identity, code version, runtime, run ID, and acceptance scope. Create new outputs rather than overwriting old runs.
+- Prefer independent test fixtures. Routine tests and CI must not download raw data or run long training jobs.
+- Run the README checks and report what passed, failed, or was not run, including limitations. Never change expected hashes or fixtures to conceal an unexplained change.
+- Use `docs/reports/` for actual phase handoffs; do not create competing plans.
+- After a PR is merged, verify its work is preserved on the target branch, delete the finished remote/local working branch, and close its issue once all acceptance criteria are met. Close superseded PRs with a replacement link. Preserve `main`, `dev`, `master`, and branches with unmerged work or active PRs. This cleanup may run without another permission request; it does not authorize merging.
+- Write maintained documentation, code comments, issues, and PR descriptions in English. Preserve original source documents and historical evidence.
+
+## Coding essentials
+
+- Use descriptive names and give each function/module one responsibility. Share logic when a real use case requires it.
+- Python files over 500 lines need a PR explanation and reviewer agreement. Do not split files mechanically to satisfy a line count. Keep functions short and readable.
+- Add type hints to new public functions/interfaces. Run Ruff lint and format as documented in the README.
+- Cover new logic with appropriate tests and bug fixes with regression tests. Documentation and formatting changes do not need artificial tests.
+- Pass paths, seeds, and hyperparameters through config or arguments instead of tying algorithms to one machine. Do not build a config framework prematurely.
+- Use `logging` for core diagnostics when needed; CLIs may `print` results. Never swallow errors with `except: pass`. Validation/QC failures must report the error and return failure.

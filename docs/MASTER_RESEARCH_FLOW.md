@@ -1,258 +1,217 @@
 # Master Research Flow — WHY → HOW → PROVE
 
-**Đối chiếu foundation ngày 15/10/2026, trên nền `main` commit `6f8bd97`.**
+Working instructions: [WORKFLOW](WORKFLOW.md). Data acquisition: [data/README](../data/README.md).
 
-Codebase trước được giữ tại nhánh `master`, commit `528680dd73791322ed12f32b2c72a3b58618a428`. Các liên kết evidence lịch sử bên dưới cố định theo commit đó; chúng không chứng nhận pipeline mới đã triển khai. Hướng dẫn làm việc hiện hành ở [WORKFLOW](WORKFLOW.md), nguồn data ở [data/README](../data/README.md).
-Repository chuẩn: [HungLD9505/adaptive-retention-ev](https://github.com/HungLD9505/adaptive-retention-ev).
+Reference repository: [HungLD9505/adaptive-retention-ev](https://github.com/HungLD9505/adaptive-retention-ev).
 
-Đây là bản đồ để mọi thành viên hiểu vì sao nghiên cứu tồn tại, phương pháp hoạt động thế nào và cần bằng chứng gì để kết luận. [Report 1](../adaptive_retention_report_1.pdf) là nguồn chuẩn thiết kế. Giữ phương pháp cốt lõi đã gửi giảng viên; mọi mở rộng phải được đề xuất và review riêng. Research gap, novelty và hiệu quả vẫn cần kiểm chứng.
+This map explains why the research exists, how the proposed method works, and what evidence is needed for conclusions. [Report 1](../adaptive_retention_report_1.pdf) is the design reference. Preserve the core method submitted to the supervisor; propose and review extensions separately. The research gap, novelty, and effectiveness still need verification.
 
-## 1. Cách đọc và phân biệt trạng thái
+## 1. How to read this map and interpret status
 
-Đọc WHY trước, sau đó HOW, cuối cùng PROVE. Data/protocol phải sẵn sàng trước khi chạy model, dù được giải thích trong phần PROVE để flow dễ theo dõi. Số mục 1–14 dưới đây là bản đồ khái niệm, không phải mã task DEV trong plan lịch sử.
+Read WHY, then HOW, then PROVE. Data/protocol must be ready before running models, even though they are explained under PROVE for readability. Stages 1–14 describe the research concepts; implementation tasks are tracked in GitHub Issues.
 
-| Nhãn | Nghĩa và điều kiện sử dụng |
+| Label | Meaning and conditions |
 |---|---|
-| **Conceptually understood — đã trao đổi khái niệm** | Nội dung đã được giải thích trong trao đổi học tập. Không chứng nhận mọi thành viên đã hiểu, code đã có hoặc phương pháp đã đúng. |
-| **Proposed / planned — đề xuất / kế hoạch** | Có trong Report 1 hoặc kế hoạch được ghi nhận; chưa có implementation/evidence hoàn thành tương ứng. |
-| **Implemented — đã triển khai** | Có code cụ thể trong repo. Phải chỉ ra module và phạm vi; tồn tại code chưa chứng minh đã chạy đúng. |
-| **Verified by evidence — có bằng chứng kiểm tra** | Có artifact, run/check cụ thể và phạm vi PASS. Phân biệt evidence đã lưu với lần chạy lại hiện tại. |
-| **Blocked / unknown — bị chặn / chưa rõ** | Nêu điều kiện thiếu, claim bị giới hạn hoặc quyết định cần chốt. Unknown không tự động chặn mọi việc development. |
+| **Conceptually understood** | Explained in learning discussions; does not certify team-wide understanding, implementation, or correctness. |
+| **Proposed / planned** | Included in Report 1 or a recorded plan, without corresponding completed implementation/evidence. |
+| **Implemented** | Concrete code exists; identify its module and scope. Code existence alone does not prove correct execution. |
+| **Verified by evidence** | A specific artifact/run/check supports a defined PASS scope. Distinguish stored evidence from a fresh rerun. |
+| **Blocked / unknown** | State the missing condition, limited claim, or pending decision. An unknown does not automatically block all development. |
 
-Các nhãn có thể cùng tồn tại trong một snapshot: Input ở codebase trước có code và stored evidence trong phạm vi benchmark, nhưng strict online vẫn chưa được xác minh. Foundation hiện tại chưa có pipeline Data/Input mới. Tiến độ học theo trao đổi hiện tại: WHY và khái niệm Retention/Adaptive Retention đã được giải thích; bước học tiếp theo là Confidence-based Controller. Chưa có biên bản nghiệm thu hiểu biết toàn team.
+The data catalog and archive verification tool are implemented. Processing, model inputs, models, and controllers remain planned. Learning discussions have covered WHY and Retention/Adaptive Retention; the next topic is the Confidence-based Controller. Team-wide understanding has not been signed off.
 
 ```mermaid
 flowchart TB
-    subgraph WHY["WHY — Vì sao nghiên cứu?"]
-        W1["1. Bối cảnh vận hành"] --> W2["2. Target ít lịch sử"]
-        W2 --> W3["3. Các hướng giải quyết"]
-        W3 --> W4["4. Câu hỏi retention và gap ứng viên"]
+    subgraph WHY["WHY — Why this research?"]
+        W1["1. Operational context"] --> W2["2. Limited target history"]
+        W2 --> W3["3. Existing approaches"]
+        W3 --> W4["4. Retention question and candidate gap"]
     end
-    subgraph HOW["HOW — Phương pháp đề xuất"]
+    subgraph HOW["HOW — Proposed method"]
         H5["5. Source pretraining"] --> H6["6. Target adaptation"]
         H6 --> H7["7. Latent retention loss"]
         H7 --> H8["8. Adaptive retention controller"]
     end
-    subgraph PROVE["PROVE — Cần chứng minh bằng gì?"]
-        P9["9. Data và protocol"] --> P10["10. Đối chứng và thực nghiệm"]
-        P10 --> P11["11. Metrics, stability và chi phí"]
+    subgraph PROVE["PROVE — What evidence is needed?"]
+        P9["9. Data and protocol"] --> P10["10. Baselines and experiments"]
+        P10 --> P11["11. Metrics, stability and cost"]
         P11 --> P12["12. Ablation"]
-        P12 --> P14["14. Kết quả, giới hạn và bảo vệ"]
-        P13["13. Synthetic stress test — tùy chọn"] -.-> P14
+        P12 --> P14["14. Results, limitations and defense"]
+        P13["13. Synthetic stress tests — optional"] -.-> P14
     end
     W4 --> H5
     H8 --> P10
     W4 --> P9
-    P9 -. "đầu vào cho triển khai" .-> H5
-    P12 -. "mở rộng riêng" .-> P13
+    P9 -. "implementation inputs" .-> H5
+    P12 -. "separate extension" .-> P13
 ```
 
 ## 2. WHY — Research foundation
 
-### 1. Research Context — Bối cảnh thực tế
+### 1. Research Context — Operational setting
 
-Nhu cầu sạc thay đổi theo giờ. Dự báo trước có thể hỗ trợ lập kế hoạch cấp điện, quản lý phụ tải và điều phối sạc. Bài toán của nhóm: mỗi ngày tại giờ cố định, dùng **24 giờ gần nhất để dự báo 24 giá trị năng lượng theo giờ tiếp theo**, kèm thông tin lịch biết trước và missing mask. Theo audit của codebase trước, gọi mục tiêu là năng lượng **ước tính/derived**, không gọi là đo công tơ độc lập.
+Charging demand changes by hour. Forecasting may support power planning, load management, and charging coordination. The task is to use the **latest 24 hours to predict 24 hourly energy values for the next day**, at a fixed daily forecast time, with known calendar information and a missing-value mask. Describe the target as **estimated/derived energy**, not independently measured meter readings.
 
-### 2. Problem Statement — Target ít dữ liệu
+### 2. Problem Statement — Limited target data
 
-Target chỉ được cấp **7, 14 hoặc 28 ngày lịch sử ban đầu**. Ít dữ liệu có thể gây overfit và thiếu quan sát về quy luật sử dụng. Đây là cold-start mô phỏng bằng historical replay, không khẳng định các trạm trong dataset vừa mở. Lịch sử ban đầu khác input window 24 giờ; dữ liệu tiếp tục tích lũy sau deployment mô phỏng.
+Each target receives **7, 14, or 28 days of initial history**. Limited data may cause overfitting and insufficient coverage of usage patterns. This is simulated cold-start through historical replay; it does not assert that dataset stations actually just opened. The initial history budget differs from the 24-hour input window. Data continues accumulating after simulated deployment.
 
-### 3. Existing Approaches — Các hướng đã tìm hiểu
+### 3. Existing Approaches — Approaches considered
 
-| Nhóm | Ví dụ / câu hỏi cần hiểu |
+| Family | Examples / questions to understand |
 |---|---|
-| Statistical methods | Seasonal Naive, ARIMA, ETS: khai thác quy luật chuỗi thời gian; Seasonal Naive sao chép chu kỳ đã chọn. |
-| Machine Learning | RF, XGBoost, SVR: học quan hệ giữa đặc trưng và nhu cầu; cần thiết kế đặc trưng và đầu ra phù hợp horizon. |
-| Deep Learning | LSTM, GRU, Transformer: học biểu diễn từ chuỗi; khả năng biểu diễn không bảo đảm tốt hơn với ít dữ liệu. |
-| Joint / Multi-task Learning | Học từ nhiều trạm, có thể chia sẻ phần biểu diễn và có phần riêng theo nhiệm vụ. |
-| Transfer Learning | Học từ source trước, chuyển checkpoint rồi thích nghi riêng với target. |
-| Meta-Learning | Học để thích nghi nhanh với nhiệm vụ/trạm mới; là hướng so sánh khái niệm. |
+| Statistical methods | Seasonal Naive, ARIMA, ETS exploit time-series structure; Seasonal Naive repeats a selected cycle. |
+| Machine Learning | RF, XGBoost, SVR learn feature-demand relationships; features and outputs must fit the forecast horizon. |
+| Deep Learning | LSTM, GRU, Transformer learn sequence representations; expressive capacity does not guarantee better results with scarce data. |
+| Joint / Multi-task Learning | Learn across stations, potentially sharing representations with task-specific components. |
+| Transfer Learning | Learn from sources first, transfer a checkpoint, then adapt to each target. |
+| Meta-Learning | Learn to adapt rapidly to new tasks/stations; included as a conceptual comparison. |
 
-Đây là bản đồ literature, **không phải danh sách baseline bắt buộc**. Không mặc định Transfer Learning tốt hơn mọi hướng còn lại. Các diễn giải về paper cụ thể phải được đối chiếu bài gốc trước khi dùng làm bằng chứng novelty; xem [roadmap, mục 6](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/docs/RESEARCH_ROADMAP.md#6-evaluation-và-tiêu-chí-kết-luận).
+This is a literature map, **not a mandatory baseline list**. Transfer Learning is not assumed superior to every alternative. Check interpretations of specific papers against their originals before using them as novelty evidence.
 
-### 4. Research Gap — Câu hỏi cụ thể, chưa xác nhận novelty
+### 4. Research Gap — A question whose novelty is unverified
 
-Giữ source quá mạnh có thể cản thích nghi; thả ràng buộc quá sớm có thể làm mất biểu diễn hữu ích. Source error, uncertainty của dự báo và behavior drift là **proxy**, chưa trực tiếp đo chênh lệch hiệu quả giữa các mức retention.
+Strong source retention may hinder adaptation; releasing the constraint too early may lose useful representations. Source error, predictive uncertainty, and behavioral drift are **proxies**, not direct measurements of performance differences between retention levels.
 
-**Câu hỏi ứng viên:** so sánh sai số đã quan sát giữa các quá trình học có retention khác nhau, rồi chỉ đổi mức khi bằng chứng cải thiện đủ rõ, có giúp hơn fixed retention, Simple Online Best-λ và các controller theo proxy không?
+**Candidate question:** can comparisons of observed errors from learning processes with different retention levels, switching only when improvement evidence is sufficiently clear, outperform fixed retention, Simple Online Best-λ, and proxy controllers?
 
-Chênh lệch đó phản ánh block đã qua, không phải toàn bộ giá trị kiến thức source hay bảo đảm cho tương lai. Confidence về chênh lệch hiệu quả khác uncertainty của dự báo source. Kiến thức source không mặc định mất giá trị khi target có thêm dữ liệu. Report 1 §1–3, §9 đặt giới hạn claim; chưa hoàn tất novelty check.
+The difference describes a past block, not the entire value of source knowledge or a guarantee about the future. Confidence in a performance difference differs from uncertainty in source predictions. Source knowledge does not automatically lose value as target data grows. Report 1 §1–3 and §9 limit claims; novelty checking is incomplete.
 
 ## 3. HOW — Proposed method
 
-Phần này diễn giải **thiết kế**, chưa phải mô tả code model đã chạy. Công thức chi tiết và gradient nằm ở [roadmap, mục 2–3](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/docs/RESEARCH_ROADMAP.md#2-model-loss-và-gradient--cái-gì-được-học) và Report 1 §5–7.
+This section explains the **design**, not executed model code. Detailed equations and gradients are specified in Report 1 §5–7.
 
-### 5. Source Pretraining — Tạo điểm xuất phát
+### 5. Source Pretraining — Establish an initialization
 
-Một GRU học từ tập source stations cố định, chỉ dùng lịch sử được phép trước mốc deployment. Thiết kế khởi đầu: GRU 2 lớp, hidden size 64; MLP nhận biểu diễn cùng lịch tương lai, Softplus tạo 24 dự báo không âm. Lưu checkpoint encoder/head. GRU là backbone hỗ trợ, chưa phải đóng góp mới.
+Train a GRU on a fixed set of source stations, using only permitted history before deployment. Initial design: two GRU layers, hidden size 64; an MLP combines the representation with future calendar information, and Softplus produces 24 nonnegative forecasts. Save encoder/head checkpoints. The GRU is a supporting backbone, not an established novel contribution.
 
-**Vì sao cần:** cung cấp điểm xuất phát đã học từ nhiều trạm. Bỏ source initialization là một ablation cần kiểm tra.
+**Purpose:** provide an initialization learned across stations. Removing source initialization is an ablation to test.
 
-### 6. Target Adaptation — Học đặc điểm của target
+### 6. Target Adaptation — Learn target characteristics
 
-Copy encoder và head tương thích từ source sang target; thích nghi bằng đúng lịch sử ban đầu được cấp. Sau deployment, dự báo và lưu trước; khi đủ 24 nhãn hợp lệ đã đến mới score/update theo thuật toán đã khóa. Source encoder tham chiếu được freeze/eval, không nhận gradient.
+Copy compatible encoder/head parameters from source to target and adapt using exactly the assigned initial history. After deployment, forecast and store first; score/update only once all 24 valid labels have arrived, following the locked algorithm. Freeze the reference source encoder in evaluation mode; it receives no gradients.
 
-**Vì sao cần:** target có đặc điểm riêng. Frozen Source là đối chứng kiểm tra điều gì xảy ra nếu không cập nhật.
+**Purpose:** accommodate target-specific behavior. Frozen Source tests the effect of making no updates.
 
-### 7. Latent Retention Loss — Giữ biểu diễn source đến mức nào?
+### 7. Latent Retention Loss — Control representation deviation
 
-Cùng input target đi qua target encoder đang học và source encoder đóng băng. Retention loss phạt độ lệch giữa hai biểu diễn, chuẩn hóa từng chiều bằng độ lệch chuẩn latent tính trên source-training rồi giữ cố định.
+Pass the same target input through the trainable target encoder and frozen source encoder. Retention penalizes differences between their representations, normalized per dimension by latent standard deviations computed on source-training data and then held fixed.
 
 `L_total = L_forecast + λ × L_retain`
 
-Forecast loss là MAE trung bình 24 giờ trên thang chuẩn hóa; metrics đổi về đơn vị gốc. Retention loss là trung bình bình phương chênh lệch latent đã chuẩn hóa, đúng Report 1 (2); gradient không đi vào source. λ = 0 là full fine-tuning, vẫn khởi tạo từ source. λ cao hơn tăng ràng buộc, không phải phần trăm kiến thức giữ lại hoặc learning rate. Giữ biểu diễn gần source chưa tự chứng minh dự báo target tốt hơn.
+Forecast loss is mean MAE over 24 hours on the normalized scale; evaluation metrics use original units. Retention loss is the mean squared normalized latent difference, as in Report 1 equation (2); gradients do not enter the source encoder. λ = 0 means full fine-tuning, still initialized from source. A higher λ strengthens the constraint; it is neither a percentage of retained knowledge nor a learning rate. Representation similarity alone does not prove better target forecasts.
 
-**Vì sao cần:** tạo cách kiểm soát độ lệch biểu diễn trong lúc thích nghi. Fixed Retention và Full Fine-tuning giúp kiểm tra giá trị của ràng buộc này.
+**Purpose:** control representation changes during adaptation. Fixed Retention and Full Fine-tuning test the constraint's value.
 
-### 8. Adaptive Retention Controller — Quyết định cho block tiếp theo
+### 8. Adaptive Retention Controller — Decide for the next block
 
-Thay vì cố định λ, so sánh các quá trình học theo block. Thiết kế khởi đầu là **`{0, λlow, λhigh}` và block 14 ngày**; chưa chứng minh tối ưu. Hai λ dương, mức khởi đầu và cấu hình confidence phải chọn trên development rồi khóa trước final. Continuous/learnable λ hoặc thêm mức là mở rộng cần review riêng.
+Compare learning processes in blocks instead of fixing λ. The initial design uses **`{0, λlow, λhigh}` and 14-day blocks**; optimality is unproven. Choose the two positive λ values, initial level, and confidence configuration on development and lock them before final evaluation. Continuous/learnable λ or additional levels are extensions requiring separate review.
 
 ```mermaid
 flowchart TB
-    A["Đầu block: fork cùng model và optimizer state"] --> B["3 candidate, mỗi nhánh một mức retention"]
-    B --> C["Một nhánh active được chọn trước block; hai nhánh shadow"]
-    C --> D["Mỗi ngày: cả 3 dự báo và lưu trước nhãn"]
-    D --> E["Khi đủ 24 nhãn hợp lệ: paired MAE rồi update từng nhánh"]
-    E --> F["Cuối block: đủ số ngày hợp lệ?"]
-    F -- "Không" --> G["Giữ active đã học"]
-    F -- "Có" --> H["Bootstrap LCB của cải thiện so với active"]
-    H -- "Không challenger đạt LCB > δ" --> G
-    H -- "Có challenger đạt" --> I["Chọn theo LCB và tie-break đã khóa"]
-    G --> J["Mang checkpoint và optimizer đã chọn sang block sau"]
+    A["Block start: fork the same model and optimizer state"] --> B["3 candidates, one retention level each"]
+    B --> C["Active branch selected before block; two shadow branches"]
+    C --> D["Daily: all 3 forecast and store before labels"]
+    D --> E["Once all 24 valid labels arrive: paired MAE, then update each branch"]
+    E --> F["Block end: enough valid days?"]
+    F -- "No" --> G["Keep the trained active branch"]
+    F -- "Yes" --> H["Bootstrap LCB of improvement over active"]
+    H -- "No challenger has LCB > δ" --> G
+    H -- "A challenger qualifies" --> I["Select using LCB and locked tie-break"]
+    G --> J["Carry selected checkpoint and optimizer into next block"]
     I --> J
     J --> A
 ```
 
-Các candidate cùng normalization, data, batch order, update schedule, step count và RNG ghép cặp. Ngày chưa đủ nhãn không được score/update hay tính là ngày hợp lệ; vẫn giữ lịch forecast và log tình trạng thiếu. Lịch forecast không được chọn bằng việc biết trước ngày nào đủ nhãn tương lai.
+Candidates share normalization, data, batch order, update schedules, step counts, and paired RNG. Days without complete labels are not scored, updated, or counted as valid; keep the forecast schedule and log missingness. Do not select forecast dates using advance knowledge of future label completeness.
 
-Paired MAE là so sai số các nhánh **trên cùng ngày**: `d = MAE_active − MAE_challenger`; d dương là challenger tốt hơn trong ngày đó. B là số ngày đủ đáp án. LCB là cận dưới một phía của cải thiện trung bình từ block bootstrap theo ngày. Chỉ switch khi đủ Bmin và LCB > δ. Nếu nhiều nhánh đạt, chọn LCB lớn nhất; khi hòa ưu tiên λ gần hiện tại, rồi thứ tự cố định. Cách xử lý hai challenger và kiểm tra lặp phải được ghi/khóa, không diễn giải confidence như bảo đảm an toàn lâu dài.
+Paired MAE compares branches **on the same day**: `d = MAE_active − MAE_challenger`; positive d means the challenger was better that day. B counts days with complete valid labels. LCB is a one-sided lower confidence bound on mean improvement from a day-block bootstrap. Switch only when Bmin is met and LCB > δ. If multiple branches qualify, choose the largest LCB; ties prefer λ closest to the current level, then a fixed order. Record and lock treatment of the two challengers and repeated testing. Do not interpret confidence as a long-term safety guarantee.
 
-Quyết định chỉ ảnh hưởng dự báo tương lai; không chọn lại dự báo quá khứ sau khi thấy đáp án. Chốt score/update/decision ở boundary trước forecast chịu tác động của block sau. Nếu giữ mức hiện tại, tiếp tục active đã học, không quay lại checkpoint đầu block.
+Decisions affect future forecasts only; never reselect past predictions after observing labels. Complete boundary scoring/update/decisions before the next affected forecast. When retaining the current level, continue the trained active branch rather than reverting to the block-start checkpoint.
 
-**Vì sao cần kiểm chứng:** Simple Online Best-λ có thể đã đủ tốt. Đối chứng này phải dùng cùng candidate/block/checkpoint/update budget, chỉ khác quyết định theo mean MAE thay cho confidence.
+**Why test this:** Simple Online Best-λ may already suffice. It must share candidate/block/checkpoint/update budgets and differ only by selecting on mean MAE rather than confidence.
 
-## 4. PROVE — Experiments & evaluation
+## 4. PROVE — Experiments and evaluation
 
-### 9. Data & Protocol — Xác định dữ liệu nào được phép dùng
+### 9. Data and Protocol — Determine permitted information
 
-UrbanEV station-level là bộ chính dự kiến; CHARGED là site-level, hiện chỉ benchmark trong release riêng. Implementation Input trước reset đã chọn split entity hash 60/20/20; CHARGED chia riêng từng city. Đây là cấu hình lịch sử để đối chiếu khi xây lại, chưa là evidence của pipeline mới. Source để pretrain; development để chọn thiết kế/hyperparameters; final unseen targets chỉ đánh giá thiết kế đã khóa. Final-stream labels được dùng cho cập nhật online đúng thời điểm, không dùng để sửa thiết kế.
+UrbanEV station-level data is the planned primary dataset; CHARGED is site-level and currently a benchmark within its own release. Source entities support pretraining; development entities support design/hyperparameter selection; final unseen targets evaluate the locked design. Final-stream labels may support correctly timed online updates, not design revision.
 
-Contract của implementation trước reset: `X_hist[24,7]`, `C_future[24,5]`, `Y[24]`; p95 scale từ prefix được phép, missing X có mask riêng, không fill Y. Calendar biết trước; không thêm weather/price chưa available. Mốc deployment của implementation trước reset: UrbanEV 01/12/2022, CHARGED 01/07/2023 theo clock phát hành. Chi tiết lịch sử (không phải hướng dẫn chạy trên foundation mới): [Input README](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/src/inputs/README.md), [bàn giao Input](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/BAO_CAO_DAU_VAO_MODEL.md), [plan mục 7](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/plan.md#7-phase-đầu-vào-model--quyết-định-và-checklist-đang-triển-khai).
+Reference settings for input implementation are entity-hash splits of 60/20/20, separate CHARGED splits per city, `X_hist[24,7]`, `C_future[24,5]`, and `Y[24]`. Use p95 scaling from the permitted prefix, separate missing-X masks, and no filling of Y. Calendar information is known in advance; do not add unavailable weather/price features. Reference deployment dates are UrbanEV 2022-12-01 and CHARGED 2023-07-01 under the published clock. These settings require implementation, protocol review, and verification before use in experiments.
 
-Historical replay phát lại dữ liệu theo thứ tự thời gian để mô phỏng target ít lịch sử. Trong protocol trước reset, labels **giả định** available ở exclusive horizon end; actual arrival, timezone/DST/bin semantics và upstream masks chưa xác minh. Local causal checks không sửa được xử lý tương lai có thể đã xảy ra upstream. Chỉ gọi kết quả là published-data benchmark; strict causal gate vẫn mở.
+Historical replay streams data chronologically to simulate limited target history. Label availability at the exclusive horizon end is an **assumption**; actual arrival, timezone/DST/bin semantics, and upstream masks remain unverified. Local causal checks cannot undo possible upstream future-dependent processing. Describe results only as a published-data benchmark until the strict causal gate is resolved.
 
-### 10. Main Experiments — Các đối chứng bắt buộc
+### 10. Main Experiments — Required comparisons
 
-| Đối chứng trong Report 1 §8.1 | Câu hỏi nó giúp trả lời |
+| Baseline in Report 1 §8.1 | Question addressed |
 |---|---|
-| Seasonal Naive, có fallback | Có hơn cách lặp lịch sử đơn giản không? |
-| Target-only GRU | Transfer có giúp hơn học riêng target không? |
-| Frozen Source | Thích nghi target có cần thiết không? |
-| Full Fine-tuning, λ = 0 | Retention có giúp hơn bỏ ràng buộc không? |
-| Fixed Retention | Điều chỉnh theo thời gian có cần thiết không? |
-| Simple Online Best-λ | Confidence có thêm lợi ích so với chọn mean MAE thấp nhất không? |
-| Source-error / Uncertainty / Drift controllers | Dùng chênh lệch retention quan sát được có lợi hơn dùng proxy không? |
+| Seasonal Naive, with fallback | Is the method better than simple historical repetition? |
+| Target-only GRU | Does transfer help compared with learning only from the target? |
+| Frozen Source | Is target adaptation necessary? |
+| Full Fine-tuning, λ = 0 | Does retention help compared with removing the constraint? |
+| Fixed Retention | Is adaptation of retention over time useful? |
+| Simple Online Best-λ | Does confidence help beyond choosing the lowest mean MAE? |
+| Source-error / Uncertainty / Drift controllers | Do observed retention performance differences help more than proxies? |
 
-Dùng cùng task, splits, origins và điều kiện nhãn. Proxy controllers cần tuning budget tương ứng. Related methods chỉ so trực tiếp khi adaptation/tái lập và task tương thích; không gọi controller tự viết là reproduction. Khóa cấu hình trên development trước final; tối thiểu ba seed theo proposal. Chưa có kết quả các đối chứng này trong repo.
+Use the same task, splits, origins, and label conditions. Give proxy controllers comparable tuning budgets. Compare related methods directly only when adaptation/reproduction and tasks are compatible; do not label a custom controller a reproduction. Lock configuration on development before final evaluation; use at least three seeds as proposed. No results for these comparisons exist in the repository yet.
 
-### 11. Evaluation — Hiệu quả, ổn định và chi phí
+### 11. Evaluation — Accuracy, stability, and cost
 
-Báo MAE chính, RMSE bổ sung theo trạm/site, budget và thời gian; đổi về đơn vị gốc. Transfer gain so với Target-only và negative transfer rate phải có đơn vị tổng hợp khóa trước final; MAE Target-only = 0 thì báo chênh lệch tuyệt đối riêng. Tổng hợp theo trạm trước, xét phụ thuộc theo trạm/thời gian khi báo bất định.
+Report primary MAE and supplementary RMSE by station/site, budget, and time, in original units. Lock the aggregation unit for transfer gain against Target-only and negative transfer rate before final evaluation. When Target-only MAE is zero, report the absolute difference separately. Aggregate by station first and account for station/time dependence when reporting uncertainty.
 
-Phân tích số lần switch, thiếu bằng chứng, sai số sau switch và ổn định qua seed. Audit branch tiếp tục chính sách cũ trong block sau chỉ phục vụ phân tích hồi cứu switch bất lợi, không cung cấp thông tin cho controller. Báo runtime, peak memory, inference, update steps và toàn bộ chi phí ba candidate; chi phí audit riêng. Không trình bày như chỉ chạy một GRU.
+Analyze switching frequency, insufficient-evidence cases, errors after switches, and stability across seeds. An audit branch continuing the previous policy into the next block is only for retrospective analysis of harmful switches; it cannot inform the controller. Report runtime, peak memory, inference, update steps, and the full cost of three candidates. Report audit costs separately; do not describe the method as running only one GRU.
 
-### 12. Ablation — Thành phần nào tạo ra lợi ích?
+### 12. Ablation — Identify each component's contribution
 
-Report 1 §8.3 yêu cầu: **Without Confidence, Fixed λ, Parameter Retention, Different Block Size, Without Source Initialization**. Mỗi ablation trả lời giá trị của một thành phần với protocol/cost minh bạch. Without Confidence liên hệ trực tiếp Simple Online Best-λ; cần tránh đếm hai lần như hai bằng chứng độc lập nếu cùng cấu hình. Tất cả còn planned.
+Report 1 §8.3 requires **Without Confidence, Fixed λ, Parameter Retention, Different Block Size, Without Source Initialization**. Each tests a component with transparent protocol and cost. Without Confidence directly relates to Simple Online Best-λ; identical configurations must not be counted twice as independent evidence. All remain planned.
 
-### 13. Synthetic Stress Testing — Mở rộng tùy chọn
+### 13. Synthetic Stress Testing — Optional extension
 
-Có thể đề xuất mismatch, behavioral drift, missing-data scenarios và recovery với mốc can thiệp rõ. Đây là **optional extension**, chưa triển khai, không thay thực nghiệm công khai và không tự chứng minh sự kiện thật. Khóa cách tạo, seed, ngưỡng recovery trên development và ghi riêng dữ liệu can thiệp. Report 1 cho phép stress test có mốc xác định; các kịch bản cụ thể này chưa là thiết kế đã nghiệm thu. Weekday/weekend, sparse/dense hiện chỉ là nhóm phân tích, không thêm context controller.
+Possible proposals include mismatch, behavioral drift, missing-data scenarios, and recovery with explicit intervention times. These are **optional extensions**, not implemented, substitutes for public-data experiments, or proof of real events. Lock generation procedures, seeds, and recovery thresholds on development and record interventions separately. Report 1 allows stress tests with known intervention times; these specific scenarios have not been accepted as a completed design. Weekday/weekend and sparse/dense are analysis groups, not additional controller context.
 
-### 14. Results & Discussion — Trả lời RQ, rồi mới kết luận
+### 14. Results and Discussion — Answer the research questions
 
-| Research question trong Report 1 | Bằng chứng cần có |
+| Research question in Report 1 | Required evidence |
 |---|---|
-| RQ1: Retention ảnh hưởng sai số thế nào, khi nào proxy không phản ánh đúng chênh lệch? | Forecasts ghép cặp, mức retention, proxy logs và phân tích nhiều trạm/budget. |
-| RQ2: Confidence controller hơn fixed, online best-λ và proxy không? | Baselines công bằng, ablation, bất định và độ lớn cải thiện thực tiễn. |
-| RQ3: Ổn định qua trạm, lịch sử, context và tốn bao nhiêu? | Phân phối theo trạm/budget/context, nhiều seed, runtime/memory/update cost. |
+| RQ1: How does retention affect error, and when do proxies fail to reflect the difference? | Paired forecasts, retention levels, proxy logs, and analysis across stations/budgets. |
+| RQ2: Does the confidence controller outperform fixed retention, online best-λ, and proxies? | Fair baselines, ablation, uncertainty, and practical improvement magnitudes. |
+| RQ3: How stable is it across stations, history budgets, and contexts, and what does it cost? | Distributions by station/budget/context, multiple seeds, runtime/memory/update cost. |
 
-Câu chuyện bảo vệ: bối cảnh → khó khăn → giả thuyết → phép so sánh → evidence → giới hạn. Nếu confidence không giúp hoặc overhead quá cao, thu hẹp claim theo kết quả. Kết quả tốt không tự chứng minh novelty; chưa có forecasting findings để viết kết luận hiện tại.
+The defense follows context → difficulty → hypothesis → comparison → evidence → limitations. If confidence provides no benefit or overhead is excessive, narrow claims accordingly. Good results do not prove novelty; no forecasting findings support conclusions yet.
 
-## 5. Trạng thái foundation và evidence lịch sử
+## 5. Implementation status
 
-### Trạng thái hiện tại sau reset
-
-| Phạm vi | Trạng thái | Nguồn đối chiếu |
+| Scope | Status | Reference |
 |---|---|---|
-| Phương pháp nghiên cứu và flow | Thiết kế theo Report 1; chưa chứng minh hiệu quả/novelty | [Report 1](../adaptive_retention_report_1.pdf), các mục WHY/HOW/PROVE phía trên |
-| Nguồn raw và kiểm tra file local | Đã triển khai catalog + tool kiểm tra; tests dùng fixtures | [Nguồn data](../data/README.md), [source tool](../tools/sources.py), [tests](../tests/test_sources.py) |
-| Raw acquisition trên nền mới | Chưa tải/kiểm tra archive thật trong task foundation/flow | URL và checksum lịch sử không phải bằng chứng tải lại |
-| Processing, audit, model inputs mới | Chưa triển khai | Cần PR, tests và report mới theo [WORKFLOW](WORKFLOW.md) |
-| Model/loss, runner/controller, baselines và experiments | Planned; chưa triển khai | Bám Report 1, không sử dụng PASS cũ làm kết quả mới |
-| Full reproduction / strict online / độc lập external | Chưa xác minh | Thiếu raw local và evidence về upstream/time/availability/overlap |
+| Research method and flow | Design follows Report 1; effectiveness/novelty unproven | [Report 1](../adaptive_retention_report_1.pdf), WHY/HOW/PROVE above |
+| Raw sources and local file verification | Catalog and verification tool implemented; fixture-based tests | [Data sources](../data/README.md), [source tool](../tools/sources.py), [tests](../tests/test_sources.py) |
+| Raw acquisition on the new foundation | No real archives downloaded/checked in the foundation/flow tasks | Historical URLs/checksums do not prove a fresh acquisition |
+| Processing, audit, and model inputs | Not implemented | New PRs, tests, and reports required under [WORKFLOW](WORKFLOW.md) |
+| Model/loss, runner/controller, baselines, experiments | Planned; not implemented | Follow Report 1; verify each implementation with its own evidence |
+| Full reproduction / strict online / external independence | Unverified | Missing local raw data and evidence about upstream/time/availability/overlap |
 
-Bàn giao nền mới: [FOUNDATION_REPORT](FOUNDATION_REPORT.md). Các kết quả local trong đó thuộc commit dựng foundation; CI từng PR phải đối chiếu run tương ứng.
+Foundation handoff: [FOUNDATION_REPORT](FOUNDATION_REPORT.md). Its local results belong to the foundation implementation snapshot; check each PR's corresponding CI run separately.
 
-### Snapshot trước reset — chỉ để truy vết
+## 6. Decisions and verification still needed
 
-Bảng và số liệu dưới đây thuộc commit `528680d` trên `master`, không mô tả working tree hiện tại. Các nhãn Implemented/Verified chỉ áp dụng cho snapshot lịch sử. Pipeline mới cần acceptance và evidence mới; chưa khôi phục module cũ vào main.
+- **Literature:** systematic novelty checking and boundaries with adaptive regularization, online selection, and related methods. Do not infer paper limitations from the team's comparison table.
+- **Model/development:** exact model/loss specification, training/update schedule, latent scale, λlow/λhigh/initial level, Bmin, δ, alpha, bootstrap block length, multiple challengers, and tie-breaking. Follow requirements already fixed by Report 1; initial settings are not proven optimal.
+- **Runner/evaluation:** forecast-before-label storage, boundary ordering, checkpoint/optimizer/RNG handling; NTR definition, proxy estimators/calibration, seed list, tuning/cost budgets, and audit branch before final evaluation.
+- **Data claims:** insufficient evidence about timestamps/bin/timezone/DST, actual label arrival, upstream masks, and Shenzhen overlap. CHARGED is not currently established as independent external validation of UrbanEV.
+- **Reproduction:** acquire the catalog's raw archives and verify checksums; build new processing/inputs with reports. Record source identities, config, runtime, code version, and run IDs.
 
+## 7. Keep documentation consistent
 
-Trong lần đối chiếu trước reset, đã đọc Report 1, README, roadmap, plan, báo cáo Data/Input, code `src/data`, `src/inputs` và evidence liên kết dưới đây. Đây là **kiểm tra code/tài liệu/artifacts đã lưu**, không rerun tests, full rebuild hay training trong task tài liệu này.
-
-| Phạm vi lịch sử | Trạng thái tại `528680d` | Bằng chứng / giới hạn |
-|---|---|---|
-| WHY: context, data scarcity, các hướng học | Conceptually understood qua trao đổi; không phải nghiệm thu toàn team | Report 1 §1–4; không suy ra mọi thuật toán đã code. |
-| Gap/novelty | Proposed; unknown về novelty/effectiveness | Report 1 §1–3, §9; cần đối chiếu literature gốc. |
-| Data acquisition, processing, audit, EDA | Implemented; verified by stored evidence trong phạm vi candidate panel | [Code](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/src/data/README.md), [execution summary](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/data/execution_summary.json), [báo cáo Data](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/BAO_CAO_PHASE_DATA.md). |
-| DEV1–DEV3 trong bảng development của plan: contract, split, input | Implemented; verified by stored evidence cho benchmark | [Code input](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/src/inputs/core.py), [build](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/src/inputs/build.py), [active runs](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/inputs/active_runs.json), [execution summary](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/inputs/execution_summary.json). |
-| Source model/training và target adaptation | Proposed / planned; chưa có module model/training trong `src` được theo dõi | [Plan mục 2, DEV4](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/plan.md#2-kế-hoạch-development); summary Input ghi training false. |
-| Latent retention loss | Concept đã trao đổi; implementation planned | Chưa có code loss/latent-scale/gradient checks model; Report 1 §5. |
-| Adaptive / confidence controller | Adaptive đã trao đổi; confidence là phần học tiếp; implementation planned | [Roadmap mục 3](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/docs/RESEARCH_ROADMAP.md#3-online-lifecycle-đúng-thứ-tự-nhân-quả); plan DEV5. |
-| Runner, baselines, metrics, ablations và final experiments | Proposed / planned; chưa có evidence chạy | Plan DEV5–DEV6, EXP; không coi input windows là forecasts. |
-| Synthetic stress scenarios | Optional proposed extension | Chưa code/run; cần review phạm vi riêng. |
-| Strict online / external independence | Unknown; chặn claim strict online hoặc CHARGED external độc lập | Contracts [UrbanEV](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/inputs/urbanev_inputs_full_20261004_02/data_contract.json), [CHARGED](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/inputs/charged_inputs_full_20261004_02/data_contract.json). Không chặn development trong benchmark đã chọn. |
-| Full reproduction trên checkout đang đối chiếu | Blocked vì thiếu raw/panel/index local | `data/raw`, `data/processed`, `data/inputs` không có trong checkout ngày 15/10; các thư mục bị Git ignore. Cần khôi phục đúng nguồn/hash và runtime. |
-
-### Evidence lịch sử đã lưu trong Git
-
-- Data summary ghi 13 tests và readback hai full runs PASS. Input summary ghi 11 fixtures + 13 regression PASS; [verification 07/10](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/review/roadmap_20261007/verification.json) ghi rerun hai suites PASS bằng bundled Python 3.12, không full rebuild và không training.
-- Input active: `urbanev_inputs_full_20261004_02`, `charged_inputs_full_20261004_02`. Summary ghi lần lượt **226.486 / 782.616 window records**, **39 / 234 readback samples**, **18 / 108 future-perturbation samples**. Đây là records theo entity × budget × origin, không phải số dự báo độc lập hay metric model.
-- [UrbanEV QC](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/inputs/urbanev_inputs_full_20261004_02/qc_supplement.md) và [CHARGED QC](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/reports/inputs/charged_inputs_full_20261004_02/qc_supplement.md) dẫn kết quả full rebuild: split/cohort/scalers/index/audit khớp, tensor samples bit-exact. Giới hạn chỉ ở dữ liệu/pipeline và samples được kiểm tra; không chứng minh upstream causality.
-
-### Các điểm dễ nhầm khi đọc tài liệu cũ
-
-1. `reports/data/execution_summary.json` ngày 02/10 ghi split/scaling/windows chưa chạy **trong phase Data**. Input summary và báo cáo bàn giao 04/10 ghi phase Input đã chạy. Đây là các mốc khác nhau; không sửa lịch sử để làm chúng giống nhau. Báo cáo Data mục 12 giải thích cập nhật liên phase.
-2. Plan mục 7 ghi DEV1–DEV5 **của phase Input** hoàn tất, còn bảng development mục 2 ghi model DEV4/controller DEV5/smoke DEV6 chưa làm. Phải đọc cả phạm vi, không đánh đồng mã DEV.
-3. Bàn giao Input giữ lỗi import Python 3.13 ở mốc 04/10, rồi có mục rerun PASS 07/10 bằng runtime đúng. Lỗi cũ không là trạng thái test mới nhất; PASS lưu cũng không là rerun trên máy hiện tại.
-4. Report 1 giữ trạng thái đề xuất trước audit. Số liệu thực thi mới lấy từ active artifacts, không chép trạng thái chưa audit trong PDF thành tiến độ hiện tại. Những cập nhật này không chứng minh các giả định strict online đã được giải quyết.
-
-Các mốc và số liệu trên được giữ để truy vết; không dùng để kết luận nền mới đã hoàn tất Data/Input. Nếu review phát hiện xung đột thiết kế, ghi rõ nguồn/mục và đưa quyết định vào PR riêng.
-
-## 6. Những gì còn cần quyết định / xác minh
-
-- **Literature:** systematic novelty check; ranh giới với adaptive regularization, online selection và related methods. Không suy diễn hạn chế paper từ bảng so sánh của nhóm.
-- **Model/development:** đặc tả model/loss chính xác, training/update schedule, latent scale, λlow/λhigh/mức ban đầu; Bmin, δ, alpha, block bootstrap length, nhiều challenger và tie-break. Nội dung Report 1 đã quy định phải tuân theo; cấu hình khởi đầu chưa là tối ưu.
-- **Runner/evaluation:** lưu forecast trước nhãn, thứ tự boundary, checkpoint/optimizer/RNG; định nghĩa NTR, proxy estimators/calibration, seed list, ngân sách tuning/cost và audit branch trước final.
-- **Data claims:** timestamp/bin/timezone/DST, actual label arrival, upstream masks và Shenzhen overlap chưa đủ evidence. CHARGED hiện không là external validation độc lập với UrbanEV.
-- **Reproduction:** lấy đúng raw theo catalog và kiểm tra checksum; xây processing/inputs mới kèm report. Nếu tái chạy snapshot cũ, dùng checkout/runtime riêng; không mặc định đường dẫn provenance trên máy cũ tồn tại ở máy khác.
-
-## 7. Duy trì một bộ tài liệu nhất quán
-
-| Nơi | Trách nhiệm |
+| Location | Responsibility |
 |---|---|
-| [Report 1](../adaptive_retention_report_1.pdf) | Chuẩn phương pháp; thay đổi core cần quyết định/review riêng. |
-| **Master Flow này** | Giải thích từng stage, liên kết evidence và snapshot trạng thái; không tạo task IDs hay lịch chạy riêng. |
-| [Workflow hiện hành](WORKFLOW.md) | Quy trình branch → checks/report → peer review → main và thứ tự bàn giao. |
-| [Research roadmap lịch sử](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/docs/RESEARCH_ROADMAP.md) | Tham khảo chi tiết method/gates trước reset; không phải tiến độ hiện tại. |
-| [plan.md lịch sử](https://github.com/HungLD9505/adaptive-retention-ev/blob/528680dd73791322ed12f32b2c72a3b58618a428/plan.md) | Nhật ký trước reset; không cập nhật như kế hoạch hiện hành. Chưa tạo plan mới khi team chưa chốt phạm vi. |
-| Báo cáo mới trong `docs/reports/`, PR và run IDs | Evidence của implementation mới; không ghi đè reports cũ trên snapshot lịch sử. |
-| [README](../README.md) | Điểm vào và links tới các nguồn trên. |
+| [Report 1](../adaptive_retention_report_1.pdf) | Method reference; core changes require a separate decision/review. |
+| **This Master Flow** | Explain stages, link evidence, and record status snapshots; no separate task IDs or schedule. |
+| [Current workflow](WORKFLOW.md) | Issue → branch → checks/report → peer review → dev; main updates need separate authorization. |
+| `docs/reports/`, PRs, and run IDs | Implementation evidence and phase handoffs. |
+| [README](../README.md) | Entry point and links to these sources. |
 
-ChatGPT hỗ trợ học lý thuyết, literature và phản biện; Codex đối chiếu/triển khai/kiểm thử và tài liệu kỹ thuật; GitHub lưu phiên bản để team review. Kết luận từ trao đổi chỉ trở thành quyết định chung sau khi được ghi vào đúng tài liệu và review.
+ChatGPT supports theory, literature, and critique; Codex supports inspection, implementation, testing, and technical documentation; GitHub versions work for team review. Discussion conclusions become team decisions only after being recorded in the appropriate document and reviewed.
 
-**Khi hoàn tất một stage:** ghi code/run ID/check và phạm vi kết luận trong PR/report theo WORKFLOW; cập nhật hàng trạng thái + link tương ứng ở Master Flow trong cùng PR. Khi có kế hoạch được team chốt, chỉ duy trì một bản hiện hành. Không sửa plan/roadmap lịch sử để thể hiện tiến độ mới, không copy toàn bộ bảng số liệu/log sang flow. Người review kiểm tra evidence trước khi cho nhãn implemented/verified. Tiến độ học ghi người/phạm vi đã trao đổi, không dùng thay nghiệm thu kỹ thuật.
+**After completing a stage:** record code/run IDs, checks, and conclusion scope in the PR/report under WORKFLOW; update the matching status row/link in Master Flow in the same PR. Maintain one current plan once agreed. Do not copy entire result tables/logs into this flow. Reviewers must check evidence before assigning Implemented/Verified. Learning progress records who discussed what; it is not technical acceptance.
 
-Để mỗi thành viên diễn giải được bài, sau từng stage hãy trả lời: **Nó giải quyết vấn đề gì? Hoạt động thế nào? Nếu bỏ đi thì cần đối chứng gì? Evidence nào cho phép kết luận?** Câu trả lời phải gắn với mức hiểu, thiết kế và kết quả thực sự đang có.
+After each stage, every member should be able to explain: **What problem does it address? How does it work? What comparison is needed if it is removed? What evidence supports a conclusion?** Answers must match actual understanding, design, and available results.
