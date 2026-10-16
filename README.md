@@ -8,6 +8,8 @@ Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Fo
 
 Read the [Master Research Flow — WHY → HOW → PROVE](docs/MASTER_RESEARCH_FLOW.md) to understand the problem, proposed method, and required evidence.
 
+For a file-by-file dataset explanation, read the [UrbanEV reference](docs/data/URBANEV.md).
+
 1. Read the [team workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md).
 2. Read the [data sources and download/verification instructions](data/README.md).
 3. Review the [foundation handoff report](docs/FOUNDATION_REPORT.md).
