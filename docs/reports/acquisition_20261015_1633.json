@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "run_id": "acquisition_20261015_1633",
+  "recorded_at_utc": "2026-10-15T16:38:19.982365+00:00",
+  "repository": "HungLD9505/adaptive-retention-ev",
+  "verification_code_commit": "724bf84e0868f43dbd8802d46dd9567924656d78",
+  "catalog_path": "data/sources.json",
+  "scope": "required raw archive acquisition, integrity verification, structure inspection, and local extraction; no processing/model inputs/training",
+  "archives": [
+    {
+      "source_id": "urbanev-main",
+      "catalog_download_url": "https://drive.usercontent.google.com/download?id=1OEpo-XDocd33aK3MbgDt9S5bcqwiAFPQ&export=download&confirm=t",
+      "local_archive_path": "data/raw/urbanev/official_2026_05_11/UrbanEVDataset.zip",
+      "required": true,
+      "expected_size_bytes": 647305188,
+      "expected_sha256": "9d3f0aec34434546d082509efcdeeaea116eaa841701cc5854a9b62a27881a79",
+      "expected_publisher_checksum": null,
+      "download": {
+        "source_id": "urbanev-main",
+        "method": "download",
+        "started_at_utc": "2026-10-15T16:33:26.195791+00:00",
+        "completed_at_utc": "2026-10-15T16:34:54.342987+00:00",
+        "size_bytes": 647305188,
+        "sha256": "9d3f0aec34434546d082509efcdeeaea116eaa841701cc5854a9b62a27881a79"
+      },
+      "verification": {
+        "size": "PASS",
+        "sha256": "PASS",
+        "publisher_checksum": "not provided",
+        "tool": "python -B -m tools.sources verify"
+      },
+      "zip_inspection": {
+        "source_id": "urbanev-main",
+        "zip_crc": "PASS",
+        "member_paths": "PASS",
+        "duplicate_member_names": false,
+        "entry_count": 3138,
+        "file_count": 3130,
+        "uncompressed_bytes": 15571958407,
+        "groups": {
+          "UrbanEVDataset/20220901-20230228_station-processed": {
+            "files": 1430,
+            "uncompressed_bytes": 9002212429
+          },
+          "UrbanEVDataset/20220901-20230228_station-raw": {
+            "files": 1685,
+            "uncompressed_bytes": 5383456417
+          },
+          "UrbanEVDataset/20220901-20230228_zone-cleaned-aggregated": {
+            "files": 15,
+            "uncompressed_bytes": 1186289561
+          }
+        },
+        "selected_station_charge_csv_count": 1682,
+        "station_metadata_members": [
+          "UrbanEVDataset/20220901-20230228_station-raw/pile_rated_power.csv",
+          "UrbanEVDataset/20220901-20230228_station-raw/station_distance.csv",
+          "UrbanEVDataset/20220901-20230228_station-raw/station_information.csv"
+        ],
+        "sampled_headers": [
+          {
+            "member": "UrbanEVDataset/20220901-20230228_station-raw/charge_5min/1001.csv",
+            "column_count": 11,
+            "header_preview": [
+              "time",
+              "busy",
+              "idle",
+              "s_price",
+              "e_price",
+              "fast_busy",
+              "fast_idle",
+              "slow_busy",
+              "slow_idle",
+              "duration",
+              "volume"
+            ],
+            "header_preview_truncated": false
+          },
+          {
+            "member": "UrbanEVDataset/20220901-20230228_station-raw/pile_rated_power.csv",
+            "column_count": 4,
+            "header_preview": [
+              "pile_id",
+              "power",
+              "pileType",
+              "station_id"
+            ],
+            "header_preview_truncated": false
+          },
+          {
+            "member": "UrbanEVDataset/20220901-20230228_station-raw/station_distance.csv",
+            "column_count": 1683,
+            "header_preview": [
+              "ID",
+              "1001",
+              "1002",
+              "1003",
+              "1004",
+              "1005",
+              "1006",
+              "1007",
+              "1008",
+              "1009",
+              "1010",
+              "1011",
+              "1012",
+              "1013",
+              "1014",
+              "1015"
+            ],
+            "header_preview_truncated": true
+          },
+          {
+            "member": "UrbanEVDataset/20220901-20230228_station-raw/station_information.csv",
+            "column_count": 7,
+            "header_preview": [
+              "station_id",
+              "longitude",
+              "latitude",
+              "slow_count",
+              "fast_count",
+              "charge_count",
+              "TAZID"
+            ],
+            "header_preview_truncated": false
+          }
+        ],
+        "inspected_at_utc": "2026-10-15T16:35:59.572876+00:00"
+      },
+      "extraction": {
+        "source_id": "urbanev-main",
+        "extraction_root": "data/raw/urbanev/official_2026_05_11/extracted",
+        "selection": "station-raw only; station-processed and zone variants retained inside original ZIP",
+        "files": 1685,
+        "bytes": 5383456417,
+        "member_crc_checked_while_extracting": true,
+        "completed_at_utc": "2026-10-15T16:36:29.214291+00:00"
+      }
+    },
+    {
+      "source_id": "charged-hourly",
+      "catalog_download_url": "https://zenodo.org/api/records/15814263/files/Hourly.zip/content",
+      "local_archive_path": "data/raw/charged/zenodo_15814263/Hourly.zip",
+      "required": true,
+      "expected_size_bytes": 268720500,
+      "expected_sha256": "1ec9c9513b64f3f492fe73261bf08a5955c268dfb876ef0fe283d05cc5a02fab",
+      "expected_publisher_checksum": "md5:099a592653ca74fa1f1051e9c23d6456",
+      "download": {
+        "source_id": "charged-hourly",
+        "method": "curl-range-resume",
+        "actual_download_url": "https://zenodo.org/records/15814263/files/Hourly.zip?download=1",
+        "started_at_utc": "2026-10-15T16:35:13.493885+00:00",
+        "completed_at_utc": "2026-10-15T16:36:42.177867+00:00",
+        "size_bytes": 268720500,
+        "sha256": "1ec9c9513b64f3f492fe73261bf08a5955c268dfb876ef0fe283d05cc5a02fab",
+        "publisher_checksum": "md5:099a592653ca74fa1f1051e9c23d6456",
+        "acquisition_note": "Initial urllib request returned HTTP 403; curl catalog endpoint worked but was slow. Resumed the partial through byte ranges on the same Zenodo record/file. Final complete file matches catalog SHA-256 and publisher MD5."
+      },
+      "verification": {
+        "size": "PASS",
+        "sha256": "PASS",
+        "publisher_checksum": "PASS",
+        "tool": "python -B -m tools.sources verify"
+      },
+      "zip_inspection": {
+        "source_id": "charged-hourly",
+        "entry_count": 132,
+        "file_count": 120,
+        "uncompressed_bytes": 1483256234,
+        "groups": {
+          "JHB": {
+            "files": 10,
+            "uncompressed_bytes": 10333570
+          },
+          "JHB_remove_zero": {
+            "files": 10,
+            "uncompressed_bytes": 9623417
+          },
+          "LOA": {
+            "files": 10,
+            "uncompressed_bytes": 37651851
+          },
+          "LOA_remove_zero": {
+            "files": 10,
+            "uncompressed_bytes": 37234650
+          },
+          "MEL": {
+            "files": 10,
+            "uncompressed_bytes": 40437213
+          },
+          "MEL_remove_zero": {
+            "files": 10,
+            "uncompressed_bytes": 40435544
+          },
+          "SPO": {
+            "files": 10,
+            "uncompressed_bytes": 11019864
+          },
+          "SPO_remove_zero": {
+            "files": 10,
+            "uncompressed_bytes": 10843625
+          },
+          "SZH": {
+            "files": 10,
+            "uncompressed_bytes": 304716772
+          },
+          "SZH_remove_zero": {
+            "files": 10,
+            "uncompressed_bytes": 306887017
+          },
+          "AMS": {
+            "files": 10,
+            "uncompressed_bytes": 409846800
+          },
+          "AMS_remove_zero": {
+            "files": 10,
+            "uncompressed_bytes": 264225911
+          }
+        },
+        "sampled_headers": [
+          {
+            "member": "JHB/chargers.csv",
+            "column_count": 7,
+            "header_preview": [
+              "charger_id",
+              "longitude",
+              "latitude",
+              "site_id",
+              "total_duration",
+              "total_volume",
+              "avg_power"
+            ],
+            "header_preview_truncated": false
+          },
+          {
+            "member": "JHB/distance.csv",
+            "column_count": 48,
+            "header_preview": [
+              "",
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14"
+            ],
+            "header_preview_truncated": true
+          },
+          {
+            "member": "JHB/duration.csv",
+            "column_count": 48,
+            "header_preview": [
+              "",
+              "0",
+              "1",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "2",
+              "20",
+              "21"
+            ],
+            "header_preview_truncated": true
+          }
+        ],
+        "duplicate_member_names": false,
+        "zip_crc": "PASS: every member read to EOF during extraction",
+        "member_paths": "PASS"
+      },
+      "extraction": {
+        "source_id": "charged-hourly",
+        "extraction_root": "data/raw/charged/zenodo_15814263/extracted",
+        "selection": "standard city directories only; remove_zero extracted copies removed, originals preserved in ZIP",
+        "files": 60,
+        "bytes": 814006070,
+        "member_crc_checked_while_extracting": true,
+        "completed_at_utc": "2026-10-15T16:36:53.479831+00:00",
+        "zip_crc": "PASS: every archive member read successfully during extraction",
+        "removed_extracted_variants": [
+          {
+            "path": "data/raw/charged/zenodo_15814263/extracted/SPO_remove_zero",
+            "files": 10,
+            "bytes": 10843625
+          },
+          {
+            "path": "data/raw/charged/zenodo_15814263/extracted/JHB_remove_zero",
+            "files": 10,
+            "bytes": 9623417
+          },
+          {
+            "path": "data/raw/charged/zenodo_15814263/extracted/MEL_remove_zero",
+            "files": 10,
+            "bytes": 40435544
+          },
+          {
+            "path": "data/raw/charged/zenodo_15814263/extracted/LOA_remove_zero",
+            "files": 10,
+            "bytes": 37234650
+          },
+          {
+            "path": "data/raw/charged/zenodo_15814263/extracted/SZH_remove_zero",
+            "files": 10,
+            "bytes": 306887017
+          },
+          {
+            "path": "data/raw/charged/zenodo_15814263/extracted/AMS_remove_zero",
+            "files": 10,
+            "bytes": 264225911
+          }
+        ],
+        "retained_city_directories": [
+          "AMS",
+          "JHB",
+          "LOA",
+          "MEL",
+          "SPO",
+          "SZH"
+        ]
+      }
+    }
+  ],
+  "optional_supplemental": "not downloaded; excluded from this run",
+  "storage": "Raw archives and extracted provider files are local and Git-ignored; they are not uploaded by this PR.",
+  "limitations": [
+    "Headers are sampled, not a full schema audit.",
+    "ZIP counts are file counts, not accepted experiment cohort sizes.",
+    "No missingness/units/time/label-availability or upstream causality audit.",
+    "No split/scaling/hourly aggregation, tensors, models, or experiments."
+  ]
+}

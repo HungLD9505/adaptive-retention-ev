@@ -2,7 +2,7 @@
 
 Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. Work follows **Issue → working branch → PR → `dev`**. Updating `main` requires a separate instruction.
 
-**Current status:** the data source catalog and local archive verification tool are implemented. Raw archives have not been downloaded in this foundation task. The processing pipeline, models, and experiments are not implemented yet.
+**Current status:** the data source catalog and local archive verification tool are implemented. The two required raw archives have been acquired and verified locally; see the [acquisition report](docs/reports/data-acquisition.md). Raw files are not stored in Git. The processing pipeline, models, and experiments are not implemented yet.
 
 ## Start here
 
