@@ -18,7 +18,7 @@ Read WHY, then HOW, then PROVE. Data/protocol must be ready before running model
 | **Verified by evidence** | A specific artifact/run/check supports a defined PASS scope. Distinguish stored evidence from a fresh rerun. |
 | **Blocked / unknown** | State the missing condition, limited claim, or pending decision. An unknown does not automatically block all development. |
 
-The data catalog and archive verification tool are implemented. Processing, model inputs, models, and controllers remain planned. Learning discussions have covered WHY and Retention/Adaptive Retention; the next topic is the Confidence-based Controller. Team-wide understanding has not been signed off.
+The data catalog and archive verification tool are implemented. UrbanEV hourly processing is implemented with a provisional-clock real-data QC run pending peer acceptance; model inputs, models, and controllers remain planned. Learning discussions have covered WHY and Retention/Adaptive Retention; the next topic is the Confidence-based Controller. Team-wide understanding has not been signed off.
 
 ```mermaid
 flowchart TB
@@ -186,7 +186,8 @@ The defense follows context → difficulty → hypothesis → comparison → evi
 | Research method and flow | Design follows Report 1; effectiveness/novelty unproven | [Report 1](../adaptive_retention_report_1.pdf), WHY/HOW/PROVE above |
 | Raw sources and local file verification | Catalog and verification tool implemented; fixture-based tests | [Data sources](../data/README.md), [source tool](../tools/sources.py), [tests](../tests/test_sources.py) |
 | Raw acquisition | Both required archives downloaded and verified locally; provider files extracted | [Acquisition report](reports/data-acquisition.md); data remains outside Git |
-| Processing, audit, and model inputs | Not implemented | New PRs, tests, and reports required under [WORKFLOW](WORKFLOW.md) |
+| UrbanEV hourly processing / QC | Implemented; actual full-station technical run, provisional time semantics and peer acceptance pending | [Hourly handoff](reports/urbanev-hourly.md), [contract](data/HOURLY_CONTRACT.md) |
+| CHARGED audit / model inputs | Full CHARGED suitability and project model inputs not implemented | #17 / #18; follow [WORKFLOW](WORKFLOW.md) |
 | Model/loss, runner/controller, baselines, experiments | Planned; not implemented | Follow Report 1; verify each implementation with its own evidence |
 | Full reproduction / strict online / external independence | Unverified | Processing/input reproduction and upstream/time/availability/overlap evidence are still pending |
 
