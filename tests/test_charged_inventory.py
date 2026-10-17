@@ -6,7 +6,8 @@ import unittest
 from pathlib import Path
 from zipfile import ZipFile
 
-from tools.charged_inventory import inspect_city, inspect_csv, time_inventory
+from tools.charged_inventory import inspect_city, inspect_csv, inventory, time_inventory
+from tools.sources import load_catalog
 
 
 class InventoryTests(unittest.TestCase):
@@ -84,11 +85,28 @@ class InventoryTests(unittest.TestCase):
             report = inspect_city(city, archive)
             self.assertEqual(report["site_id_header_observed"], "site")
             self.assertEqual(report["site_rows"], 1)
+            self.assertFalse(report["hourly_timestamp_sequences_match"])
+            self.assertFalse(report["weather_timestamp_literals_match_volume"])
             self.assertIn("volume.csv", report["missing_expected_files"])
             self.assertIn("not_adjudicated", report["readiness"]["file_valid"])
             sites.write_text("site,longitude\n0,99\n")
             with self.assertRaisesRegex(ValueError, "differ from verified ZIP"):
                 inspect_city(city, archive)
+
+    def test_existing_run_and_raw_output_are_refused(self) -> None:
+        spec = next(a for a in load_catalog() if a.source_id == "charged-hourly")
+        source = self.root / "extracted"
+        source.mkdir()
+        existing = self.root / "existing-run"
+        existing.mkdir()
+        sentinel = existing / "sentinel"
+        sentinel.write_text("preserve")
+        with self.assertRaises(FileExistsError):
+            inventory(source, self.root, spec, existing)
+        self.assertEqual(sentinel.read_text(), "preserve")
+        with self.assertRaisesRegex(ValueError, "separate from raw"):
+            inventory(source, self.root, spec, source / "run")
+        self.assertFalse((source / "run").exists())
 
 
 if __name__ == "__main__":

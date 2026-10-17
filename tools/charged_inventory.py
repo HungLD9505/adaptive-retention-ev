@@ -255,18 +255,22 @@ def inspect_city(directory: Path, archive: ZipFile) -> dict:
         n: set(files[n]["data_columns"]) == sites for n in MATRICES if n in files
     }
     result["distance_site_ids_match"] = (
-        set(files.get("distance.csv", {}).get("data_columns", [])) == sites
+        "distance.csv" in files
+        and "sites.csv" in files
+        and set(files["distance.csv"]["data_columns"]) == sites
         and set(files.get("distance.csv", {}).get("row_ids", [])) == sites
     )
     result["charger_unknown_site_ids"] = sorted(
         set(files.get("chargers.csv", {}).get("members_per_site", {})) - sites
     )
     result["hourly_timestamp_sequences_match"] = (
-        len({files[n]["timestamp_sequence_sha256"] for n in MATRICES if n in files}) == 1
+        all(n in files for n in MATRICES)
+        and len({files[n]["timestamp_sequence_sha256"] for n in MATRICES if n in files}) == 1
     )
     volume_clock = files.get("volume.csv", {}).get("timestamp_sequence_sha256")
     result["weather_timestamp_literals_match_volume"] = (
-        files.get("weather.csv", {}).get("timestamp_sequence_sha256") == volume_clock
+        volume_clock is not None
+        and files.get("weather.csv", {}).get("timestamp_sequence_sha256") == volume_clock
     )
     result["weather_parsed_clock_matches_volume"] = (
         all(
