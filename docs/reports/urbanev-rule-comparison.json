@@ -1,0 +1,248 @@
+{
+  "run_id": "issue16-rules-ab-v1-20261017",
+  "started_at_utc": "2026-10-17T15:24:35.125737+00:00",
+  "status": "passed",
+  "reference_run_id": "issue16-start-v1-20261017",
+  "reference_manifest_sha256": "6c152ce9da7084fea35edb1badc29c1069337f8aa1523b6be487e63f7b5897ac",
+  "reference_archive_sha256": "9d3f0aec34434546d082509efcdeeaea116eaa841701cc5854a9b62a27881a79",
+  "config": {
+    "start_local": "2022-09-01T00:00:00",
+    "end_local_exclusive": "2023-03-01T00:00:00",
+    "timezone": "Asia/Shanghai",
+    "source_interval_label": "start",
+    "output_interval": "[timestamp, timestamp + 1 hour)",
+    "completeness": "12 unique on-grid finite nonnegative volume AND duration samples",
+    "ancillary_anomalies": "diagnostics only; not target exclusions",
+    "imputation": "none",
+    "source_interval_minutes": 5
+  },
+  "python": "3.12.14",
+  "code_commit": "e830db6a9c8426cc3291f0952969b7f380f38aef",
+  "analysis_source_sha256": "569f837b5342c164763c93ed21208b41d7c9a11742e725dd4cd729d94d51d3b6",
+  "rules": {
+    "A": "12 unique finite nonnegative volume values",
+    "B": "12 unique finite nonnegative volume/duration pairs; existing pipeline"
+  },
+  "pipeline_outputs_modified": false,
+  "stations": 1682,
+  "hours": 7306608,
+  "hourly": {
+    "rejected_only_by_duration": 0,
+    "retained_only_by_b": 0,
+    "rule_a_retained": 5745899,
+    "rule_b_retained": 5745899,
+    "rule_b_retained_with_zero_disagreement": 3643
+  },
+  "sample_pairs": {
+    "volume_invalid_duration_invalid": 18555366,
+    "volume_valid_duration_valid": 69123930,
+    "zero_volume_positive_duration": 39805
+  },
+  "token_kinds": {
+    "duration_blank": 18555366,
+    "duration_valid": 69123930,
+    "volume_blank": 18555366,
+    "volume_valid": 69123930
+  },
+  "zero_disagreement_months": {
+    "2022-09": 449,
+    "2022-10": 6529,
+    "2022-11": 10156,
+    "2022-12": 14299,
+    "2023-01": 7968,
+    "2023-02": 404
+  },
+  "valid_volume_samples_per_hour": {
+    "0": 1531778,
+    "1": 8153,
+    "2": 1950,
+    "3": 671,
+    "4": 1027,
+    "5": 638,
+    "6": 2117,
+    "7": 2263,
+    "8": 1964,
+    "9": 1366,
+    "10": 1373,
+    "11": 7409,
+    "12": 5745899
+  },
+  "valid_pair_samples_per_hour": {
+    "0": 1531778,
+    "1": 8153,
+    "2": 1950,
+    "3": 671,
+    "4": 1027,
+    "5": 638,
+    "6": 2117,
+    "7": 2263,
+    "8": 1964,
+    "9": 1366,
+    "10": 1373,
+    "11": 7409,
+    "12": 5745899
+  },
+  "stations_with_duration_only_losses": 0,
+  "zero_disagreement_station_count": 3,
+  "top_zero_disagreement_stations": [
+    {
+      "entity_id": "2300",
+      "zero_volume_positive_duration": 26620,
+      "positive_volume_zero_duration": 0
+    },
+    {
+      "entity_id": "2172",
+      "zero_volume_positive_duration": 7423,
+      "positive_volume_zero_duration": 0
+    },
+    {
+      "entity_id": "1135",
+      "zero_volume_positive_duration": 5762,
+      "positive_volume_zero_duration": 0
+    },
+    {
+      "entity_id": "1001",
+      "zero_volume_positive_duration": 0,
+      "positive_volume_zero_duration": 0
+    },
+    {
+      "entity_id": "1002",
+      "zero_volume_positive_duration": 0,
+      "positive_volume_zero_duration": 0
+    },
+    {
+      "entity_id": "1003",
+      "zero_volume_positive_duration": 0,
+      "positive_volume_zero_duration": 0
+    },
+    {
+      "entity_id": "1004",
+      "zero_volume_positive_duration": 0,
+      "positive_volume_zero_duration": 0
+    },
+    {
+      "entity_id": "1005",
+      "zero_volume_positive_duration": 0,
+      "positive_volume_zero_duration": 0
+    },
+    {
+      "entity_id": "1006",
+      "zero_volume_positive_duration": 0,
+      "positive_volume_zero_duration": 0
+    },
+    {
+      "entity_id": "1007",
+      "zero_volume_positive_duration": 0,
+      "positive_volume_zero_duration": 0
+    }
+  ],
+  "examples": {
+    "zero_volume_positive_duration": [
+      {
+        "entity_id": "1135",
+        "timestamp": "2022-10-21 01:05:00",
+        "volume": "0.0",
+        "duration": "0.0833333333333333"
+      },
+      {
+        "entity_id": "1135",
+        "timestamp": "2022-10-21 01:10:00",
+        "volume": "0.0",
+        "duration": "0.0833333333333333"
+      },
+      {
+        "entity_id": "1135",
+        "timestamp": "2022-10-21 01:20:00",
+        "volume": "0.0",
+        "duration": "0.1666666666666666"
+      },
+      {
+        "entity_id": "2172",
+        "timestamp": "2022-10-21 01:05:00",
+        "volume": "0.0",
+        "duration": "0.1666666666666666"
+      },
+      {
+        "entity_id": "2172",
+        "timestamp": "2022-10-21 01:10:00",
+        "volume": "0.0",
+        "duration": "0.1666666666666666"
+      }
+    ]
+  },
+  "station_comparison_sha256": "8505fc1641a0aedf19cafbbbd2f9dedda8f62044494fb79f63766c603b973053",
+  "elapsed_seconds": 105.0684962910018,
+  "pattern_metadata_details": {
+    "1135": {
+      "zero_volume_positive_duration_samples": 5762,
+      "first": "2022-10-21 01:05:00",
+      "last": "2023-02-21 07:20:00",
+      "duration_min_h": 0.0833333333333333,
+      "duration_max_h": 0.4166666666666666,
+      "all_positive_volume_samples": 0,
+      "monthly": {
+        "2022-10": 456,
+        "2022-11": 1575,
+        "2022-12": 3101,
+        "2023-01": 548,
+        "2023-02": 82
+      },
+      "station_charge_count": 11,
+      "rated_power_entries": {
+        "0.0": 22
+      }
+    },
+    "2172": {
+      "zero_volume_positive_duration_samples": 7423,
+      "first": "2022-10-21 01:05:00",
+      "last": "2023-02-21 08:25:00",
+      "duration_min_h": 0.0833333333333333,
+      "duration_max_h": 0.3333333333333333,
+      "all_positive_volume_samples": 9340,
+      "monthly": {
+        "2022-10": 281,
+        "2022-11": 1026,
+        "2022-12": 3809,
+        "2023-01": 2207,
+        "2023-02": 100
+      },
+      "station_charge_count": 16,
+      "rated_power_entries": {
+        "0.0": 22,
+        "7.0": 5
+      }
+    },
+    "2300": {
+      "zero_volume_positive_duration_samples": 26620,
+      "first": "2022-09-01 00:05:00",
+      "last": "2023-02-21 08:25:00",
+      "duration_min_h": 0.0833333333333333,
+      "duration_max_h": 0.25,
+      "all_positive_volume_samples": 0,
+      "monthly": {
+        "2022-09": 449,
+        "2022-10": 5792,
+        "2022-11": 7555,
+        "2022-12": 7389,
+        "2023-01": 5213,
+        "2023-02": 222
+      },
+      "station_charge_count": 6,
+      "rated_power_entries": {
+        "0.0": 12
+      }
+    }
+  },
+  "interpretation": {
+    "additional_duration_only_hour_losses": 0,
+    "rule_b_scientifically_required": false,
+    "physical_energy_validity_established": false,
+    "timestamp_alignment_verified": false,
+    "policy_changed": false,
+    "scope": "Same local release and provisional start-label/Asia-Shanghai clock as reference; no method selection on final outcomes"
+  },
+  "analysis_artifacts": {
+    "station_comparison_path": "runs/urbanev-rule-audit/issue16-rules-ab-v1-20261017/station_comparison.json",
+    "comparison_sha256": "9a3a866dc5972a984ad949e6105fa2a730aadfc78fee89e96f7c1cb59c57c823"
+  }
+}

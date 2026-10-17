@@ -66,3 +66,7 @@ The empty invalid energy cell is intentional. It must not become a target zero w
 ## Handoff to #17 / #18
 
 Review the shared contract and provisional clock assumptions before accepting these outputs. #17 audits CHARGED independently and supplies only released-file validity, not an invented observation mask. #18 handles reviewed source/development/final separation, permitted-prefix scaling, 7/14/28-day histories, calendar/masks, 24→24 windows, loader and leakage tests. None of those are implemented by #16. Any unresolved source/clock limitations must carry forward into claim scope.
+
+## Review response: duration criterion and timestamp limits
+
+The [full-release A/B analysis](urbanev-rule-comparison.md) directly addresses whether the duration requirement discards valid energy: both rules retain 5,745,899 hours; duration alone excludes zero additional hours. All 18,555,366 invalid volume/duration pairs are jointly blank. Nevertheless, both rules retain 3,643 hours containing zero-volume/positive-duration samples, concentrated in three stations with problematic power metadata. Therefore the duration requirement is a provisional missingness condition, not a proven scientific consistency safeguard. The comparison does not resolve timestamp endpoint/timezone semantics. Pipeline code and this original run remain unchanged; see the linked report for exact examples, completeness impact, reproducibility and limits. There are now 34 offline tests including six rule-comparison fixtures.
