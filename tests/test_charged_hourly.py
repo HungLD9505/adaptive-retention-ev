@@ -70,12 +70,21 @@ class ChargedHourlyTests(unittest.TestCase):
         self.assertEqual(qc["counts"]["valid_energy_rows"], 3)
 
     def test_duplicates_and_out_of_order_fail(self) -> None:
-        for second in ("00", "01"):
+        for second in ("00", "01", "02"):
             text = f",001,2\n2023-04-01 02:00:00,1,1\n2023-04-01 {second}:00:00,1,1\n"
             with self.subTest(second=second), self.assertRaisesRegex(ValueError, "out-of-order"):
                 adapt_city(
                     self.fixture(text), "AMS", self.root / second, self.start, self.end, "start"
                 )
+
+    def test_all_zero_sites_are_retained(self) -> None:
+        text = ",001,2\n2023-04-01 00:00:00,0,0\n2023-04-01 01:00:00,0,0\n2023-04-01 02:00:00,0,0\n"
+        qc = adapt_city(
+            self.fixture(text), "AMS", self.root / "zeros", self.start, self.end, "start"
+        )
+        self.assertEqual(qc["all_zero_volume_sites"], 2)
+        self.assertEqual(qc["counts"]["rows"], 6)
+        self.assertEqual(qc["counts"]["valid_energy_rows"], 6)
 
     def test_end_label_shifts_one_hour_without_timezone_assignment(self) -> None:
         text = ",001,2\n2023-04-01 01:00:00,1,1\n"
