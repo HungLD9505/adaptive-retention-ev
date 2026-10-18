@@ -38,6 +38,18 @@ flowchart TD
 - `tools/model_inputs.py`: minimal CLI; exits 0 only for technical success, 1 for failed/incomplete runs.
 - `iter_forecasts`: streams predictor-only records from an identified successful development run. It verifies manifest/artifact hashes and refuses unexpected record fields; it does not open labels. The model consumer selects `x_hist` and `c_future`. Tensor batching belongs to the model consumer; no NumPy/PyTorch dependency is added here.
 
+### Sample ownership, shared source training and separate target adaptation
+
+**Every 24-to-24 sample belongs to exactly one entity.** Its 24 historical bins and 24 target bins use the same `(dataset_id, city_id, entity_id)`. For example, station A's June 30 history pairs with station A's July 1 labels. Never pair A's history with B's labels, concatenate bins from different entities into one window, or sum station energies into a shared target series.
+
+For the subsequent #19 trainer, one shared source model learns from samples of multiple **source-role** entities within the selected dataset/city experiment. A minibatch may contain separate samples from A, B and C; each sample retains its own history/labels and identified per-entity scale. Shared parameter learning does not merge their physical time series. Cross-city/cross-dataset pooling is not introduced.
+
+Each development/final target then starts from the same selected source initialization and adapts separately using its own exact 7/14/28-day initial prefix, followed by its own permitted online stream. Target D's learned adaptation state or history must not initialize target E or enlarge E's history budget. The frozen source reference remains shared/frozen under Report 1; target states and their scaler identities remain separate. Development targets select settings; final targets evaluate the locked procedure.
+
+**`training.jsonl` contains role-tagged examples for different training stages, not one undifferentiated pretraining pool.** The #19 trainer must select source-role records for source pretraining and the matching target identity for target initialization/adaptation. In the fixture's 41 examples, 29 belong to source pretraining, six belong to the development target and six to the final target. Do not pretrain on all 41 together. This fixture has only one source entity, so it does not demonstrate learning from multiple source stations.
+
+The loader constructs and identifies these records; source model training, minibatch assembly, checkpoint copying and independent target optimization are future #19 responsibilities, not implemented behavior or effectiveness evidence in this PR.
+
 ## 2. Explicit config
 
 Each invocation handles one dataset/city and one target history budget. Example values below are illustrative; they do not select the official salt, producer run or arrival policy:
