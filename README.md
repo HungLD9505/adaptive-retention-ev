@@ -12,6 +12,8 @@ For file-by-file dataset explanations, read the [UrbanEV reference](docs/data/UR
 
 The #18 [development loader](docs/reports/input-loader.md) integrates hourly manifest/CSV IO with pinned feature, split/scaler and window helpers. It is validated on independent fixtures; real producer runs, official cohorts/artifacts and model handoff remain pending review.
 
+The [real-data loader trial](docs/reports/input-loader-real.md) covers all UrbanEV/CHARGED entity IDs and budgets 7/14/28. It records actual counts and incomplete UrbanEV prefixes for review; official input/cohort acceptance and model handoff remain pending.
+
 1. Read the [team workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md).
 2. Read the [data sources and download/verification instructions](data/README.md).
 3. Review the [foundation handoff report](docs/FOUNDATION_REPORT.md).
