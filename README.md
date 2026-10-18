@@ -10,6 +10,8 @@ Read the [Master Research Flow — WHY → HOW → PROVE](docs/MASTER_RESEARCH_F
 
 For file-by-file dataset explanations, read the [UrbanEV reference](docs/data/URBANEV.md) and [CHARGED / AMS reference](docs/data/CHARGED.md).
 
+The first #18 [feature helpers](ev_inputs/features.py) encode local calendar fields and a masked historical row against a pinned proposed contract; see the [fixture-only handoff](docs/reports/input-features.md). Splits, fitted scalers, windows, loaders and official input artifacts remain unimplemented.
+
 1. Read the [team workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md).
 2. Read the [data sources and download/verification instructions](data/README.md).
 3. Review the [foundation handoff report](docs/FOUNDATION_REPORT.md).
