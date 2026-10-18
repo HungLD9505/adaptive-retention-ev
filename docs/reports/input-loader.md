@@ -113,6 +113,8 @@ The committed evidence JSON records an actual offline suite run and one retained
 
 New tests exercise both CSV orderings, all six CHARGED profile identifiers, constant-offset UrbanEV, prefix budgets, future suffix mutation, delayed labels, zero/fallback, undefined scales, source/target separation, unchanged input files, fingerprint/profile/path failures, structural gap failure evidence, no overwrites, separate-label reader and CLI exit behavior. They integrate unchanged core helpers; isolated tests remain included.
 
+The first Windows CI run caught platform-dependent separators in executed-source provenance keys. The implementation now serializes repository-relative keys with `/` on every OS; the existing integration assertion is retained. The original fixture demo/evidence remains historical, and a separate post-fix validation record identifies the correction.
+
 Run all README checks with Python 3.12. No raw downloads, real-data loader run, long training, full-scale memory/performance test or official sample-count audit is included. SQLite disk usage/runtime at full release scale is not yet measured. Tests establish behavior under fixture assumptions, not strict-online readiness or model effectiveness.
 
 Before official acceptance: reconcile peer-reviewed #16/#17/#30–#33 revisions, decide salt/co-location handling and p95 fallback on development, explicitly approve clock/arrival assumptions, run reviewed real inputs and report actual counts/failures per city/budget. Keep UrbanEV primary, CHARGED supplementary, SZH separate. Do not tune using Final, close #18 or claim official #19 handoff yet.
