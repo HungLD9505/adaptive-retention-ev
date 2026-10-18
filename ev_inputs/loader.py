@@ -63,7 +63,9 @@ def _code_identity() -> dict:
         "worktree_status": subprocess.check_output(
             ["git", "-C", str(ROOT), "status", "--porcelain"], text=True
         ).splitlines(),
-        "executed_sources": {path.relative_to(ROOT).as_posix(): sha256_file(path) for path in files},
+        "executed_sources": {
+            path.relative_to(ROOT).as_posix(): sha256_file(path) for path in files
+        },
     }
 
 
