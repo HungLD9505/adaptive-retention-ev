@@ -10,6 +10,8 @@ Read the [Master Research Flow — WHY → HOW → PROVE](docs/MASTER_RESEARCH_F
 
 For file-by-file dataset explanations, read the [UrbanEV reference](docs/data/URBANEV.md) and [CHARGED / AMS reference](docs/data/CHARGED.md).
 
+The next #18 [split/scaler proposal](docs/data/SPLIT_SCALER_POLICY.md) has fixture-only helpers; see the [handoff](docs/reports/input-split-scaler.md). Official partitions, fitted data artifacts, windows and loaders remain pending review/integration.
+
 1. Read the [team workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md).
 2. Read the [data sources and download/verification instructions](data/README.md).
 3. Review the [foundation handoff report](docs/FOUNDATION_REPORT.md).
