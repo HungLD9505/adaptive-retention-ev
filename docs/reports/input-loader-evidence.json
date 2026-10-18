@@ -76,5 +76,17 @@
       }
     }
   },
-  "acceptance_scope": "independent producer-format fixtures and helper integration only; no actual producer executions, raw data, official artifacts, cohort acceptance or research effectiveness"
+  "acceptance_scope": "independent producer-format fixtures and helper integration only; no actual producer executions, raw data, official artifacts, cohort acceptance or research effectiveness",
+  "post_fix_validation": {
+    "run_id": "issue18-loader-path-fix-validation-v1-20261019",
+    "code_commit": "ae34463d7e449ba5423c5e9dc43743e495e01383",
+    "python": "3.12.14",
+    "runtime_seconds": 0.6607437910279259,
+    "tests": 67,
+    "failures": 0,
+    "errors": 0,
+    "loader_sha256": "28f2b266957f356e40a26f202f34874d4486eef25f1a95333fbe25b67ed90ad7",
+    "reason": "First Windows CI failed because provenance used platform separators; implementation now emits POSIX repository-relative source keys. Existing assertion and historical evidence preserved.",
+    "original_failed_actions_run": 39153482566
+  }
 }
