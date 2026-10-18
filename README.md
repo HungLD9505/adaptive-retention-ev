@@ -10,6 +10,8 @@ Read the [Master Research Flow — WHY → HOW → PROVE](docs/MASTER_RESEARCH_F
 
 For file-by-file dataset explanations, read the [UrbanEV reference](docs/data/URBANEV.md) and [CHARGED / AMS reference](docs/data/CHARGED.md).
 
+The #18 [development loader](docs/reports/input-loader.md) integrates hourly manifest/CSV IO with pinned feature, split/scaler and window helpers. It is validated on independent fixtures; real producer runs, official cohorts/artifacts and model handoff remain pending review.
+
 1. Read the [team workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md).
 2. Read the [data sources and download/verification instructions](data/README.md).
 3. Review the [foundation handoff report](docs/FOUNDATION_REPORT.md).
