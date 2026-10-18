@@ -1,0 +1,80 @@
+{
+  "run_id": "issue18-loader-validation-v1-20261019",
+  "recorded_at": "2026-10-18T18:17:01.511192+00:00",
+  "code_commit": "98b1cbe201b41a635d4b219c02627f64285842e5",
+  "python": "3.12.14",
+  "suite_runtime_seconds": 0.7033960840199143,
+  "command": "python -m unittest discover -s tests -v",
+  "tests": 67,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "test_scope": {
+    "new_loader": 16,
+    "pinned_features": 12,
+    "pinned_split_scaler": 13,
+    "pinned_windows": 17,
+    "foundation": 9
+  },
+  "file_sha256": {
+    "ev_inputs/features.py": "a9bf5fddd64d2641f9b50f9ad8a027e5336e80eb6b6b2a3af267fe4eef91f379",
+    "ev_inputs/splits.py": "cf52ec982f2c97002b67b7f3bfaacc8aba4bf7ca4143e4e4a771b66c041bf8e0",
+    "ev_inputs/scaling.py": "dbdc205c0700ca9cdfbf6965c45150be6adb4d9a596dcc5ee7a1134fd831da9b",
+    "ev_inputs/windows.py": "262c78344305227e4772297107bc1a369da6a92767fb3ba72a64f395cd57a94f",
+    "ev_inputs/hourly_reader.py": "c839af7c27ef9c9bc8013e04016f11e2fd7c0449fc18f4cf5c6e8c0d62b9239a",
+    "ev_inputs/loader.py": "3127a2b87cbfb3b61ffe0a62dafe7321cb97fe1a46710f3734c1fab4916191ec",
+    "tools/model_inputs.py": "88cb594db6055e49ec21f2ee609414fb6b81c6cf26951b9175b0462903541ebf",
+    "tests/test_input_loader.py": "66461e72fe211ceba9692f3bbbc512239cc459c6d82238b0f575b398cbad4818"
+  },
+  "contract_commit": "c406ae07606ca48859cf93f8b24dfffab79c7803",
+  "fixture_demo": {
+    "config_path": "handoff/issue18-loader-fixtures-v1-20261019/config.json",
+    "reconstruction_command": "python -m tools.model_inputs --config handoff/issue18-loader-fixtures-v1-20261019/config.json --output data/inputs/NEW-UNIQUE-RUN-ID",
+    "manifest_path": "data/inputs/issue18-loader-fixtures-v1-20261019/manifest.json",
+    "manifest_sha256": "b9740af4d56232931746d0d102c2175eb1cd77817b79fe90724972e10d06d75f",
+    "producer_manifest_sha256": "651b37c9256656ad131606eefd3f75917c0705be7bf82c6ea5520e696b543a41",
+    "producer_hourly_sha256": "7688cac6f0fb121e9c0eb8fdac4fbc07b0584824cf324426963302f073e70e76",
+    "config": {
+      "producer_manifest": "/Users/quyenmanh/Developer/TFL-EV/handoff/issue18-loader-fixtures-v1-20261019/producer-charged-AMS/manifest.json",
+      "producer_manifest_sha256": "651b37c9256656ad131606eefd3f75917c0705be7bf82c6ea5520e696b543a41",
+      "dataset_id": "charged",
+      "city_id": "AMS",
+      "deployment": "2023-07-01T00:00:00",
+      "replay_stop": "2023-07-03T00:00:00",
+      "source_start": "2023-06-01T00:00:00",
+      "history_days": 7,
+      "split_salt": "fixture-only-v1",
+      "availability_delay_hours": 0
+    },
+    "status": "technical_success",
+    "runtime_seconds": 0.03398737503448501,
+    "counts": {
+      "source": 1,
+      "development": 1,
+      "final": 1,
+      "undefined_scales": 0,
+      "initial_candidates": 41,
+      "initial_trainable": 41,
+      "scheduled_forecasts": 4
+    },
+    "files": {
+      "forecasts.jsonl": {
+        "sha256": "f365f33376befd8da1b961c47ae1d7e58734765bf1e799b9f212ed8723d40ff0",
+        "size_bytes": 22688
+      },
+      "labels.jsonl": {
+        "sha256": "ee092a4d3b484b8ccf5a4ec63fffd502db0c119553ef5c021bd7875703167f9f",
+        "size_bytes": 6280
+      },
+      "training.jsonl": {
+        "sha256": "6e8cb6bfbf19f2e7bfa5ee354f87b36af5cf6ee2ce711b48a40facb06ee61135",
+        "size_bytes": 234273
+      },
+      "entities.jsonl": {
+        "sha256": "bd389f5561a4747032de1373bbdd570eef1dd54c78aa46fb3549b76bc7ff8cf8",
+        "size_bytes": 2004
+      }
+    }
+  },
+  "acceptance_scope": "independent producer-format fixtures and helper integration only; no actual producer executions, raw data, official artifacts, cohort acceptance or research effectiveness"
+}
