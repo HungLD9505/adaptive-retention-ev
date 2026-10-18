@@ -1246,5 +1246,33 @@
       "original_unit_roundtrip": "relative/absolute tolerance 1e-6",
       "sampled_records": 3
     }
+  ],
+  "workbook_verification": {
+    "xlsx_sha256": "c189c05e4b3dc7c1fb32b90b7b673da579fcde268de73fb790b168c2b1263c92",
+    "size_bytes": 1594879,
+    "sheet_names": [
+      "Overview",
+      "Replay",
+      "Entities",
+      "Definitions"
+    ],
+    "detail_rows": 17886,
+    "native_readback": "all 21 role totals and cached summary values match independent counts; entity IDs remain text; counts numeric",
+    "native_features": "5 filter tables; entity pane xSplit=5/ySplit=6",
+    "formula_error_scan": "0 matches",
+    "visual_review": "all four sheets plus entity metrics and producer source region rendered and inspected",
+    "engine_check": "Artifact Tool recalc plus edit/restore dependency check; openpyxl read-only XLSX verification; Excel/Numbers UI not opened"
+  },
+  "workbook_path": "handoff/outputs/issue18-real-loader-v1-20261019/Loader_Review.xlsx",
+  "workbook_builder_sha256": "1981fe5492148c0d1b9a903bf21f496457e487db1418d681897cd53bcbaf4346",
+  "producer_manifests": [
+    {
+      "path": "data/processed/urbanev/issue16-start-v1-20261017/manifest.json",
+      "sha256": "6c152ce9da7084fea35edb1badc29c1069337f8aa1523b6be487e63f7b5897ac"
+    },
+    {
+      "path": "data/processed/charged/issue17-hourly-v1-20261017/manifest.json",
+      "sha256": "dc4d1d444ba6ebc9d092371799faf7eb8ef1419f876283c800671ffc045e980f"
+    }
   ]
 }
