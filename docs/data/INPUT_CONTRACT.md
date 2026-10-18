@@ -48,6 +48,60 @@ Use local nominal hour `h ∈ {0,...,23}` and weekday `d ∈ {0,...,6}` with **M
 - `weekday_sin = sin(2πd/7)`, `weekday_cos = cos(2πd/7)`.
 - `is_weekend = 1` for Saturday/Sunday (`d >= 5`), else `0`. This is a calendar indicator, not a claim about holidays or actual local working schedules.
 
+### Why represent calendar values as a circle?
+
+A model can consume raw hour numbers; the issue is the geometry of that representation. On a number line, `23` and `0` differ by 23 even though they are adjacent hours. The same issue occurs between Sunday (`6`) and Monday (`0`). A sine/cosine pair makes the wraparound explicit: the last and first positions are separated by the same angle as any neighboring pair.
+
+![Hour and weekday circles: 23:00 is adjacent to 00:00, and Sunday is adjacent to Monday. Horizontal position is sine; vertical position is cosine.](figures/cyclic-calendar.svg)
+
+Each dot is a calendar position, not a charging measurement. In this figure **horizontal x = sine, vertical y = cosine**: zero is at the top and values increase clockwise. This drawing convention matches the feature formulas and `[sin, cos]` order used here. Other axis orientations are possible; do not silently change the implemented feature definitions/order.
+
+For a position `v` in a cycle of `P` positions:
+
+$$
+\theta = \frac{2\pi v}{P}, \qquad x = \sin(\theta), \qquad y = \cos(\theta).
+$$
+
+For hours, substitute `v=h` and `P=24`:
+
+$$
+\mathrm{hour\_sin}=\sin\left(\frac{2\pi h}{24}\right), \qquad
+\mathrm{hour\_cos}=\cos\left(\frac{2\pi h}{24}\right).
+$$
+
+For weekdays, substitute `v=d` and `P=7`:
+
+$$
+\mathrm{weekday\_sin}=\sin\left(\frac{2\pi d}{7}\right), \qquad
+\mathrm{weekday\_cos}=\cos\left(\frac{2\pi d}{7}\right).
+$$
+
+`2π` is one full turn in radians. Division by the period assigns equal angular steps to the 24 hours or seven days. The model receives the two resulting numbers, not the diagram. The same formulas supply both historical and known-future calendar columns; the energy forecast is still unknown.
+
+**Why both sine and cosine?** Sine alone cannot distinguish 00:00 from 12:00 (both zero). Cosine alone cannot distinguish 06:00 from 18:00 (both zero). Their ordered pair distinguishes every discrete position within the cycle.
+
+Numerical examples below are mathematical illustrations, not sampled EV data. Values are rounded to four decimal places for readability only; they do not prescribe extra rounding in feature generation.
+
+| Local hour h | hour_sin | hour_cos |
+| --- | ---: | ---: |
+| 00:00 | 0.0000 | 1.0000 |
+| 06:00 | 1.0000 | 0.0000 |
+| 12:00 | 0.0000 | -1.0000 |
+| 18:00 | -1.0000 | 0.0000 |
+| 23:00 | -0.2588 | 0.9659 |
+
+| Local weekday | d | weekday_sin | weekday_cos | is_weekend |
+| --- | ---: | ---: | ---: | ---: |
+| Monday | 0 | 0.0000 | 1.0000 | 0 |
+| Tuesday | 1 | 0.7818 | 0.6235 | 0 |
+| Wednesday | 2 | 0.9749 | -0.2225 | 0 |
+| Thursday | 3 | 0.4339 | -0.9010 | 0 |
+| Friday | 4 | -0.4339 | -0.9010 | 0 |
+| Saturday | 5 | -0.9749 | -0.2225 | 1 |
+| Sunday | 6 | -0.7818 | 0.6235 | 1 |
+
+At 23:00 the hour pair is approximately `(-0.2588, 0.9659)`; at 00:00 it is `(0, 1)`. The points are neighbors on the circle despite the numeric hour labels crossing from 23 to 0. The same geometry places Sunday next to Monday. Cyclic encoding exposes calendar structure; it neither guarantees improved forecasting nor asserts that neighboring hours/days have equal charging demand. The explicit weekend indicator is retained as a proposed feature from Report 1's calendar specification, not as evidence that every city follows identical working schedules.
+
 ### Historical input: X_hist[24,7]
 
 | Column | Name | Definition |
