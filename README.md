@@ -10,6 +10,8 @@ Read the [Master Research Flow — WHY → HOW → PROVE](docs/MASTER_RESEARCH_F
 
 For file-by-file dataset explanations, read the [UrbanEV reference](docs/data/URBANEV.md) and [CHARGED / AMS reference](docs/data/CHARGED.md).
 
+The proposed [model input contract](docs/data/INPUT_CONTRACT.md) defines the #18 feature schema and input/label boundary for review; no model input pipeline or official artifacts are implemented by that document.
+
 1. Read the [team workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md).
 2. Read the [data sources and download/verification instructions](data/README.md).
 3. Review the [foundation handoff report](docs/FOUNDATION_REPORT.md).
