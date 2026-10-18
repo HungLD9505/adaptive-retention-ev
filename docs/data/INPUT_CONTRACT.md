@@ -130,6 +130,27 @@ An all-missing history must be represented faithfully and flagged in metadata; i
 
 Definitions are identical to the historical calendar columns, evaluated at the forecasted bins. Future actual energy, missingness/completeness of future Y, realized price, measured weather, static whole-period activity totals and post-origin statistics are **not features**. No station ID, TAZID, coordinates, POI or UrbanEV Supplemental feature is enabled by this schema.
 
+### Worked example: timestamp → one feature row
+
+Consider a **historical** local timestamp `2022-11-29T06:00:00+08:00` (Tuesday, 06:00). This is a mathematical illustration, not an actual station observation:
+
+1. Tuesday gives `d=1`; 06:00 gives `h=6`.
+2. `hour_sin = sin(2π×6/24) = 1`; `hour_cos = cos(2π×6/24) = 0`.
+3. `weekday_sin = sin(2π×1/7) ≈ 0.7818`; `weekday_cos = cos(2π×1/7) ≈ 0.6235`.
+4. Tuesday is not a weekend, so `is_weekend=0`.
+5. Suppose the available, file-valid energy is **10 kWh** and an already identified permitted-history scale is **20 kWh**: `energy_scaled=0.5`, `energy_present_mask=1`. The scale is illustrative, not a fitted result or a new scaler policy.
+
+The resulting historical row, in the exact seven-column order, is approximately:
+
+```text
+[energy_scaled, hour_sin, hour_cos, weekday_sin, weekday_cos, is_weekend, mask]
+[          0.5,        1,        0,      0.7818,      0.6235,          0,    1]
+```
+
+This is **one row** of `X_hist[24,7]`; compute the other 23 rows from their own hourly timestamps and energy/mask values. If this historical energy were missing, only the energy/mask entries would change to `0` and `0`; the five calendar entries would stay the same.
+
+For a forecasted Tuesday 06:00 bin, the corresponding `C_future` row would be `[1, 0, 0.7818, 0.6235, 0]`, computed from that future timestamp. It contains no energy or future-validity mask. This connects a timestamp to model columns; it does not change the proposed encoding or implement feature generation. Decimal rounding here is for display only.
+
 ### Labels and batch shapes
 
 For a complete and available supervised target, `Y_scaled[24]` is hourly kWh divided by the **same identified energy scale** as X; chronological order matches C_future. Also preserve original-unit Y for evaluation/inverse-scale checks. No clipping to [0,1] is implied by p95 scaling; legitimate values can exceed 1.
