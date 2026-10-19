@@ -56,8 +56,8 @@ Only use `verify --include-optional` when you intend to acquire the supplemental
 ## Raw, processed data, and inputs
 
 - **Raw:** original archive bytes received from the publisher, preserved outside Git as traceable inputs.
-- **Processed:** hourly station/site tables produced by the implementations under review (#16/#17), with file-validity and source identities.
-- **Inputs:** role-tagged 24→24 examples and separate replay inputs/labels from the #18 loader, with explicit coverage accounting; technical outputs exist locally, while peer/integration acceptance remains pending.
+- **Processed:** hourly station/site tables produced by the #16/#17 implementations, with file-validity and source identities.
+- **Inputs:** role-tagged 24→24 examples and separate replay inputs/labels from the #18 loader, with explicit coverage accounting; the shared snapshot is available on Drive; final integrated verification and the lead-directed acceptance scope are recorded in [the integration report](../docs/reports/data-integration.md).
 
 Read [the complete data flow](../docs/data/DATA_FLOW.md) for actual paths, examples and the purpose of each output file.
 

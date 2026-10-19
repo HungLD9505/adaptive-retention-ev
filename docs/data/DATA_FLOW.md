@@ -293,7 +293,7 @@ All local data folders stay out of Git. Teammates need the same verified produce
 
 ## 7. What is finished, and what comes next?
 
-Data-processing and input code exists in PRs under review. The new handoff contains actual inputs for UrbanEV and all six CHARGED cities, with explicit coverage limits and reproducible counts. It is ready for technical review and development of the model consumer. Formal integration/acceptance and issue closure still require the team workflow.
+Data-processing and input code exists in PRs under review. The new handoff contains actual inputs for UrbanEV and all six CHARGED cities, with explicit coverage limits and reproducible counts. It is ready for technical review and development of the model consumer. The subsequent combined verification and lead-directed acceptance/issue disposition are recorded in [the integration report](../reports/data-integration.md).
 
 Next is #19: train a source model on Source examples, then initialize/adapt each target separately. Later forecasting produces actual predictions; evaluation and online updates consume labels only when permitted. Preprocessing itself has trained no model and demonstrated no research effectiveness.
 
@@ -301,9 +301,9 @@ UrbanEV is primary. CHARGED remains supplementary; SZH is analyzed separately be
 
 This guide explains the existing implementation. It does not change Report 1, add another execution plan, alter old trial results or authorize merging.
 
-## 8. PR review reading map
+## 8. PR history and reading map
 
-Use this index to find the explanation attached to each open review slice. Older PRs describe their own snapshots; their fixture counts, trial failures or pending-policy wording are not the current handoff status. The current user-selected policy and shared snapshot are in PR #36; independent approval/integration remain pending. These are reading links, not a second execution plan.
+Use this index to find the explanation attached to each contributing PR slice. Older PRs describe their own snapshots; their fixture counts, trial failures or pending-policy wording are not the current handoff status. The user-selected policy and shared snapshot originated in PR #36; the integration report records their subsequent combined verification and the lead-directed disposition without independent peer approval. These are reading links, not a second execution plan.
 
 | PR | Scope | Read first |
 | --- | --- | --- |

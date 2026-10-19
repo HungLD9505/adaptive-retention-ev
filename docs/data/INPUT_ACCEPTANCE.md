@@ -41,3 +41,21 @@ Coverage invariant: `requested_forecasts = scheduled_forecasts + skipped_all_mis
 A completed policy run may report `technical_success_with_coverage_limits`: explicit blocks/skips are fully accounted, not fixed, imputed or certified scientifically valid. This differs from the old trial's unresolved-policy failure. A run with requested targets but zero usable forecasts remains `incomplete_no_usable_forecasts`; structural/QC failures still fail. A successful target-only subset run does not establish that a usable source checkpoint exists. The #19 consumer must verify a nonempty source pool and independently retain each target's state/scaler.
 
 Technical output readiness does not close #18. Review/merge of prerequisites and this policy implementation, CI, source/target consumer review and the handoff report remain necessary. No merge is authorized by this document.
+
+## Checkpoint input binding contract
+
+The future #19 checkpoint writer must persist an `input_binding` object with schema **`ev-checkpoint-input-binding-v1`**. This is the data interface requirement, not an implemented model/checkpoint serializer.
+
+| Required field | Meaning |
+| --- | --- |
+| `schema`, `feature_schema` | `ev-checkpoint-input-binding-v1` and the exact input feature schema/order (`ev-input-v1` for this snapshot). |
+| `input_manifest_sha256`, `input_run_id` | Identify the source or target input run and all artifact/config/policy identities it binds. Do not identify inputs only by a mutable directory name. |
+| `dataset_id`, `city_id`, `stage` | Dataset/city namespace and `source` or `target` training stage; stages cannot be inferred from file position. |
+| `entity_id`, `history_days`, `scale_id` | For target state, its string ID, exact 7/14/28-day initial budget and fitted scale fingerprint; null for a shared Source state, whose per-entity scales are bound through its source-run entities artifact. |
+| `source_checkpoint_sha256` | For a target, identity of the selected source initialization/reference; null for the original source checkpoint. |
+
+A source checkpoint may be reused across budget runs only when its Source population, permitted history, scales, source training configuration and seed remain compatible. A target checkpoint must bind its own target-run manifest and scale; it cannot become another target's initialization. The #19 model schema must additionally record architecture/configuration, seed, model/optimizer state and code identity; runner timing/state persistence belongs to its own consumer implementation. No weights, dummy checkpoints or speculative framework are added by #18.
+
+## Integration acceptance record
+
+On 2026-10-20 the team lead explicitly requested final integrated verification, merge into dev, main synchronization and cleanup. [The integration report](../reports/data-integration.md) records the executed checks and the one-time lead-directed disposition when independent peer approval has not been supplied. This does not fabricate an Approve review or weaken the normal peer-review rule for future work. The minimum 1/24 available historical-energy gate is accepted with mandatory coverage/missing-rate reporting and identical gates across compared methods; `source_checkpoint_only` outcomes remain a separate stratum. Clock/upstream/location limitations are unchanged.

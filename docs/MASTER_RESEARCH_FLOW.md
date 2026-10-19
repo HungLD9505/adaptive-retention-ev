@@ -188,10 +188,10 @@ The defense follows context → difficulty → hypothesis → comparison → evi
 | Research method and flow | Design follows Report 1; effectiveness/novelty unproven | [Report 1](../adaptive_retention_report_1.pdf), WHY/HOW/PROVE above |
 | Raw sources and local file verification | Catalog and verification tool implemented; fixture-based tests | [Data sources](../data/README.md), [source tool](../tools/sources.py), [tests](../tests/test_sources.py) |
 | Raw acquisition | Both required archives downloaded and verified locally; provider files extracted | [Acquisition report](reports/data-acquisition.md); data remains outside Git |
-| UrbanEV hourly processing / QC | Implemented; actual full-station technical run, provisional time semantics and peer acceptance pending | [Hourly handoff](reports/urbanev-hourly.md), [contract](data/HOURLY_CONTRACT.md) |
-| CHARGED audit / model inputs | Full CHARGED suitability and project model inputs not implemented | #17 / #18; follow [WORKFLOW](WORKFLOW.md) |
+| UrbanEV hourly processing / QC | Implemented; full-station technical evidence and integrated reproduction, with provisional time/arrival semantics retained | [Hourly handoff](reports/urbanev-hourly.md), [contract](data/HOURLY_CONTRACT.md) |
+| CHARGED audit / model inputs | Six-city audit/adapter and v2 input pipeline implemented; bounded use, coverage and source-only strata retained | [Integrated verification](reports/data-integration.md), [input policy](data/INPUT_ACCEPTANCE.md), [shared downloads](data/DATA_DOWNLOADS.md) |
 | Model/loss, runner/controller, baselines, experiments | Planned; not implemented | Follow Report 1; verify each implementation with its own evidence |
-| Full reproduction / strict online / external independence | Unverified | Processing/input reproduction and upstream/time/availability/overlap evidence are still pending |
+| Reproduction / strict online / external independence | Integrated reproduction checks recorded; strict-online causality and physical-location independence remain unverified | [Integration scope and limits](reports/data-integration.md); no claim that CI resolves upstream/time/overlap limitations |
 
 Foundation handoff: [FOUNDATION_REPORT](FOUNDATION_REPORT.md). Its local results belong to the foundation implementation snapshot; check each PR's corresponding CI run separately.
 

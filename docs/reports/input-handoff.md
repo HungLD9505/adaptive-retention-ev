@@ -1,5 +1,7 @@
 # Issue #18 — input policy implementation and real-data handoff
 
+> Retained preparation-handoff snapshot. See [final integrated verification and lead acceptance](data-integration.md) for the subsequent merge/issue disposition. The actual counts below remain unchanged.
+
 ## Status
 
 The team lead explicitly requested finalization/implementation on 2026-10-19. [Input handoff policy v1](../data/INPUT_ACCEPTANCE.md) now defines operational missing-data handling. All 21 configurations have been rerun into new uniquely identified outputs. The original PR #35 trial, workbook and evidence remain unchanged.
