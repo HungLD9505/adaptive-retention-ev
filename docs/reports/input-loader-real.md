@@ -134,6 +134,40 @@ python -m tools.model_inputs \
 
 On a new machine, recreate the config from the fixed settings above and record the exact SHA-256 of its acquired producer manifest; file paths/producer outputs are outside Git. Do not replace a recorded expected hash to conceal different data. The producer manifest binds its hourly fingerprint. This trial did not rerun the raw→hourly producers.
 
+## Proposed missing-data policy — pending team approval
+
+This proposal was requested after reviewing the real-data trial. It is a separate protocol decision for review, **not an implemented or approved rule**. The tables, workbook, evidence JSON and retained trial artifacts above still describe the unchanged loader. In particular, the trial currently creates all-missing historical inputs; the proposed skip below has not been applied. Approval of the technical trial does not by itself approve this policy.
+
+| Case | Proposed treatment | Boundary |
+| --- | --- | --- |
+| Missing historical energy | Preserve missingness; encode a numeric zero placeholder only with historical energy mask = 0. A valid measured/released zero retains mask = 1. | No interpolation or claim that the placeholder is physical zero. |
+| Partially missing 24-hour history | Permit a forecast input when at least one historical energy value is valid and available at the origin. Retain all 24 positions and masks; record valid-hour count. | No arbitrary percentage threshold is introduced. This permissive rule needs Development review; it is not evidence of forecasting quality. |
+| All 24 historical energy values missing/unavailable | Skip model invocation for that scheduled origin and record an explicit all-missing-history reason. Apply the same origin gate to compared methods. | Keep the origin in the requested schedule/coverage denominator. Report skipped counts and coverage alongside metrics; never silently present the reduced subset as full coverage. |
+| Any missing/invalid/unavailable future label | Keep forecast scheduling independent of future completeness. Once labels become available, require all 24 valid labels for a supervised example or full-horizon evaluation. | Do not fill labels or backdate availability. Retain pending/unscorable records and counts; do not retroactively choose forecast dates. |
+| Defined scaler but no complete initial supervised example | Keep a separately reported no-initial-adaptation case. Use the selected source checkpoint without target fine-tuning when the historical-input gate permits inference; allow later adaptation only when complete labels become available under the reviewed runner protocol. | This source-only fallback must be explicitly approved, identified by target/budget, and reported separately from initially adapted targets. It is not proof of an adaptive-method result. |
+| No valid available energy in the permitted scale-fit prefix | Record initialization as blocked by undefined scale; do not fabricate a scale, silently drop the ID, or mark the run successful. | Keep blocked entity counts and reasons. This proposal does not define later recovery or change exact 7/14/28-day history budgets. |
+
+### Concrete prefix examples (UrbanEV, 7-day trial)
+
+These examples describe permitted-prefix diagnostics, not a new selection based on future Final labels:
+
+| Station ID | Valid prefix hours / 168 | Scale | Initial supervised samples | Proposed classification |
+| --- | ---: | --- | ---: | --- |
+| 1001 | 168 | Defined | 6 | Initial adaptation possible; each later origin still checks its available history. |
+| 1004 | 119 | Defined | 0 | No-initial-adaptation case; source checkpoint inference only where the input gate permits. |
+| 1005 | 0 | Undefined | 0 | Initialization blocked; retained and reported explicitly. |
+
+The current trial has 8,359 / 8,538 / 9,024 all-missing UrbanEV replay histories for 7 / 14 / 28 days. A future implementation would record skipped model invocations for these histories rather than silently erase them. Existing sample counts and artifacts must not be relabeled as outputs of that future implementation. History and label eligibility overlap; do not infer revised scorable totals by subtracting these aggregate counts.
+
+### Review and implementation gate
+
+- Request independent review of each policy row, including method compatibility with Report 1, fair comparisons and the separately reported source-only fallback.
+- Use Source/Development for any policy tuning; do not select thresholds, salt, cohorts or policies using future Final completeness or forecasting results. The Final IDs above are illustrative prefix diagnostics, not tuning evidence.
+- Keep roles and daily requested origins fixed. Any prefix-based cohort classification must be explicit and reproducible at deployment, with blocked/no-adaptation/skip counts retained.
+- The existing p95 = 0 unit fallback remains an unresolved, separate scaler decision. A valid all-zero prefix is different from an empty valid prefix; neither is automatically an inactive-site exclusion.
+- Review clock/availability assumptions independently. This policy does not certify publisher causality or strict-online readiness for either dataset.
+- After explicit team approval, implement approved changes in a separate branch/PR with regression tests and fresh uniquely identified outputs. Preserve this trial and workbook; rerun counts and coverage before official #19 handoff. Keep #18 open and do not merge autonomously.
+
 ## Acceptance boundary
 
 #18 remains open. Do not merge, declare official input acceptance or hand these incomplete UrbanEV runs to the model consumer as successful runs. Team review must decide explicit prefix/eligibility handling, p95 fallback and scientific clock/arrival limitations before official cohorts. Any change requires review and new outputs, preserving these trial results. No method tuning was performed using Final.
