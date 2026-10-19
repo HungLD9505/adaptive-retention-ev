@@ -8,6 +8,8 @@ Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Fo
 
 Read the [Master Research Flow — WHY → HOW → PROVE](docs/MASTER_RESEARCH_FLOW.md) to understand the problem, proposed method, and required evidence.
 
+Start with [From the two datasets to model inputs](docs/data/DATA_FLOW.md) for the complete raw → hourly → training/prediction-input flow and a guide to the actual local folders.
+
 For file-by-file dataset explanations, read the [UrbanEV reference](docs/data/URBANEV.md) and [CHARGED / AMS reference](docs/data/CHARGED.md).
 
 The #18 [development loader](docs/reports/input-loader.md) integrates hourly manifest/CSV IO with pinned feature, split/scaler and window helpers. It is validated on independent fixtures; real producer runs, official cohorts/artifacts and model handoff remain pending review.

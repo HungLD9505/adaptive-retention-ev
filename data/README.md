@@ -52,8 +52,10 @@ Only use `verify --include-optional` when you intend to acquire the supplemental
 ## Raw, processed data, and inputs
 
 - **Raw:** original archive bytes received from the publisher, preserved outside Git as traceable inputs.
-- **Processed:** outputs produced by the new pipeline, which is not implemented yet.
-- **Inputs:** splits/scalers/windows/tensors produced by the next phase, not implemented in the new foundation yet.
+- **Processed:** hourly station/site tables produced by the implementations under review (#16/#17), with file-validity and source identities.
+- **Inputs:** role-tagged 24→24 examples and separate replay inputs/labels from the #18 loader, with explicit coverage accounting; technical outputs exist locally, while peer/integration acceptance remains pending.
+
+Read [the complete data flow](../docs/data/DATA_FLOW.md) for actual paths, examples and the purpose of each output file.
 
 "Raw" does not imply every value is an unprocessed physical observation. UrbanEV station volume is estimated/derived, and the archive includes raw and processed variants. CHARGED Hourly has already been processed by its publisher. A checksum match confirms recorded bytes, not upstream causality, completeness, or suitability for modeling.
 
