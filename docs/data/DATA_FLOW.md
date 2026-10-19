@@ -10,6 +10,8 @@ We still have **two separate datasets**. We have created new representations of 
 | `data/processed/` | One station/site, one hourly bin, energy in kWh, and file-QC information | Give both datasets a common hourly interface. |
 | `data/inputs/` | One entity's 24-hour history, future calendar features, and separately controlled labels | Supply examples and prediction inputs to the future model. |
 
+For the team-shared files, use [DATA-v1-20261019 downloads](DATA_DOWNLOADS.md): it has links, package hashes and extraction instructions.
+
 All paths below are relative to the repository root, **TFL-EV**. These large files exist locally and are ignored by Git. A clone contains their code, explanations and compact evidence, not the datasets themselves.
 
 ```mermaid
