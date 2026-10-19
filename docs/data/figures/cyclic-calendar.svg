@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">Cyclic hour and weekday features for the model input contract</title>
+<desc id="desc">A 24-hour circle highlights 23:00 next to 00:00. A seven-day circle highlights Sunday next to Monday. Both use horizontal x=sin(theta) and vertical y=cos(theta), so zero is at the top and values increase clockwise. These are proposed calendar encodings, not measured charging data.</desc>
+<rect width="1200" height="760" fill="white"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#172033}.muted{fill:#596579}.teal{fill:#008779}.label{font-size:15px}.formula{font-size:19px}</style>
+
+<text x="32" y="43" font-size="28" text-anchor="start" class="" font-weight="bold">Calendar cycles → two numeric features</text>
+<text x="32" y="73" font-size="16" text-anchor="start" class="muted" font-weight="normal">Proposed encoding in INPUT_CONTRACT.md · local calendar labels · no charging measurements</text>
+<rect x="18" y="100" width="564" height="596" rx="16" fill="#f8fafc" stroke="#dbe2ea"/>
+<text x="42" y="139" font-size="22" text-anchor="start" class="" font-weight="bold">Hour of day · 24 positions</text>
+<text x="42" y="167" font-size="16" text-anchor="start" class="teal" font-weight="normal">23:00 → 00:00 is one hourly step</text>
+<circle cx="300" cy="370" r="158" fill="white" stroke="#cbd5e1" stroke-width="2"/>
+<line x1="142.000" y1="370.000" x2="458.000" y2="370.000" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 5"/>
+<line x1="300.000" y1="212.000" x2="300.000" y2="528.000" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 5"/>
+<polyline points="259.107,217.384 260.357,217.054 261.609,216.735 262.864,216.426 264.122,216.127 265.382,215.839 266.644,215.561 267.909,215.293 269.176,215.036 270.445,214.789 271.715,214.552 272.988,214.326 274.263,214.110 275.539,213.905 276.817,213.710 278.096,213.526 279.377,213.352 280.659,213.188 281.943,213.035 283.227,212.893 284.513,212.761 285.800,212.639 287.088,212.528 288.377,212.428 289.666,212.338 290.957,212.259 292.247,212.190 293.539,212.132 294.830,212.085 296.122,212.048 297.415,212.021 298.707,212.005 300.000,212.000" fill="none" stroke="#008779" stroke-width="6" stroke-linecap="round"/>
+<line x1="300.000" y1="370.000" x2="300.000" y2="212.000" stroke="#95a4b8" stroke-width="2" stroke-dasharray="5 5"/>
+<circle cx="300.000" cy="212.000" r="6" fill="#008779"/>
+<text x="300.0" y="185.0" font-size="16" text-anchor="middle" class="teal" font-weight="bold">00h</text>
+<circle cx="340.893" cy="217.384" r="3.8" fill="#94a3b8"/>
+<text x="349.176" y="191.474" font-size="13" text-anchor="middle" class="muted" font-weight="normal">01h</text>
+<circle cx="379.000" cy="233.168" r="3.8" fill="#94a3b8"/>
+<text x="395.0" y="210.455" font-size="13" text-anchor="middle" class="muted" font-weight="normal">02h</text>
+<circle cx="411.723" cy="258.277" r="3.8" fill="#94a3b8"/>
+<text x="434.35" y="240.65" font-size="13" text-anchor="middle" class="muted" font-weight="normal">03h</text>
+<circle cx="436.832" cy="291.000" r="3.8" fill="#94a3b8"/>
+<text x="464.545" y="280.0" font-size="13" text-anchor="middle" class="muted" font-weight="normal">04h</text>
+<circle cx="452.616" cy="329.107" r="3.8" fill="#94a3b8"/>
+<text x="483.526" y="325.824" font-size="13" text-anchor="middle" class="muted" font-weight="normal">05h</text>
+<circle cx="458.000" cy="370.000" r="3.8" fill="#94a3b8"/>
+<text x="490.0" y="375.0" font-size="13" text-anchor="middle" class="muted" font-weight="normal">06h</text>
+<circle cx="452.616" cy="410.893" r="3.8" fill="#94a3b8"/>
+<text x="483.526" y="424.176" font-size="13" text-anchor="middle" class="muted" font-weight="normal">07h</text>
+<circle cx="436.832" cy="449.000" r="3.8" fill="#94a3b8"/>
+<text x="464.545" y="470.0" font-size="13" text-anchor="middle" class="muted" font-weight="normal">08h</text>
+<circle cx="411.723" cy="481.723" r="3.8" fill="#94a3b8"/>
+<text x="434.35" y="509.35" font-size="13" text-anchor="middle" class="muted" font-weight="normal">09h</text>
+<circle cx="379.000" cy="506.832" r="3.8" fill="#94a3b8"/>
+<text x="395.0" y="539.545" font-size="13" text-anchor="middle" class="muted" font-weight="normal">10h</text>
+<circle cx="340.893" cy="522.616" r="3.8" fill="#94a3b8"/>
+<text x="349.176" y="558.526" font-size="13" text-anchor="middle" class="muted" font-weight="normal">11h</text>
+<circle cx="300.000" cy="528.000" r="3.8" fill="#94a3b8"/>
+<text x="300.0" y="565.0" font-size="13" text-anchor="middle" class="muted" font-weight="normal">12h</text>
+<circle cx="259.107" cy="522.616" r="3.8" fill="#94a3b8"/>
+<text x="250.824" y="558.526" font-size="13" text-anchor="middle" class="muted" font-weight="normal">13h</text>
+<circle cx="221.000" cy="506.832" r="3.8" fill="#94a3b8"/>
+<text x="205.0" y="539.545" font-size="13" text-anchor="middle" class="muted" font-weight="normal">14h</text>
+<circle cx="188.277" cy="481.723" r="3.8" fill="#94a3b8"/>
+<text x="165.65" y="509.35" font-size="13" text-anchor="middle" class="muted" font-weight="normal">15h</text>
+<circle cx="163.168" cy="449.000" r="3.8" fill="#94a3b8"/>
+<text x="135.455" y="470.0" font-size="13" text-anchor="middle" class="muted" font-weight="normal">16h</text>
+<circle cx="147.384" cy="410.893" r="3.8" fill="#94a3b8"/>
+<text x="116.474" y="424.176" font-size="13" text-anchor="middle" class="muted" font-weight="normal">17h</text>
+<circle cx="142.000" cy="370.000" r="3.8" fill="#94a3b8"/>
+<text x="110.0" y="375.0" font-size="13" text-anchor="middle" class="muted" font-weight="normal">18h</text>
+<circle cx="147.384" cy="329.107" r="3.8" fill="#94a3b8"/>
+<text x="116.474" y="325.824" font-size="13" text-anchor="middle" class="muted" font-weight="normal">19h</text>
+<circle cx="163.168" cy="291.000" r="3.8" fill="#94a3b8"/>
+<text x="135.455" y="280.0" font-size="13" text-anchor="middle" class="muted" font-weight="normal">20h</text>
+<circle cx="188.277" cy="258.277" r="3.8" fill="#94a3b8"/>
+<text x="165.65" y="240.65" font-size="13" text-anchor="middle" class="muted" font-weight="normal">21h</text>
+<circle cx="221.000" cy="233.168" r="3.8" fill="#94a3b8"/>
+<text x="205.0" y="210.455" font-size="13" text-anchor="middle" class="muted" font-weight="normal">22h</text>
+<line x1="300.000" y1="370.000" x2="259.107" y2="217.384" stroke="#008779" stroke-width="2"/>
+<circle cx="259.107" cy="217.384" r="6" fill="#008779"/>
+<text x="250.824" y="191.474" font-size="16" text-anchor="middle" class="teal" font-weight="bold">23h</text>
+<circle cx="300" cy="370" r="4" fill="#172033"/>
+<text x="310" y="396" font-size="12" text-anchor="start" class="muted" font-weight="normal">(0, 0)</text>
+<text x="300" y="586" font-size="19" text-anchor="middle" class="" font-weight="normal">θ = 2πh / 24    ·    h = 0, …, 23</text>
+<text x="300" y="618" font-size="20" text-anchor="middle" class="" font-weight="bold">x = sin(θ)  ·  y = cos(θ)</text>
+<text x="300" y="651" font-size="14" text-anchor="middle" class="muted" font-weight="normal">Position 0 is at the top; values increase clockwise.</text>
+<rect x="618" y="100" width="564" height="596" rx="16" fill="#f8fafc" stroke="#dbe2ea"/>
+<text x="642" y="139" font-size="22" text-anchor="start" class="" font-weight="bold">Day of week · 7 positions</text>
+<text x="642" y="167" font-size="16" text-anchor="start" class="teal" font-weight="normal">Sunday → Monday is one daily step</text>
+<circle cx="900" cy="370" r="158" fill="white" stroke="#cbd5e1" stroke-width="2"/>
+<line x1="742.000" y1="370.000" x2="1058.000" y2="370.000" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 5"/>
+<line x1="900.000" y1="212.000" x2="900.000" y2="528.000" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4 5"/>
+<polyline points="776.471,271.489 779.282,268.063 782.189,264.717 785.188,261.454 788.277,258.277 791.454,255.188 794.717,252.189 798.063,249.282 801.489,246.471 804.992,243.756 808.570,241.141 812.220,238.628 815.939,236.218 819.724,233.913 823.572,231.715 827.481,229.626 831.446,227.647 835.466,225.780 839.536,224.027 843.654,222.389 847.816,220.866 852.019,219.462 856.260,218.175 860.535,217.008 864.842,215.961 869.176,215.036 873.534,214.232 877.913,213.551 882.310,212.993 886.720,212.559 891.141,212.249 895.569,212.062 900.000,212.000" fill="none" stroke="#008779" stroke-width="6" stroke-linecap="round"/>
+<line x1="900.000" y1="370.000" x2="900.000" y2="212.000" stroke="#95a4b8" stroke-width="2" stroke-dasharray="5 5"/>
+<circle cx="900.000" cy="212.000" r="6" fill="#008779"/>
+<text x="900.0" y="185.0" font-size="16" text-anchor="middle" class="teal" font-weight="bold">Mon</text>
+<circle cx="1023.529" cy="271.489" r="3.8" fill="#94a3b8"/>
+<text x="1048.548" y="256.537" font-size="16" text-anchor="middle" class="muted" font-weight="normal">Tue</text>
+<circle cx="1054.039" cy="405.158" r="3.8" fill="#94a3b8"/>
+<text x="1085.236" y="417.279" font-size="16" text-anchor="middle" class="muted" font-weight="normal">Wed</text>
+<circle cx="968.554" cy="512.353" r="3.8" fill="#94a3b8"/>
+<text x="982.438" y="546.184" font-size="16" text-anchor="middle" class="muted" font-weight="normal">Thu</text>
+<circle cx="831.446" cy="512.353" r="3.8" fill="#94a3b8"/>
+<text x="817.562" y="546.184" font-size="16" text-anchor="middle" class="muted" font-weight="normal">Fri</text>
+<circle cx="745.961" cy="405.158" r="3.8" fill="#94a3b8"/>
+<text x="714.764" y="417.279" font-size="16" text-anchor="middle" class="muted" font-weight="normal">Sat</text>
+<line x1="900.000" y1="370.000" x2="776.471" y2="271.489" stroke="#008779" stroke-width="2"/>
+<circle cx="776.471" cy="271.489" r="6" fill="#008779"/>
+<text x="751.452" y="256.537" font-size="16" text-anchor="middle" class="teal" font-weight="bold">Sun</text>
+<circle cx="900" cy="370" r="4" fill="#172033"/>
+<text x="910" y="396" font-size="12" text-anchor="start" class="muted" font-weight="normal">(0, 0)</text>
+<text x="900" y="586" font-size="19" text-anchor="middle" class="" font-weight="normal">θ = 2πd / 7    ·    Mon = 0, …, Sun = 6</text>
+<text x="900" y="618" font-size="20" text-anchor="middle" class="" font-weight="bold">x = sin(θ)  ·  y = cos(θ)</text>
+<text x="900" y="651" font-size="14" text-anchor="middle" class="muted" font-weight="normal">Position 0 is at the top; values increase clockwise.</text>
+<text x="32" y="726" font-size="15" text-anchor="start" class="muted" font-weight="normal">The pair preserves cyclic adjacency. It does not assert that neighboring hours/days have equal demand.</text>
+</svg>

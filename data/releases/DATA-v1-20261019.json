@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "release_id": "DATA-v1-20261019",
+  "published_at_utc": "2026-10-19T15:43:51.302925+00:00",
+  "drive_folder_url": "https://drive.google.com/drive/folders/1mgZt0wXW8WFwxhsrCmB5oxPu9-fXi8cW",
+  "parent_folder_url": "https://drive.google.com/drive/folders/1TyBER32WCLcCmE9CgidBdPVzzTYHnaVv",
+  "folders": {
+    "raw": "https://drive.google.com/drive/folders/149fJQsiKKIk2hk0xnKxFQbL_53fIYc-6",
+    "processed": "https://drive.google.com/drive/folders/1pHDQcDscXYDftz5bY7XpMCRVd3_YhG4y",
+    "inputs": "https://drive.google.com/drive/folders/1JPrt4FtVtt06YvllXkOpdoMjzOwuOVHN"
+  },
+  "runtime_commit": "a37c345",
+  "documentation_commit_before_distribution": "e543e981ff87cf98b47148b3ac913414b6cfd1d9",
+  "pull_request": "https://github.com/HungLD9505/adaptive-retention-ev/pull/36",
+  "input_run_id": "issue18-input-handoff-v1-20261019",
+  "input_policy": "ev-missing-data-v1",
+  "target_history_budgets": [
+    7,
+    14,
+    28
+  ],
+  "acceptance_scope": "User-selected preprocessing snapshot; independent review, prerequisite integration and merge/main promotion pending; no training or strict-online certification.",
+  "verification": {
+    "local_source_artifacts": "All included producer/input artifacts matched manifest byte size/SHA-256 before packaging.",
+    "local_raw_archives": "Both required originals freshly PASS tools.sources verification; no raw mutation.",
+    "zip_crc": "All 9 new ZIPs passed ZipFile.testzip.",
+    "remote": "11 uploaded archives read back with exact byte sizes, expected parents and anyone-with-link reader permissions. Remote content SHA-256 has not been independently downloaded/recomputed; recipients must verify provided hashes.",
+    "source_terms": "Original publisher source/terms links remain in data/sources.json and dataset documentation."
+  },
+  "total_download_bytes": 1674728055,
+  "input_download_bytes": 636935782,
+  "packages": [
+    {
+      "kind": "processed",
+      "name": "processed-urbanev-v1.zip",
+      "size_bytes": 29463048,
+      "sha256": "ecd737c40b326d6c7f6a00b3b09d1d63a4e56f53cefce03ff8c49217049e6fab",
+      "members": 2,
+      "roots": [
+        "data/processed/urbanev/issue16-start-v1-20261017"
+      ],
+      "drive_file_id": "15jtvXuvy7O5a0ng_qaqHkQo-j8pXhiTz",
+      "url": "https://drive.google.com/file/d/15jtvXuvy7O5a0ng_qaqHkQo-j8pXhiTz/view?usp=drivesdk",
+      "parent_folder_id": "1pHDQcDscXYDftz5bY7XpMCRVd3_YhG4y",
+      "anyone_with_link_reader": true,
+      "remote_size_verified": true
+    },
+    {
+      "kind": "processed",
+      "name": "processed-charged-v1.zip",
+      "size_bytes": 92303537,
+      "sha256": "2c59d549642838cfbd21444740a6245716949561b26e6236dd12ed77c7d75417",
+      "members": 7,
+      "roots": [
+        "data/processed/charged/issue17-hourly-v1-20261017"
+      ],
+      "drive_file_id": "11caJ2NACUeoy3TQYfVEwar3FwBLQeYsK",
+      "url": "https://drive.google.com/file/d/11caJ2NACUeoy3TQYfVEwar3FwBLQeYsK/view?usp=drivesdk",
+      "parent_folder_id": "1pHDQcDscXYDftz5bY7XpMCRVd3_YhG4y",
+      "anyone_with_link_reader": true,
+      "remote_size_verified": true
+    },
+    {
+      "kind": "inputs",
+      "name": "inputs-urbanev-SZH-v1.zip",
+      "size_bytes": 151254390,
+      "sha256": "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7",
+      "members": 18,
+      "roots": [
+        "data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-7d",
+        "data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-14d",
+        "data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-28d"
+      ],
+      "drive_file_id": "17pfYqnnSq0Uao2zDNdb8h7GAYfotu_w4",
+      "url": "https://drive.google.com/file/d/17pfYqnnSq0Uao2zDNdb8h7GAYfotu_w4/view?usp=drivesdk",
+      "parent_folder_id": "1JPrt4FtVtt06YvllXkOpdoMjzOwuOVHN",
+      "anyone_with_link_reader": true,
+      "remote_size_verified": true
+    },
+    {
+      "kind": "inputs",
+      "name": "inputs-charged-AMS-v1.zip",
+      "size_bytes": 253455529,
+      "sha256": "648ca4744582c53e1ccf4dede5e30ef34bbd65c4f55d2e57b20048fd5c274345",
+      "members": 18,
+      "roots": [
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-AMS-7d",
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-AMS-14d",
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-AMS-28d"
+      ],
+      "drive_file_id": "1e1JGMGE-6mZhqYxHPAGPCH1fxF2D7CB8",
+      "url": "https://drive.google.com/file/d/1e1JGMGE-6mZhqYxHPAGPCH1fxF2D7CB8/view?usp=drivesdk",
+      "parent_folder_id": "1JPrt4FtVtt06YvllXkOpdoMjzOwuOVHN",
+      "anyone_with_link_reader": true,
+      "remote_size_verified": true
+    },
+    {
+      "kind": "inputs",
+      "name": "inputs-charged-JHB-v1.zip",
+      "size_bytes": 6954564,
+      "sha256": "9bbb66e4a5db1246b7c2863f3afb7f7a1d7d3b1687258a5a3b577286a8095983",
+      "members": 18,
+      "roots": [
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-JHB-7d",
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-JHB-14d",
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-JHB-28d"
+      ],
+      "drive_file_id": "17_TQmRpZXFEebr4V88t2LUb_yYgzU2rj",
+      "url": "https://drive.google.com/file/d/17_TQmRpZXFEebr4V88t2LUb_yYgzU2rj/view?usp=drivesdk",
+      "parent_folder_id": "1JPrt4FtVtt06YvllXkOpdoMjzOwuOVHN",
+      "anyone_with_link_reader": true,
+      "remote_size_verified": true
+    },
+    {
+      "kind": "inputs",
+      "name": "inputs-charged-LOA-v1.zip",
+      "size_bytes": 35546843,
+      "sha256": "eca98b9b1be158e91379d98599c3b89a6fef3106c30f7cf05961369d8d44a13e",
+      "members": 18,
+      "roots": [
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-LOA-7d",
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-LOA-14d",
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-LOA-28d"
+      ],
+      "drive_file_id": "1pg1lC04yB2XKc2SUFpeI9Fvu-9mugXb3",
+      "url": "https://drive.google.com/file/d/1pg1lC04yB2XKc2SUFpeI9Fvu-9mugXb3/view?usp=drivesdk",
+      "parent_folder_id": "1JPrt4FtVtt06YvllXkOpdoMjzOwuOVHN",
+      "anyone_with_link_reader": true,
+      "remote_size_verified": true
+    },
+    {
+      "kind": "inputs",
+      "name": "inputs-charged-MEL-v1.zip",
+      "size_bytes": 8189214,
+      "sha256": "39f979e67fca1ed9fdd095345bffbc9614e1c4d8a88dcfe0bf77745a8fca5bc5",
+      "members": 18,
+      "roots": [
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-MEL-7d",
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-MEL-14d",
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-MEL-28d"
+      ],
+      "drive_file_id": "19Unv9eWppyqoXx0-FEwP1xhL9yD33zUR",
+      "url": "https://drive.google.com/file/d/19Unv9eWppyqoXx0-FEwP1xhL9yD33zUR/view?usp=drivesdk",
+      "parent_folder_id": "1JPrt4FtVtt06YvllXkOpdoMjzOwuOVHN",
+      "anyone_with_link_reader": true,
+      "remote_size_verified": true
+    },
+    {
+      "kind": "inputs",
+      "name": "inputs-charged-SPO-v1.zip",
+      "size_bytes": 6456788,
+      "sha256": "d6fd1410f180ebd408274a7cb92b54f92a4292af7030ac4aa55fb1f4f140eb7f",
+      "members": 18,
+      "roots": [
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-SPO-7d",
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-SPO-14d",
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-SPO-28d"
+      ],
+      "drive_file_id": "1YN7JRMt5oQI78vHUcEtL4dPtvZQxI-qC",
+      "url": "https://drive.google.com/file/d/1YN7JRMt5oQI78vHUcEtL4dPtvZQxI-qC/view?usp=drivesdk",
+      "parent_folder_id": "1JPrt4FtVtt06YvllXkOpdoMjzOwuOVHN",
+      "anyone_with_link_reader": true,
+      "remote_size_verified": true
+    },
+    {
+      "kind": "inputs",
+      "name": "inputs-charged-SZH-v1.zip",
+      "size_bytes": 175078454,
+      "sha256": "6319b70a017ccdb99985f941b5c2408ba0d2a68e13beaa22a4bd43d9b4d87107",
+      "members": 18,
+      "roots": [
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-SZH-7d",
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-SZH-14d",
+        "data/inputs/issue18-input-handoff-v1-20261019/charged-SZH-28d"
+      ],
+      "drive_file_id": "1QsiymVMcUIhrCXua0PMz_CyXxwRj_BK7",
+      "url": "https://drive.google.com/file/d/1QsiymVMcUIhrCXua0PMz_CyXxwRj_BK7/view?usp=drivesdk",
+      "parent_folder_id": "1JPrt4FtVtt06YvllXkOpdoMjzOwuOVHN",
+      "anyone_with_link_reader": true,
+      "remote_size_verified": true
+    },
+    {
+      "kind": "raw",
+      "name": "UrbanEVDataset.zip",
+      "size_bytes": 647305188,
+      "sha256": "9d3f0aec34434546d082509efcdeeaea116eaa841701cc5854a9b62a27881a79",
+      "install_path": "data/raw/urbanev/official_2026_05_11/UrbanEVDataset.zip",
+      "drive_file_id": "1pMttP1CLrXye-3VNVwPZSzFbFv62InYk",
+      "url": "https://drive.google.com/file/d/1pMttP1CLrXye-3VNVwPZSzFbFv62InYk/view?usp=drivesdk",
+      "parent_folder_id": "149fJQsiKKIk2hk0xnKxFQbL_53fIYc-6",
+      "anyone_with_link_reader": true,
+      "remote_size_verified": true
+    },
+    {
+      "kind": "raw",
+      "name": "Hourly.zip",
+      "size_bytes": 268720500,
+      "sha256": "1ec9c9513b64f3f492fe73261bf08a5955c268dfb876ef0fe283d05cc5a02fab",
+      "install_path": "data/raw/charged/zenodo_15814263/Hourly.zip",
+      "drive_file_id": "163xA5G14Sq5z2QX-WXvJvu9acK41oYnd",
+      "url": "https://drive.google.com/file/d/163xA5G14Sq5z2QX-WXvJvu9acK41oYnd/view?usp=drivesdk",
+      "parent_folder_id": "149fJQsiKKIk2hk0xnKxFQbL_53fIYc-6",
+      "anyone_with_link_reader": true,
+      "remote_size_verified": true
+    }
+  ]
+}

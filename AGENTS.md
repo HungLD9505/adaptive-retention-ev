@@ -8,7 +8,7 @@
 - `data/sources.json` records download sources and historical fingerprints. State when real archives have not been checked locally; historical checksums are not proof of a fresh download.
 - Never overwrite, modify, or delete raw archives. Do not fill target labels, treat missing values as zero, or use future labels before availability.
 - Keep datasets, environments, checkpoints, and large runs outside Git. Never commit secrets or credentials.
-- The foundation has no processing pipeline or model yet. Create modules only when implementing a concrete need; avoid speculative frameworks and abstractions.
+- Data acquisition, hourly processing and model inputs are implemented; models/controllers remain next. Create modules only when implementing a concrete need; avoid speculative frameworks and abstractions.
 - New pipelines must record config, source/input identity, code version, runtime, run ID, and acceptance scope. Create new outputs rather than overwriting old runs.
 - Prefer independent test fixtures. Routine tests and CI must not download raw data or run long training jobs.
 - Run the README checks and report what passed, failed, or was not run, including limitations. Never change expected hashes or fixtures to conceal an unexplained change.

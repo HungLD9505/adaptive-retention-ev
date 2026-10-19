@@ -18,7 +18,7 @@ Read WHY, then HOW, then PROVE. Data/protocol must be ready before running model
 | **Verified by evidence** | A specific artifact/run/check supports a defined PASS scope. Distinguish stored evidence from a fresh rerun. |
 | **Blocked / unknown** | State the missing condition, limited claim, or pending decision. An unknown does not automatically block all development. |
 
-The data catalog and archive verification tool are implemented. Processing, model inputs, models, and controllers remain planned. Learning discussions have covered WHY and Retention/Adaptive Retention; the next topic is the Confidence-based Controller. Team-wide understanding has not been signed off.
+The data catalog and archive verification tool are implemented. UrbanEV hourly processing is implemented with a provisional-clock real-data QC run pending peer acceptance; model inputs, models, and controllers remain planned. Learning discussions have covered WHY and Retention/Adaptive Retention; the next topic is the Confidence-based Controller. Team-wide understanding has not been signed off.
 
 ```mermaid
 flowchart TB
@@ -137,6 +137,8 @@ Decisions affect future forecasts only; never reselect past predictions after ob
 
 UrbanEV station-level data is the planned primary dataset; CHARGED is site-level and currently a benchmark within its own release. Source entities support pretraining; development entities support design/hyperparameter selection; final unseen targets evaluate the locked design. Final-stream labels may support correctly timed online updates, not design revision.
 
+**Research scope accepted by the user/team lead on October 17, 2026:** retain all six standard CHARGED cities as supplementary data. Report AMS/JHB/LOA/MEL/SPO as additional geographic coverage and SZH separately as a later-period Shenzhen release with extensive coordinate overlap with UrbanEV. No independent unseen-location SZH claim, whole-release all-zero site exclusion, or pooled UrbanEV/CHARGED pretraining is authorized. This accepts bounded use with upstream-processing limits; it does not certify clean/original data, strict-online readiness or implementation/input acceptance. See the [CHARGED hourly/QC profile](data/CHARGED_HOURLY_CONTRACT.md).
+
 Reference settings for input implementation are entity-hash splits of 60/20/20, separate CHARGED splits per city, `X_hist[24,7]`, `C_future[24,5]`, and `Y[24]`. Use p95 scaling from the permitted prefix, separate missing-X masks, and no filling of Y. Calendar information is known in advance; do not add unavailable weather/price features. Reference deployment dates are UrbanEV 2022-12-01 and CHARGED 2023-07-01 under the published clock. These settings require implementation, protocol review, and verification before use in experiments.
 
 Historical replay streams data chronologically to simulate limited target history. Label availability at the exclusive horizon end is an **assumption**; actual arrival, timezone/DST/bin semantics, and upstream masks remain unverified. Local causal checks cannot undo possible upstream future-dependent processing. Describe results only as a published-data benchmark until the strict causal gate is resolved.
@@ -186,9 +188,10 @@ The defense follows context → difficulty → hypothesis → comparison → evi
 | Research method and flow | Design follows Report 1; effectiveness/novelty unproven | [Report 1](../adaptive_retention_report_1.pdf), WHY/HOW/PROVE above |
 | Raw sources and local file verification | Catalog and verification tool implemented; fixture-based tests | [Data sources](../data/README.md), [source tool](../tools/sources.py), [tests](../tests/test_sources.py) |
 | Raw acquisition | Both required archives downloaded and verified locally; provider files extracted | [Acquisition report](reports/data-acquisition.md); data remains outside Git |
-| Processing, audit, and model inputs | Not implemented | New PRs, tests, and reports required under [WORKFLOW](WORKFLOW.md) |
+| UrbanEV hourly processing / QC | Implemented; full-station technical evidence and integrated reproduction, with provisional time/arrival semantics retained | [Hourly handoff](reports/urbanev-hourly.md), [contract](data/HOURLY_CONTRACT.md) |
+| CHARGED audit / model inputs | Six-city audit/adapter and v2 input pipeline implemented; bounded use, coverage and source-only strata retained | [Integrated verification](reports/data-integration.md), [input policy](data/INPUT_ACCEPTANCE.md), [shared downloads](data/DATA_DOWNLOADS.md) |
 | Model/loss, runner/controller, baselines, experiments | Planned; not implemented | Follow Report 1; verify each implementation with its own evidence |
-| Full reproduction / strict online / external independence | Unverified | Processing/input reproduction and upstream/time/availability/overlap evidence are still pending |
+| Reproduction / strict online / external independence | Integrated reproduction checks recorded; strict-online causality and physical-location independence remain unverified | [Integration scope and limits](reports/data-integration.md); no claim that CI resolves upstream/time/overlap limitations |
 
 Foundation handoff: [FOUNDATION_REPORT](FOUNDATION_REPORT.md). Its local results belong to the foundation implementation snapshot; check each PR's corresponding CI run separately.
 

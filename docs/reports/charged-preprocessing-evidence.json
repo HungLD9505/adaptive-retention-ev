@@ -1,0 +1,245 @@
+{
+  "upstream_commit": "ff13cefe0c9e15073d02ad1e57efb4054dd70c5a",
+  "retrieved_on": "2026-10-17",
+  "files": [
+    {
+      "path": "README.md",
+      "git_blob_sha1": "1a335d1fb41a4161104cb15defe0dcaba81275fe",
+      "sha256": "ae3a2e13be7f14f321a5fbdecd58baa7c42515dc47ac491004d6c38ca47ccc9d"
+    },
+    {
+      "path": "api/dataset/common.py",
+      "git_blob_sha1": "0af2ade0080bfadd7232be3794ad284c9c7a1d76",
+      "sha256": "968a24087d6115ee63f74be4e6883b736d003bde833cabe1a087394b369eaaa1"
+    },
+    {
+      "path": "api/dataset/distributed.py",
+      "git_blob_sha1": "563b9b5a907173fbe1341f88bea03d9da95ae2ad",
+      "sha256": "a05fa266c03b318ff40cea143a46c7e78210c8a48399dfd766a99774744a570d"
+    },
+    {
+      "path": "api/federated/client.py",
+      "git_blob_sha1": "69da8073d3a070d7765f0126918e8128b6bc3943",
+      "sha256": "5b18e211fa70dced6f5931c171e81893da0083f572ceba110b4519f7e4a99d4c"
+    },
+    {
+      "path": "api/federated/server.py",
+      "git_blob_sha1": "551baf8788a4eb4e26211ae18c10ed568a83cee4",
+      "sha256": "ad742f28ad3e3a0a1dc8100a1365e0393cdd1cd192e1ac90748eacee290dd517"
+    },
+    {
+      "path": "api/model/config.py",
+      "git_blob_sha1": "9a366c4476f287d524663ea82b458a21f82d60e9",
+      "sha256": "147a20ad2fe44779e4c5be265c74a742db8fb638f93ae8bf11e7081342e26eb0"
+    },
+    {
+      "path": "api/model/layers.py",
+      "git_blob_sha1": "b2cbbd524887f7b64318f240130073e3e7a5bab4",
+      "sha256": "2e7bccc77a9fbea780e3486701e172d6064c7326dfdc0ef4530de1d4aae95581"
+    },
+    {
+      "path": "api/model/modules.py",
+      "git_blob_sha1": "0563580fc6393528ff8abc84c0961cf9370c6f96",
+      "sha256": "cf32d728cd48aec4e50fa013383e695071379ad72716b9eb82408dae3c04101d"
+    },
+    {
+      "path": "api/parsing/common.py",
+      "git_blob_sha1": "415b3a8893c598c870193b7f43e435757deacaeb",
+      "sha256": "923973d881ada99e0717c235e472fa1636dcce73f18a040b2af552c2c39e139f"
+    },
+    {
+      "path": "api/parsing/federated.py",
+      "git_blob_sha1": "70a322d97aad6b42e54c6aeb18ed6fd3fda63633",
+      "sha256": "d4f2d3b043f46a05fa4be81e0187c5c471763c92f4f0fe1397846218da5d7ff4"
+    },
+    {
+      "path": "api/trainer/common.py",
+      "git_blob_sha1": "b4396c96af74891ddd45547649b0fa132687677a",
+      "sha256": "4a530e42a073fd32a668491e5a47e64d177f5693bad54bb5391ca4dcecfd4adf"
+    },
+    {
+      "path": "api/trainer/federated.py",
+      "git_blob_sha1": "c997f9bc842a362b3dbf4a19d81497c7cd32220f",
+      "sha256": "6f07dfc54d4fa2baa04b1078c86c9c8a0a2569c0753acc32937102f581c35d9c"
+    },
+    {
+      "path": "api/utils.py",
+      "git_blob_sha1": "d827510945a32ed6a7612af4be279b8529bd3ea4",
+      "sha256": "238fcb703008a1da6140666ac92fdc04652f2bb962cf58ef9955419145f17d87"
+    },
+    {
+      "path": "data/README.md",
+      "git_blob_sha1": "e688a8551ea5dd87d93f81f6e5f3dc6aa8dee005",
+      "sha256": "e9dee26ebb493f501acf79c3c672023b72858c4979a38d3e8384609eacf16801"
+    },
+    {
+      "path": "example/knowledge_transfer.py",
+      "git_blob_sha1": "c9291c61f4697bf4a2a27c4130a895ef7d9dc40a",
+      "sha256": "df5c063a891304eb998171ea1155f8f8a34f0ecd7ded94dc7891174c0c25f00a"
+    },
+    {
+      "path": "example/multivariate_prediction.py",
+      "git_blob_sha1": "cd4555bc960681b02d7ea788798763735a366b2c",
+      "sha256": "20bf48e6d3a90d72b0ceb986452d29b6b4101492d614879cabe10e5e3f34d4fc"
+    },
+    {
+      "path": "example/test_chronos_all.py",
+      "git_blob_sha1": "99ea673a9210088bc49cf218fbc3f66e15655f5a",
+      "sha256": "deccdbd7bac50777a441aa20f3ca388c1f85c55ce4604cc93ee07687b015412b"
+    },
+    {
+      "path": "example/test_moirai_all.py",
+      "git_blob_sha1": "9443267a7f75a9d9305e95b0a10eaef89929f584",
+      "sha256": "14fe18d51ab3ded98cbe7175d83cfd54dd6bf89a0a914a21dd793a0eead245a6"
+    },
+    {
+      "path": "example/test_moment_all.py",
+      "git_blob_sha1": "05b26639938c214a2033c69b784711c3df6af8d9",
+      "sha256": "2a40d290da892831b3f6cbf3c02250f786c16a2ea646ce65408694f6218bf8db"
+    },
+    {
+      "path": "example/univariate_prediction.py",
+      "git_blob_sha1": "a0a2c9f0db8a99a50da7f4d9f4e4860680a0fc50",
+      "sha256": "77b5dc6da0cc9c095eebf8c65821d05f5fbe8fe3efaba6e0a0131a35e6737136"
+    },
+    {
+      "path": "script/aggregate/aggregate_sites.py",
+      "git_blob_sha1": "02f0ef696e32c9b31c45514b6e07c36b27a17d76",
+      "sha256": "48ae13ec3c970e48ac4da8499f9bd44cc28ae0fd38b990928a0a9229024eb642"
+    },
+    {
+      "path": "script/aggregate/aggregate_temporal.py",
+      "git_blob_sha1": "d81027f5a6b7e5ecc64631db7d6176473797825c",
+      "sha256": "ad2db8c90aa543bfdc7da151f67e2d4a6552a838b7456e638a2066f54aada011"
+    },
+    {
+      "path": "script/aggregate/update_info.py",
+      "git_blob_sha1": "a78141bbe2aa34ddb9272e6b381f89186b25cfcb",
+      "sha256": "aaacdf2f6ec7f8869bb2c06f3c81e4c1c764cf946e31e26362616be129f5d611"
+    },
+    {
+      "path": "script/auxiliary/get_POI.py",
+      "git_blob_sha1": "d9d76b13467b0e19c182b205afa30a1791824eb9",
+      "sha256": "55b604b6b2fcca50754643196e779be42f16f8207c7297620ea934a80ea06b42"
+    },
+    {
+      "path": "script/auxiliary/get_weather.py",
+      "git_blob_sha1": "bde4af635db0104f0c296475a64adbc05dbeb746",
+      "sha256": "8ef766df2b8e9863603a8e5e20f8df1a4a18984b3bf22c4c786bad0d10813034"
+    },
+    {
+      "path": "script/optimize/detection_and_imputation.py",
+      "git_blob_sha1": "bddf3b81a6e818be14256c3893520c7d26d93b31",
+      "sha256": "6d0970824d1f126361d75832859150bbac38bb1ee968b4c59696c6eb34aacb1a"
+    },
+    {
+      "path": "script/optimize/remove_zero.py",
+      "git_blob_sha1": "fba6fd21c64d89c04e39952309385e45cdbfd145",
+      "sha256": "d8a46982a965f97e890bedc08b340f5e7b79bb68c6b7748c513deb0755de6eca"
+    },
+    {
+      "path": "script/visualization/chargers_sites.py",
+      "git_blob_sha1": "8effcb7e9ffd83e308e40562781895e87a1c7913",
+      "sha256": "b23d64ba06ab14e21a31146017c39f1cdc7ff0a9b4c0165a4798a202d04eaa33"
+    }
+  ],
+  "paper": {
+    "doi": "10.1038/s41597-025-05584-7",
+    "fulltext_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12271547/fullTextXML",
+    "sha256": "44d243c9e5054c57736cb6eb0444b51f3b28c2c83a7bfff2a78b5fa9e33add44"
+  },
+  "ams_run": {
+    "run_id": "issue17-step2-ams-v1-20261017",
+    "scope": "Issue 17 Step 2 AMS semantics; read-only",
+    "started_at_utc": "2026-10-17T16:18:11.906241+00:00",
+    "code_commit": "9f54917fd53d8cd852a55bdbb4bfb4235188e834",
+    "script_sha256": "ec699125623c06a69d798cea1d2bbcba3dd64d62f9e3884de5a84a91033b28ee",
+    "python": "3.12.14",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "status": "analysis_complete; QC not adjudicated",
+    "archive": {
+      "sha256": "1ec9c9513b64f3f492fe73261bf08a5955c268dfb876ef0fe283d05cc5a02fab",
+      "size_bytes": 268720500
+    },
+    "ams": {
+      "city": "AMS",
+      "rows": 4392,
+      "sites": 2449,
+      "paired_cells": {
+        "volume_zero_duration_zero": 6060587,
+        "volume_positive_duration_positive": 4695189,
+        "volume_positive_duration_zero": 205,
+        "volume_zero_duration_positive": 27
+      },
+      "mismatch_examples": {
+        "volume_positive_duration_zero": [
+          {
+            "site_id": "189",
+            "timestamp": "2023-04-01 15:00:00",
+            "volume": "1.4666666666666668",
+            "duration": "0.0"
+          },
+          {
+            "site_id": "189",
+            "timestamp": "2023-04-01 16:00:00",
+            "volume": "2.9333333333333336",
+            "duration": "0.0"
+          },
+          {
+            "site_id": "189",
+            "timestamp": "2023-04-01 17:00:00",
+            "volume": "4.4",
+            "duration": "0.0"
+          }
+        ],
+        "volume_zero_duration_positive": [
+          {
+            "site_id": "1951",
+            "timestamp": "2023-05-11 21:00:00",
+            "volume": "0.0",
+            "duration": "1.6666666666666663"
+          },
+          {
+            "site_id": "1132",
+            "timestamp": "2023-05-14 06:00:00",
+            "volume": "0.0",
+            "duration": "0.4166666666666665"
+          },
+          {
+            "site_id": "1448",
+            "timestamp": "2023-05-18 00:00:00",
+            "volume": "0.0",
+            "duration": "0.0833333333333333"
+          }
+        ]
+      },
+      "all_zero_volume_sites": 1061,
+      "all_zero_duration_sites": 1061,
+      "both_all_zero_sites": 1061,
+      "all_zero_volume_but_positive_static_volume": 0,
+      "all_zero_volume_but_positive_static_duration": 0,
+      "all_zero_volume_but_positive_member_metadata": 0,
+      "all_zero_volume_member_chargers": 1354,
+      "member_count_mismatches": 0,
+      "static_site_vs_member_volume_mismatches": 0,
+      "hourly_vs_static_volume_mismatches": 1388,
+      "hourly_vs_static_duration_mismatches": 1388,
+      "hourly_volume_sum": 149692010.34636593,
+      "static_volume_sum": 239175391.2915903,
+      "hourly_duration_sum": 18388657.432718504,
+      "static_duration_sum": 28808415.08728028,
+      "comparison_tolerance": {
+        "relative": 1e-09,
+        "absolute": 1e-06
+      },
+      "acceptance": "Descriptive evidence only; no exclusions or validity masks"
+    },
+    "elapsed_seconds": 5.5251228749984875
+  },
+  "limitations": [
+    "No archive-build execution linkage",
+    "No per-cell imputation provenance",
+    "AMS-only new empirical checks",
+    "No QC acceptance or site exclusion"
+  ]
+}
