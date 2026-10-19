@@ -35,6 +35,8 @@ AMS contains 2,449 sites and 3,526 chargers: 1,738 sites have one charger and 71
 
 The [publisher preprocessing and AMS semantics audit](../reports/charged-preprocessing.md) distinguishes paper statements, pinned public code and direct release observations. It documents upstream imputation risks without asserting strict-online readiness or excluding sites.
 
+The [forecasting-suitability and Shenzhen/UrbanEV overlap assessment](../reports/charged-suitability.md) proposes bounded benchmark claims and documents extensive exact-coordinate overlap. It is a review proposal, not an accepted input pipeline.
+
 ## 2. Reading the examples
 
 Tables below come directly from the local standard AMS CSVs. Headers, order and value strings are preserved. Blank header cells match the CSV. Wide matrices show only their first three data columns; static examples select a few identified rows. Decimal points match the files. Calculations and rounded explanations are separate from source values.
@@ -307,7 +309,7 @@ Direct numerical inspection is scoped to AMS. Evidence and input hashes are in [
 - Static site duration/volume totals match sums over member chargers; city static totals agree with those metadata sums.
 - Site avg_power matches the arithmetic mean of member charger avg_power at all 2,449 sites. The city value matches the arithmetic mean across 3,526 chargers. This is a matching numerical formula, not proof of the original generator. The original per-charger averaging procedure was not found in the inspected sources.
 - Buffered geometry was reconstructed for all sites; maximum absolute errors were about 3.82e-9 projected m in perimeter and 1.18e-7 projected m² in area.
-- Each hourly duration/volume table has 10,755,408 value cells, without blank, nonfinite, or negative values. Completeness after processing is not evidence of complete original observations.
+- Each hourly duration/volume table has 10,756,008 value cells, without blank, nonfinite, or negative values. Completeness after processing is not evidence of complete original observations.
 
 ### Time interpretation
 
