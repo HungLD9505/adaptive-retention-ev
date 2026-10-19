@@ -27,6 +27,8 @@ from ev_inputs.windows import (
     scheduled_origins,
 )
 
+MISSING_DATA_POLICY = "ev-missing-data-v1"
+SUCCESS_STATUSES = {"technical_success", "technical_success_with_coverage_limits"}
 LOGGER = logging.getLogger(__name__)
 ROOT = Path(__file__).resolve().parents[1]
 HOUR = timedelta(hours=1)
@@ -70,7 +72,7 @@ def _code_identity() -> dict:
 
 
 def run_inputs(config: dict, output: Path) -> dict:
-    """Create a NEW development run. No official acceptance or training is performed.
+    """Create a NEW input run. No peer acceptance or training is performed.
 
     Config paths are explicit; the CLI resolves producer_manifest relative to its
     config file. Undefined scales are recorded for every affected entity and make
@@ -79,9 +81,15 @@ def run_inputs(config: dict, output: Path) -> dict:
     if (
         not isinstance(config, dict)
         or not REQUIRED_CONFIG <= config.keys()
-        or config.keys() - REQUIRED_CONFIG - {"entity_ids"}
+        or config.keys() - REQUIRED_CONFIG - {"entity_ids", "missing_data_policy"}
     ):
         raise ValueError("Missing or unknown loader config fields")
+    policy = config.get("missing_data_policy")
+    if policy is not None and policy != MISSING_DATA_POLICY:
+        raise ValueError("Unknown missing-data policy")
+    if "missing_data_policy" in config and policy is None:
+        raise ValueError("An explicit missing-data policy cannot be null")
+    finalized = policy == MISSING_DATA_POLICY
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,100}", output.name):
         raise ValueError("Unsafe run ID")
     delay = config["availability_delay_hours"]
@@ -127,7 +135,8 @@ def run_inputs(config: dict, output: Path) -> dict:
     output.mkdir(parents=True, exist_ok=False)
     started = time.perf_counter()
     manifest = {
-        "schema": "ev-loader-run-v1",
+        "schema": "ev-loader-run-v2" if finalized else "ev-loader-run-v1",
+        "missing_data_policy": policy,
         "feature_schema": SCHEMA_ID,
         "run_id": output.name,
         "status": "running",
@@ -158,9 +167,27 @@ def run_inputs(config: dict, output: Path) -> dict:
             "scheduled_forecasts": 0,
         },
     }
+    if finalized:
+        manifest["acceptance_scope"] = (
+            "user-selected input policy; technical handoff with explicit coverage limits; "
+            "independent peer review and producer integration pending"
+        )
+        manifest["counts"].update(
+            requested_forecasts=0,
+            skipped_undefined_scale=0,
+            skipped_all_missing_history=0,
+            skipped_initial_history=0,
+            targets_without_initial_adaptation=0,
+        )
     connection = None
     index = output / "_hourly.sqlite"
-    names = ("forecasts.jsonl", "labels.jsonl", "training.jsonl", "entities.jsonl")
+    names = (
+        "forecasts.jsonl",
+        "labels.jsonl",
+        "training.jsonl",
+        "entities.jsonl",
+        "schedule.jsonl",
+    )
     try:
         connection = stage_hourly(source, index)
         entities = [
@@ -176,6 +203,7 @@ def run_inputs(config: dict, output: Path) -> dict:
             (output / names[1]).open("x", encoding="utf-8") as labels,
             (output / names[2]).open("x", encoding="utf-8") as training,
             (output / names[3]).open("x", encoding="utf-8") as summaries,
+            (output / names[4]).open("x", encoding="utf-8") as schedule,
         ):
             for entity in entities:
                 identity = (source.dataset_id, source.city_id, entity)
@@ -202,12 +230,48 @@ def run_inputs(config: dict, output: Path) -> dict:
                     "scheduled_forecasts": 0,
                     "all_missing_replay_histories": 0,
                 }
+                if finalized:
+                    summary.update(
+                        requested_forecasts=0,
+                        skipped_undefined_scale=0,
+                        skipped_all_missing_history=0,
+                        skipped_initial_history=0,
+                        initialization="blocked_undefined_scale",
+                        coverage="not_started",
+                    )
+
+                def schedule_at(origin: datetime, reason: str) -> None:
+                    if finalized:
+                        summary["requested_forecasts"] += 1
+                        manifest["counts"]["requested_forecasts"] += 1
+                        schedule.write(
+                            _json(
+                                {
+                                    "identity": identity,
+                                    "role": role,
+                                    "origin": origin,
+                                    "input_run_id": output.name,
+                                    "status": reason,
+                                }
+                            )
+                            + "\n"
+                        )
+
                 if not available:
                     manifest["counts"]["undefined_scales"] += 1
                     summary.update(
                         status="undefined_scale",
                         reason="No valid available prefix energy; no fallback or automatic exclusion",
                     )
+                    if finalized:
+                        summary["coverage"] = "blocked"
+                        if role != "source":
+                            for origin in scheduled_origins(
+                                deployment, replay_stop, clock_mode=source.clock_mode
+                            ):
+                                schedule_at(origin, "skipped_undefined_scale")
+                                summary["skipped_undefined_scale"] += 1
+                                manifest["counts"]["skipped_undefined_scale"] += 1
                     summaries.write(_json(summary) + "\n")
                     LOGGER.warning("Undefined scale for %s", identity)
                     continue
@@ -248,9 +312,14 @@ def run_inputs(config: dict, output: Path) -> dict:
                     fit_start, deployment, clock_mode=source.clock_mode
                 ):
                     summary["initial_candidates"] += 1
+                    forecast = forecast_at(origin)
+                    if finalized and all(row[-1] == 0 for row in forecast.x_hist):
+                        summary["skipped_initial_history"] += 1
+                        manifest["counts"]["skipped_initial_history"] += 1
+                        continue
                     target = labels_at(origin)
                     example = build_initial_training_example(
-                        forecast_at(origin), target, prefix_start=fit_start, cutoff=deployment
+                        forecast, target, prefix_start=fit_start, cutoff=deployment
                     )
                     if example is None:
                         reason = (
@@ -262,13 +331,37 @@ def run_inputs(config: dict, output: Path) -> dict:
                     else:
                         training.write(_json({"role": role, **asdict(example)}) + "\n")
                         summary["initial_trainable"] += 1
+                if finalized:
+                    summary["initialization"] = (
+                        "source_training"
+                        if role == "source" and summary["initial_trainable"]
+                        else "source_without_samples"
+                        if role == "source"
+                        else "target_initial_adaptation"
+                        if summary["initial_trainable"]
+                        else "source_checkpoint_only"
+                    )
+                    summary["coverage"] = "accounted"
+                    if summary["initialization"] == "source_checkpoint_only":
+                        manifest["counts"]["targets_without_initial_adaptation"] += 1
                 if role != "source":
                     for origin in scheduled_origins(
                         deployment, replay_stop, clock_mode=source.clock_mode
                     ):
                         forecast = forecast_at(origin)
+                        empty_history = all(row[-1] == 0 for row in forecast.x_hist)
+                        if finalized:
+                            labels.write(_json(asdict(labels_at(origin))) + "\n")
+                            reason = "skipped_all_missing_history" if empty_history else "created"
+                            schedule_at(origin, reason)
+                            if empty_history:
+                                summary["all_missing_replay_histories"] += 1
+                                summary["skipped_all_missing_history"] += 1
+                                manifest["counts"]["skipped_all_missing_history"] += 1
+                                continue
                         forecasts.write(_json({"role": role, **asdict(forecast)}) + "\n")
-                        labels.write(_json(asdict(labels_at(origin))) + "\n")
+                        if not finalized:
+                            labels.write(_json(asdict(labels_at(origin))) + "\n")
                         summary["scheduled_forecasts"] += 1
                         summary["all_missing_replay_histories"] += all(
                             row[-1] == 0 for row in forecast.x_hist
@@ -283,11 +376,29 @@ def run_inputs(config: dict, output: Path) -> dict:
             }
             for name in names
         }
-        manifest["status"] = (
-            "incomplete_undefined_scales"
-            if manifest["counts"]["undefined_scales"]
-            else "technical_success"
-        )
+        if finalized:
+            counts = manifest["counts"]
+            if counts["requested_forecasts"] != (
+                counts["scheduled_forecasts"]
+                + counts["skipped_undefined_scale"]
+                + counts["skipped_all_missing_history"]
+            ):
+                raise ValueError("Unaccounted scheduled origin")
+            manifest["status"] = (
+                "incomplete_no_usable_forecasts"
+                if counts["requested_forecasts"] and not counts["scheduled_forecasts"]
+                else "technical_success_with_coverage_limits"
+                if counts["undefined_scales"]
+                or counts["skipped_all_missing_history"]
+                or counts["targets_without_initial_adaptation"]
+                else "technical_success"
+            )
+        else:
+            manifest["status"] = (
+                "incomplete_undefined_scales"
+                if manifest["counts"]["undefined_scales"]
+                else "technical_success"
+            )
     except BaseException as error:
         manifest.update(status="failed", error=str(error))
         raise
@@ -312,9 +423,13 @@ def iter_forecasts(run: Path, *, expected_manifest_sha256: str) -> Iterator[dict
         raise ValueError("Input-run manifest fingerprint mismatch")
     manifest = json.loads((run / "manifest.json").read_text(encoding="utf-8"))
     if (
-        manifest["schema"] != "ev-loader-run-v1"
+        manifest["schema"] not in {"ev-loader-run-v1", "ev-loader-run-v2"}
         or manifest["feature_schema"] != SCHEMA_ID
-        or manifest["status"] != "technical_success"
+        or manifest["status"] not in SUCCESS_STATUSES
+        or (
+            manifest["schema"] == "ev-loader-run-v2"
+            and manifest.get("missing_data_policy") != MISSING_DATA_POLICY
+        )
     ):
         raise ValueError("Input run is not a successful supported development run")
     path = run / "forecasts.jsonl"

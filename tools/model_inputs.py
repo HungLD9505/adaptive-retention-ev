@@ -10,7 +10,7 @@ import sqlite3
 import sys
 from pathlib import Path
 
-from ev_inputs.loader import run_inputs
+from ev_inputs.loader import SUCCESS_STATUSES, run_inputs
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -26,7 +26,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         result = run_inputs(config, args.output)
         print(f"{result['status']}: {args.output / 'manifest.json'}")
-        return 0 if result["status"] == "technical_success" else 1
+        return 0 if result["status"] in SUCCESS_STATUSES else 1
     except (
         OSError,
         ValueError,

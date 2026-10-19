@@ -1,5 +1,7 @@
 # Issue #18 — real-data loader trial
 
+> Historical unchanged-loader trial. The team lead subsequently requested implementation of the proposed missing-data rules; the current decision is [Input handoff policy v1](../data/INPUT_ACCEPTANCE.md), with separate [new-run evidence](input-handoff.md). Counts and artifacts in this report remain the original trial.
+
 ## Outcome
 
 Ran the unchanged development loader on all 1,682 UrbanEV station IDs and 4,280 standard CHARGED site IDs for budgets 7/14/28: **21 runs**, with 17,886 entity/budget records. These are 5,962 dataset-scoped IDs, not 5,962 verified distinct physical locations. No merge, model training, official cohort selection or effectiveness evaluation occurred.
