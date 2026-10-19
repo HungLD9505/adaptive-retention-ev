@@ -14,6 +14,8 @@ The #18 [development loader](docs/reports/input-loader.md) integrates hourly man
 
 The [real-data loader trial](docs/reports/input-loader-real.md) covers all UrbanEV/CHARGED entity IDs and budgets 7/14/28. It records actual counts and incomplete UrbanEV prefixes for review; official input/cohort acceptance and model handoff remain pending.
 
+The [input handoff policy](docs/data/INPUT_ACCEPTANCE.md) records the user-selected missing-data rules and v2 coverage accounting. Historical real-data trial counts remain unchanged; see the new policy handoff report for rerun evidence. Independent peer acceptance is still required.
+
 1. Read the [team workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md).
 2. Read the [data sources and download/verification instructions](data/README.md).
 3. Review the [foundation handoff report](docs/FOUNDATION_REPORT.md).
