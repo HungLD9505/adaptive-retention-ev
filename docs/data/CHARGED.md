@@ -2,7 +2,7 @@
 
 ## 1. Source, scope, and provider processing
 
-CHARGED is a multi-city dataset for EV charging-demand analysis, introduced in Scientific Data in 2025. The paper reports 11,953 chargers grouped into 4,280 virtual sites across Amsterdam (AMS), Johannesburg (JHB), Los Angeles (LOA), Melbourne (MEL), São Paulo (SPO), and Shenzhen (SZH), covering April–September 2023. These global counts are publisher claims; the direct checks here cover AMS only.
+CHARGED is a multi-city dataset for EV charging-demand analysis, introduced in Scientific Data in 2025. The paper reports 11,953 chargers grouped into 4,280 virtual sites across Amsterdam (AMS), Johannesburg (JHB), Los Angeles (LOA), Melbourne (MEL), São Paulo (SPO), and Shenzhen (SZH), covering April–September 2023. These global counts are publisher claims; the detailed file explanations here cover AMS. The separate [six-city inventory](../reports/charged-inventory.md) records actual standard-release file counts, schemas, clocks, missing values and zeros for Issue #17 Step 1. It does not approve cities for forecasting.
 
 **CHARGED Hourly is already processed by its provider.** The provider describes parsing plug-level states/power, filtering, outlier treatment, interpolation/filling, spatial clustering, and hourly aggregation. Storing the unchanged archive under `data/raw/` means it is a preserved project input; it does not mean untouched observations or direct meter readings. Our processing and model-input pipelines are not implemented by this document.
 

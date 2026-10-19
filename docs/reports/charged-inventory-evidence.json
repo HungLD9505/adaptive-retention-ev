@@ -1,0 +1,3015 @@
+{
+  "run_id": "issue17-inventory-v2-20261017",
+  "started_at_utc": "2026-10-17T16:02:21.596256+00:00",
+  "scope": "Issue 17 Step 1 only; six standard cities; no data transformations or eligibility decisions",
+  "status": "inventory_complete; QC acceptance not decided",
+  "code_commit": "cce2556e5f9e1699567aab04e7c00517d7996163",
+  "script_sha256": "a9b828f6c8ba75ed21ed5582f7b931a56206f5c6160dfb228528f1938baa481f",
+  "python": "3.12.14",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "source_archive": {
+    "source_id": "charged-hourly",
+    "sha256": "1ec9c9513b64f3f492fe73261bf08a5955c268dfb876ef0fe283d05cc5a02fab",
+    "size_bytes": 268720500,
+    "verification": "PASS"
+  },
+  "extracted_city_directories": [
+    "AMS",
+    "JHB",
+    "LOA",
+    "MEL",
+    "SPO",
+    "SZH"
+  ],
+  "elapsed_seconds": 52.192194333998486,
+  "full_manifest_sha256": "bb270e18cfebc892f232e7d7510c3e7cb7c6ce760950e5fdae2a0a204ab1008a",
+  "projection": "Full run with row/site identifier lists and per-site counts omitted; wide headers retain only the first four fields and their original count.",
+  "cities": [
+    {
+      "city": "AMS",
+      "present_files": [
+        "chargers.csv",
+        "distance.csv",
+        "duration.csv",
+        "e_price.csv",
+        "info.csv",
+        "poi.csv",
+        "s_price.csv",
+        "sites.csv",
+        "volume.csv",
+        "weather.csv"
+      ],
+      "missing_expected_files": [],
+      "unexpected_files": [],
+      "readiness": {
+        "file_valid": "not_adjudicated; inventory diagnostics only",
+        "forecasting_eligible": "not_assessed; official windows/cohorts belong to #18",
+        "strict_online_ready": "not_established; upstream/availability audit deferred"
+      },
+      "site_rows": 2449,
+      "unique_sites": 2449,
+      "charger_rows": 3526,
+      "site_id_header_observed": "site_id",
+      "matrix_site_id_matches": {
+        "volume.csv": true,
+        "duration.csv": true,
+        "e_price.csv": true,
+        "s_price.csv": true
+      },
+      "distance_site_ids_match": true,
+      "charger_unknown_site_ids": [],
+      "hourly_timestamp_sequences_match": true,
+      "weather_timestamp_literals_match_volume": false,
+      "weather_parsed_clock_matches_volume": true,
+      "findings": [],
+      "files": {
+        "volume.csv": {
+          "header_count": 2450,
+          "rows": 4392,
+          "row_widths": {
+            "2450": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 10756008,
+            "zero": 6060614,
+            "negative": 0,
+            "positive": 4695394
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "AMS/volume.csv",
+            "sha256": "b8745c7e057da611a7e27180dfc9893a896a6929c1426598ebbc535c18444f77",
+            "crc32": 4039215614,
+            "size_bytes": 88127900
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 1061
+        },
+        "duration.csv": {
+          "header_count": 2450,
+          "rows": 4392,
+          "row_widths": {
+            "2450": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 10756008,
+            "zero": 6060792,
+            "negative": 0,
+            "positive": 4695216
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "AMS/duration.csv",
+            "sha256": "e1bf11a952af3073c0aa5466980eafebc55b4a7df5a6809a78977966b0387c72",
+            "crc32": 719197367,
+            "size_bytes": 108320616
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 1061
+        },
+        "e_price.csv": {
+          "header_count": 2450,
+          "rows": 4392,
+          "row_widths": {
+            "2450": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 10756008,
+            "zero": 3579480,
+            "negative": 0,
+            "positive": 7176528
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "AMS/e_price.csv",
+            "sha256": "1ca01e1c6cabe54ae77747572b85716721e66f68e9509d57a8cdb1593a736392",
+            "crc32": 2286015276,
+            "size_bytes": 57245899
+          },
+          "header_prefix": [
+            "time",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 815
+        },
+        "s_price.csv": {
+          "header_count": 2450,
+          "rows": 4392,
+          "row_widths": {
+            "2450": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 10756008,
+            "zero": 10738440,
+            "negative": 0,
+            "positive": 17568
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "AMS/s_price.csv",
+            "sha256": "b5bc247a80fe9dc97da2ec2ab7b817d741cd64b40ce4ccd5f33e5606d06481d1",
+            "crc32": 1732546700,
+            "size_bytes": 43256901
+          },
+          "header_prefix": [
+            "time",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 2445
+        },
+        "info.csv": {
+          "header": [
+            "city",
+            "country",
+            "abbreviation",
+            "total_chargers",
+            "total_sites",
+            "DBSCAN_eps",
+            "total_duration",
+            "total_volume",
+            "avg_power"
+          ],
+          "header_count": 9,
+          "rows": 1,
+          "row_widths": {
+            "9": 1
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "input": {
+            "archive_member": "AMS/info.csv",
+            "sha256": "a2a57328d668dec5bb62ffe7e90869f4fa3d9756e7ffdb6d8bed4e7b25c9b2fc",
+            "crc32": 3480715559,
+            "size_bytes": 214
+          }
+        },
+        "sites.csv": {
+          "header": [
+            "site_id",
+            "longitude",
+            "latitude",
+            "charger_num",
+            "total_duration",
+            "total_volume",
+            "avg_power",
+            "perimeter",
+            "area"
+          ],
+          "header_count": 9,
+          "rows": 2449,
+          "row_widths": {
+            "9": 2449
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "input": {
+            "archive_member": "AMS/sites.csv",
+            "sha256": "e4853c857fb4ea897495f2bb555266ede4b0b50368f5f9fafd10629b964d6876",
+            "crc32": 929975426,
+            "size_bytes": 266637
+          }
+        },
+        "chargers.csv": {
+          "header": [
+            "charger_id",
+            "longitude",
+            "latitude",
+            "site_id",
+            "total_duration",
+            "total_volume",
+            "avg_power"
+          ],
+          "header_count": 7,
+          "rows": 3526,
+          "row_widths": {
+            "7": 3526
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "membership_column_observed": "site_id",
+          "input": {
+            "archive_member": "AMS/chargers.csv",
+            "sha256": "8b993664c0cafde00a82762a6adc45b7d7ed7c83222f369dd127b2ca9561b012",
+            "crc32": 4160929801,
+            "size_bytes": 269835
+          }
+        },
+        "distance.csv": {
+          "header_count": 2450,
+          "rows": 2449,
+          "row_widths": {
+            "2450": 2449
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "numeric_cells": {
+            "finite": 5997601,
+            "zero": 2449,
+            "negative": 0,
+            "positive": 5995152
+          },
+          "duplicate_column_ids": 0,
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "input": {
+            "archive_member": "AMS/distance.csv",
+            "sha256": "8a2a43aaf7d39a6a1896da918e2567e99ffa3e97e89448759fa262f7c18a6905",
+            "crc32": 1584113775,
+            "size_bytes": 109681785
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "2"
+          ]
+        },
+        "weather.csv": {
+          "header": [
+            "time",
+            "temp",
+            "feelslike",
+            "humidity",
+            "dew",
+            "precip",
+            "snow",
+            "snowdepth",
+            "preciptype",
+            "windgust",
+            "windspeed",
+            "winddir",
+            "pressure",
+            "visibility",
+            "cloudcover",
+            "solarradiation",
+            "solarenergy",
+            "uvindex",
+            "conditions"
+          ],
+          "header_count": 19,
+          "rows": 4392,
+          "row_widths": {
+            "19": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 3968,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023/4/1 0:00",
+            "last_literal": "2023/9/30 23:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "e6c2f56b26de6fbd67fae52592f8427b22818bc7a26def2dd8a40a65e9d8f2dd",
+          "blanks_by_column": {
+            "preciptype": 3968
+          },
+          "input": {
+            "archive_member": "AMS/weather.csv",
+            "sha256": "dbaf27fc829ea6be8d19a929f3b467a9de08404b6ac3c8b31b41eaddcc818d8b",
+            "crc32": 550643462,
+            "size_bytes": 360497
+          }
+        },
+        "poi.csv": {
+          "header": [
+            "",
+            "type",
+            "longitude",
+            "latitude"
+          ],
+          "header_count": 4,
+          "rows": 51340,
+          "row_widths": {
+            "4": 51340
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "input": {
+            "archive_member": "AMS/poi.csv",
+            "sha256": "3b220549666a6b0b0b9486d785c9c1226d0bedd9d5d308f700eeb8f768c5e8bc",
+            "crc32": 1545671291,
+            "size_bytes": 2316516
+          }
+        }
+      }
+    },
+    {
+      "city": "JHB",
+      "present_files": [
+        "chargers.csv",
+        "distance.csv",
+        "duration.csv",
+        "e_price.csv",
+        "info.csv",
+        "poi.csv",
+        "s_price.csv",
+        "sites.csv",
+        "volume.csv",
+        "weather.csv"
+      ],
+      "missing_expected_files": [],
+      "unexpected_files": [],
+      "readiness": {
+        "file_valid": "not_adjudicated; inventory diagnostics only",
+        "forecasting_eligible": "not_assessed; official windows/cohorts belong to #18",
+        "strict_online_ready": "not_established; upstream/availability audit deferred"
+      },
+      "site_rows": 47,
+      "unique_sites": 47,
+      "charger_rows": 61,
+      "site_id_header_observed": "site_id",
+      "matrix_site_id_matches": {
+        "volume.csv": true,
+        "duration.csv": true,
+        "e_price.csv": true,
+        "s_price.csv": true
+      },
+      "distance_site_ids_match": true,
+      "charger_unknown_site_ids": [],
+      "hourly_timestamp_sequences_match": true,
+      "weather_timestamp_literals_match_volume": false,
+      "weather_parsed_clock_matches_volume": true,
+      "findings": [],
+      "files": {
+        "volume.csv": {
+          "header_count": 48,
+          "rows": 4392,
+          "row_widths": {
+            "48": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 206424,
+            "zero": 74417,
+            "negative": 0,
+            "positive": 132007
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "JHB/volume.csv",
+            "sha256": "97110f11bee3d3ab7b3f8fab314a98a5c1cdab8c93eb02f87d17f5c1b9931407",
+            "crc32": 2070854885,
+            "size_bytes": 2663542
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 12
+        },
+        "duration.csv": {
+          "header_count": 48,
+          "rows": 4392,
+          "row_widths": {
+            "48": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 206424,
+            "zero": 72984,
+            "negative": 0,
+            "positive": 133440
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "JHB/duration.csv",
+            "sha256": "0dc62954acf472115bbe103c22dc9c5e1ee5bfe55a9fe491a181952cdb58db4d",
+            "crc32": 1741047359,
+            "size_bytes": 2908886
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 12
+        },
+        "e_price.csv": {
+          "header_count": 48,
+          "rows": 4392,
+          "row_widths": {
+            "48": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 206424,
+            "zero": 80830,
+            "negative": 0,
+            "positive": 125594
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "JHB/e_price.csv",
+            "sha256": "801214e04ac8fa730c542b6b8a82310e12e9143efb7db023d3c011d746ca03be",
+            "crc32": 491101407,
+            "size_bytes": 1180875
+          },
+          "header_prefix": [
+            "time",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 15
+        },
+        "s_price.csv": {
+          "header_count": 48,
+          "rows": 4392,
+          "row_widths": {
+            "48": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 206424,
+            "zero": 206424,
+            "negative": 0,
+            "positive": 0
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "JHB/s_price.csv",
+            "sha256": "64178a2f3f23608b14eaca9d5671be55e7c70e0d3aed8a4754cbfd94c6a387ac",
+            "crc32": 404754771,
+            "size_bytes": 918065
+          },
+          "header_prefix": [
+            "time",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 47
+        },
+        "info.csv": {
+          "header": [
+            "city",
+            "country",
+            "abbreviation",
+            "total_chargers",
+            "total_sites",
+            "DBSCAN_eps",
+            "total_duration",
+            "total_volume",
+            "avg_power"
+          ],
+          "header_count": 9,
+          "rows": 1,
+          "row_widths": {
+            "9": 1
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "input": {
+            "archive_member": "JHB/info.csv",
+            "sha256": "ef0747c39674743c7cf39ce396c349a6133f5a18df57484056e853a10ef445b4",
+            "crc32": 282430262,
+            "size_bytes": 212
+          }
+        },
+        "sites.csv": {
+          "header": [
+            "site_id",
+            "longitude",
+            "latitude",
+            "charger_num",
+            "total_duration",
+            "total_volume",
+            "avg_power",
+            "perimeter",
+            "area"
+          ],
+          "header_count": 9,
+          "rows": 47,
+          "row_widths": {
+            "9": 47
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "input": {
+            "archive_member": "JHB/sites.csv",
+            "sha256": "d69f589e33793c2c7d94a9e5984dfbfef2c4fd31bd1584f07e83ef6fa7df51f0",
+            "crc32": 1795732262,
+            "size_bytes": 5105
+          }
+        },
+        "chargers.csv": {
+          "header": [
+            "charger_id",
+            "longitude",
+            "latitude",
+            "site_id",
+            "total_duration",
+            "total_volume",
+            "avg_power"
+          ],
+          "header_count": 7,
+          "rows": 61,
+          "row_widths": {
+            "7": 61
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "membership_column_observed": "site_id",
+          "input": {
+            "archive_member": "JHB/chargers.csv",
+            "sha256": "316a3b26e373c5fc2668dc8b9435b5c06147baa393216b9c781fd63bb700109d",
+            "crc32": 1245296113,
+            "size_bytes": 6278
+          }
+        },
+        "distance.csv": {
+          "header_count": 48,
+          "rows": 47,
+          "row_widths": {
+            "48": 47
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "numeric_cells": {
+            "finite": 2209,
+            "zero": 47,
+            "negative": 0,
+            "positive": 2162
+          },
+          "duplicate_column_ids": 0,
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "input": {
+            "archive_member": "JHB/distance.csv",
+            "sha256": "db6d68b2d063e6c915f87d84f5749ea8d68ecce93659611de92bab6812f7f1e1",
+            "crc32": 2811497549,
+            "size_bytes": 40415
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "2"
+          ]
+        },
+        "weather.csv": {
+          "header": [
+            "time",
+            "temp",
+            "feelslike",
+            "humidity",
+            "dew",
+            "precip",
+            "snow",
+            "snowdepth",
+            "preciptype",
+            "windgust",
+            "windspeed",
+            "winddir",
+            "pressure",
+            "visibility",
+            "cloudcover",
+            "solarradiation",
+            "solarenergy",
+            "uvindex",
+            "conditions"
+          ],
+          "header_count": 19,
+          "rows": 4392,
+          "row_widths": {
+            "19": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 4354,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023/4/1 0:00",
+            "last_literal": "2023/9/30 23:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "e6c2f56b26de6fbd67fae52592f8427b22818bc7a26def2dd8a40a65e9d8f2dd",
+          "blanks_by_column": {
+            "preciptype": 4354
+          },
+          "input": {
+            "archive_member": "JHB/weather.csv",
+            "sha256": "254f01ddb1836beba8c95e7b81b5a9d8ee48aa809fa08cd131179d8166417490",
+            "crc32": 4228200115,
+            "size_bytes": 344910
+          }
+        },
+        "poi.csv": {
+          "header": [
+            "",
+            "type",
+            "longitude",
+            "latitude"
+          ],
+          "header_count": 4,
+          "rows": 47488,
+          "row_widths": {
+            "4": 47488
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "input": {
+            "archive_member": "JHB/poi.csv",
+            "sha256": "23f122371594087a843f710fb70ff471371497a7ad5cea1d043c727dfb3cbdff",
+            "crc32": 3743405956,
+            "size_bytes": 2265282
+          }
+        }
+      }
+    },
+    {
+      "city": "LOA",
+      "present_files": [
+        "chargers.csv",
+        "distance.csv",
+        "duration.csv",
+        "e_price.csv",
+        "info.csv",
+        "poi.csv",
+        "s_price.csv",
+        "sites.csv",
+        "volume.csv",
+        "weather.csv"
+      ],
+      "missing_expected_files": [],
+      "unexpected_files": [],
+      "readiness": {
+        "file_valid": "not_adjudicated; inventory diagnostics only",
+        "forecasting_eligible": "not_assessed; official windows/cohorts belong to #18",
+        "strict_online_ready": "not_established; upstream/availability audit deferred"
+      },
+      "site_rows": 229,
+      "unique_sites": 229,
+      "charger_rows": 506,
+      "site_id_header_observed": "site_id",
+      "matrix_site_id_matches": {
+        "volume.csv": true,
+        "duration.csv": true,
+        "e_price.csv": true,
+        "s_price.csv": true
+      },
+      "distance_site_ids_match": true,
+      "charger_unknown_site_ids": [],
+      "hourly_timestamp_sequences_match": true,
+      "weather_timestamp_literals_match_volume": false,
+      "weather_parsed_clock_matches_volume": true,
+      "findings": [
+        "info.csv: row widths differ from header"
+      ],
+      "files": {
+        "volume.csv": {
+          "header_count": 230,
+          "rows": 4392,
+          "row_widths": {
+            "230": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 1005768,
+            "zero": 219676,
+            "negative": 0,
+            "positive": 786092
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "LOA/volume.csv",
+            "sha256": "7419199d507aebf231dcef290399f17968b0df24ae5b69df5211d7fabb02ed97",
+            "crc32": 3242047761,
+            "size_bytes": 10428474
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 5
+        },
+        "duration.csv": {
+          "header_count": 230,
+          "rows": 4392,
+          "row_widths": {
+            "230": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 1005768,
+            "zero": 219670,
+            "negative": 0,
+            "positive": 786098
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "LOA/duration.csv",
+            "sha256": "7f1f46f29270ef39d9d6a195c1a1957d6d4a435e8ff84f27f2abab53e48c7d95",
+            "crc32": 2131033959,
+            "size_bytes": 15597024
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 5
+        },
+        "e_price.csv": {
+          "header_count": 230,
+          "rows": 4392,
+          "row_widths": {
+            "230": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 1005768,
+            "zero": 988200,
+            "negative": 0,
+            "positive": 17568
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "LOA/e_price.csv",
+            "sha256": "f6f11baf0583f3724d708e47c7c27b920e29c35d272532bcdc48b0607f9d5d12",
+            "crc32": 3128265106,
+            "size_bytes": 4116116
+          },
+          "header_prefix": [
+            "time",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 225
+        },
+        "s_price.csv": {
+          "header_count": 230,
+          "rows": 4392,
+          "row_widths": {
+            "230": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 1005768,
+            "zero": 1005768,
+            "negative": 0,
+            "positive": 0
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "LOA/s_price.csv",
+            "sha256": "bfb15d293ba05a01042a5fdb150cc7d54c6409debb3feb3b7ba9bec2c0d39145",
+            "crc32": 407244903,
+            "size_bytes": 4116116
+          },
+          "header_prefix": [
+            "time",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 229
+        },
+        "info.csv": {
+          "header": [
+            "city",
+            "country",
+            "abbreviation",
+            "total_chargers",
+            "total_siteBSCAN_eps",
+            "total_duration",
+            "total_volume",
+            "avg_power"
+          ],
+          "header_count": 8,
+          "rows": 1,
+          "row_widths": {
+            "9": 1
+          },
+          "rows_with_width_mismatch": 1,
+          "width_mismatch_examples": [
+            {
+              "line": 2,
+              "values": [
+                "LosAngeles",
+                "UnitedStates",
+                "LOA",
+                "506",
+                "229",
+                "86.70261425391611",
+                "1925280.0022147307",
+                "13369061.154359626",
+                "6.911313843980024"
+              ]
+            }
+          ],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 1
+          },
+          "input": {
+            "archive_member": "LOA/info.csv",
+            "sha256": "f9dab0e196d07dbd1042953242234a2853abd41518adfe25ab01c4dee61293a0",
+            "crc32": 4066379772,
+            "size_bytes": 211
+          }
+        },
+        "sites.csv": {
+          "header": [
+            "site_id",
+            "longitude",
+            "latitude",
+            "charger_num",
+            "total_duration",
+            "total_volume",
+            "avg_power",
+            "perimeter",
+            "area"
+          ],
+          "header_count": 9,
+          "rows": 229,
+          "row_widths": {
+            "9": 229
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "input": {
+            "archive_member": "LOA/sites.csv",
+            "sha256": "6c5e87db2596c530bd7a05e5be334df20a31cec9969a08759972aa4596da9262",
+            "crc32": 2170838873,
+            "size_bytes": 28457
+          }
+        },
+        "chargers.csv": {
+          "header": [
+            "charger_id",
+            "longitude",
+            "latitude",
+            "site",
+            "total_duration",
+            "total_volume",
+            "avg_power"
+          ],
+          "header_count": 7,
+          "rows": 506,
+          "row_widths": {
+            "7": 506
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "membership_column_observed": "site",
+          "input": {
+            "archive_member": "LOA/chargers.csv",
+            "sha256": "812656ea21161b9ca98c4960a8e414d2d315806abf6b3ac755707b7529b36f1c",
+            "crc32": 3100537909,
+            "size_bytes": 45649
+          }
+        },
+        "distance.csv": {
+          "header_count": 230,
+          "rows": 229,
+          "row_widths": {
+            "230": 229
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "numeric_cells": {
+            "finite": 52441,
+            "zero": 229,
+            "negative": 0,
+            "positive": 52212
+          },
+          "duplicate_column_ids": 0,
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "input": {
+            "archive_member": "LOA/distance.csv",
+            "sha256": "a508a7a6582e19a24452a21ae3859ca3c33a4cce63a525612a78734d7683ee51",
+            "crc32": 857124015,
+            "size_bytes": 967551
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "2"
+          ]
+        },
+        "weather.csv": {
+          "header": [
+            "time",
+            "temp",
+            "feelslike",
+            "humidity",
+            "dew",
+            "precip",
+            "snow",
+            "snowdepth",
+            "preciptype",
+            "windgust",
+            "windspeed",
+            "winddir",
+            "pressure",
+            "visibility",
+            "cloudcover",
+            "solarradiation",
+            "solarenergy",
+            "uvindex",
+            "conditions"
+          ],
+          "header_count": 19,
+          "rows": 4392,
+          "row_widths": {
+            "19": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 4321,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023/4/1 0:00",
+            "last_literal": "2023/9/30 23:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "e6c2f56b26de6fbd67fae52592f8427b22818bc7a26def2dd8a40a65e9d8f2dd",
+          "blanks_by_column": {
+            "preciptype": 4321
+          },
+          "input": {
+            "archive_member": "LOA/weather.csv",
+            "sha256": "e25726a24fda00e61fd6e2268013a4b87c86e661020db0743e1d78a22df2550c",
+            "crc32": 299850481,
+            "size_bytes": 353004
+          }
+        },
+        "poi.csv": {
+          "header": [
+            "",
+            "type",
+            "longitude",
+            "latitude"
+          ],
+          "header_count": 4,
+          "rows": 42782,
+          "row_widths": {
+            "4": 42782
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "input": {
+            "archive_member": "LOA/poi.csv",
+            "sha256": "559a8dcf4b774ba08c3cb025a0a3c180468d249a379638400c26026894cc8a97",
+            "crc32": 1800376684,
+            "size_bytes": 1999249
+          }
+        }
+      }
+    },
+    {
+      "city": "MEL",
+      "present_files": [
+        "chargers.csv",
+        "distance.csv",
+        "duration.csv",
+        "e_price.csv",
+        "info.csv",
+        "poi.csv",
+        "s_price.csv",
+        "sites.csv",
+        "volume.csv",
+        "weather.csv"
+      ],
+      "missing_expected_files": [],
+      "unexpected_files": [],
+      "readiness": {
+        "file_valid": "not_adjudicated; inventory diagnostics only",
+        "forecasting_eligible": "not_assessed; official windows/cohorts belong to #18",
+        "strict_online_ready": "not_established; upstream/availability audit deferred"
+      },
+      "site_rows": 63,
+      "unique_sites": 63,
+      "charger_rows": 64,
+      "site_id_header_observed": "site",
+      "matrix_site_id_matches": {
+        "volume.csv": true,
+        "duration.csv": true,
+        "e_price.csv": true,
+        "s_price.csv": true
+      },
+      "distance_site_ids_match": true,
+      "charger_unknown_site_ids": [],
+      "hourly_timestamp_sequences_match": true,
+      "weather_timestamp_literals_match_volume": false,
+      "weather_parsed_clock_matches_volume": true,
+      "findings": [
+        "info.csv: row widths differ from header"
+      ],
+      "files": {
+        "volume.csv": {
+          "header_count": 64,
+          "rows": 4392,
+          "row_widths": {
+            "64": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 276696,
+            "zero": 82397,
+            "negative": 0,
+            "positive": 194299
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "MEL/volume.csv",
+            "sha256": "a2fd731e223409d5a9456499cd81751501f755bb56fdfbdefac3b1361b95edf3",
+            "crc32": 649254117,
+            "size_bytes": 2971962
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 1
+        },
+        "duration.csv": {
+          "header_count": 64,
+          "rows": 4392,
+          "row_widths": {
+            "64": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 276696,
+            "zero": 82397,
+            "negative": 0,
+            "positive": 194299
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "MEL/duration.csv",
+            "sha256": "3dbe39bbc7fcb44c109c3e9daac09cebcca8338132ff5f280a90db07dc3a9313",
+            "crc32": 1689304749,
+            "size_bytes": 4003128
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 1
+        },
+        "e_price.csv": {
+          "header_count": 64,
+          "rows": 4392,
+          "row_widths": {
+            "64": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 276696,
+            "zero": 207434,
+            "negative": 0,
+            "positive": 69262
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "MEL/e_price.csv",
+            "sha256": "ded893acc0f91f570b2e4978a4dd5406f9e5f7c324d4d49347b3bf225c3f1519",
+            "crc32": 2723076260,
+            "size_bytes": 1279610
+          },
+          "header_prefix": [
+            "time",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 44
+        },
+        "s_price.csv": {
+          "header_count": 64,
+          "rows": 4392,
+          "row_widths": {
+            "64": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 276696,
+            "zero": 276696,
+            "negative": 0,
+            "positive": 0
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "MEL/s_price.csv",
+            "sha256": "941a33e258b7bdef4b8109d3918deeddbb8f64f4d9e65494e9615a6050c7a0ce",
+            "crc32": 2851788735,
+            "size_bytes": 1199201
+          },
+          "header_prefix": [
+            "time",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 63
+        },
+        "info.csv": {
+          "header": [
+            "city",
+            "country",
+            "abbreviation",
+            "total_chargers",
+            "total_siteBSCAN_eps",
+            "total_duration",
+            "total_volume",
+            "avg_power"
+          ],
+          "header_count": 8,
+          "rows": 1,
+          "row_widths": {
+            "9": 1
+          },
+          "rows_with_width_mismatch": 1,
+          "width_mismatch_examples": [
+            {
+              "line": 2,
+              "values": [
+                "Melbourne",
+                "Australia",
+                "MEL",
+                "64",
+                "63",
+                "32.9575438893481",
+                "683027.3936894343",
+                "27261852.724981867",
+                "26.390221728731618"
+              ]
+            }
+          ],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 1
+          },
+          "input": {
+            "archive_member": "MEL/info.csv",
+            "sha256": "845245fbe0106c434eb8179a2dce4e87f12725fc70e66024ba071934feb88d94",
+            "crc32": 1835526491,
+            "size_bytes": 204
+          }
+        },
+        "sites.csv": {
+          "header": [
+            "site",
+            "longitude",
+            "latitude",
+            "charger_num",
+            "total_duration",
+            "total_volume",
+            "avg_power",
+            "perimeter",
+            "area"
+          ],
+          "header_count": 9,
+          "rows": 63,
+          "row_widths": {
+            "9": 63
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "input": {
+            "archive_member": "MEL/sites.csv",
+            "sha256": "a06abedde7c1304c62a43d812749654b68583a1f2309861eaaa8703648422f70",
+            "crc32": 3880676909,
+            "size_bytes": 7530
+          }
+        },
+        "chargers.csv": {
+          "header": [
+            "charger_id",
+            "longitude",
+            "latitude",
+            "site_id",
+            "total_duration",
+            "total_volume",
+            "avg_power"
+          ],
+          "header_count": 7,
+          "rows": 64,
+          "row_widths": {
+            "7": 64
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "membership_column_observed": "site_id",
+          "input": {
+            "archive_member": "MEL/chargers.csv",
+            "sha256": "7cf1730d925bc4378c6b6e16e7200a2089001da22d8b3e13a5e0b33c50dde9d5",
+            "crc32": 3090304397,
+            "size_bytes": 7868
+          }
+        },
+        "distance.csv": {
+          "header_count": 64,
+          "rows": 63,
+          "row_widths": {
+            "64": 63
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "numeric_cells": {
+            "finite": 3969,
+            "zero": 63,
+            "negative": 0,
+            "positive": 3906
+          },
+          "duplicate_column_ids": 0,
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "input": {
+            "archive_member": "MEL/distance.csv",
+            "sha256": "f1d8d64d20e0907713def05fa5b2c730c5cc4d535949b0fc2400d8a3f491b5bc",
+            "crc32": 105720633,
+            "size_bytes": 72873
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "2"
+          ]
+        },
+        "weather.csv": {
+          "header": [
+            "time",
+            "temp",
+            "feelslike",
+            "humidity",
+            "dew",
+            "precip",
+            "snow",
+            "snowdepth",
+            "preciptype",
+            "windgust",
+            "windspeed",
+            "winddir",
+            "pressure",
+            "visibility",
+            "cloudcover",
+            "solarradiation",
+            "solarenergy",
+            "uvindex",
+            "conditions"
+          ],
+          "header_count": 19,
+          "rows": 4392,
+          "row_widths": {
+            "19": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 4147,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023/4/1 0:00",
+            "last_literal": "2023/9/30 23:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "e6c2f56b26de6fbd67fae52592f8427b22818bc7a26def2dd8a40a65e9d8f2dd",
+          "blanks_by_column": {
+            "preciptype": 4147
+          },
+          "input": {
+            "archive_member": "MEL/weather.csv",
+            "sha256": "34219897582f1639add08077474aed8d27e3da0e8f7723d0f2bf487a0b06922b",
+            "crc32": 1400618878,
+            "size_bytes": 343809
+          }
+        },
+        "poi.csv": {
+          "header": [
+            "",
+            "type",
+            "longitude",
+            "latitude"
+          ],
+          "header_count": 4,
+          "rows": 617806,
+          "row_widths": {
+            "4": 617806
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "input": {
+            "archive_member": "MEL/poi.csv",
+            "sha256": "6f11a41a006eda10b2584debb551056a823272c64185830a8ff2005a75031df5",
+            "crc32": 3602210838,
+            "size_bytes": 30551028
+          }
+        }
+      }
+    },
+    {
+      "city": "SPO",
+      "present_files": [
+        "chargers.csv",
+        "distance.csv",
+        "duration.csv",
+        "e_price.csv",
+        "info.csv",
+        "poi.csv",
+        "s_price.csv",
+        "sites.csv",
+        "volume.csv",
+        "weather.csv"
+      ],
+      "missing_expected_files": [],
+      "unexpected_files": [],
+      "readiness": {
+        "file_valid": "not_adjudicated; inventory diagnostics only",
+        "forecasting_eligible": "not_assessed; official windows/cohorts belong to #18",
+        "strict_online_ready": "not_established; upstream/availability audit deferred"
+      },
+      "site_rows": 47,
+      "unique_sites": 47,
+      "charger_rows": 50,
+      "site_id_header_observed": "site",
+      "matrix_site_id_matches": {
+        "volume.csv": true,
+        "duration.csv": true,
+        "e_price.csv": true,
+        "s_price.csv": true
+      },
+      "distance_site_ids_match": true,
+      "charger_unknown_site_ids": [],
+      "hourly_timestamp_sequences_match": true,
+      "weather_timestamp_literals_match_volume": false,
+      "weather_parsed_clock_matches_volume": true,
+      "findings": [
+        "info.csv: row widths differ from header"
+      ],
+      "files": {
+        "volume.csv": {
+          "header_count": 48,
+          "rows": 4392,
+          "row_widths": {
+            "48": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 206424,
+            "zero": 58384,
+            "negative": 0,
+            "positive": 148040
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "SPO/volume.csv",
+            "sha256": "18737ffc50aac457c45b9302b518b27ad74289ffbf93d5a55454068d4d542152",
+            "crc32": 2813844068,
+            "size_bytes": 2979058
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 6
+        },
+        "duration.csv": {
+          "header_count": 48,
+          "rows": 4392,
+          "row_widths": {
+            "48": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 206424,
+            "zero": 58384,
+            "negative": 0,
+            "positive": 148040
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "SPO/duration.csv",
+            "sha256": "5477fd4e15f8fe4b16d396f304b69e6ccd53d90b13e541586427eb7b2271f4dc",
+            "crc32": 2519285338,
+            "size_bytes": 3128420
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 6
+        },
+        "e_price.csv": {
+          "header_count": 48,
+          "rows": 4392,
+          "row_widths": {
+            "48": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 206424,
+            "zero": 43988,
+            "negative": 0,
+            "positive": 162436
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "SPO/e_price.csv",
+            "sha256": "da93ddfe2fdba885b7f29675c9f6f72241ce8057ec5ab70959c68441b6061973",
+            "crc32": 2118563746,
+            "size_bytes": 1244804
+          },
+          "header_prefix": [
+            "time",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 10
+        },
+        "s_price.csv": {
+          "header_count": 48,
+          "rows": 4392,
+          "row_widths": {
+            "48": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 206424,
+            "zero": 206424,
+            "negative": 0,
+            "positive": 0
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "SPO/s_price.csv",
+            "sha256": "64178a2f3f23608b14eaca9d5671be55e7c70e0d3aed8a4754cbfd94c6a387ac",
+            "crc32": 404754771,
+            "size_bytes": 918065
+          },
+          "header_prefix": [
+            "time",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 47
+        },
+        "info.csv": {
+          "header": [
+            "city",
+            "country",
+            "abbreviation",
+            "total_chargers",
+            "total_siteBSCAN_eps",
+            "total_duration",
+            "total_volume",
+            "avg_power"
+          ],
+          "header_count": 8,
+          "rows": 1,
+          "row_widths": {
+            "9": 1
+          },
+          "rows_with_width_mismatch": 1,
+          "width_mismatch_examples": [
+            {
+              "line": 2,
+              "values": [
+                "SaoPaulo",
+                "Brazil",
+                "SPO",
+                "50",
+                "47",
+                "34.96669500667566",
+                "82869.69974872666",
+                "1330621.8528507221",
+                "12.180096146604749"
+              ]
+            }
+          ],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 1
+          },
+          "input": {
+            "archive_member": "SPO/info.csv",
+            "sha256": "2e270c47888730d8d25a370668f8f3eb4e8f39f335046dab3e8ee4b4f7a1d1a8",
+            "crc32": 4160768747,
+            "size_bytes": 201
+          }
+        },
+        "sites.csv": {
+          "header": [
+            "site",
+            "longitude",
+            "latitude",
+            "charger_num",
+            "total_duration",
+            "total_volume",
+            "avg_power",
+            "perimeter",
+            "area"
+          ],
+          "header_count": 9,
+          "rows": 47,
+          "row_widths": {
+            "9": 47
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "input": {
+            "archive_member": "SPO/sites.csv",
+            "sha256": "7f4bdfec95e70be5f269a680ee4379c5ee341dfc58966f0fadd0d312c158e830",
+            "crc32": 4231256211,
+            "size_bytes": 5650
+          }
+        },
+        "chargers.csv": {
+          "header": [
+            "charger_id",
+            "longitude",
+            "latitude",
+            "site",
+            "total_duration",
+            "total_volume",
+            "avg_power"
+          ],
+          "header_count": 7,
+          "rows": 50,
+          "row_widths": {
+            "7": 50
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "membership_column_observed": "site",
+          "input": {
+            "archive_member": "SPO/chargers.csv",
+            "sha256": "67631e4bd30cb7ca6adfe444d37a06c8c11a8338e8235d1260bad122cc71a3e3",
+            "crc32": 3238915363,
+            "size_bytes": 5291
+          }
+        },
+        "distance.csv": {
+          "header_count": 48,
+          "rows": 47,
+          "row_widths": {
+            "48": 47
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "numeric_cells": {
+            "finite": 2209,
+            "zero": 47,
+            "negative": 0,
+            "positive": 2162
+          },
+          "duplicate_column_ids": 0,
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "input": {
+            "archive_member": "SPO/distance.csv",
+            "sha256": "2aeb435362dfd9ca96910f943922ab3c0048bfe456338ede5fe1e7bf9d15b715",
+            "crc32": 2381192250,
+            "size_bytes": 39973
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "2"
+          ]
+        },
+        "weather.csv": {
+          "header": [
+            "time",
+            "temp",
+            "feelslike",
+            "humidity",
+            "dew",
+            "precip",
+            "snow",
+            "snowdepth",
+            "preciptype",
+            "windgust",
+            "windspeed",
+            "winddir",
+            "pressure",
+            "visibility",
+            "cloudcover",
+            "solarradiation",
+            "solarenergy",
+            "uvindex",
+            "conditions"
+          ],
+          "header_count": 19,
+          "rows": 4392,
+          "row_widths": {
+            "19": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 4341,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023/4/1 0:00",
+            "last_literal": "2023/9/30 23:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "e6c2f56b26de6fbd67fae52592f8427b22818bc7a26def2dd8a40a65e9d8f2dd",
+          "blanks_by_column": {
+            "preciptype": 4341
+          },
+          "input": {
+            "archive_member": "SPO/weather.csv",
+            "sha256": "f165b79498c1543452586d78636f6a6b2a4eb38c9ad2453320c880f5c5841d92",
+            "crc32": 1341266924,
+            "size_bytes": 344210
+          }
+        },
+        "poi.csv": {
+          "header": [
+            "",
+            "type",
+            "longitude",
+            "latitude"
+          ],
+          "header_count": 4,
+          "rows": 49719,
+          "row_widths": {
+            "4": 49719
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "input": {
+            "archive_member": "SPO/poi.csv",
+            "sha256": "84406e82ad0d784ef778729876ac82a7d57fe70cd771122d3c051e33547561dd",
+            "crc32": 357353173,
+            "size_bytes": 2354192
+          }
+        }
+      }
+    },
+    {
+      "city": "SZH",
+      "present_files": [
+        "chargers.csv",
+        "distance.csv",
+        "duration.csv",
+        "e_price.csv",
+        "info.csv",
+        "poi.csv",
+        "s_price.csv",
+        "sites.csv",
+        "volume.csv",
+        "weather.csv"
+      ],
+      "missing_expected_files": [],
+      "unexpected_files": [],
+      "readiness": {
+        "file_valid": "not_adjudicated; inventory diagnostics only",
+        "forecasting_eligible": "not_assessed; official windows/cohorts belong to #18",
+        "strict_online_ready": "not_established; upstream/availability audit deferred"
+      },
+      "site_rows": 1445,
+      "unique_sites": 1445,
+      "charger_rows": 2195,
+      "site_id_header_observed": "site_id",
+      "matrix_site_id_matches": {
+        "volume.csv": true,
+        "duration.csv": true,
+        "e_price.csv": true,
+        "s_price.csv": true
+      },
+      "distance_site_ids_match": true,
+      "charger_unknown_site_ids": [],
+      "hourly_timestamp_sequences_match": true,
+      "weather_timestamp_literals_match_volume": false,
+      "weather_parsed_clock_matches_volume": true,
+      "findings": [
+        "info.csv: row widths differ from header"
+      ],
+      "files": {
+        "volume.csv": {
+          "header_count": 1446,
+          "rows": 4392,
+          "row_widths": {
+            "1446": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 6346440,
+            "zero": 440585,
+            "negative": 0,
+            "positive": 5905855
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "SZH/volume.csv",
+            "sha256": "d98966d616972f0efe71d9ec9338488fcd287e945222e73e2f4a9ee2451ae3a1",
+            "crc32": 3913027691,
+            "size_bytes": 98277467
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 68
+        },
+        "duration.csv": {
+          "header_count": 1446,
+          "rows": 4392,
+          "row_widths": {
+            "1446": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 6346440,
+            "zero": 431810,
+            "negative": 0,
+            "positive": 5914630
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "SZH/duration.csv",
+            "sha256": "996a451685947c842c9afe31c04e68379bbd6c528ba1f40c579a01b556cbf756",
+            "crc32": 1253775106,
+            "size_bytes": 95600712
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 66
+        },
+        "e_price.csv": {
+          "header_count": 1446,
+          "rows": 4392,
+          "row_widths": {
+            "1446": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 6346440,
+            "zero": 4505643,
+            "negative": 0,
+            "positive": 1840797
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "SZH/e_price.csv",
+            "sha256": "988635d160d4fe0975757b4d28c11bfdde8f8a5cbda0f0c4ae18fc726fff6e5c",
+            "crc32": 4287652286,
+            "size_bytes": 40682776
+          },
+          "header_prefix": [
+            "time",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 1025
+        },
+        "s_price.csv": {
+          "header_count": 1446,
+          "rows": 4392,
+          "row_widths": {
+            "1446": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023-04-01 00:00:00",
+            "last_literal": "2023-09-30 23:00:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "8363fceba33c69c78d82e3657cbff73ff5e346fbf678773add7bc886c148f8da",
+          "numeric_cells": {
+            "finite": 6346440,
+            "zero": 5318712,
+            "negative": 0,
+            "positive": 1027728
+          },
+          "duplicate_column_ids": 0,
+          "input": {
+            "archive_member": "SZH/s_price.csv",
+            "sha256": "edd11aaa7285bc5b49781e6a9f04614b7d5d0d8975f43a2c5b526a8e53b7502a",
+            "crc32": 1148426549,
+            "size_bytes": 28645293
+          },
+          "header_prefix": [
+            "time",
+            "0",
+            "1",
+            "10"
+          ],
+          "all_zero_site_count": 1211
+        },
+        "info.csv": {
+          "header": [
+            "city",
+            "country",
+            "abbreviation",
+            "total_chargers",
+            "total_siteBSCAN_eps",
+            "total_duration",
+            "total_volume",
+            "avg_power"
+          ],
+          "header_count": 8,
+          "rows": 1,
+          "row_widths": {
+            "9": 1
+          },
+          "rows_with_width_mismatch": 1,
+          "width_mismatch_examples": [
+            {
+              "line": 2,
+              "values": [
+                "Shenzhen",
+                "China",
+                "SZH",
+                "2195",
+                "1445",
+                "41.95321426823552",
+                "65136608.20615964",
+                "1929459272.4312048",
+                "12.154254512585817"
+              ]
+            }
+          ],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 1
+          },
+          "input": {
+            "archive_member": "SZH/info.csv",
+            "sha256": "384443955715ab87023a356b99ee9fef37985ac62891c0732471515db6060530",
+            "crc32": 1428434638,
+            "size_bytes": 204
+          }
+        },
+        "sites.csv": {
+          "header": [
+            "site_id",
+            "longitude",
+            "latitude",
+            "charger_num",
+            "total_duration",
+            "total_volume",
+            "avg_power",
+            "perimeter",
+            "area"
+          ],
+          "header_count": 9,
+          "rows": 1445,
+          "row_widths": {
+            "9": 1445
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "input": {
+            "archive_member": "SZH/sites.csv",
+            "sha256": "e798c6542e017e75e4f3a828e424c1879f60c7cc3b0ba8077d4e7f92bd89f832",
+            "crc32": 1415916959,
+            "size_bytes": 155559
+          }
+        },
+        "chargers.csv": {
+          "header": [
+            "charger_id",
+            "longitude",
+            "latitude",
+            "site",
+            "total_duration",
+            "total_volume",
+            "avg_power"
+          ],
+          "header_count": 7,
+          "rows": 2195,
+          "row_widths": {
+            "7": 2195
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "membership_column_observed": "site",
+          "input": {
+            "archive_member": "SZH/chargers.csv",
+            "sha256": "6392960893d9c02dde62f05b2e00c8d3582d2b43e0181d6339f211d13428ae16",
+            "crc32": 3017715168,
+            "size_bytes": 166133
+          }
+        },
+        "distance.csv": {
+          "header_count": 1446,
+          "rows": 1445,
+          "row_widths": {
+            "1446": 1445
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "numeric_cells": {
+            "finite": 2088025,
+            "zero": 1445,
+            "negative": 0,
+            "positive": 2086580
+          },
+          "duplicate_column_ids": 0,
+          "blank_ids": 0,
+          "duplicate_ids": 0,
+          "input": {
+            "archive_member": "SZH/distance.csv",
+            "sha256": "8839ba971749192ba4edaf907d69c52090341ffdd338136fb1f7a8049d99b1ee",
+            "crc32": 3427132132,
+            "size_bytes": 38564025
+          },
+          "header_prefix": [
+            "",
+            "0",
+            "1",
+            "2"
+          ]
+        },
+        "weather.csv": {
+          "header": [
+            "time",
+            "temp",
+            "feelslike",
+            "humidity",
+            "dew",
+            "precip",
+            "snow",
+            "snowdepth",
+            "preciptype",
+            "windgust",
+            "windspeed",
+            "winddir",
+            "pressure",
+            "visibility",
+            "cloudcover",
+            "solarradiation",
+            "solarenergy",
+            "uvindex",
+            "conditions"
+          ],
+          "header_count": 19,
+          "rows": 4392,
+          "row_widths": {
+            "19": 4392
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 3977,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "time": {
+            "rows": 4392,
+            "parsed": 4392,
+            "parse_failures": 0,
+            "parse_failure_examples": [],
+            "first_literal": "2023/4/1 0:00",
+            "last_literal": "2023/9/30 23:00",
+            "unique_parsed": 4392,
+            "duplicates": 0,
+            "offset_tokens": {
+              "no_offset": 4392
+            },
+            "step_seconds": {
+              "3600.0": 4391
+            },
+            "non_hour_steps": 0,
+            "parsed_sequence_sha256": "bdbcff8272155aacca2ce55632b1f2215428a1463abccf32e4180503264d780c",
+            "within_span_missing_hour_slots": 0,
+            "timezone_verified": false,
+            "bin_endpoint_verified": false
+          },
+          "timestamp_sequence_sha256": "e6c2f56b26de6fbd67fae52592f8427b22818bc7a26def2dd8a40a65e9d8f2dd",
+          "blanks_by_column": {
+            "preciptype": 3977
+          },
+          "input": {
+            "archive_member": "SZH/weather.csv",
+            "sha256": "84e42abcc6062624e394434c780390e5780841773ddfb9355db9de5f0f19b7a2",
+            "crc32": 1410366543,
+            "size_bytes": 364007
+          }
+        },
+        "poi.csv": {
+          "header": [
+            "",
+            "type",
+            "longitude",
+            "latitude"
+          ],
+          "header_count": 4,
+          "rows": 47181,
+          "row_widths": {
+            "4": 47181
+          },
+          "rows_with_width_mismatch": 0,
+          "width_mismatch_examples": [],
+          "missing_cells": {
+            "blank_present_cells": 0,
+            "absent_cells_in_short_rows": 0,
+            "extra_cells_in_long_rows": 0
+          },
+          "input": {
+            "archive_member": "SZH/poi.csv",
+            "sha256": "9cee8ca87912e5dd846ec3858e4111fcbc68f977432f96a094ec003ab54fe5ce",
+            "crc32": 1460988860,
+            "size_bytes": 2260596
+          }
+        }
+      }
+    }
+  ]
+}

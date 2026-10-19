@@ -2,20 +2,28 @@
 
 Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. Work follows **Issue → working branch → PR → `dev`**. Updating `main` requires a separate instruction.
 
-**Current status:** the data source catalog and local archive verification tool are implemented. The two required raw archives have been acquired and verified locally; see the [acquisition report](docs/reports/data-acquisition.md). Raw files are not stored in Git. UrbanEV hourly processing and QC are under implementation/review; model inputs, models, and experiments are not implemented yet.
+**Current status:** the data source catalog and local archive verification tool are implemented. The two required raw archives have been acquired and verified locally; see the [acquisition report](docs/reports/data-acquisition.md). Raw files are not stored in Git. Data-processing and model-input implementations are under review; model training and experiments are not implemented yet.
 
 ## Start here
 
 Read the [Master Research Flow — WHY → HOW → PROVE](docs/MASTER_RESEARCH_FLOW.md) to understand the problem, proposed method, and required evidence.
 
+Download the shared [DATA-v1-20261019 snapshot](docs/data/DATA_DOWNLOADS.md) for the exact raw/hourly/input files, Google Drive links and SHA-256 verification.
+
+Start with [From the two datasets to model inputs](docs/data/DATA_FLOW.md) for the complete raw → hourly → training/prediction-input flow and a guide to the actual local folders.
+
 For file-by-file dataset explanations, read the [UrbanEV reference](docs/data/URBANEV.md) and [CHARGED / AMS reference](docs/data/CHARGED.md).
+
+The #18 [development loader](docs/reports/input-loader.md) integrates hourly manifest/CSV IO with pinned feature, split/scaler and window helpers. It is validated on independent fixtures; real producer runs, official cohorts/artifacts and model handoff remain pending review.
+
+The [real-data loader trial](docs/reports/input-loader-real.md) covers all UrbanEV/CHARGED entity IDs and budgets 7/14/28. It records actual counts and incomplete UrbanEV prefixes for review; official input/cohort acceptance and model handoff remain pending.
+
+The [input handoff policy](docs/data/INPUT_ACCEPTANCE.md) records the user-selected missing-data rules and v2 coverage accounting. Historical real-data trial counts remain unchanged; see the [policy handoff report](docs/reports/input-handoff.md) for rerun evidence. Independent peer acceptance is still required.
 
 1. Read the [team workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md).
 2. Read the [data sources and download/verification instructions](data/README.md).
 3. Review the [foundation handoff report](docs/FOUNDATION_REPORT.md).
 4. Use [Report 1](adaptive_retention_report_1.pdf) as the unchanged method reference.
-
-UrbanEV hourly processing: [contract, assumptions, and execution](docs/data/HOURLY_CONTRACT.md).
 
 ## Environment setup
 
