@@ -119,9 +119,41 @@ The input loader reads the hourly tables. It does **not** modify them.
 
 The existing fixed hash split assigns IDs independently of forecast performance. Roles stay the same across budgets. Splits are by ID, not verified distinct physical location; co-location remains a limitation. CHARGED is split per city. Do not pool UrbanEV and CHARGED for pretraining.
 
+These are **three roles for entity IDs**, not three models and not three chronological sections of one station. The fixed hash targets approximately 60/20/20, not exact quotas. In the current UrbanEV snapshot:
+
+| Role | Assigned station IDs | Reason for keeping this group separate |
+| --- | ---: | --- |
+| Source | 981 | Learn an initialization from permitted pre-deployment examples across source stations. 871 currently contribute 65,888 valid examples; IDs without examples stay in the inventory. |
+| Development | 328 | Simulate low-history targets to compare adaptation settings and select configuration without using Final outcomes. |
+| Final | 373 | Evaluate the locked procedure on held-out entity IDs; do not revise settings using these results. Physical-site independence is not certified. |
+
+A Final target is allowed to adapt using its own permitted initial history and subsequently arrived labels. Its role prevents using its evaluation outcomes for design selection; it does not prohibit all target learning. No Development or Final examples enter source pretraining. The same rule applies separately inside each CHARGED city.
+
+
 ### 3.2 Choose the permitted history and fit its scaler
 
 For a target deploying on December 1 with budget 7, use **November 24–30**, not a hand-picked set of seven complete days. Budget 14 or 28 changes that permitted initial interval; the input length and forecast horizon remain 24 hours.
+
+The role split and history budget answer different questions:
+
+| Choice | Question answered | What stays fixed |
+| --- | --- | --- |
+| Source / Development / Final | Which station/site is allowed to serve which experimental role? | Entity roles across all budgets. |
+| 7 / 14 / 28 days | How much initial target history is available in this independent experiment? | 24-hour input, 24-hour forecast horizon, deployment date and selected source initialization. |
+
+For an UrbanEV target deploying on December 1, the exact permitted prefixes are November 24–30 (7 days), November 17–30 (14 days), and November 3–30 (28 days). Their maximum contained initial daily examples are 6, 13 and 27 respectively, before missing-data gates. A budget is not the number of days being forecast.
+
+```mermaid
+flowchart LR
+    S["Same selected source checkpoint"] --> A7["Fresh target A copy: budget 7"]
+    S --> A14["Fresh target A copy: budget 14"]
+    S --> A28["Fresh target A copy: budget 28"]
+    H7["A history: Nov 24–30"] --> A7
+    H14["A history: Nov 17–30"] --> A14
+    H28["A history: Nov 3–30"] --> A28
+```
+
+Each arrow from the source means a fresh initialization. Do not continue the completed 7-day experiment as the 14-day experiment, or let an experiment use data outside its own budget. The longer prefixes overlap by design; their sample counts are not independent additional datasets.
 
 Fit one scaler per entity from valid energy available within the permitted prefix. Source fitting uses its pre-deployment interval. Divide energy by prefix p95; preserve the original kWh labels too. Never fit using a target's future evaluation values. Freeze the initial scaler during replay. A nonempty prefix with p95 = 0 uses the recorded 1 kWh fallback; an empty valid prefix has no scaler and stays blocked.
 
@@ -149,6 +181,60 @@ Label:   25 Nov 2022, 00:00–24:00
 The saved origin is November 25 at 00:00 +08:00. History and labels belong to the same station. With seven initial days, there are at most six daily contained 24→24 pairs. Budgets 14 and 28 allow at most 13 and 27. Actual counts depend on valid history/labels and scaler availability.
 
 For this station, the exact permitted prefix has 168 valid hours, scale 20.2125 kWh and six initial training examples. These examples prepare later adaptation; preprocessing has not fine-tuned a model.
+
+### 3.5 Planned training: learn a source checkpoint, then adapt each target
+
+This is the intended consumer behavior for #19 and subsequent experiments, following [Master Research Flow](../MASTER_RESEARCH_FLOW.md) and Report 1. The loader has prepared the records; **no model training or checkpoint creation has been performed by this data work**.
+
+```mermaid
+flowchart TD
+    SD["Permitted samples from Source stations A, B, C, ..."] --> S["Train one shared source GRU checkpoint"]
+    S --> D1["Fresh copy for Development target D: own prefix and stream"]
+    S --> D2["Fresh copy for Development target E: own prefix and stream"]
+    D1 --> SELECT["Compare Development outcomes and select settings"]
+    D2 --> SELECT
+    SELECT --> LOCK["Lock settings before Final evaluation"]
+    S --> F1["Fresh copy for Final target F: own prefix and stream"]
+    S --> F2["Fresh copy for Final target G: own prefix and stream"]
+    LOCK -. "settings only" .-> F1
+    LOCK -. "settings only" .-> F2
+    S --> REF["Frozen source encoder reference for retention methods"]
+```
+
+Read the diagram in this order:
+
+1. **Source pretraining:** separate 24→24 samples from multiple Source stations train one shared GRU/forecast head within one dataset/city experiment. A batch can contain samples from different Source stations; the time bins inside each sample still belong to one entity. Only permitted pre-deployment data is used.
+2. **Development adaptation:** each target receives a fresh copy of the selected source parameters and uses only its own 7/14/28-day prefix for initial adaptation. Compare candidate settings on Development under the chronological protocol. Never carry target D's adaptation state into target E.
+3. **Final evaluation:** freeze the selected design/configuration, initialize each Final target from the selected source checkpoint, and adapt independently on that target's allowed history. Final targets do not inherit Development-target weights or optimizer states. Later labels can support updates only after their availability gate; outcomes cannot select a new design.
+4. **Retention reference:** methods using latent retention also evaluate a frozen source encoder on the target input. It is a reference with no gradients, not a second source pretraining job for every target. Target optimization remains separate. Model/controller implementation belongs to later issues.
+
+For example, UrbanEV budget 7 has **69,546 initial examples in training.jsonl**, but these have different uses:
+
+| Records selected by role | Count | Training stage |
+| --- | ---: | --- |
+| Source | 65,888 | Shared source pretraining. |
+| Development | 1,684 | Each matching Development target's own initial adaptation. |
+| Final | 1,974 | Each matching Final target's own initial adaptation after settings are locked. |
+
+A trainer must filter by role and target identity. It must not pretrain the source on all 69,546 records. Target initial examples are a resource for the appropriate adaptation stage, not additional source data.
+
+### 3.6 How many models does that mean?
+
+Count a **model architecture**, a **saved source checkpoint**, a **target experiment**, and a **controller candidate state** separately:
+
+| Unit | Planned meaning |
+| --- | --- |
+| Architecture | The proposed GRU backbone and forecast head can be reused by many independent trained instances. The three data roles are not three network architectures. |
+| Source checkpoint | One selected source pretraining result per dataset/city, source configuration and seed. With unchanged Source history/configuration it can be reused across target budgets; pretraining does not need to repeat merely because target history changes. Source tuning may create extra trial checkpoints on Development. |
+| Target experiment | One independent state for each eligible target × budget × compared method × seed, where the method uses a target model. Transfer methods start from the selected matching source checkpoint. This is a run-count pattern, not the number already trained. |
+| Retention reference | A frozen source encoder, reused as a reference; no target data trains that reference. |
+| Controller candidate states | The adaptive method later evaluates three candidate branches under Report 1. Their computation/state costs must be counted; the simple source/target diagram does not eliminate them. |
+
+Small illustration, not an actual trained run: with one profile, one seed, one transfer method and two targets A/B that have sufficient inputs, there is **one source pretraining job plus six separate target/budget experiments**: A7, A14, A28, B7, B14, B28. Each target/budget copy starts from the same selected source checkpoint. These jobs may run sequentially; they need not all live in memory at once.
+
+Counts differ for baseline methods: Seasonal Naive has no trained GRU; Target-only GRU starts from its own random initialization; Frozen Source makes no target parameter updates. Transfer/adaptive comparisons must preserve the method definitions, matched data gates and independent target states. An entity marked `source_checkpoint_only` has no initial target optimization; an undefined-scale entity remains blocked. Do not count either as a successful fine-tuning job.
+
+We have seven separate profiles (UrbanEV plus six CHARGED cities). For one fixed source configuration and one seed, the planned source layer is therefore seven source fits if all profiles are run. Additional seeds/configurations, method comparisons, eligible targets and controller branches determine the total workload. The experiment matrix is not yet a completed or fully enumerated set of training runs; do not interpret 21 input folders as 21 trained models or silently reduce Report 1's required baselines, seeds or ablations. CHARGED SZH remains separately reported.
 
 ## 4. Which input file does what?
 
