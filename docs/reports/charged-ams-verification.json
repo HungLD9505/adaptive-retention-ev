@@ -1,0 +1,94 @@
+{
+  "recorded_at_utc": "2026-10-16T17:24:53.109787+00:00",
+  "scope": "Local standard AMS only; numerical reconstruction and source inspection, not acceptance of physical/causal suitability",
+  "repository_base_commit": "14f4576f39fcc41146801828002816fffa241c3f",
+  "upstream_commit": "ff13cefe0c9e15073d02ad1e57efb4054dd70c5a",
+  "input_sha256": {
+    "chargers.csv": "8b993664c0cafde00a82762a6adc45b7d7ed7c83222f369dd127b2ca9561b012",
+    "distance.csv": "8a2a43aaf7d39a6a1896da918e2567e99ffa3e97e89448759fa262f7c18a6905",
+    "duration.csv": "e1bf11a952af3073c0aa5466980eafebc55b4a7df5a6809a78977966b0387c72",
+    "e_price.csv": "1ca01e1c6cabe54ae77747572b85716721e66f68e9509d57a8cdb1593a736392",
+    "info.csv": "a2a57328d668dec5bb62ffe7e90869f4fa3d9756e7ffdb6d8bed4e7b25c9b2fc",
+    "poi.csv": "3b220549666a6b0b0b9486d785c9c1226d0bedd9d5d308f700eeb8f768c5e8bc",
+    "s_price.csv": "b5bc247a80fe9dc97da2ec2ab7b817d741cd64b40ce4ccd5f33e5606d06481d1",
+    "sites.csv": "e4853c857fb4ea897495f2bb555266ede4b0b50368f5f9fafd10629b964d6876",
+    "volume.csv": "b8745c7e057da611a7e27180dfc9893a896a6929c1426598ebbc535c18444f77",
+    "weather.csv": "dbaf27fc829ea6be8d19a929f3b467a9de08404b6ac3c8b31b41eaddcc818d8b"
+  },
+  "numeric": {
+    "avg_power_site_vs_chargers_mismatches": 0,
+    "total_duration_site_vs_chargers_mismatches": 0,
+    "total_volume_site_vs_chargers_mismatches": 0,
+    "longitude_site_vs_chargers_mismatches": 0,
+    "latitude_site_vs_chargers_mismatches": 0,
+    "charger_avg_mean": 3.516043470598045,
+    "duration.csv": {
+      "rows": 4392,
+      "columns": 2449,
+      "first": "2023-04-01 00:00:00",
+      "last": "2023-09-30 23:00:00",
+      "missing_nonfinite": 0,
+      "negative": 0,
+      "zeros": 6060792,
+      "max": 153.42128359583398,
+      "static_total_mismatches": 1388,
+      "hourly_total": 18388657.432718504,
+      "static_total": 28808415.08728028,
+      "time_offset_example": "2023-04-01 00:00:00"
+    },
+    "volume.csv": {
+      "rows": 4392,
+      "columns": 2449,
+      "first": "2023-04-01 00:00:00",
+      "last": "2023-09-30 23:00:00",
+      "missing_nonfinite": 0,
+      "negative": 0,
+      "zeros": 6060614,
+      "max": 3789.5057048170993,
+      "static_total_mismatches": 1388,
+      "hourly_total": 149692010.34636593,
+      "static_total": 239175391.2915903,
+      "time_offset_example": "2023-04-01 00:00:00"
+    },
+    "archive_extra_masks": []
+  },
+  "spatial": {
+    "geometry": {
+      "perimeter": {
+        "max_abs_error": 3.818456661974778e-09,
+        "over_1e-5": 0
+      },
+      "area": {
+        "max_abs_error": 1.1700831237249076e-07,
+        "over_1e-5": 0
+      }
+    },
+    "distance": {
+      "cells": 5997601,
+      "max_abs_error_km": 3.0371261061645782e-12,
+      "over_1e-6km": 0
+    },
+    "timezone": {
+      "if_Europe_Amsterdam_offsets": [
+        "2:00:00"
+      ],
+      "csv_has_offset": false
+    }
+  },
+  "source_files_inspected": 28,
+  "raw_modified": false,
+  "project_dependencies_changed": false,
+  "verification_environment": {
+    "python": "3.12 for spatial checks; 3.14 for CSV checks",
+    "pyproj": "3.8.0",
+    "shapely": "2.2.0",
+    "storage": "External temporary research environment"
+  },
+  "limitations": [
+    "No original plug-state histories/counts or per-cell observation mask",
+    "Exact archive build not reproduced",
+    "Static/hourly totals differ",
+    "AMS currency and snow units unresolved",
+    "Other cities not audited"
+  ]
+}

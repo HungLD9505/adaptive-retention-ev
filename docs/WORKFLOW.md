@@ -57,7 +57,7 @@ Preserve raw files and keep them ignored by Git. New processing must produce new
 
 Keep large checkpoints/runs locally or in storage agreed by the team. Git stores code, config, and small reviewable reports/artifacts. No orchestration service or experiment server is needed yet.
 
-## Upcoming phases — not implemented
+## Phase handoff map
 
 | Order | Scope | Handoff criteria |
 |---|---|---|
@@ -68,4 +68,4 @@ Keep large checkpoints/runs locally or in storage agreed by the team. Git stores
 | 5 | Runner and controller | Store forecasts before labels; availability/update/switch/checkpoint tests |
 | 6 | Lock and final experiments | Config locked before final evaluation, fair comparisons, metrics and cost evidence |
 
-This is a handoff order, not a completed checklist. The core method follows Report 1. Parameters selected on development must not be tuned using final results.
+Data acquisition/hourly processing/input implementations now have a shared snapshot and [integrated verification record](reports/data-integration.md). Models, runner/controller and experiments remain future work. The table gives the handoff order and criteria, not a competing progress plan. The core method follows Report 1. Parameters selected on development must not be tuned using final results.
