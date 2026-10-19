@@ -141,6 +141,19 @@ class MissingPolicyTests(unittest.TestCase):
         self.assertEqual(ea["scale"], eb["scale"])
         self.assertEqual(ea["initialization"], eb["initialization"])
 
+    def test_available_history_gate_uses_arrival_not_file_presence(self):
+        f = self.fixture
+        result = f.run_loader(entity_ids=["001"], availability_delay_hours=24)
+        self.assertEqual(result["counts"]["skipped_all_missing_history"], 2)
+        self.assertEqual(result["status"], "incomplete_no_usable_forecasts")
+        self.assertEqual(result["counts"]["requested_forecasts"], 2)
+        self.assertTrue(
+            all(
+                r["status"] == "skipped_all_missing_history"
+                for r in self.records("run", "schedule.jsonl")
+            )
+        )
+
     def test_zero_is_observed_and_unknown_policy_is_rejected(self):
         f = self.fixture
 

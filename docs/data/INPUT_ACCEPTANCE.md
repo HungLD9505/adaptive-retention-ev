@@ -21,7 +21,7 @@ This extends the pinned PR #30 tensor contract (`c406ae0`) without changing feat
 
 ## Fixed experiment boundaries
 
-Keep the existing declared salt `ev-input-review-v1`, role assignments, per-city CHARGED splits, deployment dates and bin-end + 0h availability assumption from the real-data trial. Do not reroll splits or tune using Final outcomes/completeness. The salt name is historical and remains unchanged for comparability. No new physical-location separation is claimed: this is an ID-based benchmark; co-located IDs remain a disclosed dependence limitation.
+Keep the existing declared salt `ev-input-review-v1`, role assignments, per-city CHARGED splits, deployment dates and bin-end + 0h availability assumption from the real-data trial. Do not reroll splits or tune using Final outcomes/completeness. The salt name is historical and remains unchanged for comparability. No new physical-location separation is claimed: this is an ID-based benchmark; co-located IDs remain a disclosed dependence limitation. Do not describe held-out IDs as verified unseen physical sites. A physical-site-disjoint sensitivity analysis would require a separate grouping decision before evaluation; it is not silently added here.
 
 UrbanEV uses assumed constant +08 local bin starts; CHARGED uses published naive local labels. Actual reporting latency and publisher causality are not established. UrbanEV remains the primary benchmark; CHARGED supplementary; SZH is reported separately and is not independent external validation. Do not pool datasets/cities for source pretraining. Unknown upstream observation/imputation masks remain unknown.
 
