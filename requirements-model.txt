@@ -1,0 +1,3 @@
+# Pinned CPU dependency for the bounded Hung Sprint 2 model fixtures.
+# Install from https://download.pytorch.org/whl/cpu as shown in README.md.
+torch==2.8.0+cpu
