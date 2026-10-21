@@ -104,3 +104,24 @@ are an explicit Development policy proposal pending consumer review.
 the local Python 3.13 UTF-8/TEMP setup. It does not establish runner timing or
 real-data controller behavior. The config parameters have no selected
 research values yet; fixture values are tests only.
+
+Bootstrap currently treats successive **valid observations** as adjacent even
+when a scheduled day between them had no complete label. Report 1 does not
+specify this gap handling. Review this Development policy before actual replay.
+
+## #21 runner fixture slice
+
+This branch is stacked on #20 commit `1bcde3a` pending review/merge. The CPU
+fixture runner forks three model/optimizer candidates, stores forecasts before
+arrived labels, scores and updates only complete horizons, completes block
+decisions before later forecasts, carries the trained selected/active state,
+and keeps a separate one-block old-policy audit branch. It can save/load a
+create-only checkpoint containing model/optimizer, RNG, pending forecasts,
+event cursor, score history and input binding. Unit tests exercise keep,
+forced switch, missing labels, boundary ordering and resume.
+
+This is not the real Development replay gate: no accepted DATA-v1 schedule/
+labels adapter, actual timestamp availability validation, CUDA RNG handling,
+durable event log, full cost accounting or real block-boundary smoke exists.
+The runner test count and full-suite result should be updated after the #19
+QA fix is integrated and the final local run is complete.
