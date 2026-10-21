@@ -49,4 +49,6 @@ Nhánh #20 có controller độc lập dựa trên giao diện điểm đề xu�
 
 `python -m unittest tests.test_hung_controller -v` đạt **9 test** trên Python 3.13 với UTF-8 và TEMP nội bộ trước khi hợp nhất nhánh #19. Test chưa chứng minh thời điểm xử lý runner hay hành vi trên dữ liệu thật. Các giá trị config trong fixture chỉ phục vụ test, chưa phải tham số nghiên cứu được chọn.
 
+Sau khi hợp nhất nhánh #19 vào nhánh #20 và giải xung đột báo cáo bằng tiếng Việt, `python -m unittest discover -s tests -q` đạt **144 test, OK**; `python -m compileall -q experiments/hung_sprint2` và `git diff --cached --check` đạt. Merge commit `b5b126d` giữ lịch sử phụ thuộc của #19; #20 chưa merge vào `dev`.
+
 Bootstrap hiện xem các **quan sát hợp lệ liên tiếp** là liền kề, kể cả khi giữa chúng có ngày theo lịch không đủ nhãn. Report 1 chưa quy định cách xử lý khoảng trống này; cần rà soát trước replay thật.
