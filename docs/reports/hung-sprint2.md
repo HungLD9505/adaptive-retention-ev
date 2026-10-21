@@ -1,106 +1,52 @@
-# Hung Sprint 2 — Phase 00 interface proposal
+# Sprint 2 của Hùng — đề xuất giao diện và checkpoint #19
 
-Date: 2026-10-21. Scope: Issue #39, stages #19–#21. Prepared against `dev` commit
-`7a57e9e8954eb8fcdc0809b1d7f02f6c32753a0c`. This is an implementation
-proposal for consumer review, not evidence of model training or interface agreement.
+Ngày: 21/10/2026. Phạm vi: #39, #19–#21. Mốc đối chiếu: commit `7a57e9e8954eb8fcdc0809b1d7f02f6c32753a0c` trên `dev`. Đây là đề xuất giao diện để rà soát và bằng chứng kiểm thử cục bộ, chưa phải bằng chứng huấn luyện thật hay thống nhất giao diện.
 
-## Preflight
+## Kiểm tra đầu vào
 
-- Report 1 pp. 3–6 supplies the model, loss, candidate, decision, replay and
-  evaluation rules. `AGENTS.md`, `README.md`, `docs/WORKFLOW.md`,
-  `docs/SPRINT_PLAN.md`, `data/README.md`, and Issues #15/#19/#20/#21/#39
-  supply workflow and acceptance gates.
-- Reuse `ev_inputs` and the accepted `ev-input-v1` feature order. The predictor
-  takes `X_hist[B,24,7]` and `C_future[B,24,5]`, both float32, and must never
-  receive labels or future-label validity. `iter_forecasts` verifies the input
-  manifest and artifact fingerprint. Training, labels, entities and schedule
-  remain separate artifacts under `ev-loader-run-v2`.
-- The accepted `ev-missing-data-v1` policy keeps a scheduled origin even when
-  no forecast is emitted, requires all 24 arrived valid labels to score/update,
-  retains `source_checkpoint_only` as a separate stratum, and blocks undefined
-  scales. Local strict-online causality is not certified.
-- This checkout has no DATA-v1 input snapshot installed and Python 3.12 was not
-  found by `py -3.12`. No real-data training or checksum verification has run.
+- Report 1, trang 3–6, quy định mô hình, hàm mất mát, ứng viên, quyết định, replay và đánh giá. `AGENTS.md`, `README.md`, `docs/WORKFLOW.md`, `docs/SPRINT_PLAN.md`, `data/README.md` và các issue #15/#19/#20/#21/#39 quy định quy trình, gate nghiệm thu.
+- Dùng lại `ev_inputs`, thứ tự đặc trưng `ev-input-v1` và manifest `ev-loader-run-v2` đã được chấp nhận. Bộ dự báo nhận `X_hist[B,24,7]` và `C_future[B,24,5]` float32; không nhận nhãn hay trạng thái nhãn tương lai. Training, forecast, label, entity và schedule là các artifact riêng.
+- Chính sách `ev-missing-data-v1` giữ origin theo lịch dù không phát dự báo; chỉ chấm/cập nhật khi đủ 24 nhãn hợp lệ đã đến; tách `source_checkpoint_only`; chặn scale chưa xác định. Tính nhân quả online trên dữ liệu thật chưa được chứng nhận.
+- Worktree chưa có snapshot DATA-v1. Không tìm thấy Python 3.12 bằng `py -3.12`; chưa huấn luyện hay xác minh checksum dữ liệu thật.
 
-## Proposed Python interfaces
+## Giao diện Python đề xuất
 
-These signatures describe semantics. Types and exact names may be revised after
-consumer review without changing the accepted data contract.
+Tên và kiểu cụ thể có thể sửa sau khi bên sử dụng rà soát, nhưng không thay đổi hợp đồng dữ liệu đã chấp nhận.
 
-| Component | Proposed input | Proposed output / invariant |
+| Thành phần | Đầu vào | Đầu ra / bất biến |
 | --- | --- | --- |
-| Model `forward` | `x_hist: Tensor[B,24,7]`, `c_future: Tensor[B,24,5]` | `forecast: Tensor[B,24]` nonnegative; `latent: Tensor[B,64]` available through an explicit method or structured output. The latent comes from the last GRU state. |
-| Forecast loss | `forecast, y_scaled`, only complete valid horizons | Mean absolute error over 24 hours and eligible batch samples; no partial-label filling. |
-| Retention loss | Target latent, frozen source latent on the **same** normalized X, fixed source-training `scale[64]`, positive epsilon | Mean over samples of `(1/64) * sum(((z_target-z_source)/(scale+epsilon))**2)`. Source has no gradient. Invalid scale is an error, not silently repaired. |
-| Target initialization | Identified source model/checkpoint, target identity `(dataset,city,entity,budget,scale_id)`, permitted initial examples | Independent model and optimizer per target/budget. `source_checkpoint_only` skips initial adaptation. |
-| Controller score | Active level, daily normalized MAE for all three candidates on the same complete, arrived 24-hour label day | Paired `MAE(active)-MAE(challenger)` observations; no score from missing days. |
-| Controller decision | Three ordered levels, current level, paired daily observations, `Bmin`, `delta`, `alpha`, bootstrap segment length, resample count and seed | Keep unless `B>=Bmin` and a challenger has `LCB>delta`; choose largest LCB, then nearest level, then fixed order. Decision changes only the next block. |
-| Runner event | Scheduled origin, predictor-only input or explicit skip, separately arriving label record | Fork three identical model/optimizer states at block start; forecast and persist before labels; score and update only after all labels arrive; finish previous block decision before the next affected forecast. |
-| Checkpoint/resume | Active and candidate model/optimizer states, all RNG states, issued forecasts, scores, event cursor, block ID, audit state | Atomic new checkpoint with exact replay position; resume must not reissue a forecast or repeat an optimizer update. |
-| Input binding | `ev-checkpoint-input-binding-v1` fields from `docs/data/INPUT_ACCEPTANCE.md` | Bind source/target manifest SHA, run ID, feature schema, identity, budget, scale ID and source checkpoint SHA; verify before load. |
-| Metrics/evidence | Issued predictions, joined eligible labels, fixed energy scale, schedule, runtime counters | Original-kWh MAE/RMSE; requested/emitted/scored coverage and missing reasons; separate candidate/audit time, steps and memory; run ID, code SHA, config/seed, input/checkpoint hashes. |
+| Mô hình `forward` | `x_hist: Tensor[B,24,7]`, `c_future: Tensor[B,24,5]` | Dự báo `Tensor[B,24]` không âm; latent `Tensor[B,64]` lấy từ trạng thái GRU cuối và truy cập tường minh. |
+| Mất mát dự báo | Dự báo và `y_scaled` đủ 24 nhãn hợp lệ | MAE trung bình trên 24 giờ và các mẫu đủ điều kiện; không điền nhãn thiếu. |
+| Mất mát retention | Latent target, latent source đóng băng trên **cùng X đã chuẩn hóa**, `scale[64]` từ Source và epsilon dương | Trung bình theo mẫu của `(1/64) * sum(((z_target-z_source)/(scale+epsilon))**2)`; source không nhận gradient; scale sai phải báo lỗi. |
+| Khởi tạo target | Checkpoint source, identity `(dataset,city,entity,budget,scale_id)` và mẫu khởi tạo được phép | Mỗi target/budget có model và optimizer riêng; `source_checkpoint_only` bỏ qua thích nghi ban đầu. |
+| Điểm controller | Mức đang hoạt động và MAE chuẩn hóa của ba ứng viên trên cùng ngày đủ nhãn | Quan sát ghép cặp `MAE(active)-MAE(challenger)`; không chấm ngày thiếu. |
+| Quyết định controller | Ba mức, mức hiện tại, quan sát ghép cặp, `Bmin`, `delta`, `alpha`, đoạn bootstrap, số lần lấy mẫu và seed | Giữ mức trừ khi `B>=Bmin` và `LCB>delta`; chọn LCB lớn nhất, mức gần nhất, rồi thứ tự cố định. Chỉ đổi từ block kế tiếp. |
+| Sự kiện runner | Origin theo lịch, đầu vào chỉ dành cho dự báo hoặc lý do bỏ qua, nhãn đến riêng | Tách ba model/optimizer giống nhau đầu block; lưu dự báo trước nhãn; chỉ chấm/cập nhật sau khi đủ nhãn; quyết định block trước dự báo chịu ảnh hưởng. |
+| Checkpoint/resume | Model/optimizer, RNG, dự báo, điểm, con trỏ sự kiện, block ID, audit | Checkpoint mới ghi nguyên tử tại đúng vị trí replay; resume không phát lại dự báo hay cập nhật. |
+| Ràng buộc đầu vào | `ev-checkpoint-input-binding-v1` theo `docs/data/INPUT_ACCEPTANCE.md` | Gắn manifest SHA, run ID, feature schema, identity, budget, scale ID và source checkpoint SHA; xác minh trước khi nạp. |
+| Metric/bằng chứng | Dự báo, nhãn đủ điều kiện, energy scale, lịch, bộ đếm | MAE/RMSE kWh gốc; coverage yêu cầu/phát/chấm và lý do thiếu; chi phí ứng viên/audit riêng; run ID, code SHA, config/seed và hash. |
 
-## Open decisions for Development and interface review
+## Quyết định cần rà soát trên Development
 
-Report 1 does not fix future-calendar MLP width/activation, epsilon value,
-latent standard-deviation estimator and degenerate-scale policy, exact
-bootstrap resampling/quantile and two-challenger adjustment, positive lambda
-levels, initial level, `Bmin`, `delta`, `alpha`, update schedule or seed list.
-Choose and record these on Development only; do not use Final for selection.
-The first #19 implementation can expose explicit configuration while the
-model consumer reviews the interface. Dependent #21 integration waits for
-controller/runner payload agreement. Issue comments have not been posted.
+Report 1 chưa cố định độ rộng/activation của MLP lịch tương lai, epsilon, cách tính độ lệch chuẩn latent và xử lý scale suy biến, cách bootstrap/quantile và hiệu chỉnh hai đối thủ, mức lambda dương, mức ban đầu, `Bmin`, `delta`, `alpha`, lịch cập nhật hoặc danh sách seed. Chỉ chọn các giá trị này trên Development; không dùng Final. #21 còn chờ thống nhất payload controller/runner. Chưa đăng đề xuất lên các issue.
 
-## Work allocation and checkpoint
+## Phân công và ngân sách token
 
-The orchestrator owns contracts, gates and evidence. Model agent owns #19
-model/retention/training and tests; controller agent owns #20 and tests after
-reviewing the score payload; runner agent owns #21 only after #19/#20 APIs;
-QA owns independent expected-value and integration tests. At most two agents
-should edit disjoint files concurrently in this workspace. No training runs
-or PR merges are part of Phase 00.
+Orchestrator giữ hợp đồng, gate, bằng chứng. Agent model làm #19; controller làm #20 sau khi nhận payload điểm; runner làm #21 sau API #19/#20; QA kiểm thử giá trị kỳ vọng và tích hợp độc lập. Tối đa hai agent sửa các file khác nhau đồng thời.
 
-Today's soft token allocation is 15% preflight/interface, 50% model and
-retention, 20% controller, 10% targeted verification, and 5% checkpoint and
-handoff. These are planning shares, not token counters or permission to relax
-acceptance gates. The runner receives a later allocation after model and
-controller interfaces pass; avoid opening a third concurrent coding stream.
-Stop at a safe code/document checkpoint if account usage becomes tight; never
-consume a usage reset.
+Phân bổ mềm trong ngày: 15% kiểm tra đầu vào/giao diện, 50% model/retention, 20% controller, 10% kiểm thử, 5% checkpoint/bàn giao. Đây là tỷ lệ lập kế hoạch, không phải số token đã tiêu thụ hay quyền bỏ qua gate. Khi usage gần hết, lưu checkpoint an toàn rồi dừng; không dùng usage reset.
 
-## Local execution checkpoint — 2026-10-21
+## Bằng chứng cục bộ #19 — 21/10/2026
 
-- #19 now has the GRU, loss and bounded manifest-bound Source/Development
-  smoke entry points. #20 has an independent controller with explicit
-  bootstrap and tie rules. These are code and fixture results only.
-- `python -m tools.sources list` passed. With `TEMP`/`TMP` set inside this
-  worktree and `PYTHONUTF8=1`, `PYTHONIOENCODING=utf-8`,
-  `python -m unittest discover -s tests -q` ran **140 tests, OK** under
-  Python 3.13. `python -m compileall -q experiments/hung_sprint2` and
-  `git diff --check` passed. The first baseline suite attempt failed because
-  the sandbox denied its default temporary directory; a second attempt with
-  local TEMP but without UTF-8 had three Windows codec failures. The final
-  configured run passed.
-- `python -m ruff` was unavailable. Installing the pinned `ruff==0.17.0`
-  into ignored local dependencies failed because PyPI name resolution was
-  blocked. Python 3.12 was not found by `py -3.12`.
-- No DATA-v1 files have been downloaded/verified in this worktree. No real
-  Source pretraining, Development adaptation, Colab run, controller replay,
-  cross-implementation comparison or peer review has run. The phase gates
-  requiring those activities remain open.
+- Đã viết GRU hai lớp, loss, retention, checkpoint gắn manifest và CLI smoke Source/Development có giới hạn. Commit `f4118fb` thêm chặn loss/gradient Source không hữu hạn trước bước optimizer.
+- `python -m unittest discover -s tests -q` đạt **135 test** trên nhánh #19 với Python 3.13, TEMP/TMP nội bộ và UTF-8. `git diff --check` đạt. Trước đó, lần thử đầu thất bại vì sandbox từ chối thư mục tạm mặc định; lần thử kế với TEMP nội bộ nhưng thiếu UTF-8 gặp ba lỗi codec Windows.
+- Không có Ruff; cài `ruff==0.17.0` thất bại do lỗi phân giải tên PyPI. Python 3.12 không có trên máy.
+- [Draft PR #42](https://github.com/HungLD9505/adaptive-retention-ev/pull/42) công bố code để review. Chưa có DATA-v1, huấn luyện Source/Development thật, kết quả Colab, so sánh độc lập hoặc peer approval. Smoke fixture không chứng minh hiệu quả mô hình; các gate này vẫn mở.
 
-## #20 controller slice
+## Bằng chứng cục bộ #20 — controller
 
-This slice is based on #19 offline commit `1ba63a1` because the two modules
-share the proposed score interface; #19 is not merged into `dev` yet. The
-controller takes daily paired normalized MAEs, excludes incomplete or
-unarrived days, applies a moving contiguous-day block bootstrap with shared
-resample indices across challengers and Bonferroni `alpha/2`, then requires a
-strict `LCB > delta`. The percentile uses a fixed empirical order statistic;
-the seed and block ID make decisions reproducible. These bootstrap details
-are an explicit Development policy proposal pending consumer review.
+Nhánh #20 có controller độc lập dựa trên giao diện điểm đề xuất từ #19. Controller nhận MAE chuẩn hóa ghép cặp theo ngày, bỏ ngày thiếu hoặc nhãn chưa đến, dùng moving-block bootstrap với cùng chỉ số lấy mẫu cho hai đối thủ và hiệu chỉnh Bonferroni `alpha/2`, rồi yêu cầu nghiêm ngặt `LCB > delta`. Phân vị là thống kê thứ tự thực nghiệm cố định; seed và block ID cho phép tái lập. Đây là chính sách Development đề xuất, còn chờ rà soát.
 
-`python -m unittest tests.test_hung_controller -v` ran **9 tests, OK** under
-the local Python 3.13 UTF-8/TEMP setup. It does not establish runner timing or
-real-data controller behavior. The config parameters have no selected
-research values yet; fixture values are tests only.
+`python -m unittest tests.test_hung_controller -v` đạt **9 test** trên Python 3.13 với UTF-8 và TEMP nội bộ trước khi hợp nhất nhánh #19. Test chưa chứng minh thời điểm xử lý runner hay hành vi trên dữ liệu thật. Các giá trị config trong fixture chỉ phục vụ test, chưa phải tham số nghiên cứu được chọn.
+
+Bootstrap hiện xem các **quan sát hợp lệ liên tiếp** là liền kề, kể cả khi giữa chúng có ngày theo lịch không đủ nhãn. Report 1 chưa quy định cách xử lý khoảng trống này; cần rà soát trước replay thật.
