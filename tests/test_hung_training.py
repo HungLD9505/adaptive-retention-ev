@@ -70,6 +70,19 @@ class TrainingConsumerTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         torch.set_num_threads(1)
 
+    def test_source_limit_with_one_example_fails_before_output(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest = _input_run(root)
+            output = root / "source-output"
+            with self.assertRaisesRegex(ValueError, "at least two examples"):
+                main([
+                    "source-smoke", "--input-run", str(run), "--manifest-sha256", digest,
+                    "--output", str(output), "--steps", "1", "--batch-size", "1",
+                    "--seed", "17", "--learning-rate", "0.001", "--calendar-hidden", "8",
+                ])
+            self.assertFalse(output.exists())
+
     def test_source_then_independent_target_with_verified_binding(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

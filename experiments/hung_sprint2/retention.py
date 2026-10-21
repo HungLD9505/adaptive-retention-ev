@@ -57,4 +57,11 @@ def retention_loss(target_latent: Tensor, source_latent: Tensor, scale: Tensor, 
         raise ValueError("Target/source latent shapes differ")
     if not torch.isfinite(target_latent).all() or not torch.isfinite(source_latent).all():
         raise ValueError("Latents must be finite")
-    return (((target_latent - source_latent.detach()) / (scale + epsilon)) ** 2).mean()
+    denominator = scale.to(dtype=target_latent.dtype, device=target_latent.device)
+    denominator = denominator + target_latent.new_tensor(epsilon)
+    if not torch.isfinite(denominator).all() or torch.any(denominator <= 0):
+        raise ValueError("Retention denominator is not finite and positive in latent dtype")
+    loss = (((target_latent - source_latent.detach()) / denominator) ** 2).mean()
+    if not torch.isfinite(loss):
+        raise ValueError("Retention loss is not finite")
+    return loss
