@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import unittest
+from itertools import count
 from unittest import mock
 
 import torch
@@ -88,12 +89,14 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(replay.events[-1], "forecast:day-0")
         self.assertEqual(len(replay.issued), 1)
         self.assertIsNone(replay.issued[0]["normalized_mae"])
+        self.assertIsNone(replay.issued[0]["y_scaled"])
         self.assertTrue(torch.equal(before, replay.candidates[1][0].encoder.weight_ih_l0))
         with self.assertRaisesRegex(ValueError, "Previous day"):
             replay.forecast(origin(1))
         replay.arrive(complete(0))
         self.assertEqual(replay.events[-2:], ["score:day-0", "update:day-0"])
         self.assertEqual(replay.update_steps, [1, 1, 1])
+        self.assertTrue(torch.equal(replay.issued[0]["y_scaled"], torch.full((24,), 0.4)))
         self.assertAlmostEqual(
             replay.issued[0]["mae_kwh"][0], 5 * replay.issued[0]["normalized_mae"][0]
         )
@@ -144,6 +147,8 @@ class RunnerTests(unittest.TestCase):
             replay.arrive(complete(14))
         self.assertTrue(torch.equal(rng_before, torch.get_rng_state()))
         self.assertEqual(replay.audit_steps, 1)
+        self.assertEqual(replay.runtime_costs["audit"]["inference_calls"], 1)
+        self.assertEqual(replay.runtime_costs["audit"]["update_steps"], 1)
         self.assertIsNotNone(replay.issued[-1]["audit_mae_kwh"])
         self.assertEqual(len(replay.days), 1)
         self.assertEqual(replay.update_steps, [2, 2, 2])
@@ -186,6 +191,27 @@ class RunnerTests(unittest.TestCase):
         self.assertNotIn("day-0", replay.late_pending)
         with self.assertRaisesRegex(ValueError, "no matching"):
             replay.arrive(complete(0))
+
+    def test_runtime_costs_measure_successful_calls_separately(self) -> None:
+        replay = runner()
+        label = complete(0)
+        with mock.patch("experiments.hung_sprint2.runner.perf_counter_ns", side_effect=count(0, 7)):
+            replay.forecast(origin(0))
+            replay.arrive(label)
+        for cost in replay.runtime_costs["candidate"]:
+            self.assertEqual(
+                cost,
+                {
+                    "inference_calls": 1,
+                    "inference_ns": 7,
+                    "update_steps": 1,
+                    "update_ns": 7,
+                },
+            )
+        self.assertEqual(replay.runtime_costs["audit"]["inference_calls"], 0)
+        self.assertEqual(replay.runtime_costs["audit"]["update_steps"], 0)
+        label.y_scaled.fill_(2.0)
+        self.assertTrue(torch.equal(replay.issued[0]["y_scaled"], torch.full((24,), 0.4)))
 
 
 if __name__ == "__main__":

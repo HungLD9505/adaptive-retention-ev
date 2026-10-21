@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from dataclasses import asdict, dataclass
+from time import perf_counter_ns
 from typing import Any
 
 import torch
@@ -42,6 +43,49 @@ def _copy_pair(
 ) -> tuple[ForecastGRU, torch.optim.Adam]:
     """Copy model and optimizer together so parameter references stay paired."""
     return deepcopy((model, optimizer))
+
+
+def _empty_cost_record() -> dict[str, int]:
+    return {"inference_calls": 0, "inference_ns": 0, "update_steps": 0, "update_ns": 0}
+
+
+def _runtime_costs(*, complete: bool) -> dict[str, Any]:
+    return {
+        "schema": "hung-sprint2-runtime-cost-v1",
+        "clock": "perf_counter_ns",
+        "scope": "CPU model.forward and target_step calls only",
+        "complete": complete,
+        "candidate": [_empty_cost_record() for _ in range(3)],
+        "audit": _empty_cost_record(),
+    }
+
+
+def _validated_runtime_costs(
+    payload: dict[str, Any], update_steps: list[int], audit_steps: int
+) -> dict[str, Any]:
+    expected = _runtime_costs(complete=True)
+    if (
+        not isinstance(payload, dict)
+        or any(payload.get(key) != expected[key] for key in ("schema", "clock", "scope"))
+        or not isinstance(payload.get("complete"), bool)
+        or not isinstance(payload.get("candidate"), list)
+        or len(payload["candidate"]) != 3
+    ):
+        raise ValueError("Runner runtime cost schema mismatch")
+    for record in [*payload["candidate"], payload.get("audit")]:
+        if not isinstance(record, dict) or set(record) != set(_empty_cost_record()):
+            raise ValueError("Runner runtime cost record mismatch")
+        if any(
+            isinstance(value, bool) or not isinstance(value, int) or value < 0
+            for value in record.values()
+        ):
+            raise ValueError("Runner runtime cost values must be nonnegative integers")
+    if payload["complete"] and (
+        [record["update_steps"] for record in payload["candidate"]] != update_steps
+        or payload["audit"]["update_steps"] != audit_steps
+    ):
+        raise ValueError("Runner runtime cost and update counters disagree")
+    return deepcopy(payload)
 
 
 class PrequentialRunner:
@@ -101,6 +145,7 @@ class PrequentialRunner:
         self.events: list[str] = []
         self.update_steps = [0, 0, 0]
         self.audit_steps = 0
+        self.runtime_costs = _runtime_costs(complete=True)
         self._fork()
 
     def _fork(self) -> None:
@@ -139,13 +184,24 @@ class PrequentialRunner:
             raise ValueError("Forecast tensors must have shapes [1,24,7] and [1,24,5]")
         forecasts = []
         with torch.no_grad():
-            for model, _ in self.candidates:
+            for index, (model, _) in enumerate(self.candidates):
                 model.eval()
-                forecasts.append(model(x_hist, c_future).detach().clone())
+                started = perf_counter_ns()
+                output = model(x_hist, c_future)
+                elapsed = perf_counter_ns() - started
+                forecasts.append(output.detach().clone())
+                cost = self.runtime_costs["candidate"][index]
+                cost["inference_calls"] += 1
+                cost["inference_ns"] += elapsed
             audit_forecast = None
             if self.audit is not None:
                 self.audit[1].eval()
-                audit_forecast = self.audit[1](x_hist, c_future).detach().clone()
+                started = perf_counter_ns()
+                audit_output = self.audit[1](x_hist, c_future)
+                elapsed = perf_counter_ns() - started
+                audit_forecast = audit_output.detach().clone()
+                self.runtime_costs["audit"]["inference_calls"] += 1
+                self.runtime_costs["audit"]["inference_ns"] += elapsed
         self.pending = {
             "day_id": origin.day_id,
             "index": origin.index,
@@ -167,6 +223,7 @@ class PrequentialRunner:
                 "audit_forecast": audit_forecast,
                 "normalized_mae": None,
                 "mae_kwh": None,
+                "y_scaled": None,
                 "audit_normalized_mae": None,
                 "audit_mae_kwh": None,
             }
@@ -220,6 +277,7 @@ class PrequentialRunner:
                 issued = self.issued[issued_index]
                 issued["normalized_mae"] = scores
                 issued["mae_kwh"] = tuple(value * self.energy_scale for value in scores)
+                issued["y_scaled"] = y.squeeze(0).clone()
                 if pending["audit_forecast"] is not None:
                     audit_mae = float(torch.abs(pending["audit_forecast"] - y).mean())
                     issued["audit_normalized_mae"] = audit_mae
@@ -229,6 +287,7 @@ class PrequentialRunner:
                 post_rng: Tensor | None = None
                 for index, (model, optimizer) in enumerate(self.candidates):
                     torch.set_rng_state(shared_rng)
+                    started = perf_counter_ns()
                     target_step(
                         model,
                         self.reference,
@@ -240,9 +299,13 @@ class PrequentialRunner:
                         latent_scale=self.latent_scale,
                         epsilon=self.epsilon,
                     )
+                    elapsed = perf_counter_ns() - started
                     if post_rng is None:
                         post_rng = torch.get_rng_state().clone()
                     self.update_steps[index] += 1
+                    cost = self.runtime_costs["candidate"][index]
+                    cost["update_steps"] += 1
+                    cost["update_ns"] += elapsed
                 if post_rng is not None:
                     torch.set_rng_state(post_rng)
                 self.events.append(f"update:{label.day_id}")
@@ -251,6 +314,7 @@ class PrequentialRunner:
                     live_rng = torch.get_rng_state().clone()
                     try:
                         torch.set_rng_state(self.audit_rng)
+                        started = perf_counter_ns()
                         target_step(
                             model,
                             self.reference,
@@ -262,10 +326,13 @@ class PrequentialRunner:
                             latent_scale=self.latent_scale,
                             epsilon=self.epsilon,
                         )
+                        elapsed = perf_counter_ns() - started
                         self.audit_rng = torch.get_rng_state().clone()
                     finally:
                         torch.set_rng_state(live_rng)
                     self.audit_steps += 1
+                    self.runtime_costs["audit"]["update_steps"] += 1
+                    self.runtime_costs["audit"]["update_ns"] += elapsed
                     self.events.append(f"audit-update:{label.day_id}")
         daily = DailyScore(label.day_id, label.arrived, bool(valid), scores)
         if current:
@@ -346,6 +413,7 @@ class PrequentialRunner:
             "events": list(self.events),
             "update_steps": list(self.update_steps),
             "audit_steps": self.audit_steps,
+            "runtime_costs": deepcopy(self.runtime_costs),
             "torch_rng": torch.get_rng_state().clone(),
         }
 
@@ -395,5 +463,10 @@ class PrequentialRunner:
         runner.events = state["events"]
         runner.update_steps = state["update_steps"]
         runner.audit_steps = state["audit_steps"]
+        runner.runtime_costs = _validated_runtime_costs(
+            state.get("runtime_costs", _runtime_costs(complete=False)),
+            runner.update_steps,
+            runner.audit_steps,
+        )
         torch.set_rng_state(state["torch_rng"])
         return runner

@@ -15,6 +15,7 @@ import torch
 from ev_inputs.hourly_reader import sha256_file
 from experiments.hung_sprint2.checkpoint import load_runner, save_runner
 from experiments.hung_sprint2.cli import ARTIFACTS
+from experiments.hung_sprint2.evaluation import evaluate_replay
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
 from experiments.hung_sprint2.replay_inputs import replay_target
 from experiments.hung_sprint2.retention import frozen_source_reference
@@ -196,6 +197,10 @@ class ReplayInputTests(unittest.TestCase):
             self.assertEqual(replay.update_steps, [2, 2, 2])
             self.assertEqual(len(replay.issued), 2)
             self.assertIsNotNone(replay.issued[1]["normalized_mae"])
+            metrics = evaluate_replay(replay, summary)
+            self.assertEqual(metrics.coverage.scored, 2)
+            self.assertEqual(metrics.live.hours, 48)
+            self.assertEqual([item.hours for item in metrics.candidates], [48, 48, 48])
             blocked = replay_target(run, manifest_sha256=digest, entity_id="blocked-1", runner=None)
             self.assertEqual((blocked.requested, blocked.skipped_undefined_scale), (3, 3))
 
@@ -221,6 +226,7 @@ class ReplayInputTests(unittest.TestCase):
             self.assertEqual((summary.scored, summary.delayed_or_incomplete), (1, 1))
             self.assertEqual(replay.update_steps, [1, 1, 1])
             self.assertIsNone(replay.issued[1]["normalized_mae"])
+            self.assertEqual(evaluate_replay(replay, summary).live.hours, 24)
 
     def test_late_label_crosses_boundary_without_revising_decision(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

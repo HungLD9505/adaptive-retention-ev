@@ -11,7 +11,7 @@ import torch
 
 from experiments.hung_sprint2.checkpoint import load_runner, save_runner
 from experiments.hung_sprint2.controller import Decision
-from experiments.hung_sprint2.runner import LabelArrival
+from experiments.hung_sprint2.runner import LabelArrival, PrequentialRunner
 from tests.test_hung_runner import binding, complete, origin, runner
 
 
@@ -21,10 +21,30 @@ def assert_same_replay(case: unittest.TestCase, left, right) -> None:
     case.assertEqual(left.audit_steps, right.audit_steps)
     case.assertEqual(left.current_level, right.current_level)
     case.assertEqual(left.next_index, right.next_index)
+    case.assertEqual(
+        [record["inference_calls"] for record in left.runtime_costs["candidate"]],
+        [record["inference_calls"] for record in right.runtime_costs["candidate"]],
+    )
+    case.assertEqual(
+        [record["update_steps"] for record in left.runtime_costs["candidate"]],
+        [record["update_steps"] for record in right.runtime_costs["candidate"]],
+    )
+    case.assertEqual(
+        left.runtime_costs["audit"]["inference_calls"],
+        right.runtime_costs["audit"]["inference_calls"],
+    )
+    case.assertEqual(
+        left.runtime_costs["audit"]["update_steps"],
+        right.runtime_costs["audit"]["update_steps"],
+    )
     case.assertEqual(len(left.issued), len(right.issued))
     for a, b in zip(left.issued, right.issued, strict=True):
         case.assertEqual(a["day_id"], b["day_id"])
         case.assertEqual(a["normalized_mae"], b["normalized_mae"])
+        if a["y_scaled"] is None:
+            case.assertIsNone(b["y_scaled"])
+        else:
+            case.assertTrue(torch.equal(a["y_scaled"], b["y_scaled"]))
         for forecast_a, forecast_b in zip(a["forecasts"], b["forecasts"], strict=True):
             case.assertTrue(torch.equal(forecast_a, forecast_b))
     for (model_a, opt_a), (model_b, opt_b) in zip(left.candidates, right.candidates, strict=True):
@@ -48,6 +68,7 @@ class ResumeTests(unittest.TestCase):
             path = Path(directory) / "pending.pt"
             save_runner(path, replay)
             restored = load_runner(path, expected_binding=binding())
+            self.assertEqual(restored.runtime_costs, replay.runtime_costs)
             with self.assertRaises(FileExistsError):
                 save_runner(path, replay)
             wrong = binding()
@@ -61,6 +82,7 @@ class ResumeTests(unittest.TestCase):
             path2 = Path(directory) / "updated.pt"
             save_runner(path2, replay)
             resumed = load_runner(path2, expected_binding=binding())
+            self.assertEqual(resumed.runtime_costs, replay.runtime_costs)
             for day in range(1, 14):
                 for candidate in (replay, resumed):
                     candidate.forecast(origin(day, skipped=True))
@@ -95,6 +117,23 @@ class ResumeTests(unittest.TestCase):
                 replay.issued[-1]["audit_normalized_mae"],
                 resumed.issued[-1]["audit_normalized_mae"],
             )
+
+    def test_legacy_checkpoint_marks_unmeasured_cost_as_incomplete(self) -> None:
+        replay = runner()
+        replay.forecast(origin(0))
+        replay.arrive(complete(0))
+        state = replay.state_dict()
+        del state["runtime_costs"]
+        restored = PrequentialRunner.from_state_dict(state, expected_binding=binding())
+        self.assertFalse(restored.runtime_costs["complete"])
+        self.assertEqual(restored.runtime_costs["candidate"][0]["update_steps"], 0)
+        self.assertEqual(restored.update_steps, [1, 1, 1])
+
+    def test_checkpoint_rejects_inconsistent_cost_counters(self) -> None:
+        state = runner().state_dict()
+        state["runtime_costs"]["candidate"][0]["update_steps"] = 1
+        with self.assertRaisesRegex(ValueError, "counters disagree"):
+            PrequentialRunner.from_state_dict(state, expected_binding=binding())
 
 
 if __name__ == "__main__":
