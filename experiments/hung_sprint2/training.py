@@ -80,7 +80,15 @@ def source_step(
     optimizer.zero_grad(set_to_none=True)
     forecast = model(x_hist, c_future)
     loss = forecast_mae(forecast, y_scaled)
+    if not torch.isfinite(loss):
+        raise ValueError("Source loss is not finite; optimizer step was skipped")
     loss.backward()
+    if any(
+        parameter.grad is not None and not torch.isfinite(parameter.grad).all()
+        for parameter in model.parameters()
+    ):
+        optimizer.zero_grad(set_to_none=True)
+        raise ValueError("Source gradient is not finite; optimizer step was skipped")
     optimizer.step()
     value = float(loss.detach())
     return StepLoss(forecast=value, retention=0.0, total=value)

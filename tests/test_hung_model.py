@@ -99,6 +99,27 @@ class ModelTests(unittest.TestCase):
         self.assertFalse(torch.equal(before["encoder.weight_ih_l0"], self.model.encoder.weight_ih_l0))
         self.assertFalse(torch.equal(before["forecast_head.0.weight"], self.model.forecast_head[0].weight))
 
+    def test_source_step_rejects_nonfinite_loss_and_gradient_before_update(self) -> None:
+        optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
+        before = {key: value.clone() for key, value in self.model.state_dict().items()}
+        with self.assertRaisesRegex(ValueError, "Source loss is not finite"):
+            source_step(
+                self.model, optimizer, self.history, self.calendar,
+                torch.full((2, 24), 3e38),
+            )
+        self.assertEqual(len(optimizer.state), 0)
+        hook = self.model.forecast_head[0].weight.register_hook(
+            lambda gradient: torch.full_like(gradient, float("inf"))
+        )
+        try:
+            with self.assertRaisesRegex(ValueError, "Source gradient is not finite"):
+                source_step(self.model, optimizer, self.history, self.calendar, self.labels)
+        finally:
+            hook.remove()
+        self.assertEqual(len(optimizer.state), 0)
+        for key, value in before.items():
+            self.assertTrue(torch.equal(value, self.model.state_dict()[key]))
+
     def test_source_checkpoint_round_trip_and_binding(self) -> None:
         optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
         source_step(self.model, optimizer, self.history, self.calendar, self.labels)
