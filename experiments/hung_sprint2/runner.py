@@ -208,8 +208,11 @@ class PrequentialRunner:
                 issued_index = pending.get("issued_index")
                 if issued_index is None:
                     issued_index = next(
-                        (index for index, item in enumerate(self.issued)
-                         if item["day_id"] == label.day_id),
+                        (
+                            index
+                            for index, item in enumerate(self.issued)
+                            if item["day_id"] == label.day_id
+                        ),
                         None,
                     )
                 if issued_index is None:
@@ -227,10 +230,15 @@ class PrequentialRunner:
                 for index, (model, optimizer) in enumerate(self.candidates):
                     torch.set_rng_state(shared_rng)
                     target_step(
-                        model, self.reference, optimizer, pending["x_hist"],
-                        pending["c_future"], y,
+                        model,
+                        self.reference,
+                        optimizer,
+                        pending["x_hist"],
+                        pending["c_future"],
+                        y,
                         retention_weight=self.controller.levels[index],
-                        latent_scale=self.latent_scale, epsilon=self.epsilon,
+                        latent_scale=self.latent_scale,
+                        epsilon=self.epsilon,
                     )
                     if post_rng is None:
                         post_rng = torch.get_rng_state().clone()
@@ -244,9 +252,15 @@ class PrequentialRunner:
                     try:
                         torch.set_rng_state(self.audit_rng)
                         target_step(
-                            model, self.reference, optimizer, pending["x_hist"],
-                            pending["c_future"], y, retention_weight=level,
-                            latent_scale=self.latent_scale, epsilon=self.epsilon,
+                            model,
+                            self.reference,
+                            optimizer,
+                            pending["x_hist"],
+                            pending["c_future"],
+                            y,
+                            retention_weight=level,
+                            latent_scale=self.latent_scale,
+                            epsilon=self.epsilon,
                         )
                         self.audit_rng = torch.get_rng_state().clone()
                     finally:
@@ -281,16 +295,16 @@ class PrequentialRunner:
         if len(self.days) != self.controller.block_days:
             raise ValueError("A block requires its complete scheduled-day count")
         decision = decide_block(
-            self.controller, current_level=self.current_level,
-            block_id=self.block_id, days=self.days,
+            self.controller,
+            current_level=self.current_level,
+            block_id=self.block_id,
+            days=self.days,
         )
         current_index = self.controller.levels.index(self.current_level)
         selected_index = self.controller.levels.index(decision.selected_level)
         old_active = self.candidates[current_index]
         self.active_model, self.active_optimizer = self.candidates[selected_index]
-        self.audit = (
-            (self.current_level, *old_active) if decision.switched else None
-        )
+        self.audit = (self.current_level, *old_active) if decision.switched else None
         self.audit_rng = torch.get_rng_state().clone() if decision.switched else None
         self.current_level = decision.selected_level
         self.decisions.append(decision)
@@ -302,6 +316,7 @@ class PrequentialRunner:
 
     def state_dict(self) -> dict:
         """Primitive/tensor state for exact CPU resumption at an event boundary."""
+
         def pair_state(pair: tuple[ForecastGRU, torch.optim.Adam]) -> dict:
             return {"model": pair[0].state_dict(), "optimizer": pair[1].state_dict()}
 
@@ -316,9 +331,9 @@ class PrequentialRunner:
             "latent_scale": self.latent_scale.clone(),
             "active": pair_state((self.active_model, self.active_optimizer)),
             "candidates": [pair_state(pair) for pair in self.candidates],
-            "audit": None if self.audit is None else {
-                "level": self.audit[0], **pair_state((self.audit[1], self.audit[2]))
-            },
+            "audit": None
+            if self.audit is None
+            else {"level": self.audit[0], **pair_state((self.audit[1], self.audit[2]))},
             "audit_rng": None if self.audit_rng is None else self.audit_rng.clone(),
             "current_level": self.current_level,
             "block_id": self.block_id,

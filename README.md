@@ -31,6 +31,7 @@ macOS/Linux:
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
+python -m pip install --index-url https://download.pytorch.org/whl/cpu -r requirements-model.txt
 ```
 
 Windows PowerShell:
@@ -39,6 +40,7 @@ Windows PowerShell:
 py -3.12 -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install -r requirements-dev.txt
+python -m pip install --index-url https://download.pytorch.org/whl/cpu -r requirements-model.txt
 ```
 
 Run before opening a PR:
@@ -51,7 +53,7 @@ python -m ruff format --check .
 git diff --check
 ```
 
-Tests use temporary fixtures and require no raw datasets, GPU, credentials, or dataset downloads. The data/input pipelines use the standard library; Ruff is the only development dependency. Data/ML dependencies will be selected and locked in their implementation PRs.
+Tests use temporary fixtures and require no raw datasets, GPU, credentials, or dataset downloads. The data/input pipelines use the standard library. Hung's draft Sprint 2 model fixtures require the pinned CPU PyTorch dependency in `requirements-model.txt`; this dependency and the CI install step are proposed for review in PR #42 before integration.
 
 ## Structure
 

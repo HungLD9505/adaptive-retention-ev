@@ -13,15 +13,14 @@ from unittest import mock
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
+from experiments.hung_sprint2.checkpoint import load_runner, save_runner
 from experiments.hung_sprint2.cli import ARTIFACTS
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
 from experiments.hung_sprint2.replay_inputs import replay_target
 from experiments.hung_sprint2.retention import frozen_source_reference
-from experiments.hung_sprint2.checkpoint import load_runner, save_runner
 from experiments.hung_sprint2.runner import LabelArrival, Origin, PrequentialRunner
 from tests.test_hung_resume import assert_same_replay
 from tests.test_hung_runner import runner as fixture_runner
-
 
 START = datetime(2022, 12, 1, tzinfo=timezone(timedelta(hours=8)))
 IDENTITY = ["urbanev", "SZH", "dev-1"]
@@ -33,8 +32,13 @@ def _write_rows(path: Path, rows: list[dict]) -> None:
 
 
 def input_run(
-    root: Path, *, delayed: bool = True, missing_y: bool = False,
-    days: int = 3, delayed_day: int = 1, delay_hours: int = 2,
+    root: Path,
+    *,
+    delayed: bool = True,
+    missing_y: bool = False,
+    days: int = 3,
+    delayed_day: int = 1,
+    delay_hours: int = 2,
 ) -> tuple[Path, str]:
     run = root / "fixture-target"
     run.mkdir()
@@ -45,22 +49,34 @@ def input_run(
         origin = START + timedelta(days=day)
         origin_text = origin.isoformat()
         status = "skipped_all_missing_history" if day == 2 else "created"
-        schedule_rows.append({
-            "identity": IDENTITY, "role": "development", "origin": origin_text,
-            "input_run_id": run.name, "status": status,
-        })
+        schedule_rows.append(
+            {
+                "identity": IDENTITY,
+                "role": "development",
+                "origin": origin_text,
+                "input_run_id": run.name,
+                "status": status,
+            }
+        )
         if status == "created":
-            forecast_rows.append({
-                "role": "development", "identity": IDENTITY, "origin": origin_text,
-                "clock_mode": "offset-aware-local", "schema_id": "ev-input-v1",
-                "input_run_id": run.name, "scale_id": "scale-1", "energy_scale": 5.0,
-                "history_labels": [(origin - timedelta(hours=24 - h)).isoformat()
-                                   for h in range(24)],
-                "future_labels": [(origin + timedelta(hours=h)).isoformat()
-                                  for h in range(24)],
-                "x_hist": [[0.1] * 7 for _ in range(24)],
-                "c_future": [[0.2] * 5 for _ in range(24)],
-            })
+            forecast_rows.append(
+                {
+                    "role": "development",
+                    "identity": IDENTITY,
+                    "origin": origin_text,
+                    "clock_mode": "offset-aware-local",
+                    "schema_id": "ev-input-v1",
+                    "input_run_id": run.name,
+                    "scale_id": "scale-1",
+                    "energy_scale": 5.0,
+                    "history_labels": [
+                        (origin - timedelta(hours=24 - h)).isoformat() for h in range(24)
+                    ],
+                    "future_labels": [(origin + timedelta(hours=h)).isoformat() for h in range(24)],
+                    "x_hist": [[0.1] * 7 for _ in range(24)],
+                    "c_future": [[0.2] * 5 for _ in range(24)],
+                }
+            )
         times = [origin + timedelta(hours=h) for h in range(24)]
         late = delayed and day == delayed_day
         energy: list[float | None] = [2.0] * 24
@@ -68,37 +84,59 @@ def input_run(
         if missing_y and day == 1:
             energy[3] = None
             validity[3] = False
-        label_rows.append({
-            "identity": IDENTITY, "origin": origin_text,
-            "clock_mode": "offset-aware-local",
-            "timestamps": [stamp.isoformat() for stamp in times],
-            "energy_kwh": energy,
-            "file_valid": validity,
-            "available_at": [
-                (
-                    stamp + timedelta(hours=1) +
-                    (timedelta(hours=delay_hours) if late else timedelta())
-                ).isoformat()
-                for stamp in times
-            ],
-        })
-        schedule_rows.append({
-            "identity": BLOCKED, "role": "development", "origin": origin_text,
-            "input_run_id": run.name, "status": "skipped_undefined_scale",
-        })
+        label_rows.append(
+            {
+                "identity": IDENTITY,
+                "origin": origin_text,
+                "clock_mode": "offset-aware-local",
+                "timestamps": [stamp.isoformat() for stamp in times],
+                "energy_kwh": energy,
+                "file_valid": validity,
+                "available_at": [
+                    (
+                        stamp
+                        + timedelta(hours=1)
+                        + (timedelta(hours=delay_hours) if late else timedelta())
+                    ).isoformat()
+                    for stamp in times
+                ],
+            }
+        )
+        schedule_rows.append(
+            {
+                "identity": BLOCKED,
+                "role": "development",
+                "origin": origin_text,
+                "input_run_id": run.name,
+                "status": "skipped_undefined_scale",
+            }
+        )
     _write_rows(run / "schedule.jsonl", schedule_rows)
     _write_rows(run / "forecasts.jsonl", forecast_rows)
     _write_rows(run / "labels.jsonl", label_rows)
-    _write_rows(run / "entities.jsonl", [
-        {"identity": IDENTITY, "role": "development", "initialization": "source_checkpoint_only",
-         "scale": {"fit_sha256": "scale-1", "energy_scale": 5.0}},
-        {"identity": BLOCKED, "role": "development", "initialization": "blocked_undefined_scale"},
-    ])
+    _write_rows(
+        run / "entities.jsonl",
+        [
+            {
+                "identity": IDENTITY,
+                "role": "development",
+                "initialization": "source_checkpoint_only",
+                "scale": {"fit_sha256": "scale-1", "energy_scale": 5.0},
+            },
+            {
+                "identity": BLOCKED,
+                "role": "development",
+                "initialization": "blocked_undefined_scale",
+            },
+        ],
+    )
     _write_rows(run / "training.jsonl", [])
     manifest = {
-        "schema": "ev-loader-run-v2", "feature_schema": "ev-input-v1",
+        "schema": "ev-loader-run-v2",
+        "feature_schema": "ev-input-v1",
         "missing_data_policy": "ev-missing-data-v1",
-        "status": "technical_success_with_coverage_limits", "run_id": run.name,
+        "status": "technical_success_with_coverage_limits",
+        "run_id": run.name,
         "config": {"dataset_id": "urbanev", "city_id": "SZH", "history_days": 7},
         "files": {name: {"sha256": sha256_file(run / name)} for name in ARTIFACTS},
     }
@@ -110,15 +148,21 @@ def bound_runner(digest: str, *, block_days: int = 14) -> PrequentialRunner:
     base = fixture_runner()
     binding = dict(base.binding)
     binding.update(
-        input_manifest_sha256=digest, input_run_id="fixture-target",
-        entity_id="dev-1", scale_id="scale-1",
+        input_manifest_sha256=digest,
+        input_run_id="fixture-target",
+        entity_id="dev-1",
+        scale_id="scale-1",
     )
     model = ForecastGRU(ModelConfig(calendar_hidden=8))
     return PrequentialRunner(
-        model, torch.optim.Adam(model.parameters(), lr=0.001),
-        frozen_source_reference(model), torch.ones(64), binding=binding,
+        model,
+        torch.optim.Adam(model.parameters(), lr=0.001),
+        frozen_source_reference(model),
+        torch.ones(64),
+        binding=binding,
         controller=replace(base.controller, block_days=block_days),
-        epsilon=1e-6, energy_scale=5.0,
+        epsilon=1e-6,
+        energy_scale=5.0,
     )
 
 
@@ -200,15 +244,14 @@ class ReplayInputTests(unittest.TestCase):
 
     def test_updates_follow_availability_not_origin_order(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            run, digest = input_run(
-                Path(directory), delayed_day=0, delay_hours=26, days=3
-            )
+            run, digest = input_run(Path(directory), delayed_day=0, delay_hours=26, days=3)
             replay = bound_runner(digest)
             replay_target(run, manifest_sha256=digest, entity_id="dev-1", runner=replay)
             first = START.isoformat()
             second = (START + timedelta(days=1)).isoformat()
-            self.assertLess(replay.events.index(f"update:{second}"),
-                            replay.events.index(f"update:{first}"))
+            self.assertLess(
+                replay.events.index(f"update:{second}"), replay.events.index(f"update:{first}")
+            )
 
     def test_resume_with_deferred_label_and_pending_origin(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -218,32 +261,44 @@ class ReplayInputTests(unittest.TestCase):
                 run, manifest_sha256=digest, entity_id="dev-1", runner=uninterrupted
             )
             partial = bound_runner(digest, block_days=2)
-            forecasts = [json.loads(line) for line in (run / "forecasts.jsonl").read_text(
-                encoding="utf-8").splitlines()]
+            forecasts = [
+                json.loads(line)
+                for line in (run / "forecasts.jsonl").read_text(encoding="utf-8").splitlines()
+            ]
             for index in range(2):
                 if index == 1:
-                    partial.arrive(LabelArrival(
-                        forecasts[0]["origin"], True, torch.full((24,), 0.4),
-                        torch.ones(24, dtype=torch.bool),
-                    ))
+                    partial.arrive(
+                        LabelArrival(
+                            forecasts[0]["origin"],
+                            True,
+                            torch.full((24,), 0.4),
+                            torch.ones(24, dtype=torch.bool),
+                        )
+                    )
                 row = forecasts[index]
-                partial.forecast(Origin(
-                    row["origin"], index,
-                    torch.tensor(row["x_hist"], dtype=torch.float32).unsqueeze(0),
-                    torch.tensor(row["c_future"], dtype=torch.float32).unsqueeze(0),
-                ))
+                partial.forecast(
+                    Origin(
+                        row["origin"],
+                        index,
+                        torch.tensor(row["x_hist"], dtype=torch.float32).unsqueeze(0),
+                        torch.tensor(row["c_future"], dtype=torch.float32).unsqueeze(0),
+                    )
+                )
                 partial.arrive(LabelArrival(row["origin"], False, deferred=True))
             partial.finish_block()
-            partial.forecast(Origin(
-                (START + timedelta(days=2)).isoformat(), 2, None, None,
-                "skipped_all_missing_history",
-            ))
+            partial.forecast(
+                Origin(
+                    (START + timedelta(days=2)).isoformat(),
+                    2,
+                    None,
+                    None,
+                    "skipped_all_missing_history",
+                )
+            )
             path = Path(directory) / "pending-late.pt"
             save_runner(path, partial)
             resumed = load_runner(path, expected_binding=partial.binding)
-            result = replay_target(
-                run, manifest_sha256=digest, entity_id="dev-1", runner=resumed
-            )
+            result = replay_target(run, manifest_sha256=digest, entity_id="dev-1", runner=resumed)
             self.assertEqual(result, expected)
             self.assertEqual(len(resumed.issued), 3)
             self.assertEqual(sum(event.startswith("forecast:") for event in resumed.events), 3)

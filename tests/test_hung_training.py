@@ -16,6 +16,7 @@ from experiments.hung_sprint2.cli import ARTIFACTS, main
 def _input_run(root: Path, *, target_examples: int = 1) -> tuple[Path, str]:
     run = root / "fixture-input-run"
     run.mkdir()
+
     def forecast(entity: str) -> dict:
         return {
             "identity": ["urbanev", "SZH", entity],
@@ -25,6 +26,7 @@ def _input_run(root: Path, *, target_examples: int = 1) -> tuple[Path, str]:
             "x_hist": [[0.1] * 7 for _ in range(24)],
             "c_future": [[0.2] * 5 for _ in range(24)],
         }
+
     rows = [
         {"role": "source", "forecast": forecast("source-1"), "y_scaled": [0.3] * 24},
         {"role": "source", "forecast": forecast("source-1"), "y_scaled": [0.5] * 24},
@@ -76,11 +78,27 @@ class TrainingConsumerTests(unittest.TestCase):
             run, digest = _input_run(root)
             output = root / "source-output"
             with self.assertRaisesRegex(ValueError, "at least two examples"):
-                main([
-                    "source-smoke", "--input-run", str(run), "--manifest-sha256", digest,
-                    "--output", str(output), "--steps", "1", "--batch-size", "1",
-                    "--seed", "17", "--learning-rate", "0.001", "--calendar-hidden", "8",
-                ])
+                main(
+                    [
+                        "source-smoke",
+                        "--input-run",
+                        str(run),
+                        "--manifest-sha256",
+                        digest,
+                        "--output",
+                        str(output),
+                        "--steps",
+                        "1",
+                        "--batch-size",
+                        "1",
+                        "--seed",
+                        "17",
+                        "--learning-rate",
+                        "0.001",
+                        "--calendar-hidden",
+                        "8",
+                    ]
+                )
             self.assertFalse(output.exists())
 
     def test_source_then_independent_target_with_verified_binding(self) -> None:
@@ -90,21 +108,56 @@ class TrainingConsumerTests(unittest.TestCase):
             source_output = root / "source-output"
             target_output = root / "target-output"
             source_args = [
-                "source-smoke", "--input-run", str(run), "--manifest-sha256", digest,
-                "--output", str(source_output), "--steps", "1", "--batch-size", "2",
-                "--seed", "17", "--learning-rate", "0.001", "--calendar-hidden", "8",
+                "source-smoke",
+                "--input-run",
+                str(run),
+                "--manifest-sha256",
+                digest,
+                "--output",
+                str(source_output),
+                "--steps",
+                "1",
+                "--batch-size",
+                "2",
+                "--seed",
+                "17",
+                "--learning-rate",
+                "0.001",
+                "--calendar-hidden",
+                "8",
             ]
             self.assertEqual(main(source_args), 0)
             source_manifest = json.loads((source_output / "run_manifest.json").read_text())
             self.assertEqual(source_manifest["source_examples_used"], 2)
             self.assertEqual(source_manifest["input_binding"]["stage"], "source")
             target_args = [
-                "target-smoke", "--input-run", str(run), "--manifest-sha256", digest,
-                "--output", str(target_output), "--steps", "1", "--batch-size", "1",
-                "--seed", "19", "--learning-rate", "0.001",
-                "--source-input-run", str(run), "--source-manifest-sha256", digest,
-                "--source-checkpoint", str(source_output / "source_checkpoint.pt"),
-                "--entity-id", "dev-1", "--retention-weight", "0.1", "--epsilon", "1e-6",
+                "target-smoke",
+                "--input-run",
+                str(run),
+                "--manifest-sha256",
+                digest,
+                "--output",
+                str(target_output),
+                "--steps",
+                "1",
+                "--batch-size",
+                "1",
+                "--seed",
+                "19",
+                "--learning-rate",
+                "0.001",
+                "--source-input-run",
+                str(run),
+                "--source-manifest-sha256",
+                digest,
+                "--source-checkpoint",
+                str(source_output / "source_checkpoint.pt"),
+                "--entity-id",
+                "dev-1",
+                "--retention-weight",
+                "0.1",
+                "--epsilon",
+                "1e-6",
             ]
             self.assertEqual(main(target_args), 0)
             target_manifest = json.loads((target_output / "run_manifest.json").read_text())
@@ -123,21 +176,59 @@ class TrainingConsumerTests(unittest.TestCase):
             run, digest = _input_run(root, target_examples=0)
             source_output = root / "source-output"
             source_args = [
-                "source-smoke", "--input-run", str(run), "--manifest-sha256", digest,
-                "--output", str(source_output), "--steps", "1", "--batch-size", "2",
-                "--seed", "17", "--learning-rate", "0.001", "--calendar-hidden", "8",
+                "source-smoke",
+                "--input-run",
+                str(run),
+                "--manifest-sha256",
+                digest,
+                "--output",
+                str(source_output),
+                "--steps",
+                "1",
+                "--batch-size",
+                "2",
+                "--seed",
+                "17",
+                "--learning-rate",
+                "0.001",
+                "--calendar-hidden",
+                "8",
             ]
             self.assertEqual(main(source_args), 0)
             target_output = root / "target-output"
             self.assertEqual(
-                main([
-                    "target-smoke", "--input-run", str(run), "--manifest-sha256", digest,
-                    "--output", str(target_output), "--steps", "1", "--batch-size", "1",
-                    "--seed", "19", "--learning-rate", "0.001",
-                    "--source-input-run", str(run), "--source-manifest-sha256", digest,
-                    "--source-checkpoint", str(source_output / "source_checkpoint.pt"),
-                    "--entity-id", "dev-1", "--retention-weight", "0.1", "--epsilon", "1e-6",
-                ]), 0
+                main(
+                    [
+                        "target-smoke",
+                        "--input-run",
+                        str(run),
+                        "--manifest-sha256",
+                        digest,
+                        "--output",
+                        str(target_output),
+                        "--steps",
+                        "1",
+                        "--batch-size",
+                        "1",
+                        "--seed",
+                        "19",
+                        "--learning-rate",
+                        "0.001",
+                        "--source-input-run",
+                        str(run),
+                        "--source-manifest-sha256",
+                        digest,
+                        "--source-checkpoint",
+                        str(source_output / "source_checkpoint.pt"),
+                        "--entity-id",
+                        "dev-1",
+                        "--retention-weight",
+                        "0.1",
+                        "--epsilon",
+                        "1e-6",
+                    ]
+                ),
+                0,
             )
             target_manifest = json.loads((target_output / "run_manifest.json").read_text())
             self.assertEqual(target_manifest["initialization"], "source_checkpoint_only")

@@ -39,17 +39,32 @@ def _target_rows(path: Path, identity: list[str], role: str = "development") -> 
 
 
 def _label_record(row: dict, identity: list[str], origin: str) -> LabelRecord:
-    if set(row) != {
-        "identity", "origin", "clock_mode", "timestamps", "energy_kwh",
-        "file_valid", "available_at",
-    } or row["identity"] != identity or row["origin"] != origin:
+    if (
+        set(row)
+        != {
+            "identity",
+            "origin",
+            "clock_mode",
+            "timestamps",
+            "energy_kwh",
+            "file_valid",
+            "available_at",
+        }
+        or row["identity"] != identity
+        or row["origin"] != origin
+    ):
         raise ValueError("Label identity/origin/schema mismatch")
+
     def parse(value: str | None) -> datetime | None:
         return None if value is None else datetime.fromisoformat(value)
+
     return LabelRecord(
-        tuple(row["identity"]), datetime.fromisoformat(row["origin"]),
-        row["clock_mode"], tuple(datetime.fromisoformat(x) for x in row["timestamps"]),
-        tuple(row["energy_kwh"]), tuple(row["file_valid"]),
+        tuple(row["identity"]),
+        datetime.fromisoformat(row["origin"]),
+        row["clock_mode"],
+        tuple(datetime.fromisoformat(x) for x in row["timestamps"]),
+        tuple(row["energy_kwh"]),
+        tuple(row["file_valid"]),
         tuple(parse(x) for x in row["available_at"]),
     )
 
@@ -78,14 +93,18 @@ def replay_target(
     if not schedule:
         raise ValueError("Target has no requested replay origins")
     statuses = [row.get("status") for row in schedule]
-    if any(status not in {"created", "skipped_all_missing_history", "skipped_undefined_scale"}
-           for status in statuses):
+    if any(
+        status not in {"created", "skipped_all_missing_history", "skipped_undefined_scale"}
+        for status in statuses
+    ):
         raise ValueError("Unknown schedule status")
     if any(row.get("input_run_id") != manifest["run_id"] for row in schedule):
         raise ValueError("Schedule input-run identity mismatch")
     origins = [datetime.fromisoformat(row["origin"]) for row in schedule]
-    if any(later - earlier != timedelta(days=1)
-           for earlier, later in zip(origins, origins[1:], strict=False)):
+    if any(
+        later - earlier != timedelta(days=1)
+        for earlier, later in zip(origins, origins[1:], strict=False)
+    ):
         raise ValueError("Target schedule is not consecutive daily origins")
     created = statuses.count("created")
     missing_history = statuses.count("skipped_all_missing_history")
@@ -94,7 +113,8 @@ def replay_target(
         if blocked != len(schedule) or entity.get("initialization") != "blocked_undefined_scale":
             raise ValueError("Undefined-scale schedule/initialization mismatch")
         if any(_target_rows(input_run / "labels.jsonl", identity)) or any(
-            row for row in iter_forecasts(input_run, expected_manifest_sha256=manifest_sha256)
+            row
+            for row in iter_forecasts(input_run, expected_manifest_sha256=manifest_sha256)
             if row["role"] == "development" and row["identity"] == identity
         ):
             raise ValueError("Undefined-scale target has unexpected forecast/label records")
@@ -128,9 +148,9 @@ def replay_target(
     ):
         raise ValueError("Runner pending origin differs from accepted schedule")
     issued_origins = [
-        (index, row["origin"]) for index, row in enumerate(schedule)
-        if row["status"] == "created" and
-        (index < runner.next_index or index == pending_index)
+        (index, row["origin"])
+        for index, row in enumerate(schedule)
+        if row["status"] == "created" and (index < runner.next_index or index == pending_index)
     ]
     if [(row["index"], row["day_id"]) for row in runner.issued] != issued_origins:
         raise ValueError("Runner issued forecasts differ from accepted schedule")
@@ -139,7 +159,8 @@ def replay_target(
         raise ValueError("Runner deferred labels differ from accepted schedule")
 
     forecasts = (
-        row for row in iter_forecasts(input_run, expected_manifest_sha256=manifest_sha256)
+        row
+        for row in iter_forecasts(input_run, expected_manifest_sha256=manifest_sha256)
         if row["role"] == "development" and row["identity"] == identity
     )
     labels = _target_rows(input_run / "labels.jsonl", identity)
@@ -149,8 +170,11 @@ def replay_target(
         # Ties retain origin order; updates occur before the next affected forecast.
         ready = sorted(
             (
-                (max(value for value in record.available_at if value is not None),
-                 origin_label, record)
+                (
+                    max(value for value in record.available_at if value is not None),
+                    origin_label,
+                    record,
+                )
                 for origin_label, record in late_records.items()
             ),
             key=lambda item: (item[0], item[1]),
@@ -161,11 +185,14 @@ def replay_target(
             values = ready_labels(record, as_of=as_of)
             if values is None:
                 raise ValueError("Deferred label became available without a complete horizon")
-            runner.arrive(LabelArrival(
-                origin_label, True,
-                torch.tensor(values, dtype=torch.float32) / runner.energy_scale,
-                torch.ones(24, dtype=torch.bool),
-            ))
+            runner.arrive(
+                LabelArrival(
+                    origin_label,
+                    True,
+                    torch.tensor(values, dtype=torch.float32) / runner.energy_scale,
+                    torch.ones(24, dtype=torch.bool),
+                )
+            )
             del late_records[origin_label]
 
     for index, scheduled in enumerate(schedule):
@@ -187,14 +214,13 @@ def replay_target(
                     runner.finish_block()
                 if forecast is not None:
                     event = Origin(
-                        origin_label, index,
+                        origin_label,
+                        index,
                         torch.tensor(forecast["x_hist"], dtype=torch.float32).unsqueeze(0),
                         torch.tensor(forecast["c_future"], dtype=torch.float32).unsqueeze(0),
                     )
                 else:
-                    event = Origin(
-                        origin_label, index, None, None, "skipped_all_missing_history"
-                    )
+                    event = Origin(origin_label, index, None, None, "skipped_all_missing_history")
                 runner.forecast(event)
         # A resumed prior origin was already forecast. New labels are parsed
         # only after the matching forecast or scheduled skip was persisted.

@@ -36,14 +36,26 @@ def runner() -> PrequentialRunner:
     optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
     reference = frozen_source_reference(model)
     controller = ControllerConfig(
-        levels=(0.0, 0.1, 0.3), initial_level=0.1, block_days=14,
-        min_complete_days=1, delta=100.0, alpha=0.05,
-        bootstrap_segment_days=1, bootstrap_resamples=11, seed=9,
+        levels=(0.0, 0.1, 0.3),
+        initial_level=0.1,
+        block_days=14,
+        min_complete_days=1,
+        delta=100.0,
+        alpha=0.05,
+        bootstrap_segment_days=1,
+        bootstrap_resamples=11,
+        seed=9,
         challenger_rule="bonferroni_two",
     )
     return PrequentialRunner(
-        model, optimizer, reference, torch.ones(64), binding=binding(),
-        controller=controller, epsilon=1e-6, energy_scale=5.0,
+        model,
+        optimizer,
+        reference,
+        torch.ones(64),
+        binding=binding(),
+        controller=controller,
+        epsilon=1e-6,
+        energy_scale=5.0,
     )
 
 
@@ -51,8 +63,10 @@ def origin(index: int, *, skipped: bool = False) -> Origin:
     if skipped:
         return Origin(f"day-{index}", index, None, None, "skipped_all_missing_history")
     return Origin(
-        f"day-{index}", index,
-        torch.full((1, 24, 7), 0.2), torch.full((1, 24, 5), 0.1),
+        f"day-{index}",
+        index,
+        torch.full((1, 24, 7), 0.2),
+        torch.full((1, 24, 5), 0.1),
     )
 
 
