@@ -259,8 +259,13 @@ def load_checkpoint(
     scale = payload["latent_scale"]
     if scale is not None:
         validate_latent_scale(scale)
-    return model, optimizer, scale, {
-        "seed": payload["seed"],
-        "code_sha": payload["code_sha"],
-        "training_step": payload["training_step"],
-    }
+    return (
+        model,
+        optimizer,
+        scale,
+        {
+            "seed": payload["seed"],
+            "code_sha": payload["code_sha"],
+            "training_step": payload["training_step"],
+        },
+    )

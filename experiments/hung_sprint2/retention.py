@@ -46,7 +46,9 @@ def validate_latent_scale(scale: Tensor) -> None:
         raise ValueError("Source latent scale must be finite and nonnegative")
 
 
-def retention_loss(target_latent: Tensor, source_latent: Tensor, scale: Tensor, *, epsilon: float) -> Tensor:
+def retention_loss(
+    target_latent: Tensor, source_latent: Tensor, scale: Tensor, *, epsilon: float
+) -> Tensor:
     """Mean over samples of 1/64 sum[((zT-zS)/(s+epsilon))²]."""
     if not (epsilon > 0 and epsilon < float("inf")):
         raise ValueError("epsilon must be finite and positive")

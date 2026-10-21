@@ -44,9 +44,7 @@ class ControllerTests(unittest.TestCase):
 
     def test_exact_threshold_equality_keeps_active(self) -> None:
         days = [complete(day, (1.0, 1.5, 1.5)) for day in range(3)]
-        decision = decide_block(
-            config(delta=0.5), current_level=0.1, block_id=0, days=days
-        )
+        decision = decide_block(config(delta=0.5), current_level=0.1, block_id=0, days=days)
         self.assertEqual(decision.lower_bounds, (0.5, None, 0.0))
         self.assertEqual(decision.reason, "no_qualifying_challenger")
         self.assertFalse(decision.switched)
@@ -80,10 +78,7 @@ class ControllerTests(unittest.TestCase):
         self.assertEqual(decision.reason, "no_qualifying_challenger")
 
     def test_bootstrap_reproducibility_and_paired_day_resampling(self) -> None:
-        days = [
-            complete(day, (0.8 + 0.01 * day, 0.9, 0.7 + 0.02 * day))
-            for day in range(10)
-        ]
+        days = [complete(day, (0.8 + 0.01 * day, 0.9, 0.7 + 0.02 * day)) for day in range(10)]
         first = decide_block(config(), current_level=0.1, block_id=5, days=days)
         second = decide_block(config(), current_level=0.1, block_id=5, days=days)
         self.assertEqual(first, second)

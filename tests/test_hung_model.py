@@ -83,7 +83,10 @@ class ModelTests(unittest.TestCase):
         self.assertEqual(result.retention, 0)
         self.assertAlmostEqual(result.forecast, result.total)
         self.assertTrue(
-            any(not torch.equal(first.state_dict()[key], value) for key, value in first_before.items())
+            any(
+                not torch.equal(first.state_dict()[key], value)
+                for key, value in first_before.items()
+            )
         )
         for key, value in source_before.items():
             self.assertTrue(torch.equal(value, self.model.state_dict()[key]))
@@ -96,15 +99,22 @@ class ModelTests(unittest.TestCase):
         optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
         before = {key: value.clone() for key, value in self.model.state_dict().items()}
         source_step(self.model, optimizer, self.history, self.calendar, self.labels)
-        self.assertFalse(torch.equal(before["encoder.weight_ih_l0"], self.model.encoder.weight_ih_l0))
-        self.assertFalse(torch.equal(before["forecast_head.0.weight"], self.model.forecast_head[0].weight))
+        self.assertFalse(
+            torch.equal(before["encoder.weight_ih_l0"], self.model.encoder.weight_ih_l0)
+        )
+        self.assertFalse(
+            torch.equal(before["forecast_head.0.weight"], self.model.forecast_head[0].weight)
+        )
 
     def test_source_step_rejects_nonfinite_loss_and_gradient_before_update(self) -> None:
         optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
         before = {key: value.clone() for key, value in self.model.state_dict().items()}
         with self.assertRaisesRegex(ValueError, "Source loss is not finite"):
             source_step(
-                self.model, optimizer, self.history, self.calendar,
+                self.model,
+                optimizer,
+                self.history,
+                self.calendar,
                 torch.full((2, 24), 3e38),
             )
         self.assertEqual(len(optimizer.state), 0)
