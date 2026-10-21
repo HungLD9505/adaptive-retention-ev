@@ -158,6 +158,21 @@ class RunnerTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Duplicate forecast day"):
             replay.forecast(Origin("day-0", 1, torch.ones(1, 24, 7), torch.ones(1, 24, 5)))
 
+    def test_deferred_label_updates_current_block_only_once(self) -> None:
+        replay = runner()
+        replay.forecast(origin(0))
+        replay.arrive(LabelArrival("day-0", False, deferred=True))
+        self.assertIn("day-0", replay.late_pending)
+        replay.forecast(origin(1))
+        replay.arrive(complete(1))
+        replay.arrive(complete(0))
+        self.assertEqual(replay.update_steps, [2, 2, 2])
+        self.assertEqual(replay.days[0].normalized_mae, replay.issued[0]["normalized_mae"])
+        self.assertEqual(replay.next_index, 2)
+        self.assertNotIn("day-0", replay.late_pending)
+        with self.assertRaisesRegex(ValueError, "no matching"):
+            replay.arrive(complete(0))
+
 
 if __name__ == "__main__":
     unittest.main()

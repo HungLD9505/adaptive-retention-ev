@@ -41,7 +41,7 @@ Phân bổ mềm trong ngày: 15% kiểm tra đầu vào/giao diện, 50% model 
 ## Tiến độ cục bộ ngày 21/10/2026
 
 - #19 đã có GRU, hàm mất mát và điểm vào smoke Source/Development có giới hạn, gắn manifest. #20 có controller độc lập với quy tắc bootstrap và phá hòa tường minh. Đây mới là kết quả code và fixture.
-- `python -m tools.sources list` đạt. Lần chạy đầu của bộ test thất bại do sandbox không cho dùng thư mục tạm mặc định; lần chạy với TEMP nội bộ nhưng thiếu UTF-8 gặp ba lỗi codec Windows. Với `TEMP`/`TMP` trong worktree và `PYTHONUTF8=1`, `PYTHONIOENCODING=utf-8`, `python -m unittest discover -s tests -q` đạt **140 test** tại checkpoint đầu; sau các phần runner và adapter, lần chạy mới nhất đạt **152 test, OK** trên Python 3.13. `python -m compileall -q experiments/hung_sprint2` và `git diff --check` đạt.
+- `python -m tools.sources list` đạt. Lần chạy đầu của bộ test thất bại do sandbox không cho dùng thư mục tạm mặc định; lần chạy với TEMP nội bộ nhưng thiếu UTF-8 gặp ba lỗi codec Windows. Với `TEMP`/`TMP` trong worktree và `PYTHONUTF8=1`, `PYTHONIOENCODING=utf-8`, `python -m unittest discover -s tests -q` đạt **140 test** tại checkpoint đầu, rồi **152 test** sau adapter đầu tiên trên Python 3.13. `python -m compileall -q experiments/hung_sprint2` và `git diff --check` đạt.
 - Không có `python -m ruff`. Cài bản ghim `ruff==0.17.0` vào dependency cục bộ bị lỗi phân giải tên PyPI. Máy cũng không có Python 3.12.
 - Chưa tải/xác minh DATA-v1; chưa có pretraining Source thật, adaptation Development thật, chạy Colab, replay controller trên dữ liệu thật, đối chiếu hai bản triển khai hay peer review. Các gate tương ứng vẫn mở.
 
@@ -59,4 +59,8 @@ QA tái hiện lỗi epsilon tràn dưới ở float32. Commit #19 `7a93558` đ�
 
 Adapter replay hiện xác minh manifest v2 cùng hash artifact, chọn một target Development, kiểm tra binding và scale, giữ coverage theo lịch, và phát dự báo chỉ dùng predictor trước khi tra nhãn tương ứng. `ready_labels` chỉ cho phép horizon đầy đủ đã sẵn sàng. Fixture test bao phủ nhãn đến trễ, thiếu nhãn, coverage bị chặn, artifact bị sửa, binding và thứ tự phát dự báo. Sau adapter, toàn bộ **152 test đạt**; commit checkpoint hiện tại là `1f1a888`.
 
-Gate replay Development thật vẫn mở: adapter chưa resume từ con trỏ khác 0; nhãn đến sau origin kế tiếp hiện bị bỏ qua thay vì đưa vào hàng đợi; chưa có kiểm chứng DATA-v1 thật, xử lý CUDA RNG, event log bền vững, thống kê đầy đủ chi phí và smoke thực tại biên block. Không suy diễn từ fixture rằng gate dữ liệu thật, Colab, Ruff hay Python 3.12 đã đạt.
+Checkpoint tiếp theo bổ sung hàng đợi nhãn theo `available_at`: nhãn đầy đủ đến trễ được chấm theo dự báo đã lưu và cập nhật các ứng viên hiện hành trước dự báo tiếp theo. Quyết định block đã phát không đổi hồi tố. Adapter kiểm tra lịch, con trỏ và forecast đã phát để resume mà không phát lặp. Fixture mới bao phủ nhãn trễ qua biên block, thứ tự đến khác thứ tự origin và resume khi còn nhãn chờ. Toàn nhánh chạy **156 test, OK**; `compileall` và `git diff --check` đạt.
+
+Sau snapshot báo cáo nhóm lúc 20:31, nhánh #19 đã có [draft PR #42](https://github.com/HungLD9505/adaptive-retention-ev/pull/42) với code/test/báo cáo cục bộ; chưa có PR cho #20/#21. Snapshot cũ không phản ánh các commit local hoặc draft PR mới, nhưng cũng không chứng minh các gate đã hoàn tất.
+
+Gate replay Development thật vẫn mở: chưa có kiểm chứng DATA-v1, xử lý CUDA RNG, event log bền vững, thống kê đầy đủ chi phí và smoke thực tại biên block. Nhãn vẫn chưa sẵn sàng tại cutoff cuối replay tiếp tục không được chấm. Không suy diễn từ fixture rằng gate dữ liệu thật, Colab, Ruff hay Python 3.12 đã đạt.

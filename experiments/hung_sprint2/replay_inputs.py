@@ -63,9 +63,9 @@ def replay_target(
 ) -> ReplaySummary:
     """Replay the accepted schedule; parse each label only after forecasting.
 
-    `as_of` is the exclusive horizon end for the accepted bin-end+0 profile.
-    A later serialized availability time makes the day unscorable here. An
-    undefined-scale target is returned as blocked coverage without a model.
+    Deferred labels are delivered in availability order before subsequent
+    forecasts, or at the final horizon end. A label still unavailable then
+    remains unscored. An undefined-scale target returns blocked coverage.
     """
     input_run = Path(input_run).resolve()
     manifest = _load_run(input_run, manifest_sha256)
@@ -116,20 +116,61 @@ def replay_target(
         or runner.energy_scale != scale.get("energy_scale")
     ):
         raise ValueError("Runner input binding/scale mismatch")
-    if runner.next_index != 0:
-        raise ValueError("This input adapter currently starts from the first origin")
+    if not 0 <= runner.next_index <= len(schedule):
+        raise ValueError("Runner cursor is outside the accepted schedule")
+    if runner.next_index != runner.block_id * runner.controller.block_days + len(runner.days):
+        raise ValueError("Runner block/cursor state is inconsistent")
+    pending_index = runner.next_index if runner.pending is not None else None
+    if pending_index is not None and (
+        pending_index >= len(schedule)
+        or runner.pending["day_id"] != schedule[pending_index]["origin"]
+        or runner.pending["status"] != schedule[pending_index]["status"]
+    ):
+        raise ValueError("Runner pending origin differs from accepted schedule")
+    issued_origins = [
+        (index, row["origin"]) for index, row in enumerate(schedule)
+        if row["status"] == "created" and
+        (index < runner.next_index or index == pending_index)
+    ]
+    if [(row["index"], row["day_id"]) for row in runner.issued] != issued_origins:
+        raise ValueError("Runner issued forecasts differ from accepted schedule")
+    prior_created = {origin for index, origin in issued_origins if index < runner.next_index}
+    if not set(runner.late_pending).issubset(prior_created):
+        raise ValueError("Runner deferred labels differ from accepted schedule")
 
     forecasts = (
         row for row in iter_forecasts(input_run, expected_manifest_sha256=manifest_sha256)
         if row["role"] == "development" and row["identity"] == identity
     )
     labels = _target_rows(input_run / "labels.jsonl", identity)
-    scored = 0
-    delayed = 0
+    late_records: dict[str, LabelRecord] = {}
+
+    def deliver_ready(as_of: datetime) -> None:
+        # Ties retain origin order; updates occur before the next affected forecast.
+        ready = sorted(
+            (
+                (max(value for value in record.available_at if value is not None),
+                 origin_label, record)
+                for origin_label, record in late_records.items()
+            ),
+            key=lambda item: (item[0], item[1]),
+        )
+        for available_at, origin_label, record in ready:
+            if available_at > as_of:
+                break
+            values = ready_labels(record, as_of=as_of)
+            if values is None:
+                raise ValueError("Deferred label became available without a complete horizon")
+            runner.arrive(LabelArrival(
+                origin_label, True,
+                torch.tensor(values, dtype=torch.float32) / runner.energy_scale,
+                torch.ones(24, dtype=torch.bool),
+            ))
+            del late_records[origin_label]
+
     for index, scheduled in enumerate(schedule):
-        if index and index % runner.controller.block_days == 0:
-            runner.finish_block()
         origin_label = scheduled["origin"]
+        forecast = None
         if scheduled["status"] == "created":
             forecast = next(forecasts, None)
             if forecast is None or (
@@ -139,43 +180,57 @@ def replay_target(
                 or forecast["energy_scale"] != runner.energy_scale
             ):
                 raise ValueError("Forecast identity/origin/scale mismatch")
-            event = Origin(
-                origin_label, index,
-                torch.tensor(forecast["x_hist"], dtype=torch.float32).unsqueeze(0),
-                torch.tensor(forecast["c_future"], dtype=torch.float32).unsqueeze(0),
-            )
-        else:
-            event = Origin(origin_label, index, None, None, "skipped_all_missing_history")
-        runner.forecast(event)
-        # Labels are read and parsed only after all candidate forecasts persist.
+        if index >= runner.next_index:
+            if index != pending_index:
+                deliver_ready(origins[index])
+                if len(runner.days) == runner.controller.block_days:
+                    runner.finish_block()
+                if forecast is not None:
+                    event = Origin(
+                        origin_label, index,
+                        torch.tensor(forecast["x_hist"], dtype=torch.float32).unsqueeze(0),
+                        torch.tensor(forecast["c_future"], dtype=torch.float32).unsqueeze(0),
+                    )
+                else:
+                    event = Origin(
+                        origin_label, index, None, None, "skipped_all_missing_history"
+                    )
+                runner.forecast(event)
+        # A resumed prior origin was already forecast. New labels are parsed
+        # only after the matching forecast or scheduled skip was persisted.
         label_row = next(labels, None)
         record = _label_record(label_row, identity, origin_label) if label_row else None
         if record is None:
             raise ValueError("Created/skipped-history origin has no delayed-label record")
         if scheduled["status"] == "created" and record.clock_mode != forecast["clock_mode"]:
             raise ValueError("Forecast/label clock profile mismatch")
-        ready = ready_labels(record, as_of=origins[index] + timedelta(days=1))
-        if ready is None:
-            runner.arrive(LabelArrival(origin_label, False))
-            if scheduled["status"] == "created":
-                delayed += 1
-        else:
-            if scheduled["status"] == "created":
-                y_scaled = torch.tensor(ready, dtype=torch.float32) / runner.energy_scale
-                runner.arrive(
-                    LabelArrival(origin_label, True, y_scaled, torch.ones(24, dtype=torch.bool))
-                )
-                scored += 1
-            else:
-                runner.arrive(
-                    LabelArrival(
-                        origin_label, True,
-                        torch.tensor(ready, dtype=torch.float32) / runner.energy_scale,
-                        torch.ones(24, dtype=torch.bool),
-                    )
-                )
+        if index < runner.next_index:
+            if origin_label in runner.late_pending:
+                if not (
+                    all(record.file_valid)
+                    and all(value is not None for value in record.energy_kwh)
+                    and all(value is not None for value in record.available_at)
+                ):
+                    raise ValueError("Runner deferred record is not potentially complete")
+                late_records[origin_label] = record
+            continue
+        # Validate the serialized record, but deliver it only at a later event
+        # boundary. This keeps update order aligned with label availability.
+        ready_labels(record, as_of=origins[index] + timedelta(days=1))
+        deferred = scheduled["status"] == "created" and (
+            all(record.file_valid)
+            and all(value is not None for value in record.energy_kwh)
+            and all(value is not None for value in record.available_at)
+        )
+        runner.arrive(LabelArrival(origin_label, False, deferred=deferred))
+        if deferred:
+            late_records[origin_label] = record
     if next(forecasts, None) is not None or next(labels, None) is not None:
         raise ValueError("Forecast/label artifacts have unmatched target records")
-    if len(schedule) % runner.controller.block_days == 0:
+    if set(late_records) != set(runner.late_pending):
+        raise ValueError("Runner deferred-label queue differs from replay inputs")
+    deliver_ready(origins[-1] + timedelta(days=1))
+    if len(runner.days) == runner.controller.block_days:
         runner.finish_block()
-    return ReplaySummary(len(schedule), created, missing_history, 0, scored, delayed)
+    scored = sum(row["normalized_mae"] is not None for row in runner.issued)
+    return ReplaySummary(len(schedule), created, missing_history, 0, scored, created - scored)

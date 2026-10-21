@@ -34,6 +34,7 @@ class LabelArrival:
     arrived: bool
     y_scaled: Tensor | None = None
     valid: Tensor | None = None
+    deferred: bool = False
 
 
 def _copy_pair(
@@ -46,10 +47,11 @@ def _copy_pair(
 class PrequentialRunner:
     """Advance forecast and label events in causal order on one target/budget.
 
-    The caller must feed the accepted input schedule and delayed labels in order.
-    This fixture-stage runner operates on CPU so a torch RNG snapshot suffices.
-    Real-input adapters, GPU RNG, durable per-event output and cost probes are
-    separate #21 integration work.
+    The caller must feed accepted origins in order and complete deferred labels
+    when they become available. Late labels update current candidate trajectories;
+    a decision already issued for their original block is never revised. This
+    runner operates on CPU so a torch RNG snapshot suffices. GPU RNG, durable
+    per-event output and cost probes remain #21 integration work.
     """
 
     def __init__(
@@ -92,6 +94,7 @@ class PrequentialRunner:
         self.audit: tuple[float, ForecastGRU, torch.optim.Adam] | None = None
         self.audit_rng: Tensor | None = None
         self.pending: dict[str, Any] | None = None
+        self.late_pending: dict[str, dict[str, Any]] = {}
         self.days: list[DailyScore] = []
         self.issued: list[dict[str, Any]] = []
         self.decisions: list[Decision] = []
@@ -146,7 +149,9 @@ class PrequentialRunner:
         self.pending = {
             "day_id": origin.day_id,
             "index": origin.index,
+            "block_id": self.block_id,
             "status": "created",
+            "issued_index": len(self.issued),
             "x_hist": x_hist,
             "c_future": c_future,
             "forecasts": forecasts,
@@ -170,9 +175,14 @@ class PrequentialRunner:
 
     def arrive(self, label: LabelArrival) -> None:
         """Score stored forecasts, then train each candidate on complete labels."""
-        pending = self.pending
-        if pending is None or label.day_id != pending["day_id"]:
+        current = self.pending is not None and label.day_id == self.pending["day_id"]
+        pending = self.pending if current else self.late_pending.get(label.day_id)
+        if pending is None:
             raise ValueError("Label event has no matching issued/scheduled origin")
+        if not current and not label.arrived:
+            raise ValueError("Deferred label event must contain complete arrived labels")
+        if label.deferred and (label.arrived or not current or pending["status"] != "created"):
+            raise ValueError("Only a current created origin may defer unavailable labels")
         scores: tuple[float, float, float] | None = None
         if not label.arrived and (label.y_scaled is not None or label.valid is not None):
             raise ValueError("Unavailable labels must not enter the runner")
@@ -195,12 +205,22 @@ class PrequentialRunner:
                 scores = tuple(
                     float(torch.abs(forecast - y).mean()) for forecast in pending["forecasts"]
                 )
-                self.issued[-1]["normalized_mae"] = scores
-                self.issued[-1]["mae_kwh"] = tuple(value * self.energy_scale for value in scores)
+                issued_index = pending.get("issued_index")
+                if issued_index is None:
+                    issued_index = next(
+                        (index for index, item in enumerate(self.issued)
+                         if item["day_id"] == label.day_id),
+                        None,
+                    )
+                if issued_index is None:
+                    raise ValueError("Stored forecast is missing for arrived label")
+                issued = self.issued[issued_index]
+                issued["normalized_mae"] = scores
+                issued["mae_kwh"] = tuple(value * self.energy_scale for value in scores)
                 if pending["audit_forecast"] is not None:
                     audit_mae = float(torch.abs(pending["audit_forecast"] - y).mean())
-                    self.issued[-1]["audit_normalized_mae"] = audit_mae
-                    self.issued[-1]["audit_mae_kwh"] = audit_mae * self.energy_scale
+                    issued["audit_normalized_mae"] = audit_mae
+                    issued["audit_mae_kwh"] = audit_mae * self.energy_scale
                 self.events.append(f"score:{label.day_id}")
                 shared_rng = torch.get_rng_state().clone()
                 post_rng: Tensor | None = None
@@ -233,18 +253,26 @@ class PrequentialRunner:
                         torch.set_rng_state(live_rng)
                     self.audit_steps += 1
                     self.events.append(f"audit-update:{label.day_id}")
-        self.days.append(
-            DailyScore(
-                label.day_id,
-                label.arrived,
-                bool(valid),
-                scores,
-            )
-        )
+        daily = DailyScore(label.day_id, label.arrived, bool(valid), scores)
+        if current:
+            self.days.append(daily)
+        elif pending["block_id"] == self.block_id:
+            for index, day in enumerate(self.days):
+                if day.day_id == label.day_id:
+                    self.days[index] = daily
+                    break
+            else:
+                raise ValueError("Deferred day is absent from its current block")
         if scores is None:
             self.events.append(f"unscored:{label.day_id}")
-        self.pending = None
-        self.next_index += 1
+        if current:
+            if label.deferred:
+                pending.setdefault("block_id", self.block_id)
+                self.late_pending[label.day_id] = pending
+            self.pending = None
+            self.next_index += 1
+        else:
+            del self.late_pending[label.day_id]
 
     def finish_block(self) -> Decision:
         """Decide and carry the selected *trained* state into the next block."""
@@ -296,6 +324,7 @@ class PrequentialRunner:
             "block_id": self.block_id,
             "next_index": self.next_index,
             "pending": deepcopy(self.pending),
+            "late_pending": deepcopy(self.late_pending),
             "days": [asdict(day) for day in self.days],
             "issued": deepcopy(self.issued),
             "decisions": [asdict(decision) for decision in self.decisions],
@@ -344,6 +373,7 @@ class PrequentialRunner:
         runner.block_id = state["block_id"]
         runner.next_index = state["next_index"]
         runner.pending = state["pending"]
+        runner.late_pending = state.get("late_pending", {})
         runner.days = [DailyScore(**day) for day in state["days"]]
         runner.issued = state["issued"]
         runner.decisions = [Decision(**decision) for decision in state["decisions"]]
