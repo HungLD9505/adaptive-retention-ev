@@ -1,0 +1,363 @@
+"""Bounded, manifest-bound #19 Source and Development training smoke runs."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import platform
+import subprocess
+import time
+from pathlib import Path
+
+import torch
+
+from ev_inputs.features import SCHEMA_ID
+from ev_inputs.hourly_reader import sha256_file
+from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
+from experiments.hung_sprint2.retention import source_latent_scale
+from experiments.hung_sprint2.training import (
+    initialize_target,
+    load_checkpoint,
+    save_checkpoint,
+    source_step,
+    target_step,
+)
+
+ROOT = Path(__file__).resolve().parents[2]
+ARTIFACTS = (
+    "training.jsonl",
+    "entities.jsonl",
+    "forecasts.jsonl",
+    "labels.jsonl",
+    "schedule.jsonl",
+)
+
+
+def _load_run(path: Path, expected_sha256: str) -> dict:
+    """Verify the accepted v2 input manifest and every bound artifact."""
+    if sha256_file(path / "manifest.json") != expected_sha256:
+        raise ValueError("Input manifest SHA-256 mismatch")
+    manifest = json.loads((path / "manifest.json").read_text(encoding="utf-8"))
+    if (
+        manifest.get("schema") != "ev-loader-run-v2"
+        or manifest.get("feature_schema") != SCHEMA_ID
+        or manifest.get("missing_data_policy") != "ev-missing-data-v1"
+        or manifest.get("status")
+        not in {"technical_success", "technical_success_with_coverage_limits"}
+    ):
+        raise ValueError("Input run does not satisfy the accepted v2 policy")
+    if manifest.get("run_id") != path.name:
+        raise ValueError("Input run ID and directory differ")
+    for name in ARTIFACTS:
+        entry = manifest.get("files", {}).get(name)
+        if not isinstance(entry, dict) or sha256_file(path / name) != entry.get("sha256"):
+            raise ValueError(f"Input artifact SHA-256 mismatch: {name}")
+    config = manifest.get("config", {})
+    if config.get("dataset_id") not in {"urbanev", "charged"}:
+        raise ValueError("Unknown dataset profile")
+    if not isinstance(config.get("city_id"), str) or not config["city_id"]:
+        raise ValueError("Missing city profile")
+    if config.get("history_days") not in (7, 14, 28):
+        raise ValueError("Input history budget is not 7/14/28 days")
+    return manifest
+
+
+def _records(path: Path):
+    with path.open(encoding="utf-8") as stream:
+        for line in stream:
+            yield json.loads(line)
+
+
+def _identity(manifest: dict) -> tuple[str, str]:
+    config = manifest["config"]
+    return config["dataset_id"], config["city_id"]
+
+
+def _examples(path: Path, manifest: dict, role: str, entity_id: str | None = None) -> list[dict]:
+    dataset, city = _identity(manifest)
+    eligible = {
+        tuple(row["identity"])
+        for row in _records(path / "entities.jsonl")
+        if row["role"] == role
+    }
+    selected = []
+    for row in _records(path / "training.jsonl"):
+        if row["role"] != role:
+            continue
+        forecast = row["forecast"]
+        if (
+            tuple(forecast["identity"][:2]) != (dataset, city)
+            or forecast["input_run_id"] != manifest["run_id"]
+            or forecast["schema_id"] != SCHEMA_ID
+            or tuple(forecast["identity"]) not in eligible
+        ):
+            raise ValueError("Training record identity/schema mismatch")
+        if entity_id is None or forecast["identity"][2] == entity_id:
+            selected.append(row)
+    return selected
+
+
+def _tensors(rows: list[dict]) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    history = torch.tensor([row["forecast"]["x_hist"] for row in rows], dtype=torch.float32)
+    calendar = torch.tensor([row["forecast"]["c_future"] for row in rows], dtype=torch.float32)
+    labels = torch.tensor([row["y_scaled"] for row in rows], dtype=torch.float32)
+    if history.shape != (len(rows), 24, 7) or calendar.shape != (len(rows), 24, 5):
+        raise ValueError("Training tensor shape violates ev-input-v1")
+    if labels.shape != (len(rows), 24) or not torch.isfinite(labels).all():
+        raise ValueError("Training labels require 24 finite values")
+    if torch.any(labels < 0):
+        raise ValueError("Training labels cannot be negative")
+    return history, calendar, labels
+
+
+def _code_identity() -> dict:
+    source_paths = [
+        ROOT / "experiments" / "hung_sprint2" / name
+        for name in ("model.py", "retention.py", "training.py", "cli.py")
+    ]
+    return {
+        "commit": subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+        ).strip(),
+        "worktree_status": subprocess.check_output(
+            ["git", "status", "--porcelain"], cwd=ROOT, text=True
+        ).splitlines(),
+        "executed_sources": {
+            path.relative_to(ROOT).as_posix(): sha256_file(path) for path in source_paths
+        },
+    }
+
+
+def _binding(
+    manifest: dict,
+    manifest_sha256: str,
+    *,
+    stage: str,
+    entity_id: str | None = None,
+    scale_id: str | None = None,
+    source_checkpoint_sha256: str | None = None,
+) -> dict:
+    dataset, city = _identity(manifest)
+    return {
+        "schema": "ev-checkpoint-input-binding-v1",
+        "feature_schema": SCHEMA_ID,
+        "input_manifest_sha256": manifest_sha256,
+        "input_run_id": manifest["run_id"],
+        "dataset_id": dataset,
+        "city_id": city,
+        "stage": stage,
+        "entity_id": entity_id,
+        "history_days": manifest["config"]["history_days"] if stage == "target" else None,
+        "scale_id": scale_id,
+        "source_checkpoint_sha256": source_checkpoint_sha256,
+    }
+
+
+def _validate_limits(args: argparse.Namespace) -> None:
+    if args.steps <= 0 or args.batch_size <= 0 or args.seed < 0:
+        raise ValueError("steps, batch size and seed must be positive/nonnegative")
+    if not 0 < args.learning_rate < float("inf"):
+        raise ValueError("learning rate must be finite and positive")
+
+
+def _new_output(output: Path, *inputs: Path) -> Path:
+    destination = output.resolve()
+    if any(destination.is_relative_to(path.resolve()) for path in inputs):
+        raise ValueError("Output must not be inside an input run or source checkpoint folder")
+    if destination.exists():
+        raise FileExistsError("Output run already exists")
+    return destination
+
+
+def _write_run(output: Path, summary: dict) -> None:
+    with (output / "run_manifest.json").open("x", encoding="utf-8") as stream:
+        json.dump(summary, stream, indent=2, sort_keys=True, allow_nan=False)
+        stream.write("\n")
+
+
+def _source(args: argparse.Namespace) -> dict:
+    started = time.perf_counter()
+    _validate_limits(args)
+    if args.calendar_hidden <= 0:
+        raise ValueError("calendar_hidden must be positive")
+    run = args.input_run.resolve()
+    manifest = _load_run(run, args.manifest_sha256)
+    examples = _examples(run, manifest, "source")
+    if not examples:
+        raise ValueError("The selected input run has no Source training examples")
+    output = _new_output(args.output, run)
+    torch.manual_seed(args.seed)
+    model = ForecastGRU(ModelConfig(calendar_hidden=args.calendar_hidden))
+    optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
+    steps = 0
+    used = []
+    for start in range(0, len(examples), args.batch_size):
+        if steps == args.steps:
+            break
+        batch = examples[start : start + args.batch_size]
+        x_hist, c_future, y_scaled = _tensors(batch)
+        source_step(model, optimizer, x_hist, c_future, y_scaled)
+        used.extend(batch)
+        steps += 1
+    source_scale = source_latent_scale(
+        model, (_tensors(used[start : start + args.batch_size])[0]
+                for start in range(0, len(used), args.batch_size))
+    )
+    code = _code_identity()
+    output.mkdir(parents=True, exist_ok=False)
+    checkpoint = output / "source_checkpoint.pt"
+    binding = _binding(manifest, args.manifest_sha256, stage="source")
+    save_checkpoint(
+        checkpoint, model, optimizer, input_binding=binding, latent_scale=source_scale,
+        seed=args.seed, code_sha=code["commit"], training_step=steps,
+    )
+    summary = {
+        "scope": "bounded_source_smoke; not full source pretraining or effectiveness evidence",
+        "status": "completed",
+        "run_id": output.name,
+        "input_binding": binding,
+        "source_examples_available": len(examples),
+        "source_examples_used": len(used),
+        "steps": steps,
+        "requested_steps": args.steps,
+        "batch_size": args.batch_size,
+        "seed": args.seed,
+        "learning_rate": args.learning_rate,
+        "calendar_hidden": args.calendar_hidden,
+        "device": "cpu",
+        "python": platform.python_version(),
+        "torch": torch.__version__,
+        "duration_seconds": time.perf_counter() - started,
+        "code": code,
+        "checkpoint_sha256": sha256_file(checkpoint),
+    }
+    _write_run(output, summary)
+    return summary
+
+
+def _target(args: argparse.Namespace) -> dict:
+    started = time.perf_counter()
+    _validate_limits(args)
+    if not 0 <= args.retention_weight < float("inf") or not 0 < args.epsilon < float("inf"):
+        raise ValueError("retention weight/epsilon must be valid")
+    source_run = args.source_input_run.resolve()
+    source_manifest = _load_run(source_run, args.source_manifest_sha256)
+    target_run = args.input_run.resolve()
+    manifest = _load_run(target_run, args.manifest_sha256)
+    if _identity(source_manifest) != _identity(manifest):
+        raise ValueError("Source and target must have the same dataset/city profile")
+    source_binding = _binding(source_manifest, args.source_manifest_sha256, stage="source")
+    source_model, _, latent_scale, _ = load_checkpoint(
+        args.source_checkpoint, expected_binding=source_binding
+    )
+    if latent_scale is None:
+        raise ValueError("Source checkpoint lacks fixed latent scale")
+    source_sha = sha256_file(args.source_checkpoint)
+    source_run_record = args.source_checkpoint.parent / "run_manifest.json"
+    if not source_run_record.is_file():
+        raise ValueError("Source checkpoint run manifest is required")
+    source_record = json.loads(source_run_record.read_text(encoding="utf-8"))
+    if (
+        source_record.get("checkpoint_sha256") != source_sha
+        or source_record.get("input_binding") != source_binding
+    ):
+        raise ValueError("Source checkpoint lineage mismatch")
+    matches = [
+        row
+        for row in _records(target_run / "entities.jsonl")
+        if row["role"] == "development"
+        and row["identity"] == [*_identity(manifest), args.entity_id]
+    ]
+    if len(matches) != 1:
+        raise ValueError("Development target entity not found uniquely")
+    entity = matches[0]
+    mode = entity["initialization"]
+    if mode not in {"target_initial_adaptation", "source_checkpoint_only"}:
+        raise ValueError(f"Target initialization is blocked: {mode}")
+    scale_id = entity["scale"]["fit_sha256"]
+    examples = _examples(target_run, manifest, "development", args.entity_id)
+    if "initial_trainable" in entity and entity["initial_trainable"] != len(examples):
+        raise ValueError("Target example count disagrees with entity inventory")
+    if (mode == "source_checkpoint_only") != (len(examples) == 0):
+        raise ValueError("Target initialization mode disagrees with training records")
+    if any(row["forecast"]["scale_id"] != scale_id for row in examples):
+        raise ValueError("Target examples use a different frozen scale")
+    output = _new_output(args.output, target_run, source_run, args.source_checkpoint.parent)
+    torch.manual_seed(args.seed)
+    target, reference, optimizer = initialize_target(source_model, learning_rate=args.learning_rate)
+    steps = 0
+    for start in range(0, len(examples), args.batch_size):
+        if steps == args.steps:
+            break
+        x_hist, c_future, y_scaled = _tensors(examples[start : start + args.batch_size])
+        target_step(
+            target, reference, optimizer, x_hist, c_future, y_scaled,
+            retention_weight=args.retention_weight, latent_scale=latent_scale,
+            epsilon=args.epsilon,
+        )
+        steps += 1
+    code = _code_identity()
+    output.mkdir(parents=True, exist_ok=False)
+    checkpoint = output / "target_checkpoint.pt"
+    binding = _binding(
+        manifest, args.manifest_sha256, stage="target", entity_id=args.entity_id,
+        scale_id=scale_id, source_checkpoint_sha256=source_sha,
+    )
+    save_checkpoint(
+        checkpoint, target, optimizer, input_binding=binding, latent_scale=latent_scale,
+        seed=args.seed, code_sha=code["commit"], training_step=steps,
+    )
+    summary = {
+        "scope": "bounded_development_initialization; no online replay or effectiveness evidence",
+        "status": "completed",
+        "run_id": output.name,
+        "input_binding": binding,
+        "initialization": mode,
+        "target_examples_available": len(examples),
+        "steps": steps,
+        "requested_steps": args.steps,
+        "batch_size": args.batch_size,
+        "seed": args.seed,
+        "learning_rate": args.learning_rate,
+        "retention_weight": args.retention_weight,
+        "epsilon": args.epsilon,
+        "device": "cpu",
+        "python": platform.python_version(),
+        "torch": torch.__version__,
+        "duration_seconds": time.perf_counter() - started,
+        "source_scope": source_record.get("scope"),
+        "code": code,
+        "checkpoint_sha256": sha256_file(checkpoint),
+    }
+    _write_run(output, summary)
+    return summary
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    subparsers = parser.add_subparsers(dest="command", required=True)
+    source = subparsers.add_parser("source-smoke")
+    target = subparsers.add_parser("target-smoke")
+    for subparser in (source, target):
+        subparser.add_argument("--input-run", type=Path, required=True)
+        subparser.add_argument("--manifest-sha256", required=True)
+        subparser.add_argument("--output", type=Path, required=True)
+        subparser.add_argument("--steps", type=int, required=True)
+        subparser.add_argument("--batch-size", type=int, required=True)
+        subparser.add_argument("--seed", type=int, required=True)
+        subparser.add_argument("--learning-rate", type=float, required=True)
+    source.add_argument("--calendar-hidden", type=int, required=True)
+    target.add_argument("--source-input-run", type=Path, required=True)
+    target.add_argument("--source-manifest-sha256", required=True)
+    target.add_argument("--source-checkpoint", type=Path, required=True)
+    target.add_argument("--entity-id", required=True)
+    target.add_argument("--retention-weight", type=float, required=True)
+    target.add_argument("--epsilon", type=float, required=True)
+    args = parser.parse_args(argv)
+    result = _source(args) if args.command == "source-smoke" else _target(args)
+    print(json.dumps({key: result[key] for key in ("status", "run_id", "scope", "steps")}))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
