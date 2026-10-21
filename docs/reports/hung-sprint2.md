@@ -51,6 +51,8 @@ Phần này dựa trên commit #19 cục bộ `1ba63a1` vì hai module dùng chu
 
 `python -m unittest tests.test_hung_controller -v` đạt **9 test** với Python 3.13, UTF-8 và TEMP nội bộ. Kết quả này chưa chứng minh thời điểm xử lý runner hay hành vi controller trên dữ liệu thật. Giá trị config trong fixture chỉ phục vụ test, chưa phải tham số nghiên cứu được chọn.
 
+Nhánh #20 đã hợp nhất lịch sử phụ thuộc #19 ở commit `b5b126d`; trên nhánh #20 sau hợp nhất, **144 test đạt**. Draft PR #43 hướng vào `dev` nhưng phụ thuộc review/merge PR #42.
+
 ## #21 — runner và adapter đầu vào
 
 Nhánh #21 được xếp chồng trên commit #20 `1bcde3a`, còn chờ review/merge. Runner fixture trên CPU tách ba ứng viên model/optimizer; lưu dự báo trước nhãn; chỉ chấm và cập nhật horizon đủ nhãn; quyết định block trước dự báo tiếp theo; mang trạng thái đã huấn luyện của ứng viên được chọn; giữ một nhánh audit chính sách cũ riêng cho một block. Checkpoint tạo mới chứa model/optimizer, RNG, dự báo chờ nhãn, con trỏ sự kiện, lịch sử điểm và ràng buộc đầu vào. Test bao phủ giữ mức, chuyển mức bắt buộc, thiếu nhãn, thứ tự biên block và resume.
@@ -61,6 +63,6 @@ Adapter replay hiện xác minh manifest v2 cùng hash artifact, chọn một ta
 
 Checkpoint `d8fb07d` bổ sung hàng đợi nhãn theo `available_at`: nhãn đầy đủ đến trễ được chấm theo dự báo đã lưu và cập nhật các ứng viên hiện hành trước dự báo tiếp theo. Quyết định block đã phát không đổi hồi tố. Adapter kiểm tra lịch, con trỏ và forecast đã phát để resume mà không phát lặp. Fixture mới bao phủ nhãn trễ qua biên block, thứ tự đến khác thứ tự origin và resume khi còn nhãn chờ. Sau đó sửa lỗi Source #19 từ commit `f4118fb` được áp dụng rõ ràng lên nhánh này thành `3b88093`. Toàn nhánh chạy **157 test, OK**; `compileall` và `git diff --check` đạt trước khi cập nhật dòng báo cáo này.
 
-Sau snapshot báo cáo nhóm lúc 20:31, nhánh #19 đã có [draft PR #42](https://github.com/HungLD9505/adaptive-retention-ev/pull/42) với code/test/báo cáo cục bộ; chưa có PR cho #20/#21. Snapshot cũ không phản ánh các commit local hoặc draft PR mới, nhưng cũng không chứng minh các gate đã hoàn tất.
+Sau snapshot báo cáo nhóm lúc 20:31, nhánh #19 đã có [draft PR #42](https://github.com/HungLD9505/adaptive-retention-ev/pull/42) với code/test/báo cáo cục bộ; nhánh #20 có [draft PR #43](https://github.com/HungLD9505/adaptive-retention-ev/pull/43); chưa có PR cho #21. Snapshot cũ không phản ánh các commit local hoặc draft PR mới, nhưng cũng không chứng minh các gate đã hoàn tất.
 
 Gate replay Development thật vẫn mở: chưa có kiểm chứng DATA-v1, xử lý CUDA RNG, event log bền vững, thống kê đầy đủ chi phí và smoke thực tại biên block. Nhãn vẫn chưa sẵn sàng tại cutoff cuối replay tiếp tục không được chấm. Không suy diễn từ fixture rằng gate dữ liệu thật, Colab, Ruff hay Python 3.12 đã đạt.
