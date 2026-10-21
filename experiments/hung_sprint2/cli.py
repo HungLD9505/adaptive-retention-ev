@@ -76,9 +76,7 @@ def _identity(manifest: dict) -> tuple[str, str]:
 def _examples(path: Path, manifest: dict, role: str, entity_id: str | None = None) -> list[dict]:
     dataset, city = _identity(manifest)
     eligible = {
-        tuple(row["identity"])
-        for row in _records(path / "entities.jsonl")
-        if row["role"] == role
+        tuple(row["identity"]) for row in _records(path / "entities.jsonl") if row["role"] == role
     }
     selected = []
     for row in _records(path / "training.jsonl"):
@@ -202,16 +200,25 @@ def _source(args: argparse.Namespace) -> dict:
         used.extend(batch)
         steps += 1
     source_scale = source_latent_scale(
-        model, (_tensors(used[start : start + args.batch_size])[0]
-                for start in range(0, len(used), args.batch_size))
+        model,
+        (
+            _tensors(used[start : start + args.batch_size])[0]
+            for start in range(0, len(used), args.batch_size)
+        ),
     )
     code = _code_identity()
     output.mkdir(parents=True, exist_ok=False)
     checkpoint = output / "source_checkpoint.pt"
     binding = _binding(manifest, args.manifest_sha256, stage="source")
     save_checkpoint(
-        checkpoint, model, optimizer, input_binding=binding, latent_scale=source_scale,
-        seed=args.seed, code_sha=code["commit"], training_step=steps,
+        checkpoint,
+        model,
+        optimizer,
+        input_binding=binding,
+        latent_scale=source_scale,
+        seed=args.seed,
+        code_sha=code["commit"],
+        training_step=steps,
     )
     summary = {
         "scope": "bounded_source_smoke; not full source pretraining or effectiveness evidence",
@@ -293,8 +300,14 @@ def _target(args: argparse.Namespace) -> dict:
             break
         x_hist, c_future, y_scaled = _tensors(examples[start : start + args.batch_size])
         target_step(
-            target, reference, optimizer, x_hist, c_future, y_scaled,
-            retention_weight=args.retention_weight, latent_scale=latent_scale,
+            target,
+            reference,
+            optimizer,
+            x_hist,
+            c_future,
+            y_scaled,
+            retention_weight=args.retention_weight,
+            latent_scale=latent_scale,
             epsilon=args.epsilon,
         )
         steps += 1
@@ -302,12 +315,22 @@ def _target(args: argparse.Namespace) -> dict:
     output.mkdir(parents=True, exist_ok=False)
     checkpoint = output / "target_checkpoint.pt"
     binding = _binding(
-        manifest, args.manifest_sha256, stage="target", entity_id=args.entity_id,
-        scale_id=scale_id, source_checkpoint_sha256=source_sha,
+        manifest,
+        args.manifest_sha256,
+        stage="target",
+        entity_id=args.entity_id,
+        scale_id=scale_id,
+        source_checkpoint_sha256=source_sha,
     )
     save_checkpoint(
-        checkpoint, target, optimizer, input_binding=binding, latent_scale=latent_scale,
-        seed=args.seed, code_sha=code["commit"], training_step=steps,
+        checkpoint,
+        target,
+        optimizer,
+        input_binding=binding,
+        latent_scale=latent_scale,
+        seed=args.seed,
+        code_sha=code["commit"],
+        training_step=steps,
     )
     summary = {
         "scope": "bounded_development_initialization; no online replay or effectiveness evidence",
