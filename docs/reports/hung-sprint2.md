@@ -131,3 +131,20 @@ The fix was applied to this stacked branch as `68fb36e` (and to #20 as
 Python 3.13 with repo-local TEMP and UTF-8, plus `compileall` and
 `git diff --check`. The checkout is clean. This is offline fixture evidence,
 not a claim that any real-data, Colab, Ruff or Python 3.12 gate passed.
+
+## #21 accepted-input adapter checkpoint
+
+The replay adapter verifies the v2 input manifest and artifact hashes, selects
+one Development target, checks its binding and scale, preserves scheduled
+coverage, and issues predictor-only forecasts before consulting matching
+labels. It uses `ready_labels` to admit only complete, available horizons;
+fixture tests cover label delay, missing labels, blocked coverage, tampered
+artifacts, binding, and forecast-first order.
+
+After this adapter was added, `python -m unittest discover -s tests -q` ran
+**152 tests, OK** on Python 3.13 with repo-local TEMP and UTF-8. `python -m
+compileall -q experiments/hung_sprint2` and `git diff --check` passed. The
+adapter cannot resume from a nonzero cursor, and labels arriving after the
+next origin are currently skipped rather than queued for later updates.
+There is no installed DATA-v1 snapshot or real Development replay evidence;
+the #21 integration and Phase 04 gates remain open.
