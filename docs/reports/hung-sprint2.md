@@ -88,3 +88,19 @@ consume a usage reset.
   Source pretraining, Development adaptation, Colab run, controller replay,
   cross-implementation comparison or peer review has run. The phase gates
   requiring those activities remain open.
+
+## #20 controller slice
+
+This slice is based on #19 offline commit `1ba63a1` because the two modules
+share the proposed score interface; #19 is not merged into `dev` yet. The
+controller takes daily paired normalized MAEs, excludes incomplete or
+unarrived days, applies a moving contiguous-day block bootstrap with shared
+resample indices across challengers and Bonferroni `alpha/2`, then requires a
+strict `LCB > delta`. The percentile uses a fixed empirical order statistic;
+the seed and block ID make decisions reproducible. These bootstrap details
+are an explicit Development policy proposal pending consumer review.
+
+`python -m unittest tests.test_hung_controller -v` ran **9 tests, OK** under
+the local Python 3.13 UTF-8/TEMP setup. It does not establish runner timing or
+real-data controller behavior. The config parameters have no selected
+research values yet; fixture values are tests only.
