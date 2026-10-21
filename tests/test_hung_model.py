@@ -5,6 +5,7 @@ from __future__ import annotations
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import torch
 
@@ -142,6 +143,30 @@ class ModelTests(unittest.TestCase):
             mismatch["input_run_id"] = "other-run"
             with self.assertRaises(ValueError):
                 load_checkpoint(path, expected_binding=mismatch)
+
+    def test_checkpoint_failed_serialization_does_not_publish_partial_file(self) -> None:
+        optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "failed-source.pt"
+
+            def fail_after_partial_write(_payload: dict, stream) -> None:
+                stream.write(b"partial checkpoint")
+                raise RuntimeError("injected serialization failure")
+
+            with patch("experiments.hung_sprint2.training.torch.save", fail_after_partial_write):
+                with self.assertRaisesRegex(RuntimeError, "injected serialization failure"):
+                    save_checkpoint(
+                        path,
+                        self.model,
+                        optimizer,
+                        input_binding=_source_binding(),
+                        latent_scale=torch.ones(64),
+                        seed=101,
+                        code_sha="fixture-code-sha",
+                        training_step=0,
+                    )
+            self.assertFalse(path.exists())
+            self.assertEqual(list(Path(directory).iterdir()), [])
 
 
 if __name__ == "__main__":

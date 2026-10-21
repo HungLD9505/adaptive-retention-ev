@@ -185,6 +185,8 @@ def _source(args: argparse.Namespace) -> dict:
     examples = _examples(run, manifest, "source")
     if not examples:
         raise ValueError("The selected input run has no Source training examples")
+    if min(len(examples), args.steps * args.batch_size) < 2:
+        raise ValueError("Source smoke requires at least two examples before training")
     output = _new_output(args.output, run)
     torch.manual_seed(args.seed)
     model = ForecastGRU(ModelConfig(calendar_hidden=args.calendar_hidden))
