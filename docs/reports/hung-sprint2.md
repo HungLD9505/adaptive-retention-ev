@@ -123,5 +123,11 @@ forced switch, missing labels, boundary ordering and resume.
 This is not the real Development replay gate: no accepted DATA-v1 schedule/
 labels adapter, actual timestamp availability validation, CUDA RNG handling,
 durable event log, full cost accounting or real block-boundary smoke exists.
-The runner test count and full-suite result should be updated after the #19
-QA fix is integrated and the final local run is complete.
+The runner fixture tests ran **6 tests, OK**. QA reproduced a float32 epsilon
+underflow; #19 commit `7a93558` now rejects nonfinite retention/gradients,
+prevalidates bounded Source sample count, and publishes checkpoints atomically.
+The fix was applied to this stacked branch as `68fb36e` (and to #20 as
+`ac1726e`). The final branch-wide local check ran **149 tests, OK** under
+Python 3.13 with repo-local TEMP and UTF-8, plus `compileall` and
+`git diff --check`. The checkout is clean. This is offline fixture evidence,
+not a claim that any real-data, Colab, Ruff or Python 3.12 gate passed.
