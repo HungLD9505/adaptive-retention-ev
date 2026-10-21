@@ -82,6 +82,50 @@ class RetentionTests(unittest.TestCase):
             retention_loss(target, source, torch.ones(64), epsilon=float("nan"))
         self.assertEqual(float(retention_loss(target, source, torch.zeros(64), epsilon=1e-6)), 0)
 
+    def test_underflow_and_overflow_rejected_before_optimizer_step(self) -> None:
+        target_latent = torch.ones(1, 64, requires_grad=True)
+        source_latent = torch.zeros(1, 64)
+        zero_scale = torch.zeros(64)
+        with self.assertRaisesRegex(ValueError, "denominator"):
+            retention_loss(target_latent, source_latent, zero_scale, epsilon=1e-100)
+        with self.assertRaisesRegex(ValueError, "Retention loss is not finite"):
+            retention_loss(target_latent, source_latent, zero_scale, epsilon=1e-40)
+
+        source_model = ForecastGRU(ModelConfig(calendar_hidden=8))
+        target_model, reference, optimizer = initialize_target(source_model, learning_rate=0.001)
+        before = [parameter.detach().clone() for parameter in target_model.parameters()]
+        with self.assertRaisesRegex(ValueError, "denominator"):
+            target_step(
+                target_model,
+                reference,
+                optimizer,
+                torch.rand(2, 24, 7),
+                torch.rand(2, 24, 5),
+                torch.rand(2, 24),
+                retention_weight=0.5,
+                latent_scale=zero_scale,
+                epsilon=1e-100,
+            )
+        self.assertEqual(len(optimizer.state), 0)
+        for original, parameter in zip(before, target_model.parameters(), strict=True):
+            self.assertTrue(torch.equal(original, parameter))
+
+        with self.assertRaisesRegex(ValueError, "Target loss is not finite"):
+            target_step(
+                target_model,
+                reference,
+                optimizer,
+                torch.rand(2, 24, 7),
+                torch.rand(2, 24, 5),
+                torch.full((2, 24), 3e38),
+                retention_weight=0,
+                latent_scale=None,
+                epsilon=1e-6,
+            )
+        self.assertEqual(len(optimizer.state), 0)
+        for original, parameter in zip(before, target_model.parameters(), strict=True):
+            self.assertTrue(torch.equal(original, parameter))
+
     def test_reference_is_independent_clone(self) -> None:
         source = ForecastGRU(ModelConfig(calendar_hidden=8))
         reference = frozen_source_reference(source)

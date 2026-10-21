@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import os
 import re
+import tempfile
 from copy import deepcopy
 from dataclasses import dataclass
 from pathlib import Path
@@ -115,7 +117,15 @@ def target_step(
     else:
         keep_loss = forecast_loss.new_zeros(())
     total_loss = forecast_loss + retention_weight * keep_loss
+    if not torch.isfinite(total_loss):
+        raise ValueError("Target loss is not finite; optimizer step was skipped")
     total_loss.backward()
+    if any(
+        parameter.grad is not None and not torch.isfinite(parameter.grad).all()
+        for parameter in target.parameters()
+    ):
+        optimizer.zero_grad(set_to_none=True)
+        raise ValueError("Target gradient is not finite; optimizer step was skipped")
     optimizer.step()
     return StepLoss(
         forecast=float(forecast_loss.detach()),
@@ -192,8 +202,24 @@ def save_checkpoint(
         "optimizer_state": optimizer.state_dict(),
         "latent_scale": None if latent_scale is None else latent_scale.detach().clone(),
     }
-    with Path(path).open("xb") as stream:
-        torch.save(payload, stream)
+    destination = Path(path)
+    descriptor, temporary_name = tempfile.mkstemp(
+        dir=destination.parent, prefix=f".{destination.name}.", suffix=".tmp"
+    )
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "wb") as stream:
+            torch.save(payload, stream)
+            stream.flush()
+            os.fsync(stream.fileno())
+        # Windows rename and POSIX hard-link creation are same-directory,
+        # atomic publications that fail if the destination already exists.
+        if os.name == "nt":
+            os.rename(temporary, destination)
+        else:
+            os.link(temporary, destination)
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 def load_checkpoint(
