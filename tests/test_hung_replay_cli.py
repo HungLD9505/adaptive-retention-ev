@@ -6,6 +6,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import torch
 
@@ -116,6 +117,15 @@ class ReplayCliTests(unittest.TestCase):
             checkpoint = args.output / "runner_checkpoint.pt"
             self.assertEqual(first["final_runner_checkpoint_sha256"], sha256_file(checkpoint))
             self.assertEqual(load_runner(checkpoint, expected_binding=binding).next_index, 1)
+            first_journal = args.output / "events.jsonl"
+            first_records = [json.loads(line) for line in first_journal.read_text().splitlines()]
+            self.assertEqual(first["event_journal"]["sha256"], sha256_file(first_journal))
+            self.assertEqual(first_records[0]["kind"], "header")
+            self.assertEqual(first_records[0]["start_event_index"], 0)
+            self.assertEqual(
+                [(row["event_index"], row["value"]) for row in first_records[1:]],
+                list(enumerate(first["event_evidence"]["events"])),
+            )
             args.output = root / "resumed"
             args.max_origins = 3
             args.resume_checkpoint = checkpoint
@@ -126,8 +136,36 @@ class ReplayCliTests(unittest.TestCase):
             self.assertEqual(len(resumed["event_evidence"]["decisions"]), 1)
             self.assertEqual(resumed["resumed_from"]["checkpoint_sha256"], sha256_file(checkpoint))
             self.assertIsNotNone(resumed["metrics_kwh"]["live"])
+            resumed_journal = args.output / "events.jsonl"
+            resumed_records = [
+                json.loads(line) for line in resumed_journal.read_text().splitlines()
+            ]
+            previous_events = len(first["event_evidence"]["events"])
+            self.assertEqual(resumed_records[0]["start_event_index"], previous_events)
+            self.assertEqual(
+                [(row["event_index"], row["value"]) for row in resumed_records[1:]],
+                list(enumerate(resumed["event_evidence"]["events"]))[previous_events:],
+            )
             with self.assertRaises(FileExistsError):
                 _replay(args)
+
+    def test_interrupted_replay_preserves_partial_journal_without_success_manifest(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest, source, target, _ = self._inputs(root)
+            args = self._args(root, run, digest, source, target, "interrupted", 1)
+            with patch(
+                "experiments.hung_sprint2.replay_inputs.ready_labels",
+                side_effect=ValueError("simulated input failure"),
+            ):
+                with self.assertRaisesRegex(ValueError, "simulated input failure"):
+                    _replay(args)
+            journal = args.output / "events.jsonl"
+            records = [json.loads(line) for line in journal.read_text().splitlines()]
+            self.assertEqual(records[0]["kind"], "header")
+            self.assertTrue(any(row.get("value", "").startswith("forecast:") for row in records))
+            self.assertFalse((args.output / "run_manifest.json").exists())
+            self.assertFalse((args.output / "runner_checkpoint.pt").exists())
 
     def test_tampered_checkpoint_and_resume_config_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

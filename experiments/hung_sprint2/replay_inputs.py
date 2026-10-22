@@ -6,7 +6,7 @@ import json
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Iterator
+from typing import Callable, Iterator
 
 import torch
 
@@ -76,6 +76,8 @@ def replay_target(
     entity_id: str,
     runner: PrequentialRunner | None,
     max_origins: int | None = None,
+    event_sink: Callable[[int, str], None] | None = None,
+    event_start_index: int = 0,
 ) -> ReplaySummary:
     """Replay the accepted schedule; parse each label only after forecasting.
 
@@ -128,6 +130,8 @@ def replay_target(
         return ReplaySummary(len(schedule), 0, 0, blocked, 0, 0)
     if runner is None:
         raise ValueError("A bound runner is required for defined-scale target")
+    if not 0 <= event_start_index <= len(runner.events):
+        raise ValueError("Event journal start index is outside runner history")
     if entity.get("initialization") not in {"target_initial_adaptation", "source_checkpoint_only"}:
         raise ValueError("Unsupported target initialization")
     scale = entity.get("scale", {})
@@ -171,6 +175,16 @@ def replay_target(
     )
     labels = _target_rows(input_run / "labels.jsonl", identity)
     late_records: dict[str, LabelRecord] = {}
+    next_event_index = event_start_index
+
+    def flush_events() -> None:
+        nonlocal next_event_index
+        if event_sink is not None:
+            for event_index in range(next_event_index, len(runner.events)):
+                event_sink(event_index, runner.events[event_index])
+        next_event_index = len(runner.events)
+
+    flush_events()
 
     def deliver_ready(as_of: datetime) -> None:
         # Ties retain origin order; updates occur before the next affected forecast.
@@ -199,6 +213,7 @@ def replay_target(
                     torch.ones(24, dtype=torch.bool),
                 )
             )
+            flush_events()
             del late_records[origin_label]
 
     for index, scheduled in enumerate(schedule):
@@ -220,6 +235,7 @@ def replay_target(
                 deliver_ready(origins[index])
                 if len(runner.days) == runner.controller.block_days:
                     runner.finish_block()
+                    flush_events()
                 if forecast is not None:
                     event = Origin(
                         origin_label,
@@ -230,6 +246,7 @@ def replay_target(
                 else:
                     event = Origin(origin_label, index, None, None, "skipped_all_missing_history")
                 runner.forecast(event)
+                flush_events()
         # A resumed prior origin was already forecast. New labels are parsed
         # only after the matching forecast or scheduled skip was persisted.
         label_row = next(labels, None)
@@ -257,6 +274,7 @@ def replay_target(
             and all(value is not None for value in record.available_at)
         )
         runner.arrive(LabelArrival(origin_label, False, deferred=deferred))
+        flush_events()
         if deferred:
             late_records[origin_label] = record
     if limit == len(schedule) and (
@@ -269,6 +287,7 @@ def replay_target(
         deliver_ready(origins[-1] + timedelta(days=1))
     if len(runner.days) == runner.controller.block_days:
         runner.finish_block()
+        flush_events()
     scored = sum(row["normalized_mae"] is not None for row in runner.issued)
     if limit < len(schedule):
         created = statuses[:limit].count("created")

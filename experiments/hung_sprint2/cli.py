@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import platform
 import subprocess
 import time
@@ -545,15 +546,49 @@ def _replay(args: argparse.Namespace) -> dict:
         args.target_checkpoint.parent,
         *([args.resume_checkpoint.parent] if args.resume_checkpoint else []),
     )
-    replay = replay_target(
-        input_run,
-        manifest_sha256=args.manifest_sha256,
-        entity_id=args.entity_id,
-        runner=runner,
-        max_origins=args.max_origins,
-    )
-    evaluation = evaluate_replay(runner, replay)
     output.mkdir(parents=True, exist_ok=False)
+    journal_path = output / "events.jsonl"
+    event_start_index = 0 if resumed_from is None else len(runner.events)
+    journal_count = 0
+    with journal_path.open("x", encoding="utf-8", newline="\n") as journal:
+        header = {
+            "schema": "hung-sprint2-event-journal-v1",
+            "kind": "header",
+            "run_id": output.name,
+            "input_binding": target_binding,
+            "resumed_from": resumed_from,
+            "start_event_index": event_start_index,
+        }
+        journal.write(json.dumps(header, sort_keys=True, allow_nan=False) + "\n")
+        journal.flush()
+        os.fsync(journal.fileno())
+
+        def record_event(event_index: int, event: str) -> None:
+            nonlocal journal_count
+            journal.write(
+                json.dumps(
+                    {"kind": "event", "event_index": event_index, "value": event},
+                    sort_keys=True,
+                    allow_nan=False,
+                )
+                + "\n"
+            )
+            journal.flush()
+            os.fsync(journal.fileno())
+            journal_count += 1
+
+        replay = replay_target(
+            input_run,
+            manifest_sha256=args.manifest_sha256,
+            entity_id=args.entity_id,
+            runner=runner,
+            max_origins=args.max_origins,
+            event_sink=record_event,
+            event_start_index=event_start_index,
+        )
+    if journal_count != len(runner.events) - event_start_index:
+        raise ValueError("Event journal does not cover the replayed runner events")
+    evaluation = evaluate_replay(runner, replay)
     final_checkpoint = output / "runner_checkpoint.pt"
     save_runner(final_checkpoint, runner)
     summary = {
@@ -579,6 +614,13 @@ def _replay(args: argparse.Namespace) -> dict:
         "event_evidence": {
             "events": runner.events,
             "decisions": [asdict(x) for x in runner.decisions],
+        },
+        "event_journal": {
+            "file": journal_path.name,
+            "sha256": sha256_file(journal_path),
+            "start_event_index": event_start_index,
+            "end_event_index": len(runner.events),
+            "events_written": journal_count,
         },
         "runner_cursor": runner.next_index,
         "python": platform.python_version(),
