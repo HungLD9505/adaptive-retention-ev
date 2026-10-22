@@ -170,6 +170,11 @@ class TrainingConsumerTests(unittest.TestCase):
             source_manifest = json.loads((source_output / "run_manifest.json").read_text())
             self.assertEqual(source_manifest["source_examples_used"], 2)
             self.assertEqual(source_manifest["input_binding"]["stage"], "source")
+            self.assertEqual(
+                source_manifest["memory_usage"]["scope"].split(";")[0], "whole CLI process"
+            )
+            if source_manifest["memory_usage"]["peak_rss_bytes"] is not None:
+                self.assertGreater(source_manifest["memory_usage"]["peak_rss_bytes"], 0)
             target_args = [
                 "target-smoke",
                 "--input-run",
@@ -203,6 +208,7 @@ class TrainingConsumerTests(unittest.TestCase):
             target_manifest = json.loads((target_output / "run_manifest.json").read_text())
             self.assertEqual(target_manifest["steps"], 1)
             self.assertEqual(target_manifest["input_binding"]["entity_id"], "dev-1")
+            self.assertIn("peak_rss_bytes", target_manifest["memory_usage"])
             self.assertEqual(
                 target_manifest["input_binding"]["source_checkpoint_sha256"],
                 source_manifest["checkpoint_sha256"],

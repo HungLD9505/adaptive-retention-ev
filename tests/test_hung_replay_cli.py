@@ -114,6 +114,7 @@ class ReplayCliTests(unittest.TestCase):
             self.assertEqual(first["coverage"]["created"], 1)
             self.assertEqual(first["runner_cursor"], 1)
             self.assertTrue(first["runtime_costs"]["complete"])
+            self.assertIn("peak_rss_bytes", first["memory_usage"])
             checkpoint = args.output / "runner_checkpoint.pt"
             self.assertEqual(first["final_runner_checkpoint_sha256"], sha256_file(checkpoint))
             self.assertEqual(load_runner(checkpoint, expected_binding=binding).next_index, 1)

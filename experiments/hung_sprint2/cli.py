@@ -76,6 +76,20 @@ def _records(path: Path):
             yield json.loads(line)
 
 
+def _process_memory() -> dict:
+    """Record the CLI process peak RSS when Linux exposes it."""
+    if platform.system() != "Linux":
+        return {"peak_rss_bytes": None, "scope": "whole CLI process", "source": "unavailable"}
+    import resource
+
+    peak_kib = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    return {
+        "peak_rss_bytes": int(peak_kib) * 1024,
+        "scope": "whole CLI process; maximum since process start",
+        "source": "resource.RUSAGE_SELF.ru_maxrss (Linux KiB)",
+    }
+
+
 def _identity(manifest: dict) -> tuple[str, str]:
     config = manifest["config"]
     return config["dataset_id"], config["city_id"]
@@ -303,6 +317,7 @@ def _source(args: argparse.Namespace) -> dict:
         "python": platform.python_version(),
         "torch": torch.__version__,
         "duration_seconds": time.perf_counter() - started,
+        "memory_usage": _process_memory(),
         "code": code,
         "checkpoint_sha256": sha256_file(checkpoint),
     }
@@ -416,6 +431,7 @@ def _target(args: argparse.Namespace) -> dict:
         "python": platform.python_version(),
         "torch": torch.__version__,
         "duration_seconds": time.perf_counter() - started,
+        "memory_usage": _process_memory(),
         "source_scope": source_record.get("scope"),
         "code": code,
         "checkpoint_sha256": sha256_file(checkpoint),
@@ -657,6 +673,7 @@ def _replay(args: argparse.Namespace) -> dict:
         "python": platform.python_version(),
         "torch": torch.__version__,
         "duration_seconds": time.perf_counter() - started,
+        "memory_usage": _process_memory(),
         "code": code,
     }
     _write_run(output, summary)
