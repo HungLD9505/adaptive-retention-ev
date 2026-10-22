@@ -184,6 +184,23 @@ class ReplayCliTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 _replay(args)
 
+    def test_tampered_previous_event_journal_blocks_resume(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest, source, target, _ = self._inputs(root)
+            args = self._args(root, run, digest, source, target, "first", 1)
+            _replay(args)
+            checkpoint = args.output / "runner_checkpoint.pt"
+            journal = args.output / "events.jsonl"
+            with journal.open("a", encoding="utf-8") as stream:
+                stream.write('{"kind":"event","event_index":999,"value":"tamper"}\n')
+            args.output = root / "resume-rejected"
+            args.max_origins = 3
+            args.resume_checkpoint = checkpoint
+            with self.assertRaisesRegex(ValueError, "lineage/config/code mismatch"):
+                _replay(args)
+            self.assertFalse(args.output.exists())
+
 
 if __name__ == "__main__":
     unittest.main()

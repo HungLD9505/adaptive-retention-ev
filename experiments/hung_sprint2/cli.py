@@ -513,6 +513,22 @@ def _replay(args: argparse.Namespace) -> dict:
         previous = json.loads(
             (args.resume_checkpoint.parent / "run_manifest.json").read_text(encoding="utf-8")
         )
+        previous_journal = previous.get("event_journal")
+        journal_file = args.resume_checkpoint.parent / "events.jsonl"
+        if not isinstance(previous_journal, dict) or not journal_file.is_file():
+            raise ValueError("Previous replay event journal is missing")
+        journal_start = previous_journal.get("start_event_index")
+        journal_end = previous_journal.get("end_event_index")
+        journal_events = previous_journal.get("events_written")
+        if (
+            any(
+                isinstance(value, bool) or not isinstance(value, int)
+                for value in (journal_start, journal_end, journal_events)
+            )
+            or not 0 <= journal_start <= journal_end
+            or journal_events != journal_end - journal_start
+        ):
+            raise ValueError("Previous replay event journal index range is invalid")
         if (
             previous.get("schema") != "hung-sprint2-development-replay-v1"
             or previous.get("status") != "completed"
@@ -526,6 +542,8 @@ def _replay(args: argparse.Namespace) -> dict:
             or previous.get("config", {}).get("epsilon") != args.epsilon
             or previous.get("config", {}).get("seed") != args.seed
             or previous.get("code", {}).get("executed_sources") != code["executed_sources"]
+            or previous_journal.get("file") != "events.jsonl"
+            or sha256_file(journal_file) != previous_journal.get("sha256")
         ):
             raise ValueError("Runner resume lineage/config/code mismatch")
         runner = load_runner(args.resume_checkpoint, expected_binding=target_binding)
@@ -535,6 +553,7 @@ def _replay(args: argparse.Namespace) -> dict:
             or runner.energy_scale != scale["energy_scale"]
             or runner.next_index != previous.get("runner_cursor")
             or runner.next_index >= args.max_origins
+            or journal_end != len(runner.events)
         ):
             raise ValueError("Restored runner configuration differs")
         resumed_from = {"run_id": previous["run_id"], "checkpoint_sha256": resume_sha}
