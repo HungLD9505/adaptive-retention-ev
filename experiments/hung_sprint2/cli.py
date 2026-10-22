@@ -7,6 +7,7 @@ import json
 import platform
 import subprocess
 import time
+from dataclasses import asdict
 from pathlib import Path
 from zipfile import BadZipFile, ZipFile
 
@@ -14,8 +15,12 @@ import torch
 
 from ev_inputs.features import SCHEMA_ID
 from ev_inputs.hourly_reader import sha256_file
+from experiments.hung_sprint2.checkpoint import load_runner, save_runner
+from experiments.hung_sprint2.controller import ControllerConfig
+from experiments.hung_sprint2.evaluation import evaluate_replay
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.retention import source_latent_scale
+from experiments.hung_sprint2.retention import frozen_source_reference, source_latent_scale
+from experiments.hung_sprint2.runner import PrequentialRunner
 from experiments.hung_sprint2.training import (
     initialize_target,
     load_checkpoint,
@@ -113,7 +118,17 @@ def _tensors(rows: list[dict]) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor
 def _code_identity() -> dict:
     source_paths = [
         ROOT / "experiments" / "hung_sprint2" / name
-        for name in ("model.py", "retention.py", "training.py", "cli.py")
+        for name in (
+            "model.py",
+            "retention.py",
+            "training.py",
+            "cli.py",
+            "controller.py",
+            "runner.py",
+            "replay_inputs.py",
+            "checkpoint.py",
+            "evaluation.py",
+        )
     ]
     return {
         "commit": subprocess.check_output(
@@ -396,12 +411,192 @@ def _target(args: argparse.Namespace) -> dict:
     return summary
 
 
+def _replay(args: argparse.Namespace) -> dict:
+    from experiments.hung_sprint2.replay_inputs import replay_target
+
+    started = time.perf_counter()
+    if args.seed < 0 or not 0 < args.epsilon < float("inf"):
+        raise ValueError("Replay seed/epsilon is invalid")
+    controller = ControllerConfig(
+        levels=(0.0, args.level_one, args.level_two),
+        initial_level=args.initial_level,
+        block_days=args.block_days,
+        min_complete_days=args.min_complete_days,
+        delta=args.delta,
+        alpha=args.alpha,
+        bootstrap_segment_days=args.bootstrap_segment_days,
+        bootstrap_resamples=args.bootstrap_resamples,
+        seed=args.seed,
+        challenger_rule=args.challenger_rule,
+    )
+    input_run = args.input_run.resolve()
+    source_run = args.source_input_run.resolve()
+    manifest = _load_run(input_run, args.manifest_sha256)
+    source_manifest = _load_run(source_run, args.source_manifest_sha256)
+    if _identity(manifest) != _identity(source_manifest):
+        raise ValueError("Source and target dataset/city differ")
+    if args.entity_id == "" or args.max_origins <= 0:
+        raise ValueError("Entity and positive origin limit are required")
+    source_binding = _binding(source_manifest, args.source_manifest_sha256, stage="source")
+    source_sha = sha256_file(args.source_checkpoint)
+    source_record = json.loads(
+        (args.source_checkpoint.parent / "run_manifest.json").read_text(encoding="utf-8")
+    )
+    if (
+        source_record.get("checkpoint_sha256") != source_sha
+        or source_record.get("input_binding") != source_binding
+    ):
+        raise ValueError("Source checkpoint run lineage mismatch")
+    source_model, _, source_scale, _ = load_checkpoint(
+        args.source_checkpoint, expected_binding=source_binding
+    )
+    if source_scale is None:
+        raise ValueError("Source checkpoint lacks fixed latent scale")
+    entities = [
+        row
+        for row in _records(input_run / "entities.jsonl")
+        if row.get("role") == "development"
+        and row.get("identity") == [*_identity(manifest), args.entity_id]
+    ]
+    if len(entities) != 1 or entities[0].get("initialization") not in {
+        "target_initial_adaptation",
+        "source_checkpoint_only",
+    }:
+        raise ValueError("Unique, trainable Development entity is required")
+    scale = entities[0]["scale"]
+    target_binding = _binding(
+        manifest,
+        args.manifest_sha256,
+        stage="target",
+        entity_id=args.entity_id,
+        scale_id=scale["fit_sha256"],
+        source_checkpoint_sha256=source_sha,
+    )
+    target_sha = sha256_file(args.target_checkpoint)
+    target_record = json.loads(
+        (args.target_checkpoint.parent / "run_manifest.json").read_text(encoding="utf-8")
+    )
+    if (
+        target_record.get("checkpoint_sha256") != target_sha
+        or target_record.get("input_binding") != target_binding
+    ):
+        raise ValueError("Target checkpoint run lineage mismatch")
+    target_model, optimizer, target_scale, _ = load_checkpoint(
+        args.target_checkpoint, expected_binding=target_binding
+    )
+    if target_scale is None or not torch.equal(target_scale, source_scale):
+        raise ValueError("Target latent scale differs from bound Source")
+    config = {
+        "controller": {**asdict(controller), "levels": list(controller.levels)},
+        "epsilon": args.epsilon,
+        "seed": args.seed,
+        "max_origins": args.max_origins,
+        "device": "cpu",
+    }
+    code = _code_identity()
+    if args.resume_checkpoint is None:
+        torch.manual_seed(args.seed)
+        runner = PrequentialRunner(
+            target_model,
+            optimizer,
+            frozen_source_reference(source_model),
+            source_scale,
+            binding=target_binding,
+            controller=controller,
+            epsilon=args.epsilon,
+            energy_scale=scale["energy_scale"],
+        )
+        resumed_from = None
+    else:
+        resume_sha = sha256_file(args.resume_checkpoint)
+        previous = json.loads(
+            (args.resume_checkpoint.parent / "run_manifest.json").read_text(encoding="utf-8")
+        )
+        if (
+            previous.get("schema") != "hung-sprint2-development-replay-v1"
+            or previous.get("status") != "completed"
+            or previous.get("run_id") != args.resume_checkpoint.parent.name
+            or previous.get("final_runner_checkpoint_sha256") != resume_sha
+            or previous.get("target_checkpoint_sha256") != target_sha
+            or previous.get("source_checkpoint_sha256") != source_sha
+            or previous.get("input_binding") != target_binding
+            or previous.get("source_input_binding") != source_binding
+            or previous.get("config", {}).get("controller") != config["controller"]
+            or previous.get("config", {}).get("epsilon") != args.epsilon
+            or previous.get("config", {}).get("seed") != args.seed
+            or previous.get("code", {}).get("executed_sources") != code["executed_sources"]
+        ):
+            raise ValueError("Runner resume lineage/config/code mismatch")
+        runner = load_runner(args.resume_checkpoint, expected_binding=target_binding)
+        if (
+            runner.controller != controller
+            or runner.epsilon != args.epsilon
+            or runner.energy_scale != scale["energy_scale"]
+            or runner.next_index != previous.get("runner_cursor")
+            or runner.next_index >= args.max_origins
+        ):
+            raise ValueError("Restored runner configuration differs")
+        resumed_from = {"run_id": previous["run_id"], "checkpoint_sha256": resume_sha}
+    output = _new_output(
+        args.output,
+        input_run,
+        source_run,
+        args.source_checkpoint.parent,
+        args.target_checkpoint.parent,
+        *([args.resume_checkpoint.parent] if args.resume_checkpoint else []),
+    )
+    replay = replay_target(
+        input_run,
+        manifest_sha256=args.manifest_sha256,
+        entity_id=args.entity_id,
+        runner=runner,
+        max_origins=args.max_origins,
+    )
+    evaluation = evaluate_replay(runner, replay)
+    output.mkdir(parents=True, exist_ok=False)
+    final_checkpoint = output / "runner_checkpoint.pt"
+    save_runner(final_checkpoint, runner)
+    summary = {
+        "schema": "hung-sprint2-development-replay-v1",
+        "scope": "bounded_development_replay; fixture/Development evidence only; no Final evaluation",
+        "status": "completed",
+        "run_id": output.name,
+        "input_binding": target_binding,
+        "source_input_binding": source_binding,
+        "source_checkpoint_sha256": source_sha,
+        "target_checkpoint_sha256": target_sha,
+        "final_runner_checkpoint_sha256": sha256_file(final_checkpoint),
+        "resumed_from": resumed_from,
+        "config": config,
+        "coverage": asdict(evaluation.coverage),
+        "metrics_kwh": {
+            "live": None if evaluation.live is None else asdict(evaluation.live),
+            "candidates": [None if x is None else asdict(x) for x in evaluation.candidates],
+            "audit": None if evaluation.audit is None else asdict(evaluation.audit),
+            "audit_scored_days": evaluation.audit_scored_days,
+        },
+        "runtime_costs": runner.runtime_costs,
+        "event_evidence": {
+            "events": runner.events,
+            "decisions": [asdict(x) for x in runner.decisions],
+        },
+        "runner_cursor": runner.next_index,
+        "python": platform.python_version(),
+        "torch": torch.__version__,
+        "duration_seconds": time.perf_counter() - started,
+        "code": code,
+    }
+    _write_run(output, summary)
+    return summary
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
     source = subparsers.add_parser("source-smoke")
     target = subparsers.add_parser("target-smoke")
     verify = subparsers.add_parser("verify-input-zip")
+    replay = subparsers.add_parser("replay-development")
     verify.add_argument("--archive", type=Path, required=True)
     verify.add_argument("--package", required=True)
     for subparser in (source, target):
@@ -419,12 +614,36 @@ def main(argv: list[str] | None = None) -> int:
     target.add_argument("--entity-id", required=True)
     target.add_argument("--retention-weight", type=float, required=True)
     target.add_argument("--epsilon", type=float, required=True)
+    for name in (
+        "input-run",
+        "source-input-run",
+        "source-checkpoint",
+        "target-checkpoint",
+        "output",
+    ):
+        replay.add_argument(f"--{name}", type=Path, required=True)
+    for name in ("manifest-sha256", "source-manifest-sha256", "entity-id", "challenger-rule"):
+        replay.add_argument(f"--{name}", required=True)
+    for name in (
+        "max-origins",
+        "block-days",
+        "min-complete-days",
+        "bootstrap-segment-days",
+        "bootstrap-resamples",
+        "seed",
+    ):
+        replay.add_argument(f"--{name}", type=int, required=True)
+    for name in ("level-one", "level-two", "initial-level", "delta", "alpha", "epsilon"):
+        replay.add_argument(f"--{name}", type=float, required=True)
+    replay.add_argument("--resume-checkpoint", type=Path)
     args = parser.parse_args(argv)
     if args.command == "verify-input-zip":
         print(json.dumps(_verify_input_zip(args.archive, args.package)))
         return 0
-    result = _source(args) if args.command == "source-smoke" else _target(args)
-    print(json.dumps({key: result[key] for key in ("status", "run_id", "scope", "steps")}))
+    result = {"source-smoke": _source, "target-smoke": _target, "replay-development": _replay}[
+        args.command
+    ](args)
+    print(json.dumps({key: result[key] for key in ("status", "run_id", "scope")}))
     return 0
 
 

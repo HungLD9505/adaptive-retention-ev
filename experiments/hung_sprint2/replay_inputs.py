@@ -75,6 +75,7 @@ def replay_target(
     manifest_sha256: str,
     entity_id: str,
     runner: PrequentialRunner | None,
+    max_origins: int | None = None,
 ) -> ReplaySummary:
     """Replay the accepted schedule; parse each label only after forecasting.
 
@@ -92,6 +93,10 @@ def replay_target(
     schedule = list(_target_rows(input_run / "schedule.jsonl", identity))
     if not schedule:
         raise ValueError("Target has no requested replay origins")
+    if max_origins is not None and (
+        isinstance(max_origins, bool) or max_origins <= 0 or max_origins > len(schedule)
+    ):
+        raise ValueError("Replay origin limit must fit the requested schedule")
     statuses = [row.get("status") for row in schedule]
     if any(
         status not in {"created", "skipped_all_missing_history", "skipped_undefined_scale"}
@@ -136,7 +141,8 @@ def replay_target(
         or runner.energy_scale != scale.get("energy_scale")
     ):
         raise ValueError("Runner input binding/scale mismatch")
-    if not 0 <= runner.next_index <= len(schedule):
+    limit = len(schedule) if max_origins is None else max_origins
+    if not 0 <= runner.next_index <= limit:
         raise ValueError("Runner cursor is outside the accepted schedule")
     if runner.next_index != runner.block_id * runner.controller.block_days + len(runner.days):
         raise ValueError("Runner block/cursor state is inconsistent")
@@ -196,6 +202,8 @@ def replay_target(
             del late_records[origin_label]
 
     for index, scheduled in enumerate(schedule):
+        if index == limit:
+            break
         origin_label = scheduled["origin"]
         forecast = None
         if scheduled["status"] == "created":
@@ -251,12 +259,18 @@ def replay_target(
         runner.arrive(LabelArrival(origin_label, False, deferred=deferred))
         if deferred:
             late_records[origin_label] = record
-    if next(forecasts, None) is not None or next(labels, None) is not None:
+    if limit == len(schedule) and (
+        next(forecasts, None) is not None or next(labels, None) is not None
+    ):
         raise ValueError("Forecast/label artifacts have unmatched target records")
     if set(late_records) != set(runner.late_pending):
         raise ValueError("Runner deferred-label queue differs from replay inputs")
-    deliver_ready(origins[-1] + timedelta(days=1))
+    if limit == len(schedule):
+        deliver_ready(origins[-1] + timedelta(days=1))
     if len(runner.days) == runner.controller.block_days:
         runner.finish_block()
     scored = sum(row["normalized_mae"] is not None for row in runner.issued)
-    return ReplaySummary(len(schedule), created, missing_history, 0, scored, created - scored)
+    if limit < len(schedule):
+        created = statuses[:limit].count("created")
+        missing_history = statuses[:limit].count("skipped_all_missing_history")
+    return ReplaySummary(limit, created, missing_history, 0, scored, created - scored)
