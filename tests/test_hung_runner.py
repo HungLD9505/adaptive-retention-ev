@@ -149,6 +149,7 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(replay.audit_steps, 1)
         self.assertEqual(replay.runtime_costs["audit"]["inference_calls"], 1)
         self.assertEqual(replay.runtime_costs["audit"]["update_steps"], 1)
+        self.assertGreater(replay.state_tensor_memory()["audit"], 0)
         self.assertIsNotNone(replay.issued[-1]["audit_mae_kwh"])
         self.assertEqual(len(replay.days), 1)
         self.assertEqual(replay.update_steps, [2, 2, 2])
@@ -194,10 +195,16 @@ class RunnerTests(unittest.TestCase):
 
     def test_runtime_costs_measure_successful_calls_separately(self) -> None:
         replay = runner()
+        initial_memory = replay.state_tensor_memory()
+        self.assertIsNone(initial_memory["audit"])
+        self.assertEqual(len(initial_memory["candidate"]), 3)
         label = complete(0)
         with mock.patch("experiments.hung_sprint2.runner.perf_counter_ns", side_effect=count(0, 7)):
             replay.forecast(origin(0))
             replay.arrive(label)
+        updated_memory = replay.state_tensor_memory()
+        for before, after in zip(initial_memory["candidate"], updated_memory["candidate"]):
+            self.assertGreater(after, before)
         for cost in replay.runtime_costs["candidate"]:
             self.assertEqual(
                 cost,

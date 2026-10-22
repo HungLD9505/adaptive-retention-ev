@@ -658,6 +658,7 @@ def _replay(args: argparse.Namespace) -> dict:
             "audit_scored_days": evaluation.audit_scored_days,
         },
         "runtime_costs": runner.runtime_costs,
+        "state_tensor_memory": runner.state_tensor_memory(),
         "event_evidence": {
             "events": runner.events,
             "decisions": [asdict(x) for x in runner.decisions],

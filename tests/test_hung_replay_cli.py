@@ -117,7 +117,9 @@ class ReplayCliTests(unittest.TestCase):
             self.assertIn("peak_rss_bytes", first["memory_usage"])
             checkpoint = args.output / "runner_checkpoint.pt"
             self.assertEqual(first["final_runner_checkpoint_sha256"], sha256_file(checkpoint))
-            self.assertEqual(load_runner(checkpoint, expected_binding=binding).next_index, 1)
+            loaded = load_runner(checkpoint, expected_binding=binding)
+            self.assertEqual(loaded.next_index, 1)
+            self.assertEqual(first["state_tensor_memory"], loaded.state_tensor_memory())
             first_journal = args.output / "events.jsonl"
             first_records = [json.loads(line) for line in first_journal.read_text().splitlines()]
             self.assertEqual(first["event_journal"]["sha256"], sha256_file(first_journal))

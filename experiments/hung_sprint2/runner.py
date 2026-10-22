@@ -11,6 +11,7 @@ import torch
 from torch import Tensor
 
 from experiments.hung_sprint2.controller import ControllerConfig, DailyScore, Decision, decide_block
+from experiments.hung_sprint2.memory import model_optimizer_tensor_bytes, model_tensor_bytes
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
 from experiments.hung_sprint2.retention import validate_latent_scale
 from experiments.hung_sprint2.training import target_step, validate_binding
@@ -153,6 +154,21 @@ class PrequentialRunner:
             _copy_pair(self.active_model, self.active_optimizer) for _ in self.controller.levels
         ]
         self.events.append(f"fork:{self.block_id}")
+
+    def state_tensor_memory(self) -> dict[str, Any]:
+        """Snapshot logical model/optimizer tensor bytes for each trajectory."""
+        return {
+            "schema": "hung-sprint2-state-tensor-memory-v1",
+            "unit": "bytes",
+            "scope": "current model and optimizer state tensors; not peak RSS or activations",
+            "active": model_optimizer_tensor_bytes(self.active_model, self.active_optimizer),
+            "reference": model_tensor_bytes(self.reference),
+            "latent_scale": self.latent_scale.numel() * self.latent_scale.element_size(),
+            "candidate": [model_optimizer_tensor_bytes(*pair) for pair in self.candidates],
+            "audit": None
+            if self.audit is None
+            else model_optimizer_tensor_bytes(self.audit[1], self.audit[2]),
+        }
 
     def forecast(self, origin: Origin) -> None:
         """Store all predictions before a matching label event may be accepted."""
