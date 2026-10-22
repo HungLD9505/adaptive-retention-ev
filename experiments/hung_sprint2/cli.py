@@ -81,12 +81,22 @@ def _identity(manifest: dict) -> tuple[str, str]:
     return config["dataset_id"], config["city_id"]
 
 
-def _examples(path: Path, manifest: dict, role: str, entity_id: str | None = None) -> list[dict]:
+def _examples(
+    path: Path,
+    manifest: dict,
+    role: str,
+    entity_id: str | None = None,
+    *,
+    limit: int | None = None,
+) -> tuple[list[dict], int]:
+    if limit is not None and limit <= 0:
+        raise ValueError("Example retention limit must be positive")
     dataset, city = _identity(manifest)
     eligible = {
         tuple(row["identity"]) for row in _records(path / "entities.jsonl") if row["role"] == role
     }
     selected = []
+    available = 0
     for row in _records(path / "training.jsonl"):
         if row["role"] != role:
             continue
@@ -99,8 +109,10 @@ def _examples(path: Path, manifest: dict, role: str, entity_id: str | None = Non
         ):
             raise ValueError("Training record identity/schema mismatch")
         if entity_id is None or forecast["identity"][2] == entity_id:
-            selected.append(row)
-    return selected
+            available += 1
+            if limit is None or len(selected) < limit:
+                selected.append(row)
+    return selected, available
 
 
 def _tensors(rows: list[dict]) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
@@ -234,7 +246,7 @@ def _source(args: argparse.Namespace) -> dict:
         raise ValueError("calendar_hidden must be positive")
     run = args.input_run.resolve()
     manifest = _load_run(run, args.manifest_sha256)
-    examples = _examples(run, manifest, "source")
+    examples, available = _examples(run, manifest, "source", limit=args.steps * args.batch_size)
     if not examples:
         raise ValueError("The selected input run has no Source training examples")
     if min(len(examples), args.steps * args.batch_size) < 2:
@@ -279,7 +291,7 @@ def _source(args: argparse.Namespace) -> dict:
         "status": "completed",
         "run_id": output.name,
         "input_binding": binding,
-        "source_examples_available": len(examples),
+        "source_examples_available": available,
         "source_examples_used": len(used),
         "steps": steps,
         "requested_steps": args.steps,
@@ -338,8 +350,8 @@ def _target(args: argparse.Namespace) -> dict:
     if mode not in {"target_initial_adaptation", "source_checkpoint_only"}:
         raise ValueError(f"Target initialization is blocked: {mode}")
     scale_id = entity["scale"]["fit_sha256"]
-    examples = _examples(target_run, manifest, "development", args.entity_id)
-    if "initial_trainable" in entity and entity["initial_trainable"] != len(examples):
+    examples, available = _examples(target_run, manifest, "development", args.entity_id)
+    if "initial_trainable" in entity and entity["initial_trainable"] != available:
         raise ValueError("Target example count disagrees with entity inventory")
     if (mode == "source_checkpoint_only") != (len(examples) == 0):
         raise ValueError("Target initialization mode disagrees with training records")

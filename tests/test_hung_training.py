@@ -13,7 +13,9 @@ from ev_inputs.hourly_reader import sha256_file
 from experiments.hung_sprint2.cli import ARTIFACTS, main
 
 
-def _input_run(root: Path, *, target_examples: int = 1) -> tuple[Path, str]:
+def _input_run(
+    root: Path, *, target_examples: int = 1, source_examples: int = 2
+) -> tuple[Path, str]:
     run = root / "fixture-input-run"
     run.mkdir()
 
@@ -28,8 +30,12 @@ def _input_run(root: Path, *, target_examples: int = 1) -> tuple[Path, str]:
         }
 
     rows = [
-        {"role": "source", "forecast": forecast("source-1"), "y_scaled": [0.3] * 24},
-        {"role": "source", "forecast": forecast("source-1"), "y_scaled": [0.5] * 24},
+        {
+            "role": "source",
+            "forecast": forecast("source-1"),
+            "y_scaled": [0.3 if index == 0 else 0.5] * 24,
+        }
+        for index in range(source_examples)
     ]
     rows += [
         {"role": "development", "forecast": forecast("dev-1"), "y_scaled": [0.4] * 24}
@@ -100,6 +106,40 @@ class TrainingConsumerTests(unittest.TestCase):
                     ]
                 )
             self.assertFalse(output.exists())
+
+    def test_source_smoke_counts_all_examples_but_uses_bounded_prefix(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest = _input_run(root, source_examples=5)
+            output = root / "bounded-source"
+            self.assertEqual(
+                main(
+                    [
+                        "source-smoke",
+                        "--input-run",
+                        str(run),
+                        "--manifest-sha256",
+                        digest,
+                        "--output",
+                        str(output),
+                        "--steps",
+                        "1",
+                        "--batch-size",
+                        "2",
+                        "--seed",
+                        "17",
+                        "--learning-rate",
+                        "0.001",
+                        "--calendar-hidden",
+                        "8",
+                    ]
+                ),
+                0,
+            )
+            evidence = json.loads((output / "run_manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(evidence["source_examples_available"], 5)
+            self.assertEqual(evidence["source_examples_used"], 2)
+            self.assertEqual(evidence["steps"], 1)
 
     def test_source_then_independent_target_with_verified_binding(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
