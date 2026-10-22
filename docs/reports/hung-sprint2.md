@@ -118,3 +118,19 @@ Lệnh chỉ đọc và đối chiếu tên gói, kích thước, SHA-256, CRC v
 ## Giới hạn bộ nhớ cho Source smoke — 22/10/2026
 
 - Input UrbanEV 7d đã xác minh có `training.jsonl` **453615715 byte**, gồm **65888** bản ghi Source theo phép đếm streaming. `source-smoke` nay vẫn đọc hết để kiểm tra role/identity/schema và báo số mẫu sẵn có, nhưng chỉ giữ tối đa `steps × batch_size` mẫu đầu cho lượt smoke. Fixture 5 mẫu Source với giới hạn 2 xác nhận manifest ghi `source_examples_available=5`, `source_examples_used=2` và 1 bước. Đây là giảm lượng bản ghi giữ trong RAM theo cấu trúc code; **chưa đo peak RSS** hay chạy Source DATA-v1 trên Colab.
+
+## Rà soát tiến độ theo yêu cầu — 13:43 ngày 22/10/2026 (UTC+7)
+
+Mốc này cập nhật các nhận định cũ trong báo cáo tối 21/10 và các mục chuẩn bị phía trên; đây là trạng thái **tại thời điểm kiểm tra**, chưa phải kết luận cho cuối ngày 22/10.
+
+| Hạng mục | Bằng chứng đã kiểm tra | Trạng thái giao hàng |
+| --- | --- | --- |
+| #19 / Stage A | Draft PR #42 tại `b76d62a`; Foundation checks run 56 đã đạt theo lượt kiểm tra trước. | Issue mở; chưa có review hoặc nghiệm thu. |
+| #20 / Stage B | Draft PR #43 tại `8f93d79`; Foundation checks run 57 đã đạt theo lượt kiểm tra trước. | Issue mở; chưa có review hoặc nghiệm thu. |
+| #21 / Stage C | Draft PR #44 tại `13e6055`; Foundation checks [run 72](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/39735321140) `success` ở đúng head này. | Issue mở; chưa có review hoặc nghiệm thu. |
+| #39 / bàn giao cá nhân | Ba PR trên chứa code, fixture, CLI replay giới hạn và notebook Colab **chưa chạy**; DATA-v1 đã xác minh cục bộ. | Issue mở, hạn 23/10; chưa đủ bằng chứng để đánh dấu hoàn thành. |
+
+- Kiểm tra GitHub trực tiếp cho thấy cả PR #42, #43, #44 đều còn `draft`, chưa merge và danh sách review đã nộp đều rỗng. Chúng xếp chồng theo #42 → #43 → #44; không suy ra trạng thái nghiệm thu từ CI xanh. Trước lần cập nhật báo cáo này, worktree #44 sạch và đã đồng bộ origin tại `13e60551caf9d98fa9518e0ab833bdb75c8800bf`.
+- `ev-capstone-control/reports/DAILY_PROGRESS.md` hiện vẫn có snapshot **00:59:16 ngày 22/10**, ghi #19–#21 và #39 là `IN_REVIEW` theo PR liên kết nhưng còn head #44 cũ `0b335a1`. Vì vậy mục này dùng PR/CI trực tiếp cho head mới; phân loại của tracker không có nghĩa đã được peer review. Kế hoạch Sprint 2 vẫn ghi *Proposed for team review* trong snapshot.
+- Đã kiểm chứng ZIP DATA-v1 và manifest/artifact 7/14/28 ngày theo mục dữ liệu ở trên. Bộ test cục bộ gần nhất đạt **170/170** trên Python 3.13; Ruff, compileall và diff check đạt. CI run 72 kiểm tra Python 3.12 trên Windows/Ubuntu ở head #44. Chưa có Source pretraining/target adaptation thật, replay Development qua biên block trên dữ liệu thật, log Colab/Drive, đo peak RSS hoặc ước lượng năng lực chạy dựa trên phép đo. Không có metric hiệu quả mô hình để báo cáo.
+- Trước hạn #39 ngày 23/10, phần còn thiếu là chạy notebook trên Colab với đường dẫn ZIP/Drive thật, giữ run ID/config/seed/checkpoint/log và hash bàn giao, đo runtime/bộ nhớ, hoàn tất đối chiếu độc lập với Quyền và peer review giao diện/chính sách Development. Các mức lambda, ngưỡng và cấu hình nghiên cứu chỉ được chọn trên Development; không dùng Final để lựa chọn.
