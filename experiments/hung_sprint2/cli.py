@@ -1,4 +1,4 @@
-"""Bounded, manifest-bound #19 Source and Development training smoke runs."""
+"""DATA-v1 ZIP preflight and bounded, manifest-bound training smoke runs."""
 
 from __future__ import annotations
 
@@ -8,6 +8,7 @@ import platform
 import subprocess
 import time
 from pathlib import Path
+from zipfile import BadZipFile, ZipFile
 
 import torch
 
@@ -24,6 +25,7 @@ from experiments.hung_sprint2.training import (
 )
 
 ROOT = Path(__file__).resolve().parents[2]
+RELEASE_CATALOG = ROOT / "data" / "releases" / "DATA-v1-20261019.json"
 ARTIFACTS = (
     "training.jsonl",
     "entities.jsonl",
@@ -171,6 +173,42 @@ def _write_run(output: Path, summary: dict) -> None:
     with (output / "run_manifest.json").open("x", encoding="utf-8") as stream:
         json.dump(summary, stream, indent=2, sort_keys=True, allow_nan=False)
         stream.write("\n")
+
+
+def _verify_input_zip(archive: Path, package_name: str, catalog: Path | None = None) -> dict:
+    """Read-only check of one fixed DATA-v1 input package before extraction."""
+    catalog = RELEASE_CATALOG if catalog is None else catalog
+    release = json.loads(catalog.read_text(encoding="utf-8"))
+    if release.get("release_id") != "DATA-v1-20261019":
+        raise ValueError("Unexpected input release identity")
+    matches = [
+        item
+        for item in release.get("packages", [])
+        if item.get("kind") == "inputs" and item.get("name") == package_name
+    ]
+    if len(matches) != 1:
+        raise ValueError("Input package is not unique in DATA-v1 catalog")
+    expected = matches[0]
+    if archive.name != package_name or archive.stat().st_size != expected["size_bytes"]:
+        raise ValueError("Input package name/size differs from DATA-v1 catalog")
+    digest = sha256_file(archive)
+    if digest != expected["sha256"]:
+        raise ValueError("Input package SHA-256 differs from DATA-v1 catalog")
+    try:
+        with ZipFile(archive) as package:
+            damaged = package.testzip()
+    except BadZipFile as error:
+        raise ValueError("Input package ZIP structure is invalid") from error
+    if damaged is not None:
+        raise ValueError(f"Input package CRC failed: {damaged}")
+    return {
+        "status": "verified",
+        "release_id": release["release_id"],
+        "package": package_name,
+        "size_bytes": expected["size_bytes"],
+        "sha256": digest,
+        "scope": "archive integrity only; no extraction, input-manifest check or training",
+    }
 
 
 def _source(args: argparse.Namespace) -> dict:
@@ -363,6 +401,9 @@ def main(argv: list[str] | None = None) -> int:
     subparsers = parser.add_subparsers(dest="command", required=True)
     source = subparsers.add_parser("source-smoke")
     target = subparsers.add_parser("target-smoke")
+    verify = subparsers.add_parser("verify-input-zip")
+    verify.add_argument("--archive", type=Path, required=True)
+    verify.add_argument("--package", required=True)
     for subparser in (source, target):
         subparser.add_argument("--input-run", type=Path, required=True)
         subparser.add_argument("--manifest-sha256", required=True)
@@ -379,6 +420,9 @@ def main(argv: list[str] | None = None) -> int:
     target.add_argument("--retention-weight", type=float, required=True)
     target.add_argument("--epsilon", type=float, required=True)
     args = parser.parse_args(argv)
+    if args.command == "verify-input-zip":
+        print(json.dumps(_verify_input_zip(args.archive, args.package)))
+        return 0
     result = _source(args) if args.command == "source-smoke" else _target(args)
     print(json.dumps({key: result[key] for key in ("status", "run_id", "scope", "steps")}))
     return 0

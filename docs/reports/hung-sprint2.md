@@ -81,3 +81,14 @@ Gate replay Development thật vẫn mở: chưa có kiểm chứng DATA-v1, x�
 - Ba PR [#42](https://github.com/HungLD9505/adaptive-retention-ev/pull/42) (`b76d62a`), [#43](https://github.com/HungLD9505/adaptive-retention-ev/pull/43) (`8f93d79`) và [#44](https://github.com/HungLD9505/adaptive-retention-ev/pull/44) (`0b335a1`) đều **mở ở trạng thái draft**, hướng vào `dev`, chưa merge. Workflow Foundation checks tại đúng các head SHA trên đều thành công ở Windows và Ubuntu; riêng #44 là [run 60](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/39644139858). Các nhánh cục bộ sạch và đã đồng bộ lên origin.
 - Mốc #39 là **23/10**, còn một ngày theo snapshot 22/10; #19–#21 có hạn **29/10**. Bằng chứng hiện có là code, fixture, kiểm thử offline và CI. Chưa có DATA-v1, huấn luyện Source/Development thật, replay thực tại biên block, kết quả mô hình, đối chiếu với Quyền hay peer review. Vì thế không đánh dấu #39 hoặc #19–#21 hoàn thành.
 - Việc cần xử lý tiếp: thống nhất giao diện/chính sách Development với Quyền và nhóm; cung cấp, xác minh hash DATA-v1 trước Phase 05 trên Colab; ghi checkpoint/log/runtime của chạy thật; sau đó đối chiếu hai implementation và review theo thứ tự phụ thuộc #42 → #43 → #44. Kế hoạch sprint vẫn ở trạng thái *Proposed for team review* trên tracker.
+
+## Chuẩn bị kiểm tra dữ liệu trước Colab — chưa chạy trên DATA-v1
+
+Để bắt đầu UrbanEV, gói đầu vào cần tải là `inputs-urbanev-SZH-v1.zip`, kích thước **151254390 byte**, SHA-256 `2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7` theo release catalog `DATA-v1-20261019`. Sau khi tải vào vị trí mới, có thể chạy:
+
+```powershell
+$archive = 'C:\duong-dan-moi\inputs-urbanev-SZH-v1.zip'
+python -m experiments.hung_sprint2.cli verify-input-zip --archive $archive --package inputs-urbanev-SZH-v1.zip
+```
+
+Lệnh chỉ đọc và đối chiếu tên gói, kích thước, SHA-256, CRC với catalog cố định; không giải nén, xác minh manifest bên trong hay huấn luyện. Đã kiểm thử lệnh bằng ZIP fixture nhỏ, **chưa** tải/chạy trên gói DATA-v1. Chỉ khi ZIP thật đạt mới giải nén vào checkout sạch theo `docs/data/DATA_DOWNLOADS.md`, xác minh manifest của từng run 7/14/28 ngày và chọn/khóa config trên Development. Chưa có lệnh huấn luyện đầy đủ/Colab được thực thi hoặc xác nhận.
