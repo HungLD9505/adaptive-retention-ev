@@ -42,7 +42,11 @@ def save_runner(path: Path, runner: PrequentialRunner) -> None:
             temporary.unlink(missing_ok=True)
 
 
-def load_runner(path: Path, *, expected_binding: dict) -> PrequentialRunner:
+def load_runner(
+    path: Path, *, expected_binding: dict, device: str | torch.device = "cpu"
+) -> PrequentialRunner:
     """Verify the accepted input binding before restoring an event cursor."""
     state = torch.load(Path(path), map_location="cpu", weights_only=True)
-    return PrequentialRunner.from_state_dict(state, expected_binding=expected_binding)
+    return PrequentialRunner.from_state_dict(
+        state, expected_binding=expected_binding, device=device
+    )

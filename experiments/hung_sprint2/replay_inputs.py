@@ -285,7 +285,10 @@ def replay_target(
         raise ValueError("Runner deferred-label queue differs from replay inputs")
     if limit == len(schedule):
         deliver_ready(origins[-1] + timedelta(days=1))
-    if len(runner.days) == runner.controller.block_days:
+    # A bounded replay may stop exactly at a block boundary. Leave its
+    # decision pending until the next origin, after newly arrived labels have
+    # been delivered, so split/resumed replay matches uninterrupted replay.
+    if limit == len(schedule) and len(runner.days) == runner.controller.block_days:
         runner.finish_block()
         flush_events()
     scored = sum(row["normalized_mae"] is not None for row in runner.issued)

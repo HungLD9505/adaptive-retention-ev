@@ -65,6 +65,8 @@ def initialize_target(
         raise ValueError("learning_rate must be finite and positive")
     target = deepcopy(source)
     reference = frozen_source_reference(source)
+    target.encoder.flatten_parameters()
+    reference.encoder.flatten_parameters()
     optimizer = torch.optim.Adam(target.parameters(), lr=learning_rate)
     return target, reference, optimizer
 
@@ -252,12 +254,14 @@ def load_checkpoint(
     ):
         raise ValueError("Invalid checkpoint execution metadata")
     config = ModelConfig(**payload["architecture"])
-    model = ForecastGRU(config)
+    model = ForecastGRU(config).to(map_location)
     model.load_state_dict(payload["model_state"])
+    model.encoder.flatten_parameters()
     optimizer = torch.optim.Adam(model.parameters(), lr=1.0)
     optimizer.load_state_dict(payload["optimizer_state"])
     scale = payload["latent_scale"]
     if scale is not None:
+        scale = scale.to(map_location)
         validate_latent_scale(scale)
     return (
         model,

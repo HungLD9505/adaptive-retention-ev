@@ -1,4 +1,4 @@
-"""CPU fixture-stage causal replay for three retention trajectories."""
+"""Causal replay for three retention trajectories on CPU or CUDA."""
 
 from __future__ import annotations
 
@@ -43,7 +43,9 @@ def _copy_pair(
     model: ForecastGRU, optimizer: torch.optim.Adam
 ) -> tuple[ForecastGRU, torch.optim.Adam]:
     """Copy model and optimizer together so parameter references stay paired."""
-    return deepcopy((model, optimizer))
+    copied_model, copied_optimizer = deepcopy((model, optimizer))
+    copied_model.encoder.flatten_parameters()
+    return copied_model, copied_optimizer
 
 
 def _empty_cost_record() -> dict[str, int]:
@@ -62,9 +64,11 @@ def _runtime_costs(*, complete: bool) -> dict[str, Any]:
 
 
 def _validated_runtime_costs(
-    payload: dict[str, Any], update_steps: list[int], audit_steps: int
+    payload: dict[str, Any], update_steps: list[int], audit_steps: int, device_type: str
 ) -> dict[str, Any]:
     expected = _runtime_costs(complete=True)
+    if device_type == "cuda":
+        expected["scope"] = "CUDA synchronized model.forward and target_step calls only"
     if (
         not isinstance(payload, dict)
         or any(payload.get(key) != expected[key] for key in ("schema", "clock", "scope"))
@@ -95,8 +99,7 @@ class PrequentialRunner:
     The caller must feed accepted origins in order and complete deferred labels
     when they become available. Late labels update current candidate trajectories;
     a decision already issued for their original block is never revised. This
-    runner operates on CPU so a torch RNG snapshot suffices. GPU RNG, durable
-    per-event output and cost probes remain #21 integration work.
+    RNG snapshots include the selected CUDA device when one is used.
     """
 
     def __init__(
@@ -114,10 +117,11 @@ class PrequentialRunner:
         validate_binding(binding)
         if binding["stage"] != "target":
             raise ValueError("Runner requires a bound target checkpoint")
-        if next(model.parameters()).device.type != "cpu":
-            raise ValueError("Fixture runner currently requires CPU model state")
-        if next(reference.parameters()).device.type != "cpu" or latent_scale.device.type != "cpu":
-            raise ValueError("Reference and latent scale must also be on CPU")
+        self.device = next(model.parameters()).device
+        if next(reference.parameters()).device != self.device or latent_scale.device != self.device:
+            raise ValueError("Reference and latent scale must match target device")
+        if self.device.type not in {"cpu", "cuda"}:
+            raise ValueError("Runner supports CPU or CUDA")
         if model.config != reference.config:
             raise ValueError("Target and source reference architecture differ")
         if any(parameter.requires_grad for parameter in reference.parameters()):
@@ -130,6 +134,7 @@ class PrequentialRunner:
         self.epsilon = epsilon
         self.energy_scale = energy_scale
         self.reference = deepcopy(reference).eval()
+        self.reference.encoder.flatten_parameters()
         self.latent_scale = latent_scale.detach().clone()
         self.active_model, self.active_optimizer = _copy_pair(model, optimizer)
         self.current_level = controller.initial_level
@@ -138,6 +143,7 @@ class PrequentialRunner:
         self.candidates: list[tuple[ForecastGRU, torch.optim.Adam]] = []
         self.audit: tuple[float, ForecastGRU, torch.optim.Adam] | None = None
         self.audit_rng: Tensor | None = None
+        self.audit_cuda_rng: Tensor | None = None
         self.pending: dict[str, Any] | None = None
         self.late_pending: dict[str, dict[str, Any]] = {}
         self.days: list[DailyScore] = []
@@ -147,7 +153,24 @@ class PrequentialRunner:
         self.update_steps = [0, 0, 0]
         self.audit_steps = 0
         self.runtime_costs = _runtime_costs(complete=True)
+        if self.device.type == "cuda":
+            self.runtime_costs["scope"] = (
+                "CUDA synchronized model.forward and target_step calls only"
+            )
         self._fork()
+
+    def _cuda_rng(self) -> Tensor | None:
+        return torch.cuda.get_rng_state(self.device).clone() if self.device.type == "cuda" else None
+
+    def _set_cuda_rng(self, state: Tensor | None) -> None:
+        if self.device.type == "cuda":
+            if state is None:
+                raise ValueError("CUDA RNG state is missing")
+            torch.cuda.set_rng_state(state, self.device)
+
+    def _synchronize(self) -> None:
+        if self.device.type == "cuda":
+            torch.cuda.synchronize(self.device)
 
     def _fork(self) -> None:
         self.candidates = [
@@ -195,17 +218,20 @@ class PrequentialRunner:
         x_hist = origin.x_hist.detach().clone()
         c_future = origin.c_future.detach().clone()
         if x_hist.device.type != "cpu" or c_future.device.type != "cpu":
-            raise ValueError("Fixture runner currently requires CPU input tensors")
+            raise ValueError("Runner inputs must be CPU tensors before transfer")
         if x_hist.shape != (1, 24, 7) or c_future.shape != (1, 24, 5):
             raise ValueError("Forecast tensors must have shapes [1,24,7] and [1,24,5]")
         forecasts = []
+        model_x = x_hist.to(self.device)
+        model_calendar = c_future.to(self.device)
         with torch.no_grad():
             for index, (model, _) in enumerate(self.candidates):
                 model.eval()
                 started = perf_counter_ns()
-                output = model(x_hist, c_future)
+                output = model(model_x, model_calendar)
+                self._synchronize()
                 elapsed = perf_counter_ns() - started
-                forecasts.append(output.detach().clone())
+                forecasts.append(output.detach().cpu().clone())
                 cost = self.runtime_costs["candidate"][index]
                 cost["inference_calls"] += 1
                 cost["inference_ns"] += elapsed
@@ -213,9 +239,10 @@ class PrequentialRunner:
             if self.audit is not None:
                 self.audit[1].eval()
                 started = perf_counter_ns()
-                audit_output = self.audit[1](x_hist, c_future)
+                audit_output = self.audit[1](model_x, model_calendar)
+                self._synchronize()
                 elapsed = perf_counter_ns() - started
-                audit_forecast = audit_output.detach().clone()
+                audit_forecast = audit_output.detach().cpu().clone()
                 self.runtime_costs["audit"]["inference_calls"] += 1
                 self.runtime_costs["audit"]["inference_ns"] += elapsed
         self.pending = {
@@ -300,52 +327,64 @@ class PrequentialRunner:
                     issued["audit_mae_kwh"] = audit_mae * self.energy_scale
                 self.events.append(f"score:{label.day_id}")
                 shared_rng = torch.get_rng_state().clone()
+                shared_cuda_rng = self._cuda_rng()
                 post_rng: Tensor | None = None
+                post_cuda_rng: Tensor | None = None
+                model_y = y.to(self.device)
                 for index, (model, optimizer) in enumerate(self.candidates):
                     torch.set_rng_state(shared_rng)
+                    self._set_cuda_rng(shared_cuda_rng)
                     started = perf_counter_ns()
                     target_step(
                         model,
                         self.reference,
                         optimizer,
-                        pending["x_hist"],
-                        pending["c_future"],
-                        y,
+                        pending["x_hist"].to(self.device),
+                        pending["c_future"].to(self.device),
+                        model_y,
                         retention_weight=self.controller.levels[index],
                         latent_scale=self.latent_scale,
                         epsilon=self.epsilon,
                     )
+                    self._synchronize()
                     elapsed = perf_counter_ns() - started
                     if post_rng is None:
                         post_rng = torch.get_rng_state().clone()
+                        post_cuda_rng = self._cuda_rng()
                     self.update_steps[index] += 1
                     cost = self.runtime_costs["candidate"][index]
                     cost["update_steps"] += 1
                     cost["update_ns"] += elapsed
                 if post_rng is not None:
                     torch.set_rng_state(post_rng)
+                    self._set_cuda_rng(post_cuda_rng)
                 self.events.append(f"update:{label.day_id}")
                 if self.audit is not None:
                     level, model, optimizer = self.audit
                     live_rng = torch.get_rng_state().clone()
+                    live_cuda_rng = self._cuda_rng()
                     try:
                         torch.set_rng_state(self.audit_rng)
+                        self._set_cuda_rng(self.audit_cuda_rng)
                         started = perf_counter_ns()
                         target_step(
                             model,
                             self.reference,
                             optimizer,
-                            pending["x_hist"],
-                            pending["c_future"],
-                            y,
+                            pending["x_hist"].to(self.device),
+                            pending["c_future"].to(self.device),
+                            model_y,
                             retention_weight=level,
                             latent_scale=self.latent_scale,
                             epsilon=self.epsilon,
                         )
+                        self._synchronize()
                         elapsed = perf_counter_ns() - started
                         self.audit_rng = torch.get_rng_state().clone()
+                        self.audit_cuda_rng = self._cuda_rng()
                     finally:
                         torch.set_rng_state(live_rng)
+                        self._set_cuda_rng(live_cuda_rng)
                     self.audit_steps += 1
                     self.runtime_costs["audit"]["update_steps"] += 1
                     self.runtime_costs["audit"]["update_ns"] += elapsed
@@ -389,6 +428,7 @@ class PrequentialRunner:
         self.active_model, self.active_optimizer = self.candidates[selected_index]
         self.audit = (self.current_level, *old_active) if decision.switched else None
         self.audit_rng = torch.get_rng_state().clone() if decision.switched else None
+        self.audit_cuda_rng = self._cuda_rng() if decision.switched else None
         self.current_level = decision.selected_level
         self.decisions.append(decision)
         self.events.append(f"decision:{self.block_id}:{decision.selected_level}")
@@ -418,6 +458,8 @@ class PrequentialRunner:
             if self.audit is None
             else {"level": self.audit[0], **pair_state((self.audit[1], self.audit[2]))},
             "audit_rng": None if self.audit_rng is None else self.audit_rng.clone(),
+            "audit_cuda_rng": None if self.audit_cuda_rng is None else self.audit_cuda_rng.clone(),
+            "device_type": self.device.type,
             "current_level": self.current_level,
             "block_id": self.block_id,
             "next_index": self.next_index,
@@ -431,10 +473,13 @@ class PrequentialRunner:
             "audit_steps": self.audit_steps,
             "runtime_costs": deepcopy(self.runtime_costs),
             "torch_rng": torch.get_rng_state().clone(),
+            "cuda_rng": self._cuda_rng(),
         }
 
     @classmethod
-    def from_state_dict(cls, state: dict, *, expected_binding: dict) -> PrequentialRunner:
+    def from_state_dict(
+        cls, state: dict, *, expected_binding: dict, device: str | torch.device = "cpu"
+    ) -> PrequentialRunner:
         """Restore a validated bound state without replaying past events."""
         validate_binding(expected_binding)
         if (
@@ -442,24 +487,31 @@ class PrequentialRunner:
             or state.get("binding") != expected_binding
         ):
             raise ValueError("Runner checkpoint schema/input binding mismatch")
+        device = torch.device(device)
+        if state.get("device_type", "cpu") != device.type:
+            raise ValueError("Runner checkpoint device type mismatch")
+        if device.type == "cuda" and not torch.cuda.is_available():
+            raise ValueError("CUDA is unavailable for runner resume")
         config = ModelConfig(**state["model_config"])
 
         def pair_from(payload: dict) -> tuple[ForecastGRU, torch.optim.Adam]:
-            model = ForecastGRU(config)
+            model = ForecastGRU(config).to(device)
             model.load_state_dict(payload["model"])
+            model.encoder.flatten_parameters()
             optimizer = torch.optim.Adam(model.parameters(), lr=1.0)
             optimizer.load_state_dict(payload["optimizer"])
             return model, optimizer
 
         runner = cls.__new__(cls)
+        runner.device = device
         runner.binding = deepcopy(expected_binding)
         runner.controller = ControllerConfig(**state["controller"])
         runner.epsilon = state["epsilon"]
         runner.energy_scale = state["energy_scale"]
-        runner.reference = ForecastGRU(config).eval()
+        runner.reference = ForecastGRU(config).to(device).eval()
         runner.reference.load_state_dict(state["reference"])
         runner.reference.requires_grad_(False)
-        runner.latent_scale = state["latent_scale"].clone()
+        runner.latent_scale = state["latent_scale"].to(device).clone()
         validate_latent_scale(runner.latent_scale)
         runner.active_model, runner.active_optimizer = pair_from(state["active"])
         runner.candidates = [pair_from(payload) for payload in state["candidates"]]
@@ -468,6 +520,7 @@ class PrequentialRunner:
         audit = state["audit"]
         runner.audit = None if audit is None else (audit["level"], *pair_from(audit))
         runner.audit_rng = state["audit_rng"]
+        runner.audit_cuda_rng = state.get("audit_cuda_rng")
         runner.current_level = state["current_level"]
         runner.block_id = state["block_id"]
         runner.next_index = state["next_index"]
@@ -483,6 +536,8 @@ class PrequentialRunner:
             state.get("runtime_costs", _runtime_costs(complete=False)),
             runner.update_steps,
             runner.audit_steps,
+            device.type,
         )
         torch.set_rng_state(state["torch_rng"])
+        runner._set_cuda_rng(state.get("cuda_rng"))
         return runner

@@ -172,6 +172,35 @@ class ReplayInputTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         torch.set_num_threads(1)
 
+    def test_split_at_block_boundary_matches_uninterrupted_replay(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            run, digest = input_run(Path(directory), days=4)
+            uninterrupted = bound_runner(digest, block_days=2)
+            replay_target(run, manifest_sha256=digest, entity_id="dev-1", runner=uninterrupted)
+
+            partial = bound_runner(digest, block_days=2)
+            replay_target(
+                run, manifest_sha256=digest, entity_id="dev-1", runner=partial, max_origins=2
+            )
+            self.assertEqual(partial.next_index, 2)
+            self.assertEqual(len(partial.days), 2)
+            self.assertEqual(len(partial.decisions), 0)
+            checkpoint = Path(directory) / "boundary.pt"
+            save_runner(checkpoint, partial)
+            resumed = load_runner(checkpoint, expected_binding=partial.binding)
+            replay_target(run, manifest_sha256=digest, entity_id="dev-1", runner=resumed)
+            self.assertEqual(resumed.events, uninterrupted.events)
+            self.assertEqual(resumed.decisions, uninterrupted.decisions)
+            for left, right in zip(resumed.issued, uninterrupted.issued, strict=True):
+                self.assertEqual(left["normalized_mae"], right["normalized_mae"])
+                for a, b in zip(left["forecasts"], right["forecasts"], strict=True):
+                    self.assertTrue(torch.equal(a, b))
+            for (left, _), (right, _) in zip(
+                resumed.candidates, uninterrupted.candidates, strict=True
+            ):
+                for name, value in left.state_dict().items():
+                    self.assertTrue(torch.equal(value, right.state_dict()[name]))
+
     def test_forecast_first_delay_and_coverage(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             run, digest = input_run(Path(directory))

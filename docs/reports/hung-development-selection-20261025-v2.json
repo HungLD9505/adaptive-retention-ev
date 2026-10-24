@@ -1,0 +1,220 @@
+{
+  "budgets": {
+    "14": {
+      "adaptation_group_sizes": [
+        2,
+        1,
+        279
+      ],
+      "eligible_counts": {
+        "adaptation": 282,
+        "source_checkpoint_only": 14
+      },
+      "input_profile": [
+        "urbanev",
+        "SZH"
+      ],
+      "input_run_id": "urbanev-SZH-14d",
+      "manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+      "representative_entities": [
+        {
+          "entity_id": "1405",
+          "initial_trainable": 4,
+          "initialization": "target_initial_adaptation",
+          "rank": "57161b0ec939ddec0b2a7a3cf11aea34e05404d4c60687301001aede228e93c0"
+        },
+        {
+          "entity_id": "1987",
+          "initial_trainable": 1,
+          "initialization": "target_initial_adaptation",
+          "rank": "88ecdc5466e1ea6303c7a393b33802b094681f96456ddaae824be6a54e2e34f1"
+        },
+        {
+          "entity_id": "2152",
+          "initial_trainable": 12,
+          "initialization": "target_initial_adaptation",
+          "rank": "04337bce7a4263f8d5a84f8c743581d65e097ca531d8cc3780a924a196a6f4b0"
+        },
+        {
+          "entity_id": "1153",
+          "initial_trainable": 13,
+          "initialization": "target_initial_adaptation",
+          "rank": "009f4adb4bfbab04a1c10e0d5509e4b782a8368478b6e3e06907006e6e34e3bb"
+        },
+        {
+          "entity_id": "1693",
+          "initial_trainable": 13,
+          "initialization": "target_initial_adaptation",
+          "rank": "00d9412d07186e236b586e612203b6eda8f35da7a4d6e7ea11d2b3655ec4d469"
+        },
+        {
+          "entity_id": "2644",
+          "initial_trainable": 0,
+          "initialization": "source_checkpoint_only",
+          "rank": "13a4838c7dbfe25a203d0fb19e79c6c1bcc133ee91adbec73c1e3cb361bb3f3c"
+        },
+        {
+          "entity_id": "2613",
+          "initial_trainable": 0,
+          "initialization": "source_checkpoint_only",
+          "rank": "1fbb87fc7dea41883b75a49f3c54c9696b9d7cb40b3dd96a5c48b7d960561eb7"
+        },
+        {
+          "entity_id": "1025",
+          "initial_trainable": 0,
+          "initialization": "source_checkpoint_only",
+          "rank": "4aebbdbcdfb497a88d3b5e0659ab48e92e3c0319f448cbd94f3c6f2719b5df51"
+        }
+      ],
+      "verification_entity_ids": [
+        "1153",
+        "2644"
+      ]
+    },
+    "28": {
+      "adaptation_group_sizes": [
+        3,
+        8,
+        272
+      ],
+      "eligible_counts": {
+        "adaptation": 283,
+        "source_checkpoint_only": 18
+      },
+      "input_profile": [
+        "urbanev",
+        "SZH"
+      ],
+      "input_run_id": "urbanev-SZH-28d",
+      "manifest_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+      "representative_entities": [
+        {
+          "entity_id": "1987",
+          "initial_trainable": 13,
+          "initialization": "target_initial_adaptation",
+          "rank": "101b67739701784f1346d05ef87e12fa2442467fe1d4b8f0af51804cd715aab1"
+        },
+        {
+          "entity_id": "2152",
+          "initial_trainable": 13,
+          "initialization": "target_initial_adaptation",
+          "rank": "13c1a1d69ed65f15d61fef2414a487b1834e118e554b3e944abc6d068f16057a"
+        },
+        {
+          "entity_id": "2005",
+          "initial_trainable": 18,
+          "initialization": "target_initial_adaptation",
+          "rank": "1ac2fa3c1becd7ae30c9d6b3080304afdbc7cbd2076fc2420f05b4bf9d836258"
+        },
+        {
+          "entity_id": "2472",
+          "initial_trainable": 18,
+          "initialization": "target_initial_adaptation",
+          "rank": "304cd2b0d9336068436d5dc40f3d98a6b67f1fd754f2a331d983663cd1e58090"
+        },
+        {
+          "entity_id": "1165",
+          "initial_trainable": 27,
+          "initialization": "target_initial_adaptation",
+          "rank": "001f1d56b28cb20625ff26bb9b0942540ecb02602d4f9ef72ff6db832d1c7a8c"
+        },
+        {
+          "entity_id": "2633",
+          "initial_trainable": 27,
+          "initialization": "target_initial_adaptation",
+          "rank": "013b393dcebe15ff14b2c73ab730c86bf5e54a58201a5bb6a7d19011538f294e"
+        },
+        {
+          "entity_id": "1188",
+          "initial_trainable": 0,
+          "initialization": "source_checkpoint_only",
+          "rank": "28f81e257c6ddb5161e35c50d0a215fb0a4af74f139364b95047544e0ae8906c"
+        },
+        {
+          "entity_id": "1408",
+          "initial_trainable": 0,
+          "initialization": "source_checkpoint_only",
+          "rank": "43acd062ea8d40e3d690732dd2672be34e079108e87308b35ccb58786588b693"
+        },
+        {
+          "entity_id": "1251",
+          "initial_trainable": 0,
+          "initialization": "source_checkpoint_only",
+          "rank": "48dac7401e9c74d534f3faeb4b714405d60523c1c77bd56921c8abfccb7c8bfb"
+        }
+      ],
+      "verification_entity_ids": [
+        "1165",
+        "1188"
+      ]
+    },
+    "7": {
+      "adaptation_group_sizes": [
+        1,
+        280,
+        0
+      ],
+      "eligible_counts": {
+        "adaptation": 281,
+        "source_checkpoint_only": 13
+      },
+      "input_profile": [
+        "urbanev",
+        "SZH"
+      ],
+      "input_run_id": "urbanev-SZH-7d",
+      "manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+      "representative_entities": [
+        {
+          "entity_id": "1405",
+          "initial_trainable": 4,
+          "initialization": "target_initial_adaptation",
+          "rank": "439f70e830aca3d9f52ae83a9dbf038951856de1b689cf70745ddc4fc72d5406"
+        },
+        {
+          "entity_id": "2264",
+          "initial_trainable": 6,
+          "initialization": "target_initial_adaptation",
+          "rank": "004ac917277cdcb06cac3bc09ebd08ee8fb54ab693fd3b635f10ff7f4327241e"
+        },
+        {
+          "entity_id": "2452",
+          "initial_trainable": 6,
+          "initialization": "target_initial_adaptation",
+          "rank": "0109f76f8860bc94eca87f85bd2593cbeb55f02d5db237369f282db0b7b79b24"
+        },
+        {
+          "entity_id": "1050",
+          "initial_trainable": 0,
+          "initialization": "source_checkpoint_only",
+          "rank": "00bedec1da4f2872f59ff3a3c1548a6fd7b69d16da4c9a6ec6e0cb6efd6368c6"
+        },
+        {
+          "entity_id": "1200",
+          "initial_trainable": 0,
+          "initialization": "source_checkpoint_only",
+          "rank": "49a5e59564727fcefc2035f0257b47443501c65345a97c6c7772c219d7f547e4"
+        },
+        {
+          "entity_id": "2447",
+          "initial_trainable": 0,
+          "initialization": "source_checkpoint_only",
+          "rank": "5338e809ba743bca2633da37fe8d46876383ee344dc6e0f4e046289ce74cad49"
+        }
+      ],
+      "verification_entity_ids": [
+        "2264",
+        "1050"
+      ]
+    }
+  },
+  "minimum_origins_for_two_14_day_boundaries": 42,
+  "schema": "hung-sprint2-development-selection-v1",
+  "seeds": [
+    7,
+    11,
+    19
+  ],
+  "selection_rule": "initial_trainable unique-count tertiles, then SHA-256(manifest SHA, identity); empty groups stay empty",
+  "status": "predeclared; no training or scoring performed"
+}

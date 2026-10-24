@@ -90,6 +90,27 @@ def _process_memory() -> dict:
     }
 
 
+def _device(name: str) -> torch.device:
+    if name not in {"cpu", "cuda"}:
+        raise ValueError("Device must be cpu or cuda")
+    if name == "cuda" and not torch.cuda.is_available():
+        raise ValueError("CUDA was requested but is unavailable in this PyTorch runtime")
+    return torch.device(name)
+
+
+def _device_record(device: torch.device) -> dict:
+    record = {"type": device.type, "torch": torch.__version__}
+    if device.type == "cuda":
+        torch.cuda.synchronize(device)
+        record.update(
+            name=torch.cuda.get_device_name(device),
+            cuda_runtime=torch.version.cuda,
+            peak_allocated_bytes=torch.cuda.max_memory_allocated(device),
+            peak_reserved_bytes=torch.cuda.max_memory_reserved(device),
+        )
+    return record
+
+
 def _identity(manifest: dict) -> tuple[str, str]:
     config = manifest["config"]
     return config["dataset_id"], config["city_id"]
@@ -266,8 +287,9 @@ def _source(args: argparse.Namespace) -> dict:
     if min(len(examples), args.steps * args.batch_size) < 2:
         raise ValueError("Source smoke requires at least two examples before training")
     output = _new_output(args.output, run)
+    device = _device(getattr(args, "device", "cpu"))
     torch.manual_seed(args.seed)
-    model = ForecastGRU(ModelConfig(calendar_hidden=args.calendar_hidden))
+    model = ForecastGRU(ModelConfig(calendar_hidden=args.calendar_hidden)).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
     steps = 0
     used = []
@@ -276,13 +298,14 @@ def _source(args: argparse.Namespace) -> dict:
             break
         batch = examples[start : start + args.batch_size]
         x_hist, c_future, y_scaled = _tensors(batch)
+        x_hist, c_future, y_scaled = (x_hist.to(device), c_future.to(device), y_scaled.to(device))
         source_step(model, optimizer, x_hist, c_future, y_scaled)
         used.extend(batch)
         steps += 1
     source_scale = source_latent_scale(
         model,
         (
-            _tensors(used[start : start + args.batch_size])[0]
+            _tensors(used[start : start + args.batch_size])[0].to(device)
             for start in range(0, len(used), args.batch_size)
         ),
     )
@@ -313,7 +336,7 @@ def _source(args: argparse.Namespace) -> dict:
         "seed": args.seed,
         "learning_rate": args.learning_rate,
         "calendar_hidden": args.calendar_hidden,
-        "device": "cpu",
+        "device": _device_record(device),
         "python": platform.python_version(),
         "torch": torch.__version__,
         "duration_seconds": time.perf_counter() - started,
@@ -337,8 +360,9 @@ def _target(args: argparse.Namespace) -> dict:
     if _identity(source_manifest) != _identity(manifest):
         raise ValueError("Source and target must have the same dataset/city profile")
     source_binding = _binding(source_manifest, args.source_manifest_sha256, stage="source")
+    device = _device(getattr(args, "device", "cpu"))
     source_model, _, latent_scale, _ = load_checkpoint(
-        args.source_checkpoint, expected_binding=source_binding
+        args.source_checkpoint, expected_binding=source_binding, map_location=device
     )
     if latent_scale is None:
         raise ValueError("Source checkpoint lacks fixed latent scale")
@@ -380,6 +404,7 @@ def _target(args: argparse.Namespace) -> dict:
         if steps == args.steps:
             break
         x_hist, c_future, y_scaled = _tensors(examples[start : start + args.batch_size])
+        x_hist, c_future, y_scaled = (x_hist.to(device), c_future.to(device), y_scaled.to(device))
         target_step(
             target,
             reference,
@@ -427,7 +452,7 @@ def _target(args: argparse.Namespace) -> dict:
         "learning_rate": args.learning_rate,
         "retention_weight": args.retention_weight,
         "epsilon": args.epsilon,
-        "device": "cpu",
+        "device": _device_record(device),
         "python": platform.python_version(),
         "torch": torch.__version__,
         "duration_seconds": time.perf_counter() - started,
@@ -444,6 +469,7 @@ def _replay(args: argparse.Namespace) -> dict:
     from experiments.hung_sprint2.replay_inputs import replay_target
 
     started = time.perf_counter()
+    device = _device(getattr(args, "device", "cpu"))
     if args.seed < 0 or not 0 < args.epsilon < float("inf"):
         raise ValueError("Replay seed/epsilon is invalid")
     controller = ControllerConfig(
@@ -477,7 +503,7 @@ def _replay(args: argparse.Namespace) -> dict:
     ):
         raise ValueError("Source checkpoint run lineage mismatch")
     source_model, _, source_scale, _ = load_checkpoint(
-        args.source_checkpoint, expected_binding=source_binding
+        args.source_checkpoint, expected_binding=source_binding, map_location=device
     )
     if source_scale is None:
         raise ValueError("Source checkpoint lacks fixed latent scale")
@@ -511,7 +537,7 @@ def _replay(args: argparse.Namespace) -> dict:
     ):
         raise ValueError("Target checkpoint run lineage mismatch")
     target_model, optimizer, target_scale, _ = load_checkpoint(
-        args.target_checkpoint, expected_binding=target_binding
+        args.target_checkpoint, expected_binding=target_binding, map_location=device
     )
     if target_scale is None or not torch.equal(target_scale, source_scale):
         raise ValueError("Target latent scale differs from bound Source")
@@ -520,7 +546,7 @@ def _replay(args: argparse.Namespace) -> dict:
         "epsilon": args.epsilon,
         "seed": args.seed,
         "max_origins": args.max_origins,
-        "device": "cpu",
+        "device": device.type,
     }
     code = _code_identity()
     if args.resume_checkpoint is None:
@@ -569,12 +595,13 @@ def _replay(args: argparse.Namespace) -> dict:
             or previous.get("config", {}).get("controller") != config["controller"]
             or previous.get("config", {}).get("epsilon") != args.epsilon
             or previous.get("config", {}).get("seed") != args.seed
+            or previous.get("config", {}).get("device", "cpu") != device.type
             or previous.get("code", {}).get("executed_sources") != code["executed_sources"]
             or previous_journal.get("file") != "events.jsonl"
             or sha256_file(journal_file) != previous_journal.get("sha256")
         ):
             raise ValueError("Runner resume lineage/config/code mismatch")
-        runner = load_runner(args.resume_checkpoint, expected_binding=target_binding)
+        runner = load_runner(args.resume_checkpoint, expected_binding=target_binding, device=device)
         if (
             runner.controller != controller
             or runner.epsilon != args.epsilon
@@ -673,6 +700,7 @@ def _replay(args: argparse.Namespace) -> dict:
         "runner_cursor": runner.next_index,
         "python": platform.python_version(),
         "torch": torch.__version__,
+        "device": _device_record(device),
         "duration_seconds": time.perf_counter() - started,
         "memory_usage": _process_memory(),
         "code": code,
@@ -698,6 +726,7 @@ def main(argv: list[str] | None = None) -> int:
         subparser.add_argument("--batch-size", type=int, required=True)
         subparser.add_argument("--seed", type=int, required=True)
         subparser.add_argument("--learning-rate", type=float, required=True)
+        subparser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
     source.add_argument("--calendar-hidden", type=int, required=True)
     target.add_argument("--source-input-run", type=Path, required=True)
     target.add_argument("--source-manifest-sha256", required=True)
@@ -727,6 +756,7 @@ def main(argv: list[str] | None = None) -> int:
     for name in ("level-one", "level-two", "initial-level", "delta", "alpha", "epsilon"):
         replay.add_argument(f"--{name}", type=float, required=True)
     replay.add_argument("--resume-checkpoint", type=Path)
+    replay.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
     args = parser.parse_args(argv)
     if args.command == "verify-input-zip":
         print(json.dumps(_verify_input_zip(args.archive, args.package)))
