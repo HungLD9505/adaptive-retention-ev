@@ -2,6 +2,8 @@
 
 Status: **in progress**. This audit distinguishes earlier Colab evidence from work executed on 2026-10-25. It does not accept #39, #19–#21 or the proposed Development settings.
 
+Update: the complete local 7/14/28-day, three-seed verification run and hash audit are documented in [hung-39-local-verification-20261025.md](hung-39-local-verification-20261025.md). These are local diagnostics, not Colab acceptance.
+
 ## Acceptance matrix
 
 | #39 area | Evidence available | Remaining gate | Independent confirmation |
