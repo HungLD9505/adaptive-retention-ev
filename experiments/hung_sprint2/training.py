@@ -12,6 +12,7 @@ from pathlib import Path
 import torch
 from torch import Tensor
 
+from experiments.hung_sprint2._create_only import publish_create_only
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
 from experiments.hung_sprint2.retention import (
     frozen_source_reference,
@@ -222,12 +223,7 @@ def save_checkpoint(
             torch.save(payload, stream)
             stream.flush()
             os.fsync(stream.fileno())
-        # Windows rename and POSIX hard-link creation are same-directory,
-        # atomic publications that fail if the destination already exists.
-        if os.name == "nt":
-            os.rename(temporary, destination)
-        else:
-            os.link(temporary, destination)
+        publish_create_only(temporary, destination)
     finally:
         temporary.unlink(missing_ok=True)
 
