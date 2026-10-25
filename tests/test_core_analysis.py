@@ -179,7 +179,12 @@ class AnalysisPipelineTests(unittest.TestCase):
                                         ),
                                         "mae_scaled": [normalized],
                                         "mse_scaled": [normalized**2],
-                                    }
+                                    },
+                                    {
+                                        "event": "audit_summary",
+                                        "paired_days": 0,
+                                        "mean_new_minus_old": None,
+                                    },
                                 ]
                             )
                             (tick / "events.jsonl").write_text(
@@ -227,7 +232,13 @@ class AnalysisPipelineTests(unittest.TestCase):
                             "active_mae_kwh": normalized * 10,
                             "active_rmse_kwh": normalized * 10,
                             "commit_chain": previous,
-                            "audits": [{"paired_days": 0, "mean_new_minus_old": None}],
+                            "audits": [
+                                {
+                                    "event": "audit_summary",
+                                    "paired_days": 0,
+                                    "mean_new_minus_old": None,
+                                }
+                            ],
                             "decisions": [],
                             "elapsed_seconds": 1,
                             "initial_logs": [],

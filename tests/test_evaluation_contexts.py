@@ -16,7 +16,12 @@ class DensityContextTests(unittest.TestCase):
     def test_analysis_extension_identities_cannot_silently_change(self):
         profile = json.loads(Path("configs/issue23/analysis-profile.json").read_text())
         validate_analysis_extensions(profile)
-        for key in ("online_phase_days", "load_density_policy", "proxy_relationship_policy"):
+        for key in (
+            "online_phase_days",
+            "load_density_policy",
+            "proxy_relationship_policy",
+            "switching_analysis_policy",
+        ):
             changed = copy.deepcopy(profile)
             changed[key] = "unsupported"
             with self.subTest(key=key), self.assertRaises(ValueError):

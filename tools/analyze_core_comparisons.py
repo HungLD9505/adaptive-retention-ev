@@ -42,6 +42,7 @@ def saved_errors(root: Path, report: dict) -> tuple[list[DailyError], dict]:
     """Rehash daily predictions/events and follow score identities; never read labels."""
     predictions, errors, coverage = {}, [], []
     proxy_trace = {"forecasts": {}, "scores": []}
+    decisions, audits = [], []
     proxy_method = report.get("method", {}).get("name") in {"source_error", "uncertainty", "drift"}
     previous = "0" * 64
     scale = None
@@ -54,6 +55,10 @@ def saved_errors(root: Path, report: dict) -> tuple[list[DailyError], dict]:
                 raise ValueError("Changed saved forecast/event")
         for line in (tick / "events.jsonl").read_text().splitlines():
             event = json.loads(line)
+            if event["event"] == "decision":
+                decisions.append({k: v for k, v in event.items() if k not in ("event", "as_of")})
+            if event["event"] == "audit_summary":
+                audits.append(event)
             if event["event"] != "score":
                 continue
             forecast, checksum = predictions[event["origin"]]
@@ -94,6 +99,8 @@ def saved_errors(root: Path, report: dict) -> tuple[list[DailyError], dict]:
         or len(errors) != report["scored_days"]
         or len(predictions) != report["issued_days"]
         or len({e.origin for e in errors}) != len(errors)
+        or decisions != report.get("decisions", [])
+        or audits != report.get("audits", [])
     ):
         raise ValueError("Saved daily population differs from report")
     return errors, {

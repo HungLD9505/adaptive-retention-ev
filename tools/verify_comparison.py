@@ -44,6 +44,8 @@ def verify_run(root: Path, input_root: Path) -> dict:
     if retention not in {"all", "latest"}:
         raise ValueError("Unknown state-retention policy")
     previous, predictions, scores, file_count, omitted = "0" * 64, {}, [], 0, 0
+    decisions, audits, audit_pairs, closed_audits = [], [], {}, set()
+    audit_scores = 0
     ticks = sorted(root.glob("tick-*"))
     for index, tick in enumerate(ticks):
         meta = json.loads((tick / "commit.json").read_text())
@@ -69,6 +71,42 @@ def verify_run(root: Path, input_root: Path) -> dict:
         with (tick / "events.jsonl").open() as events_stream:
             for line in events_stream:
                 event = json.loads(line)
+                if event["event"] == "decision":
+                    decisions.append(
+                        {k: v for k, v in event.items() if k not in ("event", "as_of")}
+                    )
+                if event["event"] == "audit_summary":
+                    key = event["switch"]["start"], event["switch"]["lambda"]
+                    pairs = audit_pairs.get(key, [])
+                    daily = event["daily"]
+                    if (
+                        key in closed_audits
+                        or event["paired_days"] != len(pairs)
+                        or len(daily) != len(pairs)
+                    ):
+                        raise ValueError("Duplicate audit or changed paired audit population")
+                    for saved, actual_pair in zip(daily, pairs, strict=True):
+                        if saved["origin"] != actual_pair["origin"] or not math.isclose(
+                            saved["new_minus_old"],
+                            actual_pair["new_minus_old"],
+                            rel_tol=1e-9,
+                            abs_tol=1e-10,
+                        ):
+                            raise ValueError(
+                                "Audit gap disagrees with original-unit forecast/label recomputation"
+                            )
+                    expected_mean = (
+                        sum(p["new_minus_old"] for p in pairs) / len(pairs) if pairs else None
+                    )
+                    saved_mean = event["mean_new_minus_old"]
+                    if (
+                        (saved_mean is None) != (expected_mean is None)
+                        or expected_mean is not None
+                        and not math.isclose(saved_mean, expected_mean, rel_tol=1e-9, abs_tol=1e-10)
+                    ):
+                        raise ValueError("Audit summary mean disagrees with recomputed paired gaps")
+                    closed_audits.add(key)
+                    audits.append(event)
                 if event["event"] != "score":
                     continue
                 origin = event["origin"]
@@ -106,6 +144,27 @@ def verify_run(root: Path, input_root: Path) -> dict:
                         raise ValueError("Saved MSE disagrees with original-unit recomputation")
                     if k == active:
                         scores.append((origin, mae, mse))
+                audit = issued.get("audit_origin")
+                if audit is not None:
+                    old_prediction = issued.get("audit_prediction", [])
+                    if (
+                        len(old_prediction) != 24
+                        or any(not math.isfinite(v) or v < 0 for v in old_prediction)
+                        or audit["lambda"] not in report["candidate_levels"]
+                        or datetime.fromisoformat(audit["start"]) > datetime.fromisoformat(origin)
+                    ):
+                        raise ValueError("Invalid old-policy audit forecast or switch identity")
+                    old_mae = (
+                        sum(abs(a * scale - b) for a, b in zip(old_prediction, actual, strict=True))
+                        / 24
+                    )
+                    key = audit["start"], audit["lambda"]
+                    audit_pairs.setdefault(key, []).append(
+                        {"origin": origin, "new_minus_old": (scores[-1][1] - old_mae) / scale}
+                    )
+                    audit_scores += 1
+                elif "audit_prediction" in issued:
+                    raise ValueError("Audit prediction has no identified old policy")
         if forecast:
             origin = forecast["origin"]
             if origin in predictions or tuple(forecast["record"]["identity"]) != expected:
@@ -115,6 +174,8 @@ def verify_run(root: Path, input_root: Path) -> dict:
             predictions[origin] = forecast, sha(tick / "forecasts.json")
     if previous != report["commit_chain"] or len(scores) != report["scored_days"]:
         raise ValueError("Report count/chain differs")
+    if decisions != report.get("decisions", []) or audits != report.get("audits", []):
+        raise ValueError("Report decisions/audits differ from authenticated daily events")
     if len(predictions) != report["issued_days"] or len({s[0] for s in scores}) != len(scores):
         raise ValueError("Forecast count/unique score population differs")
     mae = sum(s[1] for s in scores) / len(scores) if scores else None
@@ -137,6 +198,9 @@ def verify_run(root: Path, input_root: Path) -> dict:
         "mae_kwh": mae,
         "rmse_kwh": rmse,
         "commit_chain": previous,
+        "decision_events_verified": len(decisions),
+        "audit_summaries_verified": len(audits),
+        "audit_forecast_scores_verified": audit_scores,
     }
 
 

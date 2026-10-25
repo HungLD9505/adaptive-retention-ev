@@ -9,6 +9,94 @@ from tools.verify_comparison import sha, verify_run
 
 
 class ArtifactVerifierTests(unittest.TestCase):
+    def audit_fixture(self, base):
+        run, data = self.fixture(base)
+        t0, t1 = run / "tick-0000", run / "tick-0001"
+        forecast = json.loads((t0 / "forecasts.json").read_text())
+        forecast.update(
+            active=0.1,
+            predictions=[[1.0] * 24] * 3,
+            audit_origin={"start": forecast["origin"], "lambda": 0},
+            audit_prediction=[0.5] * 24,
+        )
+        (t0 / "forecasts.json").write_text(json.dumps(forecast))
+        event = json.loads((t1 / "events.jsonl").read_text())
+        event.update(
+            prediction_sha256=sha(t0 / "forecasts.json"),
+            issued_active=0.1,
+            mae_scaled=[0.8] * 3,
+            mse_scaled=[0.64] * 3,
+        )
+        audit = {
+            "event": "audit_summary",
+            "switch": forecast["audit_origin"],
+            "paired_days": 1,
+            "mean_new_minus_old": 0.5,
+            "daily": [{"origin": forecast["origin"], "new_minus_old": 0.5}],
+        }
+        (t1 / "events.jsonl").write_text(json.dumps(event) + "\n" + json.dumps(audit) + "\n")
+        report = json.loads((run / "run.json").read_text())
+        report.update(candidate_levels=[0, 0.1, 1], decisions=[], audits=[audit])
+        (run / "run.json").write_text(json.dumps(report))
+        self.recommit(run)
+        return run, data
+
+    def recommit(self, run):
+        previous = "0" * 64
+        for index, tick in enumerate(sorted(run.glob("tick-*"))):
+            (tick / "commit.json").write_text(
+                json.dumps(
+                    {
+                        "previous": previous,
+                        "index": index,
+                        "files": {
+                            n: sha(tick / n) for n in ("forecasts.json", "events.jsonl", "state.pt")
+                        },
+                    }
+                )
+            )
+            previous = sha(tick / "commit.json")
+        report = json.loads((run / "run.json").read_text())
+        report["commit_chain"] = previous
+        (run / "run.json").write_text(json.dumps(report))
+
+    def test_audit_original_unit_forecasts_are_recomputed_without_training(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run, data = self.audit_fixture(Path(temp))
+            result = verify_run(run, data)
+            self.assertEqual(result["audit_summaries_verified"], 1)
+            self.assertEqual(result["audit_forecast_scores_verified"], 1)
+
+    def test_hash_consistent_false_audit_metric_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run, data = self.audit_fixture(Path(temp))
+            path = run / "tick-0001/events.jsonl"
+            events = [json.loads(s) for s in path.read_text().splitlines()]
+            events[-1].update(
+                mean_new_minus_old=0.7,
+                daily=[{"origin": "2023-07-01T00:00:00", "new_minus_old": 0.7}],
+            )
+            path.write_text("\n".join(json.dumps(e) for e in events))
+            report = json.loads((run / "run.json").read_text())
+            report["audits"] = [events[-1]]
+            (run / "run.json").write_text(json.dumps(report))
+            self.recommit(run)
+            with self.assertRaisesRegex(ValueError, "Audit gap"):
+                verify_run(run, data)
+
+    def test_report_only_audit_or_decision_mutation_is_rejected(self):
+        for name in ("audits", "decisions"):
+            with tempfile.TemporaryDirectory() as temp:
+                run, data = self.audit_fixture(Path(temp))
+                report = json.loads((run / "run.json").read_text())
+                report[name] = [] if name == "audits" else [{"selected_lambda": 99}]
+                (run / "run.json").write_text(json.dumps(report))
+                with (
+                    self.subTest(name=name),
+                    self.assertRaisesRegex(ValueError, "decisions/audits"),
+                ):
+                    verify_run(run, data)
+
     def test_declared_latest_policy_accounts_for_missing_historical_state(self):
         with tempfile.TemporaryDirectory() as temp:
             run, data = self.fixture(Path(temp))

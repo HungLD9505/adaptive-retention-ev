@@ -81,6 +81,48 @@ new-minus-old audit gaps without declaring a harmful-switch rate. Recovery time 
 not invented without an identified stress/intervention onset. Sparse/dense
 thresholds and all analysis definitions require review before any Final lock.
 
+## Recorded switching and stronger independent audit verification
+
+The next analysis revision adds the explicit profile identity
+`recorded-calendar-next-block-drain-separated-v1`. It reads every recorded decision
+in chronological order, checks active/selected-level continuity and paired-day
+counts, then reports switch counts, decision opportunities, reasons, insufficient
+evidence, missing-day counts and the actual deployed MAE/RMSE in the following
+calendar block. Missing labels remain missing; the final partial block is clipped
+to the forecast horizon. Rates use scheduled decision opportunities within that
+horizon, with actual issued/scored coverage alongside them. Fixed single-policy
+methods have no switching opportunity and a null rate, not a claim of superior
+stability. All sites and all paired seeds remain present, including unscored sites;
+seed-specific paths/counts, ranges and equal-site summaries are descriptive.
+
+The runner continues polling after the forecast horizon to drain available labels.
+For example, block7 can record a decision on day91 in a 90-day replay. That event
+is retained as drain-only; it cannot change a forecast in the reported horizon and
+is excluded from deployed switch/opportunity counts. A keep decision may still
+follow a previous switch; next-block errors remain descriptive actual policy-path
+outcomes, not causal treatment effects or recovery time. Different block sizes
+retain their own opportunity counts and actual candidate/update budgets.
+
+Previously, `tools.verify_comparison` independently recomputed candidate/deployed
+errors but only hashed audit forecast/event bytes. The enhanced verifier also
+recomputes the old-policy audit forecast's original-unit MAE using the same arrived
+complete label vector, pairs it with the deployed error, and checks each saved
+daily normalized gap and audit mean/count. Report decisions and audit summaries
+must exactly match authenticated event payloads; an altered report or even a
+hash-consistent false audit mean is rejected. Unfinished final audits are not
+invented as completed summaries. This does not independently rerun the statistical
+decision rule or establish confidence coverage; existing controller tests and
+runner isolation evidence retain those distinct scopes.
+
+New proofs must use fresh output names. The older independent proofs and archives
+retain their original narrower scope and bytes. The remote training remains
+unchanged; this is read-only verification/analysis. 316 fixture tests and local
+lint/format/diff checks pass, including a corrected older core-analysis fixture
+whose synthetic report audit had previously lacked a corresponding event. No
+scientific expected value or historical artifact was changed to pass that test.
+Real controller audit re-verification and staging this newer analysis are pending
+at this code commit; their actual results must be recorded after execution.
+
 ## Committed verification and remote staging
 
 Implementation `5fa321fea2c9097d92d0d4fc4e6965ff05f059cf` passed all 295

@@ -10,6 +10,7 @@ from ev_evaluation.artifacts import authenticate_matrix
 from ev_evaluation.contexts import validate_analysis_extensions
 from ev_evaluation.costs import comparison_costs
 from ev_evaluation.proxy_relationships import analyze_proxy_cells
+from ev_evaluation.switching import analyze_switch_cells
 from ev_evaluation.uncertainty import paired_station_time_interval
 from ev_models.checkpoint import digest, load_checkpoint, write_json
 from ev_models.data import InputRun
@@ -210,6 +211,7 @@ def analyze(args: argparse.Namespace) -> None:
             for k, v in differences.items()
         },
         proxy_relationships=analyze_proxy_cells(cells, cohort["seeds"]),
+        switching=analyze_switch_cells(cells, cohort["seeds"], start=start),
         isolated_audits=audits,
         limits="No city pooling, UrbanEV weight reuse, city-specific retuning or independent-external/strict-online certification. Small prefix-selected cohort, fixed three seeds, possible co-location, publisher imputation/clock uncertainty, conditional primary configuration. Intervals are exploratory/marginal; density and same-block proxy associations are descriptive. Off-runtime state verification and capacity/peer acceptance remain required.",
     )

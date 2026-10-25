@@ -12,6 +12,7 @@ from ev_evaluation.costs import comparison_costs
 from ev_evaluation.metrics import paired_metrics, station_first
 from ev_evaluation.proxy_relationships import analyze_proxy_cells
 from ev_evaluation.selection import score_candidates
+from ev_evaluation.switching import analyze_switch_cells
 from ev_evaluation.uncertainty import paired_station_time_interval
 from ev_models.checkpoint import digest, write_json
 from ev_runner.run import runtime_code
@@ -407,6 +408,9 @@ def analyze(args: argparse.Namespace) -> None:
         family: studies[family]["wall_seconds"] for family in FAMILIES
     }
     summary["proxy_relationships"] = analyze_proxy_cells(cells, cohort["seeds"])
+    summary["switching"] = analyze_switch_cells(
+        cells, cohort["seeds"], start=datetime.fromisoformat(next(iter(starts)))
+    )
     args.output.mkdir(parents=True, exist_ok=False)
     write_json(args.output / "summary.json", summary)
     with (args.output / "runs.csv").open("x", newline="") as stream:

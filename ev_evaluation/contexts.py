@@ -10,6 +10,7 @@ def validate_analysis_extensions(profile: dict) -> None:
         "online_phase_days": [[1, 30], [31, 60], [61, 90]],
         "load_density_policy": "prefix-positive-valid-hour-fraction-development-median-v1",
         "proxy_relationship_policy": "same-block-paired-available-proxy-v1",
+        "switching_analysis_policy": "recorded-calendar-next-block-drain-separated-v1",
     }
     if {key: profile.get(key) for key in expected} != expected:
         raise ValueError("Analysis extensions must match their explicit profile identities")
