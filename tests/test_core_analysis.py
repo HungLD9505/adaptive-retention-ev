@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 
 from ev_models.checkpoint import digest
-from tools.analyze_core_comparisons import saved_errors
+from tools.analyze_core_comparisons import audit_gap_kwh, saved_errors
 
 
 class SavedErrorTests(unittest.TestCase):
@@ -69,6 +69,21 @@ class SavedErrorTests(unittest.TestCase):
         self.report["scored_days"] = 0
         with self.assertRaises(ValueError):
             saved_errors(self.root, self.report)
+
+
+class AuditGapTests(unittest.TestCase):
+    def test_unscored_audit_retains_null(self):
+        self.assertIsNone(audit_gap_kwh({"paired_days": 0, "mean_new_minus_old": None}, 10))
+        self.assertIsNone(audit_gap_kwh({"paired_days": 0, "mean_new_minus_old": None}, None))
+
+    def test_scored_real_zero_and_signed_gap_are_converted(self):
+        self.assertEqual(audit_gap_kwh({"paired_days": 2, "mean_new_minus_old": 0}, 10), 0)
+        self.assertEqual(audit_gap_kwh({"paired_days": 2, "mean_new_minus_old": -0.1}, 10), -1)
+
+    def test_inconsistent_audit_missing_mean_is_rejected(self):
+        for count, value in ((0, 1), (2, None), (-1, 0)):
+            with self.assertRaises(ValueError):
+                audit_gap_kwh({"paired_days": count, "mean_new_minus_old": value}, 10)
 
 
 class AnalysisPipelineTests(unittest.TestCase):
@@ -188,7 +203,7 @@ class AnalysisPipelineTests(unittest.TestCase):
                             "active_mae_kwh": normalized * 10,
                             "active_rmse_kwh": normalized * 10,
                             "commit_chain": previous,
-                            "audits": [],
+                            "audits": [{"paired_days": 0, "mean_new_minus_old": None}],
                             "decisions": [],
                             "elapsed_seconds": 1,
                             "initial_logs": [],
@@ -249,6 +264,9 @@ class AnalysisPipelineTests(unittest.TestCase):
                 -10,
             )
             self.assertEqual(len((args.output / "runs.csv").read_text().splitlines()), 46)
+            self.assertTrue(
+                all(a["new_minus_old_mae_kwh"] is None for a in output["isolated_audits"])
+            )
 
 
 if __name__ == "__main__":

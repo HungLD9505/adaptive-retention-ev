@@ -3,6 +3,7 @@
 import argparse
 import csv
 import json
+import math
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
@@ -15,6 +16,26 @@ from ev_runner.run import runtime_code
 from tools.development_comparators import reference_cells
 
 METHODS = ("adaptive", "target_only", "full_finetuning", "fixed_retention", "online_best")
+
+
+def audit_gap_kwh(audit: dict, scale: float | None) -> float | None:
+    """An audit without complete paired days has no error estimate, never zero."""
+    count, value = audit["paired_days"], audit["mean_new_minus_old"]
+    if type(count) is not int or count < 0:
+        raise ValueError("Nonnegative paired audit count required")
+    if count == 0:
+        if value is not None:
+            raise ValueError("An unscored audit must have a null mean")
+        return None
+    if (
+        value is None
+        or scale is None
+        or not math.isfinite(value)
+        or not math.isfinite(scale)
+        or scale <= 0
+    ):
+        raise ValueError("Scored audit requires a finite mean and positive scale")
+    return value * scale
 
 
 def saved_errors(root: Path, report: dict) -> tuple[list[DailyError], dict]:
@@ -185,8 +206,7 @@ def analyze(args: argparse.Namespace) -> None:
                                 "run_id": report["run_id"],
                                 "method": method,
                                 "paired_days": audit["paired_days"],
-                                "new_minus_old_mae_kwh": audit["mean_new_minus_old"]
-                                * coverage["scale"],
+                                "new_minus_old_mae_kwh": audit_gap_kwh(audit, coverage["scale"]),
                                 "scope": "Retrospective descriptive gap; no locked harmful-switch threshold",
                             }
                         )
