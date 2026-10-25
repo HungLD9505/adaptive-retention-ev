@@ -4,7 +4,6 @@ import json
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 
-from ev_inputs.loader import iter_forecasts
 from ev_inputs.windows import LabelRecord, ready_labels
 from ev_models.data import InputRun, jsonl
 
@@ -36,7 +35,7 @@ class Replay:
         self.scale = summary["scale"]["energy_scale"]
         self.delay = timedelta(hours=inputs.config["availability_delay_hours"])
         self.forecasts = {}
-        for r in iter_forecasts(inputs.root, expected_manifest_sha256=inputs.sha256):
+        for r in inputs.replay_forecasts(entity_id):
             if tuple(r["identity"]) != self.identity:
                 continue
             origin = datetime.fromisoformat(r["origin"])

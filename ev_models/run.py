@@ -14,10 +14,9 @@ os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
 
 import torch
 
-from ev_inputs.loader import iter_forecasts
 from ev_inputs.windows import LabelRecord, ready_labels
 from ev_models.checkpoint import digest, load_checkpoint, save_checkpoint, write_json
-from ev_models.data import InputRun, jsonl
+from ev_models.data import InputRun
 from ev_models.model import ForecastGRU, ModelConfig
 from ev_models.training import (
     TrainingConfig,
@@ -103,7 +102,7 @@ def evaluate(
     with (out / "predictions.jsonl").open("x", encoding="utf-8") as stream:
         model.eval()
         with torch.no_grad():
-            for rec in iter_forecasts(inputs.root, expected_manifest_sha256=inputs.sha256):
+            for rec in inputs.replay_forecasts(entity_id):
                 if rec["role"] != "development" or rec["identity"][2] != entity_id:
                     continue
                 origin = datetime.fromisoformat(rec["origin"])
@@ -132,10 +131,9 @@ def evaluate(
                 )
     # The predictor file is closed and hashed before the scoring path sees Y.
     prediction_sha256 = digest(out / "predictions.jsonl")
-    inputs.verify("labels.jsonl")
     scores = []
     seen = set()
-    for rec in jsonl(inputs.root / "labels.jsonl"):
+    for rec in inputs.evaluation_labels(entity_id, set(predictions)):
         if (
             tuple(rec["identity"]) != (*inputs.namespace, entity_id)
             or rec["origin"] not in predictions

@@ -1,6 +1,6 @@
 # UrbanEV Development readiness — three seeds, 90 scheduled days
 
-Diagnostic execution only. No Final, no tuning and no matched ranking against Hung.
+Diagnostic execution only. No Final evaluation, no tuning and no matched ranking against Hung.
 
 | Budget | Targets | Paired seed units | Scheduled / issued / scored days per method | Zero-score units |
 |---|---:|---:|---|---:|
@@ -86,3 +86,6 @@ matched scientific ranking; no configuration was changed to favor these scores.
 The repository CSV follows the project LF text-normalization rule. Catalog hashes
 identify original Drive files (whose CSV uses CRLF), not the LF-normalized repository
 rendering. The rows and values are unchanged.
+
+See the [input-reader boundary correction](input-reader-boundary.md) for precise
+historical decoding scope and the subsequent role/entity-before-deserialization fix.

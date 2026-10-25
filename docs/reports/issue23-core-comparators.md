@@ -44,3 +44,6 @@ Memory accounting limit: these readiness/core drivers do not reset CUDA peak
 counters between cells. Saved peak values are process high-water observations, not
 isolated per-method memory benchmarks. Do not rank methods by them. A separate
 reset/isolation measurement is still needed for the final cost comparison.
+
+See the [input-reader boundary correction](input-reader-boundary.md) for precise
+historical decoding scope and the subsequent role/entity-before-deserialization fix.

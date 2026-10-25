@@ -1,7 +1,7 @@
 # Issue #23 — evaluation helpers and independent verification (partial)
 
 Executed 2026-10-26. This is a partial technical handoff, not completion of #23.
-No Final access, tuning, configuration lock, research-effectiveness claim or merge.
+No Final fitting, tuning, evaluation, configuration lock, effectiveness claim or merge.
 
 ## Implemented and tested
 
@@ -56,7 +56,9 @@ daily files and reporting12,558 intentionally omitted historical full states. Al
 138 final branch states and three Source checkpoints were downloaded/hash-checked/
 CPU-loaded; the entire156.7MB ZIP passed CRC. A second local read-only execution
 produced byte-identical verifier outputs and station/seed summaries. No local
-real-data training or Final forecast/label decoding was performed.
+real-data training or Final fitting/tuning/evaluation was performed. The
+[reader-boundary correction](input-reader-boundary.md) withdraws the earlier stronger
+claim about discarded Final-array decoding and records the subsequent hardening.
 
 [Independent component comparison](implementation-comparison-readiness.md) records
 which GRU/retention/gradient/controller fixtures match Hung and the material head,
@@ -84,3 +86,6 @@ The branch starts from dev and locally integrates the author's pending #47/#49/#
 #51 with normal Git merges. Refresh against reviewed/integrated dev before merge;
 no GitHub PR merge was performed. All work is independently implemented, without
 copying Hung's model/controller/runner code.
+
+See the [input-reader boundary correction](input-reader-boundary.md) for precise
+historical decoding scope and the subsequent role/entity-before-deserialization fix.

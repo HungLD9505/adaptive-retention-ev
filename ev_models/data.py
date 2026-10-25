@@ -3,6 +3,7 @@
 import hashlib
 import json
 import math
+from dataclasses import fields
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Iterator
@@ -10,6 +11,7 @@ from typing import Iterator
 from ev_inputs.features import SCHEMA_ID, calendar_features
 from ev_inputs.loader import MISSING_DATA_POLICY, SUCCESS_STATUSES
 from ev_inputs.splits import entity_role
+from ev_inputs.windows import ForecastInput
 from ev_models.checkpoint import digest
 
 DAY = timedelta(days=1)
@@ -155,6 +157,61 @@ class InputRun:
                 raise ValueError("Future calendar mismatch")
         return {**record, "entity_id": identity[2]}
 
+    def _selected_rows(self, name: str, role: str, entity_id: str | None) -> Iterator[dict]:
+        """Authenticate all bytes, decode only the requested publisher-profile header.
+
+        The accepted #18 writer places role and identity before value arrays. This
+        narrow adapter deliberately rejects another serialization profile rather
+        than falling back to decoding unselected records.
+        """
+        self.verify(name)
+        nested = '"forecast": {' if name == "training.jsonl" else ""
+        headers = {
+            r: ('{"role": "' + r + '", ' + nested + '"identity": ').encode()
+            for r in ("source", "development", "final")
+        }
+        prefix = headers[role]
+        if entity_id is not None:
+            prefix += json.dumps([*self.namespace, entity_id], ensure_ascii=False).encode() + b","
+        with (self.root / name).open("rb") as stream:
+            for line in stream:
+                if not any(line.startswith(header) for header in headers.values()):
+                    raise ValueError(f"Unsupported identified-row serialization: {name}")
+                if line.startswith(prefix):
+                    yield json.loads(line)
+
+    def replay_forecasts(self, entity_id: str) -> Iterator[dict]:
+        """Yield only one ready Development target; no other entity values decoded."""
+        summary = self.entities.get((*self.namespace, entity_id), {})
+        if summary.get("role") != "development" or summary.get("status") != "ready":
+            raise ValueError("Replay permits only one ready Development target")
+        expected = {field.name for field in fields(ForecastInput)} | {"role"}
+        for record in self._selected_rows("forecasts.jsonl", "development", entity_id):
+            if set(record) != expected:
+                raise ValueError("Predictor record contains unexpected/missing fields")
+            yield record
+
+    def evaluation_labels(self, entity_id: str, origins: set[str]) -> Iterator[dict]:
+        """Static evaluator: decode Y only for this Development target's issued days."""
+        summary = self.entities.get((*self.namespace, entity_id), {})
+        if summary.get("role") != "development" or summary.get("status") != "ready":
+            raise ValueError("Evaluation permits only one ready Development target")
+        self.verify("labels.jsonl")
+        prefix = (
+            '{"identity": '
+            + json.dumps([*self.namespace, entity_id], ensure_ascii=False)
+            + ', "origin": "'
+        ).encode()
+        with (self.root / "labels.jsonl").open("rb") as stream:
+            for line in stream:
+                if not line.startswith(b'{"identity": '):
+                    raise ValueError("Unsupported identified label serialization")
+                if not line.startswith(prefix):
+                    continue
+                stamp = line[len(prefix) :].split(b'"', 1)[0].decode()
+                if stamp in origins:
+                    yield json.loads(line)
+
     def training(self, role: str, entity_id: str | None = None) -> list[dict]:
         if role not in ("source", "development") or (role == "development" and entity_id is None):
             raise ValueError(
@@ -167,12 +224,12 @@ class InputRun:
             raise ValueError("Requested target is absent or not Development")
         result = []
         seen = set()
-        for rec in jsonl(self.root / "training.jsonl"):
-            # Final values are neither selected nor used for fitting, metrics or tuning.
+        for rec in self._selected_rows("training.jsonl", role, entity_id):
+            # Validate the selected header again after decoding the selected body.
             if rec["role"] != role or (
                 entity_id is not None and rec["forecast"]["identity"][2] != entity_id
             ):
-                continue
+                raise ValueError("Selected training header disagrees with decoded identity")
             forecast = self.validate_forecast(
                 {**rec["forecast"], "role": role}, role=role, before_deployment=True
             )
@@ -194,6 +251,15 @@ class InputRun:
                 ):
                     raise ValueError("Invalid/inconsistent normalized labels")
             result.append({**forecast, "y_kwh": y, "y_scaled": scaled})
+        expected_count = (
+            self.entities[(*self.namespace, entity_id)]["initial_trainable"]
+            if entity_id is not None
+            else sum(
+                row["initial_trainable"] for row in self.entities.values() if row["role"] == role
+            )
+        )
+        if len(result) != expected_count:
+            raise ValueError("Selected training population differs from identified summary")
         return result
 
     def binding(
