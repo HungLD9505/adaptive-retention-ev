@@ -41,6 +41,8 @@ def audit_gap_kwh(audit: dict, scale: float | None) -> float | None:
 def saved_errors(root: Path, report: dict) -> tuple[list[DailyError], dict]:
     """Rehash daily predictions/events and follow score identities; never read labels."""
     predictions, errors, coverage = {}, [], []
+    proxy_trace = {"forecasts": {}, "scores": []}
+    proxy_method = report.get("method", {}).get("name") in {"source_error", "uncertainty", "drift"}
     previous = "0" * 64
     scale = None
     for index, tick in enumerate(sorted(root.glob("tick-*"))):
@@ -68,6 +70,10 @@ def saved_errors(root: Path, report: dict) -> tuple[list[DailyError], dict]:
                     event["mse_scaled"][k] * scale**2,
                 )
             )
+            if proxy_method:
+                proxy_trace["scores"].append(
+                    {name: event[name] for name in ("origin", "as_of", "mae_scaled")}
+                )
         forecast = json.loads((tick / "forecasts.json").read_text())
         if forecast:
             if forecast["origin"] in predictions or any(
@@ -80,6 +86,8 @@ def saved_errors(root: Path, report: dict) -> tuple[list[DailyError], dict]:
             scale = current
             coverage.append(sum(bool(row[-1]) for row in forecast["record"]["x_hist"]))
             predictions[forecast["origin"]] = forecast, digest(tick / "forecasts.json")
+            if proxy_method:
+                proxy_trace["forecasts"][forecast["origin"]] = forecast["proxy"]
         previous = digest(tick / "commit.json")
     if (
         previous != report["commit_chain"]
@@ -92,6 +100,7 @@ def saved_errors(root: Path, report: dict) -> tuple[list[DailyError], dict]:
         "scale": scale,
         "valid_history_hours_min": min(coverage) if coverage else None,
         "valid_history_hours_mean": mean(coverage) if coverage else None,
+        **({"proxy_trace": proxy_trace} if proxy_method else {}),
     }
 
 

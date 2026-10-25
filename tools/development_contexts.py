@@ -53,6 +53,28 @@ def fit(root: Path) -> dict:
     }
 
 
+def authenticate_contexts(path: Path, checksum: str, root: Path) -> dict:
+    """Recompute groups from current authenticated metadata, accepting namespace subsets."""
+    if digest(path) != checksum:
+        raise ValueError("Changed identified density-context output")
+    recorded, current = json.loads(path.read_text()), fit(root)
+    if recorded["policy"] != current["policy"] or recorded["rule"] != current["rule"]:
+        raise ValueError("Changed density definition")
+    stored = {}
+    for group in recorded["groups"]:
+        key = (*group["namespace"], group["history_days"])
+        if key in stored:
+            raise ValueError("Duplicate calibrated density group")
+        stored[key] = group
+    result = {}
+    for group in current["groups"]:
+        key = (*group["namespace"], group["history_days"])
+        if stored.get(key) != group:
+            raise ValueError("Density groups differ from authenticated allowed-prefix metadata")
+        result[key] = group
+    return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--inputs-root", type=Path, required=True)

@@ -11,5 +11,8 @@
   "bootstrap_rationale": "Weekly calendar blocks; common calendar draws across stations; fixed paired seeds; gaps stay missing",
   "multiple_comparisons": "No simultaneous correction; exploratory marginal intervals only",
   "contexts": ["weekday", "weekend"],
+  "online_phase_days": [[1, 30], [31, 60], [61, 90]],
+  "load_density_policy": "prefix-positive-valid-hour-fraction-development-median-v1",
+  "proxy_relationship_policy": "same-block-paired-available-proxy-v1",
   "audit": "Descriptive normalized new-minus-old gaps only; no harmful-switch threshold or recovery time invented"
 }

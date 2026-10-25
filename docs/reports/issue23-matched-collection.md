@@ -79,3 +79,9 @@ now defines sparse/dense groups without reading online forecast outcomes. It has
 not yet been joined to the complete matched forecasts. Report this remaining
 analysis explicitly; do not describe the primary collection as scientifically
 complete merely because the command produces weekday/weekend metrics.
+
+[Analysis extensions](issue23-analysis-extensions.md) now implement authenticated
+load-density joins, fixed 30-day calendar phases, same-block paired proxy-versus-
+retention associations and detailed timer/model-count accounting. These are
+fixture-verified post-hoc Development definitions; real matched execution and
+independent acceptance are still pending. The running GPU checkout is preserved.

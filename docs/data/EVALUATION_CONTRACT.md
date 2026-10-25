@@ -145,3 +145,10 @@ limitation. Thresholds vary by namespace/budget; comparing different budgets is
 not a controlled history-budget effect. The rule and resulting Development
 thresholds require independent review before any Final lock. They do not replace
 weekday/weekend or initialization-stratum analysis.
+
+The selected-collection analysis also implements fixed calendar days 1–30,
+31–60 and 61–90 and descriptive same-block proxy/candidate performance
+relationships. Their explicit profile identities, availability checks, pairing,
+undefined-correlation handling and cost boundaries are documented in the
+[Development analysis extension handoff](../reports/issue23-analysis-extensions.md).
+These are post-hoc Development proposals, not independent Final analysis approval.

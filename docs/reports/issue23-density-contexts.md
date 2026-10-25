@@ -33,3 +33,8 @@ These are Development-defined descriptive groups, not physical charger occupancy
 Reproduction: `python -m tools.development_contexts --inputs-root PATH_TO_ACCEPTED_INPUTS --output NEW_OUTPUT.json`. The full local output contains each eligible Development entity’s density and valid-hour count; large metadata output stays outside Git. The attached compact registry records all namespace/budget input/metadata fingerprints and the full output checksum.
 
 Executed code: `3e34bebd4cac0ec5ff197d868d6c37b84c651d84`. Full local output SHA-256: `686c9adf4b56d834787f98dd47d80059e214b7d57192bc4e0778c02a13ef0393`. All 21 accepted namespace/budget manifests and entity-metadata fingerprints passed. 286 offline tests, Ruff lint/format and diff checks passed locally; Kaggle currently runs the earlier pinned training commit and its 281-test validation. No training code changed.
+
+The complete context output is [available on shared Drive](https://drive.google.com/file/d/1CKJzrTO24nCEDa_gnNB8Km1TpuNlhJ29/view).
+The [artifact registry](issue23-recovery-context-artifacts.json) records its exact
+size/hash and byte-identical download readback. The new analysis re-authenticates
+and regenerates namespace groups before joining metrics; see [analysis definitions](issue23-analysis-extensions.md).

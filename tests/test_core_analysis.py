@@ -70,6 +70,30 @@ class SavedErrorTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             saved_errors(self.root, self.report)
 
+    def test_proxy_trace_retains_only_authenticated_forecasts_and_score_events(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.root = Path(tmp)
+            self.previous = "0" * 64
+            forecast = {**self.forecast, "proxy": {"signal": 0.3}}
+            self.write_tick(0, forecast, [])
+            event = {
+                **self.event,
+                "prediction_sha256": digest(self.root / "tick-0000/forecasts.json"),
+                "as_of": "2022-12-02T00:00:00+08:00",
+                "mae_scaled": [3, 2, 1],
+                "mse_scaled": [10, 5, 2],
+            }
+            self.write_tick(1, {}, [event])
+            report = {
+                **self.report,
+                "method": {"name": "uncertainty"},
+                "candidate_levels": [0, 0.01, 0.1],
+                "commit_chain": self.previous,
+            }
+            _, coverage = saved_errors(self.root, report)
+            self.assertEqual(coverage["proxy_trace"]["forecasts"], {self.origin: {"signal": 0.3}})
+            self.assertEqual(coverage["proxy_trace"]["scores"][0]["as_of"], event["as_of"])
+
 
 class AuditGapTests(unittest.TestCase):
     def test_unscored_audit_retains_null(self):

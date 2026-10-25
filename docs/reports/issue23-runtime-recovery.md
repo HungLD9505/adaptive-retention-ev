@@ -147,3 +147,9 @@ A new read-only [Development density-context handoff](issue23-density-contexts.m
 records all 21 metadata-derived thresholds. Forecast-error grouping remains
 pending the complete matched collection; these proposed thresholds do not grant
 Final-lock approval or change training/cohort eligibility.
+
+The reconstructed controller matrix, selection, daily verifier, latest-state
+verifier and original backup registry are now [in a shared evidence folder](https://drive.google.com/drive/folders/13q28JpTRMCTu9TGaNgWsebujQ-pwdoUy).
+All five were downloaded again and are byte-identical to the original local
+outputs; the context output was independently read back in the same six-file
+check. Exact identities and access limitations are in the [artifact registry](issue23-recovery-context-artifacts.json).

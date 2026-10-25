@@ -7,12 +7,15 @@ from datetime import datetime
 from pathlib import Path
 
 from ev_evaluation.artifacts import authenticate_matrix
+from ev_evaluation.contexts import validate_analysis_extensions
 from ev_evaluation.metrics import paired_metrics, station_first
+from ev_evaluation.proxy_relationships import analyze_proxy_cells
 from ev_evaluation.selection import score_candidates
 from ev_evaluation.uncertainty import paired_station_time_interval
 from ev_models.checkpoint import digest, write_json
 from ev_runner.run import runtime_code
 from tools.analyze_core_comparisons import audit_gap_kwh, saved_errors
+from tools.development_contexts import authenticate_contexts
 from tools.fixed_retention_sweep import selected_sources
 from tools.matched_development import validate_cells
 from tools.proxy_calibration import selected_controller
@@ -151,16 +154,33 @@ def select_collection(studies: dict, cohort: dict, code_files: dict) -> tuple[di
     return cells, selected
 
 
-def aggregate_cells(cells: dict, cohort: dict) -> dict:
+def aggregate_cells(
+    cells: dict,
+    cohort: dict,
+    *,
+    density: dict | None = None,
+    deployment: datetime | None = None,
+) -> dict:
     """Require exact issued/scored sets, retain nulls, aggregate stations first."""
     names = sorted({key[-1] for key in cells})
     seeds = tuple(cohort["seeds"])
     output, nulls, differences, contexts, strata = {}, {}, {}, {}, {}
+    load_groups, phases, density_coverage = {}, {}, {}
     for budget, group in cohort["budgets"].items():
         nulls[budget] = []
         grouped = {name: {} for name in names}
+        if density is not None:
+            for name in names:
+                for label in ("sparse", "dense", "undefined"):
+                    load_groups[f"{budget}/{name}/{label}"] = {}
         for item in group["entities"]:
             entity = item["entity_id"]
+            if density is not None:
+                g = density["urbanev", "SZH", int(budget)]
+                if entity not in g["entities"] and entity not in g["undefined_entities"]:
+                    raise ValueError("Selected target absent from calibrated density population")
+                load_context = g["entities"].get(entity, {"group": "undefined", "valid_hours": 0})
+                density_coverage[f"{budget}/{entity}"] = load_context
             flags = []
             for seed in seeds:
                 base = cells[int(budget), entity, seed, "target_only"]
@@ -183,6 +203,9 @@ def aggregate_cells(cells: dict, cohort: dict) -> dict:
                     strata.setdefault(f"{budget}/{name}/{stratum}", {}).setdefault(entity, {})[
                         seed
                     ] = pair
+                    if density is not None:
+                        key = f"{budget}/{name}/{load_context['group']}"
+                        load_groups.setdefault(key, {}).setdefault(entity, {})[seed] = pair
                     for context in ("weekday", "weekend"):
                         left = [
                             e
@@ -198,6 +221,25 @@ def aggregate_cells(cells: dict, cohort: dict) -> dict:
                             contexts.setdefault(f"{budget}/{name}/{context}", {}).setdefault(
                                 entity, {}
                             )[seed] = paired_metrics(left, right)
+                    if deployment is not None:
+                        if any(not 0 <= (e.origin - deployment).days < 90 for e in row["errors"]):
+                            raise ValueError("Scored forecast outside the declared 90-day calendar")
+                        for phase in range(3):
+                            left = [
+                                e
+                                for e in row["errors"]
+                                if (e.origin - deployment).days // 30 == phase
+                            ]
+                            right = [
+                                e
+                                for e in base["errors"]
+                                if (e.origin - deployment).days // 30 == phase
+                            ]
+                            if left:
+                                key = f"{budget}/{name}/days{phase * 30 + 1}-{(phase + 1) * 30}"
+                                phases.setdefault(key, {}).setdefault(entity, {})[seed] = (
+                                    paired_metrics(left, right)
+                                )
                     active = cells[int(budget), entity, seed, "adaptive"]["errors"]
                     other = {e.origin: e.mae for e in row["errors"]}
                     differences.setdefault(f"{budget}/{name}", {}).setdefault(entity, {})[seed] = {
@@ -217,12 +259,18 @@ def aggregate_cells(cells: dict, cohort: dict) -> dict:
         "weekday_weekend": {k: station_first(v, seeds=seeds) for k, v in contexts.items()},
         "daily_adaptive_minus_comparator": differences,
         "initialization_strata": {k: station_first(v, seeds=seeds) for k, v in strata.items()},
+        "load_density": {
+            k: station_first(v, seeds=seeds) if v else None for k, v in load_groups.items()
+        },
+        "density_coverage": density_coverage,
+        "online_phases": {k: station_first(v, seeds=seeds) for k, v in phases.items()},
     }
 
 
 def analyze(args: argparse.Namespace) -> None:
     cohort = json.loads(args.selection.read_text())
     profile = json.loads(args.analysis_profile.read_text())
+    validate_analysis_extensions(profile)
     if profile["seeds"] != cohort["seeds"]:
         raise ValueError("Different paired analysis seeds")
     paths = {name: getattr(args, name + "_matrix") for name in FAMILIES}
@@ -243,7 +291,10 @@ def analyze(args: argparse.Namespace) -> None:
         "fixed_study_sha256"
     ) != digest(paths["fixed"]):
         raise ValueError("Changed Fixed calibration dependency for migrated references")
-    selected, choices = select_collection(studies, cohort, runtime_code()["files"])
+    code = runtime_code()
+    if code["dirty"]:
+        raise ValueError("Clean committed analysis code required")
+    selected, choices = select_collection(studies, cohort, code["files"])
     cells, rows, audits, lineage = {}, [], [], []
     for key, (family, row) in selected.items():
         name = row["run_id"]
@@ -261,7 +312,12 @@ def analyze(args: argparse.Namespace) -> None:
                 issued.append(forecast["origin"])
         if len(set(issued)) != len(issued):
             raise ValueError("Duplicate actual issued origin")
-        cells[key] = {"errors": errors, "issued": tuple(issued), "report": row}
+        cells[key] = {
+            "errors": errors,
+            "issued": tuple(issued),
+            "report": row,
+            "coverage": coverage,
+        }
         rows.append(
             {
                 "budget": key[0],
@@ -295,8 +351,6 @@ def analyze(args: argparse.Namespace) -> None:
                     "new_minus_old_mae_kwh": audit_gap_kwh(audit, coverage["scale"]),
                 }
             )
-    summary = aggregate_cells(cells, cohort)
-    differences = summary.pop("daily_adaptive_minus_comparator")
     starts = set()
     for b, group in cohort["budgets"].items():
         path = args.inputs_root / f"urbanev-SZH-{b}d" / "manifest.json"
@@ -305,6 +359,17 @@ def analyze(args: argparse.Namespace) -> None:
         starts.add(json.loads(path.read_text())["config"]["deployment"])
     if len(starts) != 1:
         raise ValueError("Common explicit deployment clock required")
+    context_path = getattr(args, "density_contexts", None)
+    context_sha = getattr(args, "density_sha256", None)
+    if (context_path is None) != (context_sha is None):
+        raise ValueError("Both identified density-context arguments required")
+    density = (
+        authenticate_contexts(context_path, context_sha, args.inputs_root) if context_path else None
+    )
+    summary = aggregate_cells(
+        cells, cohort, density=density, deployment=datetime.fromisoformat(next(iter(starts)))
+    )
+    differences = summary.pop("daily_adaptive_minus_comparator")
     summary.update(
         scope="Conditional Development calibration/comparisons; no Final effectiveness or lock",
         choices=choices,
@@ -318,6 +383,8 @@ def analyze(args: argparse.Namespace) -> None:
         },
         selection_sha256=digest(args.selection),
         analysis_profile_sha256=digest(args.analysis_profile),
+        analysis_code=code,
+        density_contexts_sha256=context_sha,
         adaptive_minus_comparator_intervals={
             k: paired_station_time_interval(
                 v,
@@ -329,7 +396,7 @@ def analyze(args: argparse.Namespace) -> None:
             for k, v in differences.items()
         },
         isolated_audits=audits,
-        limits="Small nonrandom/possibly colocated cohort; conditional Development selection, three fixed seeds, marginal exploratory intervals. No calibrated predictive-coverage claim. Load-density/proxy-versus-retention analysis and independent downloaded-state verification still required.",
+        limits="Small nonrandom/possibly colocated cohort; conditional Development selection, three fixed seeds, marginal exploratory intervals. Density groups require authenticated context arguments; 30-day phases and same-block proxy relationships are descriptive. No causal effect, next-block predictive skill or calibrated predictive coverage claim. Independent downloaded-state verification remains required.",
     )
     costs = {}
     for name in choices["unique_method_names"]:
@@ -339,10 +406,44 @@ def analyze(args: argparse.Namespace) -> None:
             "elapsed_seconds_sum": sum(r["elapsed_seconds"] for r in reports),
             "candidate_steps": sum(r["candidate_steps"] for r in reports),
             "audit_steps": sum(r["audit_steps"] for r in reports),
+            "initial_adaptation_steps": sum(
+                step["steps"] for r in reports for step in r["initial_logs"]
+            ),
+            "candidate_models_per_run": sorted({len(r["candidate_levels"]) for r in reports}),
+            "uncertainty_source_members_per_run": sorted(
+                {len(r["binding"]["uncertainty_members"]) for r in reports}
+            ),
+            "component_seconds_sum": {
+                key: sum(r["cost"][key] for r in reports)
+                for key in (
+                    "inference_seconds",
+                    "update_seconds",
+                    "audit_inference_seconds",
+                    "audit_update_seconds",
+                    "controller_seconds",
+                    "proxy_seconds",
+                )
+            },
             "gpu_peak_allocated_bytes_max": max(r["gpu_peak_allocated_bytes"] for r in reports),
+            "gpu_peak_reserved_bytes_max": max(r["gpu_peak_reserved_bytes"] for r in reports),
             "scope": "Per-run reset peaks; setup fixture overlap/background backup I/O may affect early timing. Include reused Source training and initialization/input/export costs separately.",
         }
     summary["costs"] = costs
+    summary["source_cost_reused_once"] = {
+        "source_training_elapsed_seconds": sum(
+            source["run"]["elapsed_seconds"] for source in studies["source"]["sources"]
+        ),
+        "source_training_optimizer_steps": sum(
+            step["steps"]
+            for source in studies["source"]["sources"]
+            for step in source["run"]["logs"]
+        ),
+        "limits": "Original Source training environment differs from Kaggle target runtime. This is recorded training cost, not total setup/latent-scale/export/transfer/verification cost. Do not charge reused Source models once per target or omit them entirely.",
+    }
+    summary["calibration_wall_seconds_by_family"] = {
+        family: studies[family]["wall_seconds"] for family in FAMILIES
+    }
+    summary["proxy_relationships"] = analyze_proxy_cells(cells, cohort["seeds"])
     args.output.mkdir(parents=True, exist_ok=False)
     write_json(args.output / "summary.json", summary)
     with (args.output / "runs.csv").open("x", newline="") as stream:
@@ -367,6 +468,8 @@ def main() -> None:
             parser.add_argument("--" + name + "-" + suffix, type=Path, required=True)
     for name in ("selection", "analysis-profile", "inputs-root", "output"):
         parser.add_argument("--" + name, type=Path, required=True)
+    parser.add_argument("--density-contexts", type=Path)
+    parser.add_argument("--density-sha256")
     analyze(parser.parse_args())
 
 

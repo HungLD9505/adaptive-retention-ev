@@ -280,6 +280,37 @@ class AggregationTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 aggregate_cells(cells, self.cohort)
 
+    def test_density_groups_and_fixed_calendar_phases_retain_unscored_targets(self):
+        density = {
+            ("urbanev", "SZH", b): {
+                "entities": {
+                    "a": {"group": "dense", "valid_hours": b * 24, "density": 1.0},
+                    "missing": {"group": "sparse", "valid_hours": 1, "density": 0.0},
+                },
+                "undefined_entities": [],
+            }
+            for b in (7, 14, 28)
+        }
+        start = datetime(2026, 10, 23)
+        cells = copy.deepcopy(self.cells)
+        for (b, entity, seed, method), row in cells.items():
+            if entity == "a":
+                value = 1 if method == "adaptive" else 0
+                row["errors"] = [
+                    DailyError(start + timedelta(days=d), value, value**2) for d in (0, 30, 60)
+                ]
+                row["issued"] = tuple(e.origin.isoformat() for e in row["errors"])
+        result = aggregate_cells(cells, self.cohort, density=density, deployment=start)
+        self.assertEqual(result["load_density"]["7/adaptive/dense"]["macro_mae_kwh"], 1)
+        self.assertIsNone(result["load_density"]["7/adaptive/sparse"])
+        self.assertEqual(result["density_coverage"]["7/missing"]["valid_hours"], 1)
+        self.assertEqual(result["unscored_entities_by_budget"]["7"], ["missing"])
+        for phase in ("days1-30", "days31-60", "days61-90"):
+            self.assertEqual(result["online_phases"][f"7/adaptive/{phase}"]["macro_mae_kwh"], 1)
+        density["urbanev", "SZH", 7]["entities"].pop("missing")
+        with self.assertRaises(ValueError):
+            aggregate_cells(cells, self.cohort, density=density, deployment=start)
+
 
 if __name__ == "__main__":
     unittest.main()

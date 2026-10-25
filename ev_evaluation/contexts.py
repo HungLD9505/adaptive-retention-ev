@@ -4,6 +4,17 @@ from datetime import datetime, timedelta
 from statistics import median
 
 
+def validate_analysis_extensions(profile: dict) -> None:
+    """Require explicit identities for these fixed descriptive post-hoc definitions."""
+    expected = {
+        "online_phase_days": [[1, 30], [31, 60], [61, 90]],
+        "load_density_policy": "prefix-positive-valid-hour-fraction-development-median-v1",
+        "proxy_relationship_policy": "same-block-paired-available-proxy-v1",
+    }
+    if {key: profile.get(key) for key in expected} != expected:
+        raise ValueError("Analysis extensions must match their explicit profile identities")
+
+
 def fit_density_context(
     rows: list[dict], namespace: tuple[str, str], budget: int, cutoff: str
 ) -> dict:
