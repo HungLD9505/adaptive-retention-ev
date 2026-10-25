@@ -33,3 +33,9 @@ must keep source-only initialization and zero-score strata explicit.
 Execution status: declared, not yet executed at this commit. Actual Colab results,
 verification and artifact links will be appended after completion. No local real-data
 training, Final forecast/label access, merge or issue closure is authorized here.
+The post-hoc analysis checks identical issued/scored populations, records all five
+methods and all null cells, produces station-first original-unit MAE/RMSE/gain/NTR,
+paired station/calendar-block intervals, weekday/weekend summaries, continuous
+history coverage, switching reasons and descriptive isolated-audit gaps. Analysis
+is independent of controller decisions; it cannot modify predictions or select a
+Final configuration. No sparse/dense or harmful-switch threshold is invented.
