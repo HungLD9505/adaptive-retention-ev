@@ -108,3 +108,26 @@ proof/selection lineage and never silently falls back to old Colab forecasts.
 Its mixed-environment regression fixture and complete-replication fixture passed;
 281 local tests, Ruff lint/format and diff checks pass. New GPU execution of these
 post-migration drivers is not claimed yet.
+
+## Kaggle validation and state-content check
+
+At commit `54131cbb8ce47f9d064b80f03956e8e62ec48346`, Kaggle passed all
+281 offline fixture tests (27.855 seconds), Ruff lint/format and diff checks. The
+child environment reports Python 3.13.15, NumPy 2.3.3 and PyTorch 2.11.0+cu128.
+Pip reported conflicts in unused preinstalled packages (including Numba's NumPy
+constraint); this is recorded rather than describing the global Kaggle image as
+a clean, fully resolved environment. Training uses fresh child Python processes.
+
+The accepted input ZIP has an enclosing `data/inputs/issue18-input-handoff-v1-20261019`
+path. An initial recovery argument assumed the ZIP root and failed its manifest
+assertion before recovery/training. Corrected the argument only; archive bytes and
+manifests remain unchanged. All 23 original backup ZIP fingerprints passed again
+on Kaggle; completed states were reconstructed and CPU rehashed. Full independent
+daily verification is required again before the queued GPU batch starts.
+
+`tools.verify_latest_states` provides a reusable post-download CPU check after
+complete daily verification. It binds the saved report to its authenticated matrix,
+tick count, latest commit identity, state-file byte hash and recursive model,
+optimizer and RNG content digests. It does not train, reconstruct absent historical
+states, or claim Source checkpoint tensor verification. Independently rerunning it
+on the downloaded controller artifacts passed for all 276 latest states.
