@@ -48,6 +48,7 @@ class Replay:
                 )
         inputs.verify("schedule.jsonl")
         self.schedule = {}
+        self._label_offsets = None
         for r in jsonl(inputs.root / "schedule.jsonl"):
             if tuple(r["identity"]) == self.identity:
                 origin = datetime.fromisoformat(r["origin"])
@@ -72,20 +73,29 @@ class Replay:
             return Labels("pending", None, origin + DAY + self.delay)
         # Match identified writer fields before decoding energy arrays. This narrow
         # adapter consumes the authenticated #18 JSONL representation, not arbitrary JSON.
-        tokens = (json.dumps(list(self.identity)), json.dumps(origin.isoformat()))
-        matches = []
-        with (self.inputs.root / "labels.jsonl").open(encoding="utf-8") as stream:
-            for line in stream:
-                if all(token in line for token in tokens):
-                    rec = json.loads(line)
-                    if (
-                        tuple(rec["identity"]) == self.identity
-                        and rec["origin"] == origin.isoformat()
-                    ):
-                        matches.append(rec)
-        if len(matches) != 1:
+        path = self.inputs.root / "labels.jsonl"
+        if self._label_offsets is None:
+            self._label_offsets = {}
+            prefix = ('{"identity": ' + json.dumps(list(self.identity)) + ', "origin": "').encode()
+            # Index only public row identity/time headers; future energy arrays remain opaque.
+            with path.open("rb") as stream:
+                while True:
+                    offset = stream.tell()
+                    line = stream.readline()
+                    if not line:
+                        break
+                    if line.startswith(prefix):
+                        stamp = line[len(prefix) :].split(b'"', 1)[0].decode()
+                        if stamp in self._label_offsets:
+                            raise ValueError("Duplicate target label day")
+                        self._label_offsets[stamp] = offset
+        if origin.isoformat() not in self._label_offsets:
             raise ValueError("Expected one identified label record per scheduled origin")
-        r = matches[0]
+        with path.open("rb") as stream:
+            stream.seek(self._label_offsets[origin.isoformat()])
+            r = json.loads(stream.readline())
+        if tuple(r["identity"]) != self.identity or r["origin"] != origin.isoformat():
+            raise ValueError("Indexed label identity/time differs")
         label = LabelRecord(
             self.identity,
             origin,

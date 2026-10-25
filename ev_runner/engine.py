@@ -2,7 +2,7 @@
 
 import time
 from datetime import datetime, timedelta
-from typing import Protocol
+from typing import Any, Protocol
 
 import torch
 
@@ -41,11 +41,19 @@ class Runner:
         *,
         device: str,
         stream_id: str,
+        policy: Any | None = None,
     ) -> None:
         self.replay, self.reference, self.latent = replay, reference, latent_scale
         self.controller, self.training, self.store = controller, training, store
         self.device, self.stream_id = device, stream_id
-        self.active = controller.initial_lambda
+        self.policy = policy
+        self.levels = policy.levels(controller) if policy else controller.levels
+        self.branch_class = type(initial)
+        self.active = (
+            controller.initial_lambda
+            if controller.initial_lambda in self.levels
+            else self.levels[0]
+        )
         self.block_start = self.next_at = replay.start
         self.branches = self.fork(initial)
         self.pending = []
@@ -73,7 +81,7 @@ class Runner:
     def fork(self, active: Branch) -> dict[float, Branch]:
         return {
             level: active.clone(device=self.device, learning_rate=self.training.learning_rate)
-            for level in self.controller.levels
+            for level in self.levels
         }
 
     def sync(self) -> None:
@@ -97,6 +105,7 @@ class Runner:
             "steps": self.steps,
             "audit_steps": self.audit_steps,
             "reference_sha": self.reference_sha,
+            "policy": self.policy.snapshot() if self.policy else None,
         }
 
     def restore(self, state: dict) -> None:
@@ -117,14 +126,16 @@ class Runner:
             setattr(self, name, state[name])
         self.block_start = datetime.fromisoformat(state["block_start"])
         self.next_at = datetime.fromisoformat(state["next_at"])
+        if self.policy:
+            self.policy.restore(state["policy"])
         self.branches = {
-            k: Branch.from_snapshot(
+            k: self.branch_class.from_snapshot(
                 v, device=self.device, learning_rate=self.training.learning_rate
             )
             for k, v in state["branches"].items()
         }
         self.audit = (
-            Branch.from_snapshot(
+            self.branch_class.from_snapshot(
                 state["audit"], device=self.device, learning_rate=self.training.learning_rate
             )
             if state["audit"]
@@ -135,6 +146,8 @@ class Runner:
         self.sync()
         started = time.perf_counter()
         before = branch.steps
+        if self.policy and not self.policy.updates:
+            return []
         logs = branch.update(
             record,
             weight=weight,
@@ -184,10 +197,16 @@ class Runner:
                         "origin": issued["origin"],
                         "as_of": as_of.isoformat(),
                         "mae_scaled": maes,
+                        "mse_scaled": [
+                            sum((a - b) ** 2 for a, b in zip(p, normalized, strict=True)) / 24
+                            for p in issued["predictions"]
+                        ],
                         "issued_active": issued["active"],
                         "prediction_sha256": issued["prediction_sha256"],
                     }
                 )
+                if self.policy:
+                    self.policy.observe(issued, normalized, as_of)
                 record = {**issued["record"], "y_scaled": normalized}
                 for level, branch in self.branches.items():
                     logs = self.update(branch, record, level, audit=False)
@@ -208,7 +227,7 @@ class Runner:
                         )
                         / 24
                     )
-                    active_mae = maes[self.controller.levels.index(issued["active"])]
+                    active_mae = maes[self.levels.index(issued["active"])]
                     self.audit_pairs.append(
                         {"origin": issued["origin"], "new_minus_old": active_mae - audit_mae}
                     )
@@ -266,7 +285,8 @@ class Runner:
                     )
                 )
         started = time.perf_counter()
-        decision = decide(
+        selector = self.policy.choose if self.policy else decide
+        decision = selector(
             rows,
             config=self.controller,
             active_lambda=self.active,
@@ -339,6 +359,14 @@ class Runner:
                 "scale_id": self.replay.scale_id,
                 "audit_origin": self.audit_origin,
             }
+            if self.policy:
+                self.sync()
+                proxy_started = time.perf_counter()
+                issued["proxy"] = self.policy.predict(record)
+                self.sync()
+                self.cost["proxy_seconds"] = (
+                    self.cost.get("proxy_seconds", 0.0) + time.perf_counter() - proxy_started
+                )
             issued["prediction_ids"] = [
                 identity(
                     {
@@ -348,7 +376,7 @@ class Runner:
                         "prediction": prediction,
                     }
                 )
-                for level, prediction in zip(self.controller.levels, predictions, strict=True)
+                for level, prediction in zip(self.levels, predictions, strict=True)
             ]
             if self.audit:
                 self.sync()

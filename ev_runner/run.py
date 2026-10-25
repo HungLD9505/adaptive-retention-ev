@@ -2,18 +2,24 @@
 
 import argparse
 import json
+import math
 import os
 import subprocess
 import time
+from dataclasses import asdict
 from pathlib import Path
 
 os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
 
 import torch
 
+from ev_baselines.naive import SeasonalNaive
+from ev_baselines.policies import Method, Policy
+from ev_baselines.retention import ParameterBranch, parameter_epoch
 from ev_control.confidence import ControllerConfig
 from ev_models.checkpoint import digest, load_checkpoint, write_json
 from ev_models.data import InputRun
+from ev_models.model import ForecastGRU, ModelConfig
 from ev_models.run import environment
 from ev_models.training import (
     TrainingConfig,
@@ -40,7 +46,7 @@ def runtime_code() -> dict:
         ),
         "files": {
             str(p.relative_to(ROOT)): digest(p)
-            for folder in ("ev_models", "ev_control", "ev_runner")
+            for folder in ("ev_models", "ev_control", "ev_runner", "ev_baselines")
             for p in sorted((ROOT / folder).glob("*.py"))
         },
     }
@@ -57,12 +63,15 @@ def execute(
     device: str,
     resume_from: Path | None = None,
     stop_after_ticks: int | None = None,
+    ensemble_sources: tuple[tuple[Path, str], ...] = (),
+    prepared_replay: Replay | None = None,
 ) -> dict:
+    config = json.loads(json.dumps(config, allow_nan=False))
     if device != "cuda" or not torch.cuda.is_available():
         raise ValueError(
             "Real Development replay requires CUDA/Colab; local tests use independent fixtures"
         )
-    if set(config) != {
+    if set(config) - {"method"} != {
         "controller",
         "initial_training",
         "online_training",
@@ -72,6 +81,7 @@ def execute(
         raise ValueError("Unknown runner configuration fields")
     if entity_id not in config["development_entities"]:
         raise ValueError("Target not in declared Development smoke cohort")
+    method = Method(**config.get("method", {"name": "adaptive"}))
     controller = ControllerConfig(**config["controller"])
     initial_config = TrainingConfig(**config["initial_training"])
     online_config = TrainingConfig(**config["online_training"])
@@ -88,7 +98,13 @@ def execute(
         for p in ("data/raw", "data/processed", "data/inputs")
     ):
         raise ValueError("Output must be separate from immutable data")
-    replay = Replay(inputs, entity_id, config["replay_days"])
+    replay = prepared_replay or Replay(inputs, entity_id, config["replay_days"])
+    if (
+        replay.inputs is not inputs
+        or replay.entity_id != entity_id
+        or replay.stop != replay.start + config["replay_days"] * DAY
+    ):
+        raise ValueError("Prepared replay differs from this run's input/entity/horizon")
     seed_everything(initial_config.seed)
     started = time.perf_counter()
     source_model, _, source_value = load_checkpoint(source, sha256=source_sha, device=device)
@@ -109,27 +125,77 @@ def execute(
     ):
         raise ValueError("Missing/invalid fixed source-derived latent scale")
     reference = frozen_reference(source_model)
-    model = adapt_model(source_model)
+    model = (
+        adapt_model(source_model)
+        if method.source_initialization
+        else ForecastGRU(ModelConfig(initial_config.head_width)).to(device)
+    )
     optimizer = torch.optim.Adam(model.parameters(), lr=initial_config.learning_rate)
     initial_records = inputs.training("development", entity_id)
     initial_logs = []
     for epoch in range(initial_config.epochs):
-        if initial_records:
+        if initial_records and method.name not in {"seasonal_naive", "frozen_source"}:
             initial_logs.append(
-                train_epoch(
-                    model,
-                    optimizer,
-                    initial_records,
-                    initial_config,
-                    epoch=epoch,
-                    device=device,
-                    reference=reference,
-                    latent_scale=latent,
-                    retention_weight=controller.initial_lambda,
+                (
+                    parameter_epoch(
+                        model,
+                        optimizer,
+                        initial_records,
+                        initial_config,
+                        epoch=epoch,
+                        weight=controller.initial_lambda,
+                        reference=reference,
+                        device=device,
+                    )
+                    if method.name == "parameter_retention"
+                    else train_epoch(
+                        model,
+                        optimizer,
+                        initial_records,
+                        initial_config,
+                        epoch=epoch,
+                        device=device,
+                        reference=reference,
+                        latent_scale=latent,
+                        retention_weight=(
+                            method.fixed_lambda
+                            if method.name == "fixed_retention"
+                            else controller.initial_lambda
+                            if method.multiple
+                            else 0.0
+                        ),
+                    )
                 )
             )
-    initial = Branch(model, optimizer, rng_state())
+    initial = (
+        SeasonalNaive(initial_records)
+        if method.name == "seasonal_naive"
+        else (ParameterBranch if method.name == "parameter_retention" else Branch)(
+            model, optimizer, rng_state()
+        )
+    )
     initial.steps = sum(x["steps"] for x in initial_logs)
+    ensemble = []
+    member_ids = []
+    if method.name == "uncertainty":
+        for path, checksum in ensemble_sources:
+            member, _, value = load_checkpoint(path, sha256=checksum, device=device)
+            member_meta = value["metadata"]
+            if (
+                member_meta["input_binding"]["stage"] != "source"
+                or member_meta["source_population_sha256"] != inputs.source_hash
+                or member.architecture() != reference.architecture()
+            ):
+                raise ValueError("Uncertainty member must share the allowed Source population")
+            member_ids.append({"sha256": checksum, "seed": member_meta["training_config"]["seed"]})
+            ensemble.append(frozen_reference(member))
+        if len({m["seed"] for m in member_ids}) < 3 or len(
+            {m["sha256"] for m in member_ids}
+        ) != len(member_ids):
+            raise ValueError("Uncertainty estimator requires >=3 distinct Source seeds/checkpoints")
+    policy = Policy(
+        method, reference, initial_records=initial_records, device=device, ensemble=tuple(ensemble)
+    )
     code = runtime_code()
     binding = {
         "schema": "ev-prequential-run-v1",
@@ -139,6 +205,8 @@ def execute(
         "code_files": code["files"],
         "source_population_sha256": inputs.source_hash,
         "latent_sha256": state_digest(latent),
+        "method": json.loads(json.dumps(asdict(method))),
+        "uncertainty_members": member_ids,
     }
     store = Store(output, binding, resume_from=resume_from)
     runner = Runner(
@@ -151,6 +219,7 @@ def execute(
         store,
         device=device,
         stream_id=f"{inputs.namespace}/{entity_id}/{inputs.config['history_days']}d/seed{initial_config.seed}",
+        policy=policy,
     )
     if stop_after_ticks is not None and stop_after_ticks < 1:
         raise ValueError("stop_after_ticks must be positive")
@@ -180,23 +249,48 @@ def execute(
             if event["event"] == "audit_summary":
                 audits.append(event)
     active_errors = [
-        s["mae_scaled"][controller.levels.index(s["issued_active"])] * replay.scale for s in scores
+        s["mae_scaled"][runner.levels.index(s["issued_active"])] * replay.scale for s in scores
     ]
     report = {
         "scope": "Development technical replay only; unvalidated example policy, no Final or effectiveness claim",
         "run_id": output.name,
+        "method": asdict(method),
+        "candidate_levels": list(runner.levels),
+        "baseline_state_summary": {
+            str(k): {
+                "steps": v.steps,
+                "fallbacks": v.fallbacks if isinstance(v, SeasonalNaive) else None,
+            }
+            for k, v in runner.branches.items()
+        },
         "code": code,
         "binding": binding,
         "source_checkpoint_sha256": source_sha,
         "initial_examples": len(initial_records),
         "initial_logs": initial_logs,
-        "initialization": "target_initial_adaptation"
+        "initialization": "seasonal_prefix_history"
+        if method.name == "seasonal_naive"
+        else "frozen_source_checkpoint"
+        if method.name == "frozen_source"
+        else "random_target_initial_adaptation"
+        if not method.source_initialization and initial_records
+        else "random_checkpoint_only"
+        if not method.source_initialization
+        else "target_initial_adaptation"
         if initial_records
         else "source_checkpoint_only",
         "scheduled_days": config["replay_days"],
         "issued_days": len(predictions),
         "scored_days": len(scores),
         "active_mae_kwh": sum(active_errors) / len(active_errors) if active_errors else None,
+        "active_rmse_kwh": math.sqrt(
+            sum(s["mse_scaled"][runner.levels.index(s["issued_active"])] for s in scores)
+            / len(scores)
+        )
+        * replay.scale
+        if scores
+        else None,
+        "policy_state": policy.snapshot(),
         "decisions": runner.decisions,
         "audits": audits,
         "candidate_steps": runner.steps,
@@ -227,6 +321,7 @@ def main() -> None:
     for key in ("manifest-sha256", "source-sha256", "entity-id"):
         parser.add_argument(f"--{key}", required=True)
     parser.add_argument("--stop-after-ticks", type=int)
+    parser.add_argument("--ensemble", type=Path)
     args = parser.parse_args()
     report = execute(
         InputRun(args.inputs, args.manifest_sha256),
@@ -238,6 +333,11 @@ def main() -> None:
         device="cuda",
         resume_from=args.resume_from,
         stop_after_ticks=args.stop_after_ticks,
+        ensemble_sources=tuple(
+            (Path(x["path"]), x["sha256"]) for x in json.loads(args.ensemble.read_text())
+        )
+        if args.ensemble
+        else (),
     )
     print(
         json.dumps(
