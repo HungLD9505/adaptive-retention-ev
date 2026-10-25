@@ -205,16 +205,21 @@ def run(args: argparse.Namespace) -> None:
     if code["dirty"] or not 1 <= args.runs_per_part <= 128:
         raise ValueError("Clean committed code and a valid part size required")
     matrix = authenticate_matrix(args.matrix, args.verification)
+    if not matrix["runs"]:
+        raise ValueError("Cannot export an empty completed study")
     states = latest_proofs(args.matrix, args.verification, matrix, args.latest_states)
     daily = {r["run_id"]: r for r in json.loads(args.verification.read_text())["runs"]}
     ids = {safe_name(r["run_id"]) for r in matrix["runs"]}
-    if ids & {
+    folded_ids = {name.casefold() for name in ids}
+    if len(folded_ids) != len(ids):
+        raise ValueError("Case-aliased run identities are not portable")
+    if folded_ids & {
         "matrix.json",
         "verification.json",
         "latest-states.json",
         "profile.json",
         "selection.json",
-    } or ids & {name + ".log" for name in ids}:
+    } or folded_ids & {name + ".log" for name in folded_ids}:
         raise ValueError("Run paths collide with exported metadata/logs")
     args.output.mkdir(parents=True, exist_ok=False)
     parts, missing_logs = [], []
@@ -239,7 +244,7 @@ def run(args: argparse.Namespace) -> None:
                     raise ValueError("Required per-run stdout log missing")
                 else:
                     missing_logs.append(row["run_id"])
-            archive.writestr("completed-runs.json", json.dumps(rows, allow_nan=False))
+            archive.writestr(f"part-records/{part.stem}.json", json.dumps(rows, allow_nan=False))
         parts.append(checked_part(part, "target_runs", [r["run_id"] for r in rows]))
     bundle = args.output / "code.bundle"
     subprocess.run(

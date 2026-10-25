@@ -14,6 +14,9 @@ new complete-matrix exporter has not yet run on the live proxy/matched studies.
 | `code.bundle` | Full reachable committed Git history through the export code, including original executed study commits. No environment, data or checkpoint is committed to Git. |
 | `catalog.json` | Exact part sizes/SHA-256, CRC checks, run-ID populations, Source identities, omissions and export code. Written only after the complete export succeeds. |
 
+Each run ZIP stores its own unique `part-records/runs-NNNN.json`; there is no
+shared per-part header path to overwrite during a multipart restore.
+
 Before export, require an independently verified complete matrix and a matching,
 complete latest-state proof bound to that daily verifier. Rehash daily commit
 chains and committed bytes, CPU-rehash latest model/optimizer/RNG contents and
@@ -59,9 +62,41 @@ stdout files. A test repack may explicitly use `--allow-missing-run-logs`; the
 catalog must list every missing original log. Do not use that exception silently
 for new proxy/matched/CHARGED runs, where the original logs are available.
 
-Five independent fixture tests cover byte preservation, declared historical
+Five independent exporter fixture tests cover byte preservation, declared historical
 omissions, corrupted/extra/symlinked files, binding changes, proof population,
 portable paths and Source checkpoint identity. All 300 local offline tests and
 README lint/format/diff/source-list checks passed. Real controller repack and
 live-study export/transfer/readback remain to be verified; a tested exporter alone
 does not prove that Kaggle outputs have been saved. No Final access or merge.
+
+## Independent restore and first real trial
+
+The first local CPU-only controller trial exported all276 recovered runs into23
+run ZIPs plus metadata/code, with CRC checks and three Source models loaded. The
+independent restore rejected it: each part reused the root `completed-runs.json`
+header, which would overwrite a previous part's record. **That trial is not an
+accepted distributable package.** Original archives/runs remain unchanged; the
+rejected trial and its restore output are retained separately. No model training
+or favorable experiment rerun was performed.
+
+The corrected writer uses unique per-part metadata paths. The separate
+`tools.restore_development_export` pins the catalog, checks every part size/hash,
+rejects missing/aliased/traversing/symlinked/overlapping payloads, restores to a new
+directory without overwrites, and checks restored matrix/proofs/Source identities.
+It never runs bundled code or trains/infers. Three transport regression fixtures
+cover multi-part restoration, the legacy overlap, changed identities/parts and
+unsafe payloads. The full303-test local suite and checks pass.
+
+```sh
+python -m tools.restore_development_export \
+  --package ALL_DOWNLOADED_PARTS \
+  --catalog-sha256 PINNED_CATALOG_SHA256 \
+  --output NEW_RESTORED_ROOT
+```
+
+Transport success is followed by `tools.verify_comparison` with the accepted
+input root and `NEW_RESTORED_ROOT/study/matrix.json`, then
+`tools.verify_latest_states` bound to that fresh daily proof. Use new verification
+output paths. Corrected real-data round-trip verification and the live Kaggle
+export/transfer are still pending; neither CRC alone nor successful ZIP creation
+can close that acceptance gate.
