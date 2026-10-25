@@ -2,7 +2,7 @@
 
 Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. Work follows **Issue → working branch → PR → `dev`**. Updating `main` requires a separate instruction.
 
-**Current status:** raw acquisition, UrbanEV hourly processing, CHARGED audit/adapter and the model-input pipeline are implemented. The shared data snapshot includes raw, hourly and prepared 7/14/28-day inputs. See the [integrated verification and acceptance record](docs/reports/data-integration.md) for checks, scope and the lead-directed review exception. The independent #19 GRU/source/adaptation implementation is available on its PR branch; see [training instructions](docs/data/MODEL_TRAINING.md). Controller, online runner and final research experiments remain outside this implementation. Large data stays on Drive/outside Git.
+**Current status:** raw acquisition, UrbanEV hourly processing, CHARGED audit/adapter and the model-input pipeline are implemented. The shared data snapshot includes raw, hourly and prepared 7/14/28-day inputs. See the [integrated verification and acceptance record](docs/reports/data-integration.md) for checks, scope and the lead-directed review exception. The independent #19 GRU/source/adaptation implementation and actual Colab Development smoke are available for peer review; see [training instructions](docs/data/MODEL_TRAINING.md) and the [run handoff](docs/reports/issue19-qyroven.md). Controller, online runner and final research experiments remain outside this implementation. Large data stays on Drive/outside Git.
 
 ## Start here
 

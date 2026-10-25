@@ -4,7 +4,7 @@ import copy
 import math
 import random
 from dataclasses import asdict, dataclass
-from typing import Sequence
+from typing import Iterator, Sequence
 
 import torch
 from torch import Tensor
@@ -59,7 +59,7 @@ def adapt_model(source: ForecastGRU) -> ForecastGRU:
 
 def batches(
     records: Sequence[dict], batch_size: int, *, device: str, shuffle_seed: int | None = None
-):
+) -> Iterator[tuple[Tensor, Tensor, Tensor]]:
     indices = list(range(len(records)))
     if shuffle_seed is not None:
         random.Random(shuffle_seed).shuffle(indices)
