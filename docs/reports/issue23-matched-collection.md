@@ -73,3 +73,9 @@ methods in the matched matrix; in that mode old Source-study/Fixed/controller
 forecasts remain calibration evidence and are **not** reused as comparison rows.
 The Fixed replication choice must match the authenticated calibration matrix.
 See [runtime recovery and migration](issue23-runtime-recovery.md).
+
+The [Development prefix-density proposal and actual threshold inventory](issue23-density-contexts.md)
+now defines sparse/dense groups without reading online forecast outcomes. It has
+not yet been joined to the complete matched forecasts. Report this remaining
+analysis explicitly; do not describe the primary collection as scientifically
+complete merely because the command produces weekday/weekend metrics.

@@ -131,3 +131,19 @@ tick count, latest commit identity, state-file byte hash and recursive model,
 optimizer and RNG content digests. It does not train, reconstruct absent historical
 states, or claim Source checkpoint tensor verification. Independently rerunning it
 on the downloaded controller artifacts passed for all 276 latest states.
+
+The corrected Kaggle recovery then passed independent verification for all 276
+runs and 51,060 daily artifacts. The gated GPU batch subsequently started and
+actual completed proxy/parameter runs appeared in `progress.json`. This is live
+partial execution, not completion of 1,104 calibration runs, 690 matched reference
+runs or subsequent analysis. The serial batch stops on a failed child stage;
+matched comparison and analysis require their preceding independent proof.
+Kaggle's Quick Save was selected with **Always save output** and a private version
+snapshot requested, avoiding a duplicate Save & Run All GPU batch. The UI action
+alone is not proof that every future checkpoint has reached persistent storage;
+check/export completed outputs and preserve interrupted partial runs if needed.
+
+A new read-only [Development density-context handoff](issue23-density-contexts.md)
+records all 21 metadata-derived thresholds. Forecast-error grouping remains
+pending the complete matched collection; these proposed thresholds do not grant
+Final-lock approval or change training/cohort eligibility.
