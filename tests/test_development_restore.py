@@ -109,3 +109,14 @@ class RestoreTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     restore(root, root / "restored", checksum)
                 self.assertFalse((root / "restored").exists())
+
+    def test_source_path_components_cannot_escape_the_restore_root(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.package(root)
+            path = root / "catalog.json"
+            value = json.loads(path.read_text())
+            value["sources"] = [{"seed": "42/../../../outside", "bytes": 0, "sha256": "0" * 64}]
+            path.write_text(json.dumps(value))
+            with self.assertRaisesRegex(ValueError, "path components"):
+                restore(root, root / "restored", digest(path))

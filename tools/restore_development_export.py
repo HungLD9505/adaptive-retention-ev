@@ -101,6 +101,13 @@ def restore(package: Path, output: Path, catalog_sha256: str) -> dict:
     if len(set(matrix_ids)) != len(matrix_ids) or set(matrix_ids) != set(archived_ids):
         raise ValueError("Restored matrix/parts run populations differ")
     for source in catalog["sources"]:
+        if (
+            type(source["seed"]) is not int
+            or source["seed"] < 0
+            or type(matrix["source_epochs"]) is not int
+            or matrix["source_epochs"] < 1
+        ):
+            raise ValueError("Source seed/epoch path components must be nonnegative integers")
         path = (
             output
             / "sources"

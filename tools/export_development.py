@@ -161,6 +161,7 @@ def put_sources(archive: zipfile.ZipFile, root: Path, matrix: dict) -> list[dict
         meta, latent = value["metadata"], value["latent_scale"]
         if (
             meta["input_binding"]["stage"] != "source"
+            or value["completed_epochs"] != matrix["source_epochs"]
             or meta["training_config"]["seed"] != seed
             or latent is None
             or latent.shape != (64,)

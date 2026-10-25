@@ -182,3 +182,12 @@ class ExportTests(unittest.TestCase):
             bad["runs"].append({**row, "source_checkpoint_sha256": "c" * 64})
             with zipfile.ZipFile(root / "bad.zip", "x") as z, self.assertRaises(ValueError):
                 put_sources(z, root, bad)
+            value = torch.load(src / "epoch-10.pt", map_location="cpu", weights_only=True)
+            value["completed_epochs"] = 9
+            torch.save(value, src / "epoch-10.pt")
+            changed = digest(src / "epoch-10.pt")
+            matrix["sources"]["42"]["sha256"] = changed
+            row["source_checkpoint_sha256"] = changed
+            row["binding"]["input"]["source_checkpoint_sha256"] = changed
+            with zipfile.ZipFile(root / "wrong-epoch.zip", "x") as z, self.assertRaises(ValueError):
+                put_sources(z, root, matrix)
