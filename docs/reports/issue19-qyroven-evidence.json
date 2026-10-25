@@ -1,0 +1,2314 @@
+{
+  "schema": "ev-issue19-handoff-v1",
+  "date_local": "2026-10-25",
+  "issue": 19,
+  "pr": 47,
+  "runtime_commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+  "input_release": "DATA-v1-20261019",
+  "input_archive_sha256": "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7",
+  "code_bundle_sha256": "47789b82edc5fb6d9bb14a6fedcd0404e286b96e285db16cc984775c11a3339a",
+  "run_archive": {
+    "name": "qyroven-i19-20261025-seed42-v1.zip",
+    "bytes": 28476229,
+    "sha256": "280a2c9c302313b174754a0749824a0ad4a4538663462f309cec85ff77797f75",
+    "url": "https://drive.google.com/file/d/1nTgjpoDwgY78KirC8T5aCcNhmpHDMBWl/view"
+  },
+  "drive_folder": "https://drive.google.com/drive/folders/1iaPJtwnKBbKFAZkuKnaNWyWJCOMWoZDL",
+  "executed_notebook": "https://colab.research.google.com/drive/1h0AlP8b_0TLx_zV4Zx13U4ANq9ch0X-E",
+  "matrix_artifact": {
+    "url": "https://drive.google.com/file/d/14tA8jtq3xqS8IRbikhEAXq03BE56ceyV/view",
+    "sha256": "d631791d6b0858a7764cc37444506c1eaee1ba33721664b9466359930f1e6e5d",
+    "bytes": 81577
+  },
+  "verification": {
+    "files_verified": 192,
+    "runs_verified": 14,
+    "resume_model_optimizer_rng_predictions_equal": true
+  },
+  "checks": {
+    "offline_tests": 139,
+    "new_tests": 20,
+    "local_python": "3.12.13",
+    "local_torch": "2.11.0",
+    "colab_tests_seconds": 8.454,
+    "initial_ci_run": 40206639838,
+    "ubuntu_windows_initial_ci": "PASS",
+    "ruff_lint_format": "PASS",
+    "dependency_check_local": "PASS",
+    "no_real_local_training": true
+  },
+  "scope": "Source plus Development fixed-checkpoint smoke only; no Final; no controller/online runner; peer approval pending",
+  "matrix": {
+    "scope": "Development smoke only; not tuned or final evaluation",
+    "commands": [
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "source",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-7d",
+        "--manifest-sha256",
+        "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/source-config.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42",
+        "--device",
+        "cuda"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-7d",
+        "--manifest-sha256",
+        "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-7-1001-0.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1001-7d-lambda0-seed42",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1001"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-7d",
+        "--manifest-sha256",
+        "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-7-1001-0.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/resume-target1001-7d-lambda0",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1001",
+        "--resume",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1001-7d-lambda0-seed42/epoch-1.pt",
+        "--resume-sha256",
+        "a13b0fa21447e887f65b15133cece590dded0be4d569b950cadcad25c1a49fd8"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-7d",
+        "--manifest-sha256",
+        "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-7-1001-0.01.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1001-7d-lambda0.01-seed42",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1001"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-7d",
+        "--manifest-sha256",
+        "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-7-1008-0.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1008-7d-lambda0-seed42",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1008"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-7d",
+        "--manifest-sha256",
+        "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-7-1008-0.01.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1008-7d-lambda0.01-seed42",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1008"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-14d",
+        "--manifest-sha256",
+        "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-14-1001-0.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1001-14d-lambda0-seed42",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1001"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-14d",
+        "--manifest-sha256",
+        "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-14-1001-0.01.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1001-14d-lambda0.01-seed42",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1001"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-14d",
+        "--manifest-sha256",
+        "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-14-1008-0.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1008-14d-lambda0-seed42",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1008"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-14d",
+        "--manifest-sha256",
+        "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-14-1008-0.01.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1008-14d-lambda0.01-seed42",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1008"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-28d",
+        "--manifest-sha256",
+        "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-28-1001-0.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1001-28d-lambda0-seed42",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1001"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-28d",
+        "--manifest-sha256",
+        "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-28-1001-0.01.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1001-28d-lambda0.01-seed42",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1001"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-28d",
+        "--manifest-sha256",
+        "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-28-1008-0.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1008-28d-lambda0-seed42",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1008"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_models.run",
+        "target",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-28d",
+        "--manifest-sha256",
+        "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+        "--config",
+        "/content/qyroven-i19-20261025-seed42-v1/config-28-1008-0.01.json",
+        "--output",
+        "/content/qyroven-i19-20261025-seed42-v1/target-1008-28d-lambda0.01-seed42",
+        "--device",
+        "cuda",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--entity-id",
+        "1008"
+      ]
+    ],
+    "runs": [
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+          "input_run_id": "urbanev-SZH-7d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "source",
+          "entity_id": null,
+          "history_days": null,
+          "scale_id": null,
+          "source_checkpoint_sha256": null
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 1,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "source-seed42",
+        "started_at_utc": "2026-10-25T15:23:14.634319+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 65888,
+        "initialization": "source_training",
+        "logs": [
+          {
+            "loss": 0.18382696517177322,
+            "forecast_mae_scaled": 0.18382696517177322,
+            "retention_mse": 0.0,
+            "examples": 65888,
+            "steps": 1030,
+            "epoch": 1
+          }
+        ],
+        "metrics": null,
+        "checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "elapsed_seconds": 57.394981744000006,
+        "peak_cuda_memory_bytes": 94589440,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+          "input_run_id": "urbanev-SZH-7d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1001",
+          "history_days": 7,
+          "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "target-1001-7d-lambda0-seed42",
+        "started_at_utc": "2026-10-25T15:23:42.993433+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 6,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.2512904107570648,
+            "forecast_mae_scaled": 0.2512904107570648,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.22134526073932648,
+            "forecast_mae_scaled": 0.22134526073932648,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.21808715164661407,
+            "forecast_mae_scaled": 0.21808715164661407,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 4.527888062217879,
+          "rmse_kwh": 6.259605508555909,
+          "prediction_sha256_before_label_read": "c68a5766ce55b6a182f7c50c4c516a936314726ac24dfec1dbeac5fb0f7534f0",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 3.0310850292444225,
+              "mse_kwh2": 22.49152547431794
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.9705137246184883,
+              "mse_kwh2": 15.222843962486097
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 3.7571167780293355,
+              "mse_kwh2": 30.455677082502888
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 4.703138553433948,
+              "mse_kwh2": 35.26114877423403
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 9.908747653166452,
+              "mse_kwh2": 124.37006072029664
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 4.149374034669664,
+              "mse_kwh2": 23.90630129653849
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 3.175240662362839,
+              "mse_kwh2": 22.571070548828303
+            }
+          ]
+        },
+        "checkpoint_sha256": "61f456f4f0c638dc6f03f060585ec5c1af3e13e6ec611c86847fe587d1d1a80d",
+        "elapsed_seconds": 15.10175285799994,
+        "peak_cuda_memory_bytes": 87726592,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+          "input_run_id": "urbanev-SZH-7d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1001",
+          "history_days": 7,
+          "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "resume-target1001-7d-lambda0",
+        "started_at_utc": "2026-10-25T15:24:02.452930+00:00",
+        "resume_checkpoint_sha256": "a13b0fa21447e887f65b15133cece590dded0be4d569b950cadcad25c1a49fd8",
+        "status": "technical_success",
+        "training_examples": 6,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.22134526073932648,
+            "forecast_mae_scaled": 0.22134526073932648,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.21808715164661407,
+            "forecast_mae_scaled": 0.21808715164661407,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 4.527888062217879,
+          "rmse_kwh": 6.259605508555909,
+          "prediction_sha256_before_label_read": "c68a5766ce55b6a182f7c50c4c516a936314726ac24dfec1dbeac5fb0f7534f0",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 3.0310850292444225,
+              "mse_kwh2": 22.49152547431794
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.9705137246184883,
+              "mse_kwh2": 15.222843962486097
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 3.7571167780293355,
+              "mse_kwh2": 30.455677082502888
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 4.703138553433948,
+              "mse_kwh2": 35.26114877423403
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 9.908747653166452,
+              "mse_kwh2": 124.37006072029664
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 4.149374034669664,
+              "mse_kwh2": 23.90630129653849
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 3.175240662362839,
+              "mse_kwh2": 22.571070548828303
+            }
+          ]
+        },
+        "checkpoint_sha256": "473f19df9d161e2b07047c32ed5f56fabbca78f739d3d1e0267d80b9eec3ba4d",
+        "elapsed_seconds": 14.507758469999999,
+        "peak_cuda_memory_bytes": 87569408,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+          "input_run_id": "urbanev-SZH-7d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1001",
+          "history_days": 7,
+          "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0.01,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "target-1001-7d-lambda0.01-seed42",
+        "started_at_utc": "2026-10-25T15:24:21.771710+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 6,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.2512904107570648,
+            "forecast_mae_scaled": 0.2512904107570648,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.2218518704175949,
+            "forecast_mae_scaled": 0.22134526073932648,
+            "retention_mse": 0.050661247223615646,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.21889735758304596,
+            "forecast_mae_scaled": 0.21790094673633575,
+            "retention_mse": 0.09964142739772797,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 4.519618085215962,
+          "rmse_kwh": 6.261555724817254,
+          "prediction_sha256_before_label_read": "a02efdcf7d801c4653f2094fa5112f96a32c01edf7be9e935a8e2ecdd367c45f",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 3.025668914119402,
+              "mse_kwh2": 22.69807694360951
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.9424719644917388,
+              "mse_kwh2": 15.12656204583014
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 3.730390899711185,
+              "mse_kwh2": 30.490281225010296
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 4.724247945679558,
+              "mse_kwh2": 35.64413199537985
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 9.897691667079924,
+              "mse_kwh2": 124.06840901626644
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 4.134754803445604,
+              "mse_kwh2": 23.769336276556256
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 3.1821004019843193,
+              "mse_kwh2": 22.652763162289542
+            }
+          ]
+        },
+        "checkpoint_sha256": "e5b76919e7975f367e5cfe9233c904dc8a7b9f6aa28a48b9a7a302d0eb36de26",
+        "elapsed_seconds": 14.784262024999975,
+        "peak_cuda_memory_bytes": 88359424,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+          "input_run_id": "urbanev-SZH-7d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1008",
+          "history_days": 7,
+          "scale_id": "27c91198da22d8caa794500573fb7a35b39e46b1f7f7c369b7087d25b028a88e",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "target-1008-7d-lambda0-seed42",
+        "started_at_utc": "2026-10-25T15:24:40.852194+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 6,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.1850348263978958,
+            "forecast_mae_scaled": 0.1850348263978958,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.16337022185325623,
+            "forecast_mae_scaled": 0.16337022185325623,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.1498110592365265,
+            "forecast_mae_scaled": 0.1498110592365265,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 6.925344903495102,
+          "rmse_kwh": 8.960231543951183,
+          "prediction_sha256_before_label_read": "3aade4751f8d14c46a92049f6ebefa63ccd124f360ea0c2ca5d81af9e369bead",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 4.4726015453537284,
+              "mse_kwh2": 23.419358864706506
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.7283810796216117,
+              "mse_kwh2": 15.428910949488085
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 7.99449249056892,
+              "mse_kwh2": 77.21306041276755
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 15.393926883737242,
+              "mse_kwh2": 254.09111353713288
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 5.800224343935649,
+              "mse_kwh2": 71.65627865285849
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 8.597802069865992,
+              "mse_kwh2": 104.32449976991698
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 3.489985911382568,
+              "mse_kwh2": 15.86702306165414
+            }
+          ]
+        },
+        "checkpoint_sha256": "9e2a0423751412a4f2d4f76b51f3587a2c7bba87f77c80b6925db4779a9caaef",
+        "elapsed_seconds": 14.863773373999948,
+        "peak_cuda_memory_bytes": 87726592,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+          "input_run_id": "urbanev-SZH-7d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1008",
+          "history_days": 7,
+          "scale_id": "27c91198da22d8caa794500573fb7a35b39e46b1f7f7c369b7087d25b028a88e",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0.01,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "target-1008-7d-lambda0.01-seed42",
+        "started_at_utc": "2026-10-25T15:25:00.302435+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 6,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.1850348263978958,
+            "forecast_mae_scaled": 0.1850348263978958,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.1647217571735382,
+            "forecast_mae_scaled": 0.16337022185325623,
+            "retention_mse": 0.1351541429758072,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.15196876227855682,
+            "forecast_mae_scaled": 0.1487770825624466,
+            "retention_mse": 0.31916743516921997,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 6.791008911701657,
+          "rmse_kwh": 8.802096130915789,
+          "prediction_sha256_before_label_read": "4fc0cb73c54ae91410d5631c4a4ddda799c17c319c2ba100c284fd716a6a5dd9",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 4.178254990528026,
+              "mse_kwh2": 19.99813854060559
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.710366946334639,
+              "mse_kwh2": 14.7459367141589
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 7.850877208428248,
+              "mse_kwh2": 74.56039097349596
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 15.113912617166832,
+              "mse_kwh2": 245.6202497915328
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 5.8103848695755005,
+              "mse_kwh2": 74.18169408596835
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 8.343029000692894,
+              "mse_kwh2": 97.69785785682897
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 3.5302367491854554,
+              "mse_kwh2": 15.534006122588421
+            }
+          ]
+        },
+        "checkpoint_sha256": "90d586409c8e7bf4d36f58140e4c47d1f6ee2fe523597de57af0dd902663bb8f",
+        "elapsed_seconds": 14.469466157999932,
+        "peak_cuda_memory_bytes": 88359424,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+          "input_run_id": "urbanev-SZH-14d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1001",
+          "history_days": 14,
+          "scale_id": "113d6a5f9d74464fb60d715dbb87cce8bdf92bdd9475653c6b6c645bf6a1c985",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "target-1001-14d-lambda0-seed42",
+        "started_at_utc": "2026-10-25T15:25:19.827349+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 13,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.2043275237083435,
+            "forecast_mae_scaled": 0.2043275237083435,
+            "retention_mse": 0.0,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.19615477323532104,
+            "forecast_mae_scaled": 0.19615477323532104,
+            "retention_mse": 0.0,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.1931418925523758,
+            "forecast_mae_scaled": 0.1931418925523758,
+            "retention_mse": 0.0,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 4.36088837730506,
+          "rmse_kwh": 6.300590416638909,
+          "prediction_sha256_before_label_read": "249daa92d354ef6ef7fa285dc5850917e2a217f4f5ed4b07f721c49c22a9ff42",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 3.0597950427068583,
+              "mse_kwh2": 28.96031793234594
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.339058457977243,
+              "mse_kwh2": 12.60018977192739
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 3.505097996857431,
+              "mse_kwh2": 35.97212637241835
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 5.201334327459334,
+              "mse_kwh2": 46.62518977676793
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 9.052222741974724,
+              "mse_kwh2": 104.05232383218292
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 3.5319007105297513,
+              "mse_kwh2": 21.08482594366201
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 3.836809363630081,
+              "mse_kwh2": 28.58710355838987
+            }
+          ]
+        },
+        "checkpoint_sha256": "d49cd2004799bbf6526547d7feabbe3c165a675445e6d316b35819c066210b7c",
+        "elapsed_seconds": 14.80359334100001,
+        "peak_cuda_memory_bytes": 88648704,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+          "input_run_id": "urbanev-SZH-14d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1001",
+          "history_days": 14,
+          "scale_id": "113d6a5f9d74464fb60d715dbb87cce8bdf92bdd9475653c6b6c645bf6a1c985",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0.01,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "target-1001-14d-lambda0.01-seed42",
+        "started_at_utc": "2026-10-25T15:25:39.081382+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 13,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.2043275237083435,
+            "forecast_mae_scaled": 0.2043275237083435,
+            "retention_mse": 0.0,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.19683465361595154,
+            "forecast_mae_scaled": 0.19615477323532104,
+            "retention_mse": 0.06798817217350006,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.1936185657978058,
+            "forecast_mae_scaled": 0.1927182376384735,
+            "retention_mse": 0.09003309160470963,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 4.367821616076287,
+          "rmse_kwh": 6.330400289186302,
+          "prediction_sha256_before_label_read": "e36fba012a50434c23a6144092ef5dc3ebe7d78c86d25e28cf40c178b89c941e",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 3.0845749212635867,
+              "mse_kwh2": 29.529312185885658
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.3085811585187916,
+              "mse_kwh2": 12.586629346767213
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 3.5023930089341264,
+              "mse_kwh2": 36.93165225620921
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 5.2291699830028735,
+              "mse_kwh2": 47.66103345947142
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 9.03867792420917,
+              "mse_kwh2": 103.75939367974779
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 3.516004966364967,
+              "mse_kwh2": 21.049960860675107
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 3.8953493502404934,
+              "mse_kwh2": 28.999792960553638
+            }
+          ]
+        },
+        "checkpoint_sha256": "45f34947d387e8c71c73a3e406aaf630620f677656bd08750cd63ab8cbc7b553",
+        "elapsed_seconds": 14.934227711000062,
+        "peak_cuda_memory_bytes": 89899008,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+          "input_run_id": "urbanev-SZH-14d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1008",
+          "history_days": 14,
+          "scale_id": "3dd834a9c7d92e98e111aaddec93b997056a93c4e1082ed44f95021167d290fb",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "target-1008-14d-lambda0-seed42",
+        "started_at_utc": "2026-10-25T15:25:59.038801+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 13,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.181046262383461,
+            "forecast_mae_scaled": 0.181046262383461,
+            "retention_mse": 0.0,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.17592208087444305,
+            "forecast_mae_scaled": 0.17592208087444305,
+            "retention_mse": 0.0,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.15829922258853912,
+            "forecast_mae_scaled": 0.15829922258853912,
+            "retention_mse": 0.0,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 6.125851336452696,
+          "rmse_kwh": 7.779523022378463,
+          "prediction_sha256_before_label_read": "7ed32354e83cf6683187e589b5eb4c70ef327db0050a9c273dbbd567c0524058",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 3.835870759354698,
+              "mse_kwh2": 23.690461904190126
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.641689979367785,
+              "mse_kwh2": 8.599427516684612
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 5.636256612009469,
+              "mse_kwh2": 40.84802276046908
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 11.75507400433222,
+              "mse_kwh2": 155.58221624177574
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 8.996491087807552,
+              "mse_kwh2": 125.81407551591298
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 5.731778899828591,
+              "mse_kwh2": 36.79801358422004
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 4.2837980124685515,
+              "mse_kwh2": 32.31463166676321
+            }
+          ]
+        },
+        "checkpoint_sha256": "677b63a3e4f80710162bd6526f77db47d136d970cd3c2008f8cc9a8d8a4afa35",
+        "elapsed_seconds": 14.976032205000024,
+        "peak_cuda_memory_bytes": 88648704,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+          "input_run_id": "urbanev-SZH-14d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1008",
+          "history_days": 14,
+          "scale_id": "3dd834a9c7d92e98e111aaddec93b997056a93c4e1082ed44f95021167d290fb",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0.01,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "target-1008-14d-lambda0.01-seed42",
+        "started_at_utc": "2026-10-25T15:26:18.970047+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 13,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.181046262383461,
+            "forecast_mae_scaled": 0.181046262383461,
+            "retention_mse": 0.0,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.1765407919883728,
+            "forecast_mae_scaled": 0.17592208087444305,
+            "retention_mse": 0.06187102198600769,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.1587233990430832,
+            "forecast_mae_scaled": 0.15830162167549133,
+            "retention_mse": 0.04217737168073654,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 6.089308314616717,
+          "rmse_kwh": 7.733231428822576,
+          "prediction_sha256_before_label_read": "b4b98c6f946b216375c4bf0355efcdfeb715c28e1939d3f9f3706ffe9ae2057d",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 4.053960369692909,
+              "mse_kwh2": 26.095619574732893
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.7084504399034706,
+              "mse_kwh2": 9.259031957612889
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 5.439652345246736,
+              "mse_kwh2": 38.18934905534559
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 11.514253695805863,
+              "mse_kwh2": 150.18666353136697
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 9.112772319051958,
+              "mse_kwh2": 127.88369661884859
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 5.450396041075386,
+              "mse_kwh2": 33.27786508173521
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 4.345672991540698,
+              "mse_kwh2": 33.7278525024626
+            }
+          ]
+        },
+        "checkpoint_sha256": "8a06892b7a75444da7ade61a18764e2e3e58797ccf6f3e65f67ecdb3b34bcc36",
+        "elapsed_seconds": 15.312700755000037,
+        "peak_cuda_memory_bytes": 89899008,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+          "input_run_id": "urbanev-SZH-28d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1001",
+          "history_days": 28,
+          "scale_id": "f0ca8b9abeb2b46d1e5fcc989b77fa71e8f0329bf670fa4854db433bdb2da05f",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "target-1001-28d-lambda0-seed42",
+        "started_at_utc": "2026-10-25T15:26:39.908813+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 27,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.2303604781627655,
+            "forecast_mae_scaled": 0.2303604781627655,
+            "retention_mse": 0.0,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.21738344430923462,
+            "forecast_mae_scaled": 0.21738344430923462,
+            "retention_mse": 0.0,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.2154558151960373,
+            "forecast_mae_scaled": 0.2154558151960373,
+            "retention_mse": 0.0,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 4.266772310885171,
+          "rmse_kwh": 5.937324315583763,
+          "prediction_sha256_before_label_read": "1169f21a3618e78f1032f2764845f60198306dd2505f9756618ecbe2c9897e8e",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 3.0496799200773235,
+              "mse_kwh2": 20.072338960278916
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.9138117863072295,
+              "mse_kwh2": 14.559365035484811
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 3.6493947969542604,
+              "mse_kwh2": 34.404491632530515
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 5.160717750589051,
+              "mse_kwh2": 46.02413765101493
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 8.461471279462177,
+              "mse_kwh2": 93.06153502988924
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 3.6949155595567493,
+              "mse_kwh2": 20.983964367372717
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 2.9374150832494084,
+              "mse_kwh2": 17.656907522384227
+            }
+          ]
+        },
+        "checkpoint_sha256": "cc45d624e90535b7e21b0ab885aa9dbea24eb329de773051ca45bc16d53d4bc8",
+        "elapsed_seconds": 15.890499529000067,
+        "peak_cuda_memory_bytes": 91434496,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+          "input_run_id": "urbanev-SZH-28d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1001",
+          "history_days": 28,
+          "scale_id": "f0ca8b9abeb2b46d1e5fcc989b77fa71e8f0329bf670fa4854db433bdb2da05f",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0.01,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "target-1001-28d-lambda0.01-seed42",
+        "started_at_utc": "2026-10-25T15:27:00.862019+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 27,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.2303604781627655,
+            "forecast_mae_scaled": 0.2303604781627655,
+            "retention_mse": 0.0,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.21797765791416168,
+            "forecast_mae_scaled": 0.21738344430923462,
+            "retention_mse": 0.05942068248987198,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.21619871258735657,
+            "forecast_mae_scaled": 0.2151964008808136,
+            "retention_mse": 0.10023173689842224,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 4.260273772927503,
+          "rmse_kwh": 5.948424336604145,
+          "prediction_sha256_before_label_read": "acb0e4dc43b95fc2938e1617e6e168e34bba72664142318e4bb75b46b2acc951",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 3.0320930133263264,
+              "mse_kwh2": 20.228557574151758
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.879116617970997,
+              "mse_kwh2": 14.455394287251933
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 3.6367893359727326,
+              "mse_kwh2": 34.771740623305526
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 5.177955468495686,
+              "mse_kwh2": 46.61791751257036
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 8.448119541009266,
+              "mse_kwh2": 92.84151202549806
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 3.6837834782070584,
+              "mse_kwh2": 20.958878006454125
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 2.964058955510455,
+              "mse_kwh2": 17.812264588899463
+            }
+          ]
+        },
+        "checkpoint_sha256": "3f5689f9f1b981b52fedd59b94a22ec428567335a14dbb4cfb2dee64934bc2bc",
+        "elapsed_seconds": 16.033902142999978,
+        "peak_cuda_memory_bytes": 93920256,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+          "input_run_id": "urbanev-SZH-28d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1008",
+          "history_days": 28,
+          "scale_id": "d607c4d98e0435a35467573155328bc6828fb5942843369a906f15e965999850",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "target-1008-28d-lambda0-seed42",
+        "started_at_utc": "2026-10-25T15:27:21.805013+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 27,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.1880066990852356,
+            "forecast_mae_scaled": 0.1880066990852356,
+            "retention_mse": 0.0,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.17668193578720093,
+            "forecast_mae_scaled": 0.17668193578720093,
+            "retention_mse": 0.0,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.17452232539653778,
+            "forecast_mae_scaled": 0.17452232539653778,
+            "retention_mse": 0.0,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 6.386502665778001,
+          "rmse_kwh": 8.268012177390112,
+          "prediction_sha256_before_label_read": "2f02f7b99a422920f3686c2c603747aa15028c93dcdb89cde59483bc2b53b4c6",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 2.9488560424910655,
+              "mse_kwh2": 14.423985417307179
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.704256087541579,
+              "mse_kwh2": 8.16248354921571
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 6.325589189098938,
+              "mse_kwh2": 49.930272897628576
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 13.241319452722863,
+              "mse_kwh2": 194.1883024226354
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 8.802316281530596,
+              "mse_kwh2": 129.7166391995562
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 6.829729924599327,
+              "mse_kwh2": 60.09357531303613
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 3.8534516824616336,
+              "mse_kwh2": 22.004918758919008
+            }
+          ]
+        },
+        "checkpoint_sha256": "2fcdfc85c2d34a901099ad7ea12d5751d490115e978aba09f2d38c7c4f25c8c7",
+        "elapsed_seconds": 16.15045132900002,
+        "peak_cuda_memory_bytes": 91434496,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      },
+      {
+        "input_binding": {
+          "schema": "ev-checkpoint-input-binding-v1",
+          "feature_schema": "ev-input-v1",
+          "input_manifest_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+          "input_run_id": "urbanev-SZH-28d",
+          "dataset_id": "urbanev",
+          "city_id": "SZH",
+          "stage": "target",
+          "entity_id": "1008",
+          "history_days": 28,
+          "scale_id": "d607c4d98e0435a35467573155328bc6828fb5942843369a906f15e965999850",
+          "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+        },
+        "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+        "training_config": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "experiment_config": {
+          "training": {
+            "seed": 42,
+            "epochs": 3,
+            "batch_size": 64,
+            "learning_rate": 0.001,
+            "epsilon": 0.001,
+            "head_width": 64
+          },
+          "lambda": 0.01,
+          "development_entities": [
+            "1001",
+            "1008"
+          ],
+          "evaluation_origins": 7
+        },
+        "latent_scale_definition": "population std ddof=0 of final source encoder on every source training example",
+        "code": {
+          "commit": "81101185dab76bcb593daff08131c32a6c4d7b6b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "09e34c036a9accc8a03b891529a9a68f93c670785c6840729d7ff86a2a6da219"
+          }
+        },
+        "environment": {
+          "python": "3.13.16",
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "torch": "2.11.0+cu130",
+          "cuda": "13.0",
+          "device": "cuda",
+          "device_name": "Tesla T4",
+          "deterministic_algorithms": true
+        },
+        "run_id": "target-1008-28d-lambda0.01-seed42",
+        "started_at_utc": "2026-10-25T15:27:42.844870+00:00",
+        "resume_checkpoint_sha256": null,
+        "status": "technical_success",
+        "training_examples": 27,
+        "initialization": "target_initial_adaptation",
+        "logs": [
+          {
+            "loss": 0.1880066990852356,
+            "forecast_mae_scaled": 0.1880066990852356,
+            "retention_mse": 0.0,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.17684277892112732,
+            "forecast_mae_scaled": 0.17668193578720093,
+            "retention_mse": 0.016084684059023857,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.17487144470214844,
+            "forecast_mae_scaled": 0.17432698607444763,
+            "retention_mse": 0.05444617569446564,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "metrics": {
+          "scope": "fixed-checkpoint Development smoke; no online updates; no effectiveness claim",
+          "requested_origins": 7,
+          "emitted_forecasts": 7,
+          "scored_complete_days": 7,
+          "unscored_forecasts": 0,
+          "mae_kwh": 6.369066430580993,
+          "rmse_kwh": 8.231889669758388,
+          "prediction_sha256_before_label_read": "5c95a26f9fc83ac6e1af4196104d423123c5ff830eee23b84fc35f784abd0f68",
+          "daily": [
+            {
+              "origin": "2022-12-01T00:00:00+08:00",
+              "mae_kwh": 3.053094181749556,
+              "mse_kwh2": 15.516968183800321
+            },
+            {
+              "origin": "2022-12-02T00:00:00+08:00",
+              "mae_kwh": 2.695189386606215,
+              "mse_kwh2": 8.082545462850558
+            },
+            {
+              "origin": "2022-12-03T00:00:00+08:00",
+              "mae_kwh": 6.206115100946689,
+              "mse_kwh2": 48.37240920515026
+            },
+            {
+              "origin": "2022-12-04T00:00:00+08:00",
+              "mae_kwh": 13.124785214662547,
+              "mse_kwh2": 190.9035642018182
+            },
+            {
+              "origin": "2022-12-05T00:00:00+08:00",
+              "mae_kwh": 8.945362422201372,
+              "mse_kwh2": 132.32610763231372
+            },
+            {
+              "origin": "2022-12-06T00:00:00+08:00",
+              "mae_kwh": 6.511304656664528,
+              "mse_kwh2": 52.61704850324719
+            },
+            {
+              "origin": "2022-12-07T00:00:00+08:00",
+              "mae_kwh": 4.047614051236048,
+              "mse_kwh2": 26.52940955634382
+            }
+          ]
+        },
+        "checkpoint_sha256": "5d0f4cd1c6d2712faf9201404eb966b3a1b9850edd299bee6badfd14d81366cd",
+        "elapsed_seconds": 16.175250305000077,
+        "peak_cuda_memory_bytes": 93920256,
+        "acceptance_scope": "Issue19 Development only; no controller or online-runner acceptance"
+      }
+    ]
+  }
+}

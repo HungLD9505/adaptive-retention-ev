@@ -1,0 +1,334 @@
+{
+  "run_id": "issue20-fixture-20261025-qyroven-v1",
+  "scope": "synthetic fixtures only; no training, data, Final or efficacy evaluation",
+  "code_sha": "b485011110dfb62fcc63224f49753685f3431c10",
+  "working_tree_dirty": false,
+  "python": "3.12.13",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "config": {
+    "lambda_low": 0.01,
+    "lambda_high": 0.1,
+    "initial_lambda": 0.01,
+    "block_days": 14,
+    "min_valid_days": 7,
+    "delta": 0.0,
+    "alpha": 0.05,
+    "segment_days": 3,
+    "resamples": 2000,
+    "seed": 42
+  },
+  "config_sha256": "74d7816f2e0538d8aed13c20ed5e47079926b6620b3f035cc01fd04468a7cd41",
+  "module_sha256": {
+    "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+    "/Users/quyenmanh/Developer/TFL-EV/tools/controller_smoke.py": "662f5c4961a2b6b213ccd876a00f6a4477ff5ac01f438a70391ad02eb8e6c5db"
+  },
+  "cases_passed": 6,
+  "decisions": {
+    "switch_high": {
+      "algorithm": "ev-retention-controller-mbb-v1",
+      "stream_id": "fixture/switch_high",
+      "scale_id": "synthetic-fixed-scale",
+      "block_start": "2022-12-01T00:00:00+08:00",
+      "effective_from": "2022-12-15T00:00:00+08:00",
+      "active_lambda": 0.01,
+      "selected_lambda": 0.1,
+      "reason": "switch",
+      "valid_days": 14,
+      "pending_days": 0,
+      "incomplete_days": 0,
+      "absent_days": 0,
+      "valid_day_gaps": 0,
+      "used_origins": [
+        "2022-12-01T00:00:00+08:00",
+        "2022-12-02T00:00:00+08:00",
+        "2022-12-03T00:00:00+08:00",
+        "2022-12-04T00:00:00+08:00",
+        "2022-12-05T00:00:00+08:00",
+        "2022-12-06T00:00:00+08:00",
+        "2022-12-07T00:00:00+08:00",
+        "2022-12-08T00:00:00+08:00",
+        "2022-12-09T00:00:00+08:00",
+        "2022-12-10T00:00:00+08:00",
+        "2022-12-11T00:00:00+08:00",
+        "2022-12-12T00:00:00+08:00",
+        "2022-12-13T00:00:00+08:00",
+        "2022-12-14T00:00:00+08:00"
+      ],
+      "comparisons": [
+        {
+          "challenger": 0.0,
+          "mean_improvement": -1.0,
+          "lcb": -1.0,
+          "qualifies": false
+        },
+        {
+          "challenger": 0.1,
+          "mean_improvement": 1.0,
+          "lcb": 1.0,
+          "qualifies": true
+        }
+      ],
+      "config": {
+        "lambda_low": 0.01,
+        "lambda_high": 0.1,
+        "initial_lambda": 0.01,
+        "block_days": 14,
+        "min_valid_days": 7,
+        "delta": 0.0,
+        "alpha": 0.05,
+        "segment_days": 3,
+        "resamples": 2000,
+        "seed": 42
+      },
+      "bootstrap_seed": 93284665999511553153436411194194507667773150472000899232581254266736029730958,
+      "paired_input_sha256": "f13e57eb4bf03e828b95653b063e3a6c3e74acb3a93d476157a911b83655e584"
+    },
+    "zero_active": {
+      "algorithm": "ev-retention-controller-mbb-v1",
+      "stream_id": "fixture/zero_active",
+      "scale_id": "synthetic-fixed-scale",
+      "block_start": "2022-12-01T00:00:00+08:00",
+      "effective_from": "2022-12-15T00:00:00+08:00",
+      "active_lambda": 0.0,
+      "selected_lambda": 0.1,
+      "reason": "switch",
+      "valid_days": 14,
+      "pending_days": 0,
+      "incomplete_days": 0,
+      "absent_days": 0,
+      "valid_day_gaps": 0,
+      "used_origins": [
+        "2022-12-01T00:00:00+08:00",
+        "2022-12-02T00:00:00+08:00",
+        "2022-12-03T00:00:00+08:00",
+        "2022-12-04T00:00:00+08:00",
+        "2022-12-05T00:00:00+08:00",
+        "2022-12-06T00:00:00+08:00",
+        "2022-12-07T00:00:00+08:00",
+        "2022-12-08T00:00:00+08:00",
+        "2022-12-09T00:00:00+08:00",
+        "2022-12-10T00:00:00+08:00",
+        "2022-12-11T00:00:00+08:00",
+        "2022-12-12T00:00:00+08:00",
+        "2022-12-13T00:00:00+08:00",
+        "2022-12-14T00:00:00+08:00"
+      ],
+      "comparisons": [
+        {
+          "challenger": 0.01,
+          "mean_improvement": 1.0,
+          "lcb": 1.0,
+          "qualifies": true
+        },
+        {
+          "challenger": 0.1,
+          "mean_improvement": 2.0,
+          "lcb": 2.0,
+          "qualifies": true
+        }
+      ],
+      "config": {
+        "lambda_low": 0.01,
+        "lambda_high": 0.1,
+        "initial_lambda": 0.01,
+        "block_days": 14,
+        "min_valid_days": 7,
+        "delta": 0.0,
+        "alpha": 0.05,
+        "segment_days": 3,
+        "resamples": 2000,
+        "seed": 42
+      },
+      "bootstrap_seed": 80630891923713072260570286000197828027952498558359614787759545045507825053582,
+      "paired_input_sha256": "f13e57eb4bf03e828b95653b063e3a6c3e74acb3a93d476157a911b83655e584"
+    },
+    "switch_zero": {
+      "algorithm": "ev-retention-controller-mbb-v1",
+      "stream_id": "fixture/switch_zero",
+      "scale_id": "synthetic-fixed-scale",
+      "block_start": "2022-12-01T00:00:00+08:00",
+      "effective_from": "2022-12-15T00:00:00+08:00",
+      "active_lambda": 0.1,
+      "selected_lambda": 0.0,
+      "reason": "switch",
+      "valid_days": 14,
+      "pending_days": 0,
+      "incomplete_days": 0,
+      "absent_days": 0,
+      "valid_day_gaps": 0,
+      "used_origins": [
+        "2022-12-01T00:00:00+08:00",
+        "2022-12-02T00:00:00+08:00",
+        "2022-12-03T00:00:00+08:00",
+        "2022-12-04T00:00:00+08:00",
+        "2022-12-05T00:00:00+08:00",
+        "2022-12-06T00:00:00+08:00",
+        "2022-12-07T00:00:00+08:00",
+        "2022-12-08T00:00:00+08:00",
+        "2022-12-09T00:00:00+08:00",
+        "2022-12-10T00:00:00+08:00",
+        "2022-12-11T00:00:00+08:00",
+        "2022-12-12T00:00:00+08:00",
+        "2022-12-13T00:00:00+08:00",
+        "2022-12-14T00:00:00+08:00"
+      ],
+      "comparisons": [
+        {
+          "challenger": 0.0,
+          "mean_improvement": 2.0,
+          "lcb": 2.0,
+          "qualifies": true
+        },
+        {
+          "challenger": 0.01,
+          "mean_improvement": 1.0,
+          "lcb": 1.0,
+          "qualifies": true
+        }
+      ],
+      "config": {
+        "lambda_low": 0.01,
+        "lambda_high": 0.1,
+        "initial_lambda": 0.01,
+        "block_days": 14,
+        "min_valid_days": 7,
+        "delta": 0.0,
+        "alpha": 0.05,
+        "segment_days": 3,
+        "resamples": 2000,
+        "seed": 42
+      },
+      "bootstrap_seed": 36224325903049250771745645324576280419970838132651478581621046396588076675831,
+      "paired_input_sha256": "4e1fba87c2e68af8693b3e123bef2030ce6c5d5ed6725ccd3388796a1cad9f25"
+    },
+    "equal_keep": {
+      "algorithm": "ev-retention-controller-mbb-v1",
+      "stream_id": "fixture/equal_keep",
+      "scale_id": "synthetic-fixed-scale",
+      "block_start": "2022-12-01T00:00:00+08:00",
+      "effective_from": "2022-12-15T00:00:00+08:00",
+      "active_lambda": 0.01,
+      "selected_lambda": 0.01,
+      "reason": "no_qualifying_challenger",
+      "valid_days": 14,
+      "pending_days": 0,
+      "incomplete_days": 0,
+      "absent_days": 0,
+      "valid_day_gaps": 0,
+      "used_origins": [
+        "2022-12-01T00:00:00+08:00",
+        "2022-12-02T00:00:00+08:00",
+        "2022-12-03T00:00:00+08:00",
+        "2022-12-04T00:00:00+08:00",
+        "2022-12-05T00:00:00+08:00",
+        "2022-12-06T00:00:00+08:00",
+        "2022-12-07T00:00:00+08:00",
+        "2022-12-08T00:00:00+08:00",
+        "2022-12-09T00:00:00+08:00",
+        "2022-12-10T00:00:00+08:00",
+        "2022-12-11T00:00:00+08:00",
+        "2022-12-12T00:00:00+08:00",
+        "2022-12-13T00:00:00+08:00",
+        "2022-12-14T00:00:00+08:00"
+      ],
+      "comparisons": [
+        {
+          "challenger": 0.0,
+          "mean_improvement": 0.0,
+          "lcb": 0.0,
+          "qualifies": false
+        },
+        {
+          "challenger": 0.1,
+          "mean_improvement": 0.0,
+          "lcb": 0.0,
+          "qualifies": false
+        }
+      ],
+      "config": {
+        "lambda_low": 0.01,
+        "lambda_high": 0.1,
+        "initial_lambda": 0.01,
+        "block_days": 14,
+        "min_valid_days": 7,
+        "delta": 0.0,
+        "alpha": 0.05,
+        "segment_days": 3,
+        "resamples": 2000,
+        "seed": 42
+      },
+      "bootstrap_seed": 58551530695336298350780851752618468161504461757690702586333796638020464542806,
+      "paired_input_sha256": "ba7839d2b4c433daf7e051de15b6e07ea05e35ffe9147177b18ab83a2406c1c1"
+    },
+    "insufficient": {
+      "algorithm": "ev-retention-controller-mbb-v1",
+      "stream_id": "fixture/insufficient",
+      "scale_id": "synthetic-fixed-scale",
+      "block_start": "2022-12-01T00:00:00+08:00",
+      "effective_from": "2022-12-15T00:00:00+08:00",
+      "active_lambda": 0.01,
+      "selected_lambda": 0.01,
+      "reason": "insufficient_valid_days",
+      "valid_days": 6,
+      "pending_days": 0,
+      "incomplete_days": 0,
+      "absent_days": 8,
+      "valid_day_gaps": 0,
+      "used_origins": [
+        "2022-12-01T00:00:00+08:00",
+        "2022-12-02T00:00:00+08:00",
+        "2022-12-03T00:00:00+08:00",
+        "2022-12-04T00:00:00+08:00",
+        "2022-12-05T00:00:00+08:00",
+        "2022-12-06T00:00:00+08:00"
+      ],
+      "comparisons": [],
+      "config": {
+        "lambda_low": 0.01,
+        "lambda_high": 0.1,
+        "initial_lambda": 0.01,
+        "block_days": 14,
+        "min_valid_days": 7,
+        "delta": 0.0,
+        "alpha": 0.05,
+        "segment_days": 3,
+        "resamples": 2000,
+        "seed": 42
+      },
+      "bootstrap_seed": 1170867007128969768268260396970648590467543340719638740053779748425162911563,
+      "paired_input_sha256": "eaa567035349c8a452a75712b841b05df6f03ca3a5c22e02b7a05519beddf475"
+    },
+    "all_missing": {
+      "algorithm": "ev-retention-controller-mbb-v1",
+      "stream_id": "fixture/all_missing",
+      "scale_id": "synthetic-fixed-scale",
+      "block_start": "2022-12-01T00:00:00+08:00",
+      "effective_from": "2022-12-15T00:00:00+08:00",
+      "active_lambda": 0.01,
+      "selected_lambda": 0.01,
+      "reason": "insufficient_valid_days",
+      "valid_days": 0,
+      "pending_days": 0,
+      "incomplete_days": 0,
+      "absent_days": 14,
+      "valid_day_gaps": 0,
+      "used_origins": [],
+      "comparisons": [],
+      "config": {
+        "lambda_low": 0.01,
+        "lambda_high": 0.1,
+        "initial_lambda": 0.01,
+        "block_days": 14,
+        "min_valid_days": 7,
+        "delta": 0.0,
+        "alpha": 0.05,
+        "segment_days": 3,
+        "resamples": 2000,
+        "seed": 42
+      },
+      "bootstrap_seed": 91490653583520065114939599980189158343142783047178228564813899042825537592018,
+      "paired_input_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  },
+  "runtime_seconds": 0.02066187500167871
+}
