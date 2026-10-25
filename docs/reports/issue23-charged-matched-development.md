@@ -54,8 +54,61 @@ pooled six-city number labeled independent external validation.
 
 ## Current status
 
-277 local fixture tests pass with Ruff lint/format and diff checks. The six
+309 local fixture tests pass with Ruff lint/format and diff checks. The six
 cohorts were actually generated and authenticated, but this supplementary
 Source/target training has not started. The primary controller/proxy/matched
 jobs must finish and authenticate their selected recipe first. No local real-data
 training, Final evaluation, configuration-lock approval or merge.
+
+## Read-only city analysis
+
+`tools.analyze_charged_matched` consumes one completed city matrix, its independent
+daily verification, the identified primary summary, the predeclared city cohort
+and authenticated density metadata. It rejects missing/duplicate method cells,
+different paired runtime environments, changed core algorithm fingerprints,
+cross-city input/Source populations, incorrect Source seeds/duration/configs and
+checkpoint bytes or metadata that contradict the Source training record. Each
+city's three Source checkpoints are CPU-loaded; this is verification, not local
+training. Primary summary provenance is a pinned upstream dependency, not a new
+city-specific calibration or an independent repeat of primary selection.
+
+The analysis rejoins the actual saved forecast errors and ordered issued/scored
+origin sets for every method, retains unscored cells, averages paired seeds within
+sites before equal-site aggregation, and reports each 7/14/28-day budget
+separately. Weekday/weekend, initial-adaptation status, 30-day calendar phases,
+prefix-derived sparse/dense context and same-block proxy relationships use the
+shared primary definitions. Density lookup explicitly names the CHARGED city;
+UrbanEV groups cannot be silently reused. The publisher-local-naive clock remains
+naive. Seven-calendar-day paired intervals are exploratory and conditional on the
+fixed selected sites/seeds/configuration, without simultaneous correction.
+
+Cost accounting shares the primary helper: actual candidate/initial/audit steps,
+component timers, ensemble size and reset peak allocation/reservation are reported
+per method. Record each city's Source training once, not once per target or
+method. These are measured component costs, not complete setup/transfer/analysis
+wall time. Source environments remain explicit.
+
+For one city, after its GPU run and daily verifier succeed:
+
+```sh
+python -m tools.analyze_charged_matched \
+  --matrix "$CITY_RUN/matrix.json" \
+  --verification "$CITY_DAILY_PROOF" \
+  --cohort configs/issue23/charged-cohorts-v1/charged-JHB.json \
+  --cohort-sha256 "$CITY_COHORT_SHA256" \
+  --primary-analysis "$PRIMARY_SUMMARY" \
+  --primary-sha256 "$PRIMARY_SUMMARY_SHA256" \
+  --analysis-profile configs/issue23/analysis-profile.json \
+  --inputs-root "$INPUTS_ROOT" \
+  --density-contexts "$DENSITY_CONTEXTS" \
+  --density-sha256 "$DENSITY_CONTEXTS_SHA256" \
+  --output "$NEW_CITY_ANALYSIS_DIRECTORY"
+```
+
+Output is one `summary.json` and `runs.csv` for that city. Downloaded-state
+verification and artifact export remain separate acceptance gates; passing this
+analysis is not proof of durable off-runtime storage or teammate reproduction.
+Never pool Shenzhen into a five-city external-independence claim. The city
+analysis/provenance/cost fixtures pass, including null populations and deliberate
+cross-city/runtime/algorithm contamination. No complete real city matrix has yet
+been analyzed with this command, so those results remain pending.

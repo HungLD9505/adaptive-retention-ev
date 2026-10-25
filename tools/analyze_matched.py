@@ -8,6 +8,7 @@ from pathlib import Path
 
 from ev_evaluation.artifacts import authenticate_matrix
 from ev_evaluation.contexts import validate_analysis_extensions
+from ev_evaluation.costs import comparison_costs
 from ev_evaluation.metrics import paired_metrics, station_first
 from ev_evaluation.proxy_relationships import analyze_proxy_cells
 from ev_evaluation.selection import score_candidates
@@ -160,6 +161,7 @@ def aggregate_cells(
     *,
     density: dict | None = None,
     deployment: datetime | None = None,
+    namespace: tuple[str, str] = ("urbanev", "SZH"),
 ) -> dict:
     """Require exact issued/scored sets, retain nulls, aggregate stations first."""
     names = sorted({key[-1] for key in cells})
@@ -176,7 +178,7 @@ def aggregate_cells(
         for item in group["entities"]:
             entity = item["entity_id"]
             if density is not None:
-                g = density["urbanev", "SZH", int(budget)]
+                g = density[*namespace, int(budget)]
                 if entity not in g["entities"] and entity not in g["undefined_entities"]:
                     raise ValueError("Selected target absent from calibrated density population")
                 load_context = g["entities"].get(entity, {"group": "undefined", "valid_hours": 0})
@@ -398,48 +400,9 @@ def analyze(args: argparse.Namespace) -> None:
         isolated_audits=audits,
         limits="Small nonrandom/possibly colocated cohort; conditional Development selection, three fixed seeds, marginal exploratory intervals. Density groups require authenticated context arguments; 30-day phases and same-block proxy relationships are descriptive. No causal effect, next-block predictive skill or calibrated predictive coverage claim. Independent downloaded-state verification remains required.",
     )
-    costs = {}
-    for name in choices["unique_method_names"]:
-        reports = [value["report"] for key, value in cells.items() if key[-1] == name]
-        costs[name] = {
-            "run_count": len(reports),
-            "elapsed_seconds_sum": sum(r["elapsed_seconds"] for r in reports),
-            "candidate_steps": sum(r["candidate_steps"] for r in reports),
-            "audit_steps": sum(r["audit_steps"] for r in reports),
-            "initial_adaptation_steps": sum(
-                step["steps"] for r in reports for step in r["initial_logs"]
-            ),
-            "candidate_models_per_run": sorted({len(r["candidate_levels"]) for r in reports}),
-            "uncertainty_source_members_per_run": sorted(
-                {len(r["binding"]["uncertainty_members"]) for r in reports}
-            ),
-            "component_seconds_sum": {
-                key: sum(r["cost"][key] for r in reports)
-                for key in (
-                    "inference_seconds",
-                    "update_seconds",
-                    "audit_inference_seconds",
-                    "audit_update_seconds",
-                    "controller_seconds",
-                    "proxy_seconds",
-                )
-            },
-            "gpu_peak_allocated_bytes_max": max(r["gpu_peak_allocated_bytes"] for r in reports),
-            "gpu_peak_reserved_bytes_max": max(r["gpu_peak_reserved_bytes"] for r in reports),
-            "scope": "Per-run reset peaks; setup fixture overlap/background backup I/O may affect early timing. Include reused Source training and initialization/input/export costs separately.",
-        }
-    summary["costs"] = costs
-    summary["source_cost_reused_once"] = {
-        "source_training_elapsed_seconds": sum(
-            source["run"]["elapsed_seconds"] for source in studies["source"]["sources"]
-        ),
-        "source_training_optimizer_steps": sum(
-            step["steps"]
-            for source in studies["source"]["sources"]
-            for step in source["run"]["logs"]
-        ),
-        "limits": "Original Source training environment differs from Kaggle target runtime. This is recorded training cost, not total setup/latent-scale/export/transfer/verification cost. Do not charge reused Source models once per target or omit them entirely.",
-    }
+    summary.update(
+        comparison_costs(cells, [source["run"] for source in studies["source"]["sources"]])
+    )
     summary["calibration_wall_seconds_by_family"] = {
         family: studies[family]["wall_seconds"] for family in FAMILIES
     }

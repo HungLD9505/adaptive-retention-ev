@@ -311,6 +311,22 @@ class AggregationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             aggregate_cells(cells, self.cohort, density=density, deployment=start)
 
+    def test_city_density_uses_explicit_namespace_not_primary_population(self):
+        density = {
+            ("charged", "JHB", b): {
+                "entities": {"a": {"group": "sparse", "valid_hours": 1, "density": 0.0}},
+                "undefined_entities": ["missing"],
+            }
+            for b in (7, 14, 28)
+        }
+        result = aggregate_cells(
+            self.cells, self.cohort, density=density, namespace=("charged", "JHB")
+        )
+        self.assertEqual(result["load_density"]["7/adaptive/sparse"]["macro_mae_kwh"], 1)
+        self.assertIsNone(result["load_density"]["7/adaptive/undefined"])
+        with self.assertRaises(KeyError):
+            aggregate_cells(self.cells, self.cohort, density=density)
+
 
 if __name__ == "__main__":
     unittest.main()
