@@ -2,7 +2,7 @@
 
 Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. Work follows **Issue → working branch → PR → `dev`**. Updating `main` requires a separate instruction.
 
-**Current status:** raw acquisition, UrbanEV hourly processing, CHARGED audit/adapter and the model-input pipeline are implemented. The shared data snapshot includes raw, hourly and prepared 7/14/28-day inputs. See the [integrated verification and acceptance record](docs/reports/data-integration.md) for checks, scope and the lead-directed review exception. Models, controllers and research experiments are not implemented yet. Large data stays on Drive/outside Git.
+**Current status:** raw acquisition, UrbanEV hourly processing, CHARGED audit/adapter and the model-input pipeline are implemented. The shared data snapshot includes raw, hourly and prepared 7/14/28-day inputs. See the [integrated verification and acceptance record](docs/reports/data-integration.md) for checks, scope and the lead-directed review exception. The independent #19 GRU/source/adaptation implementation is available on its PR branch; see [training instructions](docs/data/MODEL_TRAINING.md). Controller, online runner and final research experiments remain outside this implementation. Large data stays on Drive/outside Git.
 
 ## Start here
 
@@ -51,7 +51,7 @@ python -m ruff format --check .
 git diff --check
 ```
 
-Tests use temporary fixtures and require no raw datasets, GPU, credentials, or dataset downloads. The data/input pipelines use the standard library; Ruff is the only development dependency. Data/ML dependencies will be selected and locked in their implementation PRs.
+Tests use temporary fixtures and require no raw datasets, GPU, credentials, or dataset downloads. The data/input pipelines use the standard library; Ruff is the only development dependency. For #19 model tests, also install `python -m pip install -r requirements-model.txt`. The model requirements pin PyTorch/NumPy; actual training records the complete resolved environment.
 
 ## Structure
 
