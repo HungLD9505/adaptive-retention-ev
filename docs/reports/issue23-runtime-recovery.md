@@ -153,3 +153,29 @@ verifier and original backup registry are now [in a shared evidence folder](http
 All five were downloaded again and are byte-identical to the original local
 outputs; the context output was independently read back in the same six-file
 check. Exact identities and access limitations are in the [artifact registry](issue23-recovery-context-artifacts.json).
+
+## Kaggle snapshot persistence warning
+
+The editor later displayed `An error occurred while committing kernel` with an
+HTML response where JSON was expected. A separate read-only notebook view showed
+Quick Versions1/2 as **Starting...**, not verified complete outputs. Do not equate
+creation of a version record with durable checkpoint/forecast preservation.
+A diagnostic code-only Quick Version3 subsequently completed (10.9 seconds,
+Output0 files). It preserves notebook code/log presentation, not training files.
+The Quick Save output preference is now **Never save output** from that diagnostic
+attempt; explicitly choose output saving when a completed export is ready.
+
+The original GPU subprocess was not restarted or interrupted; its completed-run
+counter continued increasing. The Output sidebar showed roughly5GiB of19.5GiB
+in use at an early partial observation. Full matrix/city storage feasibility and
+completed-output export remain open requirements, rather than assuming snapshots
+solve them. Preserve the live kernel and original working directories.
+
+The supported Output-file Download action retrieved an atomic progress snapshot:
+149 completed-run report records, status `running`, clean pinned training code
+`54131cbb8ce47f9d064b80f03956e8e62ec48346`. This file was saved locally and
+[uploaded to shared Drive](https://drive.google.com/file/d/1wDML-hF-skxQ2ipHff8fA53zHKdXwCWC/view).
+[Size, hash, scope and measured partial counters](issue23-kaggle-partial-progress.json)
+are recorded. This is not a complete study, independent score verification or a
+backup of the149 target checkpoints/forecasts. Do not select configurations from
+this incomplete ordered subset or infer a complete-study runtime from it.
