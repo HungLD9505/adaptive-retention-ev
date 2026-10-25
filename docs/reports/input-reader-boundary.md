@@ -35,7 +35,7 @@ method-speed rankings. GPU peak counters also were not reset between those cells
 
 ## Verification
 
--242 local offline tests passed, including spies that fail if an unselected role or
+- 242 local offline tests passed, including spies that fail if an unselected role or
 entity body reaches the JSON decoder, issued-origin-only label decoding, Final
 request rejection, count failures and the existing source/target/runner regressions.
 - A read-only real-input check compared every returned field and record order against
@@ -51,3 +51,24 @@ it is an integrity check, not an extra independent comparison replication. Repro
 historical analysis with its archived code (`a392505`) because its strict algorithm
 hash check deliberately rejects a different reader implementation. Future training
 must use the hardened reader and record its new code identity.
+
+## Actual CUDA parity replay
+
+Code `757612427293422f5e85acfc9bb4a7a73f621c37` passed all 242 fixture tests
+on Colab. One preselected integrity case, UrbanEV 1405 / 7d / seed42 / Adaptive,
+replayed the same 90-day schedule (92 ticks including label-delivery tail). All
+92 forecast files are byte-identical to the pinned historical run. Final complete
+branch-state hashes (model/optimizer/RNG), decisions, issued/scored counts,
+original-unit MAE/RMSE, initial logs and online/audit steps match exactly.
+
+The first harness compared live Python decision tuples to deserialized JSON lists
+and rejected that representation difference. Persisted JSON decisions match with
+no field differences. The original failed harness status/log is retained; no second
+training run was performed to resolve it.
+
+[Parity result](issue23-reader-gpu-parity.json), [Drive artifacts/hashes](issue23-reader-gpu-artifacts.json),
+and [independent downloaded verification](issue23-reader-gpu-download-verification.json)
+record the scope. The entire 9.58 MB ZIP was downloaded, SHA/CRC checked, all 92
+forecasts compared again and the latest complete branch state CPU-loaded/content-
+rehashed locally. This is an integrity replay, not an added scientific replication
+or proof that every possible consumer invocation is isolated.

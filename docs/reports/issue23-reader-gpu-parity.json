@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "scope": "One fixed-reader CUDA parity replay; not an independent experiment replication",
+  "code": "757612427293422f5e85acfc9bb4a7a73f621c37",
+  "reference_run": "urbanev-SZH-1405-7d-adaptive-seed42",
+  "checks": {
+    "prediction_identity_sha256": true,
+    "final_branch_state_sha256": true,
+    "decisions": true,
+    "candidate_steps": true,
+    "audit_steps": true,
+    "issued_days": true,
+    "scored_days": true,
+    "active_mae_kwh": true,
+    "active_rmse_kwh": true,
+    "initial_logs": true
+  },
+  "decision_json_differences": [],
+  "harness_note": "Initial direct Python comparison rejected tuple/list serialization; persisted JSON decisions match exactly, predictions and branch states matched in the original check. Failed harness log/status retained. No second training run.",
+  "all_92_forecast_files_byte_identical": true,
+  "colab_tests": 242
+}

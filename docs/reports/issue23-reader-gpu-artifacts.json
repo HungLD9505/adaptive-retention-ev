@@ -1,0 +1,15 @@
+{
+  "scope": "Fixed-reader integrity replay, not an additional comparison replication",
+  "code": "757612427293422f5e85acfc9bb4a7a73f621c37",
+  "folder": "https://drive.google.com/drive/folders/1AWX7ztnjzHqsn_yiEWSURxzKokxtWbnc",
+  "archive": {
+    "url": "https://drive.google.com/file/d/1QqztztpXOIE9VbUJxL7OX_iNz71IqutS/view",
+    "bytes": 9580713,
+    "sha256": "d2f4514384f88b4f2d67b8c8aae1cd3c5dd90cafe28beb15a351f3e8fc2f4b9e"
+  },
+  "parity": {
+    "url": "https://drive.google.com/file/d/1dObQvFO7fG4r7KZL8TKrDrxGOk86PW1b/view",
+    "sha256": "aff84d4609286a84e14e24ba83d79e8a4fe93f51fcbe25a11ee33a5a68d57762"
+  },
+  "catalog_url": "https://drive.google.com/file/d/1osu9682YqgFpLFEk-EBOMIJ1BdFDjyDs/view"
+}

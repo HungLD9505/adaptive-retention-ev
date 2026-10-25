@@ -13,7 +13,7 @@ No Final fitting, tuning, evaluation, configuration lock, effectiveness claim or
   checks chronology and recomputes every candidate/deployed original-unit score
   against the identified Development target's labels with availability checks.
 - [Evaluation contract](../data/EVALUATION_CONTRACT.md): proposed units, pairing,
-  honest missing-cell handling, absent uncertainty intervals and capacity warning.
+  honest missing-cell handling, uncertainty scope and capacity warning.
 
 The initial205 independent fixture tests passed locally; Ruff lint/format and diff
 checks passed. CI for code head `8b7acf55c8f80d19b0b7783b9f96ddaeeca28a28` passed both
@@ -70,8 +70,9 @@ historical experiment integrity are not inferred from matching component fixture
 The full-method comparison smoke has one target per namespace and main seed42 only.
 Source ensemble seeds42/43/44 are not three comparison replications. Official
 Development cohorts, comparable finite tuning grids/budgets, Source convergence
-choices, proxy calibration, three or more full-method comparison seeds, time/station-dependent
-uncertainty and context/switch analyses remain unfinished. The aggregate helper
+choices, proxy calibration and three or more full-method comparison seeds remain
+unfinished. Exploratory station/calendar-block uncertainty and context/switch analyses
+for five methods are now available in the core-transfer extension below. The aggregate helper
 refuses missing seed cells and supplies no invented population confidence interval.
 
 An exact feasible full experiment matrix and artifact-retention policy are still
@@ -89,3 +90,21 @@ copying Hung's model/controller/runner code.
 
 See the [input-reader boundary correction](input-reader-boundary.md) for precise
 historical decoding scope and the subsequent role/entity-before-deserialization fix.
+
+## Additional execution: five-method core-transfer comparison
+
+[Core comparator handoff](issue23-core-comparators.md) adds207 actual CUDA runs to
+the138 readiness references:345 runs,69 paired entity-budget-seed units, five
+methods,90 scheduled days. Full Fine-tuning, Fixed Retention and Online Best-lambda
+are compared with Adaptive and Target-only under the inherited diagnostic profile.
+The entire new229.8MB archive was downloaded and independently verified; analysis
+and verification outputs match Colab byte-for-byte. The selected cohort supports
+transfer versus Target-only under these settings, but does **not** establish a
+confidence-controller benefit over the three transfer comparators. All those
+paired marginal intervals include zero. No favorable reruns or Final lock followed.
+
+The extension supplies weekday/weekend, continuous history coverage, switch reasons,
+paired original-unit metrics, exploratory station/calendar-block intervals and
+isolated audit gaps. It does not complete calibration, the full required method/
+ablation matrix or independent review. See the reader-boundary correction for the
+historical parse-before-filter limitation and subsequent hardened consumer.
