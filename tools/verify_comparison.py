@@ -40,14 +40,26 @@ def verify_run(root: Path, input_root: Path) -> dict:
                 row = json.loads(line)
                 labels[row["origin"]] = row
     scale = summary["scale"]["energy_scale"]
-    previous, predictions, scores, file_count = "0" * 64, {}, [], 0
-    for index, tick in enumerate(sorted(root.glob("tick-*"))):
+    retention = report["binding"].get("config", {}).get("state_retention", "all")
+    if retention not in {"all", "latest"}:
+        raise ValueError("Unknown state-retention policy")
+    previous, predictions, scores, file_count, omitted = "0" * 64, {}, [], 0, 0
+    ticks = sorted(root.glob("tick-*"))
+    for index, tick in enumerate(ticks):
         meta = json.loads((tick / "commit.json").read_text())
         if meta["previous"] != previous or meta["index"] != index:
             raise ValueError("Broken daily commit chain")
         if set(meta["files"]) != {"state.pt", "events.jsonl", "forecasts.json"}:
             raise ValueError("Unexpected daily files")
         for name, checksum in meta["files"].items():
+            if (
+                name == "state.pt"
+                and not (tick / name).exists()
+                and retention == "latest"
+                and index < len(ticks) - 1
+            ):
+                omitted += 1
+                continue
             if sha(tick / name) != checksum:
                 raise ValueError("Committed daily file changed")
             file_count += 1
@@ -116,6 +128,8 @@ def verify_run(root: Path, input_root: Path) -> dict:
         ):
             raise ValueError("Aggregate score differs")
     return {
+        "state_retention": retention,
+        "historical_states_intentionally_omitted": omitted,
         "run_id": root.name,
         "files_hashed": file_count,
         "issued": len(predictions),
@@ -141,6 +155,9 @@ def main() -> None:
         name = run["run_id"]
         if Path(name).name != name:
             raise ValueError("Unsafe run identifier")
+        local_report = json.loads((args.matrix.parent / name / "run.json").read_text())
+        if any(run.get(key) != value for key, value in local_report.items()):
+            raise ValueError("Run report differs from identified matrix entry")
         input_name = f"{binding['dataset_id']}-{binding['city_id']}-{binding['history_days']}d"
         results.append(verify_run(args.matrix.parent / name, args.inputs_root / input_name))
     with args.output.open("x") as stream:

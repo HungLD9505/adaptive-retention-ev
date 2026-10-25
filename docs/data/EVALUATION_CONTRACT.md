@@ -77,3 +77,22 @@ packaging/upload and independent verification. Concurrent packaging/verification
 also contend for I/O during CHARGED smoke. A measured, feasible artifact-retention
 policy and total cost projection remain required; do not silently shrink mandatory
 budgets/methods/cohorts to fit storage or claim the cost gate passed.
+
+## Opt-in latest-state retention for new Development runs
+
+The new readiness config explicitly sets `state_retention: latest`. Default `all`
+and every historical run remain unchanged. Every tick first durably commits its
+full model/optimizer/RNG/pending-label/controller/audit state, forecasts, events and
+hash-linked manifest; only then releases older full-state files within that new
+run. All forecasts/events/commit files and historical state-hash commitments remain.
+The latest full state is mandatory for resume. Policy is bound in the exact config;
+changing policy across resume fails. Pending incomplete transactions still fail
+closed. POSIX directory entries are synced before older states are released.
+
+The verifier reports physically checked files separately from intentionally omitted
+historical state files. It never claims to rehash absent bytes. Older model snapshots
+cannot be loaded directly under this mode; regenerate history from the identified
+Source/input/config when needed. This changes persistence, not forecasts, SGD,
+controller decisions or audit behavior. Fixture parity, crash/failure and exact
+resume checks are required; real CUDA resume and measured storage savings are
+recorded only after execution. This policy is proposed for review before Final.

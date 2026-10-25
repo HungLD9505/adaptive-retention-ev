@@ -9,6 +9,27 @@ from tools.verify_comparison import sha, verify_run
 
 
 class ArtifactVerifierTests(unittest.TestCase):
+    def test_declared_latest_policy_accounts_for_missing_historical_state(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run, data = self.fixture(Path(temp))
+            report = json.loads((run / "run.json").read_text())
+            report["binding"]["config"] = {"state_retention": "latest"}
+            (run / "run.json").write_text(json.dumps(report))
+            (run / "tick-0000/state.pt").unlink()
+            result = verify_run(run, data)
+            self.assertEqual(result["files_hashed"], 5)
+            self.assertEqual(result["historical_states_intentionally_omitted"], 1)
+            (run / "tick-0001/state.pt").unlink()
+            with self.assertRaises((ValueError, FileNotFoundError)):
+                verify_run(run, data)
+
+    def test_undeclared_missing_state_is_corruption(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run, data = self.fixture(Path(temp))
+            (run / "tick-0000/state.pt").unlink()
+            with self.assertRaises((ValueError, FileNotFoundError)):
+                verify_run(run, data)
+
     def fixture(
         self,
         base: Path,

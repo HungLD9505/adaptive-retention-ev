@@ -12,12 +12,26 @@ from ev_models.checkpoint import digest
 from ev_runner.state import canonical, torch_bytes
 
 
+def sync_directory(path: Path) -> None:
+    """Persist directory entries on POSIX before releasing an older checkpoint."""
+    if os.name == "posix":
+        descriptor = os.open(path, os.O_RDONLY)
+        try:
+            os.fsync(descriptor)
+        finally:
+            os.close(descriptor)
+
+
 class Store:
     def __init__(self, root: Path, binding: dict, *, resume_from: Path | None = None) -> None:
         self.root = root
         root.mkdir(parents=True, exist_ok=False)
         (root / "binding.json").write_bytes(canonical(binding))
         self.binding = binding
+        config = binding.get("config")
+        self.retention = config.get("state_retention", "all") if isinstance(config, dict) else "all"
+        if self.retention not in {"all", "latest"}:
+            raise ValueError("Unknown state-retention policy")
         self.count = 0
         self.previous = "0" * 64
         self.restored = None
@@ -29,11 +43,19 @@ class Store:
                 raise ValueError(
                     "Uncommitted issued forecasts: preserve and inspect; no automatic rewrite"
                 )
-            for tick in sorted(resume_from.glob("tick-*")):
+            ticks = sorted(resume_from.glob("tick-*"))
+            for position, tick in enumerate(ticks):
                 meta = json.loads((tick / "commit.json").read_bytes())
                 if meta["previous"] != self.previous or meta["index"] != self.count:
                     raise ValueError("Broken chronological commit chain")
                 for name, expected in meta["files"].items():
+                    if (
+                        name == "state.pt"
+                        and not (tick / name).exists()
+                        and self.retention == "latest"
+                        and position < len(ticks) - 1
+                    ):
+                        continue
                     if (
                         name not in {"state.pt", "events.jsonl", "forecasts.json"}
                         or digest(tick / name) != expected
@@ -80,8 +102,19 @@ class Store:
                 name: digest(path / name) for name in ("state.pt", "events.jsonl", "forecasts.json")
             },
         }
-        (path / "commit.json").write_bytes(canonical(meta))
+        with (path / "commit.json").open("xb") as stream:
+            stream.write(canonical(meta))
+            stream.flush()
+            os.fsync(stream.fileno())
+        sync_directory(path)
         os.replace(path, self.root / f"tick-{self.count:04d}")
+        sync_directory(self.root)
         self.previous = hashlib.sha256(canonical(meta)).hexdigest()
         self.count += 1
+        if self.retention == "latest":
+            # The newest full model/optimizer/RNG/audit state is already committed.
+            # Forecasts, events and historical state-hash commitments remain immutable.
+            for old in self.root.glob("tick-*/state.pt"):
+                if old.parent.name != f"tick-{self.count - 1:04d}":
+                    old.unlink()
         return self.previous
