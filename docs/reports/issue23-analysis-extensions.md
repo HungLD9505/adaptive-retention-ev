@@ -123,6 +123,58 @@ scientific expected value or historical artifact was changed to pass that test.
 Real controller audit re-verification and staging this newer analysis are pending
 at this code commit; their actual results must be recorded after execution.
 
+## Actual original-controller re-verification and switching analysis
+
+Code `e13fc42a3bfa688dfc08c95b7678d72ecb60cad0` passed 316 tests/checks and
+[Ubuntu/Windows CI40241925450](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40241925450).
+The enhanced verifier then read all 276 recovered original controller runs and
+51,060 daily files, checked 1,656 decision-event identities, independently
+recomputed 752 old-policy audit forecast scores and verified all 61 finalized
+audit summaries. Every field for all 276 rows of the older daily proof remains
+unchanged; the new proof extends its scope without replacing archived evidence.
+This was CPU read/verification, not local training or new GPU outcomes.
+
+| Original calibration recipe | Recorded switches over 69 seed/entity/budget replays | Finalized audit summaries | Unfinalized last-block audits |
+|---|---:|---:|---:|
+| 0 | 31 | 31 | 0 |
+| 1 | 27 | 26 | 1 |
+| 2 | 0 | 0 | 0 |
+| 3 | 4 | 4 | 0 |
+
+Recipe1's unmatched last switch is station2005, budget28, seed44, effective
+2023-02-23 (day84). Its next14-day audit cannot finalize within the90-day forecast
+plus label-drain window; it is not filled with a zero gap. Recipe2 never switches
+in these original runs. That describes its realized path, not a general proof of
+stability or a reason to delete a required comparator. Selection still recomputes
+recipe1, and its earlier conditional MAE remains worse than selected Fixed
+Retention. These are four calibration recipes, not four additional independent
+method trials or the still-pending matched Kaggle collection.
+
+For recipe1, equal-site means of the three-seed switch counts are0.4444/0.5000/
+0.2593 for budgets7/14/28; insufficient-evidence opportunity fractions are0.5556/
+0.6250/0.5926. These denominators retain all6/8/9 selected IDs, including null-score
+sites. Different budget populations, missing labels, possible co-location and
+fixed seeds prevent a causal budget or population-stability interpretation. Full
+per-seed paths and post-boundary coverage/errors are in the downloadable summary.
+
+[Exact identities and reproduction](issue23-switch-audit-evidence.json) ·
+[complete analysis/proof/producer/code package](https://drive.google.com/file/d/13-fFNgjsj0yRFqZklBPJ7wOEixa4WCdv/view).
+The142,548-byte ZIP passed anonymous byte/hash readback, CRC and all10 member
+fingerprints. It retains the first ad-hoc producer's final-status `KeyError`
+(`selected` versus `provisional_choice`) and its output/log, plus the corrected
+producer and successful fresh v2 recomputation. Both summaries agree in every
+non-producer-identity field. No scientific expected value or training artifact
+was changed. Independent teammate reproduction remains pending.
+
+An exact-source cell is now staged after the complete primary-export gate in the
+Kaggle editor. Execution was requested, but the inspected UI does not expose a
+validated queue status; it has not executed. It requires prior GPU success and
+both export catalogs, then loads the pinned newer code, runs fixtures, re-verifies
+controller/proxy/matched audits and writes a fresh full analysis plus a small
+supplemental ZIP. Existing training checkout, forecasts and exports stay unchanged.
+Actual full-collection execution, transfer, capacity acceptance and peer review
+are still required.
+
 ## Committed verification and remote staging
 
 Implementation `5fa321fea2c9097d92d0d4fc4e6965ff05f059cf` passed all 295
