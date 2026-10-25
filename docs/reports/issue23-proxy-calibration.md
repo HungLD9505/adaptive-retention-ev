@@ -56,8 +56,18 @@ partial batch resume orchestration remains manual with identified checkpoints.
 
 ## Current status
 
-260 independent fixture tests passed locally with lint/format/diff checks. Real
-proxy/parameter calibration has not run at this declaration commit. It must wait
+260 independent fixture tests passed locally and on Colab, with local lint/format/
+diff checks. The actual code is `5ad9db6ad2f4137021a05a44fd0290bbdb9afac9`.
+Ubuntu/Windows CI passed for this code. Proxy/parameter calibration is staged in
+a serial queue and has not launched at the recorded progress snapshot. It must wait
 for successful controller completion and independent verification; a batch launch
 is not evidence of completion. Full matched baselines/ablations and CHARGED,
 capacity acceptance and independent immutable Final lock remain pending.
+
+Code increment SHA-256: `ce115ed31270850c95457751b62c9b774182108e8d08fbf1ef74260767e096c3`.
+Profile SHA-256: `23823e3fe6c942ed35fc79724163e6be6345e3c44061f0f6445030fbf145486d`.
+The output directory must be new:
+`/content/qyroven-i23-proxy-calibration-20261026-v1`.
+The serial queue binds the completed controller matrix hash and verifier before
+launch, records its exact command and blocks on failure. See the controller
+handoff for temporary backup distribution and timing/fixture-overlap limitations.

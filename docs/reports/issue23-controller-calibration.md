@@ -52,10 +52,42 @@ results and artifact links will be appended only after verified execution.
 
 ## Execution status
 
-256 fixture tests passed locally, with Ruff lint/format and diff checks. Real-data
-controller calibration has not yet run at this declaration commit. It requires
-Colab/Kaggle CUDA; no laptop real-data training. This four-configuration controller
+At declaration, 256 fixture tests passed locally and on Colab, with Ruff lint/format
+and diff checks. Actual T4 execution then started under commit
+`0fa960b4e34059b87dc40ba67cce8a105d16da2e`. An observed progress snapshot has
+26/276 completed replays; process still running, no completion/result claimed.
+No laptop real-data training. Subsequent proxy additions bring the fixture suite
+to 260 passing tests locally and on Colab. This four-configuration controller
 budget does not silently grant additional searches to proxy comparators: proxy
 mapping and parameter-retention grids need their own explicit comparable finite
 budgets and actual Development evidence. Full matched baseline/ablation runs,
 CHARGED validation, cost feasibility and independent Final lock remain pending.
+
+## Active serial execution and persistence
+
+The authorized Colab notebook is
+[Qyroven Development execution](https://colab.research.google.com/drive/1h0AlP8b_0TLx_zV4Zx13U4ANq9ch0X-E).
+The batch root is `/content/qyroven-i23-controller-calibration-20261026-v1`;
+code lives in `/content/ev-issue23-controller-calibration`. Code bundle increment
+SHA-256: `b112dd6841ba352e6b4c9872eff8a5c0e8e04071f0e4a0311a8e85d9686a3102`.
+It depends on the already identified Fixed-study code history; the notebook clones
+that checkout without changing it, fetches the increment and checks out the exact
+controller code SHA. Core model/controller/runner hashes remain unchanged.
+
+A notebook worker backs up each group of 12 completed runs to a new Drive ZIP,
+read-checks bytes/hashes and records a snapshot manifest. The first two chunks
+(total 24 runs) were observed copied/hash-checked. This is a checkpoint-loss
+mitigation, not a guarantee against runtime termination or proof of cloud server
+flush. The active backup folder remains in the owner's MyDrive while its mounted
+path is being used; move it into the shared team folder only after execution and
+flush, then verify team distribution. Do not claim peer access to active backups.
+
+After successful controller subprocess completion, the serial worker independently
+verifies all daily chains, forecasts, scores and declared label availability;
+archives the run/config/source/code/log identities; and only then starts proxy/
+parameter calibration. Failures stop the queue and persist the exact error and
+traceback. It never starts simultaneous long GPU training, retries favorable
+seeds or changes accounts. Remote fixture tests briefly overlap early controller
+execution, and background backups add I/O cost; early timings are not isolated
+benchmark measurements. Full independent downloaded-state verification remains
+required after final export. No Final runner, merge or issue closure is authorized.
