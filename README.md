@@ -2,7 +2,11 @@
 
 Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. Work follows **Issue → working branch → PR → `dev`**. Updating `main` requires a separate instruction.
 
-**Current status:** raw acquisition, UrbanEV hourly processing, CHARGED audit/adapter and the model-input pipeline are implemented. The shared data snapshot includes raw, hourly and prepared 7/14/28-day inputs. See the [integrated verification and acceptance record](docs/reports/data-integration.md) for checks, scope and the lead-directed review exception. Models, controllers and research experiments are not implemented yet. Large data stays on Drive/outside Git.
+**Trạng thái trên nhánh bàn giao #39:** pipeline dữ liệu đã có [bằng chứng tích hợp](docs/reports/data-integration.md). GRU, transfer, controller và runner đã được triển khai; lượt Development đại diện trên GPU local hoàn thành 216/216 stages. Đây là bằng chứng thực thi kỹ thuật đang chờ review trong [PR #46](https://github.com/HungLD9505/adaptive-retention-ev/pull/46), chưa phải nghiệm thu phương pháp hoặc kết quả Final. Dữ liệu lớn và checkpoints nằm ngoài Git.
+
+## Báo cáo Sprint 2 của Hùng
+
+Đọc [bảng đánh giá và bàn giao #39](docs/reports/hung-39-assessment-handoff.md) trước. Bốn báo cáo chuẩn gồm [phương pháp và triển khai](docs/reports/hung-39-method-implementation.md), [thí nghiệm và kết quả](docs/reports/hung-39-experiments-results.md), [tái lập và artifacts](docs/reports/hung-39-reproducibility-handoff.md), cùng bảng đánh giá trên. Các báo cáo theo phase cũ và evidence JSON vẫn được giữ để truy vết các mốc lịch sử.
 
 ## Start here
 
