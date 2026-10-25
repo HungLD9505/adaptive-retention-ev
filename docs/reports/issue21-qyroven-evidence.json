@@ -1,0 +1,1442 @@
+{
+  "matrix": {
+    "scope": "Development technical smoke only",
+    "commands": [
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_runner.run",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-7d",
+        "--manifest-sha256",
+        "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--config",
+        "/content/ev-issue21/configs/issue21/development-smoke.json",
+        "--output",
+        "/content/qyroven-i21-20261025-seed42-v1/target1001-7d-whole",
+        "--entity-id",
+        "1001"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_runner.run",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-7d",
+        "--manifest-sha256",
+        "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--config",
+        "/content/ev-issue21/configs/issue21/development-smoke.json",
+        "--output",
+        "/content/qyroven-i21-20261025-seed42-v1/target1001-7d-partial",
+        "--entity-id",
+        "1001",
+        "--stop-after-ticks",
+        "10"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_runner.run",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-7d",
+        "--manifest-sha256",
+        "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--config",
+        "/content/ev-issue21/configs/issue21/development-smoke.json",
+        "--output",
+        "/content/qyroven-i21-20261025-seed42-v1/target1001-7d-resumed",
+        "--entity-id",
+        "1001",
+        "--resume-from",
+        "/content/qyroven-i21-20261025-seed42-v1/target1001-7d-partial"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_runner.run",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-14d",
+        "--manifest-sha256",
+        "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--config",
+        "/content/ev-issue21/configs/issue21/development-smoke.json",
+        "--output",
+        "/content/qyroven-i21-20261025-seed42-v1/target1001-14d-whole",
+        "--entity-id",
+        "1001"
+      ],
+      [
+        "/usr/bin/python3",
+        "-m",
+        "ev_runner.run",
+        "--inputs",
+        "/content/ev-data/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-28d",
+        "--manifest-sha256",
+        "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+        "--source",
+        "/content/qyroven-i19-20261025-seed42-v1/source-seed42/final.pt",
+        "--source-sha256",
+        "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "--config",
+        "/content/ev-issue21/configs/issue21/development-smoke.json",
+        "--output",
+        "/content/qyroven-i21-20261025-seed42-v1/target1001-28d-whole",
+        "--entity-id",
+        "1001"
+      ]
+    ],
+    "runs": [
+      {
+        "scope": "Development technical replay only; unvalidated example policy, no Final or effectiveness claim",
+        "run_id": "target1001-7d-whole",
+        "code": {
+          "commit": "ac493144ded18e0f8419ad002179588af4302d4b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+            "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+            "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+            "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+            "ev_runner/engine.py": "42bc1af1990aa8bc6e76f8c5ff4fc72c44d62cd7d109f34fae77256936be3751",
+            "ev_runner/replay.py": "a3db48d0c576495ff72abaa5f19ca73101086a9a164ddf0a63f58133cb98f069",
+            "ev_runner/run.py": "4e9cbed7927abc4e8e9d9d8608af28f84c7eb76edc7aac1c13d317c00b05447b",
+            "ev_runner/state.py": "2dfc0bdcbe6777771ab316f7cc20c26b5b8767560d691ede2ebeb9987bc6c416",
+            "ev_runner/store.py": "b4ae38b4898cfdd0729b1be0f50c5499fd91bc54c209dfc69fc43e45ffa5382f"
+          }
+        },
+        "binding": {
+          "schema": "ev-prequential-run-v1",
+          "input": {
+            "schema": "ev-checkpoint-input-binding-v1",
+            "feature_schema": "ev-input-v1",
+            "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+            "input_run_id": "urbanev-SZH-7d",
+            "dataset_id": "urbanev",
+            "city_id": "SZH",
+            "stage": "target",
+            "entity_id": "1001",
+            "history_days": 7,
+            "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+            "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+          },
+          "config": {
+            "controller": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "initial_training": {
+              "seed": 42,
+              "epochs": 3,
+              "batch_size": 64,
+              "learning_rate": 0.001,
+              "epsilon": 0.001,
+              "head_width": 64
+            },
+            "online_training": {
+              "seed": 42,
+              "epochs": 1,
+              "batch_size": 64,
+              "learning_rate": 0.001,
+              "epsilon": 0.001,
+              "head_width": 64
+            },
+            "development_entities": [
+              "1001"
+            ],
+            "replay_days": 29
+          },
+          "environment": {
+            "python": "3.13.16",
+            "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+            "torch": "2.11.0+cu130",
+            "cuda": "13.0",
+            "device": "cuda",
+            "device_name": "Tesla T4",
+            "deterministic_algorithms": true
+          },
+          "code_files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+            "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+            "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+            "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+            "ev_runner/engine.py": "42bc1af1990aa8bc6e76f8c5ff4fc72c44d62cd7d109f34fae77256936be3751",
+            "ev_runner/replay.py": "a3db48d0c576495ff72abaa5f19ca73101086a9a164ddf0a63f58133cb98f069",
+            "ev_runner/run.py": "4e9cbed7927abc4e8e9d9d8608af28f84c7eb76edc7aac1c13d317c00b05447b",
+            "ev_runner/state.py": "2dfc0bdcbe6777771ab316f7cc20c26b5b8767560d691ede2ebeb9987bc6c416",
+            "ev_runner/store.py": "b4ae38b4898cfdd0729b1be0f50c5499fd91bc54c209dfc69fc43e45ffa5382f"
+          },
+          "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+          "latent_sha256": "98155bc29149f487624e11441ffc568eb553166b607c76c8844961a136447a1e"
+        },
+        "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "initial_examples": 6,
+        "initial_logs": [
+          {
+            "loss": 0.2512904107570648,
+            "forecast_mae_scaled": 0.2512904107570648,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.2218518704175949,
+            "forecast_mae_scaled": 0.22134526073932648,
+            "retention_mse": 0.050661247223615646,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.21889735758304596,
+            "forecast_mae_scaled": 0.21790094673633575,
+            "retention_mse": 0.09964142739772797,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "initialization": "target_initial_adaptation",
+        "scheduled_days": 29,
+        "issued_days": 29,
+        "scored_days": 29,
+        "active_mae_kwh": 4.327765976274017,
+        "decisions": [
+          {
+            "algorithm": "ev-retention-controller-mbb-v1",
+            "stream_id": "('urbanev', 'SZH')/1001/7d/seed42",
+            "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+            "block_start": "2022-12-01T00:00:00+08:00",
+            "effective_from": "2022-12-15T00:00:00+08:00",
+            "active_lambda": 0.01,
+            "selected_lambda": 0.01,
+            "reason": "no_qualifying_challenger",
+            "valid_days": 14,
+            "pending_days": 0,
+            "incomplete_days": 0,
+            "absent_days": 0,
+            "valid_day_gaps": 0,
+            "used_origins": [
+              "2022-12-01T00:00:00+08:00",
+              "2022-12-02T00:00:00+08:00",
+              "2022-12-03T00:00:00+08:00",
+              "2022-12-04T00:00:00+08:00",
+              "2022-12-05T00:00:00+08:00",
+              "2022-12-06T00:00:00+08:00",
+              "2022-12-07T00:00:00+08:00",
+              "2022-12-08T00:00:00+08:00",
+              "2022-12-09T00:00:00+08:00",
+              "2022-12-10T00:00:00+08:00",
+              "2022-12-11T00:00:00+08:00",
+              "2022-12-12T00:00:00+08:00",
+              "2022-12-13T00:00:00+08:00",
+              "2022-12-14T00:00:00+08:00"
+            ],
+            "comparisons": [
+              {
+                "challenger": 0.0,
+                "mean_improvement": 0.0009441044701418612,
+                "lcb": -0.00029425439674273017,
+                "qualifies": false
+              },
+              {
+                "challenger": 0.1,
+                "mean_improvement": -0.005892854950639112,
+                "lcb": -0.021259576924530416,
+                "qualifies": false
+              }
+            ],
+            "config": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bootstrap_seed": 46409986053726338151119784341430201572597969050713243820756324777968854099313,
+            "paired_input_sha256": "268059141bc394f2d280e9b576f57fe95721c18437d0861051d946a8af2def20"
+          },
+          {
+            "algorithm": "ev-retention-controller-mbb-v1",
+            "stream_id": "('urbanev', 'SZH')/1001/7d/seed42",
+            "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+            "block_start": "2022-12-15T00:00:00+08:00",
+            "effective_from": "2022-12-29T00:00:00+08:00",
+            "active_lambda": 0.01,
+            "selected_lambda": 0.1,
+            "reason": "switch",
+            "valid_days": 14,
+            "pending_days": 0,
+            "incomplete_days": 0,
+            "absent_days": 0,
+            "valid_day_gaps": 0,
+            "used_origins": [
+              "2022-12-15T00:00:00+08:00",
+              "2022-12-16T00:00:00+08:00",
+              "2022-12-17T00:00:00+08:00",
+              "2022-12-18T00:00:00+08:00",
+              "2022-12-19T00:00:00+08:00",
+              "2022-12-20T00:00:00+08:00",
+              "2022-12-21T00:00:00+08:00",
+              "2022-12-22T00:00:00+08:00",
+              "2022-12-23T00:00:00+08:00",
+              "2022-12-24T00:00:00+08:00",
+              "2022-12-25T00:00:00+08:00",
+              "2022-12-26T00:00:00+08:00",
+              "2022-12-27T00:00:00+08:00",
+              "2022-12-28T00:00:00+08:00"
+            ],
+            "comparisons": [
+              {
+                "challenger": 0.0,
+                "mean_improvement": -0.001628362974051544,
+                "lcb": -0.0030032104442875556,
+                "qualifies": false
+              },
+              {
+                "challenger": 0.1,
+                "mean_improvement": 0.0052095670511722895,
+                "lcb": 0.0012222815353500978,
+                "qualifies": true
+              }
+            ],
+            "config": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bootstrap_seed": 77776736990700320773952393022040477671621374392910952837626468184710514954700,
+            "paired_input_sha256": "4f0088e4141c7e070748324d05a88201421f7ba8d518754024c460f9b87d7fab"
+          }
+        ],
+        "audits": [],
+        "candidate_steps": 87,
+        "audit_steps": 1,
+        "cost": {
+          "inference_seconds": 0.12581583200153545,
+          "update_seconds": 0.8071173250027641,
+          "audit_inference_seconds": 0.00142242099991563,
+          "audit_update_seconds": 0.00958703800006333,
+          "controller_seconds": 0.026361254999756056
+        },
+        "elapsed_seconds": 13.565878103000614,
+        "gpu_peak_allocated_bytes": 90912768,
+        "gpu_peak_reserved_bytes": 96468992,
+        "pending_days": 0,
+        "ticks": 31,
+        "commit_chain": "164d770c873403b1b181a71e25d806782e3cc62ac348961c9c02df6696519191",
+        "prediction_identity_sha256": "ae1fa19ef63458dc6b96c66128d8a052d98fa32b12df737dafee462ec225c579",
+        "final_branch_state_sha256": {
+          "0.0": "6b1430a1744a7121a66a3984a4430693d0cd0dda4d851ae1a96936c669f5f9e9",
+          "0.01": "06bbe9a399c1c234d9e84884685152b1d555df1c819c09cd8e2b04c0b296be03",
+          "0.1": "963bc9536c1374eef43e11a14cb97c74dbe46e6f8601b434d362ffb0f65d5913"
+        },
+        "resume_from": null
+      },
+      {
+        "scope": "Development technical replay only; unvalidated example policy, no Final or effectiveness claim",
+        "run_id": "target1001-7d-partial",
+        "code": {
+          "commit": "ac493144ded18e0f8419ad002179588af4302d4b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+            "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+            "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+            "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+            "ev_runner/engine.py": "42bc1af1990aa8bc6e76f8c5ff4fc72c44d62cd7d109f34fae77256936be3751",
+            "ev_runner/replay.py": "a3db48d0c576495ff72abaa5f19ca73101086a9a164ddf0a63f58133cb98f069",
+            "ev_runner/run.py": "4e9cbed7927abc4e8e9d9d8608af28f84c7eb76edc7aac1c13d317c00b05447b",
+            "ev_runner/state.py": "2dfc0bdcbe6777771ab316f7cc20c26b5b8767560d691ede2ebeb9987bc6c416",
+            "ev_runner/store.py": "b4ae38b4898cfdd0729b1be0f50c5499fd91bc54c209dfc69fc43e45ffa5382f"
+          }
+        },
+        "binding": {
+          "schema": "ev-prequential-run-v1",
+          "input": {
+            "schema": "ev-checkpoint-input-binding-v1",
+            "feature_schema": "ev-input-v1",
+            "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+            "input_run_id": "urbanev-SZH-7d",
+            "dataset_id": "urbanev",
+            "city_id": "SZH",
+            "stage": "target",
+            "entity_id": "1001",
+            "history_days": 7,
+            "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+            "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+          },
+          "config": {
+            "controller": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "initial_training": {
+              "seed": 42,
+              "epochs": 3,
+              "batch_size": 64,
+              "learning_rate": 0.001,
+              "epsilon": 0.001,
+              "head_width": 64
+            },
+            "online_training": {
+              "seed": 42,
+              "epochs": 1,
+              "batch_size": 64,
+              "learning_rate": 0.001,
+              "epsilon": 0.001,
+              "head_width": 64
+            },
+            "development_entities": [
+              "1001"
+            ],
+            "replay_days": 29
+          },
+          "environment": {
+            "python": "3.13.16",
+            "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+            "torch": "2.11.0+cu130",
+            "cuda": "13.0",
+            "device": "cuda",
+            "device_name": "Tesla T4",
+            "deterministic_algorithms": true
+          },
+          "code_files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+            "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+            "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+            "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+            "ev_runner/engine.py": "42bc1af1990aa8bc6e76f8c5ff4fc72c44d62cd7d109f34fae77256936be3751",
+            "ev_runner/replay.py": "a3db48d0c576495ff72abaa5f19ca73101086a9a164ddf0a63f58133cb98f069",
+            "ev_runner/run.py": "4e9cbed7927abc4e8e9d9d8608af28f84c7eb76edc7aac1c13d317c00b05447b",
+            "ev_runner/state.py": "2dfc0bdcbe6777771ab316f7cc20c26b5b8767560d691ede2ebeb9987bc6c416",
+            "ev_runner/store.py": "b4ae38b4898cfdd0729b1be0f50c5499fd91bc54c209dfc69fc43e45ffa5382f"
+          },
+          "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+          "latent_sha256": "98155bc29149f487624e11441ffc568eb553166b607c76c8844961a136447a1e"
+        },
+        "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "initial_examples": 6,
+        "initial_logs": [
+          {
+            "loss": 0.2512904107570648,
+            "forecast_mae_scaled": 0.2512904107570648,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.2218518704175949,
+            "forecast_mae_scaled": 0.22134526073932648,
+            "retention_mse": 0.050661247223615646,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.21889735758304596,
+            "forecast_mae_scaled": 0.21790094673633575,
+            "retention_mse": 0.09964142739772797,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "initialization": "target_initial_adaptation",
+        "scheduled_days": 29,
+        "issued_days": 10,
+        "scored_days": 9,
+        "active_mae_kwh": 4.480693485093429,
+        "decisions": [],
+        "audits": [],
+        "candidate_steps": 27,
+        "audit_steps": 0,
+        "cost": {
+          "inference_seconds": 0.04595559599965782,
+          "update_seconds": 0.2506982600025367,
+          "audit_inference_seconds": 0.0,
+          "audit_update_seconds": 0.0,
+          "controller_seconds": 0.0
+        },
+        "elapsed_seconds": 9.573881925000023,
+        "gpu_peak_allocated_bytes": 89912832,
+        "gpu_peak_reserved_bytes": 94371840,
+        "pending_days": 1,
+        "ticks": 10,
+        "commit_chain": "69191996c7a21ebd38795e4efaaec11aad935dd69112934a1799e4f406c83857",
+        "prediction_identity_sha256": "a2195cc9325c81a6d604e09dd4519a3057228cd62f9e4df262de08d4a76498bd",
+        "final_branch_state_sha256": {
+          "0.0": "034fda773a005d027c1fbb5d8f910c3f2ed179e19171d02b03d27161a09989f2",
+          "0.01": "bd44e778f25a742819f67dacee76a08fd464bf910e671060dcfd462d8e2b9d8b",
+          "0.1": "329487a16548a370d9726e1d30fa52c0a18553334fac32bdedd2ff18fedd3996"
+        },
+        "resume_from": null
+      },
+      {
+        "scope": "Development technical replay only; unvalidated example policy, no Final or effectiveness claim",
+        "run_id": "target1001-7d-resumed",
+        "code": {
+          "commit": "ac493144ded18e0f8419ad002179588af4302d4b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+            "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+            "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+            "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+            "ev_runner/engine.py": "42bc1af1990aa8bc6e76f8c5ff4fc72c44d62cd7d109f34fae77256936be3751",
+            "ev_runner/replay.py": "a3db48d0c576495ff72abaa5f19ca73101086a9a164ddf0a63f58133cb98f069",
+            "ev_runner/run.py": "4e9cbed7927abc4e8e9d9d8608af28f84c7eb76edc7aac1c13d317c00b05447b",
+            "ev_runner/state.py": "2dfc0bdcbe6777771ab316f7cc20c26b5b8767560d691ede2ebeb9987bc6c416",
+            "ev_runner/store.py": "b4ae38b4898cfdd0729b1be0f50c5499fd91bc54c209dfc69fc43e45ffa5382f"
+          }
+        },
+        "binding": {
+          "schema": "ev-prequential-run-v1",
+          "input": {
+            "schema": "ev-checkpoint-input-binding-v1",
+            "feature_schema": "ev-input-v1",
+            "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+            "input_run_id": "urbanev-SZH-7d",
+            "dataset_id": "urbanev",
+            "city_id": "SZH",
+            "stage": "target",
+            "entity_id": "1001",
+            "history_days": 7,
+            "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+            "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+          },
+          "config": {
+            "controller": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "initial_training": {
+              "seed": 42,
+              "epochs": 3,
+              "batch_size": 64,
+              "learning_rate": 0.001,
+              "epsilon": 0.001,
+              "head_width": 64
+            },
+            "online_training": {
+              "seed": 42,
+              "epochs": 1,
+              "batch_size": 64,
+              "learning_rate": 0.001,
+              "epsilon": 0.001,
+              "head_width": 64
+            },
+            "development_entities": [
+              "1001"
+            ],
+            "replay_days": 29
+          },
+          "environment": {
+            "python": "3.13.16",
+            "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+            "torch": "2.11.0+cu130",
+            "cuda": "13.0",
+            "device": "cuda",
+            "device_name": "Tesla T4",
+            "deterministic_algorithms": true
+          },
+          "code_files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+            "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+            "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+            "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+            "ev_runner/engine.py": "42bc1af1990aa8bc6e76f8c5ff4fc72c44d62cd7d109f34fae77256936be3751",
+            "ev_runner/replay.py": "a3db48d0c576495ff72abaa5f19ca73101086a9a164ddf0a63f58133cb98f069",
+            "ev_runner/run.py": "4e9cbed7927abc4e8e9d9d8608af28f84c7eb76edc7aac1c13d317c00b05447b",
+            "ev_runner/state.py": "2dfc0bdcbe6777771ab316f7cc20c26b5b8767560d691ede2ebeb9987bc6c416",
+            "ev_runner/store.py": "b4ae38b4898cfdd0729b1be0f50c5499fd91bc54c209dfc69fc43e45ffa5382f"
+          },
+          "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+          "latent_sha256": "98155bc29149f487624e11441ffc568eb553166b607c76c8844961a136447a1e"
+        },
+        "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "initial_examples": 6,
+        "initial_logs": [
+          {
+            "loss": 0.2512904107570648,
+            "forecast_mae_scaled": 0.2512904107570648,
+            "retention_mse": 0.0,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.2218518704175949,
+            "forecast_mae_scaled": 0.22134526073932648,
+            "retention_mse": 0.050661247223615646,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.21889735758304596,
+            "forecast_mae_scaled": 0.21790094673633575,
+            "retention_mse": 0.09964142739772797,
+            "examples": 6,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "initialization": "target_initial_adaptation",
+        "scheduled_days": 29,
+        "issued_days": 29,
+        "scored_days": 29,
+        "active_mae_kwh": 4.327765976274017,
+        "decisions": [
+          {
+            "algorithm": "ev-retention-controller-mbb-v1",
+            "stream_id": "('urbanev', 'SZH')/1001/7d/seed42",
+            "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+            "block_start": "2022-12-01T00:00:00+08:00",
+            "effective_from": "2022-12-15T00:00:00+08:00",
+            "active_lambda": 0.01,
+            "selected_lambda": 0.01,
+            "reason": "no_qualifying_challenger",
+            "valid_days": 14,
+            "pending_days": 0,
+            "incomplete_days": 0,
+            "absent_days": 0,
+            "valid_day_gaps": 0,
+            "used_origins": [
+              "2022-12-01T00:00:00+08:00",
+              "2022-12-02T00:00:00+08:00",
+              "2022-12-03T00:00:00+08:00",
+              "2022-12-04T00:00:00+08:00",
+              "2022-12-05T00:00:00+08:00",
+              "2022-12-06T00:00:00+08:00",
+              "2022-12-07T00:00:00+08:00",
+              "2022-12-08T00:00:00+08:00",
+              "2022-12-09T00:00:00+08:00",
+              "2022-12-10T00:00:00+08:00",
+              "2022-12-11T00:00:00+08:00",
+              "2022-12-12T00:00:00+08:00",
+              "2022-12-13T00:00:00+08:00",
+              "2022-12-14T00:00:00+08:00"
+            ],
+            "comparisons": [
+              {
+                "challenger": 0.0,
+                "mean_improvement": 0.0009441044701418612,
+                "lcb": -0.00029425439674273017,
+                "qualifies": false
+              },
+              {
+                "challenger": 0.1,
+                "mean_improvement": -0.005892854950639112,
+                "lcb": -0.021259576924530416,
+                "qualifies": false
+              }
+            ],
+            "config": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bootstrap_seed": 46409986053726338151119784341430201572597969050713243820756324777968854099313,
+            "paired_input_sha256": "268059141bc394f2d280e9b576f57fe95721c18437d0861051d946a8af2def20"
+          },
+          {
+            "algorithm": "ev-retention-controller-mbb-v1",
+            "stream_id": "('urbanev', 'SZH')/1001/7d/seed42",
+            "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+            "block_start": "2022-12-15T00:00:00+08:00",
+            "effective_from": "2022-12-29T00:00:00+08:00",
+            "active_lambda": 0.01,
+            "selected_lambda": 0.1,
+            "reason": "switch",
+            "valid_days": 14,
+            "pending_days": 0,
+            "incomplete_days": 0,
+            "absent_days": 0,
+            "valid_day_gaps": 0,
+            "used_origins": [
+              "2022-12-15T00:00:00+08:00",
+              "2022-12-16T00:00:00+08:00",
+              "2022-12-17T00:00:00+08:00",
+              "2022-12-18T00:00:00+08:00",
+              "2022-12-19T00:00:00+08:00",
+              "2022-12-20T00:00:00+08:00",
+              "2022-12-21T00:00:00+08:00",
+              "2022-12-22T00:00:00+08:00",
+              "2022-12-23T00:00:00+08:00",
+              "2022-12-24T00:00:00+08:00",
+              "2022-12-25T00:00:00+08:00",
+              "2022-12-26T00:00:00+08:00",
+              "2022-12-27T00:00:00+08:00",
+              "2022-12-28T00:00:00+08:00"
+            ],
+            "comparisons": [
+              {
+                "challenger": 0.0,
+                "mean_improvement": -0.001628362974051544,
+                "lcb": -0.0030032104442875556,
+                "qualifies": false
+              },
+              {
+                "challenger": 0.1,
+                "mean_improvement": 0.0052095670511722895,
+                "lcb": 0.0012222815353500978,
+                "qualifies": true
+              }
+            ],
+            "config": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bootstrap_seed": 77776736990700320773952393022040477671621374392910952837626468184710514954700,
+            "paired_input_sha256": "4f0088e4141c7e070748324d05a88201421f7ba8d518754024c460f9b87d7fab"
+          }
+        ],
+        "audits": [],
+        "candidate_steps": 87,
+        "audit_steps": 1,
+        "cost": {
+          "inference_seconds": 0.12590865199763357,
+          "update_seconds": 0.816569957001775,
+          "audit_inference_seconds": 0.0013885749995097285,
+          "audit_update_seconds": 0.009462947999963944,
+          "controller_seconds": 0.031346892999863485
+        },
+        "elapsed_seconds": 11.87217983499977,
+        "gpu_peak_allocated_bytes": 92812800,
+        "gpu_peak_reserved_bytes": 98566144,
+        "pending_days": 0,
+        "ticks": 31,
+        "commit_chain": "b34a8c60514c7bd9733c52d27a4be1e682d86637d9b860fbb156b3a007b69803",
+        "prediction_identity_sha256": "ae1fa19ef63458dc6b96c66128d8a052d98fa32b12df737dafee462ec225c579",
+        "final_branch_state_sha256": {
+          "0.0": "6b1430a1744a7121a66a3984a4430693d0cd0dda4d851ae1a96936c669f5f9e9",
+          "0.01": "06bbe9a399c1c234d9e84884685152b1d555df1c819c09cd8e2b04c0b296be03",
+          "0.1": "963bc9536c1374eef43e11a14cb97c74dbe46e6f8601b434d362ffb0f65d5913"
+        },
+        "resume_from": "/content/qyroven-i21-20261025-seed42-v1/target1001-7d-partial"
+      },
+      {
+        "scope": "Development technical replay only; unvalidated example policy, no Final or effectiveness claim",
+        "run_id": "target1001-14d-whole",
+        "code": {
+          "commit": "ac493144ded18e0f8419ad002179588af4302d4b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+            "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+            "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+            "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+            "ev_runner/engine.py": "42bc1af1990aa8bc6e76f8c5ff4fc72c44d62cd7d109f34fae77256936be3751",
+            "ev_runner/replay.py": "a3db48d0c576495ff72abaa5f19ca73101086a9a164ddf0a63f58133cb98f069",
+            "ev_runner/run.py": "4e9cbed7927abc4e8e9d9d8608af28f84c7eb76edc7aac1c13d317c00b05447b",
+            "ev_runner/state.py": "2dfc0bdcbe6777771ab316f7cc20c26b5b8767560d691ede2ebeb9987bc6c416",
+            "ev_runner/store.py": "b4ae38b4898cfdd0729b1be0f50c5499fd91bc54c209dfc69fc43e45ffa5382f"
+          }
+        },
+        "binding": {
+          "schema": "ev-prequential-run-v1",
+          "input": {
+            "schema": "ev-checkpoint-input-binding-v1",
+            "feature_schema": "ev-input-v1",
+            "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+            "input_run_id": "urbanev-SZH-14d",
+            "dataset_id": "urbanev",
+            "city_id": "SZH",
+            "stage": "target",
+            "entity_id": "1001",
+            "history_days": 14,
+            "scale_id": "113d6a5f9d74464fb60d715dbb87cce8bdf92bdd9475653c6b6c645bf6a1c985",
+            "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+          },
+          "config": {
+            "controller": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "initial_training": {
+              "seed": 42,
+              "epochs": 3,
+              "batch_size": 64,
+              "learning_rate": 0.001,
+              "epsilon": 0.001,
+              "head_width": 64
+            },
+            "online_training": {
+              "seed": 42,
+              "epochs": 1,
+              "batch_size": 64,
+              "learning_rate": 0.001,
+              "epsilon": 0.001,
+              "head_width": 64
+            },
+            "development_entities": [
+              "1001"
+            ],
+            "replay_days": 29
+          },
+          "environment": {
+            "python": "3.13.16",
+            "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+            "torch": "2.11.0+cu130",
+            "cuda": "13.0",
+            "device": "cuda",
+            "device_name": "Tesla T4",
+            "deterministic_algorithms": true
+          },
+          "code_files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+            "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+            "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+            "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+            "ev_runner/engine.py": "42bc1af1990aa8bc6e76f8c5ff4fc72c44d62cd7d109f34fae77256936be3751",
+            "ev_runner/replay.py": "a3db48d0c576495ff72abaa5f19ca73101086a9a164ddf0a63f58133cb98f069",
+            "ev_runner/run.py": "4e9cbed7927abc4e8e9d9d8608af28f84c7eb76edc7aac1c13d317c00b05447b",
+            "ev_runner/state.py": "2dfc0bdcbe6777771ab316f7cc20c26b5b8767560d691ede2ebeb9987bc6c416",
+            "ev_runner/store.py": "b4ae38b4898cfdd0729b1be0f50c5499fd91bc54c209dfc69fc43e45ffa5382f"
+          },
+          "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+          "latent_sha256": "98155bc29149f487624e11441ffc568eb553166b607c76c8844961a136447a1e"
+        },
+        "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "initial_examples": 13,
+        "initial_logs": [
+          {
+            "loss": 0.2043275237083435,
+            "forecast_mae_scaled": 0.2043275237083435,
+            "retention_mse": 0.0,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.19683465361595154,
+            "forecast_mae_scaled": 0.19615477323532104,
+            "retention_mse": 0.06798817217350006,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.1936185657978058,
+            "forecast_mae_scaled": 0.1927182376384735,
+            "retention_mse": 0.09003309160470963,
+            "examples": 13,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "initialization": "target_initial_adaptation",
+        "scheduled_days": 29,
+        "issued_days": 29,
+        "scored_days": 29,
+        "active_mae_kwh": 4.316982145081414,
+        "decisions": [
+          {
+            "algorithm": "ev-retention-controller-mbb-v1",
+            "stream_id": "('urbanev', 'SZH')/1001/14d/seed42",
+            "scale_id": "113d6a5f9d74464fb60d715dbb87cce8bdf92bdd9475653c6b6c645bf6a1c985",
+            "block_start": "2022-12-01T00:00:00+08:00",
+            "effective_from": "2022-12-15T00:00:00+08:00",
+            "active_lambda": 0.01,
+            "selected_lambda": 0.01,
+            "reason": "no_qualifying_challenger",
+            "valid_days": 14,
+            "pending_days": 0,
+            "incomplete_days": 0,
+            "absent_days": 0,
+            "valid_day_gaps": 0,
+            "used_origins": [
+              "2022-12-01T00:00:00+08:00",
+              "2022-12-02T00:00:00+08:00",
+              "2022-12-03T00:00:00+08:00",
+              "2022-12-04T00:00:00+08:00",
+              "2022-12-05T00:00:00+08:00",
+              "2022-12-06T00:00:00+08:00",
+              "2022-12-07T00:00:00+08:00",
+              "2022-12-08T00:00:00+08:00",
+              "2022-12-09T00:00:00+08:00",
+              "2022-12-10T00:00:00+08:00",
+              "2022-12-11T00:00:00+08:00",
+              "2022-12-12T00:00:00+08:00",
+              "2022-12-13T00:00:00+08:00",
+              "2022-12-14T00:00:00+08:00"
+            ],
+            "comparisons": [
+              {
+                "challenger": 0.0,
+                "mean_improvement": 0.00024066940970495537,
+                "lcb": -0.0006026359702153224,
+                "qualifies": false
+              },
+              {
+                "challenger": 0.1,
+                "mean_improvement": 0.0027194326419325387,
+                "lcb": -0.003526902067479813,
+                "qualifies": false
+              }
+            ],
+            "config": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bootstrap_seed": 15633256973432807256175143402709770616171960589373306571643810095363806022628,
+            "paired_input_sha256": "dc07030a5ea79070739721257f7a062f26c00690282c2818d3ceabb57ef42715"
+          },
+          {
+            "algorithm": "ev-retention-controller-mbb-v1",
+            "stream_id": "('urbanev', 'SZH')/1001/14d/seed42",
+            "scale_id": "113d6a5f9d74464fb60d715dbb87cce8bdf92bdd9475653c6b6c645bf6a1c985",
+            "block_start": "2022-12-15T00:00:00+08:00",
+            "effective_from": "2022-12-29T00:00:00+08:00",
+            "active_lambda": 0.01,
+            "selected_lambda": 0.01,
+            "reason": "no_qualifying_challenger",
+            "valid_days": 14,
+            "pending_days": 0,
+            "incomplete_days": 0,
+            "absent_days": 0,
+            "valid_day_gaps": 0,
+            "used_origins": [
+              "2022-12-15T00:00:00+08:00",
+              "2022-12-16T00:00:00+08:00",
+              "2022-12-17T00:00:00+08:00",
+              "2022-12-18T00:00:00+08:00",
+              "2022-12-19T00:00:00+08:00",
+              "2022-12-20T00:00:00+08:00",
+              "2022-12-21T00:00:00+08:00",
+              "2022-12-22T00:00:00+08:00",
+              "2022-12-23T00:00:00+08:00",
+              "2022-12-24T00:00:00+08:00",
+              "2022-12-25T00:00:00+08:00",
+              "2022-12-26T00:00:00+08:00",
+              "2022-12-27T00:00:00+08:00",
+              "2022-12-28T00:00:00+08:00"
+            ],
+            "comparisons": [
+              {
+                "challenger": 0.0,
+                "mean_improvement": -0.0013617898618232607,
+                "lcb": -0.003504266709802544,
+                "qualifies": false
+              },
+              {
+                "challenger": 0.1,
+                "mean_improvement": -0.000557524672972146,
+                "lcb": -0.003825891457063241,
+                "qualifies": false
+              }
+            ],
+            "config": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bootstrap_seed": 79498823662960874446075754582613244055295501458260872024566838877561169231229,
+            "paired_input_sha256": "bbbbd7286a394bdd734e5814288c6b3e7c7a93fa6c2c9e2f657ec4555095f814"
+          }
+        ],
+        "audits": [],
+        "candidate_steps": 87,
+        "audit_steps": 0,
+        "cost": {
+          "inference_seconds": 0.12402984699838271,
+          "update_seconds": 0.7701638980051939,
+          "audit_inference_seconds": 0.0,
+          "audit_update_seconds": 0.0,
+          "controller_seconds": 0.0273317360006331
+        },
+        "elapsed_seconds": 13.740075546999833,
+        "gpu_peak_allocated_bytes": 89912832,
+        "gpu_peak_reserved_bytes": 94371840,
+        "pending_days": 0,
+        "ticks": 31,
+        "commit_chain": "caae65c01cbd1c0206e6814cee2be84d42f78dcdee3bda65ea836081aa561ae6",
+        "prediction_identity_sha256": "1569937b22e64efcad622901e13c94c3caeba580f8cf98edbb1099b8ef1849af",
+        "final_branch_state_sha256": {
+          "0.0": "bfafd5bd60a54d46d4646a4e99d460b0b186e2d8ed378ad026934b9edc7f9a63",
+          "0.01": "636a45d0e4a0d48e80bc1ca056e6e96eebafb1d8f5d3de6d8a882d83858d1528",
+          "0.1": "b4c40aed7644d7da5d34703c18c3a4cd08e9ef70394c3b9a974f1360c2f7ddc2"
+        },
+        "resume_from": null
+      },
+      {
+        "scope": "Development technical replay only; unvalidated example policy, no Final or effectiveness claim",
+        "run_id": "target1001-28d-whole",
+        "code": {
+          "commit": "ac493144ded18e0f8419ad002179588af4302d4b",
+          "dirty": false,
+          "files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+            "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+            "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+            "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+            "ev_runner/engine.py": "42bc1af1990aa8bc6e76f8c5ff4fc72c44d62cd7d109f34fae77256936be3751",
+            "ev_runner/replay.py": "a3db48d0c576495ff72abaa5f19ca73101086a9a164ddf0a63f58133cb98f069",
+            "ev_runner/run.py": "4e9cbed7927abc4e8e9d9d8608af28f84c7eb76edc7aac1c13d317c00b05447b",
+            "ev_runner/state.py": "2dfc0bdcbe6777771ab316f7cc20c26b5b8767560d691ede2ebeb9987bc6c416",
+            "ev_runner/store.py": "b4ae38b4898cfdd0729b1be0f50c5499fd91bc54c209dfc69fc43e45ffa5382f"
+          }
+        },
+        "binding": {
+          "schema": "ev-prequential-run-v1",
+          "input": {
+            "schema": "ev-checkpoint-input-binding-v1",
+            "feature_schema": "ev-input-v1",
+            "input_manifest_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+            "input_run_id": "urbanev-SZH-28d",
+            "dataset_id": "urbanev",
+            "city_id": "SZH",
+            "stage": "target",
+            "entity_id": "1001",
+            "history_days": 28,
+            "scale_id": "f0ca8b9abeb2b46d1e5fcc989b77fa71e8f0329bf670fa4854db433bdb2da05f",
+            "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905"
+          },
+          "config": {
+            "controller": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "initial_training": {
+              "seed": 42,
+              "epochs": 3,
+              "batch_size": 64,
+              "learning_rate": 0.001,
+              "epsilon": 0.001,
+              "head_width": 64
+            },
+            "online_training": {
+              "seed": 42,
+              "epochs": 1,
+              "batch_size": 64,
+              "learning_rate": 0.001,
+              "epsilon": 0.001,
+              "head_width": 64
+            },
+            "development_entities": [
+              "1001"
+            ],
+            "replay_days": 29
+          },
+          "environment": {
+            "python": "3.13.16",
+            "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+            "torch": "2.11.0+cu130",
+            "cuda": "13.0",
+            "device": "cuda",
+            "device_name": "Tesla T4",
+            "deterministic_algorithms": true
+          },
+          "code_files": {
+            "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+            "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+            "ev_models/data.py": "c9de443ac9d0308c8472b6d6fb66b71a06d88ae5ca50f51e67d884dd8293a648",
+            "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+            "ev_models/run.py": "e4a81515e1d0f746311fafc0b7d6ef45ed86907d5cb128b7ee2d00ddd1ca9e4f",
+            "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+            "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+            "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+            "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+            "ev_runner/engine.py": "42bc1af1990aa8bc6e76f8c5ff4fc72c44d62cd7d109f34fae77256936be3751",
+            "ev_runner/replay.py": "a3db48d0c576495ff72abaa5f19ca73101086a9a164ddf0a63f58133cb98f069",
+            "ev_runner/run.py": "4e9cbed7927abc4e8e9d9d8608af28f84c7eb76edc7aac1c13d317c00b05447b",
+            "ev_runner/state.py": "2dfc0bdcbe6777771ab316f7cc20c26b5b8767560d691ede2ebeb9987bc6c416",
+            "ev_runner/store.py": "b4ae38b4898cfdd0729b1be0f50c5499fd91bc54c209dfc69fc43e45ffa5382f"
+          },
+          "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+          "latent_sha256": "98155bc29149f487624e11441ffc568eb553166b607c76c8844961a136447a1e"
+        },
+        "source_checkpoint_sha256": "28d61828a35be69b04f907df9128e7cf4743868060addd113cc61b60363e2905",
+        "initial_examples": 27,
+        "initial_logs": [
+          {
+            "loss": 0.2303604781627655,
+            "forecast_mae_scaled": 0.2303604781627655,
+            "retention_mse": 0.0,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 1
+          },
+          {
+            "loss": 0.21797765791416168,
+            "forecast_mae_scaled": 0.21738344430923462,
+            "retention_mse": 0.05942068248987198,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 2
+          },
+          {
+            "loss": 0.21619871258735657,
+            "forecast_mae_scaled": 0.2151964008808136,
+            "retention_mse": 0.10023173689842224,
+            "examples": 27,
+            "steps": 1,
+            "epoch": 3
+          }
+        ],
+        "initialization": "target_initial_adaptation",
+        "scheduled_days": 29,
+        "issued_days": 29,
+        "scored_days": 29,
+        "active_mae_kwh": 4.648014519379273,
+        "decisions": [
+          {
+            "algorithm": "ev-retention-controller-mbb-v1",
+            "stream_id": "('urbanev', 'SZH')/1001/28d/seed42",
+            "scale_id": "f0ca8b9abeb2b46d1e5fcc989b77fa71e8f0329bf670fa4854db433bdb2da05f",
+            "block_start": "2022-12-01T00:00:00+08:00",
+            "effective_from": "2022-12-15T00:00:00+08:00",
+            "active_lambda": 0.01,
+            "selected_lambda": 0.01,
+            "reason": "no_qualifying_challenger",
+            "valid_days": 14,
+            "pending_days": 0,
+            "incomplete_days": 0,
+            "absent_days": 0,
+            "valid_day_gaps": 0,
+            "used_origins": [
+              "2022-12-01T00:00:00+08:00",
+              "2022-12-02T00:00:00+08:00",
+              "2022-12-03T00:00:00+08:00",
+              "2022-12-04T00:00:00+08:00",
+              "2022-12-05T00:00:00+08:00",
+              "2022-12-06T00:00:00+08:00",
+              "2022-12-07T00:00:00+08:00",
+              "2022-12-08T00:00:00+08:00",
+              "2022-12-09T00:00:00+08:00",
+              "2022-12-10T00:00:00+08:00",
+              "2022-12-11T00:00:00+08:00",
+              "2022-12-12T00:00:00+08:00",
+              "2022-12-13T00:00:00+08:00",
+              "2022-12-14T00:00:00+08:00"
+            ],
+            "comparisons": [
+              {
+                "challenger": 0.0,
+                "mean_improvement": -0.0008988057739943939,
+                "lcb": -0.0017962084421163356,
+                "qualifies": false
+              },
+              {
+                "challenger": 0.1,
+                "mean_improvement": -0.003382039669787088,
+                "lcb": -0.00940855337549784,
+                "qualifies": false
+              }
+            ],
+            "config": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bootstrap_seed": 992933655049681775337737364667704132228106053530056466480567137031400425784,
+            "paired_input_sha256": "7764480a4ccba93d94000d5d83fc9ceb8ccb1fc7ea17bdc81f0d47077529d5c6"
+          },
+          {
+            "algorithm": "ev-retention-controller-mbb-v1",
+            "stream_id": "('urbanev', 'SZH')/1001/28d/seed42",
+            "scale_id": "f0ca8b9abeb2b46d1e5fcc989b77fa71e8f0329bf670fa4854db433bdb2da05f",
+            "block_start": "2022-12-15T00:00:00+08:00",
+            "effective_from": "2022-12-29T00:00:00+08:00",
+            "active_lambda": 0.01,
+            "selected_lambda": 0.1,
+            "reason": "switch",
+            "valid_days": 14,
+            "pending_days": 0,
+            "incomplete_days": 0,
+            "absent_days": 0,
+            "valid_day_gaps": 0,
+            "used_origins": [
+              "2022-12-15T00:00:00+08:00",
+              "2022-12-16T00:00:00+08:00",
+              "2022-12-17T00:00:00+08:00",
+              "2022-12-18T00:00:00+08:00",
+              "2022-12-19T00:00:00+08:00",
+              "2022-12-20T00:00:00+08:00",
+              "2022-12-21T00:00:00+08:00",
+              "2022-12-22T00:00:00+08:00",
+              "2022-12-23T00:00:00+08:00",
+              "2022-12-24T00:00:00+08:00",
+              "2022-12-25T00:00:00+08:00",
+              "2022-12-26T00:00:00+08:00",
+              "2022-12-27T00:00:00+08:00",
+              "2022-12-28T00:00:00+08:00"
+            ],
+            "comparisons": [
+              {
+                "challenger": 0.0,
+                "mean_improvement": -0.00034707677534775,
+                "lcb": -0.0005021475118087536,
+                "qualifies": false
+              },
+              {
+                "challenger": 0.1,
+                "mean_improvement": 0.00966102740716278,
+                "lcb": 0.0015496051151204127,
+                "qualifies": true
+              }
+            ],
+            "config": {
+              "lambda_low": 0.01,
+              "lambda_high": 0.1,
+              "initial_lambda": 0.01,
+              "block_days": 14,
+              "min_valid_days": 7,
+              "delta": 0.0,
+              "alpha": 0.05,
+              "segment_days": 3,
+              "resamples": 2000,
+              "seed": 42
+            },
+            "bootstrap_seed": 36981692935483065845178138262554560482848432242695480943155393689086000676478,
+            "paired_input_sha256": "f0695d95c6ce40c9568fd06f3c331285ece87b8cc10140b841cbb3595685b6bb"
+          }
+        ],
+        "audits": [],
+        "candidate_steps": 87,
+        "audit_steps": 1,
+        "cost": {
+          "inference_seconds": 0.13132480999956897,
+          "update_seconds": 0.7892978619984206,
+          "audit_inference_seconds": 0.0013656569999511703,
+          "audit_update_seconds": 0.00935573500009923,
+          "controller_seconds": 0.027260677999038307
+        },
+        "elapsed_seconds": 15.55462810499921,
+        "gpu_peak_allocated_bytes": 93920256,
+        "gpu_peak_reserved_bytes": 117440512,
+        "pending_days": 0,
+        "ticks": 31,
+        "commit_chain": "79f3ed283b7c1ce7868c92ae46e1d0450e07885f8d8070c5cf403c7b8d732321",
+        "prediction_identity_sha256": "7ddfa3626aa50f772729561cfce2e49a55dfabe93ba74dc76499fe8b7be855a1",
+        "final_branch_state_sha256": {
+          "0.0": "52189bd609d20e45d129020a76801446d50403422ac9833563b74baaf4a6a86f",
+          "0.01": "bc22a2b140d25fcc639d0e59d4c6f027354707f4f002652bb36f5d648e8e9267",
+          "0.1": "74fc0732fa38f91d5c079cd76dc20c6bda204292caf628ee3370c98651e1bf66"
+        },
+        "resume_from": null
+      }
+    ],
+    "cost_estimate": {
+      "scope": "planning estimate from one target/seed; not a locked Final matrix or measured baseline suite",
+      "measured_target_days": 87,
+      "measured_three_candidate_seconds": 42.86058175499966,
+      "seconds_per_target_day_including_initialization_io_checkpoints": 0.49265036499999604,
+      "formula": "observed seconds/target-day x target-days x seeds x method-equivalent cost; source training and baseline/ablation differences must be measured separately",
+      "projection_example": {
+        "target_count": 100,
+        "stream_days": 29,
+        "budgets": 3,
+        "seeds": 3,
+        "methods": 10,
+        "all_methods_assumed_three_candidate_equivalent_seconds": 128581.74526499897,
+        "limitation": "Illustrative capacity scenario, not cohort selection or official matrix. Methods have different costs; no claimed upper bound. Excludes extra source/tuning/ablation runs and hardware variability."
+      }
+    }
+  },
+  "independent_verification": {
+    "schema": "issue21-independent-artifact-verification-v1",
+    "zip_sha256": "ff1e0a3471ec2ad8c9b7693e373b974a6abe2e79d4c1bc8098379ee8cdd9f392",
+    "matrix_sha256": "4233666de32802ba04db2e715ec052837c0ce69daf3411dd5f5589e01a4d4840",
+    "verified_files": 556,
+    "runs": [
+      {
+        "run_id": "target1001-7d-whole",
+        "ticks": 31,
+        "issued": 29,
+        "scored": 29,
+        "verified_forks": 2,
+        "steps": 87
+      },
+      {
+        "run_id": "target1001-7d-partial",
+        "ticks": 10,
+        "issued": 10,
+        "scored": 9,
+        "verified_forks": 0,
+        "steps": 27
+      },
+      {
+        "run_id": "target1001-7d-resumed",
+        "ticks": 31,
+        "issued": 29,
+        "scored": 29,
+        "verified_forks": 2,
+        "steps": 87
+      },
+      {
+        "run_id": "target1001-14d-whole",
+        "ticks": 31,
+        "issued": 29,
+        "scored": 29,
+        "verified_forks": 2,
+        "steps": 87
+      },
+      {
+        "run_id": "target1001-28d-whole",
+        "ticks": 31,
+        "issued": 29,
+        "scored": 29,
+        "verified_forks": 2,
+        "steps": 87
+      }
+    ],
+    "gpu_run_resume_rechecked_on_cpu": true,
+    "resume_excludes_nondeterministic_timing_fields": true,
+    "prior_forecasts_and_committed_prefix_unchanged": true,
+    "scope": "Artifact read/hash/load only; no local real-data training performed"
+  }
+}

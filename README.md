@@ -25,6 +25,10 @@ The [confidence-controller contract](docs/data/CONTROLLER_CONTRACT.md) describes
 independent #20 helper, bootstrap profile, availability gates and #21 integration
 boundary. Its example configuration is not a Final lock.
 
+The [prequential-runner contract](docs/data/PREQUENTIAL_RUNNER.md) documents #21
+candidate state, causal event order, isolated audit and daily resume. Its
+[handoff](docs/reports/issue21-qyroven.md) records the actual Development smoke scope.
+
 ## Environment setup
 
 Use **Python 3.12**. Do not copy virtual environments or compiled dependencies between machines.
