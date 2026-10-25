@@ -4,11 +4,92 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
-from tools.verify_comparison import sha, verify_run
+from tools.verify_comparison import InputSnapshots, sha, verify_run
 
 
 class ArtifactVerifierTests(unittest.TestCase):
+    def test_input_snapshot_reuse_preserves_proof_and_reads_label_bytes_once(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run, data = self.audit_fixture(Path(temp))
+            expected = verify_run(run, data)
+            snapshots, reads = InputSnapshots(), []
+            original = Path.read_bytes
+
+            def read(path):
+                if path == data.resolve() / "labels.jsonl":
+                    reads.append(path)
+                return original(path)
+
+            with patch.object(Path, "read_bytes", autospec=True, side_effect=read):
+                for _ in range(2):
+                    self.assertEqual(verify_run(run, data, input_snapshots=snapshots), expected)
+            identity = snapshots.identity()
+            self.assertEqual(len(reads), 1)
+            self.assertEqual(identity["sources"][0]["decoded_development_targets"], 1)
+            self.assertEqual(
+                identity["sources"][0]["files"]["labels.jsonl"]["sha256"],
+                sha(data / "labels.jsonl"),
+            )
+
+    def test_input_snapshot_rejects_changed_files_and_manifest_request(self):
+        for mode in ("label-file", "manifest-request"):
+            with tempfile.TemporaryDirectory() as temp:
+                run, data = self.audit_fixture(Path(temp))
+                snapshots = InputSnapshots()
+                verify_run(run, data, input_snapshots=snapshots)
+                if mode == "label-file":
+                    with (data / "labels.jsonl").open("ab") as stream:
+                        stream.write(b"\n")
+                else:
+                    report = json.loads((run / "run.json").read_text())
+                    report["binding"]["input"]["input_manifest_sha256"] = "unrelated"
+                    (run / "run.json").write_text(json.dumps(report))
+                with self.subTest(mode=mode), self.assertRaises(ValueError):
+                    verify_run(run, data, input_snapshots=snapshots)
+
+    def test_snapshot_change_during_daily_checks_fails_before_acceptance(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run, data = self.audit_fixture(Path(temp))
+            changed = False
+
+            def hash_with_change(path):
+                nonlocal changed
+                if path.name == "state.pt" and not changed:
+                    changed = True
+                    with (data / "labels.jsonl").open("ab") as stream:
+                        stream.write(b"\n")
+                return sha(path)
+
+            with patch("tools.verify_comparison.sha", side_effect=hash_with_change):
+                with self.assertRaisesRegex(ValueError, "snapshot files changed"):
+                    verify_run(run, data, input_snapshots=InputSnapshots())
+
+    def test_snapshot_does_not_decode_unselected_final_label_arrays(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run, data = self.fixture(Path(temp))
+            # Deliberately non-JSON Final values expose accidental broad decoding.
+            with (data / "labels.jsonl").open("ab") as stream:
+                stream.write(
+                    b'\n{"identity": ["charged", "AMS", "final"], "origin": "future", "energy_kwh": [NOT_JSON]}\n'
+                )
+            manifest = json.loads((data / "manifest.json").read_text())
+            manifest["files"]["labels.jsonl"]["sha256"] = sha(data / "labels.jsonl")
+            (data / "manifest.json").write_text(json.dumps(manifest))
+            report = json.loads((run / "run.json").read_text())
+            report["binding"]["input"]["input_manifest_sha256"] = sha(data / "manifest.json")
+            (run / "run.json").write_text(json.dumps(report))
+            self.assertEqual(
+                verify_run(run, data, input_snapshots=InputSnapshots()), verify_run(run, data)
+            )
+
+    def test_snapshot_rejects_final_target_before_label_decoding(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run, data = self.fixture(Path(temp), role="final")
+            with self.assertRaisesRegex(ValueError, "only permits Development"):
+                verify_run(run, data, input_snapshots=InputSnapshots())
+
     def audit_fixture(self, base):
         run, data = self.fixture(base)
         t0, t1 = run / "tick-0000", run / "tick-0001"

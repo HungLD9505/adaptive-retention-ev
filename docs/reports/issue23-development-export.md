@@ -161,3 +161,31 @@ were not transferred by this test; do not fabricate empty ticks or claim exact
 resume from this partial package. Complete multipart exports, off-runtime score/
 arrival verification, full state checks and independent teammate reproduction
 remain pending. The live Kaggle checkout was not modified or interrupted.
+
+## Opt-in input snapshots for repeated read-only verification
+
+The default verifier path remains streaming and unchanged. For a large completed
+matrix, `tools.verify_comparison --cache-inputs` authenticates immutable byte
+snapshots of each input root's manifest, entity metadata and label file, using
+their existing expected SHA-256 identities. It decodes labels only for explicitly
+requested Development targets and reuses those target records across methods/
+recipes/seeds. Source/Final label value arrays are never broadly decoded. Captured
+byte strings cannot be changed by later writes to a source path; file identity,
+size and nanosecond timestamp guards additionally reject ordinary input changes
+during capture, between runs and before proof acceptance.
+
+Every daily forecast/event/state-file hash, original-unit candidate/deployed/audit
+error, arrival gate, decision identity and intentional historical-state omission
+check remains in the common verifier. The new proof records authenticated input
+file identities and raw snapshot bytes separately from the unchanged daily-file
+counts. This trades RAM for repeated input I/O; it is not an end-to-end speed or
+memory claim. UrbanEV's three label files alone total about348MB; a pooled matrix
+can retain more roots. Use per-namespace verification when memory is constrained.
+
+321 local offline tests and lint/format/diff checks pass. New fixtures require
+exact proof parity with the streaming path, one input-byte read across repeated
+runs, rejection of changed input files/manifest requests and changes during daily
+checks, and rejection of Final targets without decoding unrelated Final arrays.
+A complete real-controller parity/timing run remains pending at this code commit.
+No running Kaggle checkout or command was changed; this option is for subsequent
+explicit verification calls after its real-data checks pass.

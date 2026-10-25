@@ -2,6 +2,7 @@
 
 import argparse
 import hashlib
+import io
 import json
 import math
 from datetime import datetime
@@ -16,29 +17,115 @@ def sha(path: Path) -> str:
     return h.hexdigest()
 
 
-def verify_run(root: Path, input_root: Path) -> dict:
+class InputSnapshots:
+    """Opt-in authenticated byte snapshots; decode only requested Development labels."""
+
+    def __init__(self) -> None:
+        self.sources: dict[Path, dict] = {}
+
+    @staticmethod
+    def pins(root: Path) -> dict:
+        result = {}
+        for name in ("manifest.json", "entities.jsonl", "labels.jsonl"):
+            s = (root / name).stat()
+            result[name] = (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns)
+        return result
+
+    def check(self) -> None:
+        for root, value in self.sources.items():
+            if self.pins(root) != value["pins"]:
+                raise ValueError("Input snapshot files changed during verification")
+
+    def target(self, root: Path, binding: dict) -> tuple[dict, dict]:
+        self.check()
+        root = root.resolve(strict=True)
+        expected = binding["dataset_id"], binding["city_id"], binding["entity_id"]
+        if root not in self.sources:
+            before = self.pins(root)
+            raw = {name: (root / name).read_bytes() for name in before}
+            manifest_sha = hashlib.sha256(raw["manifest.json"]).hexdigest()
+            if manifest_sha != binding["input_manifest_sha256"]:
+                raise ValueError("Input manifest changed")
+            manifest = json.loads(raw["manifest.json"])
+            for name in ("entities.jsonl", "labels.jsonl"):
+                if hashlib.sha256(raw[name]).hexdigest() != manifest["files"][name]["sha256"]:
+                    raise ValueError("Input entity/label artifact changed")
+            entities = [json.loads(line) for line in raw["entities.jsonl"].splitlines()]
+            by_id = {tuple(r["identity"]): r for r in entities}
+            if len(by_id) != len(entities) or self.pins(root) != before:
+                raise ValueError("Duplicate identities or input changed during snapshot capture")
+            self.sources[root] = {
+                "pins": before,
+                "raw": raw,
+                "entities": by_id,
+                "manifest_sha256": manifest_sha,
+                "targets": {},
+            }
+        source = self.sources[root]
+        if source["manifest_sha256"] != binding["input_manifest_sha256"]:
+            raise ValueError("Different manifest requested from an existing snapshot")
+        summary = source["entities"].get(expected)
+        if summary is None or summary["role"] != "development":
+            raise ValueError("This verifier only permits Development")
+        if expected not in source["targets"]:
+            prefix = ('{"identity": ' + json.dumps(list(expected)) + ', "origin": "').encode()
+            labels = {}
+            for line in io.BytesIO(source["raw"]["labels.jsonl"]):
+                if line.startswith(prefix):
+                    row = json.loads(line)
+                    labels[row["origin"]] = row
+            source["targets"][expected] = labels
+        return summary, source["targets"][expected]
+
+    def identity(self) -> dict:
+        self.check()
+        return {
+            "mode": "authenticated immutable input-byte snapshots; ordinary file changes fail closed",
+            "raw_snapshot_bytes": sum(
+                len(b) for s in self.sources.values() for b in s["raw"].values()
+            ),
+            "sources": [
+                {
+                    "manifest_sha256": s["manifest_sha256"],
+                    "files": {
+                        n: {"bytes": len(b), "sha256": hashlib.sha256(b).hexdigest()}
+                        for n, b in s["raw"].items()
+                    },
+                    "decoded_development_targets": len(s["targets"]),
+                }
+                for s in self.sources.values()
+            ],
+        }
+
+
+def verify_run(
+    root: Path, input_root: Path, *, input_snapshots: InputSnapshots | None = None
+) -> dict:
     report = json.loads((root / "run.json").read_text())
     binding = report["binding"]["input"]
     expected = (binding["dataset_id"], binding["city_id"], binding["entity_id"])
-    with (input_root / "entities.jsonl").open() as stream:
-        entities = [json.loads(line) for line in stream]
-    summary = next(row for row in entities if tuple(row["identity"]) == expected)
-    if summary["role"] != "development":
-        raise ValueError("This verifier only permits Development")
-    if sha(input_root / "manifest.json") != binding["input_manifest_sha256"]:
-        raise ValueError("Input manifest changed")
-    manifest = json.loads((input_root / "manifest.json").read_text())
-    for name in ("entities.jsonl", "labels.jsonl"):
-        if sha(input_root / name) != manifest["files"][name]["sha256"]:
-            raise ValueError("Input entity/label artifact changed")
-    prefix = ('{"identity": ' + json.dumps(list(expected)) + ', "origin": "').encode()
-    labels = {}
-    # Never decode other targets, especially Final labels.
-    with (input_root / "labels.jsonl").open("rb") as stream:
-        for line in stream:
-            if line.startswith(prefix):
-                row = json.loads(line)
-                labels[row["origin"]] = row
+    if input_snapshots is not None:
+        summary, labels = input_snapshots.target(input_root, binding)
+    else:
+        with (input_root / "entities.jsonl").open() as stream:
+            entities = [json.loads(line) for line in stream]
+        summary = next(row for row in entities if tuple(row["identity"]) == expected)
+        if summary["role"] != "development":
+            raise ValueError("This verifier only permits Development")
+        if sha(input_root / "manifest.json") != binding["input_manifest_sha256"]:
+            raise ValueError("Input manifest changed")
+        manifest = json.loads((input_root / "manifest.json").read_text())
+        for name in ("entities.jsonl", "labels.jsonl"):
+            if sha(input_root / name) != manifest["files"][name]["sha256"]:
+                raise ValueError("Input entity/label artifact changed")
+        prefix = ('{"identity": ' + json.dumps(list(expected)) + ', "origin": "').encode()
+        labels = {}
+        # Never decode other targets, especially Final labels.
+        with (input_root / "labels.jsonl").open("rb") as stream:
+            for line in stream:
+                if line.startswith(prefix):
+                    row = json.loads(line)
+                    labels[row["origin"]] = row
     scale = summary["scale"]["energy_scale"]
     retention = report["binding"].get("config", {}).get("state_retention", "all")
     if retention not in {"all", "latest"}:
@@ -188,6 +275,8 @@ def verify_run(root: Path, input_root: Path) -> dict:
             and not math.isclose(value, report[name], rel_tol=1e-9, abs_tol=1e-10)
         ):
             raise ValueError("Aggregate score differs")
+    if input_snapshots is not None:
+        input_snapshots.check()
     return {
         "state_retention": retention,
         "historical_states_intentionally_omitted": omitted,
@@ -209,11 +298,17 @@ def main() -> None:
     parser.add_argument("--matrix", type=Path, required=True)
     parser.add_argument("--inputs-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--cache-inputs",
+        action="store_true",
+        help="Snapshot authenticated input bytes once; retain strict Development filtering and all daily checks",
+    )
     args = parser.parse_args()
     matrix = json.loads(args.matrix.read_text())
     if matrix["status"] != "technical_success":
         raise ValueError("Completed matrix required")
     results = []
+    snapshots = InputSnapshots() if args.cache_inputs else None
     for run in matrix["runs"]:
         binding = run["binding"]["input"]
         name = run["run_id"]
@@ -223,10 +318,17 @@ def main() -> None:
         if any(run.get(key) != value for key, value in local_report.items()):
             raise ValueError("Run report differs from identified matrix entry")
         input_name = f"{binding['dataset_id']}-{binding['city_id']}-{binding['history_days']}d"
-        results.append(verify_run(args.matrix.parent / name, args.inputs_root / input_name))
+        results.append(
+            verify_run(
+                args.matrix.parent / name, args.inputs_root / input_name, input_snapshots=snapshots
+            )
+        )
+    proof = {"status": "verified", "matrix_sha256": sha(args.matrix), "runs": results}
+    if snapshots is not None:
+        proof["input_authentication"] = snapshots.identity()
     with args.output.open("x") as stream:
         json.dump(
-            {"status": "verified", "matrix_sha256": sha(args.matrix), "runs": results},
+            proof,
             stream,
             indent=2,
         )
