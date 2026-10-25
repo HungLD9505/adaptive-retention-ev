@@ -83,7 +83,7 @@ def station_first(
     for identity, rows in station_seed_metrics.items():
         if set(rows) != set(seeds):
             raise ValueError("Missing/extra seed cells must be reported, not silently averaged")
-        if len({r["origins"] for r in rows.values()}) != 1:
+        if len({tuple(r["origins"]) for r in rows.values()}) != 1:
             raise ValueError("Seed replications must use identical scored origins")
         for row in rows.values():
             for metric in (

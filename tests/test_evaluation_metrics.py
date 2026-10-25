@@ -1,5 +1,6 @@
 """Hand-calculated evaluation cases, independent of training implementation."""
 
+import json
 import math
 import unittest
 from datetime import datetime, timedelta
@@ -70,6 +71,7 @@ class MetricsTests(unittest.TestCase):
 
     def test_zero_baseline_station_count_separate(self):
         row = {s: paired_metrics(errors([1]), errors([0])) for s in SEEDS}
+        row = {s: json.loads(json.dumps(value)) for s, value in row.items()}
         result = station_first({"zero": row}, seeds=SEEDS)
         self.assertIsNone(result["ntr"])
         self.assertEqual(result["zero_baseline_station_count"], 1)
