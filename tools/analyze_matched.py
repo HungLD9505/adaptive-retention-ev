@@ -141,7 +141,11 @@ def select_collection(studies: dict, cohort: dict, code_files: dict) -> tuple[di
 def authenticate_matrix(path: Path, verification: Path) -> dict:
     """Require every verifier cell, score and chain, not a successful-status label."""
     matrix, proof = (json.loads(p.read_text()) for p in (path, verification))
-    if proof.get("status") != "verified" or proof.get("matrix_sha256") != digest(path):
+    if (
+        matrix.get("status") != "technical_success"
+        or proof.get("status") != "verified"
+        or proof.get("matrix_sha256") != digest(path)
+    ):
         raise ValueError("Matrix must match independent verification fingerprint")
     checked = {r["run_id"]: r for r in proof["runs"]}
     if (

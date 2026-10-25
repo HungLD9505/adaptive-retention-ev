@@ -139,6 +139,7 @@ class CollectionTests(unittest.TestCase):
 
     def test_verifier_requires_exact_population_nulls_scores_and_hash(self):
         matrix = {
+            "status": "technical_success",
             "runs": [
                 {
                     "run_id": "fixture",
@@ -148,7 +149,7 @@ class CollectionTests(unittest.TestCase):
                     "active_mae_kwh": None,
                     "active_rmse_kwh": None,
                 }
-            ]
+            ],
         }
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -177,7 +178,7 @@ class CollectionTests(unittest.TestCase):
                 v.write_text(json.dumps(bad))
                 with self.assertRaises(ValueError):
                     authenticate_matrix(p, v)
-            duplicate = {"runs": matrix["runs"] * 2}
+            duplicate = {"status": "technical_success", "runs": matrix["runs"] * 2}
             p.write_text(json.dumps(duplicate))
             proof["matrix_sha256"] = digest(p)
             v.write_text(json.dumps(proof))
