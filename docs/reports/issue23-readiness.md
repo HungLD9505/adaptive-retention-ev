@@ -82,3 +82,7 @@ full-matrix compute shortfall. Those decisions require explicit peer review befo
 matched scientific ranking; no configuration was changed to favor these scores.
 
 ![Actual Colab completion evidence](images/issue23-readiness-colab.png)
+
+The repository CSV follows the project LF text-normalization rule. Catalog hashes
+identify original Drive files (whose CSV uses CRLF), not the LF-normalized repository
+rendering. The rows and values are unchanged.
