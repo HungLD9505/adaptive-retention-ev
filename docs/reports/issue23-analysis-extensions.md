@@ -175,6 +175,38 @@ supplemental ZIP. Existing training checkout, forecasts and exports stay unchang
 Actual full-collection execution, transfer, capacity acceptance and peer review
 are still required.
 
+## Elapsed-timer boundaries and reuse accounting
+
+Source inspection clarifies the recorded counters; this is not new instrumentation
+or a change to historical numbers. In `ev_models.run.execute`, the Source timer
+starts after config/device checks and seeding. It already includes selected Source
+record loading/validation on a cache miss, model/optimizer creation, SGD epochs,
+per-epoch latent-scale estimation and checkpoint writes/reload before the elapsed
+field is assembled. Latent-scale estimation is not a separately measured excluded
+cost and must not be added again. Caller `InputRun` construction, external driver
+work, final report writing after the elapsed field, packaging, transfer and
+independent verification are outside that counter.
+
+In `ev_runner.run.execute`, Replay construction/checks and initial seeding precede
+the target timer. Source/ensemble loading, target model/optimizer setup, any prefix
+cache miss, initial adaptation, online replay and daily transaction serialization
+are inside it. The inference/update/proxy/controller/audit timers are tagged
+subsets, not additional elapsed time to add to the same run total. Shared
+Replay/label/prefix preparation performed by a driver before the call remains
+outside it. Final report work after the elapsed field and export/verification/
+transfer are not a measured end-to-end total. Cache state, retained CUDA allocator
+reservation and overlapping fixture/backup work limit throughput comparisons.
+
+The shared Source total is charged once per actual Source training call across
+the selected comparison family. It is a common setup ledger, not a separately
+measured standalone deployment cost for every method; Target-only and Seasonal
+Naive do not train a Source in standalone use, while the uncertainty estimator
+needs its identified Source ensemble. For full tuning effort, include every
+executed calibration run once. Selected comparison rows that reference those
+runs are views of existing work, not extra executions. Source reuse, component
+timers and selected-row costs must not be counted twice. These explicit boundaries
+take precedence over broad shorthand in earlier cost-metadata limitations.
+
 ## Committed verification and remote staging
 
 Implementation `5fa321fea2c9097d92d0d4fc4e6965ff05f059cf` passed all 295
