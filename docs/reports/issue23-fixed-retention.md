@@ -16,7 +16,7 @@ replays, including null-score and source-only initialization units.
 Keep the source/target architecture, latent formula/scales/epsilon, target initial
 epochs, online updates, batch size/order, learning rate and score rules unchanged.
 One positive lambda applies to both initial target adaptation and online updates.
-These values span four orders of magnitude as a finite compute budget; they are
+These values span three orders of magnitude as a finite compute budget; they are
 not claimed to be exhaustive or equally appropriate across penalty definitions.
 Parameter-retention loss has different units and is not calibrated by this grid.
 
@@ -34,6 +34,12 @@ pooled with this new Source-duration family as if weights/configs matched. Every
 remaining method requires comparable Development assessment and a matched rerun
 under the eventual common Source configuration before Final approval.
 
-Execution status: declared, not yet run. Actual results and Drive links will be
-recorded after execution/verification. The sole schedule remains SPRINT_PLAN.md;
+Execution status: running on Colab T4 under code `6e3aa21719c5b140875e9ba5bbce14c6fd42bfa9`.
+251 fixture tests passed locally and on Colab before launch. The identified
+Source-duration matrix SHA-256 is
+`1a6cdead0ac7b2112ee0189c648d00bc9a2c439192b570b22f41389038d0be27`;
+its independent verifier passed all207 runs before this calibration started.
+Source10 is provisional and shared across all three seeds. No lambda winner,
+completed grid or new artifact distribution is claimed yet; those require
+execution/verification. The sole schedule remains SPRINT_PLAN.md;
 task acceptance remains in #23, with independent review and Final lock pending.

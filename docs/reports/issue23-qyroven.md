@@ -108,3 +108,19 @@ paired original-unit metrics, exploratory station/calendar-block intervals and
 isolated audit gaps. It does not complete calibration, the full required method/
 ablation matrix or independent review. See the reader-boundary correction for the
 historical parse-before-filter limitation and subsequent hardened consumer.
+
+## Source-duration selection and positive-lambda calibration
+
+The [bounded Source-duration study](issue23-source-duration.md) completed three
+Source training trajectories (10 epochs each) and207 Full Fine-tuning Development
+replays over the same23 entity-budget combinations and three seeds. All outputs
+were independently verified/downloaded. The finite-grid choice is10 epochs, with
+a boundary warning rather than an optimality/convergence claim. The Source1
+subset reproduces all69 earlier Full Fine-tuning units exactly.
+
+The [positive Fixed Retention grid](issue23-fixed-retention.md) is now running on
+that common provisional Source10 family. It uses four declared positive lambdas,
+three seeds, all budgets and276 planned replays. This is actual Development
+calibration progress, not a completed controller/proxy calibration or a Final lock.
+Earlier Source1 Adaptive comparisons remain a separate diagnostic family and
+cannot be ranked against Source10 baselines as a matched experiment.
