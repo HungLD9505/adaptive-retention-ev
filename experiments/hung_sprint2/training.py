@@ -36,6 +36,76 @@ BINDING_FIELDS = {
 CHECKPOINT_SCHEMA = "hung-sprint2-model-v1"
 
 
+def _checkpoint_rng(model: ForecastGRU) -> dict:
+    """Capture PyTorch RNGs without changing the transfer-loading default."""
+    devices = []
+    cuda_states = []
+    if torch.cuda.is_available():
+        cuda_states = [state.clone() for state in torch.cuda.get_rng_state_all()]
+        devices = [
+            {
+                "name": torch.cuda.get_device_name(index),
+                "capability": list(torch.cuda.get_device_capability(index)),
+            }
+            for index in range(len(cuda_states))
+        ]
+    return {
+        "schema": "hung-sprint2-model-rng-v1",
+        "torch_version": str(torch.__version__),
+        "model_device": str(next(model.parameters()).device),
+        "cpu": torch.get_rng_state().clone(),
+        "cuda": cuda_states,
+        "cuda_devices": devices,
+        "cuda_runtime": torch.version.cuda,
+    }
+
+
+def _validated_checkpoint_rng(payload: dict, device: torch.device) -> dict:
+    """Reject missing/incompatible RNG snapshots before restoring any state."""
+    rng = payload.get("rng_state")
+    if not isinstance(rng, dict) or rng.get("schema") != "hung-sprint2-model-rng-v1":
+        raise ValueError("Checkpoint has no supported RNG state; exact RNG resume is unavailable")
+    if rng.get("torch_version") != str(torch.__version__):
+        raise ValueError("Checkpoint RNG PyTorch version mismatch")
+    saved_device = torch.device(rng["model_device"])
+    if saved_device.type != device.type:
+        raise ValueError("Checkpoint RNG device type mismatch")
+    cpu, cuda, devices = rng.get("cpu"), rng.get("cuda"), rng.get("cuda_devices")
+    if not isinstance(cuda, list) or not isinstance(devices, list) or len(cuda) != len(devices):
+        raise ValueError("Invalid checkpoint CUDA RNG metadata")
+    if any(
+        not isinstance(state, Tensor)
+        or state.dtype != torch.uint8
+        or state.ndim != 1
+        or not state.numel()
+        for state in [cpu, *cuda]
+    ):
+        raise ValueError("Invalid checkpoint RNG tensor")
+    if saved_device.type == "cuda" and not cuda:
+        raise ValueError("Checkpoint CUDA RNG state is missing")
+    if cuda:
+        if not torch.cuda.is_available():
+            raise ValueError("CUDA is unavailable for checkpoint RNG restoration")
+        if len(cuda) != torch.cuda.device_count() or rng.get("cuda_runtime") != torch.version.cuda:
+            raise ValueError("Checkpoint CUDA RNG environment mismatch")
+        actual_devices = [
+            {
+                "name": torch.cuda.get_device_name(index),
+                "capability": list(torch.cuda.get_device_capability(index)),
+            }
+            for index in range(len(cuda))
+        ]
+        if devices != actual_devices:
+            raise ValueError("Checkpoint CUDA RNG device metadata mismatch")
+        if saved_device.type == "cuda":
+            requested_index = device.index
+            if requested_index is None:
+                requested_index = torch.cuda.current_device()
+            if saved_device.index != requested_index:
+                raise ValueError("Checkpoint CUDA RNG device index mismatch")
+    return rng
+
+
 @dataclass(frozen=True)
 class StepLoss:
     forecast: float
@@ -212,6 +282,7 @@ def save_checkpoint(
         "optimizer_type": "Adam",
         "optimizer_state": optimizer.state_dict(),
         "latent_scale": None if latent_scale is None else latent_scale.detach().clone(),
+        "rng_state": _checkpoint_rng(model),
     }
     destination = Path(path)
     descriptor, temporary_name = tempfile.mkstemp(
@@ -229,9 +300,15 @@ def save_checkpoint(
 
 
 def load_checkpoint(
-    path: Path, *, expected_binding: dict, map_location: str | torch.device = "cpu"
+    path: Path,
+    *,
+    expected_binding: dict,
+    map_location: str | torch.device = "cpu",
+    restore_rng: bool = False,
 ) -> tuple[ForecastGRU, torch.optim.Adam, Tensor | None, dict]:
-    """Reload model/optimizer state after checking input identity exactly."""
+    """Reload bound model/optimizer; RNG restoration is explicit and same-environment only."""
+    if not isinstance(restore_rng, bool):
+        raise ValueError("restore_rng must be a boolean")
     validate_binding(expected_binding)
     payload = torch.load(Path(path), map_location=map_location, weights_only=True)
     if payload.get("schema") != CHECKPOINT_SCHEMA or payload.get("optimizer_type") != "Adam":
@@ -249,6 +326,7 @@ def load_checkpoint(
         or not payload["code_sha"]
     ):
         raise ValueError("Invalid checkpoint execution metadata")
+    rng = _validated_checkpoint_rng(payload, torch.device(map_location)) if restore_rng else None
     config = ModelConfig(**payload["architecture"])
     model = ForecastGRU(config).to(map_location)
     model.load_state_dict(payload["model_state"])
@@ -259,6 +337,10 @@ def load_checkpoint(
     if scale is not None:
         scale = scale.to(map_location)
         validate_latent_scale(scale)
+    if rng is not None:
+        torch.set_rng_state(rng["cpu"].cpu())
+        if rng["cuda"]:
+            torch.cuda.set_rng_state_all([state.cpu() for state in rng["cuda"]])
     return (
         model,
         optimizer,

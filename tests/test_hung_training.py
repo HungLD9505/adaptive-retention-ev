@@ -6,11 +6,14 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
 from experiments.hung_sprint2.cli import ARTIFACTS, main
+from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
+from experiments.hung_sprint2.training import load_checkpoint, save_checkpoint, source_step
 
 
 def _input_run(
@@ -283,6 +286,120 @@ class TrainingConsumerTests(unittest.TestCase):
                 stream.write("{}\n")
             with self.assertRaisesRegex(ValueError, "artifact SHA-256 mismatch"):
                 main([*source_args[:5], "--output", str(root / "another-output"), *source_args[7:]])
+
+
+class TrainingCheckpointRngTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        torch.set_num_threads(1)
+
+    def _save(self, path: Path) -> tuple[ForecastGRU, torch.optim.Adam, dict]:
+        binding = {
+            "schema": "ev-checkpoint-input-binding-v1",
+            "feature_schema": "ev-input-v1",
+            "input_manifest_sha256": "a" * 64,
+            "input_run_id": "rng-fixture",
+            "dataset_id": "urbanev",
+            "city_id": "SZH",
+            "stage": "source",
+            "entity_id": None,
+            "history_days": None,
+            "scale_id": None,
+            "source_checkpoint_sha256": None,
+        }
+        model = ForecastGRU(ModelConfig(calendar_hidden=8))
+        optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+        source_step(
+            model,
+            optimizer,
+            torch.full((2, 24, 7), 0.1),
+            torch.full((2, 24, 5), 0.2),
+            torch.full((2, 24), 0.3),
+        )
+        with patch("experiments.hung_sprint2.training.torch.cuda.is_available", return_value=False):
+            save_checkpoint(
+                path,
+                model,
+                optimizer,
+                input_binding=binding,
+                latent_scale=torch.ones(64),
+                seed=7,
+                code_sha="rng-fixture",
+                training_step=1,
+            )
+        return model, optimizer, binding
+
+    def test_opt_in_restores_cpu_rng_model_and_optimizer(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "model.pt"
+            model, optimizer, binding = self._save(path)
+            expected_next = torch.rand(9)
+            torch.rand(17)
+            restored, restored_optimizer, scale, _ = load_checkpoint(
+                path, expected_binding=binding, restore_rng=True
+            )
+            self.assertTrue(torch.equal(torch.rand(9), expected_next))
+            self.assertTrue(torch.equal(scale, torch.ones(64)))
+            for name, value in model.state_dict().items():
+                self.assertTrue(torch.equal(value, restored.state_dict()[name]))
+            original_state = optimizer.state_dict()
+            restored_state = restored_optimizer.state_dict()
+            self.assertEqual(original_state["param_groups"], restored_state["param_groups"])
+            for key, values in original_state["state"].items():
+                for name, value in values.items():
+                    self.assertTrue(torch.equal(value, restored_state["state"][key][name]))
+
+    def test_default_loading_keeps_transfer_behavior_and_accepts_legacy(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "model.pt"
+            _, _, binding = self._save(path)
+            with patch("experiments.hung_sprint2.training.torch.set_rng_state") as set_rng:
+                load_checkpoint(path, expected_binding=binding)
+                set_rng.assert_not_called()
+            payload = torch.load(path, weights_only=True)
+            del payload["rng_state"]
+            legacy = Path(directory) / "legacy.pt"
+            torch.save(payload, legacy)
+            load_checkpoint(legacy, expected_binding=binding)
+            with self.assertRaisesRegex(ValueError, "no supported RNG state"):
+                load_checkpoint(legacy, expected_binding=binding, restore_rng=True)
+
+    def test_opt_in_rejects_cuda_device_switch_or_unavailable_cuda(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "model.pt"
+            _, _, binding = self._save(path)
+            payload = torch.load(path, weights_only=True)
+            payload["rng_state"]["model_device"] = "cuda:0"
+            cuda_path = Path(directory) / "cuda-metadata.pt"
+            torch.save(payload, cuda_path)
+            with self.assertRaisesRegex(ValueError, "device type mismatch"):
+                load_checkpoint(cuda_path, expected_binding=binding, restore_rng=True)
+            payload["rng_state"]["model_device"] = "cpu"
+            payload["rng_state"]["cuda"] = [torch.ones(8, dtype=torch.uint8)]
+            payload["rng_state"]["cuda_devices"] = [{"name": "fixture", "capability": [8, 6]}]
+            unavailable_path = Path(directory) / "unavailable-cuda.pt"
+            torch.save(payload, unavailable_path)
+            with patch(
+                "experiments.hung_sprint2.training.torch.cuda.is_available", return_value=False
+            ):
+                with self.assertRaisesRegex(ValueError, "CUDA is unavailable"):
+                    load_checkpoint(unavailable_path, expected_binding=binding, restore_rng=True)
+            with (
+                patch(
+                    "experiments.hung_sprint2.training.torch.cuda.is_available", return_value=True
+                ),
+                patch("experiments.hung_sprint2.training.torch.cuda.device_count", return_value=1),
+                patch(
+                    "experiments.hung_sprint2.training.torch.cuda.get_device_name",
+                    return_value="other",
+                ),
+                patch(
+                    "experiments.hung_sprint2.training.torch.cuda.get_device_capability",
+                    return_value=(8, 6),
+                ),
+            ):
+                with self.assertRaisesRegex(ValueError, "device metadata mismatch"):
+                    load_checkpoint(unavailable_path, expected_binding=binding, restore_rng=True)
 
 
 if __name__ == "__main__":
