@@ -41,8 +41,11 @@ returns no population interval: station/time dependence needs paired resampling,
 and one smoke station does not support a population-level confidence claim. The
 hierarchical/time-dependent resampling and context/switch analyses remain pending.
 
-The current technical smoke has main seed42 only. Source ensemble42/43/44 does not
-satisfy the three-comparison-seed requirement. Full Development calibration/cohorts,
+The full-method technical smoke has main seed42 only. Source ensemble42/43/44 does
+not satisfy the three-comparison-seed requirement. The additional
+[UrbanEV readiness run](../reports/issue23-readiness.md) has three actual comparison
+seeds for Adaptive and Target-only on a shared-identity cohort, but does not replicate
+the entire required baseline/ablation matrix. Full Development calibration/cohorts,
 training convergence choices, comparable finite tuning budgets, exact mandatory
 matrix and compute/storage feasibility must be reviewed before an immutable lock.
 Independent approval of config/code/data/cohort/checkpoint identities is required

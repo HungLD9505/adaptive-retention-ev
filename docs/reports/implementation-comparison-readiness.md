@@ -79,3 +79,62 @@ interpolated empirical quantiles; Hung uses an order statistic, ceil(alpha×R)�
 Bootstrap RNG derivation also differs. Constant-score tests cannot establish
 identical LCBs on varying daily scores or identical full runner traces. These
 choices must be reconciled explicitly before numerical head-to-head claims.
+
+## Capacity shortfall — explicitly unresolved
+
+A metadata-only count of the existing #18 ready roles, combined with the executed
+43-day T4 timing of all14 distinct methods, gives an illustrative full-population
+projection for90 days and three seeds. This is not a new eligibility rule, approved
+cohort, configuration lock or Final evaluation. No Final forecast/label rows were
+decoded for this estimate.
+
+| Hypothetical all-ready scope | Method×entity×budget×seed runs | Serial T4 hours |
+|---|---:|---:|
+| Development, all seven namespaces | 143,766 | 354.7 |
+| Final, UrbanEV | 43,092 | 88.9 |
+| Final, six CHARGED cities separately | 104,328 | 273.5 |
+| Final, total | 147,420 | 362.5 |
+
+[Calculation evidence](issue23-capacity-estimate.json) records every timing cell,
+ready count, formula and input-matrix fingerprint. It linearly scales elapsed time
+by90/43 and by ready entities×three seeds. It excludes tuning, Source convergence
+choices, retries, shared input preparation and transfer/verification; it also does
+not model compact-checkpoint I/O changes or station workload heterogeneity. It is
+neither an upper bound nor a promised completion time. The previously declared
+one-pass Source checkpoints are diagnostic, not convergence-selected models.
+
+Even this illustrative Final total exceeds15 uninterrupted T4 days. A complete
+experiment matrix cannot currently be called capacity-accepted on one intermittent
+Colab session. Additional lawful compute/parallel execution and a documented
+Development-derived, method-compliant cohort decision are review items. Do not
+silently drop required seeds, budgets, methods, or CHARGED scope to meet the date.
+Compact checkpoint retention addresses disk cost; it does not resolve the full
+compute/lock/peer-acceptance gate by itself.
+
+PR #46 advanced after the pinned component inspection to `e85a53c`; the two intervening
+commits only add raw-archive upload/readback reports. They do not change the component
+bytes compared above or authenticate the un-downloaded historical training archive.
+
+## Re-execution interface
+
+Run actual training on a CUDA Colab runtime, not the developer's laptop. The
+readiness driver is `python -m tools.development_readiness`; its required arguments
+are `--inputs-root`, `--selection`, `--selection-sha256`, `--source-pool`,
+`--source-pool-sha256`, and a fresh `--output` directory. The committed selection
+hash is `6884857291b79b35f83cc7d78b6fc7a2b5fe0283ebe85c0321a5eb1a5ee283f0`.
+It rejects changed manifests, prefix counts, roles, Source populations and seeds.
+
+The execution archive contains the exact Git bundle, cohort, original Source-pool
+matrix, three Source checkpoints, test/training logs, predictions/events, linked
+commit manifests, latest full states and the read-only postprocessing script. For
+a new machine, copy the Source-pool JSON to a new file and replace only each Source
+`path` with its extracted `sources/seed{seed}.pt` absolute path. Verify each file
+against the original `checkpoint_sha256`, then pass the new path-only pool's SHA-256
+explicitly. Preserve the original matrix. This path rebinding is not retraining or
+selection of new Source weights. Download the same #18 input snapshot separately.
+
+For verification only, use `tools.verify_comparison` with the extracted
+`readiness/matrix.json` and the identified #18 input root. Its verifier does not
+require the old absolute Source paths. Exact GPU continuation additionally requires
+the recorded code/config/environment binding; loading a checkpoint on CPU is only
+an integrity check, not a demonstration of CUDA resume on another machine.

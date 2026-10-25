@@ -15,8 +15,8 @@ No Final access, tuning, configuration lock, research-effectiveness claim or mer
 - [Evaluation contract](../data/EVALUATION_CONTRACT.md): proposed units, pairing,
   honest missing-cell handling, absent uncertainty intervals and capacity warning.
 
-205 independent fixture tests passed locally; Ruff lint/format and diff checks
-passed. CI for code head `8b7acf55c8f80d19b0b7783b9f96ddaeeca28a28` passed both
+The initial205 independent fixture tests passed locally; Ruff lint/format and diff
+checks passed. CI for code head `8b7acf55c8f80d19b0b7783b9f96ddaeeca28a28` passed both
 Ubuntu/Windows in run40216623673. Subsequent changes integrate #22 evidence/docs
 and this report; latest-head CI is required separately.
 
@@ -34,19 +34,49 @@ Separate Colab checks hash-verified and CPU-reloaded all21 Source checkpoints wi
 namespace/seed/architecture/64-dimensional latent-scale validation. These are
 integrity checks, not evidence of scientific superiority or upstream causality.
 
+## Additional execution: three-seed,90-day readiness
+
+The independent CUDA driver at `3a8b56e80beacf04e93c9f6e512733996d017151` completed
+138 UrbanEV runs: Adaptive and Target-only across23 predeclared entity-budget
+combinations, seeds42/43/44 and90 scheduled days. The [readiness handoff](issue23-readiness.md)
+contains paired coverage, actual original-unit results, null strata, Source identity,
+exact GPU continuation, shared Drive links and full downloaded-archive verification.
+This supplements, rather than replaces, the earlier294 full-method smoke cells.
+It is not a full-method three-seed experiment or a comparison winner against Hung.
+
+Current code has217 fixture tests PASS locally and on Colab; Ruff lint/format and
+diff checks PASS. CI run40220038000 at code head `3a8b56e` passed Ubuntu and Windows.
+The optional new `latest` persistence profile was tested for dense-mode prediction/
+state parity, failure handling and exact continuation on actual CUDA. Default dense
+runs and all previous artifacts remain unchanged. Its limits are explicit in the
+[evaluation contract](../data/EVALUATION_CONTRACT.md).
+
+The read-only verifier executed on all138 additional runs, physically hashing25,530
+daily files and reporting12,558 intentionally omitted historical full states. All
+138 final branch states and three Source checkpoints were downloaded/hash-checked/
+CPU-loaded; the entire156.7MB ZIP passed CRC. A second local read-only execution
+produced byte-identical verifier outputs and station/seed summaries. No local
+real-data training or Final forecast/label decoding was performed.
+
+[Independent component comparison](implementation-comparison-readiness.md) records
+which GRU/retention/gradient/controller fixtures match Hung and the material head,
+quantile/RNG and diagnostic-config differences. Full implementation equivalence and
+historical experiment integrity are not inferred from matching component fixtures.
+
 ## Remaining work and approval boundaries
 
-The actual comparison smoke has one target per namespace and main seed42 only.
+The full-method comparison smoke has one target per namespace and main seed42 only.
 Source ensemble seeds42/43/44 are not three comparison replications. Official
 Development cohorts, comparable finite tuning grids/budgets, Source convergence
-choices, proxy calibration, three or more comparison seeds, time/station-dependent
+choices, proxy calibration, three or more full-method comparison seeds, time/station-dependent
 uncertainty and context/switch analyses remain unfinished. The aggregate helper
 refuses missing seed cells and supplies no invented population confidence interval.
 
 An exact feasible full experiment matrix and artifact-retention policy are still
-required. Dense daily-state storage extrapolates poorly; the measured warning in
-the contract does not authorize dropping mandatory budgets/methods/seeds or silently
-changing the cohort. After Development decisions, record immutable code/config/
+required. The new persistence profile addresses disk cost for138 measured runs, but the
+[all-ready population capacity estimate](implementation-comparison-readiness.md)
+still leaves the full compute gate unresolved. It does not authorize dropping
+mandatory budgets/methods/seeds or silently changing the cohort. After Development decisions, record immutable code/config/
 data/cohort/checkpoint identities and obtain independent lock approval before any
 Final evaluation. This PR neither grants that approval nor exposes a Final runner.
 
