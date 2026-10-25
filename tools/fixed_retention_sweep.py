@@ -85,9 +85,12 @@ def run(args: argparse.Namespace) -> None:
     epoch, sources = selected_sources(study, cohort, profile)
     if runtime_code()["files"] != study["code"]["files"]:
         raise ValueError("Core algorithms changed since the Source study")
-    for candidate in sources.values():
-        if digest(Path(candidate["path"])) != candidate["sha256"]:
+    for seed, candidate in sources.items():
+        # Bind bytes, not the previous machine's absolute filesystem location.
+        path = args.study.parent / f"source-seed{seed}" / f"epoch-{epoch}.pt"
+        if digest(path) != candidate["sha256"]:
             raise ValueError("Source checkpoint changed")
+        sources[seed] = {**candidate, "original_path": candidate["path"], "path": str(path)}
     data = {
         b: CachedInputs(
             args.inputs_root / f"urbanev-SZH-{b}d", cohort["budgets"][str(b)]["manifest_sha256"]
