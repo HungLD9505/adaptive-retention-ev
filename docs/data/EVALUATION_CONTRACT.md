@@ -2,8 +2,9 @@
 
 Report 1 §8.2–8.3 requires original-unit MAE/RMSE, station-first analysis, gain/NTR,
 at least three seeds and uncertainty accounting for station/time dependence. The
-helpers here implement metric accounting only. They do not access Final, choose
-hyperparameters, certify a configuration lock or implement uncertainty intervals.
+helpers implement metric accounting and exploratory paired station/calendar-block
+intervals for selected Development cohorts. They do not access Final, choose
+hyperparameters or certify a configuration/analysis lock.
 
 ## Metric and pairing units
 
@@ -38,8 +39,9 @@ number. Keep `source_checkpoint_only` and ordinary adaptation strata distinct.
 
 `station_first()` requires at least three unique declared seeds. It deliberately
 returns no population interval: station/time dependence needs paired resampling,
-and one smoke station does not support a population-level confidence claim. The
-hierarchical/time-dependent resampling and context/switch analyses remain pending.
+and one smoke station does not support a population-level confidence claim. A separate exploratory station/calendar helper is described below; it does not
+turn this aggregate into a population interval. Full-method uncertainty and
+accepted context/switch analysis definitions remain pending.
 
 The full-method technical smoke has main seed42 only. Source ensemble42/43/44 does
 not satisfy the three-comparison-seed requirement. The additional
