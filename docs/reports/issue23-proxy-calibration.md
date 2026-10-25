@@ -60,8 +60,12 @@ The original Colab queue described below was lost when that kernel was evicted;
 it never produced a completed proxy matrix. All controller backup runs have since
 been recovered and verified. The identified [Kaggle recovery](issue23-runtime-recovery.md)
 now executes this unchanged finite proxy grid at training commit
-`54131cbb8ce47f9d064b80f03956e8e62ec48346`. The most recent UI probe observed
-514/1,104 completed report records and an active Stop execution control. That is
+`54131cbb8ce47f9d064b80f03956e8e62ec48346`. An earlier UI probe observed
+514/1,104 completed report records and an active Stop execution control. A later
+snapshot actually downloaded 529 unique completed reports (288 budget7, 241
+budget14), then uploaded and anonymously hash-read back all 15,646,193 bytes.
+Both saved snapshots are identified in the
+[partial-progress record](issue23-kaggle-partial-progress.json). This is
 partial live progress, not a complete independently verified matrix, selected
 proxy recipe, durable checkpoint backup or a new effectiveness result. The
 [separately saved 149-report snapshot](issue23-kaggle-partial-progress.json)

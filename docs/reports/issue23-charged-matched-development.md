@@ -112,3 +112,17 @@ Never pool Shenzhen into a five-city external-independence claim. The city
 analysis/provenance/cost fixtures pass, including null populations and deliberate
 cross-city/runtime/algorithm contamination. No complete real city matrix has yet
 been analyzed with this command, so those results remain pending.
+
+The analysis implementation at `500e86a73da3ffd439a7c5012bda4a7ae7fa5540`
+and subsequent status documentation at `8ce25160b4a6711b773a3eddca646fb54b9db0ec`
+have 309 local tests/checks and successful Ubuntu/Windows
+[CI40241348810](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40241348810).
+The earlier implementation-only CI was superseded/cancelled by this documentation
+push, not reported as passing. A [shared incremental code bundle](https://drive.google.com/file/d/15XILWZyLxys55aEVqsiZ_kXUhxZqqHYf/view)
+contains that exact HEAD: 22,734 bytes, SHA-256
+`7b0992c53c68d677ae8f048af4bfb656645ff9eed2ec1f1bf917b7c065c114ac`.
+It requires base `b34c97989bf51b224042991ccfa1752b088ffadc`; anonymous
+download reproduced the exact hash and `git bundle verify` passed. This stages
+code availability only: it has not changed the active Kaggle training checkout
+or launched a CHARGED run. Complete primary analysis/export and runtime capacity
+remain execution prerequisites.
