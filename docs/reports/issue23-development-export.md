@@ -133,3 +133,31 @@ proofs, context output, analysis and logs. The original live training checkout i
 unchanged. Those future exports have not run or reached Drive yet; full download,
 restore and independent verification remain required before releasing storage
 or starting storage-heavy subsequent city batches.
+
+## Actual live-Kaggle binary checkpoint download
+
+While the original GPU batch continued, the supported Output-file Download action
+retrieved the first completed run's `run.json`, tick0091 `commit.json` and
+`state.pt`: `urbanev-SZH-1405-7d-source_error-seed42-recipe0`. Selection follows
+the predeclared batch order, not observed accuracy. The report matches its entry
+in the previously saved529-report snapshot. The latest commit hash matches the
+report chain, and the1,971,709-byte checkpoint matches the commit's state hash.
+
+CPU weights-only loading and model/Adam reconstruction passed for all three
+branches, lambda0/0.1/1. Model, optimizer, RNG and step content hashes match the
+report exactly; the original Source10 seed42 checkpoint identity also matches.
+Each branch retains one CUDA RNG state, but no CUDA RNG restoration or GPU resume
+was attempted on the laptop. No local training or prediction substitution.
+
+[Full integrity record](issue23-kaggle-first-checkpoint.json) ·
+[checkpoint/report/commit/proof ZIP](https://drive.google.com/file/d/1hNqnUcR6myCWEQ9Zaqu1Q3Lapz6IYNrF/view).
+The1,604,068-byte package was anonymously downloaded again: archive bytes/hash,
+CRC and all four member fingerprints match, and all three downloaded branch
+content hashes pass CPU checks again. Large checkpoint bytes stay outside Git.
+
+This preserves **one latest state**, not the complete study or a self-contained
+runner Store. Earlier tick directories, all daily forecasts/events and stdout
+were not transferred by this test; do not fabricate empty ticks or claim exact
+resume from this partial package. Complete multipart exports, off-runtime score/
+arrival verification, full state checks and independent teammate reproduction
+remain pending. The live Kaggle checkout was not modified or interrupted.

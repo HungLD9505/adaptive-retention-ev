@@ -1,0 +1,119 @@
+{
+  "scope": "One predeclared first completed Kaggle proxy run latest-state transport and CPU model/optimizer/RNG content integrity; not complete study or exact GPU resume",
+  "run_id": "urbanev-SZH-1405-7d-source_error-seed42-recipe0",
+  "training_code": "54131cbb8ce47f9d064b80f03956e8e62ec48346",
+  "verification_code": "7a45cbc8a7341851edc1d1a1cc63841b47bb07b4",
+  "selection": "First unit in declared proxy batch order, not chosen by error or switch result",
+  "partial_progress_records": 529,
+  "partial_progress_sha256": "fd7dea74a68748ef17170e1f06fa314fbe38ea25b63214ddb4bb8492e526c1aa",
+  "run_report_sha256": "9f0ea951cc316a380e862f2300cd3ceaf473e759c9f4fdf3132610d2a03342ad",
+  "latest_tick": 91,
+  "commit_sha256": "2cfe12feca0fc52abc40936ab067e04a8070ecbf77ad9a810e6e5b159bfecd6f",
+  "checkpoint_bytes": 1971709,
+  "checkpoint_sha256": "ef096f807f45981e9f30037547cf36baf64aae7ffd249a12f00f8199ff9d9849",
+  "source_checkpoint_sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+  "input_binding": {
+    "schema": "ev-checkpoint-input-binding-v1",
+    "feature_schema": "ev-input-v1",
+    "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+    "input_run_id": "urbanev-SZH-7d",
+    "dataset_id": "urbanev",
+    "city_id": "SZH",
+    "stage": "target",
+    "entity_id": "1405",
+    "history_days": 7,
+    "scale_id": "bd766760de1d938acb8f3fe1ed50b5713b2fa3c06f124d4dc5a6ade4cd2836b5",
+    "source_checkpoint_sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b"
+  },
+  "recorded_environment": {
+    "python": "3.13.15",
+    "platform": "Linux-6.18.55+-x86_64-with-glibc2.39",
+    "torch": "2.11.0+cu128",
+    "cuda": "12.8",
+    "device": "cuda",
+    "device_name": "Tesla T4",
+    "deterministic_algorithms": true
+  },
+  "branches": {
+    "0.0": {
+      "content_sha256": "6a320e4a091594eb6f9db13c1b5b09a1659d0b8fafa53c0a4f598ccf84e5d7f7",
+      "optimizer_steps_in_snapshot": 92,
+      "architecture": {
+        "schema": "ev-gru-v1",
+        "layers": 2,
+        "latent_dim": 64,
+        "history_shape": [
+          24,
+          7
+        ],
+        "calendar_shape": [
+          24,
+          5
+        ],
+        "horizon": 24,
+        "dropout": 0,
+        "head_activation": "ReLU",
+        "output_activation": "Softplus",
+        "head_width": 64
+      },
+      "cuda_rng_states_retained": 1
+    },
+    "0.1": {
+      "content_sha256": "a94f1414af9724de5250d8a92d54e8508235d78a34a0202e53675cde02df6c73",
+      "optimizer_steps_in_snapshot": 92,
+      "architecture": {
+        "schema": "ev-gru-v1",
+        "layers": 2,
+        "latent_dim": 64,
+        "history_shape": [
+          24,
+          7
+        ],
+        "calendar_shape": [
+          24,
+          5
+        ],
+        "horizon": 24,
+        "dropout": 0,
+        "head_activation": "ReLU",
+        "output_activation": "Softplus",
+        "head_width": 64
+      },
+      "cuda_rng_states_retained": 1
+    },
+    "1.0": {
+      "content_sha256": "35e7956fd089552b94633662c150dc3f80701c6fcbe4441bdbb42a87c4da63a7",
+      "optimizer_steps_in_snapshot": 92,
+      "architecture": {
+        "schema": "ev-gru-v1",
+        "layers": 2,
+        "latent_dim": 64,
+        "history_shape": [
+          24,
+          7
+        ],
+        "calendar_shape": [
+          24,
+          5
+        ],
+        "horizon": 24,
+        "dropout": 0,
+        "head_activation": "ReLU",
+        "output_activation": "Softplus",
+        "head_width": 64
+      },
+      "cuda_rng_states_retained": 1
+    }
+  },
+  "cpu_models_and_optimizers_reloaded": 3,
+  "no_local_training": true,
+  "gpu_resume_performed": false,
+  "limits": "Only one latest transaction/report saved. Other tick directories, all historical forecasts/events and run stdout have not been transferred by this checkpoint test. This is not a self-contained Store directory or proof of complete score/arrival verification for the study. Full exports and downloaded verifiers remain pending.",
+  "artifact": {
+    "url": "https://drive.google.com/file/d/1hNqnUcR6myCWEQ9Zaqu1Q3Lapz6IYNrF/view",
+    "bytes": 1604068,
+    "sha256": "448dd31c1b23fd5bad061f6a56b8c5760fd997a8094f832197f501949abc226a",
+    "anonymous_readback": "Exact archive hash/bytes, CRC and all4 member fingerprints checked; downloaded state CPU-loaded and three branch content hashes matched again",
+    "teammate_reproduction": "Pending"
+  }
+}
