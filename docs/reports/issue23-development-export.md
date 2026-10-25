@@ -65,8 +65,8 @@ for new proxy/matched/CHARGED runs, where the original logs are available.
 Five independent exporter fixture tests cover byte preservation, declared historical
 omissions, corrupted/extra/symlinked files, binding changes, proof population,
 portable paths and Source checkpoint identity. All 300 local offline tests and
-README lint/format/diff/source-list checks passed. Real controller repack and
-live-study export/transfer/readback remain to be verified; a tested exporter alone
+README lint/format/diff/source-list checks passed. Corrected controller round-trip evidence is recorded below;
+live-study export/transfer/readback remains to be verified; a tested exporter alone
 does not prove that Kaggle outputs have been saved. No Final access or merge.
 
 ## Independent restore and first real trial
@@ -97,6 +97,39 @@ python -m tools.restore_development_export \
 Transport success is followed by `tools.verify_comparison` with the accepted
 input root and `NEW_RESTORED_ROOT/study/matrix.json`, then
 `tools.verify_latest_states` bound to that fresh daily proof. Use new verification
-output paths. Corrected real-data round-trip verification and the live Kaggle
-export/transfer are still pending; neither CRC alone nor successful ZIP creation
-can close that acceptance gate.
+output paths. Corrected real-data round-trip verification is recorded below;
+the live Kaggle export/transfer is still pending. Neither CRC alone nor successful
+ZIP creation can close that acceptance gate.
+
+## Corrected controller round trip verified
+
+| Check | Actual evidence |
+|---|---|
+| Producer / independent restorer code | `143aa74adb91e0425ae41316eee5d6d69ae39a74` / `b34c97989bf51b224042991ccfa1752b088ffadc` |
+| Package | 23 target ZIPs + metadata ZIP + code bundle; 405,799,711 part bytes |
+| Restore | 276 runs, 77,042 files; no overwrites |
+| Post-restore daily/input verification | 276 runs, 51,060 committed files hashed |
+| Daily proof | Byte-identical to the original independently verified controller proof |
+| Post-restore latest-state check | All 276 model/optimizer/RNG states pass |
+| Source checkpoint reload | All three restored Source10 models CPU-loaded/hash-checked; all three original Source stdout files included |
+| Historical target stdout | 276 original per-run stdout files absent from quota-recovery chunks; explicit exception recorded, not invented |
+| Tests / CI | 304 local offline tests and README checks; Ubuntu/Windows CI40240334688 passed for `b34c979` |
+
+[Machine-readable round-trip evidence](issue23-export-roundtrip.json) records exact
+code/catalog/proof identities. The rejected v1 trial remains separate. A small
+summary-harness field lookup failed after valid verifiers finished; the summary
+was corrected to sum per-run file counts, without retraining or replacing any
+verification result. This is an actual byte-preservation and reconstruction test,
+not additional experimental runs or a new scientific effectiveness result.
+
+The [incremental export/restore code bundle](https://drive.google.com/file/d/1mkrh2nmHfAAS9SaFVmil6uvROEj2xRe_/view)
+extends the queued analysis commit `5fa321f` to `b34c979`. It was downloaded without
+account/browser authentication and matched SHA-256
+`69702ab03733525260ebade91dd77b25a8fdd7503d9039a2ff80f9ceb2a7455f`.
+A new Kaggle cell is queued after successful context/proxy analysis. Only then
+will it update the checkout, run its tests/checks and export the completed proxy
+and matched families with their Source/Fixed/controller dependency matrices,
+proofs, context output, analysis and logs. The original live training checkout is
+unchanged. Those future exports have not run or reached Drive yet; full download,
+restore and independent verification remain required before releasing storage
+or starting storage-heavy subsequent city batches.

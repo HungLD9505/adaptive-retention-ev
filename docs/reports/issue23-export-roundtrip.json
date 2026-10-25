@@ -1,0 +1,21 @@
+{
+  "scope": "Actual CPU-only export/restore/reverification of original controller evidence; no training or new experiment outcomes",
+  "status": "roundtrip_verified",
+  "export_code": "143aa74adb91e0425ae41316eee5d6d69ae39a74",
+  "restore_code": "b34c97989bf51b224042991ccfa1752b088ffadc",
+  "catalog_sha256": "4162c7cab4bd8ceefd787ad46c1dccef3c7557bdeb0fe7b48b809d387a7f1f98",
+  "target_runs": 276,
+  "restored_files": 77042,
+  "parts": 25,
+  "part_bytes_sum": 405799711,
+  "sources_cpu_loaded": 3,
+  "original_missing_stdout_logs_explicitly_retained_as_missing": 276,
+  "daily_files_hashed": 51060,
+  "latest_states_cpu_checked": 276,
+  "daily_proof_sha256": "80d2f8251e4f1cd170d0491b853c29afbcefcaf4e0d9e1691bbffc133f8b9786",
+  "latest_state_proof_sha256": "b15b17281d67be0676c8fbf71a0bd89b59aac064f9f668330993ba54aa9f51e1",
+  "daily_proof_byte_identical_to_original": true,
+  "v1_trial": "Rejected by independent restore for duplicate completed-runs.json headers; preserved, not distributed",
+  "summary_harness_note": "A summary-only top-level files_hashed lookup raised KeyError after successful verifier checks; corrected to sum per-run counts. No training or verifier result replacement.",
+  "live_study_export": "Still pending; this is validation of the exporter/restore workflow on earlier completed controller artifacts"
+}
