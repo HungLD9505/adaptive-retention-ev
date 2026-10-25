@@ -67,12 +67,8 @@ class Replay:
     def forecast(self, origin: datetime) -> dict | None:
         return self.forecasts.get(origin)
 
-    def labels(self, origin: datetime, as_of: datetime) -> Labels:
-        """Decode only the requested day, after its scheduled availability lower bound."""
-        if as_of < origin + DAY + self.delay:
-            return Labels("pending", None, origin + DAY + self.delay)
-        # Match identified writer fields before decoding energy arrays. This narrow
-        # adapter consumes the authenticated #18 JSONL representation, not arbitrary JSON.
+    def prepare_label_index(self) -> None:
+        """Index only row identity/time headers; never decode energy arrays."""
         path = self.inputs.root / "labels.jsonl"
         if self._label_offsets is None:
             self._label_offsets = {}
@@ -89,6 +85,15 @@ class Replay:
                         if stamp in self._label_offsets:
                             raise ValueError("Duplicate target label day")
                         self._label_offsets[stamp] = offset
+
+    def labels(self, origin: datetime, as_of: datetime) -> Labels:
+        """Decode only the requested day, after its scheduled availability lower bound."""
+        if as_of < origin + DAY + self.delay:
+            return Labels("pending", None, origin + DAY + self.delay)
+        # Match identified writer fields before decoding energy arrays. This narrow
+        # adapter consumes the authenticated #18 JSONL representation, not arbitrary JSON.
+        path = self.inputs.root / "labels.jsonl"
+        self.prepare_label_index()
         if origin.isoformat() not in self._label_offsets:
             raise ValueError("Expected one identified label record per scheduled origin")
         with path.open("rb") as stream:

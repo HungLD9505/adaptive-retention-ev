@@ -45,6 +45,7 @@ def execute_matrix(
     reused_source_sha: str | None = None,
     seeds: tuple[int, ...] = (42,),
     days: int = 43,
+    source_pool: Path | None = None,
 ) -> dict:
     if not torch.cuda.is_available():
         raise ValueError("Comparison training requires a Colab CUDA runtime")
@@ -61,6 +62,24 @@ def execute_matrix(
         "failures": [],
         "aliases": ablation_aliases(ControllerConfig(**base["controller"]), 0.01),
     }
+    reusable = {}
+    if source_pool:
+        old = json.loads(source_pool.read_text())
+        if old.get("status") != "technical_success":
+            raise ValueError("Source pool must be a successful identified matrix")
+        matrix["source_pool_matrix_sha256"] = digest(source_pool)
+        matrix["execution_profile"] = (
+            "v2: remove unused Source setup and pair random initialization independently of Source loading; preserve old runs"
+        )
+        for entry in old["sources"]:
+            previous = entry.get("run", {})
+            path = (
+                Path(entry["path"])
+                if "path" in entry
+                else source_pool.parent / previous["run_id"] / "final.pt"
+            )
+            checksum = entry.get("checkpoint_sha256", previous.get("checkpoint_sha256"))
+            reusable[(entry["namespace"], entry["seed"])] = (path, checksum)
     started = time.perf_counter()
     try:
         for namespace in namespaces:
@@ -100,6 +119,22 @@ def execute_matrix(
             sources = {}
             # Three source seeds support the explicitly declared uncertainty ensemble.
             for seed in sorted(set(seeds) | {42, 43, 44}):
+                if (namespace, seed) in reusable:
+                    path, checksum = reusable[(namespace, seed)]
+                    if digest(path) != checksum:
+                        raise ValueError("Reused Source pool checkpoint changed")
+                    sources[seed] = (path, checksum)
+                    matrix["sources"].append(
+                        {
+                            "namespace": namespace,
+                            "seed": seed,
+                            "reused": True,
+                            "path": str(path),
+                            "checkpoint_sha256": checksum,
+                            "origin_matrix_sha256": digest(source_pool),
+                        }
+                    )
+                    continue
                 if namespace == "urbanev-SZH" and seed == 42 and reused_source:
                     if not reused_source_sha or digest(reused_source) != reused_source_sha:
                         raise ValueError("Reused Source fingerprint mismatch")
@@ -170,6 +205,7 @@ def execute_matrix(
             for budget in (7, 14, 28):
                 before = time.perf_counter()
                 replay = Replay(inputs[budget], entity, days)
+                replay.prepare_label_index()
                 preparation_seconds = time.perf_counter() - before
                 for seed in seeds:
                     for name in METHODS:
@@ -257,6 +293,7 @@ def main() -> None:
     parser.add_argument("--reused-source-sha256")
     parser.add_argument("--seeds", type=int, nargs="+", default=[42])
     parser.add_argument("--days", type=int, default=43)
+    parser.add_argument("--source-pool", type=Path)
     args = parser.parse_args()
     execute_matrix(
         args.inputs_root.resolve(),
@@ -266,6 +303,7 @@ def main() -> None:
         reused_source_sha=args.reused_source_sha256,
         seeds=tuple(args.seeds),
         days=args.days,
+        source_pool=args.source_pool,
     )
 
 

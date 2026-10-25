@@ -107,7 +107,7 @@ class Policy:
     def __init__(
         self,
         method: Method,
-        reference: ForecastGRU,
+        reference: ForecastGRU | None,
         *,
         initial_records: list[dict],
         device: str,
@@ -122,8 +122,11 @@ class Policy:
         if any(
             model.training or any(p.requires_grad for p in model.parameters())
             for model in (reference, *ensemble)
+            if model is not None
         ):
             raise ValueError("Proxy Source estimators must be frozen in evaluation mode")
+        if method.name == "source_error" and reference is None:
+            raise ValueError("Source-error proxy requires its frozen Source")
         if method.name == "uncertainty" and len(ensemble) < 3:
             raise ValueError("Uncertainty proxy requires at least three identified source members")
         self.signals = []
@@ -196,8 +199,13 @@ class Policy:
         c = torch.tensor([record["c_future"]], dtype=torch.float32, device=self.device)
         with torch.no_grad():
             if name == "source_error":
-                return {"source_prediction": self.reference(x, c)[0].cpu().tolist()}
+                prediction = self.reference(x, c)[0]
+                if not torch.isfinite(prediction).all():
+                    raise ValueError("Nonfinite frozen-Source forecast")
+                return {"source_prediction": prediction.cpu().tolist()}
             members = torch.stack([model(x, c)[0] for model in self.ensemble])
+            if not torch.isfinite(members).all():
+                raise ValueError("Nonfinite uncertainty-member forecast")
             signal = members.std(0, correction=0).mean().item()
         self.signals.append({"origin": origin, "value": signal, "available_at": origin})
         return {"signal": signal}

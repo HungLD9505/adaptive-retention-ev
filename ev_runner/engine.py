@@ -33,8 +33,8 @@ class Runner:
         self,
         replay: ReplaySource,
         initial: Branch,
-        reference: ForecastGRU,
-        latent_scale: torch.Tensor,
+        reference: ForecastGRU | None,
+        latent_scale: torch.Tensor | None,
         controller: ControllerConfig,
         training: TrainingConfig,
         store: Store,
@@ -74,7 +74,7 @@ class Runner:
             )
         }
         self.steps = self.audit_steps = 0
-        self.reference_sha = state_digest(reference.state_dict())
+        self.reference_sha = state_digest(reference.state_dict()) if reference is not None else None
         if store.restored is not None:
             self.restore(store.restored)
 
@@ -398,7 +398,10 @@ class Runner:
             )
         elif as_of < self.replay.stop:
             events.append({"event": "skip_all_missing_history", "origin": as_of.isoformat()})
-        if state_digest(self.reference.state_dict()) != self.reference_sha:
+        if (
+            self.reference is not None
+            and state_digest(self.reference.state_dict()) != self.reference_sha
+        ):
             raise ValueError("Frozen source mutated")
         self.next_at += DAY
         self.store.commit(transaction, self.snapshot(), events)

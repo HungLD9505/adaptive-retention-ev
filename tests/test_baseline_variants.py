@@ -246,6 +246,40 @@ class BaselineTests(unittest.TestCase):
                 )
                 self.assertEqual(state_digest(runner.snapshot()), state_digest(restored.snapshot()))
 
+    def test_source_free_naive_runner_needs_no_source_model(self):
+        replay = fixtures.FixtureReplay()
+        replay.forecast = lambda at: self.record(at)
+        policy = Policy(Method("seasonal_naive"), None, initial_records=[], device="cpu")
+        runner = Runner(
+            replay,
+            SeasonalNaive([]),
+            None,
+            None,
+            self.controller,
+            self.fixture.training,
+            Store(self.fixture.root / "no-source", {"method": "naive"}),
+            device="cpu",
+            stream_id="no-source",
+            policy=policy,
+        )
+        runner.run_until(self.start + 2 * DAY)
+        self.assertIsNone(runner.reference_sha)
+        self.assertEqual(runner.steps, 0)
+
+    def test_nonfinite_uncertainty_fails_before_storing_signal(self):
+        models = [frozen_reference(self.fixture.initial.model) for _ in range(3)]
+        models[0].forward = lambda *args: torch.full((1, 24), float("nan"))
+        policy = Policy(
+            Method("uncertainty"),
+            models[1],
+            initial_records=[],
+            device="cpu",
+            ensemble=tuple(models),
+        )
+        with self.assertRaisesRegex(ValueError, "Nonfinite"):
+            policy.predict(self.record())
+        self.assertEqual(policy.signals, [])
+
     def test_required_methods_are_named_and_invalid_mapping_rejected(self):
         self.assertTrue(
             set(

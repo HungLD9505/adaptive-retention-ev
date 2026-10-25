@@ -107,30 +107,41 @@ def execute(
         raise ValueError("Prepared replay differs from this run's input/entity/horizon")
     seed_everything(initial_config.seed)
     started = time.perf_counter()
-    source_model, _, source_value = load_checkpoint(source, sha256=source_sha, device=device)
-    meta = source_value["metadata"]
-    if (
-        meta["input_binding"]["stage"] != "source"
-        or meta["source_population_sha256"] != inputs.source_hash
-        or meta["training_config"]["seed"] != initial_config.seed
-        or source_model.architecture()["head_width"] != initial_config.head_width
-    ):
-        raise ValueError("Source provenance/population/seed/architecture mismatch")
-    latent = source_value["latent_scale"]
-    if (
-        latent is None
-        or latent.shape != (64,)
-        or not torch.isfinite(latent).all()
-        or (latent < 0).any()
-    ):
-        raise ValueError("Missing/invalid fixed source-derived latent scale")
-    reference = frozen_reference(source_model)
+    needs_source = method.name not in {"target_only", "seasonal_naive"}
+    source_model = reference = latent = None
+    if needs_source:
+        source_model, _, source_value = load_checkpoint(source, sha256=source_sha, device=device)
+        meta = source_value["metadata"]
+        if (
+            meta["input_binding"]["stage"] != "source"
+            or meta["source_population_sha256"] != inputs.source_hash
+            or meta["training_config"]["seed"] != initial_config.seed
+            or source_model.architecture()["head_width"] != initial_config.head_width
+        ):
+            raise ValueError("Source provenance/population/seed/architecture mismatch")
+        latent = source_value["latent_scale"]
+        if (
+            latent is None
+            or latent.shape != (64,)
+            or not torch.isfinite(latent).all()
+            or (latent < 0).any()
+        ):
+            raise ValueError("Missing/invalid fixed source-derived latent scale")
+        reference = frozen_reference(source_model)
+    # Random target initializations use a seed independent of Source-loading side effects.
+    seed_everything(initial_config.seed)
     model = (
-        adapt_model(source_model)
+        None
+        if method.name == "seasonal_naive"
+        else adapt_model(source_model)
         if method.source_initialization
         else ForecastGRU(ModelConfig(initial_config.head_width)).to(device)
     )
-    optimizer = torch.optim.Adam(model.parameters(), lr=initial_config.learning_rate)
+    optimizer = (
+        torch.optim.Adam(model.parameters(), lr=initial_config.learning_rate)
+        if model is not None
+        else None
+    )
     initial_records = inputs.training("development", entity_id)
     initial_logs = []
     for epoch in range(initial_config.epochs):
@@ -204,7 +215,8 @@ def execute(
         "environment": environment(device),
         "code_files": code["files"],
         "source_population_sha256": inputs.source_hash,
-        "latent_sha256": state_digest(latent),
+        "latent_sha256": state_digest(latent) if latent is not None else None,
+        "source_checkpoint_used": needs_source,
         "method": json.loads(json.dumps(asdict(method))),
         "uncertainty_members": member_ids,
     }

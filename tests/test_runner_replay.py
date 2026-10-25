@@ -38,6 +38,15 @@ class ReplayTests(unittest.TestCase):
         self.assertEqual(outcome.status, "pending")
         self.assertIsNone(outcome.values)
 
+    def test_metadata_index_never_decodes_future_label_values(self):
+        replay = Replay(self.inputs, "005", 2)
+        with patch(
+            "ev_runner.replay.json.loads",
+            side_effect=AssertionError("Label values decoded during metadata indexing"),
+        ):
+            replay.prepare_label_index()
+        self.assertEqual(replay.labels(replay.start, replay.start + DAY).status, "complete")
+
     def test_final_source_and_outside_horizon_fail(self):
         for entity in ("001", "003"):
             if (

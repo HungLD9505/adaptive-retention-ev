@@ -91,8 +91,8 @@ class Branch:
         weight: float,
         config: TrainingConfig,
         device: str,
-        reference: ForecastGRU,
-        latent_scale: torch.Tensor,
+        reference: ForecastGRU | None,
+        latent_scale: torch.Tensor | None,
         event_index: int,
     ) -> list[dict]:
         restore_rng(self.rng)
