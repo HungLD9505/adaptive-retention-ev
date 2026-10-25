@@ -10,7 +10,8 @@
       "bytes": 413893,
       "sha256": "686c9adf4b56d834787f98dd47d80059e214b7d57192bc4e0778c02a13ef0393",
       "readback": "byte-identical",
-      "access": "Drive metadata shared=true; second-account download not independently tested"
+      "access": "Anonymous link download verified; independent reproduction on another team machine not yet performed",
+      "anonymous_readback": "Exact size/SHA-256 verified using a fresh non-browser download without cookies or authentication"
     },
     {
       "name": "matrix.json",
@@ -19,7 +20,8 @@
       "bytes": 5398503,
       "sha256": "a28df0ff1a2528a4ca4675599b9fa0091dbec7370d845db11697593eeba61fdc",
       "readback": "byte-identical",
-      "access": "Drive metadata shared=true; second-account download not independently tested"
+      "access": "Anonymous link download verified; independent reproduction on another team machine not yet performed",
+      "anonymous_readback": "Exact size/SHA-256 verified using a fresh non-browser download without cookies or authentication"
     },
     {
       "name": "selection.json",
@@ -28,7 +30,8 @@
       "bytes": 5536,
       "sha256": "d93f94ff47c9b18c8f0a052f27acb3949e13c95d9c33e2b425654e6ea9a5898d",
       "readback": "byte-identical",
-      "access": "Drive metadata shared=true; second-account download not independently tested"
+      "access": "Anonymous link download verified; independent reproduction on another team machine not yet performed",
+      "anonymous_readback": "Exact size/SHA-256 verified using a fresh non-browser download without cookies or authentication"
     },
     {
       "name": "verification.json",
@@ -37,7 +40,8 @@
       "bytes": 105240,
       "sha256": "80d2f8251e4f1cd170d0491b853c29afbcefcaf4e0d9e1691bbffc133f8b9786",
       "readback": "byte-identical",
-      "access": "Drive metadata shared=true; second-account download not independently tested"
+      "access": "Anonymous link download verified; independent reproduction on another team machine not yet performed",
+      "anonymous_readback": "Exact size/SHA-256 verified using a fresh non-browser download without cookies or authentication"
     },
     {
       "name": "latest-states-verified.json",
@@ -46,7 +50,8 @@
       "bytes": 124673,
       "sha256": "b15b17281d67be0676c8fbf71a0bd89b59aac064f9f668330993ba54aa9f51e1",
       "readback": "byte-identical",
-      "access": "Drive metadata shared=true; second-account download not independently tested"
+      "access": "Anonymous link download verified; independent reproduction on another team machine not yet performed",
+      "anonymous_readback": "Exact size/SHA-256 verified using a fresh non-browser download without cookies or authentication"
     },
     {
       "name": "download-registry.json",
@@ -55,7 +60,19 @@
       "bytes": 6910,
       "sha256": "6f7c9ee93b7a2c5c93af63b8734664eba1577ff875a35d268b12795963675070",
       "readback": "byte-identical",
-      "access": "Drive metadata shared=true; second-account download not independently tested"
+      "access": "Anonymous link download verified; independent reproduction on another team machine not yet performed",
+      "anonymous_readback": "Exact size/SHA-256 verified using a fresh non-browser download without cookies or authentication"
+    },
+    {
+      "name": "issue23-analysis-extensions-5fa321f.bundle",
+      "drive_id": "1aj2SL0mRsz3gBcfUvEf59POs6PY4lfAc",
+      "url": "https://drive.google.com/file/d/1aj2SL0mRsz3gBcfUvEf59POs6PY4lfAc/view",
+      "bytes": 34831,
+      "sha256": "edc0d2679161139c145da928eb2c265f0543b68a2484cebf0d5d0e15745a24f0",
+      "readback": "byte-identical anonymous download",
+      "base_commit": "54131cbb8ce47f9d064b80f03956e8e62ec48346",
+      "target_commit": "5fa321fea2c9097d92d0d4fc4e6965ff05f059cf",
+      "access": "Anonymous link download verified"
     }
   ]
 }

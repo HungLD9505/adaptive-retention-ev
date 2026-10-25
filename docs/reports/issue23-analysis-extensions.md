@@ -57,7 +57,7 @@ load-density metrics, also supply:
 ```
 
 [Download the complete context output](https://drive.google.com/file/d/1CKJzrTO24nCEDa_gnNB8Km1TpuNlhJ29/view).
-[Exact hashes, sizes and six-file byte-identical Drive readback](issue23-recovery-context-artifacts.json)
+[Exact hashes, sizes and byte-identical Drive readback](issue23-recovery-context-artifacts.json)
 also cover the reconstructed controller matrix, selection, daily proof, latest-state
 proof and original backup registry. Drive metadata reports shared=true; independent
 download using another team account remains untested.
@@ -80,3 +80,27 @@ An adverse-switch margin has not been independently locked; retain descriptive
 new-minus-old audit gaps without declaring a harmful-switch rate. Recovery time is
 not invented without an identified stress/intervention onset. Sparse/dense
 thresholds and all analysis definitions require review before any Final lock.
+
+## Committed verification and remote staging
+
+Implementation `5fa321fea2c9097d92d0d4fc4e6965ff05f059cf` passed all 295
+local fixture tests, lint/format/diff checks and [Ubuntu/Windows CI40237694408](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40237694408).
+The full stored context output was then re-authenticated against all 21 fresh
+namespace/budget metadata groups; every group matched exactly. No model training
+was performed by these local checks.
+
+All six shared recovery/context files and the incremental analysis code bundle
+were downloaded without browser cookies or account authentication; their sizes
+and SHA-256 identities matched. This now verifies anonymous-link retrieval, not
+independent reproduction by another developer. The bundle extends the pinned
+training commit and has SHA-256
+`edc0d2679161139c145da928eb2c265f0543b68a2484cebf0d5d0e15745a24f0`.
+
+A new Kaggle cell is queued behind the current complete primary batch. It requires
+a successful prior batch exit before checking out this newer analysis code, runs
+its fixtures/checks, downloads/authenticates the context output, CPU-checks every
+latest proxy/matched target state, then writes a new context/proxy summary. It
+does not update the active GPU checkout or overwrite earlier analysis outputs.
+The queued cell has not executed yet. A private Quick Save with output was
+requested at the 116-run calibration observation; do not claim uninspected
+snapshot contents or future outputs as verified durable backups.
