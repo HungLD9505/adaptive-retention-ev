@@ -126,3 +126,48 @@ download reproduced the exact hash and `git bundle verify` passed. This stages
 code availability only: it has not changed the active Kaggle training checkout
 or launched a CHARGED run. Complete primary analysis/export and runtime capacity
 remain execution prerequisites.
+
+## Authenticated preparation/capacity accounting
+
+The [metadata/file-byte accounting](issue23-charged-capacity.json) rechecked all18
+accepted input manifests and every named artifact's current size/SHA-256. It
+recomputed each city's Source population identity, then counted Source training
+examples from entity metadata only. No training/forecast/label value arrays or
+Final results were decoded, and no model was fitted locally. The shared accounting
+file was anonymously downloaded with identical bytes/hash.
+
+| City, prescribed order | Source metadata IDs | Expected examples per Source epoch | Expected Source Adam steps, three seeds ×10 epochs | Prepared inputs, all three budgets (GiB) | Target replays, 14 variants ×3 seeds |
+|---|---:|---:|---:|---:|---:|
+| JHB | 26 | 2,340 | 1,110 | 0.087 | 378 |
+| SPO | 29 | 2,610 | 1,230 | 0.086 | 378 |
+| MEL | 34 | 3,060 | 1,440 | 0.116 | 378 |
+| LOA | 137 | 12,330 | 5,790 | 0.420 | 378 |
+| SZH | 886 | 79,740 | 37,380 | 2.652 | 378 |
+| AMS | 1,496 | 134,640 | 63,120 | 4.290 | 378 |
+
+With the provisional Source10 recipe, this is18 new Source models,234,720 examples
+per combined epoch,7,041,600 example visits and110,070 optimizer steps. Each city
+trains its three Sources once and reuses them across budgets/methods. Do not train
+nine Sources per city or reuse UrbanEV weights. These are expected metadata counts,
+not completed GPU training or measured throughput/convergence. Actual Source
+reports must confirm their own counts. The primary summary, not this table, binds
+the executed recipe. A distinct mean-margin/bridge requirement would raise the
+target total from2,268 to2,592; it must never be silently omitted.
+
+The six ZIPs total485,681,392 bytes, while manifests plus named extracted artifacts
+total8,214,763,664 bytes (7.651GiB), before filesystem/archive overhead and any
+model/run/export files. AMS alone requires4.290GiB for these inputs. The observed
+Kaggle working-output allowance is19.5GiB, already partly occupied by the primary
+studies. A ZIP's small download size is not evidence that all expanded inputs and
+complete outputs fit together.
+
+Stage one city at a time and measure current free space before extraction and
+training. Export/download/hash-verify a completed city's full artifacts before
+releasing any regenerable runtime copies to make room. Never delete raw archives
+or the sole untransferred forecasts/checkpoints. A successful compact controller
+archive trial does not guarantee future city output size. Peak RAM, full runtime,
+upload/restore overhead and actual remaining GPU quota remain measured gates;
+there is no promised city completion time or full Final capacity acceptance.
+The earlier all-ready Final extrapolation and its explicit shortfall remain in
+the implementation-comparison readiness report; this smaller predeclared
+Development cohort does not replace that unresolved Final scope.
