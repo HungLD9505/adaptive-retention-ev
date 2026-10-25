@@ -39,3 +39,8 @@ paired station/calendar-block intervals, weekday/weekend summaries, continuous
 history coverage, switching reasons and descriptive isolated-audit gaps. Analysis
 is independent of controller decisions; it cannot modify predictions or select a
 Final configuration. No sparse/dense or harmful-switch threshold is invented.
+
+Memory accounting limit: these readiness/core drivers do not reset CUDA peak
+counters between cells. Saved peak values are process high-water observations, not
+isolated per-method memory benchmarks. Do not rank methods by them. A separate
+reset/isolation measurement is still needed for the final cost comparison.

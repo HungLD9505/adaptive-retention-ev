@@ -251,6 +251,7 @@ def analyze(args: argparse.Namespace) -> None:
                 d["selected_lambda"] != d["active_lambda"] for r in subset for d in r["decisions"]
             ),
             "gpu_peak_allocated_bytes_max": max(r["gpu_peak_allocated_bytes"] for r in subset),
+            "gpu_memory_scope": "Process high-water observations; no reset between these driver cells, not isolated per-method peaks",
             "cost_components_sum": {
                 k: sum(r["cost"][k] for r in subset) for k in subset[0]["cost"]
             },
