@@ -56,6 +56,20 @@ partial batch resume orchestration remains manual with identified checkpoints.
 
 ## Current status
 
+The original Colab queue described below was lost when that kernel was evicted;
+it never produced a completed proxy matrix. All controller backup runs have since
+been recovered and verified. The identified [Kaggle recovery](issue23-runtime-recovery.md)
+now executes this unchanged finite proxy grid at training commit
+`54131cbb8ce47f9d064b80f03956e8e62ec48346`. The most recent UI probe observed
+514/1,104 completed report records and an active Stop execution control. That is
+partial live progress, not a complete independently verified matrix, selected
+proxy recipe, durable checkpoint backup or a new effectiveness result. The
+[separately saved 149-report snapshot](issue23-kaggle-partial-progress.json)
+preserves earlier progress metadata only. Full downstream references/analysis
+and artifact transfer remain gated on successful completion and verification.
+
+Historical staging snapshot:
+
 260 independent fixture tests passed locally and on Colab, with local lint/format/
 diff checks. The actual code is `5ad9db6ad2f4137021a05a44fd0290bbdb9afac9`.
 Ubuntu/Windows CI passed for this code. Proxy/parameter calibration is staged in

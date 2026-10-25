@@ -4,6 +4,13 @@ Issue #23, independent Qyroven implementation, PR #52. Pre-execution declaration
 this is a finite joint recipe search on the existing identified UrbanEV Development
 cohort, not a new plan, a convergence claim or a Final configuration lock.
 
+**Current execution status:** all 276 original controller runs were recovered and
+independently verified after Colab eviction. See the [recovery/results record](issue23-runtime-recovery.md)
+for all four scores, original-artifact identities and the missing original loop
+timer. Recipe1 is provisional; it does not beat selected Fixed Retention on this
+cohort. The Colab queue/progress descriptions below are historical snapshots;
+those workers are gone. Downstream proxy calibration now runs on Kaggle.
+
 Reuse the verified Source-duration study and recompute its provisional choice
 (currently 10 epochs). Authenticate all Source checkpoints, profile, cohort and
 unchanged core algorithm hashes before starting. No Hùng implementation or weights
