@@ -99,3 +99,24 @@ Source/input/config when needed. This changes persistence, not forecasts, SGD,
 controller decisions or audit behavior. Fixture parity, crash/failure and exact
 resume checks are required; real CUDA resume and measured storage savings are
 recorded only after execution. This policy is proposed for review before Final.
+
+## Exploratory Development uncertainty implementation
+
+`paired_station_time_interval` resamples station IDs and circular blocks on the
+full scheduled calendar. One shared calendar draw per replicate preserves common
+calendar shocks across sampled stations; missing dates remain missing. Paired seed
+errors are averaged within station/day first, then days within station and stations
+equally. Seeds are fixed replications, not independent station samples. The estimator
+is the original-unit method-minus-comparator MAE gap. It is distinct from the
+controller's one-sided normalized LCB and cannot affect deployed predictions.
+
+The proposed analysis profile fixes seven-day segments,2,000 draws,95% two-sided
+marginal percentile intervals with linear quantiles and seed20261026. It is an
+exploratory Development definition, not an approved Final analysis lock. If any
+replicate has an empty sampled station mean, the interval is null and the count is
+reported; no zero filling or hidden repeated redraws. Small/nonrandom/possibly
+colocated IDs, circular seams, nonstationarity and multiple comparisons limit
+interpretation. Do not interpret such intervals as population guarantees or use
+significance claims to select a favorable setting. Weekday/weekend summaries and
+continuous valid-history coverage are descriptive; sparse/dense thresholds and
+harmful-switch margins still require Development decisions.

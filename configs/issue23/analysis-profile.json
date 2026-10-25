@@ -1,0 +1,15 @@
+{
+  "scope": "Exploratory Development post-hoc analysis, not a Final lock or controller change",
+  "seeds": [42, 43, 44],
+  "station_weighting": "Equal station after paired seed mean; retain budget/initialization strata",
+  "bootstrap": {
+    "segment_days": 7,
+    "resamples": 2000,
+    "alpha": 0.05,
+    "seed": 20261026
+  },
+  "bootstrap_rationale": "Weekly calendar blocks; common calendar draws across stations; fixed paired seeds; gaps stay missing",
+  "multiple_comparisons": "No simultaneous correction; exploratory marginal intervals only",
+  "contexts": ["weekday", "weekend"],
+  "audit": "Descriptive normalized new-minus-old gaps only; no harmful-switch threshold or recovery time invented"
+}
