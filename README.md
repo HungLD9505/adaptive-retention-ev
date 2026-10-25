@@ -21,6 +21,10 @@ The [input policy](docs/data/INPUT_ACCEPTANCE.md) defines masks, coverage gates,
 3. Review the [foundation handoff report](docs/FOUNDATION_REPORT.md).
 4. Use [Report 1](adaptive_retention_report_1.pdf) as the unchanged method reference.
 
+The [confidence-controller contract](docs/data/CONTROLLER_CONTRACT.md) describes the
+independent #20 helper, bootstrap profile, availability gates and #21 integration
+boundary. Its example configuration is not a Final lock.
+
 ## Environment setup
 
 Use **Python 3.12**. Do not copy virtual environments or compiled dependencies between machines.
