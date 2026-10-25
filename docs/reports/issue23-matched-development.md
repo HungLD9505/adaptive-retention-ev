@@ -73,10 +73,12 @@ invented automatic guarantee.
 
 ## Status and remaining scope
 
-264 local fixture tests pass with Ruff lint/format and diff checks. The matched
-CLI is implemented but has not run at this declaration commit. It will be staged
-in the serial Colab queue after existing calibration, with remote tests required
-before execution. No laptop real-data training, Final evaluation or merge.
+264 fixture tests pass locally and on Colab with local Ruff lint/format and diff
+checks. Ubuntu/Windows CI passed for code
+`81334d25d6bb91561c8b4396e24425e2e046eb20` (run 40232042288). The matched
+CLI is implemented and staged in a third serial worker, but real-data matched
+training has not started at this snapshot. It waits for both calibration stages
+to finish and verify/export successfully; a failed upstream worker prohibits launch. No laptop real-data training, Final evaluation or merge.
 
 The selected UrbanEV cohort is small and nonrandom, budget IDs differ and physical
 co-location may remain. Development calibration/comparisons cannot replace Final
@@ -85,3 +87,19 @@ Development experiments under the accepted upstream/time/overlap limitations;
 never pool datasets/cities or present Shenzhen as independent geographic validation.
 Exact feasible cross-dataset/Final capacity and independent immutable lock remain
 unresolved acceptance gates, not grounds for silently removing mandatory scope.
+
+## Actual serial staging identity
+
+Code increment SHA-256: `1b858dd7adcbf10503d8ca04a3ac317e07dab96d17384fa17c215ab4b4b4a66a`.
+Checkout `/content/ev-issue23-matched-development` is a clean exact checkout of the
+recorded commit, cloned from the existing proxy checkout and advanced by that
+identified increment. Fresh output is
+`/content/qyroven-i23-matched-development-20261026-v1`.
+The notebook's `MD_THREAD` was observed alive, waiting for the live `CAL_THREAD`;
+controller process was still live at 99/276 runs. Eight 12-run backup chunks had
+owner-Drive byte/hash readback at that snapshot. This is ongoing work, not a
+completed matrix, server flush, second-account distribution or model ranking.
+The third worker performs independent daily artifact verification and exports
+coverage/config/code/source/log evidence after its own successful completion.
+All selected-row collection, paired origin-set checks and scientific analysis
+remain required after these staged jobs finish.
