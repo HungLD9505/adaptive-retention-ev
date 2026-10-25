@@ -29,6 +29,11 @@ The [prequential-runner contract](docs/data/PREQUENTIAL_RUNNER.md) documents #21
 candidate state, causal event order, isolated audit and daily resume. Its
 [handoff](docs/reports/issue21-qyroven.md) records the actual Development smoke scope.
 
+The [baseline contract](docs/data/BASELINE_CONTRACT.md) defines the nine comparisons,
+ablation aliases, proxy estimators and calibration limits. Its
+[execution handoff](docs/reports/issue22-qyroven.md) distinguishes real Development
+smoke from pending scientific validation and Final configuration approval.
+
 ## Environment setup
 
 Use **Python 3.12**. Do not copy virtual environments or compiled dependencies between machines.
