@@ -54,23 +54,69 @@ Per-run GPU peaks reset after common preparation. Latest states and all daily
 forecast/event commit chains, logs and costs are retained. Preserve failed runs;
 partial batch resume orchestration remains manual with identified checkpoints.
 
-## Current status
+## Completed Kaggle calibration — 2026-10-26
 
-The original Colab queue described below was lost when that kernel was evicted;
-it never produced a completed proxy matrix. All controller backup runs have since
-been recovered and verified. The identified [Kaggle recovery](issue23-runtime-recovery.md)
-now executes this unchanged finite proxy grid at training commit
-`54131cbb8ce47f9d064b80f03956e8e62ec48346`. An earlier UI probe observed
-514/1,104 completed report records and an active Stop execution control. A later
-snapshot actually downloaded 529 unique completed reports (288 budget7, 241
-budget14), then uploaded and anonymously hash-read back all 15,646,193 bytes.
-Both saved snapshots are identified in the
-[partial-progress record](issue23-kaggle-partial-progress.json). This is
-partial live progress, not a complete independently verified matrix, selected
-proxy recipe, durable checkpoint backup or a new effectiveness result. The
-[separately saved 149-report snapshot](issue23-kaggle-partial-progress.json)
-preserves earlier progress metadata only. Full downstream references/analysis
-and artifact transfer remain gated on successful completion and verification.
+All **1,104/1,104** declared GPU replays completed at clean training commit
+`54131cbb8ce47f9d064b80f03956e8e62ec48346`, on one visible Tesla T4,
+PyTorch 2.11.0+cu128 / CUDA12.8 / Python3.13.15. The matrix records
+6,894.114 seconds inside its replay loop; the enclosing CLI log records
+6,903.310 seconds including startup. These are different timer boundaries.
+
+The Kaggle verifier authenticated **204,240 daily files**, preserving 528 null
+metric cells and 100,464 explicitly omitted historical checkpoint states.
+Downloaded complete matrix/proof pairs pass local population, chain, original-unit
+metric and exact finite-selection authentication. All configurations, paired
+seeds 42/43/44 and the declared cohort remain present. Full daily-file bytes and
+all latest states have **not yet been restored independently off-runtime**.
+A metadata/proof package is not a complete checkpoint or runtime backup.
+
+Conditional Development MAE in kWh; first average paired seeds within station,
+then stations within budget, then the three budget means with equal weight:
+
+| Method | Recipe | 7-day | 14-day | 28-day | Equal-budget score |
+|---|---|---:|---:|---:|---:|
+| `source_error` | 0 | 4.846813 | 5.122739 | 5.526969 | 5.165507 |
+| `source_error` | 1 (selected) | 4.846813 | 5.097881 | 5.526969 | 5.157221 |
+| `source_error` | 2 | 4.846813 | 5.124246 | 5.526438 | 5.165833 |
+| `source_error` | 3 | 4.846813 | 5.125298 | 5.527072 | 5.166394 |
+| `uncertainty` | 0 | 4.846813 | 5.120451 | 5.527689 | 5.164984 |
+| `uncertainty` | 1 (selected) | 4.846813 | 5.120451 | 5.524383 | 5.163882 |
+| `uncertainty` | 2 | 4.868027 | 5.131363 | 5.507635 | 5.169008 |
+| `uncertainty` | 3 | 4.865187 | 5.149291 | 5.539207 | 5.184562 |
+| `drift` | 0 | 4.840610 | 5.133121 | 5.528256 | 5.167329 |
+| `drift` | 1 | 4.880524 | 5.140137 | 5.524177 | 5.181613 |
+| `drift` | 2 | 4.863003 | 5.147602 | 5.537566 | 5.182724 |
+| `drift` | 3 (selected) | 4.889842 | 5.100598 | 5.508642 | 5.166361 |
+| `parameter_retention` | 0 | 4.899140 | 5.144953 | 5.527040 | 5.190378 |
+| `parameter_retention` | 1 | 4.899149 | 5.144950 | 5.527041 | 5.190380 |
+| `parameter_retention` | 2 (selected) | 4.899126 | 5.144972 | 5.526255 | 5.190118 |
+| `parameter_retention` | 3 | 4.899932 | 5.144638 | 5.527435 | 5.190668 |
+
+Only 3/4/5 IDs have scored labels by budget; the other 3/4/4 IDs remain unscored,
+not zero-error or dropped successes. The selected proxy recipes are 1/1/3 for
+Source error/uncertainty/drift, and parameter recipe 2 uses the 0.1/1 pair.
+Recipe order and meanings are defined above; these are conditional tuning
+choices, not evidence of optimality, convergence or independent effectiveness.
+Some recipe scores differ very little and selection is sensitive to this small,
+nonrandom cohort. No grid was extended after observing these outcomes.
+
+Fresh matched Kaggle Adaptive/FT/Fixed references and remaining baseline/ablation
+runs are now executing in the original serial batch. Do not pool prior Colab
+target scores into a cross-runtime ranking. Full matched analysis, uncertainty,
+proxy relationships, state verification, multipart transfer and CHARGED replication
+remain pending. No Final lock/evaluation, local training or autonomous merge.
+
+[Exact results, identities and remaining limits](issue23-proxy-calibration-evidence.json)
+· [complete calibration metadata/proofs package](https://drive.google.com/file/d/159MLuJqqhqAuutBnsx3kGZohmtZMKbjb/view).
+Anonymous readback passed exact bytes/hash, ZIP CRC and every member fingerprint.
+Earlier 149/529 partial snapshots remain unchanged historical progress evidence.
+
+The controller dependency has a different reconstruction-envelope hash on Kaggle:
+`63018fae…` versus local recovery `a28df0ff…`. Investigation found all 276 original
+run rows identical. Only three absolute checkpoint paths, the reconstruction-code
+commit and its elapsed time differ. Both original matrix/proof pairs and the five
+leaf differences are preserved; expected hashes were not edited to hide the
+mismatch. This calibration binds the exact Kaggle envelope and its matching proof.
 
 Historical staging snapshot:
 

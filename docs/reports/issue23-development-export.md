@@ -186,6 +186,17 @@ can retain more roots. Use per-namespace verification when memory is constrained
 exact proof parity with the streaming path, one input-byte read across repeated
 runs, rejection of changed input files/manifest requests and changes during daily
 checks, and rejection of Final targets without decoding unrelated Final arrays.
-A complete real-controller parity/timing run remains pending at this code commit.
-No running Kaggle checkout or command was changed; this option is for subsequent
-explicit verification calls after its real-data checks pass.
+A full real-controller comparison at clean commit `4361d50` now passes: all 276
+per-run proofs are identical, including 51,060 daily files and 752 audit scores.
+The streaming proof is byte-identical to the previously archived audit proof.
+Observed sequential local CPU wall times were 31.961 seconds streaming and 7.629
+seconds with snapshots; macOS maximum resident sizes were 55,787,520 versus
+427,966,464 bytes. Raw snapshots total 352,794,828 bytes. Streaming ran first;
+OS cache and other process load confound timings, so this is not a controlled
+universal speedup claim or a projection of GPU experiment capacity.
+
+[Complete proof/log/parity package](https://drive.google.com/file/d/1gzbvt98A8Mttl5UT0OPExFIxS31SsC8B/view)
+passed anonymous bytes/hash/CRC and all member checks. Its fingerprints and scope
+are in the [calibration evidence record](issue23-proxy-calibration-evidence.json).
+No running Kaggle checkout or command was changed; this option remains for later
+explicit verification calls, not a claim that the live batch used the cache.
