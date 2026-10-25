@@ -122,3 +122,26 @@ interpretation. Do not interpret such intervals as population guarantees or use
 significance claims to select a favorable setting. Weekday/weekend summaries and
 continuous valid-history coverage are descriptive; sparse/dense thresholds and
 harmful-switch margins still require Development decisions.
+
+## Prefix load-density grouping proposal for Development
+
+Report 1 requires sparse/dense analysis groups with thresholds established on
+Development. `tools.development_contexts` proposes an explicit descriptive rule:
+for each namespace and history budget separately, compute the fraction of valid
+initial-prefix hours with positive energy. Use the median across all ready
+Development entities, giving one vote per entity; values strictly below the median
+are sparse, ties and larger values dense. Report valid-hour coverage, tie counts
+and group sizes. With a tied population one group may be empty; do not force a
+balanced split or remove zero-activity entities. No valid prefix hours means an
+undefined group, never zero density.
+
+This reads authenticated entity-prefix metadata only. It does not use online
+forecast errors, release-wide activity, Final values, or change cohort eligibility,
+training, calibration or controller inputs. Missing hours are excluded from the
+fraction's denominator and coverage must accompany it. Positive-energy frequency
+is an operational load-density descriptor, not physical charger occupancy,
+energy magnitude or proof of behavior change. Publisher-filled values remain a
+limitation. Thresholds vary by namespace/budget; comparing different budgets is
+not a controlled history-budget effect. The rule and resulting Development
+thresholds require independent review before any Final lock. They do not replace
+weekday/weekend or initialization-stratum analysis.
