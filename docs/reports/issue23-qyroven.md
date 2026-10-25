@@ -118,9 +118,18 @@ were independently verified/downloaded. The finite-grid choice is10 epochs, with
 a boundary warning rather than an optimality/convergence claim. The Source1
 subset reproduces all69 earlier Full Fine-tuning units exactly.
 
-The [positive Fixed Retention grid](issue23-fixed-retention.md) is now running on
-that common provisional Source10 family. It uses four declared positive lambdas,
-three seeds, all budgets and276 planned replays. This is actual Development
-calibration progress, not a completed controller/proxy calibration or a Final lock.
+The [positive Fixed Retention grid](issue23-fixed-retention.md) completed all 276
+replays on that common provisional Source10 family, using four declared positive
+lambdas and three seeds across all budgets. The provisional choice is lambda 1,
+also at the grid boundary. Its equal-budget Development MAE is 5.121629 kWh versus
+5.190378 for matched Full Fine-tuning. This is conditional tuning evidence, not
+unbiased effectiveness, completed controller/proxy calibration or a Final lock.
+Both full archives were downloaded, SHA/CRC checked and independently verified.
+All 276 issued and scored origin sets match their Full Fine-tuning references.
+251 fixture tests passed locally and on Colab. Distribution metadata reports all
+13 new Source/Fixed files shared in the team folder; another team member's actual
+download access has not been independently tested.
+
+![Completed calibration on Colab](images/issue23-calibration-complete-colab.png)
 Earlier Source1 Adaptive comparisons remain a separate diagnostic family and
 cannot be ranked against Source10 baselines as a matched experiment.
