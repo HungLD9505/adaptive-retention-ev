@@ -13,7 +13,7 @@
 | **Reviewers** | Peer review: `@HungLD9505`; Lead review: `@Qyroven` |
 | **Acceptance Gate** | Independent member study contribution. Does not close official production runner #21 or official benchmarks. |
 
-This study delivers an independently authored, end-to-end model and confidence-based retention controller implementation, complete with deterministic synthetic unit tests, bounded source model pretraining, and prequential target replay across 14-day evaluation blocks on Development targets (7-day, 14-day, and 28-day history budgets).
+This study delivers an independently authored, end-to-end model and confidence-based retention controller implementation, complete with deterministic synthetic unit tests, bounded source model pretraining, target initial prefix adaptation, and prequential target replay across 14-day evaluation blocks on Development targets (7-day, 14-day, and 28-day history budgets).
 
 ---
 
@@ -41,14 +41,15 @@ This study delivers an independently authored, end-to-end model and confidence-b
 ## 3. Confidence-Based Retention Controller (Report 1 §6)
 
 ### 3.1. Block Forking & Prequential Protocol
-1. **Block Initialization:** At the start of block $q$ (14 days), the active model weights and optimizer state are cloned identically into 3 candidate branches:
+1. **Target Initial Adaptation:** Pretrained source model undergoes initial target adaptation on the permitted history prefix (6 samples for 7d, 13 samples for 14d, 27 samples for 28d) using initial $\lambda = 0.1$.
+2. **Block Initialization:** At the start of block $q$ (14 days), the active model weights and optimizer state are cloned identically into 3 candidate branches:
    - Candidate `cand_0`: $\lambda = 0.0$
    - Candidate `cand_low`: $\lambda = 0.1$
    - Candidate `cand_high`: $\lambda = 1.0$
    All 3 candidates share identical input normalization, batch order, and step budget.
-2. **Prequential Forecast Issuance:** Predictions $\hat{y}$ for all 3 candidates are generated and stored **prior** to label arrival each day.
-3. **Prequential Scoring:** When all 24 hourly labels for day $b$ are complete, daily normalized MAE $\ell_b^c$ is computed for each candidate.
-4. **Candidate Update:** Each candidate undergoes independent gradient descent on that day's complete data using its designated $\lambda$.
+3. **Prequential Forecast Issuance:** Predictions $\hat{y}$ for all 3 candidates are generated and stored **prior** to label arrival each day.
+4. **Prequential Scoring:** When all 24 hourly labels for day $b$ are complete, daily normalized MAE $\ell_b^c$ is computed for each candidate.
+5. **Candidate Update:** Each candidate undergoes independent gradient descent on that day's complete data using its designated $\lambda$.
 
 ### 3.2. Statistical Testing & Decision Rules
 - **Paired Daily Improvement:** For complete day $b$, the improvement of challenger $j$ over active $a$ is:
@@ -97,29 +98,29 @@ All synthetic test cases are self-contained, offline, deterministic, and execute
 ### 5.2. Block-by-Block Confidence Decisions on Development Target `['urbanev', 'SZH', '1001']`
 Evaluated across 4 full 14-day blocks (56 daily prequential steps):
 
-#### Budget: 7-Day Initial History
+#### Budget: 7-Day Initial History (6 Prefix Training Samples Adapted)
 | Block | Start Active | Valid Days ($B$) | Challenger `cand_0` LCB | Challenger `cand_low` LCB | Challenger `cand_high` LCB | Decision | Selected Active | Reason |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **0** | `cand_low` (0.1) | 14 | **+0.000172** | *(active)* | -0.000274 | `switch` | `cand_0` (0.0) | `cand_0` achieved positive LCB $> 0.0$ |
-| **1** | `cand_0` (0.0) | 14 | *(active)* | +0.003649 | **+0.003754** | `switch` | `cand_high` (1.0) | Both qualified; `cand_high` had larger LCB |
-| **2** | `cand_high` (1.0) | 14 | -0.001275 | -0.001101 | *(active)* | `keep` | `cand_high` (1.0) | No challenger achieved LCB $> 0.0$ |
-| **3** | `cand_high` (1.0) | 10 | -0.001757 | -0.001534 | *(active)* | `keep` | `cand_high` (1.0) | No challenger achieved LCB $> 0.0$ |
+| **0** | `cand_low` (0.1) | 14 | **+0.000148** | *(active)* | +0.000035 | `switch` | `cand_0` (0.0) | Both qualified; `cand_0` had larger LCB |
+| **1** | `cand_0` (0.0) | 14 | *(active)* | **+0.000815** | +0.000372 | `switch` | `cand_low` (0.1) | Both qualified; `cand_low` had larger LCB |
+| **2** | `cand_low` (0.1) | 14 | -0.001188 | *(active)* | -0.003837 | `keep` | `cand_low` (0.1) | No challenger achieved LCB $> 0.0$ |
+| **3** | `cand_low` (0.1) | 10 | **+0.000866** | *(active)* | -0.001213 | `switch` | `cand_0` (0.0) | `cand_0` qualified with LCB $> 0.0$ |
 
-#### Budget: 14-Day Initial History
+#### Budget: 14-Day Initial History (13 Prefix Training Samples Adapted)
 | Block | Start Active | Valid Days ($B$) | Challenger `cand_0` LCB | Challenger `cand_low` LCB | Challenger `cand_high` LCB | Decision | Selected Active | Reason |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **0** | `cand_low` (0.1) | 14 | **+0.000207** | *(active)* | -0.000273 | `switch` | `cand_0` (0.0) | `cand_0` qualified with LCB $> 0.0$ |
-| **1** | `cand_0` (0.0) | 14 | *(active)* | **+0.003163** | +0.002988 | `switch` | `cand_low` (0.1) | Both qualified; `cand_low` had larger LCB |
-| **2** | `cand_low` (0.1) | 14 | -0.001150 | *(active)* | **+0.001644** | `switch` | `cand_high` (1.0) | `cand_high` qualified with LCB $> 0.0$ |
-| **3** | `cand_high` (1.0) | 10 | -0.003515 | -0.002098 | *(active)* | `keep` | `cand_high` (1.0) | No challenger achieved LCB $> 0.0$ |
+| **0** | `cand_low` (0.1) | 14 | **+0.000146** | *(active)* | +0.000063 | `switch` | `cand_0` (0.0) | Both qualified; `cand_0` had larger LCB |
+| **1** | `cand_0` (0.0) | 14 | *(active)* | +0.001729 | **+0.001859** | `switch` | `cand_high` (1.0) | Both qualified; `cand_high` had larger LCB |
+| **2** | `cand_high` (1.0) | 14 | -0.001307 | -0.001007 | *(active)* | `keep` | `cand_high` (1.0) | No challenger achieved LCB $> 0.0$ |
+| **3** | `cand_high` (1.0) | 10 | **+0.000256** | +0.000216 | *(active)* | `switch` | `cand_0` (0.0) | Both qualified; `cand_0` had larger LCB |
 
-#### Budget: 28-Day Initial History
+#### Budget: 28-Day Initial History (27 Prefix Training Samples Adapted)
 | Block | Start Active | Valid Days ($B$) | Challenger `cand_0` LCB | Challenger `cand_low` LCB | Challenger `cand_high` LCB | Decision | Selected Active | Reason |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **0** | `cand_low` (0.1) | 14 | **+0.000170** | *(active)* | -0.000274 | `switch` | `cand_0` (0.0) | `cand_0` qualified with LCB $> 0.0$ |
-| **1** | `cand_0` (0.0) | 14 | *(active)* | +0.002789 | **+0.002857** | `switch` | `cand_high` (1.0) | Both qualified; `cand_high` had larger LCB |
-| **2** | `cand_high` (1.0) | 14 | -0.001385 | -0.001151 | *(active)* | `keep` | `cand_high` (1.0) | No challenger achieved LCB $> 0.0$ |
-| **3** | `cand_high` (1.0) | 10 | -0.002010 | -0.001689 | *(active)* | `keep` | `cand_high` (1.0) | No challenger achieved LCB $> 0.0$ |
+| **0** | `cand_low` (0.1) | 14 | -0.000310 | *(active)* | **+0.000069** | `switch` | `cand_high` (1.0) | `cand_high` qualified with LCB $> 0.0$ |
+| **1** | `cand_high` (1.0) | 14 | **+0.000585** | +0.000519 | *(active)* | `switch` | `cand_0` (0.0) | Both qualified; `cand_0` had larger LCB |
+| **2** | `cand_0` (0.0) | 14 | *(active)* | -0.006617 | -0.009016 | `keep` | `cand_0` (0.0) | No challenger achieved LCB $> 0.0$ |
+| **3** | `cand_0` (0.0) | 10 | *(active)* | -0.009388 | -0.014920 | `keep` | `cand_0` (0.0) | No challenger achieved LCB $> 0.0$ |
 
 ---
 
@@ -144,11 +145,11 @@ Accounting measured on Development target `['urbanev', 'SZH', '1001']` (4 blocks
 | :--- | :---: | :--- | :--- |
 | `experiments/member_studies/cyber_controller/checkpoints/source_bounded_model.pt` | PyTorch Binary | `93a93d4a10152fdd016bdbf16c9d67769650f98908792edc9bac801a1ce58140` | Bounded source checkpoint |
 | `experiments/member_studies/cyber_controller/checkpoints/latent_scale_sk.pt` | PyTorch Tensor | `19b7f52d301c3430050098059dad227a876e1411824759d6f7920079c615b713` | Latent scaling vector ($d=64$) |
-| `runs/cyber_controller_study_results.json` | JSON | `99fd34299b55efef447a88d2ee35225809be7c564937e648d8403a4eff8f98ba` | Full per-block evaluation payload |
+| `runs/cyber_controller_study_results.json` | JSON | `6da85d409db8fede88edc297f798f365306c90ccd2bf25688b4ce7b7898bee0d` | Full per-block evaluation payload |
 | `experiments/member_studies/cyber_controller/model.py` | Python | `e18ff34fefb36ebc56488d519b5bfb421dffadce2a445037d046fec3f426d4ca` | Backbone & Loss implementation |
 | `experiments/member_studies/cyber_controller/controller.py` | Python | `f58d9eeb885c7921a2249ee85f26543dfaeae697968db754c3ff32a5df65d1d9` | Controller & Bootstrap logic |
 | `experiments/member_studies/cyber_controller/test_controller.py` | Python | `085cb7aa656b2cfc1b82f6e91bfd6f6e864ad13cb0994f79435bda518e26aa75` | 9 synthetic unit test cases |
-| `experiments/member_studies/cyber_controller/study_runner.py` | Python | `df2fc93ffca07fa84f7b6058e578adbb8e6223832d20cf3a9032483d4e8c187e` | Reproducible study runner CLI |
+| `experiments/member_studies/cyber_controller/study_runner.py` | Python | `bb6b63b786cfacd84e4b2c77b05cf84bae5ccae05f249b57ed7b1cde63bff9cd` | Reproducible study runner CLI |
 
 *Note on Drive links:* Per repository policy, large weight binaries and runs remain outside Git (or in `.gitignore` paths). Checkpoint files are stored in the local development environment and ready to be synced to the shared team Google Drive upon request.
 
@@ -158,4 +159,4 @@ Accounting measured on Development target `['urbanev', 'SZH', '1001']` (4 blocks
 
 1. **Independent Member Study:** This work fulfills Issue #41 as an independent study. It does not replace the shared production runner (#21) or co-lead deliverables (#39).
 2. **Development-Only Evaluation:** Replay was performed exclusively on Development targets (`['urbanev', 'SZH', '1001']`). No final evaluation targets were accessed, filtered, or tuned.
-3. **Behavior of Real-Data Transitions:** While synthetic tests guarantee proper switching when evidence is indisputable, real development data exhibited blocks where evidence did not exceed $\delta = 0.0$ (e.g. Block 2 and Block 3), appropriately resulting in `keep` decisions. This behavior confirms that the confidence controller protects against unwarranted parameter churn.
+3. **Behavior of Real-Data Transitions:** While synthetic tests guarantee proper switching when evidence is indisputable, real development data exhibited blocks where evidence did not exceed $\delta = 0.0$ (e.g. Block 2 in all budgets, and Blocks 2-3 in 28d), appropriately resulting in `keep` decisions. This behavior confirms that the confidence controller protects against unwarranted parameter churn.

@@ -24,7 +24,7 @@ import logging
 import time
 from dataclasses import asdict
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import torch
@@ -243,12 +243,42 @@ def load_development_stream(input_dir: Path, entity_id: List[str]) -> List[Dict[
     return stream
 
 
+def load_initial_target_samples(
+    input_dir: Path, entity_id: List[str]
+) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    """Load contained initial training examples for target adaptation from training.jsonl."""
+    training_file = input_dir / "training.jsonl"
+    x_list, c_list, y_list = [], [], []
+
+    with training_file.open("r", encoding="utf-8") as f:
+        for line in f:
+            rec = json.loads(line)
+            if (
+                rec.get("role") == "development"
+                and rec.get("forecast", {}).get("identity") == entity_id
+            ):
+                fc = rec["forecast"]
+                x_list.append(fc["x_hist"])
+                c_list.append(fc["c_future"])
+                y_list.append(rec["y_scaled"])
+
+    if not x_list:
+        return torch.empty(0, 24, 7), torch.empty(0, 24, 5), torch.empty(0, 24)
+
+    return (
+        torch.tensor(x_list, dtype=torch.float32),
+        torch.tensor(c_list, dtype=torch.float32),
+        torch.tensor(y_list, dtype=torch.float32),
+    )
+
+
 def run_target_replay_study(
     source_model: EVForecasterGRU,
     s_k: torch.Tensor,
     stream: List[Dict[str, Any]],
     history_days: int,
     entity_id: List[str],
+    target_dir: Optional[Path] = None,
     block_size: int = 14,
     lambda_low: float = 0.1,
     lambda_high: float = 1.0,
@@ -269,6 +299,35 @@ def run_target_replay_study(
     # Initialize active target model from source checkpoint
     active_model = copy.deepcopy(source_model).to(device)
     active_optimizer = optim.Adam(active_model.parameters(), lr=1e-3)
+
+    # Initial target adaptation on permitted historical prefix samples (if present)
+    if target_dir is not None:
+        x_init, c_init, y_init = load_initial_target_samples(target_dir, entity_id=entity_id)
+        if len(x_init) > 0:
+            LOGGER.info(
+                "Initial adaptation on %d prefix samples for %s (5 epochs, lambda=%.2f)",
+                len(x_init),
+                entity_id,
+                initial_lambda,
+            )
+            active_model.train()
+            init_dataset = torch.utils.data.TensorDataset(x_init, c_init, y_init)
+            init_loader = torch.utils.data.DataLoader(
+                init_dataset, batch_size=min(16, len(x_init)), shuffle=True
+            )
+            for _ in range(5):
+                for bx, bc, by in init_loader:
+                    bx, bc, by = bx.to(device), bc.to(device), by.to(device)
+                    active_optimizer.zero_grad()
+                    y_hat, z_target = active_model(bx, bc)
+                    loss_fc = compute_forecast_mae(y_hat, by).mean()
+                    if initial_lambda > 0.0:
+                        loss_ret = retention_loss_fn(z_target, bx)
+                        tot_loss = loss_fc + initial_lambda * loss_ret
+                    else:
+                        tot_loss = loss_fc
+                    tot_loss.backward()
+                    active_optimizer.step()
 
     controller = AdaptiveRetentionController(
         lambda_low=lambda_low,
@@ -494,6 +553,7 @@ def main() -> None:
             stream=stream,
             history_days=budget,
             entity_id=target_entity,
+            target_dir=target_dir,
             block_size=args.block_size,
             lambda_low=args.lambda_low,
             lambda_high=args.lambda_high,
