@@ -71,7 +71,7 @@ def execute(
         raise ValueError(
             "Real Development replay requires CUDA/Colab; local tests use independent fixtures"
         )
-    if set(config) - {"method"} != {
+    if set(config) - {"method", "state_retention"} != {
         "controller",
         "initial_training",
         "online_training",
@@ -79,6 +79,8 @@ def execute(
         "replay_days",
     }:
         raise ValueError("Unknown runner configuration fields")
+    if config.get("state_retention", "all") not in {"all", "latest"}:
+        raise ValueError("Unknown state-retention policy")
     if entity_id not in config["development_entities"]:
         raise ValueError("Target not in declared Development smoke cohort")
     method = Method(**config.get("method", {"name": "adaptive"}))

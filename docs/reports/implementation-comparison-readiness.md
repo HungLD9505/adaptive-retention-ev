@@ -58,3 +58,24 @@ blocked. Zero-score outputs remain null and are reported. Source-only versus
 initial-adaptation strata remain separate. Before future performance comparison,
 fix the same architecture/config/seeds/update order/cohort/period and tolerances;
 first compare encoder/loss/gradient fixtures, then decisions and replay traces.
+
+## Executed independent component fixtures
+
+`tools.compare_hung_components` imports a separate, byte-pinned Hung checkout only
+for bounded CPU fixtures. Routine CI does not download or depend on that checkout.
+Actual evidence is in [component evidence](implementation-component-evidence.json).
+With shared encoder weights and synthetic input, maximum encoder difference was0.
+Both latent-retention implementations returned2.5089153428333866, matching an
+independent scalar sum; target gradients matched exactly and neither reference
+received gradients. Shared constant-score cases passed for insufficient evidence,
+equal errors/keep, a clear challenger and equal-LCB nearest-level tie-breaking.
+
+Full model parameter counts differ: Qyroven52,376 versus Hung41,696 under their
+reported diagnostic head widths. This is not a performance comparison. The CPU
+comparison used PyTorch2.11, not Hung's historical2.8 training environment.
+
+Bootstrap conventions differ beyond config values: Qyroven uses linearly
+interpolated empirical quantiles; Hung uses an order statistic, ceil(alpha×R)−1.
+Bootstrap RNG derivation also differs. Constant-score tests cannot establish
+identical LCBs on varying daily scores or identical full runner traces. These
+choices must be reconciled explicitly before numerical head-to-head claims.
