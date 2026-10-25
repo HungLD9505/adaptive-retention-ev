@@ -47,3 +47,35 @@ does not yet offer resume orchestration. Preserve failed outputs rather than ove
 Actual counts, measured runtime, code SHA, logs, metrics and Drive links will be
 appended only after execution. Independent review, full comparison/ablation
 replication, proxy calibration and immutable Final lock remain required.
+
+## Identified execution and reproduction
+
+Training code: `ff42ea944bf05b4b77e2b730edf500b1fee6e851`.
+Profile SHA-256: `1be79afd6543bf7140c66e23562277f54115c39e458409b27cc9eb768bcd896f`.
+247 fixture tests passed locally and on Colab. Both CI platforms passed for that
+code in [run40226991465](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40226991465).
+The Colab T4 run uses `qyroven-i23-source-duration-20261026-v1`; it is still running
+at this update, not a completed study or selected official Source checkpoint.
+
+On an authenticated checkout of that code and verified DATA-v1 input installation:
+
+```sh
+python -m tools.source_epoch_sweep \
+  --inputs-root /content/ev-data/data/inputs/issue18-input-handoff-v1-20261019 \
+  --profile configs/issue23/source-epoch-study.json \
+  --profile-sha256 1be79afd6543bf7140c66e23562277f54115c39e458409b27cc9eb768bcd896f \
+  --selection configs/issue23/readiness-cohort.json \
+  --output /content/qyroven-i23-source-duration-reproduction
+```
+
+Use a fresh output directory. Run only on CUDA; the routine test suite uses fixtures.
+The original notebook also queues immutable per-seed Source backups and full-run
+verification/export to Drive. The CLI itself does not upload or grant permissions.
+After successful execution, independently verify the generated matrix:
+
+```sh
+python -m tools.verify_comparison \
+  --matrix /content/qyroven-i23-source-duration-reproduction/matrix.json \
+  --inputs-root /content/ev-data/data/inputs/issue18-input-handoff-v1-20261019 \
+  --output /content/qyroven-i23-source-duration-reproduction-verification.json
+```
