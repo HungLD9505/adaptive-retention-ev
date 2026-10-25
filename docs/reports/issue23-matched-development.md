@@ -103,3 +103,10 @@ The third worker performs independent daily artifact verification and exports
 coverage/config/code/source/log evidence after its own successful completion.
 All selected-row collection, paired origin-set checks and scientific analysis
 remain required after these staged jobs finish.
+
+After Colab GPU eviction, the optional identified Fixed-study arguments enable
+explicit new-runtime replay of Adaptive, Full Fine-tuning and Fixed Retention.
+These add207 fresh references under the selected recipe1, giving690 target runs.
+Old original matrices remain unchanged. This option exists to preserve fair
+within-environment comparisons, not to retune a favorable source/configuration.
+See the runtime-recovery handoff for actual limits and selection evidence.

@@ -1,0 +1,190 @@
+{
+  "scope": "Recovered original Colab completed-run backups; read-only verification, no local training",
+  "files": [
+    {
+      "name": "controller-calibration-completed-chunk-0000.zip",
+      "drive_id": "1wCIC2-x10xrZxmwKJAgokLiiuD7e3rx0",
+      "bytes": 23004213,
+      "sha256": "89b8ce3b9c1a53bdee3f4660b134a5fecf83762d1ffd6e7b5e7705cc7e08712f",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0001.zip",
+      "drive_id": "13os2mh9UWeoSOyYV9tY8dF45pabw30t8",
+      "bytes": 22964239,
+      "sha256": "d16f989c6fb98fcb8b35331f79d0cec69c926f70fd8a16f3ff420dde9229b5c3",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0002.zip",
+      "drive_id": "1GGLdhRvKaeP3PNg_rCcFk9az1P9AyJOz",
+      "bytes": 22053804,
+      "sha256": "edd54426bcd0b18e790099016d5cbb13a50d696a8ce0f3bd8f1faef463630bb7",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0003.zip",
+      "drive_id": "1moikOuW4M8vD20vHmvEysSGogB3ZIL8A",
+      "bytes": 10213819,
+      "sha256": "9bddf1c2e9a13710c1a74e132de3ba4d92f8c58a2355d250041e0c51d686011e",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0004.zip",
+      "drive_id": "1ofIAnEikXjmGKwhVMzUrRS0JPdDrZ1OS",
+      "bytes": 9618979,
+      "sha256": "737b85ac0b12e2cd80f2ec519f1d9434a61374043ae4b77f8d61c90c8548bc95",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0005.zip",
+      "drive_id": "1XQkNHcISGXL-bn3IiDKn3sypqiK7S6_r",
+      "bytes": 9571988,
+      "sha256": "26a3a1cf8446f3a871cd3c91778c3ffb14eb3d505359304f5ef7477dbc0d99b4",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0006.zip",
+      "drive_id": "1hWKXByVOaGtQ6p1y-K-8fhYqKRsKCSz3",
+      "bytes": 23015724,
+      "sha256": "22bcae3a151e1bc695718942a433c61fccd446ecb977c138cbf09ca320456b51",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0007.zip",
+      "drive_id": "1ooi-7xflHJOCZGp0CkVZ9yu5ZG5kVbz6",
+      "bytes": 19671175,
+      "sha256": "1f787a8a13a6ec1c1b1d75d945392da2b108cb62dbd7e8473f069f6c902b1c26",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0008.zip",
+      "drive_id": "1iAdSBUrR_uSxsV6384Nzjn3DHOiv_QKa",
+      "bytes": 22001225,
+      "sha256": "9ae7b5e8dc2dbfe46ea8e094ac843440ad40cc6b78a1e148c6cd01392535b91f",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0009.zip",
+      "drive_id": "18qfrHqur6wngbIFcUHFmKDHFKEGSY0Us",
+      "bytes": 21573298,
+      "sha256": "98ad299350319f438714ab364ee6696d19d5ac53e1d25d8fa8f4daced0737c3a",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0010.zip",
+      "drive_id": "1HbDhbDo-4eWSLEQDxACnXUzJRkTw5uGm",
+      "bytes": 22085048,
+      "sha256": "e981dba8887d887825da4503453d319aedc2d90d68761f65a51a34fbc8aa9693",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0011.zip",
+      "drive_id": "1UBh_M7_pOukMY6qJcSdVgZQNSBSuTPM8",
+      "bytes": 9589252,
+      "sha256": "d5381465840c44ece8460891c7f0b5d1fbce40c4404f5d07f07b0c1974e17507",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0012.zip",
+      "drive_id": "1pYMgYyNbIRe-UfW7kJ9ZFtiyOSS5w6wk",
+      "bytes": 9613972,
+      "sha256": "7d64abfb759da4a58a4fba83c13ee98fb6997affa544c6dca07db7af59af626f",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0013.zip",
+      "drive_id": "1GJwDZQQ8r1JnK3xjsl-fmQjSsLz3m5Ak",
+      "bytes": 9291514,
+      "sha256": "fc15529bb98ac6c6d8f4a0d81da10db56571335ee7c4aff54c27078656a1ecb2",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0014.zip",
+      "drive_id": "1dfmHpAssIKrocgy1eeYWqs42toscOla4",
+      "bytes": 19869052,
+      "sha256": "12b0590eef108fc100fe211f8ec51ade41b5e10598a3b120a3d8ea786fdca112",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0015.zip",
+      "drive_id": "1CYSsis0UcV3qj-MeFXF9rSgnpII917Ba",
+      "bytes": 21976392,
+      "sha256": "092e1369d50c904bd56a2387a5d0173ed5d6f89d55588d4deca8da3629489c16",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0016.zip",
+      "drive_id": "1ykjQa_s34zzULALGM7W_5iFAeJPECgbE",
+      "bytes": 23337834,
+      "sha256": "c0a349f4e95bb774e8718b7c897d8ff6aa3fafca27a97b517980581eadcebb75",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0017.zip",
+      "drive_id": "1jLqjfnbmOZFHhmHR1oHEcFVdixzo9XzR",
+      "bytes": 21939248,
+      "sha256": "96dfdf647f940c796151d6327682e53c920ec5d4bb0a88bb69a6c0be888ca7c2",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0018.zip",
+      "drive_id": "1H_9M4bLGDlSfOVW6H23Y-ynBOshO02fJ",
+      "bytes": 22139215,
+      "sha256": "7e7d704c44d09860ff70adda0606cca2b62be8d82cfd5f7c75e6efa9eefb4415",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0019.zip",
+      "drive_id": "1wG9TVEWQj9WusFpjC5QNXklkM9-O81WL",
+      "bytes": 22079765,
+      "sha256": "16a51eda06aabd62960d80be23a80386f9683cd8e3bc637021cfbfaeb6649573",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0020.zip",
+      "drive_id": "1oxVtJ6m6qvhoRLId7F2liviS5WSuJLfN",
+      "bytes": 9612363,
+      "sha256": "bf5c38ba973d4cca90350ea7f7ee824c4236efbf1d7bb7161026f71b5b07793b",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0021.zip",
+      "drive_id": "1I65G5JFv24Xwv0y5UpgHCTLMh74FMDgW",
+      "bytes": 9551531,
+      "sha256": "64c9b3d3253756152dac75206583392cc39c6459831f2f13502f0054557e176e",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    },
+    {
+      "name": "controller-calibration-completed-chunk-0022.zip",
+      "drive_id": "1BmymE-WyPSsNiBNbXR96l-DL_usc2wfy",
+      "bytes": 9599840,
+      "sha256": "04a030746e097b0761794ca542daf1d43a6ee45864a541dee45b35fb9a98c038",
+      "zip_crc": "PASS",
+      "completed_runs": 12
+    }
+  ],
+  "unique_completed_runs": 276
+}

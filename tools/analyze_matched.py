@@ -3,10 +3,10 @@
 import argparse
 import csv
 import json
-import math
 from datetime import datetime
 from pathlib import Path
 
+from ev_evaluation.artifacts import authenticate_matrix
 from ev_evaluation.metrics import paired_metrics, station_first
 from ev_evaluation.selection import score_candidates
 from ev_evaluation.uncertainty import paired_station_time_interval
@@ -42,7 +42,12 @@ def select_collection(studies: dict, cohort: dict, code_files: dict) -> tuple[di
     )
     fixed_choice = fixed["provisional_choice"]
     proxies = proxy_selection(studies["proxy"]["runs"], cohort, refs)
-    coverage = validate_cells(studies["matched"]["runs"], refs)
+    replication_lambda = studies["matched"].get("replication_fixed_lambda")
+    if replication_lambda is not None and replication_lambda != fixed_choice:
+        raise ValueError("Replication Fixed choice differs from authenticated calibration")
+    coverage = validate_cells(
+        studies["matched"]["runs"], refs, replication_fixed_lambda=replication_lambda
+    )
     if fixed_choice is None or any(p["provisional_choice"] is None for p in proxies.values()):
         raise ValueError("No common scored Development selection")
     selected = {
@@ -74,6 +79,8 @@ def select_collection(studies: dict, cohort: dict, code_files: dict) -> tuple[di
                 and row["recipe"] == proxies[method]["provisional_choice"]
                 or family == "matched"
             )
+            if replication_lambda is not None and family in {"source", "fixed", "controller"}:
+                keep = False
             if not keep:
                 continue
             name = row["comparison_variant"] if family == "matched" else method
@@ -120,6 +127,12 @@ def select_collection(studies: dict, cohort: dict, code_files: dict) -> tuple[di
             or row["binding"]["input"] != ref["binding"]["input"]
         ):
             raise ValueError("Common input/training/Source bindings differ")
+        environment = row["binding"].get("environment")
+        peer_environment = cells[(*key[:3], "target_only")][1]["binding"].get("environment")
+        if not isinstance(environment, dict) or not environment or environment != peer_environment:
+            raise ValueError(
+                "Mixed/missing target execution environments; rerun matched references after migration"
+            )
         if row["source_checkpoint_sha256"] != sources[key[2]]["sha256"]:
             raise ValueError("Selected methods do not use the common Source family")
         if row["code"]["dirty"] or row["code"]["files"] != code_files:
@@ -136,41 +149,6 @@ def select_collection(studies: dict, cohort: dict, code_files: dict) -> tuple[di
     )
     selected["unique_method_names"] = sorted(names)
     return cells, selected
-
-
-def authenticate_matrix(path: Path, verification: Path) -> dict:
-    """Require every verifier cell, score and chain, not a successful-status label."""
-    matrix, proof = (json.loads(p.read_text()) for p in (path, verification))
-    if (
-        matrix.get("status") != "technical_success"
-        or proof.get("status") != "verified"
-        or proof.get("matrix_sha256") != digest(path)
-    ):
-        raise ValueError("Matrix must match independent verification fingerprint")
-    checked = {r["run_id"]: r for r in proof["runs"]}
-    if (
-        len(checked) != len(proof["runs"])
-        or len(matrix["runs"]) != len(checked)
-        or set(checked) != {r["run_id"] for r in matrix["runs"]}
-    ):
-        raise ValueError("Verifier population differs from matrix")
-    for row in matrix["runs"]:
-        v = checked[row["run_id"]]
-        for name, field in (
-            ("issued_days", "issued"),
-            ("scored_days", "scored"),
-            ("commit_chain", "commit_chain"),
-        ):
-            if row[name] != v[field]:
-                raise ValueError("Verifier identity/count/chain differs")
-        for name, field in (("active_mae_kwh", "mae_kwh"), ("active_rmse_kwh", "rmse_kwh")):
-            a, b = row[name], v[field]
-            if a is None or b is None:
-                if a is not b:
-                    raise ValueError("Verifier null score differs")
-            elif not math.isclose(a, b, rel_tol=1e-9, abs_tol=1e-10):
-                raise ValueError("Verifier score differs")
-    return matrix
 
 
 def aggregate_cells(cells: dict, cohort: dict) -> dict:
@@ -261,6 +239,10 @@ def analyze(args: argparse.Namespace) -> None:
     for name in ("proxy", "matched"):
         if studies[name]["controller_matrix_sha256"] != digest(paths["controller"]):
             raise ValueError("Controller selection dependency differs")
+    if studies["matched"].get("replication_fixed_lambda") is not None and studies["matched"].get(
+        "fixed_study_sha256"
+    ) != digest(paths["fixed"]):
+        raise ValueError("Changed Fixed calibration dependency for migrated references")
     selected, choices = select_collection(studies, cohort, runtime_code()["files"])
     cells, rows, audits, lineage = {}, [], [], []
     for key, (family, row) in selected.items():

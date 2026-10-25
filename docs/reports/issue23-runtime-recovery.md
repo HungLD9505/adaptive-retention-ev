@@ -56,3 +56,55 @@ complete recovery verification and downstream GPU execution remain in progress.
 logic rejects unsafe/duplicate ZIP members, unlisted runs, contradictory reports
 and missing/extra finite-grid cells. Routine CI downloads no datasets or trains
 models on real data. No merge or issue closure.
+
+## Actual recovery completed
+
+Recovery code `10ada9b` restored all **276 original completed runs** from the
+23 chunks and CPU-loaded/content-rehashed all 276 latest candidate-state snapshots.
+The independent verifier then recomputed arrived complete-label residuals and
+all candidate/deployed metrics, physically hashing **51,060 daily files**.
+No local model training and no completed GPU replay reruns.
+
+[Download bytes/hashes and original Drive IDs](issue23-controller-recovery-downloads.json),
+[independent verifier](issue23-controller-verification.json),
+[full finite-grid station/seed accounting](issue23-controller-selection.json).
+The restored matrix is explicitly reconstructed; the original batch-loop wall
+time remains unknown. Saved per-run elapsed counters sum to1,639.874496 seconds,
+not a substitute for startup/backup/export/total elapsed time.
+
+| Controller recipe | 7d MAE | 14d MAE | 28d MAE | Equal-budget Development score |
+|---|---:|---:|---:|---:|
+| 0 | 4.889339 | 5.162208 | 5.534161 | 5.195236 |
+| 1 | 4.842021 | 5.098825 | 5.524448 | 5.155098 |
+| 2 | 4.889056 | 5.139251 | 5.541796 | 5.190034 |
+| 3 | 4.867115 | 5.135678 | 5.526969 | 5.176587 |
+
+Original-unit kWh, same selected Development cohort, station-first paired seeds;
+132 null run scores retained. Provisional recipe1 uses levels0/0.1/1, initial0.1,
+Bmin7, delta0, segment3, alpha0.05 and2,000 bootstrap resamples. This is conditional
+Development selection, not controller superiority: the earlier matched Source10
+Fixed Retention score5.121629 is lower. No favorable rerun or silent grid extension.
+
+After the old runtime was evicted, the complete backup folder was moved into the
+shared Issue23 parent. Drive metadata confirms all23 files shared there; exact
+individual team-account access remains untested. Kaggle can retrieve the folder's
+file list and has begun its own byte restoration. No Drive OAuth scope was granted
+to Kaggle, no notebook was made public and no account rotation occurred.
+
+## Environment-matched replication gate
+
+The collection now rejects missing or mixed target execution environments.
+The matched driver can explicitly replay Adaptive, Full Fine-tuning and the
+previously selected Fixed baseline in the new environment, in addition to all
+missing baseline/ablation rows. It authenticates and recomputes the Fixed choice
+from its complete independent calibration verifier. Original settings remain fixed;
+this is runtime replication, not a new favorable tuning search.
+
+For the actually selected Bmin7/delta0 recipe, the new matched batch has690 runs
+(10 unique methods times69 units), including207 fresh core references. Proxy/
+parameter selection contributes the remaining four methods. The collector uses
+only new-environment proxy and matched target rows, retains all original calibration
+proof/selection lineage and never silently falls back to old Colab forecasts.
+Its mixed-environment regression fixture and complete-replication fixture passed;
+281 local tests, Ruff lint/format and diff checks pass. New GPU execution of these
+post-migration drivers is not claimed yet.

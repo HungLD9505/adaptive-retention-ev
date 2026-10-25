@@ -55,6 +55,41 @@ class MatchedDevelopmentTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             comparison_config(base, "made_up_method")
 
+    def test_migration_replays_all_core_references_with_frozen_fixed_choice(self):
+        base = recipe_config(self.base, 1, 42)
+        binding = {"history_days": 7, "entity_id": "fixture"}
+        refs = {
+            (7, "fixture", 42): {
+                "binding": {"config": base, "input": binding},
+                "issued_days": 90,
+                "scored_days": 89,
+            }
+        }
+        rows = []
+        for variant in variants(base, include_core=True):
+            config = comparison_config(base, variant, fixed_lambda=1.0)
+            rows.append(
+                {
+                    "comparison_variant": variant,
+                    "binding": {"config": config, "input": binding},
+                    "method": config["method"],
+                    "issued_days": 90,
+                    "scored_days": 89,
+                    "active_mae_kwh": 1.0,
+                }
+            )
+        self.assertEqual(len(rows), 10)
+        self.assertEqual(
+            validate_cells(rows, refs, replication_fixed_lambda=1.0)["replication_fixed_lambda"],
+            1.0,
+        )
+        with self.assertRaises(ValueError):
+            validate_cells(rows[:-1], refs, replication_fixed_lambda=1.0)
+        with self.assertRaises(ValueError):
+            comparison_config(base, "fixed_retention", fixed_lambda=0)
+        with self.assertRaises(ValueError):
+            comparison_config(base, "adaptive")
+
     def test_full_matrix_bindings_nulls_and_coverage_fail_closed(self):
         base = recipe_config(self.base, 2, 42)
         binding = {"history_days": 7, "entity_id": "fixture"}

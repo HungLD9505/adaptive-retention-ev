@@ -75,7 +75,11 @@ class CollectionTests(unittest.TestCase):
                     return {
                         "run_id": f"{b}-{seed}-{c['method']['name']}-{score}",
                         "method": copy.deepcopy(c["method"]),
-                        "binding": {"config": copy.deepcopy(c), "input": copy.deepcopy(binding)},
+                        "binding": {
+                            "config": copy.deepcopy(c),
+                            "input": copy.deepcopy(binding),
+                            "environment": {"device": "fixture", "runtime": "same"},
+                        },
                         "source_checkpoint_sha256": f"source-{seed}",
                         "issued_days": 90,
                         "scored_days": 80,
@@ -124,10 +128,15 @@ class CollectionTests(unittest.TestCase):
         self.assertEqual(len(choices["unique_method_names"]), 14)
 
     def test_missing_cell_wrong_source_or_changed_training_fails(self):
-        for mode in ("missing", "source", "training"):
+        for mode in ("missing", "source", "training", "environment"):
             studies = copy.deepcopy(self.studies)
             if mode == "missing":
                 studies["matched"]["runs"].pop()
+            elif mode == "environment":
+                studies["fixed"]["runs"][-1]["binding"]["environment"] = {
+                    "device": "fixture",
+                    "runtime": "different",
+                }
             elif mode == "source":
                 studies["fixed"]["runs"][-1]["source_checkpoint_sha256"] = "wrong-source"
             else:
@@ -136,6 +145,30 @@ class CollectionTests(unittest.TestCase):
                 ] = 0.1
             with self.assertRaises(ValueError):
                 select_collection(studies, self.cohort, self.files)
+
+    def test_migration_uses_only_new_environment_target_runs(self):
+        studies = copy.deepcopy(self.studies)
+        references = [r for r in studies["controller"]["runs"] if r["recipe"] == 1]
+        studies["matched"].update(replication_fixed_lambda=1.0, runs=[])
+        for ref in references:
+            base = ref["binding"]["config"]
+            for name in variants(base, include_core=True):
+                row = copy.deepcopy(ref)
+                row.update(comparison_variant=name, active_mae_kwh=2.0)
+                row["binding"]["config"] = comparison_config(base, name, fixed_lambda=1.0)
+                row["method"] = row["binding"]["config"]["method"]
+                row["binding"]["environment"] = {"device": "fixture", "runtime": "new"}
+                studies["matched"]["runs"].append(row)
+        for row in studies["proxy"]["runs"]:
+            row["binding"]["environment"] = {"device": "fixture", "runtime": "new"}
+        cells, _ = select_collection(studies, self.cohort, self.files)
+        self.assertEqual(len(cells), 126)
+        self.assertEqual({value[0] for value in cells.values()}, {"proxy", "matched"})
+        for key, value in cells.items():
+            self.assertEqual(value[1]["binding"]["environment"]["runtime"], "new")
+        studies["matched"]["runs"].pop()
+        with self.assertRaises(ValueError):
+            select_collection(studies, self.cohort, self.files)
 
     def test_verifier_requires_exact_population_nulls_scores_and_hash(self):
         matrix = {

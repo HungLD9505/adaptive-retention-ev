@@ -66,3 +66,10 @@ matrices have independently passed verification. Its output is a fresh directory
 with `summary.json` (selections, lineage, metrics, intervals, strata, audits and
 costs) and `runs.csv` (all selected cells, including nulls). Reports will link
 actual artifacts only after completion and independent verification.
+
+After Colab quota eviction, target-environment equality is mandatory across every
+selected method/seed unit. Runtime replication may supply all three core reference
+methods in the matched matrix; in that mode old Source-study/Fixed/controller
+forecasts remain calibration evidence and are **not** reused as comparison rows.
+The Fixed replication choice must match the authenticated calibration matrix.
+See [runtime recovery and migration](issue23-runtime-recovery.md).

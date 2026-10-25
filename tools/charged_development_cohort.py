@@ -7,10 +7,10 @@ import platform
 import time
 from pathlib import Path
 
+from ev_evaluation.artifacts import authenticate_matrix
 from ev_models.checkpoint import digest, write_json
 from ev_models.data import InputRun
 from ev_runner.run import runtime_code
-from tools.analyze_matched import authenticate_matrix
 
 CITIES = ("AMS", "JHB", "LOA", "MEL", "SPO", "SZH")
 RULE = "three_prefix_count_rank_bins_hash_min_plus_one_empty_prefix_v1"
