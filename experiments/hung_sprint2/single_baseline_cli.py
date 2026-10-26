@@ -56,6 +56,7 @@ def _code_identity() -> dict:
         "single_baseline.py",
         "single_baseline_cli.py",
         "single_forecast_journal.py",
+        "seasonal_naive.py",
         "evaluation.py",
     )
     return {
@@ -227,7 +228,16 @@ def _initialize_target_only(args: argparse.Namespace) -> dict:
 
 def _load_initial(
     args: argparse.Namespace, manifest: dict, entity: dict, device: torch.device
-) -> tuple[ForecastGRU, torch.optim.Adam | None, str, str | None, dict]:
+) -> tuple[ForecastGRU | None, torch.optim.Adam | None, str | None, str | None, dict]:
+    if args.method == "seasonal_naive":
+        if device.type != "cpu" or any(
+            value is not None for value in (
+                args.initial_checkpoint, args.source_checkpoint,
+                args.source_input_run, args.source_manifest_sha256,
+            )
+        ):
+            raise ValueError("Seasonal Naive uses CPU history only and no checkpoint/Source")
+        return None, None, None, None, {"run_id": None}
     if args.method == "target_only":
         if any(
             value is not None
@@ -325,7 +335,7 @@ def _replay(args: argparse.Namespace) -> dict:
     manifest = _load_run(path, args.manifest_sha256)
     entity = _development_entity(path, manifest, args.entity_id)
     if (
-        args.method not in ("target_only", "frozen_source")
+        args.method not in ("target_only", "frozen_source", "seasonal_naive")
         or args.block_days < 1
         or args.max_origins < 1
     ):
@@ -358,6 +368,8 @@ def _replay(args: argparse.Namespace) -> dict:
         "block_days": args.block_days,
         "max_origins": args.max_origins,
         "device": device.type,
+        "fallback_policy": "previous_day_24h_last_observed_fallback"
+        if args.method == "seasonal_naive" else None,
     }
     if args.resume_checkpoint is None:
         runner = SingleBaselineRunner(
@@ -414,9 +426,8 @@ def _replay(args: argparse.Namespace) -> dict:
     output = _new_output(
         args.output,
         path,
-        args.initial_checkpoint.parent
-        if args.initial_checkpoint
-        else args.source_checkpoint.parent,
+        *([args.initial_checkpoint.parent] if args.initial_checkpoint else []),
+        *([args.source_checkpoint.parent] if args.source_checkpoint else []),
         *([args.resume_checkpoint.parent] if args.resume_checkpoint else []),
     )
     output.mkdir(parents=True, exist_ok=False)
@@ -457,7 +468,7 @@ def _replay(args: argparse.Namespace) -> dict:
     summary = {
         "schema": "hung-single-baseline-replay-v1",
         "status": "completed",
-        "scope": "bounded Development single-model replay; no Final evaluation",
+        "scope": "bounded Development single-policy replay; Seasonal Naive fallback is proposed, no Final evaluation",
         "run_id": output.name,
         "input_binding": binding,
         "initial_checkpoint_sha256": initial_sha,
@@ -474,11 +485,10 @@ def _replay(args: argparse.Namespace) -> dict:
         "config": config,
         **evaluation,
         "cost": runner.cost,
-        "model_tensor_bytes": model_tensor_bytes(runner.model),
-        "model_optimizer_tensor_bytes": model_optimizer_tensor_bytes(runner.model, runner.optimizer)
-        if runner.optimizer is not None
-        else model_tensor_bytes(runner.model),
-        "cost_scope": "one-model inference/update timers; total duration includes validation, I/O and checkpointing; upstream training shown separately",
+        "model_tensor_bytes": 0 if runner.model is None else model_tensor_bytes(runner.model),
+        "model_optimizer_tensor_bytes": 0 if runner.model is None else model_optimizer_tensor_bytes(runner.model, runner.optimizer)
+        if runner.optimizer is not None else model_tensor_bytes(runner.model),
+        "cost_scope": "One forecasting policy, zero trainable models for Seasonal Naive; no candidate/audit/update work. Total duration includes validation, I/O and checkpointing; upstream training shown separately.",
         "event_evidence": {"events": runner.events, "issued_count": len(runner.issued)},
         "forecast_journal": {
             "file": journal_path.name,
@@ -515,7 +525,7 @@ def main(argv: list[str] | None = None) -> int:
     initial.add_argument("--learning-rate", type=float, required=True)
     initial.add_argument("--batch-size", type=int, required=True)
     initial.add_argument("--steps", type=int, required=True)
-    replay.add_argument("--method", choices=("target_only", "frozen_source"), required=True)
+    replay.add_argument("--method", choices=("target_only", "frozen_source", "seasonal_naive"), required=True)
     replay.add_argument("--initial-checkpoint", type=Path)
     replay.add_argument("--source-input-run", type=Path)
     replay.add_argument("--source-manifest-sha256")
