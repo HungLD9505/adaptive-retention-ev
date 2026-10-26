@@ -9,6 +9,7 @@ import math
 import torch
 
 from experiments.hung_sprint2 import dispatch_matched as dispatch
+from experiments.hung_sprint2.evaluation import complete_day_error_totals
 from experiments.hung_sprint2.matched_plan_provenance import pinned_json, require
 
 LEVELS = (0.1, 10.0, 1000.0, 10000.0)
@@ -38,8 +39,99 @@ def _digest(value: object) -> bool:
     )
 
 
+def _accepted_label(row: dict | None) -> bool:
+    if not isinstance(row, dict):
+        return False
+    valid, values = row.get("file_valid"), row.get("energy_kwh")
+    return (
+        isinstance(valid, list)
+        and len(valid) == 24
+        and all(flag is True for flag in valid)
+        and isinstance(values, list)
+        and len(values) == 24
+        and all(type(value) in (int, float) and math.isfinite(value) for value in values)
+    )
+
+
+def _accepted_chronology(input_run, entity_id: str) -> tuple[list[dict], dict]:
+    identity = ["urbanev", "SZH", entity_id]
+    schedule = [
+        row
+        for line in (input_run / "schedule.jsonl").read_text(encoding="utf-8").splitlines()
+        if (row := json.loads(line)).get("identity") == identity
+    ][:90]
+    labels = [
+        row
+        for line in (input_run / "labels.jsonl").read_text(encoding="utf-8").splitlines()
+        if (row := json.loads(line)).get("identity") == identity
+    ]
+    by_origin = {row["origin"]: row for row in labels}
+    require(
+        len(schedule) == 90 and len(by_origin) == len(labels),
+        "Accepted lambda chronology incomplete",
+    )
+    return schedule, by_origin
+
+
+def _score_runner(state: dict, record: dict, schedule: list[dict], labels: dict) -> float:
+    issued = state["issued"]
+    expected = [(i, row["origin"]) for i, row in enumerate(schedule) if row["status"] == "created"]
+    observed = [(row["index"], row["day_id"]) for row in issued]
+    require(
+        observed == expected and len(set(observed)) == len(observed), "Lambda issued origins differ"
+    )
+    scored = tuple(row["day_id"] for row in issued if row.get("y_scaled") is not None)
+    eligible = tuple(
+        row["origin"]
+        for row in schedule
+        if row["status"] == "created" and _accepted_label(labels.get(row["origin"]))
+    )
+    require(scored == eligible, "Lambda scored origins differ from accepted labels")
+    total_abs = 0.0
+    total_hours = 0
+    for row in issued:
+        has_label = row.get("y_scaled") is not None
+        require(has_label == (row.get("normalized_mae") is not None), "Lambda label/score mismatch")
+        if not has_label:
+            continue
+        accepted = labels[row["day_id"]]
+        expected_y = (
+            torch.tensor(accepted["energy_kwh"], dtype=torch.float32) / state["energy_scale"]
+        )
+        require(
+            torch.equal(row["y_scaled"].cpu(), expected_y),
+            "Lambda labels differ from accepted input",
+        )
+        forecasts = row.get("forecasts")
+        levels = state["controller"]["levels"]
+        require(
+            isinstance(forecasts, list)
+            and len(forecasts) == 3
+            and row.get("active_level") in levels,
+            "Lambda candidate forecasts/active level differ",
+        )
+        deployed = forecasts[list(levels).index(row["active_level"])].squeeze(0)
+        result = complete_day_error_totals(
+            deployed,
+            row["y_scaled"],
+            torch.ones(24, dtype=torch.bool),
+            energy_scale=state["energy_scale"],
+        )
+        total_abs += result.absolute_kwh
+        total_hours += result.hours
+    require(total_hours == 24 * len(scored) and total_hours > 0, "Lambda scored hours differ")
+    coverage = record.get("coverage", {})
+    require(
+        coverage.get("requested") == 90
+        and coverage.get("created") == len(issued)
+        and coverage.get("scored") == len(scored),
+        "Lambda accepted coverage differs",
+    )
+    return total_abs / total_hours
+
+
 def verify_lambda(
-    spec: dict, config: dict, selection_sha256: str, accepted_selection: dict
+    spec: dict, config: dict, selection_sha256: str, accepted_selection: dict, input_base
 ) -> float:
     require(
         isinstance(spec, dict)
@@ -87,6 +179,13 @@ def verify_lambda(
         )
     require(isinstance(roots, list) and len(roots) == 4, "Four lambda matrix roots required")
     matrices = {}
+    chronologies = {}
+    for budget in BUDGETS:
+        input_run = dispatch.project_path(input_base / f"urbanev-SZH-{budget}d")
+        dispatch._load_run(input_run, preflight["budgets"][str(budget)]["input_manifest_sha256"])
+        chronologies[budget] = _accepted_chronology(
+            input_run, preflight["budgets"][str(budget)]["chosen_entity_id"]
+        )
     for row in roots:
         require(
             isinstance(row, dict)
@@ -183,6 +282,8 @@ def verify_lambda(
             and len(scored) == cell["scored_origins"],
             "Lambda origin proof differs from runner checkpoint",
         )
+        schedule, labels = chronologies[budget]
+        recomputed_mae = _score_runner(state, record, schedule, labels)
         live = record.get("metrics_kwh", {}).get("live", {})
         require(
             record.get("schema") == "hung-sprint2-development-replay-v1"
@@ -203,7 +304,9 @@ def verify_lambda(
             and record.get("config", {}).get("controller", {}).get("levels")
             == [0.0, LEVELS[index], 2 * LEVELS[index]]
             and live.get("mae_kwh") is not None
-            and math.isclose(live["mae_kwh"], cell["mae_kwh"], rel_tol=1e-9, abs_tol=1e-9),
+            and math.isclose(live["mae_kwh"], recomputed_mae, rel_tol=1e-9, abs_tol=1e-9)
+            and math.isclose(cell["mae_kwh"], recomputed_mae, rel_tol=1e-9, abs_tol=1e-9)
+            and live.get("hours") == 24 * cell["scored_origins"],
             "Lambda run manifest/checkpoint evidence differs",
         )
         scores[index][budget][seed] = cell["mae_kwh"]

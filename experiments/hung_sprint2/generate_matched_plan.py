@@ -126,6 +126,7 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
         configs["parameter_retention"],
         recipe["selection"]["sha256"],
         selection,
+        input_base,
     )
     seeds = [7, 11, 19]
     require(configs["main"]["seeds"] == seeds, "Seed grid must be 7/11/19")

@@ -95,9 +95,10 @@ replay initial level and first nonzero candidate. Proxy recipes and drift
 reference must already be fixed in their reviewed configs; this generator
 does not choose them from outcomes.
 Provide all four lambda roots/configs, not only index 0 in the example. The
-generator authenticates each of 36 replay manifests/checkpoints, compares
-the selected cell MAE with its manifest and declared origin hashes across
-lambda candidates, then recomputes station/seed/budget
+generator authenticates each of 36 replay manifests/checkpoints, checks the
+issued/scored origins against accepted Development schedule and labels, and
+recomputes original-unit live MAE from the deployed forecast in each runner
+checkpoint. It then recomputes station/seed/budget
 means, the ranking and the tie-broken λ winner. It also authenticates the
 proxy plan and all 108 pinned run rows, then calls the existing proxy selector
 to re-verify the replay evidence and compare the entire provisional selection.

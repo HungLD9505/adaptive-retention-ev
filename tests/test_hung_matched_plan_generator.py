@@ -142,6 +142,32 @@ class PlanGeneratorTests(unittest.TestCase):
                         )
                         + "\n"
                     )
+            entity = selection["budgets"][str(budget)]["representative_entities"][0]["entity_id"]
+            with (input_run / "schedule.jsonl").open("x", encoding="utf-8") as stream:
+                for day in range(90):
+                    stream.write(
+                        json.dumps(
+                            {
+                                "identity": ["urbanev", "SZH", entity],
+                                "origin": f"day-{day}",
+                                "status": "created",
+                            }
+                        )
+                        + "\n"
+                    )
+            with (input_run / "labels.jsonl").open("x", encoding="utf-8") as stream:
+                for day in range(80):
+                    stream.write(
+                        json.dumps(
+                            {
+                                "identity": ["urbanev", "SZH", entity],
+                                "origin": f"day-{day}",
+                                "file_valid": [True] * 24,
+                                "energy_kwh": [10.0] * 24,
+                            }
+                        )
+                        + "\n"
+                    )
         chosen_entities = {
             budget: selection["budgets"][str(budget)]["representative_entities"][0]["entity_id"]
             for budget in (7, 14, 28)
@@ -217,15 +243,32 @@ class PlanGeneratorTests(unittest.TestCase):
                     target.parent.mkdir(exist_ok=True)
                     target.write_bytes(f"target-{index}-{budget}-{seed}".encode())
                     checkpoint = run / "runner_checkpoint.pt"
-                    issued = [{"day_id": f"day-{day}", "y_scaled": 1.0} for day in range(80)]
+                    mae = float(index + 1)
+                    issued = [
+                        {
+                            "index": day,
+                            "day_id": f"day-{day}",
+                            "y_scaled": torch.full((24,), 10.0) if day < 80 else None,
+                            "normalized_mae": mae if day < 80 else None,
+                            "forecasts": [torch.full((1, 24), 10.0 - mae) for _ in range(3)],
+                            "active_level": 0.0,
+                        }
+                        for day in range(90)
+                    ]
                     binding = {"entity_id": entity, "input_manifest_sha256": "a" * 64}
                     torch.save(
-                        {"issued": issued, "pending": None, "next_index": 90, "binding": binding},
+                        {
+                            "issued": issued,
+                            "pending": None,
+                            "next_index": 90,
+                            "binding": binding,
+                            "energy_scale": 1.0,
+                            "controller": {"levels": [0.0, level, 2 * level]},
+                        },
                         checkpoint,
                     )
                     journal = run / "events.jsonl"
                     journal.write_text("fixture event\n", encoding="utf-8")
-                    mae = 1.0 + index + budget / 100 + seed / 1000
                     scores[index][budget][seed] = mae
                     manifest = {
                         "schema": "hung-sprint2-development-replay-v1",
@@ -237,7 +280,7 @@ class PlanGeneratorTests(unittest.TestCase):
                         "target_checkpoint_sha256": sha256_file(target),
                         "input_binding": binding,
                         "event_journal": {"file": journal.name, "sha256": sha256_file(journal)},
-                        "coverage": {"scored": 80},
+                        "coverage": {"requested": 90, "created": 90, "scored": 80},
                         "config": {
                             "selection_rule": "confidence",
                             "retention_kind": "parameter",
@@ -245,7 +288,7 @@ class PlanGeneratorTests(unittest.TestCase):
                             "max_origins": 90,
                             "controller": {"levels": [0.0, level, 2 * level]},
                         },
-                        "metrics_kwh": {"live": {"mae_kwh": mae}},
+                        "metrics_kwh": {"live": {"mae_kwh": mae, "hours": 80 * 24}},
                     }
                     manifest_path = run / "run_manifest.json"
                     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
@@ -261,7 +304,7 @@ class PlanGeneratorTests(unittest.TestCase):
                                 json.dumps(tuple(item["day_id"] for item in issued)).encode()
                             ).hexdigest(),
                             "scored_origins_sha256": hashlib.sha256(
-                                json.dumps(tuple(item["day_id"] for item in issued)).encode()
+                                json.dumps(tuple(item["day_id"] for item in issued[:80])).encode()
                             ).hexdigest(),
                             "source_checkpoint_sha256": sha256_file(source),
                             "target_checkpoint_sha256": sha256_file(target),
@@ -419,11 +462,13 @@ class PlanGeneratorTests(unittest.TestCase):
             return_value={"commit": "test-commit", "worktree_status": [], "executed_sources": {}},
         )
         self.grid_patch = patch.object(generator, "verify_checkpoint_grid")
+        self.input_patch = patch.object(generator.dispatch, "_load_run", return_value={})
         self.drift_patch = patch.object(
             generator, "drift_reference", return_value=(0.0, 1.0, "first-origin")
         )
         self.code_patch.start()
         self.grid_patch.start()
+        self.input_patch.start()
         self.drift_patch.start()
         self.proxy_select_patch = patch(
             "experiments.hung_sprint2.matched_proxy_provenance.proxy_select",
@@ -432,6 +477,7 @@ class PlanGeneratorTests(unittest.TestCase):
         self.proxy_select_patch.start()
         self.addCleanup(self.code_patch.stop)
         self.addCleanup(self.grid_patch.stop)
+        self.addCleanup(self.input_patch.stop)
         self.addCleanup(self.drift_patch.stop)
         self.addCleanup(self.proxy_select_patch.stop)
 
@@ -531,6 +577,50 @@ class PlanGeneratorTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, message):
                     generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
                 self.assertFalse(self.plan_path.exists())
+
+    def test_manifest_metric_and_winner_forgery_fails_against_runner_forecasts(self) -> None:
+        selected = json.loads(self.lambda_path.read_text(encoding="utf-8"))
+        root = Path(self.lambda_roots[0]["path"])
+        for cell in selected["cells"]:
+            if cell["lambda_index"] != 0:
+                continue
+            cell["mae_kwh"] = 10.0
+            run = (
+                root
+                / f"{cell['budget']}d"
+                / f"seed-{cell['seed']}"
+                / f"entity-{cell['entity_id']}"
+                / "replay-90"
+            )
+            manifest_path = run / "run_manifest.json"
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["metrics_kwh"]["live"]["mae_kwh"] = 10.0
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            cell["run_manifest_sha256"] = sha256_file(manifest_path)
+        selected["ranking"][0]["budget_seed_mean_mae_kwh"] = {
+            "7": 10.0,
+            "14": 10.0,
+            "28": 10.0,
+        }
+        selected["ranking"][0]["equal_budget_mae_kwh"] = 10.0
+        selected["chosen_index"] = 1
+        selected["chosen_lambda_low"] = 10.0
+        self.lambda_path.write_text(json.dumps(selected), encoding="utf-8")
+        spec = copy.deepcopy(self.recipe["lambda"])
+        spec["selection"] = self.pin(self.lambda_path)
+        spec["chosen_lambda_low"] = 10.0
+        config = copy.deepcopy(self.configs["parameter_retention"])
+        config["target"]["retention_weight"] = 10.0
+        config["replay"].update(initial_level=10.0, level_one=10.0, level_two=20.0)
+        accepted = json.loads(self.selection_path.read_text(encoding="utf-8"))
+        with self.assertRaisesRegex(ValueError, "run manifest/checkpoint evidence differs"):
+            generator.verify_lambda(
+                spec,
+                config,
+                sha256_file(self.selection_path),
+                accepted,
+                self.input_base,
+            )
 
     def test_existing_main_block7_jobs_need_explicit_decisions(self) -> None:
         self.recipe["existing_runs"].pop()
