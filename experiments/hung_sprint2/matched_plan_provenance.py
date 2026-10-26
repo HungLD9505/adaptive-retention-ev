@@ -282,6 +282,79 @@ def verify_reuse(spec: dict, job: dict, cell: dict, config: dict, code: dict) ->
     dispatch.verify_file(path.parent / journal.get("file", ""), journal.get("sha256"))
 
 
+def verify_external_complete(
+    spec: dict, job: dict, cell: dict, config: dict, code: dict, input_base: Path
+) -> dict:
+    """Authenticate a complete historical run with distinct original dependencies.
+
+    Its original Source/target identities are retained in coverage; the run is
+    excluded from the matched executable plan and requires scientific review.
+    """
+    pin = pinned_file(spec["run_manifest"])
+    path = Path(pin["path"])
+    seed_dir = path.parent.parent.parent
+    source_path = seed_dir / "source" / "source_checkpoint.pt"
+    target_path = path.parent.parent / "target" / "target_checkpoint.pt"
+    source = pinned_checkpoint(
+        {
+            "path": str(source_path),
+            "sha256": dispatch.sha256_file(source_path),
+            "run_manifest_sha256": dispatch.sha256_file(source_path.parent / "run_manifest.json"),
+        }
+    )
+    target = pinned_checkpoint(
+        {
+            "path": str(target_path),
+            "sha256": dispatch.sha256_file(target_path),
+            "run_manifest_sha256": dispatch.sha256_file(target_path.parent / "run_manifest.json"),
+        }
+    )
+    historical = {**job, "source": source, "target": target}
+    verify_reuse(spec, historical, cell, config, code)
+    input_run = input_base / f"urbanev-SZH-{cell['budget']}d"
+    input_sha = cell["input_manifest_sha256"]
+    manifest = dispatch._load_run(input_run, input_sha)
+    source_binding = dispatch._binding(manifest, input_sha, stage="source")
+    source_record = dispatch.checked_checkpoint(
+        source_path, source["sha256"], source_binding, code, source["run_manifest_sha256"]
+    )
+    require(source_record.get("seed") == cell["seed"], "External Source seed differs")
+    dispatch.verify_source_schedule(source_record, config["source"], input_run, manifest)
+    entity_rows = [
+        row
+        for line in (input_run / "entities.jsonl").read_text(encoding="utf-8").splitlines()
+        if (row := json.loads(line)).get("identity") == ["urbanev", "SZH", cell["entity_id"]]
+    ]
+    require(len(entity_rows) == 1, "External target identity differs")
+    entity = entity_rows[0]
+    target_binding = dispatch._binding(
+        manifest,
+        input_sha,
+        stage="target",
+        entity_id=cell["entity_id"],
+        scale_id=entity["scale"]["fit_sha256"],
+        source_checkpoint_sha256=source["sha256"],
+    )
+    target_record = dispatch.checked_checkpoint(
+        target_path, target["sha256"], target_binding, code, target["run_manifest_sha256"]
+    )
+    dispatch.verify_target_schedule(target_record, config["target"], entity["initial_trainable"])
+    require(
+        target_record.get("seed") == cell["seed"]
+        and target_record.get("retention_weight") == config["target"]["retention_weight"],
+        "External target method/config differs",
+    )
+    historical_record = dispatch.read_verified_json(path, pin["sha256"])
+    return {
+        "run_manifest": pin,
+        "historical_code_commit": historical_record["code"]["commit"],
+        "source": source,
+        "target": target,
+        "source_matches_matched": source["sha256"] == job["source"]["sha256"],
+        "target_matches_matched": target["sha256"] == job["target"]["sha256"],
+    }
+
+
 def verify_checkpoint_grid(
     cells: list[dict],
     sources: dict,

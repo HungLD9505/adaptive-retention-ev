@@ -566,6 +566,34 @@ class PlanGeneratorTests(unittest.TestCase):
         self.assertEqual(coverage["declared_jobs"], 989)
         self.assertIsNone(coverage["aliases"]["without_confidence"])
 
+    def test_external_complete_run_is_preserved_and_excluded(self) -> None:
+        decision = next(
+            row for row in self.recipe["existing_runs"] if row["job_id"].startswith("block7_")
+        )
+        decision.update(
+            action="external_complete",
+            run_manifest=self.pin(self.lambda_path),
+            reason="Complete historical run with distinct checkpoint identity",
+        )
+        evidence = {
+            "run_manifest": decision["run_manifest"],
+            "historical_code_commit": "historical-commit",
+            "source": {"sha256": "a" * 64},
+            "target": {"sha256": "b" * 64},
+            "source_matches_matched": False,
+            "target_matches_matched": False,
+        }
+        with patch.object(generator, "verify_external_complete", return_value=evidence):
+            coverage = generator.generate(
+                self.recipe_path, self.save(), self.plan_path, self.coverage_path
+            )
+        plan = json.loads(self.plan_path.read_text(encoding="utf-8"))
+        self.assertNotIn(decision["job_id"], {row["id"] for row in plan["jobs"]})
+        self.assertEqual(coverage["external_dependency_comparison"]["jobs"], 1)
+        self.assertEqual(coverage["external_dependency_comparison"]["source_strata_matches"], 0)
+        self.assertEqual(coverage["scheduled_jobs"], 919)
+        self.assertIn("fairness", coverage["fairness_gate"])
+
     def test_missing_target_or_wrong_lambda_fails_before_write(self) -> None:
         self.recipe["targets"].pop()
         digest = self.save()

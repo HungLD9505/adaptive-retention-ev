@@ -23,6 +23,7 @@ from experiments.hung_sprint2.matched_plan_provenance import (
     pinned_json,
     require,
     verify_checkpoint_grid,
+    verify_external_complete,
     verify_reuse,
 )
 from experiments.hung_sprint2.matched_proxy_provenance import (
@@ -296,6 +297,7 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
     job_by_id = {job["id"]: job for job in jobs}
     require(len(job_by_id) == len(jobs), "Duplicate job ID")
     reused = {}
+    external_complete = {}
     rerun_existing = {}
     decisions = recipe["existing_runs"]
     require(isinstance(decisions, list), "Explicit existing-run decisions required")
@@ -327,6 +329,17 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
                 code,
             )
             reused[job_id] = row["run_manifest"]
+        elif row["action"] == "external_complete":
+            require(row["run_manifest"] is not None, "External run needs manifest pin")
+            evidence = verify_external_complete(
+                {"job_id": job_id, "run_manifest": row["run_manifest"]},
+                job,
+                cell_by_id[job["cell"]],
+                configs[job["config"]],
+                code,
+                input_base,
+            )
+            external_complete[job_id] = {**evidence, "reason": row["reason"]}
         else:
             require(
                 row["action"] == "rerun" and row["run_manifest"] is None,
@@ -337,6 +350,16 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
         seen_decisions == expected_existing,
         "Every main/block7 job requires an explicit reuse or rerun decision",
     )
+    external_source_by_stratum = {}
+    for job_id, evidence in external_complete.items():
+        cell = cell_by_id[job_by_id[job_id]["cell"]]
+        stratum = (cell["budget"], cell["seed"])
+        previous = external_source_by_stratum.get(stratum)
+        require(
+            previous is None or previous == evidence["source"]["sha256"],
+            "External Source identity varies within budget/seed",
+        )
+        external_source_by_stratum[stratum] = evidence["source"]["sha256"]
     plan = {
         "schema": "hung-matched-development-dispatch-v1",
         "scope": "development_only",
@@ -350,7 +373,9 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
             *({"id": f"drift_{cell['id']}", **drift_configs[cell["id"]]} for cell in cells),
         ],
         "cells": cells,
-        "jobs": [job for job in jobs if job["id"] not in reused],
+        "jobs": [
+            job for job in jobs if job["id"] not in reused and job["id"] not in external_complete
+        ],
         "output_root": recipe["output_root"],
     }
     require(plan["jobs"], "All jobs were marked reused")
@@ -368,6 +393,27 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
         "declared_jobs": len(jobs),
         "scheduled_jobs": len(plan["jobs"]),
         "reused_jobs": reused,
+        "external_complete_jobs": external_complete,
+        "external_dependency_comparison": {
+            "jobs": len(external_complete),
+            "source_strata": len(external_source_by_stratum),
+            "source_strata_matches": sum(
+                digest == sources[stratum]["sha256"]
+                for stratum, digest in external_source_by_stratum.items()
+            ),
+            "source_matches": sum(
+                evidence["source_matches_matched"] for evidence in external_complete.values()
+            ),
+            "target_matches": sum(
+                evidence["target_matches_matched"] for evidence in external_complete.values()
+            ),
+        },
+        "fairness_gate": (
+            "External complete runs preserve their original Source and target checkpoints; "
+            "they are excluded from the matched matrix and need independent fairness review."
+            if external_complete
+            else None
+        ),
         "rerun_existing_jobs": rerun_existing,
         "aliases": {
             "fixed_lambda": "fixed_retention",

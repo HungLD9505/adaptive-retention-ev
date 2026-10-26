@@ -64,8 +64,9 @@ Create a Git-ignored JSON file inside the worktree with these exact keys:
     {"job_id": "main_b7s7e2264", "action": "reuse",
      "run_manifest": {"path": "<completed replay run_manifest.json>", "sha256": "<SHA-256>"},
      "reason": "Reviewed original run identity"},
-    {"job_id": "block7_b7s7e2264", "action": "rerun",
-     "run_manifest": null, "reason": "Original code identity differs"}
+    {"job_id": "block7_b7s7e2264", "action": "external_complete",
+     "run_manifest": {"path": "<completed original Block-7 run_manifest.json>", "sha256": "<SHA-256>"},
+     "reason": "Distinct original Source/target; fairness review required"}
   ],
   "output_root": "<new Git-ignored run directory inside this worktree>"
 }
@@ -75,12 +76,20 @@ The abbreviated arrays above show the row shapes, not a complete recipe.
 Provide all nine Source budget/seed pins; 69 cell-specific Drift config pins;
 all 69 cells times five target
 variants (`main`, `fixed_retention`, `full_finetuning`,
-`parameter_retention`, `no_source`); and an explicit reuse or rerun decision
+`parameter_retention`, `no_source`); and an explicit reuse, externally complete,
+or rerun decision
 for every one of the 69 main and 69 block-7 jobs. `create` means the dispatcher
 will build a fresh target under the new output root. It never silently uses an
 old target. Reuse requires the checkpoint and completed run manifests to match
-input, code sources, schedule, seed, λ, and SHA. Incompatible old runs remain
-preserved but must be declared `rerun`; they cannot be relabeled.
+input, executed code sources, schedule, seed, λ, and SHA. A complete historical
+run with distinct Source or target checkpoints may be declared
+`external_complete` with its original run-manifest pin. The generator validates
+its own Source, target, input, schedule, code and replay evidence, records the
+original commit and dependency hashes, and excludes it from the executable
+plan. Coverage flags the unmatched dependencies for a scientific fairness
+review; the historical run does not satisfy the matched comparison. Use
+`rerun` only for genuinely missing or incomplete work, never to duplicate a
+verified complete run.
 
 Each Drift config must pin that cell's first-history reference and may differ
 from the main config only in the Drift rule, proxy thresholds/mapping, and
@@ -116,8 +125,8 @@ it aliases Online Best, yielding 920 declared jobs. A positive delta yields
 69 distinct Without Confidence jobs and 989 declared jobs. The two block
 variants and main method are included; verified old main/block-7 runs appear
 only in the coverage record and are omitted from the executable plan. The
-coverage record states the scheduled count, reuse pins, rerun decisions,
-aliases, and resulting plan SHA.
+coverage record states the scheduled count, reuse pins, externally complete
+runs, Source/target equality counts, rerun decisions, aliases and plan SHA.
 
 ## Create and inspect
 
