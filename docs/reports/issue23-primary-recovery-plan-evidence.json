@@ -1,0 +1,18 @@
+{
+  "status": "prepared_not_gpu_executed",
+  "scope": "Exact missing UrbanEV physical artifacts only; no recalibration or Final",
+  "proxy_replay": 648,
+  "matched_replay": 690,
+  "preserved_original_proxy_not_replayed": 456,
+  "null_cells_retained": {
+    "proxy": 336,
+    "matched": 330
+  },
+  "url": "https://drive.google.com/file/d/1nou9eFd6fSkXYYwailfGmDpJFr1uimrL/view",
+  "bytes": 4669253,
+  "sha256": "0d8d19f5ab585fdee15a0098060783e1eb534a538bde16fdce5cf20ac564a651",
+  "anonymous_readback": "PASS size/SHA/CRC/all9 manifest members",
+  "plan_sha256": "6929cc7f5e525f8752072ba5c842f2a93e968fde19f7823e268a6bd44865ea79",
+  "validation": "Read-only actual full-plan validation plus valid miniature fixture and eight fail-closed rejection cases; GPU execution and actual recovery verification pending",
+  "code_scope": "Standalone artifact driver calls unchanged runner; production model/control/runner/baseline files unchanged"
+}

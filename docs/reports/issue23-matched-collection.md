@@ -269,3 +269,24 @@ with **Save output for this version** was also requested; version4 remains Queue
 so it is not accepted as a durable backup. No new training was dispatched by the
 save operation. SPO inputs have been staged and their archive/all three manifest
 hashes verified, but SPO training has not started.
+
+## Prepared exact missing-artifact replay
+
+The later recovery inventory authenticates the original complete proxy and
+matched matrices and all three retained epoch10 Source checkpoints. It partitions
+the proxy population into456 already verified originals to preserve and648
+physically missing runs to replay. All690 matched raw runs also require recovery.
+Selection uses physical absence and original matrix order, never error or seed.
+The missing subsets retain336 proxy and330 matched null-metric cells.
+
+The [prepared recovery kit](issue23-primary-recovery-plan-evidence.json) contains
+the original matrices, exact partition, original Source bytes and a standalone
+CUDA driver calling the unchanged runner. Anonymous Drive size/hash/CRC/all9-member
+readback passed. Read-only actual-plan validation and independent miniature
+fail-closed cases passed; the driver is not yet GPU-executed or accepted as a
+completed recovery. It checks Development roles/scalers before execution, records
+new lineage, verifies each new daily/state artifact and reports differences from
+the original results. It performs no new calibration or favorable selection.
+Core model/controller/runner/baseline files are byte-identical between original
+training54131cbb and recovery9057364. GPU numerical equality and full physical
+recovery remain to be tested; no original expected hashes are replaced.

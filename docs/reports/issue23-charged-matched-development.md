@@ -65,13 +65,22 @@ SPO v1 failed before training because its launcher used a nonexistent working
 directory. The corrected v2 launched three Sources and the last persisted notebook
 output reports11 completed target runs, but a subsequent new runtime has neither
 its directory nor process handle. This does not establish how many runs completed
-before eviction. No SPO models/results have been delivered. MEL, LOA, SZH and AMS
-have not started. Files-only persistence subsequently passed an80-byte exact-hash probe across a
+before eviction. No v2 SPO models/results were delivered. Files-only persistence subsequently passed an80-byte exact-hash probe across a
 normal Stop session/replacement runtime. This does not prove retention after every
 forced eviction or guarantee unattended job completion. A separately identified
-v3 recovery then started with unchanged settings. All three Source models are now
-verified outside Kaggle and on Drive; the378-target matrix remains in progress.
+v3 recovery then completed with unchanged settings. All five pipeline stages exited0.
+All three Source models and the full metadata package are verified outside Kaggle
+and on Drive. Local metadata/CSV recomputation matches all84 station-first point
+aggregates. The34-part raw target/code export (590,626,343bytes) is not restored or
+fully backed up; complete metadata does not replace forecasts/events/latest states.
 See the exact [SPO recovery evidence](issue23-spo-recovery-evidence.json).
+
+MEL subsequently launched under a new independent city run identity using the
+unchanged primary numerical recipe and its own Sources. Last notebook output
+records3 Sources and59 target runs. The frontend now reports Save Error / Session
+is starting; current process liveness and file retention remain unverified.
+No complete MEL result or training restart is claimed. LOA, SZH and AMS remain
+unstarted. Do not infer cloud-job liveness from cached notebook output.
 
 The321-test implementation passed before these executions; fixtures are not
 research-effectiveness evidence. Peer/complete storage acceptance, remaining city
@@ -283,3 +292,36 @@ forecast/state verification and analysis. A Source archive is not a complete
 experiment collection. MEL/LOA/SZH/AMS and the missing primary raw artifacts
 remain outstanding. No Final, autonomous merge, issue closure or effectiveness
 claim is inferred from this recovery.
+
+## SPO v3 complete metadata, raw restore pending
+
+Remote pipeline stages all exited0. The downloaded matrix/proof authenticate378
+run identities, counts, scores and chains; local CSV recomputation matches all84
+MAE/RMSE point aggregates. This is metadata consistency, not independent replay of
+the absent raw daily files or CPU verification of378 target states. Source models
+and metadata have anonymous Drive readback evidence; full target delivery remains open.
+
+| Method | 7-day MAE | 14-day MAE | 28-day MAE | Equal-budget descriptive mean |
+|---|---:|---:|---:|---:|
+| adaptive | 1.946524 | 0.568516 | 0.654410 | 1.056483 |
+| block28 | 1.951743 | 0.556083 | 0.655924 | 1.054583 |
+| block7 | 1.926724 | 0.559158 | 0.669557 | 1.051813 |
+| drift | 1.991179 | 0.576181 | 0.656566 | 1.074642 |
+| fixed_retention | 1.910670 | 0.530351 | 0.649374 | 1.030132 |
+| frozen_source | 2.164519 | 0.562744 | 0.572709 | 1.099990 |
+| full_finetuning | 2.052292 | 0.578124 | 0.656626 | 1.095681 |
+| online_best | 1.969414 | 0.559799 | 0.658466 | 1.062560 |
+| parameter_retention | 2.052351 | 0.577827 | 0.656514 | 1.095564 |
+| seasonal_naive | 2.039626 | 0.814043 | 1.019163 | 1.290944 |
+| source_error | 1.941376 | 0.550950 | 0.684389 | 1.058905 |
+| target_only | 2.738912 | 0.890731 | 1.191247 | 1.606963 |
+| uncertainty | 1.958458 | 0.557016 | 0.656781 | 1.057418 |
+| without_source_initialization | 2.793904 | 0.897443 | 1.231758 | 1.641035 |
+
+Units are kWh. Different predeclared sites may enter each budget; the rows do
+not establish a causal history-budget learning curve. Adaptive point MAE is lower
+than Full Fine-tuning and higher than Fixed Retention on all three budgets. This
+does not establish population superiority, equivalence or strict-online validity.
+Upstream preprocessing/clock limitations, small cohorts, conditional uncertainty,
+raw-artifact acceptance and independent review remain. No per-city retuning,
+Final evaluation, autonomous merge or closure occurred.
