@@ -32,8 +32,21 @@ Every day was marked as issued, arrived, and complete. The Qyroven helper also r
 
 The output is reproducible under the exact pinned source bytes and fixture inputs above. It does not establish that either implementation is statistically preferable or incorrect. Their lower bounds use different bootstrap random-stream derivation and empirical-quantile conventions: Qyroven uses linear interpolation, while Hung uses the order statistic at `ceil((alpha/2) × R) − 1`. Different resampled means and quantile extraction can move a marginal LCB across strict `LCB > δ`. A previous constant-score fixture could not expose this difference.
 
+### Isolating random draws from the quantile rule
+
+An independent standard-library calculation used the same 14 improvement pairs, noncircular length-2 moving blocks, 100 draws and Bonferroni `alpha_each=0.025`. It reproduced each implementation's documented SHA-256 seed derivation. The table applies **both** quantile rules to each *fixed* set of resampled indices; the values are lower bounds for the `λ=0.1` challenger.
+
+| Resampled indices from | Order statistic, index 2 | Linear quantile, `(R-1) × 0.025` | Both rules decide |
+| --- | ---: | ---: | --- |
+| Qyroven stream (`ALGORITHM`, seed, stream, scale, block timestamps) | −0.03571428571428573 | −0.025535714285714307 | keep 0.0 |
+| Hung stream (`seed:block_id`) | +0.007142857142857102 | +0.00714285714285711 | switch to 0.1 |
+
+Thus the **RNG stream is sufficient to reverse this particular fixture's decision**; changing only the quantile rule does not reverse it. The `λ=0.2` bounds remain negative under both rules for both streams. This calculation does not establish that the quantile rule could never matter on other samples. It also shows why merely aligning nominal seed `7` does not align bootstrap draws.
+
 ## Review decision still required
 
-Before #39/#20 integration, the co-leads and an independent reviewer must choose and document one bootstrap RNG and quantile convention using Report 1 and Development-only methodological criteria, then add a varying-day regression to the selected shared implementation. Compare both controllers again with identical resampled day indices if the team needs to isolate the quantile rule from RNG. Reconcile the separate head-topology and training-config differences recorded in [comparison readiness](https://github.com/HungLD9505/adaptive-retention-ev/blob/83b877e/docs/reports/implementation-comparison-readiness.md) before interpreting model-score gaps. Do not select a convention because it makes Adaptive's Development or Final score look better; do not relabel old training outputs or merge both implementations unchanged.
+Report 1 §6, the written #20 criteria and `docs/SPRINT_PLAN.md` require a one-sided day-block-bootstrap LCB, Development-selected settings, two-challenger handling and a strict switch threshold. They do **not** prescribe a bootstrap stream key or empirical-quantile interpolation rule. Neither implementation violates a uniquely specified convention on this point. Historical Development runs used their respective conventions, so a method change would require a new versioned run rather than relabeling their decisions.
 
-No review has been submitted on #42–#46, #47, #49, #50, or #53 at this check. This fixture is additional evidence for review, not acceptance, merge authority, or a claim that #39 is complete.
+Before #39/#20 integration, the co-leads and an independent reviewer must choose and document one bootstrap RNG and quantile convention using Report 1 and Development-only methodological criteria, then add a varying-day regression to the selected shared implementation. A reviewable decision should specify whether the seed keys include stream/scale/block identity, which quantile definition is used, and whether the same sampled indices are shared by both challengers. Reconcile the separate head-topology and training-config differences recorded in [comparison readiness](https://github.com/HungLD9505/adaptive-retention-ev/blob/83b877e/docs/reports/implementation-comparison-readiness.md) before interpreting model-score gaps. Do not select a convention because it makes Adaptive's Development or Final score look better; do not relabel old training outputs or merge both implementations unchanged.
+
+No review has been submitted on #42–#46, #47, #49, #50, #53, or #55 at the 2026-10-26 check. This fixture is additional evidence for review, not acceptance, merge authority, or a claim that #39 is complete.
