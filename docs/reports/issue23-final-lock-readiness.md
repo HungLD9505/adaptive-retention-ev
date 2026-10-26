@@ -57,10 +57,11 @@ it cannot be silently substituted to satisfy a compute deadline.
 - Complete/reverify the primary artifact recovery and six-city Development scope.
   SPO/MEL raw-runtime access remains unresolved; their cached logs are not a
   portable full handoff. Other city execution remains explicit in #23.
-- Preserve runtime fairness:114 historically retained selected-proxy cells need
-  additional same-Colab-runtime reference runs after the648/690 missing-artifact
-  batch. Choices/weights stay frozen. Do not mix old/new runtime cells and claim
-  a common-environment comparison. See the [exact replay/queue evidence](issue23-primary-recovery-plan-evidence.json).
+- Preserve runtime fairness: after Colab termination, the authenticated new-runtime
+  plan retains16 complete old units (224 selected cells) and replays all14 methods
+  for53 incomplete units (742 cells:212 selected-proxy plus530 matched). This
+  includes documented repeats; it is not742 lost outputs. Choices/weights stay
+  frozen. Do not mix environments within paired station/budget/seed units. See the [exact replay/queue evidence](issue23-primary-recovery-plan-evidence.json).
 - Declare the actual Final cohort, source checkpoint identities, measured total
   compute/storage envelope, complete configs and analysis/profile hashes.
 - Implement/review Final-capable execution and independent verification under a

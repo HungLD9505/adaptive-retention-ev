@@ -534,3 +534,32 @@ as PID741 using codea94bfaf. Its code/receipt downloads and checkout were observ
 fixture gates and target completion remain separately recorded when observed.
 There is no automatic next chunk. Completed but not externally published runs
 remain exposed to runtime loss; the bound is12, not a persistence guarantee.
+
+### First full bounded chunk accepted
+
+Actual Kaggle codea94bfaf passed348 fixtures (23.125s), Ruff lint/format and
+unchanged-core checks. All12 targets in original proxy range [3,15) completed;
+all cloud verification/export stages exited0. The pipeline stopped for handoff.
+
+The [canonical12-run package](https://drive.google.com/file/d/1Yp6TTmh7PE7AEPDM09UQodOIWsjcTh19/view)
+is34,511,930 bytes, SHA-256
+`697e773f02f306d3fe1423748b354b9d631e29ce1d68fbb7b1c8b67212793224`.
+Actual browser download, approved Drive upload and fresh Drive readback succeeded.
+Independent transport restoration, frozen run-ID/order/config/environment checks,
+complete accepted-input/daily verification, latest-state equality and CPU loading
+of all3 original Source checkpoints passed. The [proof/scripts](https://drive.google.com/file/d/18C4E66kVI2-AWGlvZ4hEHn-VHFmnjZI4/view)
+and [publication receipt](https://drive.google.com/file/d/1A1SmRwViSHeWkcoq1tpBLRLBQpBV0fGm/view)
+are preserved separately. A verifier preflight wrongly looked for an environment
+at the report root; the actual schema stores it in binding.environment. A separate
+verification directory corrected the field access and retained the failed log;
+no training bytes or expected hashes changed.
+
+There are15 new-runtime targets fully published. The next bounded [15,27)
+continuation was dispatched as PID1064 only after that acceptance. This is not
+742-run completion. It stops for the same external-publication gate.
+
+The old SPO/MEL interactive GPU session is now provider-confirmed Cancelled.
+Selecting CPU and ordinary reload still gives a worker-start error; an ordinary
+SPO metadata file download produced no event within20seconds. The downloaded old
+notebook preserves cached code/output, not checkpoints. Old persisted raw files
+remain unverified, not declared lost. No Run All or blind city retraining occurred.

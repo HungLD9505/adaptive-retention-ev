@@ -832,8 +832,51 @@
     "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
     "code_bundle_sha256": "debef8d63c2d3841f42d9c0adee60eec605ad86c292cda5f0e65b2734fd99302",
     "required_previous_receipt_sha256": "52018f83746be2fac0f7d785e1649cce41ab4ed2a9c8d09114c5f6e6d3fe9173",
-    "status": "actual_dispatch_live_child_observed_fixture_gates_pending",
+    "status": "all12_targets_exit0_canonical_Drive_roundtrip_independently_verified",
     "log": "/kaggle/working/issue23-proxy-continue-0003-v1.log",
-    "scope": "No rerun of offsets0-2. At most12 Development targets, local per-run committed backups; stop for external independent canonical publication before next offset. No Final, city completion, bulk completion or provider persistence guarantee."
+    "scope": "Direct unchanged cloud canonical export. All12 original ordered IDs/configs/environments, accepted input daily predictions/errors and latest branch states independently restored; all3 original Source dependencies CPU verified. No refit or Final.",
+    "completed_runs": 12,
+    "canonical_url": "https://drive.google.com/file/d/1Yp6TTmh7PE7AEPDM09UQodOIWsjcTh19/view",
+    "canonical_publication": {
+      "status": "actual_Kaggle_twelve_run_canonical_Drive_roundtrip_and_content_verified",
+      "runs": 12,
+      "all_three_Source_dependencies_cpu_verified": true,
+      "wrapper_sha256": "697e773f02f306d3fe1423748b354b9d631e29ce1d68fbb7b1c8b67212793224",
+      "wrapper_bytes": 34511930,
+      "catalog_sha256": "a6ff73462604981aec26983c600dd1ec0fe3219a0f8ce238c727b0f7867e73c7",
+      "daily_sha256": "8315b1c8c0573f91f58a47b4bf52297ce4ce15eb2e00be48b9a0e37b7b8ddc09",
+      "states_sha256": "444d5c98789f25f3529d7954f72bd05ea4b9f415eec5fd83d0c5927b6873f9ce",
+      "scope": "Actual normal Kaggle browser download, raw content restore, unchanged cloud canonical export, approved Drive upload, fresh anonymous readback, complete transport/Source/daily/state proof equality. No refitting, Final or next-chunk acceptance."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/1A1SmRwViSHeWkcoq1tpBLRLBQpBV0fGm/view",
+    "publication_receipt_sha256": "90d5db755bfce74fa241ad824b76b76a5d1c54ffda7eba96a72f2bfe8c455b45",
+    "independent_proof_url": "https://drive.google.com/file/d/18C4E66kVI2-AWGlvZ4hEHn-VHFmnjZI4/view",
+    "independent_proof_sha256": "6039fccd1867629e1afcd580c2f45af604276ee5a85e35a122f89d5a25c3148f",
+    "independent_proof_bytes": 8260,
+    "cloud_fixture_gate_seconds": 23.124987781
+  },
+  "kaggle_offset15_continuation": {
+    "pid": 1064,
+    "start": 15,
+    "end": 27,
+    "count_limit": 12,
+    "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+    "required_previous_receipt_sha256": "90d5db755bfce74fa241ad824b76b76a5d1c54ffda7eba96a72f2bfe8c455b45",
+    "status": "actual_dispatch_not_yet_content_published",
+    "log": "/kaggle/working/issue23-proxy-continue-0015-v1.log",
+    "scope": "Frozen next12 proxy IDs, prior verified unchanged checkout/cloud fixture gates reused. No automatic next, altered recipes or Final."
+  },
+  "old_kaggle_storage_followup": {
+    "notebook_url": "https://www.kaggle.com/code/qert12345/qyroven-sprint-3-development-recovery-20261026/edit",
+    "provider_old_interactive_state": "Cancelled",
+    "new_interactive_state": "Running on separate notebook",
+    "attempts": [
+      "Downloaded historical notebook cached code/output only before settings change",
+      "Selected None accelerator for CPU storage-only recovery after provider terminal state",
+      "Ordinary reload; worker-start error remains",
+      "Direct ordinary SPO metadata download produced no download event in20seconds"
+    ],
+    "current_files": "persisted old SPO/MEL raw contents still unverified, not declared absent",
+    "scope": "No Run All, Source refitting, old model overwrite or stop of current GPU. Queued saved versions are distinct and not assumed completed."
   }
 }
