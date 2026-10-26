@@ -311,6 +311,16 @@ class MatchedDispatcherTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Duplicate JSON key"):
             dispatch.read_json(bad)
 
+    def test_plan_change_after_cli_precheck_is_rejected_at_dispatch_entry(self) -> None:
+        self.save()
+        approved_sha = sha256_file(self.plan_path)
+        dispatch.verify_file(self.plan_path, approved_sha)
+        self.plan["output_root"] = str(self.root / "swapped-output")
+        self.save()
+        with self.assertRaisesRegex(ValueError, "SHA-256 mismatch"):
+            dispatch.dispatch(self.plan_path, execute=False, expected_plan_sha256=approved_sha)
+        self.assertFalse((self.root / "swapped-output").exists())
+
     def test_mocked_execute_writes_separate_stage_logs_and_verifies_outputs(self) -> None:
         self.save()
 

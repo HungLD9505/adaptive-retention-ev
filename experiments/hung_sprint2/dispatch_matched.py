@@ -690,8 +690,9 @@ def verify_execution_identity(
     )
 
 
-def dispatch(path: Path, *, execute: bool) -> dict:
-    plan_sha256 = sha256_file(path)
+def dispatch(path: Path, *, execute: bool, expected_plan_sha256: str | None = None) -> dict:
+    plan_sha256 = expected_plan_sha256 or sha256_file(path)
+    verify_file(path, plan_sha256)
     plan, configs, cells, jobs = parse_plan(path)
     verify_file(path, plan_sha256)
     root = project_path(plan["output_root"])
@@ -806,7 +807,7 @@ def main(argv: list[str] | None = None) -> int:
     plan = project_path(args.plan)
     require(plan.is_relative_to(ROOT.resolve()), "Plan must be inside current worktree")
     verify_file(plan, args.plan_sha256)
-    print(json.dumps(dispatch(plan, execute=args.execute)))
+    print(json.dumps(dispatch(plan, execute=args.execute, expected_plan_sha256=args.plan_sha256)))
     return 0
 
 
