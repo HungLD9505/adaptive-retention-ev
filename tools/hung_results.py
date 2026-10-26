@@ -363,6 +363,7 @@ def paired_results(records: list[dict]) -> tuple[list[dict], list[dict]]:
                         "paired_days": len(common),
                         "method_metrics": left,
                         "reference_metrics": right,
+                        "uses_source": candidate.get("source_sha256") is not None,
                         "paired_day_ids_sha256": hashlib.sha256(
                             json.dumps(common).encode()
                         ).hexdigest(),
@@ -386,7 +387,12 @@ def station_first(pairs: list[dict]) -> list[dict]:
             for side in ("method_metrics", "reference_metrics")
         }
         groups[(budget, method, reference)].append(
-            {"entity_id": station, "seeds": len(rows), **means}
+            {
+                "entity_id": station,
+                "seeds": len(rows),
+                "uses_source": all(r["uses_source"] for r in rows),
+                **means,
+            }
         )
     result = []
     for (budget, method, reference), rows in sorted(groups.items()):
@@ -399,6 +405,10 @@ def station_first(pairs: list[dict]) -> list[dict]:
         }
         gain = averages["reference_metrics"]["mae_kwh"] - averages["method_metrics"]["mae_kwh"]
         denominator = averages["reference_metrics"]["mae_kwh"]
+        worse = sum(
+            r["method_metrics"]["mae_kwh"] > r["reference_metrics"]["mae_kwh"] for r in rows
+        ) / len(rows)
+        is_transfer = reference == "target_only" and all(r["uses_source"] for r in rows)
         result.append(
             {
                 "budget": budget,
@@ -409,10 +419,9 @@ def station_first(pairs: list[dict]) -> list[dict]:
                 **averages,
                 "absolute_mae_gain_kwh": gain,
                 "relative_mae_gain": gain / denominator if denominator > 0 else None,
-                "negative_transfer_station_fraction": sum(
-                    r["method_metrics"]["mae_kwh"] > r["reference_metrics"]["mae_kwh"] for r in rows
-                )
-                / len(rows),
+                "worse_than_reference_station_fraction": worse,
+                "negative_transfer_station_fraction": worse if is_transfer else None,
+                "transfer_gain": gain / denominator if is_transfer and denominator > 0 else None,
             }
         )
     return result
@@ -422,7 +431,7 @@ def aggregate_results(catalog: dict, root: Path) -> dict:
     records = verify_artifacts(catalog, root)
     pairs, blocked = paired_results(records)
     return {
-        "schema": "hung-development-partial-results-v1",
+        "schema": "hung-development-partial-results-v2",
         "scope": "development_only",
         "acceptance": "Provisional; full coverage and independent review required",
         "runs": [{k: v for k, v in r.items() if k != "days"} for r in records],
@@ -434,7 +443,7 @@ def aggregate_results(catalog: dict, root: Path) -> dict:
         "paired_cells": pairs,
         "blocked_pairs": blocked,
         "station_first": station_first(pairs),
-        "aggregation": "Complete hourly errors within paired station/seed; mean seeds within station, then equal station mean within each budget. Budgets remain separate. Negative transfer is station mean MAE above its paired reference; zero reference MAE gives undefined relative gain.",
+        "aggregation": "Complete hourly errors within paired station/seed; mean seeds within station, then equal station mean within each budget. Budgets remain separate. Transfer gain and negative transfer apply only to Source-using methods versus Target-only. Other comparisons report generic MAE differences/worse-than-reference fractions. Zero reference MAE gives undefined relative gain; absolute differences remain available.",
     }
 
 

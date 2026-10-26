@@ -23,7 +23,7 @@ def publish_report(result: dict, directory: Path, source_sha: str) -> dict:
         row["scored_days"] += run["coverage"]["scored"]
         row["requested_days"] += run["coverage"]["requested"]
     summary = {
-        "schema": "hung-development-report-v1",
+        "schema": "hung-development-report-v2",
         "scope": "development_only",
         "acceptance": result["acceptance"],
         "result_sha256": source_sha,
@@ -86,12 +86,17 @@ def publish_report(result: dict, directory: Path, source_sha: str) -> dict:
         "",
         "Each method/reference table uses its own paired day intersection. Different rows can have different cohorts and must not be interpreted as a global performance ranking. Cells with missing labels or unequal input/initialization/labels remain blocked. Full baseline/ablation, seed and budget coverage plus independent review are required.",
         "",
-        "| Budget | Method | Reference | Stations | Min seeds | MAE | RMSE | Reference MAE | MAE gain | Negative transfer stations |",
-        "|---:|---|---|---:|---:|---:|---:|---:|---:|---:|",
+        "| Budget | Method | Reference | Stations | Min seeds | MAE | RMSE | Reference MAE | MAE gain | Worse than reference | Negative transfer vs Target-only |",
+        "|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in summary["station_first"]:
+        ntr = (
+            "n/a"
+            if row["negative_transfer_station_fraction"] is None
+            else f"{row['negative_transfer_station_fraction']:.3f}"
+        )
         lines.append(
-            f"| {row['budget']} | {row['method']} | {row['reference']} | {row['stations']} | {row['minimum_seeds_per_station']} | {row['method_metrics']['mae_kwh']:.6f} | {row['method_metrics']['rmse_kwh']:.6f} | {row['reference_metrics']['mae_kwh']:.6f} | {row['absolute_mae_gain_kwh']:.6f} | {row['negative_transfer_station_fraction']:.3f} |"
+            f"| {row['budget']} | {row['method']} | {row['reference']} | {row['stations']} | {row['minimum_seeds_per_station']} | {row['method_metrics']['mae_kwh']:.6f} | {row['method_metrics']['rmse_kwh']:.6f} | {row['reference_metrics']['mae_kwh']:.6f} | {row['absolute_mae_gain_kwh']:.6f} | {row['worse_than_reference_station_fraction']:.3f} | {ntr} |"
         )
     lines += [
         "",

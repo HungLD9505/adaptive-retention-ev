@@ -117,6 +117,7 @@ class ResultTests(unittest.TestCase):
                         "budget": 14,
                         "method": "main",
                         "reference": "target_only",
+                        "uses_source": True,
                         "entity_id": station,
                         "seed": seed,
                         "method_metrics": {"mae_kwh": error, "rmse_kwh": error},
@@ -128,6 +129,12 @@ class ResultTests(unittest.TestCase):
         self.assertEqual(row["minimum_seeds_per_station"], 1)
         self.assertEqual(row["negative_transfer_station_fraction"], 0.5)
         self.assertEqual(row["relative_mae_gain"], -0.25)
+        for reference, uses_source in [("main", True), ("target_only", False)]:
+            changed = [{**p, "reference": reference, "uses_source": uses_source} for p in pairs]
+            generic = results.station_first(changed)[0]
+            self.assertIsNone(generic["negative_transfer_station_fraction"])
+            self.assertIsNone(generic["transfer_gain"])
+            self.assertEqual(generic["worse_than_reference_station_fraction"], 0.5)
 
     def test_unmatched_catalog_and_changed_bytes_fail(self):
         with self.assertRaises(ValueError):
