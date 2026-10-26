@@ -365,3 +365,23 @@ The new separate-city Source outbox remains implementation-tested only; no new
 city Source GPU training is claimed. CHARGED six-city completion, the remaining
 runtime-fair comparisons, independent Final-lock approval and Final evaluation
 are outstanding. No merge, protocol change or Final execution occurred.
+
+### Independent city Source readback
+
+`python -m tools.verify_city_source --help` documents the CPU-only verifier for
+the single-seed Source wrapper. Supply the downloaded archive and its observed
+SHA-256, the three accepted city input manifests, and the same pinned cohort,
+primary-selection and environment-profile files used by the producer. It rebuilds
+the expected context from those dependencies rather than trusting the wrapper.
+It rejects extra/aliased paths, changed manifest or producer claims, reloads the
+actual checkpoint and latent scale using `RunBackup`, checks the Source example
+count and writes `source-verification.json` into a new output directory.
+
+This is content verification, not remote storage verification. The operator must
+upload the exact archive, download it again from Drive, run this verifier on the
+fresh bytes, and publish the separate proof before accepting the Source. No
+target may silently use an unaccepted city Source or an UrbanEV checkpoint.
+The verifier does not fit a model or inspect Final values. Four additional
+synthetic tests cover genuine CPU reload, changed dependencies/producer/count,
+unsafe or extra members and overwrite rejection; the full360-test suite passed
+in6.020 seconds. Real city GPU execution and remote proof remain pending.
