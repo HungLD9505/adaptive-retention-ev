@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import math
 import os
 import re
@@ -36,6 +37,18 @@ BINDING_FIELDS = {
     "source_checkpoint_sha256",
 }
 CHECKPOINT_SCHEMA = "hung-sprint2-model-v1"
+
+
+def model_state_sha256(model: ForecastGRU) -> str:
+    """Hash named tensor contents independently of torch serialization headers."""
+    digest = hashlib.sha256()
+    for name, value in sorted(model.state_dict().items()):
+        tensor = value.detach().cpu().contiguous()
+        digest.update(name.encode("utf-8"))
+        digest.update(str(tuple(tensor.shape)).encode("ascii"))
+        digest.update(str(tensor.dtype).encode("ascii"))
+        digest.update(tensor.numpy().tobytes())
+    return digest.hexdigest()
 
 
 def _checkpoint_rng(model: ForecastGRU) -> dict:
@@ -131,12 +144,18 @@ def forecast_mae(forecast: Tensor, y_scaled: Tensor) -> Tensor:
 
 
 def initialize_target(
-    source: ForecastGRU, *, learning_rate: float
+    source: ForecastGRU, *, learning_rate: float, initialization_kind: str = "source"
 ) -> tuple[ForecastGRU, ForecastGRU, torch.optim.Adam]:
-    """Make independent trainable target and frozen reference from one source."""
+    """Create a Source-copied or seeded-random target with the same frozen reference."""
     if not 0 < learning_rate < float("inf"):
         raise ValueError("learning_rate must be finite and positive")
-    target = deepcopy(source)
+    if initialization_kind not in {"source", "random_target"}:
+        raise ValueError("Unsupported target initialization kind")
+    target = (
+        deepcopy(source)
+        if initialization_kind == "source"
+        else ForecastGRU(source.config).to(next(source.parameters()).device)
+    )
     reference = frozen_source_reference(source)
     target.encoder.flatten_parameters()
     reference.encoder.flatten_parameters()
@@ -268,6 +287,8 @@ def save_checkpoint(
     training_step: int,
     initial_retention_weight: float | None = None,
     initial_retention_kind: str | None = None,
+    initialization_kind: str | None = None,
+    initial_model_sha256: str | None = None,
 ) -> None:
     """Create a new bound checkpoint; an existing path is never overwritten."""
     validate_binding(input_binding)
@@ -294,6 +315,18 @@ def save_checkpoint(
         input_binding["stage"] != "target" or initial_retention_kind not in {"latent", "parameter"}
     ):
         raise ValueError("Initial retention kind must be latent or parameter for target")
+    if initialization_kind is not None and (
+        input_binding["stage"] != "target" or initialization_kind not in {"source", "random_target"}
+    ):
+        raise ValueError("Target initialization kind must be source or random_target")
+    if initial_model_sha256 is not None and (
+        input_binding["stage"] != "target"
+        or not isinstance(initial_model_sha256, str)
+        or not re.fullmatch(r"[0-9a-f]{64}", initial_model_sha256)
+    ):
+        raise ValueError("Initial model SHA-256 must be a target-bound digest")
+    if initialization_kind == "random_target" and initial_model_sha256 is None:
+        raise ValueError("Random-target checkpoint requires the initial model digest")
     payload = {
         "schema": CHECKPOINT_SCHEMA,
         "architecture": model.config.to_dict(),
@@ -309,6 +342,12 @@ def save_checkpoint(
         **(
             {"initial_retention_kind": initial_retention_kind}
             if initial_retention_kind is not None
+            else {}
+        ),
+        **({"initialization_kind": initialization_kind} if initialization_kind is not None else {}),
+        **(
+            {"initial_model_sha256": initial_model_sha256}
+            if initial_model_sha256 is not None
             else {}
         ),
         "model_state": model.state_dict(),
@@ -361,6 +400,8 @@ def load_checkpoint(
         raise ValueError("Invalid checkpoint execution metadata")
     initial_weight = payload.get("initial_retention_weight")
     initial_kind = payload.get("initial_retention_kind")
+    initialization_kind = payload.get("initialization_kind")
+    initial_model_sha256 = payload.get("initial_model_sha256")
     if initial_weight is not None and (
         expected_binding["stage"] != "target"
         or isinstance(initial_weight, bool)
@@ -373,6 +414,19 @@ def load_checkpoint(
         expected_binding["stage"] != "target" or initial_kind not in {"latent", "parameter"}
     ):
         raise ValueError("Invalid checkpoint initial retention kind")
+    if initialization_kind is not None and (
+        expected_binding["stage"] != "target"
+        or initialization_kind not in {"source", "random_target"}
+    ):
+        raise ValueError("Invalid checkpoint target initialization kind")
+    if initial_model_sha256 is not None and (
+        expected_binding["stage"] != "target"
+        or not isinstance(initial_model_sha256, str)
+        or not re.fullmatch(r"[0-9a-f]{64}", initial_model_sha256)
+    ):
+        raise ValueError("Invalid checkpoint initial model digest")
+    if initialization_kind == "random_target" and initial_model_sha256 is None:
+        raise ValueError("Random-target checkpoint lacks initial model digest")
     rng = _validated_checkpoint_rng(payload, torch.device(map_location)) if restore_rng else None
     config = ModelConfig(**payload["architecture"])
     model = ForecastGRU(config).to(map_location)
@@ -398,5 +452,7 @@ def load_checkpoint(
             "training_step": payload["training_step"],
             "initial_retention_weight": (None if initial_weight is None else float(initial_weight)),
             "initial_retention_kind": initial_kind,
+            "initialization_kind": initialization_kind,
+            "initial_model_sha256": initial_model_sha256,
         },
     )

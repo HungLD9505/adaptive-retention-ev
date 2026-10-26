@@ -71,6 +71,13 @@ def run(args: argparse.Namespace) -> None:
         config["target"]["retention_weight"] != config["replay"]["initial_level"]
     ):
         raise ValueError("Parameter ablation initial lambda differs from target initialization")
+    target_initialization = config["target"].get("initialization_kind", "source")
+    replay_initialization = config["replay"].get("initialization_kind", "source")
+    if target_initialization != replay_initialization or target_initialization not in {
+        "source",
+        "random_target",
+    }:
+        raise ValueError("Target/replay initialization kind differs")
     selection = json.loads(args.selection.read_text(encoding="utf-8"))
     runs = []
     for budget in (7, 14, 28):
@@ -192,6 +199,8 @@ def run(args: argparse.Namespace) -> None:
                     str(config["target"]["retention_weight"]),
                     "--retention-kind",
                     target_kind,
+                    "--initialization-kind",
+                    target_initialization,
                     "--epsilon",
                     str(config["target"]["epsilon"]),
                     "--seed",

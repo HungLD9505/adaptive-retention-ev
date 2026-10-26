@@ -26,6 +26,7 @@ from experiments.hung_sprint2.runner import PrequentialRunner
 from experiments.hung_sprint2.training import (
     initialize_target,
     load_checkpoint,
+    model_state_sha256,
     save_checkpoint,
     source_step,
     target_step,
@@ -357,6 +358,9 @@ def _target(args: argparse.Namespace) -> dict:
     retention_kind = getattr(args, "retention_kind", "latent")
     if retention_kind not in {"latent", "parameter"}:
         raise ValueError("Unsupported target retention kind")
+    initialization_kind = getattr(args, "initialization_kind", "source")
+    if initialization_kind not in {"source", "random_target"}:
+        raise ValueError("Unsupported target initialization kind")
     if not 0 <= args.retention_weight < float("inf") or not 0 < args.epsilon < float("inf"):
         raise ValueError("retention weight/epsilon must be valid")
     source_run = args.source_input_run.resolve()
@@ -404,7 +408,10 @@ def _target(args: argparse.Namespace) -> dict:
         raise ValueError("Target examples use a different frozen scale")
     output = _new_output(args.output, target_run, source_run, args.source_checkpoint.parent)
     torch.manual_seed(args.seed)
-    target, reference, optimizer = initialize_target(source_model, learning_rate=args.learning_rate)
+    target, reference, optimizer = initialize_target(
+        source_model, learning_rate=args.learning_rate, initialization_kind=initialization_kind
+    )
+    initial_model_sha256 = model_state_sha256(target)
     steps = 0
     for start in range(0, len(examples), args.batch_size):
         if steps == args.steps:
@@ -446,6 +453,8 @@ def _target(args: argparse.Namespace) -> dict:
         training_step=steps,
         initial_retention_weight=args.retention_weight,
         initial_retention_kind=retention_kind,
+        initialization_kind=initialization_kind,
+        initial_model_sha256=initial_model_sha256,
     )
     summary = {
         "scope": "bounded_development_initialization; no online replay or effectiveness evidence",
@@ -461,6 +470,8 @@ def _target(args: argparse.Namespace) -> dict:
         "learning_rate": args.learning_rate,
         "retention_weight": args.retention_weight,
         "retention_kind": retention_kind,
+        "initialization_kind": initialization_kind,
+        "initial_model_sha256": initial_model_sha256,
         "epsilon": args.epsilon,
         "device": _device_record(device),
         "python": platform.python_version(),
@@ -483,6 +494,9 @@ def _replay(args: argparse.Namespace) -> dict:
     retention_kind = getattr(args, "retention_kind", "latent")
     if retention_kind not in {"latent", "parameter"}:
         raise ValueError("Unsupported replay retention kind")
+    initialization_kind = getattr(args, "initialization_kind", "source")
+    if initialization_kind not in {"source", "random_target"}:
+        raise ValueError("Unsupported replay initialization kind")
     if selection_rule not in {
         "confidence",
         "online_best_lambda",
@@ -614,6 +628,26 @@ def _replay(args: argparse.Namespace) -> dict:
         raise ValueError("Parameter ablation needs matching checkpoint kind and initial lambda")
     if retention_kind == "latent" and checkpoint_kind == "parameter":
         raise ValueError("Parameter-initialized checkpoint cannot be replayed as latent retention")
+    checkpoint_initialization = target_metadata["initialization_kind"]
+    checkpoint_initial_model = target_metadata["initial_model_sha256"]
+    if checkpoint_initialization != target_record.get("initialization_kind"):
+        raise ValueError("Target run manifest initialization disagrees with checkpoint payload")
+    if checkpoint_initial_model != target_record.get("initial_model_sha256"):
+        raise ValueError("Target initial model digest disagrees with checkpoint payload")
+    if initialization_kind == "random_target":
+        if checkpoint_initialization != "random_target" or checkpoint_initial_model is None:
+            raise ValueError("No-source ablation needs verified random-target initialization")
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(target_metadata["seed"])
+            expected_initial = ForecastGRU(source_model.config)
+        if model_state_sha256(expected_initial) != checkpoint_initial_model:
+            raise ValueError("Random target initialization differs from recorded seed/model")
+    elif checkpoint_initialization not in {None, "source"}:
+        raise ValueError("Random-target checkpoint cannot be replayed as Source initialized")
+    elif checkpoint_initialization == "source" and (
+        checkpoint_initial_model != model_state_sha256(source_model)
+    ):
+        raise ValueError("Source-initialized target origin differs from bound Source")
     if selection_rule in {"fixed_retention", "full_finetuning"} and checkpoint_weight is None:
         raise ValueError("Legacy target checkpoint has unverified initial lambda")
     if selection_rule in {"fixed_retention", "full_finetuning"} and (
@@ -631,6 +665,8 @@ def _replay(args: argparse.Namespace) -> dict:
         "target_initial_retention_weight": checkpoint_weight,
         "retention_kind": retention_kind,
         "target_initial_retention_kind": checkpoint_kind,
+        "initialization_kind": initialization_kind,
+        "target_initial_model_sha256": checkpoint_initial_model,
         "target_initial_retention_weight_verified": checkpoint_weight is not None,
         "epsilon": args.epsilon,
         "seed": args.seed,
@@ -691,6 +727,10 @@ def _replay(args: argparse.Namespace) -> dict:
             or previous.get("config", {}).get("proxy_config") != config["proxy_config"]
             or previous.get("config", {}).get("target_initial_retention_weight")
             != checkpoint_weight
+            or previous.get("config", {}).get("initialization_kind", "source")
+            != initialization_kind
+            or previous.get("config", {}).get("target_initial_model_sha256")
+            != checkpoint_initial_model
             or previous.get("config", {}).get("target_initial_retention_weight_verified")
             != (checkpoint_weight is not None)
             or previous.get("config", {}).get("epsilon") != args.epsilon
@@ -838,6 +878,9 @@ def main(argv: list[str] | None = None) -> int:
     target.add_argument("--entity-id", required=True)
     target.add_argument("--retention-weight", type=float, required=True)
     target.add_argument("--retention-kind", choices=("latent", "parameter"), default="latent")
+    target.add_argument(
+        "--initialization-kind", choices=("source", "random_target"), default="source"
+    )
     target.add_argument("--epsilon", type=float, required=True)
     for name in (
         "input-run",
@@ -862,6 +905,9 @@ def main(argv: list[str] | None = None) -> int:
         replay.add_argument(f"--{name}", type=float, required=True)
     replay.add_argument("--resume-checkpoint", type=Path)
     replay.add_argument("--retention-kind", choices=("latent", "parameter"), default="latent")
+    replay.add_argument(
+        "--initialization-kind", choices=("source", "random_target"), default="source"
+    )
     replay.add_argument(
         "--selection-rule",
         choices=(

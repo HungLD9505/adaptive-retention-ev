@@ -34,6 +34,7 @@ class ReplayCliTests(unittest.TestCase):
         proxy_history: bool = False,
         retention_kind: str = "latent",
         days: int = 3,
+        initialization_kind: str = "source",
     ):
         run, digest = input_run(root, days=days)
         if proxy_history:
@@ -132,6 +133,7 @@ class ReplayCliTests(unittest.TestCase):
                     learning_rate=0.001,
                     retention_weight=trained_weight,
                     retention_kind=retention_kind,
+                    initialization_kind=initialization_kind,
                     epsilon=1e-6,
                     device="cpu",
                 )
@@ -185,6 +187,68 @@ class ReplayCliTests(unittest.TestCase):
             seed=7,
             resume_checkpoint=None,
         )
+
+    def test_no_source_initialization_is_bound_and_resume_matches(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest, source, target, binding = self._inputs(
+                root, trained_weight=0.1, initialization_kind="random_target"
+            )
+            target_record = json.loads((target.parent / "run_manifest.json").read_text())
+            self.assertEqual(target_record["initialization_kind"], "random_target")
+            self.assertEqual(len(target_record["initial_model_sha256"]), 64)
+            _, _, scale, metadata = load_checkpoint(target, expected_binding=binding)
+            self.assertEqual(metadata["initialization_kind"], "random_target")
+            self.assertEqual(
+                metadata["initial_model_sha256"], target_record["initial_model_sha256"]
+            )
+            self.assertTrue(torch.equal(scale, torch.ones(64)))
+
+            args = self._args(root, run, digest, source, target, "no-source-full", 3)
+            args.initialization_kind = "random_target"
+            full = _replay(args)
+            full_runner = load_runner(
+                args.output / "runner_checkpoint.pt", expected_binding=binding
+            )
+            self.assertEqual(full["config"]["initialization_kind"], "random_target")
+            self.assertEqual(full["coverage"]["requested"], 3)
+            args.output = root / "no-source-prefix"
+            args.max_origins = 1
+            _replay(args)
+            args.resume_checkpoint = args.output / "runner_checkpoint.pt"
+            args.output = root / "no-source-resumed"
+            args.max_origins = 3
+            _replay(args)
+            resumed_runner = load_runner(
+                args.output / "runner_checkpoint.pt", expected_binding=binding
+            )
+            assert_same_replay(self, full_runner, resumed_runner)
+            args.output = root / "mislabeled-source"
+            args.resume_checkpoint = None
+            args.initialization_kind = "source"
+            with self.assertRaisesRegex(ValueError, "Random-target checkpoint cannot"):
+                _replay(args)
+            self.assertFalse(args.output.exists())
+
+    def test_no_source_initial_digest_rejects_joint_checkpoint_manifest_forgery(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest, source, target, _ = self._inputs(
+                root, trained_weight=0.1, initialization_kind="random_target"
+            )
+            payload = torch.load(target, weights_only=True)
+            payload["initial_model_sha256"] = "0" * 64
+            torch.save(payload, target)
+            manifest_path = target.parent / "run_manifest.json"
+            manifest = json.loads(manifest_path.read_text())
+            manifest["initial_model_sha256"] = "0" * 64
+            manifest["checkpoint_sha256"] = sha256_file(target)
+            manifest_path.write_text(json.dumps(manifest))
+            args = self._args(root, run, digest, source, target, "forged", 3)
+            args.initialization_kind = "random_target"
+            with self.assertRaisesRegex(ValueError, "differs from recorded seed/model"):
+                _replay(args)
+            self.assertFalse(args.output.exists())
 
     def test_proxy_replay_binds_config_cost_and_resume(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
