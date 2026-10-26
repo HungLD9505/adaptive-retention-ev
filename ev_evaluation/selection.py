@@ -1,6 +1,7 @@
 """Finite Development selection with explicit pairing, missingness and weighting."""
 
 import math
+import re
 
 
 def score_candidates(
@@ -19,6 +20,9 @@ def score_candidates(
         for item in group["entities"]
         for seed in cohort["seeds"]
     }
+    strict_origins = any(
+        row.get("binding", {}).get("schema") == "ev-prequential-run-v1" for row in rows
+    )
     cells = {}
     for row in rows:
         binding = row["binding"]["input"]
@@ -28,6 +32,17 @@ def score_candidates(
             raise ValueError("Extra/duplicate study cell")
         if row["method"]["name"] != method_name:
             raise ValueError("Wrong study comparator")
+        if strict_origins and (
+            row["binding"].get("schema") != "ev-prequential-run-v1"
+            or any(
+                not isinstance(row.get(name), str)
+                or re.fullmatch(r"[0-9a-f]{64}", row[name]) is None
+                for name in ("issued_origins_sha256", "scored_origins_sha256")
+            )
+            or not isinstance(binding.get("input_manifest_sha256"), str)
+            or re.fullmatch(r"[0-9a-f]{64}", binding["input_manifest_sha256"]) is None
+        ):
+            raise ValueError("Full study row lacks authenticated origin identities")
         if (row["active_mae_kwh"] is None) != (row["scored_days"] == 0):
             raise ValueError("Score availability contradicts scored-day count")
         cells[key] = row
@@ -37,8 +52,14 @@ def score_candidates(
     for (_, budget, entity, seed), row in cells.items():
         unit = (budget, entity, seed)
         signature = (row["issued_days"], row["scored_days"])
+        if strict_origins:
+            signature += (
+                row["binding"]["input"]["input_manifest_sha256"],
+                row["issued_origins_sha256"],
+                row["scored_origins_sha256"],
+            )
         if unit in coverage and coverage[unit] != signature:
-            raise ValueError("Candidate forecast/score coverage differs")
+            raise ValueError("Candidate forecast/score origin coverage differs")
         coverage[unit] = signature
     values = {}
     for candidate in choices:

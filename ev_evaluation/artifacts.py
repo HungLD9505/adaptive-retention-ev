@@ -39,4 +39,11 @@ def authenticate_matrix(path: Path, verification: Path) -> dict:
                     raise ValueError("Verifier null score differs")
             elif not math.isclose(a, b, rel_tol=1e-9, abs_tol=1e-10):
                 raise ValueError("Verifier score differs")
+        for name in ("issued_origins_sha256", "scored_origins_sha256"):
+            if name in v:
+                if name in row and row[name] != v[name]:
+                    raise ValueError("Verifier origin population differs")
+                # Enrich only this in-memory copy. The immutable matrix bytes and
+                # its proof fingerprint remain unchanged for historical runs.
+                row[name] = v[name]
     return matrix

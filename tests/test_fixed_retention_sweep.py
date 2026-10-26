@@ -69,6 +69,42 @@ class CalibrationTests(unittest.TestCase):
                     method_name="full_finetuning",
                 )
 
+    def test_equal_counts_different_scored_origins_fail_for_full_runs(self):
+        rows = copy.deepcopy(self.rows)
+        for row in rows:
+            row["binding"]["schema"] = "ev-prequential-run-v1"
+            row["binding"]["input"]["input_manifest_sha256"] = "a" * 64
+            row["issued_origins_sha256"] = "b" * 64
+            row["scored_origins_sha256"] = "c" * 64
+        self.assertEqual(
+            score_candidates(
+                rows,
+                self.cohort,
+                [1, 3, 10],
+                choice_field="source_epochs",
+                method_name="full_finetuning",
+            )["provisional_choice"],
+            1,
+        )
+        rows[0]["scored_origins_sha256"] = "d" * 64
+        with self.assertRaisesRegex(ValueError, "origin coverage"):
+            score_candidates(
+                rows,
+                self.cohort,
+                [1, 3, 10],
+                choice_field="source_epochs",
+                method_name="full_finetuning",
+            )
+        del rows[0]["scored_origins_sha256"]
+        with self.assertRaisesRegex(ValueError, "origin identities"):
+            score_candidates(
+                rows,
+                self.cohort,
+                [1, 3, 10],
+                choice_field="source_epochs",
+                method_name="full_finetuning",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

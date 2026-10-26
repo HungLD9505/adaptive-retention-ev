@@ -205,6 +205,14 @@ class CollectionTests(unittest.TestCase):
             }
             v.write_text(json.dumps(proof))
             self.assertEqual(authenticate_matrix(p, v), matrix)
+            proof["runs"][0].update(
+                issued_origins_sha256="a" * 64,
+                scored_origins_sha256="b" * 64,
+            )
+            v.write_text(json.dumps(proof))
+            enriched = authenticate_matrix(p, v)
+            self.assertEqual(enriched["runs"][0]["scored_origins_sha256"], "b" * 64)
+            self.assertNotIn("scored_origins_sha256", json.loads(p.read_text())["runs"][0])
             for field, value in (("issued", 1), ("mae_kwh", 0), ("commit_chain", "other")):
                 bad = copy.deepcopy(proof)
                 bad["runs"][0][field] = value
