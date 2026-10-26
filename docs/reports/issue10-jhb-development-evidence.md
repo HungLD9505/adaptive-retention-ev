@@ -1,14 +1,14 @@
-# Issue #10 evidence register: five CHARGED Development cities
+# Issue #10 evidence register: six CHARGED Development cities
 
-**Status (2026-10-26): Development evidence, pending independent acceptance.** This register supports the [thesis draft](../THESIS_REPORT.md). It records JHB, SPO, MEL, AMS, and SZH as separate-city CHARGED replications and the evidence still needed for the Results, Discussion, and Conclusion. SZH is separate because of UrbanEV coordinate overlap. It does not report a Final result or establish an effectiveness claim.
+**Status (2026-10-26): Development evidence, pending independent acceptance.** This register supports the [thesis draft](../THESIS_REPORT.md). It records JHB, SPO, MEL, LOA, AMS, and SZH as Hung's separate-city CHARGED Development replications and the evidence still needed for the Results, Discussion, and Conclusion. SZH is separate because of UrbanEV coordinate overlap. It does not report a Final result or establish an effectiveness claim.
 
 ## Where this evidence belongs in the report
 
 | Report section | Evidence-supported content now | Pending content |
 | --- | --- | --- |
 | Motivation, research questions, and method | Retain Report 1 and the existing thesis draft as the method source. | Peer review of the final claim boundaries. |
-| Data and protocol | JHB, SPO, MEL, AMS, and SZH are separate supplementary cities, each with 7/14/28-day initial histories and three seeds. | Accepted input and cohort handoff for every reported city; publisher-processing and SZH overlap limits remain. |
-| Development evaluation | Separate JHB, SPO, MEL, AMS, and SZH matrices, independent daily and latest-state proofs, analyses, catalogued exports, and fresh restores below. LOA has a completed matrix, proofs, and analysis. | LOA export/restore, peer review, and independent teammate reproduction. |
+| Data and protocol | JHB, SPO, MEL, LOA, AMS, and SZH are separate supplementary cities, each with 7/14/28-day initial histories and three seeds. | Accepted input and cohort handoff for every reported city; publisher-processing and SZH overlap limits remain. |
+| Development evaluation | Separate six-city matrices, independent daily and latest-state proofs, analyses, catalogued exports, and fresh restores below. | Peer review and independent teammate reproduction. |
 | Final results, discussion, conclusion | Reporting table and questions already defined in the thesis draft. | Immutable Final lock, complete Final runs and proofs, paired effects/uncertainty, and cost interpretation. |
 
 ## JHB evidence available locally
@@ -100,6 +100,25 @@ The private Kaggle `szh_20261026_v7` and `ams_20261026_v7` runs used the committ
 
 SZH has documented coordinate overlap with UrbanEV and must remain an overlap-limited supplement, not independent unseen-location validation or part of a five-city geographic score. AMS belongs to the five-city geographic supplement, but its provider-processed demand and publisher-local-naive clock do not certify strict-online causality. The raw Windows fresh-verifier JSON hashes above differ from Kaggle's Linux JSON because of CRLF versus LF line endings; the registers document byte normalization and proof binding. The verifier results agree in content, and each fresh latest-state proof binds the exact fresh daily bytes. Independent teammate reproduction and peer approval remain open.
 
+## LOA Development addendum
+
+LOA uses its own city Source population and the same declared Development recipe. The first local study stopped after a Windows `PermissionError [WinError 5]` while replacing `progress.next.json` with `progress.json`; that original root and its failed matrix/progress records remain preserved. A new root copied and reverified 174 completed cells, then executed the remaining 204 cells. The completed matrix uses training code `83b877e16e7e690d93bb1f7736ce1870ef08fadd`; analysis/export code `5b6b7531b9db7398307bef8d5f17244c7d0b8efd` applies the path-separator correction proposed in draft PR #63. The first export attempt stopped before writing a catalog and lacked the relocation attachment; its partial directory is preserved and is **not** the canonical package. Export v2 below is the complete package. No old run or partial export was overwritten to present a clean history.
+
+| Artifact (under `D:\Đồ Án\.cache\charged-analyzer-paths\.cache`, except where stated) | SHA-256 | Check or role |
+| --- | --- | --- |
+| `D:\Đồ Án\.cache\charged-replication\runs\hung-charged-LOA-development-20261026-resumed-v1\matrix.json` | `a9cc73055694711e1471c0485bd178a5d0872f700f469319dd8e465b9bbc85ec` | `technical_success`; 378 method/entity-history/seed cells. |
+| `loa-original-daily-v1.json` | `1dc38a8f750338d58bf7e4ac9921ab7d4dae28158d2cd6d430dc9cadc7f80c3f` | Original daily/input proof; 378 runs and 69,930 committed files. |
+| `loa-original-latest-v1.json` | `b9d1069e9da50350fbc198e4720bc494a2fab24cac3c885e6c31431256d61f21` | Original latest model/optimizer/RNG proof; 378 states. |
+| `D:\Đồ Án\.cache\charged-replication\runs\hung-charged-LOA-development-20261026-resumed-v1-source-relocation.json` | `d44f1a99817fa541b1feeea68e88b5a9cf9feea5293bde03b41c6b1bba9d94ae` | Binds copied Source and 174 preserved prefix runs to the completed root. |
+| `loa-analysis-pathfix-20261026-v1/summary.json` | `e7b933ef840e9ef2231bc63e7c3ade177432464fdad9fdb9746e090cca259e26` | Separate-city Development analysis bound to the matrix and original daily proof. |
+| `loa-analysis-pathfix-20261026-v1/runs.csv` | `0c07c105f6cc824d61161a1e172c9c0092ed4aedd329d3cd2f6eb43e256cf658` | Per-run analysis table. |
+| `loa-export-pathfix-20261026-v2/catalog.json` | `abceb5f1f687eca924a19924c1c23e560353835f26dfc7f0b20a75a5d67ff8c6` | Canonical complete 34-part export: 32 run ZIPs, metadata ZIP, and code bundle; all part SHA-256 and ZIP CRC checks passed. Analysis and Source-relocation records are attached. |
+| `loa-restored-daily-v1.json` | `1dc38a8f750338d58bf7e4ac9921ab7d4dae28158d2cd6d430dc9cadc7f80c3f` | Fresh restore `loa-r1`; 378 runs and 69,930 committed files independently verified. Exact bytes match the original daily proof. |
+| `loa-restored-latest-v1.json` | `b9d1069e9da50350fbc198e4720bc494a2fab24cac3c885e6c31431256d61f21` | 378 latest states bound to the fresh daily proof; exact bytes match the original latest proof. |
+| `loa-evidence-register-v1.json` | `859d13a1518c4016664a7ca3235962aee2b67a0066558415aad46c174c8b9f18` | Ignored local register of exact paths, code and input identities, export parts, interrupted history, and restore checks. |
+
+The matrix covers 14 distinct methods or ablations, 27 cells each, across three Development sites per 7/14/28-day budget and seeds 42/43/44. The canonical package totals 581,686,794 bytes and restored 378 runs/105,887 files to a new same-host directory. All three city Source checkpoints were included and independently CPU-loaded during export. The matrix's 2,795.07-second wall time covers only its resumed segment; Source training recorded 105.12 seconds once. These measured components omit the interrupted attempt, setup, analysis, verification, export and transfer, so they are not end-to-end city cost. The proof is local transport and re-verification, not off-host download or teammate reproduction. LOA retains the conditional cohort, publisher preprocessing/clock, possible co-location, and exploratory-interval limitations; it supplies no Final result or population effectiveness claim.
+
 ## Evidence slots before closing Issue #10
 
 | Scope | Current local state | Required handoff for report completion |
@@ -107,7 +126,7 @@ SZH has documented coordinate overlap with UrbanEV and must remain an overlap-li
 | CHARGED JHB Development | Matrix, daily/state proof, relocation, local analysis, complete export, and fresh same-host restore with daily/state re-verification above. | Off-host transfer/readback and independent teammate reproduction; peer review of analysis and cost interpretation. |
 | CHARGED SPO Development | Preserved 229-cell interrupted root; new 378-cell matrix, daily/state proofs, relocation, analysis, complete export, and fresh same-host restore with proof re-verification above. | Off-host transfer/readback and independent teammate reproduction; peer review of analysis and cost interpretation. |
 | CHARGED MEL Development | Kaggle 378-cell matrix, proofs, analysis, full Output download, 34-part catalog, and fresh local restore/daily/state proof above. | Independent teammate reproduction and peer review of analysis, coverage, and cost interpretation. |
-| CHARGED LOA Development | A resumed 378-cell matrix, original daily/latest proofs, Source relocation, and separate-city analysis have passed locally; analysis summary SHA-256 `e7b933ef840e9ef2231bc63e7c3ade177432464fdad9fdb9746e090cca259e26`. The interrupted original root and partial first export are preserved. | Complete fresh catalogued export and restore with independent daily/state proofs, then peer review of provenance, coverage, and cost. |
+| CHARGED LOA Development | Preserved interrupted original root and partial first export; resumed 378-cell matrix, original daily/latest proofs, Source relocation, separate-city analysis, canonical v2 34-part export, and fresh 378-run restore with daily/state proof. | Off-host transfer/readback, independent teammate reproduction, and peer review of provenance, coverage, and cost. |
 | CHARGED AMS Development | Private Kaggle 378-cell matrix, full Output download, 34-part export, fresh local restore and independent daily/latest proofs above. | Independent teammate reproduction and peer review of analysis, coverage, and cost interpretation. |
 | CHARGED SZH Development | Private Kaggle 378-cell matrix, full Output download, 34-part export, fresh local restore and independent daily/latest proofs above; coordinate overlap with UrbanEV limits the claim. | Independent teammate reproduction and peer review; report separately from the five-city geographic supplement. |
 | Qyroven implementation/evaluation | PR #51/#52 are separate implementation evidence; no integrated acceptance is inferred here. | Cross-implementation reconciliation, reviewer decisions, accepted artifact handoff, and explicit treatment of incompatible configurations or cohorts. |
