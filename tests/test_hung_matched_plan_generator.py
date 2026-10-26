@@ -8,6 +8,7 @@ import json
 import math
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
 
@@ -15,6 +16,7 @@ import torch
 
 from ev_inputs.hourly_reader import sha256_file
 from experiments.hung_sprint2 import generate_matched_plan as generator
+from experiments.hung_sprint2 import matched_lambda_provenance as lambda_provenance
 
 
 class PlanGeneratorTests(unittest.TestCase):
@@ -128,6 +130,10 @@ class PlanGeneratorTests(unittest.TestCase):
         for budget in (7, 14, 28):
             input_run = self.input_base / f"urbanev-SZH-{budget}d"
             input_run.mkdir()
+            origins = [
+                (datetime(2026, 1, 1, tzinfo=timezone.utc) + timedelta(days=day)).isoformat()
+                for day in range(90)
+            ]
             with (input_run / "entities.jsonl").open("x", encoding="utf-8") as stream:
                 for entity in selection["budgets"][str(budget)]["representative_entities"]:
                     stream.write(
@@ -149,21 +155,27 @@ class PlanGeneratorTests(unittest.TestCase):
                         json.dumps(
                             {
                                 "identity": ["urbanev", "SZH", entity],
-                                "origin": f"day-{day}",
+                                "origin": origins[day],
                                 "status": "created",
                             }
                         )
                         + "\n"
                     )
             with (input_run / "labels.jsonl").open("x", encoding="utf-8") as stream:
-                for day in range(80):
+                for day in range(90):
+                    available = (
+                        datetime.fromisoformat(origins[day]) + timedelta(days=1)
+                        if day < 80
+                        else datetime.fromisoformat(origins[-1]) + timedelta(days=10)
+                    ).isoformat()
                     stream.write(
                         json.dumps(
                             {
                                 "identity": ["urbanev", "SZH", entity],
-                                "origin": f"day-{day}",
+                                "origin": origins[day],
                                 "file_valid": [True] * 24,
                                 "energy_kwh": [10.0] * 24,
+                                "available_at": [available] * 24,
                             }
                         )
                         + "\n"
@@ -247,7 +259,9 @@ class PlanGeneratorTests(unittest.TestCase):
                     issued = [
                         {
                             "index": day,
-                            "day_id": f"day-{day}",
+                            "day_id": (
+                                datetime(2026, 1, 1, tzinfo=timezone.utc) + timedelta(days=day)
+                            ).isoformat(),
                             "y_scaled": torch.full((24,), 10.0) if day < 80 else None,
                             "normalized_mae": mae if day < 80 else None,
                             "forecasts": [torch.full((1, 24), 10.0 - mae) for _ in range(3)],
@@ -518,6 +532,28 @@ class PlanGeneratorTests(unittest.TestCase):
             parsed, _, _, jobs = generator.dispatch.parse_plan(self.plan_path)
         self.assertEqual(parsed["code_commit"], "test-commit")
         self.assertEqual(len(jobs), 920)
+
+    def test_complete_future_label_remains_unscored_at_replay_cutoff(self) -> None:
+        budget, seed = 7, 7
+        entity = f"{budget}00"
+        schedule, labels, cutoff = lambda_provenance._accepted_chronology(
+            self.input_base / f"urbanev-SZH-{budget}d", entity
+        )
+        self.assertTrue(all(all(labels[row["origin"]]["file_valid"]) for row in schedule))
+        self.assertTrue(lambda_provenance._accepted_label(labels[schedule[79]["origin"]], cutoff))
+        self.assertFalse(lambda_provenance._accepted_label(labels[schedule[80]["origin"]], cutoff))
+        run = (
+            Path(self.lambda_roots[0]["path"])
+            / f"{budget}d"
+            / f"seed-{seed}"
+            / f"entity-{entity}"
+            / "replay-90"
+        )
+        state = torch.load(run / "runner_checkpoint.pt", map_location="cpu", weights_only=True)
+        record = json.loads((run / "run_manifest.json").read_text(encoding="utf-8"))
+        self.assertEqual(
+            lambda_provenance._score_runner(state, record, schedule, labels, cutoff), 1.0
+        )
 
     def test_positive_delta_runs_distinct_ablation(self) -> None:
         config = self.configs["without_confidence"]

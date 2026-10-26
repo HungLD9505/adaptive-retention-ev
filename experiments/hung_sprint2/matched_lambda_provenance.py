@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+from datetime import datetime, timedelta
 
 import torch
 
@@ -39,10 +40,14 @@ def _digest(value: object) -> bool:
     )
 
 
-def _accepted_label(row: dict | None) -> bool:
+def _accepted_label(row: dict | None, cutoff: datetime) -> bool:
     if not isinstance(row, dict):
         return False
-    valid, values = row.get("file_valid"), row.get("energy_kwh")
+    valid, values, availability = (
+        row.get("file_valid"),
+        row.get("energy_kwh"),
+        row.get("available_at"),
+    )
     return (
         isinstance(valid, list)
         and len(valid) == 24
@@ -50,16 +55,23 @@ def _accepted_label(row: dict | None) -> bool:
         and isinstance(values, list)
         and len(values) == 24
         and all(type(value) in (int, float) and math.isfinite(value) for value in values)
+        and isinstance(availability, list)
+        and len(availability) == 24
+        and all(
+            isinstance(value, str) and datetime.fromisoformat(value) <= cutoff
+            for value in availability
+        )
     )
 
 
-def _accepted_chronology(input_run, entity_id: str) -> tuple[list[dict], dict]:
+def _accepted_chronology(input_run, entity_id: str) -> tuple[list[dict], dict, datetime]:
     identity = ["urbanev", "SZH", entity_id]
-    schedule = [
+    full_schedule = [
         row
         for line in (input_run / "schedule.jsonl").read_text(encoding="utf-8").splitlines()
         if (row := json.loads(line)).get("identity") == identity
-    ][:90]
+    ]
+    schedule = full_schedule[:90]
     labels = [
         row
         for line in (input_run / "labels.jsonl").read_text(encoding="utf-8").splitlines()
@@ -70,10 +82,17 @@ def _accepted_chronology(input_run, entity_id: str) -> tuple[list[dict], dict]:
         len(schedule) == 90 and len(by_origin) == len(labels),
         "Accepted lambda chronology incomplete",
     )
-    return schedule, by_origin
+    # A complete replay flushes labels one day after its final origin. A
+    # bounded replay only delivers labels before the final requested forecast.
+    cutoff = datetime.fromisoformat(schedule[-1]["origin"])
+    if len(full_schedule) == len(schedule):
+        cutoff += timedelta(days=1)
+    return schedule, by_origin, cutoff
 
 
-def _score_runner(state: dict, record: dict, schedule: list[dict], labels: dict) -> float:
+def _score_runner(
+    state: dict, record: dict, schedule: list[dict], labels: dict, cutoff: datetime
+) -> float:
     issued = state["issued"]
     expected = [(i, row["origin"]) for i, row in enumerate(schedule) if row["status"] == "created"]
     observed = [(row["index"], row["day_id"]) for row in issued]
@@ -83,8 +102,10 @@ def _score_runner(state: dict, record: dict, schedule: list[dict], labels: dict)
     scored = tuple(row["day_id"] for row in issued if row.get("y_scaled") is not None)
     eligible = tuple(
         row["origin"]
-        for row in schedule
-        if row["status"] == "created" and _accepted_label(labels.get(row["origin"]))
+        for index, row in enumerate(schedule)
+        if row["status"] == "created"
+        and (index < len(schedule) - 1 or cutoff > datetime.fromisoformat(row["origin"]))
+        and _accepted_label(labels.get(row["origin"]), cutoff)
     )
     require(scored == eligible, "Lambda scored origins differ from accepted labels")
     total_abs = 0.0
@@ -282,8 +303,8 @@ def verify_lambda(
             and len(scored) == cell["scored_origins"],
             "Lambda origin proof differs from runner checkpoint",
         )
-        schedule, labels = chronologies[budget]
-        recomputed_mae = _score_runner(state, record, schedule, labels)
+        schedule, labels, cutoff = chronologies[budget]
+        recomputed_mae = _score_runner(state, record, schedule, labels, cutoff)
         live = record.get("metrics_kwh", {}).get("live", {})
         require(
             record.get("schema") == "hung-sprint2-development-replay-v1"
