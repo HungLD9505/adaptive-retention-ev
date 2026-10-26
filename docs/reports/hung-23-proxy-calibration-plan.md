@@ -66,7 +66,7 @@ reference, not a validated drift detector.
    unrepeatable CUDA result blocks selection rather than being silently used.
    Nanosecond timings and process peak RSS remain measured self-reports; they
    cannot be expected to repeat exactly and are not independent timing proofs.
-   requires identical scored origins, coverage, candidate update budgets and
+   Selection requires identical scored origins, coverage, candidate update budgets and
    proxy inference counts across recipes, then averages seeds within station,
    stations within budget and the three budget means equally. Exact ties use
    recipe index. All-null groups stay null; a missing recipe or partially null
@@ -80,12 +80,13 @@ reference, not a validated drift detector.
 
 Fixture tests exercise finite-grid validation, Development/Final isolation,
 masked first-history drift reference, null handling, tie order, pairing
-rejection, ignored-output preflight, and forged checkpoint/manifest pairs with
-altered forecasts, RNG or cost counts plus a rewritten journal/hash. Local
+rejection, ignored-output preflight, authentic selection on CPU and CUDA, and
+forged checkpoint/manifest pairs with altered forecasts, arrived labels, RNG
+or cost counts plus a rewritten journal/hash. The CUDA fixture runs only when
+CUDA is available. Local
 Source/target checkpoints exist for earlier diagnostic runs, but no complete
-reviewed matrix for this calibration profile was established in this tranche;
-no real Development selection was
-found in this checkout, so no real Development selection was run. A complete
+reviewed matrix for this calibration profile was established in this tranche,
+so no real Development selection was run. A complete
 cohort, all run outputs, independent review, measured feasibility, mandatory
 baselines/ablations and the approved immutable lock remain required before
 Final. Published Qyroven Development scores cannot fill Hung cells.
