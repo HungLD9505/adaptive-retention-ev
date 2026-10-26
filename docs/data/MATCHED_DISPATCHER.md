@@ -53,7 +53,14 @@ uses its Source checkpoint and `target: null`.
 
 The dispatcher validates existing Source/target checkpoint manifests and
 input bindings, config and input hashes, seed, initialization, retention kind,
-and target lambda. It rechecks dependencies before every stage. It refuses
+and target lambda. Source-using jobs in one budget/seed share the same Source
+checkpoint; Seasonal Naive and Target-only do not use Source. It requires a
+complete one-pass Source schedule and the full target adaptation prefix under
+the declared batch size and learning rate, including zero optimizer steps for
+a `source_checkpoint_only` entity. The existing controller CLI requires
+`--steps 1` for that zero-prefix case, but receives no target examples and
+records `steps: 0`. It rechecks plan, selection, code identity, and dependency
+hashes before every stage. It refuses
 an existing output root, tracked output path, changed code commit, dirty
 tracked worktree, unsupported method, missing data, or less than 8 GiB free.
 It creates a dispatch identity, separate job stage directories, one log per

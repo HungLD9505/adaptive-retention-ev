@@ -18,8 +18,9 @@ from pathlib import Path
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.cli import _binding, _code_identity, _load_run
+from experiments.hung_sprint2.cli import _binding, _code_identity, _examples, _load_run
 from experiments.hung_sprint2.run_development import verification_split_limit
+from experiments.hung_sprint2.single_baseline_cli import _code_identity as _single_code_identity
 from experiments.hung_sprint2.training import load_checkpoint
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -93,6 +94,37 @@ def checked_checkpoint(path: Path, digest: str, binding: dict, code: dict) -> di
     _, _, _, metadata = load_checkpoint(path, expected_binding=binding)
     require(metadata["code_sha"] == record["code"]["commit"], "Checkpoint code metadata differs")
     return record
+
+
+def verify_target_schedule(record: dict, settings: dict, initial_trainable: int) -> None:
+    """Require the full predeclared adaptation prefix and config for reused targets."""
+    requested = max(1, math.ceil(initial_trainable / settings["batch_size"]))
+    require(
+        record.get("target_examples_available") == initial_trainable
+        and record.get("requested_steps") == requested
+        and record.get("steps") == math.ceil(initial_trainable / settings["batch_size"])
+        and record.get("batch_size") == settings["batch_size"]
+        and record.get("learning_rate") == settings["learning_rate"]
+        and record.get("epsilon") == settings["epsilon"],
+        "Target adaptation schedule/config differs",
+    )
+
+
+def verify_source_schedule(record: dict, settings: dict, input_run: Path, manifest: dict) -> None:
+    """Require complete one-pass Source adaptation under the declared config."""
+    _, available = _examples(input_run, manifest, "source", limit=1)
+    requested = math.ceil(available / settings["batch_size"])
+    require(
+        available >= 2
+        and record.get("source_examples_available") == available
+        and record.get("source_examples_used") == available
+        and record.get("requested_steps") == requested
+        and record.get("steps") == requested
+        and record.get("batch_size") == settings["batch_size"]
+        and record.get("learning_rate") == settings["learning_rate"]
+        and record.get("calendar_hidden") == settings["calendar_hidden"],
+        "Source adaptation schedule/config differs",
+    )
 
 
 def parse_plan(path: Path) -> tuple[dict, dict[str, dict], dict[str, dict], dict[str, dict]]:
@@ -251,6 +283,7 @@ def parse_plan(path: Path) -> tuple[dict, dict[str, dict], dict[str, dict], dict
     jobs = {}
     seasonal = set()
     logical_jobs = set()
+    shared_sources = {}
     for item in plan["jobs"]:
         require(
             isinstance(item, dict)
@@ -299,6 +332,14 @@ def parse_plan(path: Path) -> tuple[dict, dict[str, dict], dict[str, dict], dict
             )
             if item["method"] == "frozen_source":
                 require(item["target"] is None, "Frozen Source has no target checkpoint")
+            cell = cells[item["cell"]]
+            source_key = (cell["budget"], cell["seed"])
+            source_identity = item["source"]
+            require(
+                source_key not in shared_sources or shared_sources[source_key] == source_identity,
+                "Matched Development stratum uses different Source checkpoints",
+            )
+            shared_sources[source_key] = source_identity
             if item["method"] in CONTROLLER_METHODS:
                 config = configs[item["config"]]["value"]
                 require(
@@ -514,7 +555,13 @@ def build_stages(
 
 
 def verify_dependencies(
-    job: dict, cell: dict, config_spec: dict, code: dict, job_root: Path, stage_name: str
+    job: dict,
+    cell: dict,
+    config_spec: dict,
+    code: dict,
+    single_code: dict,
+    job_root: Path,
+    stage_name: str,
 ) -> None:
     """Rehash all immutable input/config/model dependencies before each stage."""
     verify_file(config_spec["path"], config_spec["sha256"])
@@ -528,7 +575,7 @@ def verify_dependencies(
         require(
             record.get("status") == "completed"
             and record.get("method") == "target_only"
-            and record.get("code", {}).get("executed_sources") == code["executed_sources"],
+            and record.get("code", {}).get("executed_sources") == single_code["executed_sources"],
             "Target-only initial run differs",
         )
         require(
@@ -558,7 +605,8 @@ def verify_dependencies(
         verify_file(first / checkpoint_name, first_record["final_runner_checkpoint_sha256"])
         require(
             first_record.get("status") == "completed"
-            and first_record.get("code", {}).get("executed_sources") == code["executed_sources"],
+            and first_record.get("code", {}).get("executed_sources")
+            == (single_code if job["method"] in SINGLE_METHODS else code)["executed_sources"],
             "Split replay differs",
         )
     if job["source"] is None:
@@ -567,6 +615,7 @@ def verify_dependencies(
     source_binding = _binding(manifest, cell["input_manifest_sha256"], stage="source")
     source_record = checked_checkpoint(source, job["source"]["sha256"], source_binding, code)
     require(source_record["seed"] == cell["seed"], "Source seed differs")
+    verify_source_schedule(source_record, config_spec["value"]["source"], input_run, manifest)
     if job["method"] == "frozen_source" or stage_name == "target":
         return
     target = (
@@ -589,6 +638,7 @@ def verify_dependencies(
     )
     target_record = checked_checkpoint(target, target_digest, target_binding, code)
     settings = config_spec["value"]["target"]
+    verify_target_schedule(target_record, settings, cell["entity"]["initial_trainable"])
     require(
         target_record["seed"] == cell["seed"]
         and target_record["retention_weight"] == settings["retention_weight"]
@@ -618,10 +668,35 @@ def verify_stage_output(path: Path, stage_name: str, method: str, code: dict) ->
     verify_file(path / checkpoint, digest)
 
 
+def verify_execution_identity(
+    path: Path, plan: dict, plan_sha256: str, code: dict, single_code: dict
+) -> None:
+    """Reject plan, selection, or tracked code changes before each subprocess."""
+    verify_file(path, plan_sha256)
+    selection = plan["selection"]
+    verify_file(project_path(selection["path"]), selection["sha256"])
+    current = _code_identity()
+    current_single = _single_code_identity()
+    require(
+        current["commit"] == code["commit"]
+        and current["executed_sources"] == code["executed_sources"]
+        and current["worktree_status"] == [],
+        "Execution code identity changed between stages",
+    )
+    require(
+        current_single["commit"] == single_code["commit"]
+        and current_single["executed_sources"] == single_code["executed_sources"],
+        "Single baseline code identity changed between stages",
+    )
+
+
 def dispatch(path: Path, *, execute: bool) -> dict:
     plan, configs, cells, jobs = parse_plan(path)
     root = project_path(plan["output_root"])
     code = _code_identity()
+    single_code = _single_code_identity()
+    require(single_code["commit"] == code["commit"], "CLI code commits differ")
+    plan_sha256 = sha256_file(path)
     planned = []
     for job_id, job in jobs.items():
         cell = cells[job["cell"]]
@@ -639,7 +714,9 @@ def dispatch(path: Path, *, execute: bool) -> dict:
                     config["value"]["replay"]["max_origins"],
                 )
                 stage_name = f"replay-{split}" if job["target"] is not None else "target"
-                verify_dependencies(job, cell, config, code, root / "jobs" / job_id, stage_name)
+                verify_dependencies(
+                    job, cell, config, code, single_code, root / "jobs" / job_id, stage_name
+                )
         for job_id, job, cell, config, name, module, args, job_root in planned:
             print(
                 json.dumps(
@@ -656,8 +733,9 @@ def dispatch(path: Path, *, execute: bool) -> dict:
         json.dump(
             {
                 "schema": plan["schema"],
-                "plan_sha256": sha256_file(path),
+                "plan_sha256": plan_sha256,
                 "code": code,
+                "single_code": single_code,
                 "jobs": len(jobs),
                 "stages": len(planned),
             },
@@ -668,7 +746,8 @@ def dispatch(path: Path, *, execute: bool) -> dict:
         stream.write("\n")
     for job_id, job, cell, config, name, module, args, job_root in planned:
         require_capacity(root)
-        verify_dependencies(job, cell, config, code, job_root, name)
+        verify_execution_identity(path, plan, plan_sha256, code, single_code)
+        verify_dependencies(job, cell, config, code, single_code, job_root, name)
         stage_output = job_root / name
         require(not stage_output.exists(), f"Stage output already exists: {stage_output}")
         log_path = root / "logs" / job_id / f"{name}.log"
@@ -706,7 +785,8 @@ def dispatch(path: Path, *, execute: bool) -> dict:
             result.returncode == 0,
             f"Stage failed ({result.returncode}); preserve output and inspect {log_path}",
         )
-        verify_stage_output(stage_output, name, job["method"], code)
+        output_code = single_code if job["method"] in SINGLE_METHODS else code
+        verify_stage_output(stage_output, name, job["method"], output_code)
         print(
             json.dumps({"job": job_id, "stage": name, "log": str(log_path), "status": "completed"}),
             flush=True,

@@ -99,6 +99,13 @@ class MatchedDispatcherTests(unittest.TestCase):
             "_code_identity",
             return_value={"commit": "test-commit", "worktree_status": [], "executed_sources": {}},
         )
+        self.single_code = {
+            "commit": "test-commit",
+            "executed_sources": {"experiments/hung_sprint2/single_baseline_cli.py": "fixture-sha"},
+        }
+        self.single_code_patch = patch.object(
+            dispatch, "_single_code_identity", return_value=self.single_code
+        )
         self.load_patch = patch.object(
             dispatch,
             "_load_run",
@@ -108,9 +115,11 @@ class MatchedDispatcherTests(unittest.TestCase):
             dispatch.subprocess, "run", return_value=type("Result", (), {"returncode": 0})()
         )
         self.code_patch.start()
+        self.single_code_patch.start()
         self.load_patch.start()
         self.ignore_patch.start()
         self.addCleanup(self.code_patch.stop)
+        self.addCleanup(self.single_code_patch.stop)
         self.addCleanup(self.load_patch.stop)
         self.addCleanup(self.ignore_patch.stop)
 
@@ -217,6 +226,85 @@ class MatchedDispatcherTests(unittest.TestCase):
         self.assertEqual(stages[0][2][stages[0][2].index("--steps") + 1], "3")
         self.assertIn("runner.pt", stages[2][2][stages[2][2].index("--resume-checkpoint") + 1])
 
+    def test_zero_prefix_controller_requests_one_but_trains_zero_steps(self) -> None:
+        config = json.loads(self.config_path.read_text(encoding="utf-8"))
+        job = {
+            "method": "confidence",
+            "device": "cpu",
+            "source": {"path": str(self.root / "source.pt"), "sha256": "c" * 64},
+            "target": None,
+        }
+        cell = {
+            "input_run": self.input_run,
+            "input_manifest_sha256": "b" * 64,
+            "entity_id": "2264",
+            "seed": 7,
+            "entity": {"initial_trainable": 0},
+        }
+        first = dispatch.build_stages(job, cell, config, self.root / "job")[0]
+        self.assertEqual(first[2][first[2].index("--steps") + 1], "1")
+        record = {
+            "target_examples_available": 0,
+            "requested_steps": 1,
+            "steps": 0,
+            "batch_size": config["target"]["batch_size"],
+            "learning_rate": config["target"]["learning_rate"],
+            "epsilon": config["target"]["epsilon"],
+        }
+        dispatch.verify_target_schedule(record, config["target"], 0)
+
+    def test_partial_or_changed_target_schedule_refused(self) -> None:
+        settings = json.loads(self.config_path.read_text(encoding="utf-8"))["target"]
+        record = {
+            "target_examples_available": 6,
+            "requested_steps": 3,
+            "steps": 3,
+            "batch_size": settings["batch_size"],
+            "learning_rate": settings["learning_rate"],
+            "epsilon": settings["epsilon"],
+        }
+        dispatch.verify_target_schedule(record, settings, 6)
+        for change in ({"steps": 2}, {"learning_rate": 0.01}):
+            with self.subTest(change=change):
+                with self.assertRaisesRegex(ValueError, "Target adaptation schedule"):
+                    dispatch.verify_target_schedule({**record, **change}, settings, 6)
+
+    def test_source_schedule_and_shared_identity(self) -> None:
+        settings = json.loads(self.config_path.read_text(encoding="utf-8"))["source"]
+        record = {
+            "source_examples_available": 65,
+            "source_examples_used": 65,
+            "requested_steps": 3,
+            "steps": 3,
+            "batch_size": settings["batch_size"],
+            "learning_rate": settings["learning_rate"],
+            "calendar_hidden": settings["calendar_hidden"],
+        }
+        with patch.object(dispatch, "_examples", return_value=([], 65)):
+            dispatch.verify_source_schedule(record, settings, self.input_run, {})
+            with self.assertRaisesRegex(ValueError, "Source adaptation schedule"):
+                dispatch.verify_source_schedule(
+                    {**record, "source_examples_used": 64}, settings, self.input_run, {}
+                )
+
+        self.plan["jobs"] = [
+            {
+                **self.plan["jobs"][0],
+                "id": "frozen1",
+                "method": "frozen_source",
+                "source": {"path": str(self.root / "source1.pt"), "sha256": "c" * 64},
+            },
+            {
+                **self.plan["jobs"][0],
+                "id": "frozen2",
+                "method": "confidence",
+                "source": {"path": str(self.root / "source2.pt"), "sha256": "d" * 64},
+            },
+        ]
+        self.save()
+        with self.assertRaisesRegex(ValueError, "different Source checkpoints"):
+            dispatch.parse_plan(self.plan_path)
+
     def test_duplicate_json_key_refused(self) -> None:
         bad = self.root / "duplicate.json"
         bad.write_text('{"schema": "one", "schema": "two"}', encoding="utf-8")
@@ -238,7 +326,7 @@ class MatchedDispatcherTests(unittest.TestCase):
                     {
                         "status": "completed",
                         "run_id": output.name,
-                        "code": {"executed_sources": {}},
+                        "code": {"executed_sources": self.single_code["executed_sources"]},
                         "final_runner_checkpoint_sha256": sha256_file(checkpoint),
                     }
                 ),
@@ -254,6 +342,48 @@ class MatchedDispatcherTests(unittest.TestCase):
         self.assertTrue((output / "dispatch_identity.json").is_file())
         self.assertTrue((output / "logs/seasonal7/replay-42.log").is_file())
         self.assertTrue((output / "logs/seasonal7/replay-90.log").is_file())
+
+    def test_code_change_between_stages_blocks_second_subprocess(self) -> None:
+        self.save()
+        calls = 0
+
+        def changing_identity():
+            nonlocal calls
+            calls += 1
+            return {
+                "commit": "test-commit",
+                "worktree_status": [] if calls < 4 else [" M experiments/hung_sprint2/model.py"],
+                "executed_sources": {},
+            }
+
+        def fake_subprocess(command, **kwargs):
+            if command[0] == "git":
+                return SimpleNamespace(returncode=0)
+            output = Path(command[command.index("--output") + 1])
+            output.mkdir(parents=True)
+            checkpoint = output / "runner.pt"
+            checkpoint.write_bytes(b"fixture-runner")
+            (output / "run_manifest.json").write_text(
+                json.dumps(
+                    {
+                        "status": "completed",
+                        "run_id": output.name,
+                        "code": {"executed_sources": self.single_code["executed_sources"]},
+                        "final_runner_checkpoint_sha256": sha256_file(checkpoint),
+                    }
+                ),
+                encoding="utf-8",
+            )
+            return SimpleNamespace(returncode=0)
+
+        with patch.object(dispatch, "_code_identity", side_effect=changing_identity):
+            with patch.object(dispatch.subprocess, "run", side_effect=fake_subprocess):
+                with patch("builtins.print"):
+                    with self.assertRaisesRegex(ValueError, "code identity changed"):
+                        dispatch.dispatch(self.plan_path, execute=True)
+        output = self.root / "new-output"
+        self.assertTrue((output / "logs/seasonal7/replay-42.log").is_file())
+        self.assertFalse((output / "logs/seasonal7/replay-90.log").exists())
 
 
 if __name__ == "__main__":
