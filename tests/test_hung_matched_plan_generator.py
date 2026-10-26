@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
+import math
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+
+import torch
 
 from ev_inputs.hourly_reader import sha256_file
 from experiments.hung_sprint2 import generate_matched_plan as generator
@@ -63,9 +67,9 @@ class PlanGeneratorTests(unittest.TestCase):
                 replay["initial_level"] = 0.0
                 config["target"]["retention_weight"] = 0.0
             if name == "parameter_retention":
-                config["target"].update(retention_kind="parameter", retention_weight=0.01)
+                config["target"].update(retention_kind="parameter", retention_weight=0.1)
                 replay.update(
-                    retention_kind="parameter", initial_level=0.01, level_one=0.01, level_two=0.02
+                    retention_kind="parameter", initial_level=0.1, level_one=0.1, level_two=0.2
                 )
             if name == "block7":
                 replay["block_days"] = 7
@@ -88,6 +92,7 @@ class PlanGeneratorTests(unittest.TestCase):
             "budgets": {
                 str(b): {
                     "manifest_sha256": "a" * 64,
+                    "verification_entity_ids": [f"{b}00"],
                     "representative_entities": [
                         {
                             "entity_id": f"{b}{index:02d}",
@@ -137,39 +142,214 @@ class PlanGeneratorTests(unittest.TestCase):
                         )
                         + "\n"
                     )
+        chosen_entities = {
+            budget: selection["budgets"][str(budget)]["representative_entities"][0]["entity_id"]
+            for budget in (7, 14, 28)
+        }
+        self.preflight_path = self.root / "preflight.json"
+        self.preflight_path.write_text(
+            json.dumps(
+                {
+                    "seeds": [7, 11, 19],
+                    "code_commit": "calibration-code",
+                    "budgets": {
+                        str(b): {
+                            "chosen_entity_id": chosen_entities[b],
+                            "input_manifest_sha256": "a" * 64,
+                        }
+                        for b in (7, 14, 28)
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        levels = (0.1, 10.0, 1000.0, 10000.0)
+        lambda_roots, proof, scores = [], [], {}
+        for index, level in enumerate(levels):
+            candidate = copy.deepcopy(self.configs["parameter_retention"])
+            candidate["target"]["retention_weight"] = level
+            candidate["replay"].update(initial_level=level, level_one=level, level_two=2 * level)
+            candidate_path = self.root / f"lambda-{index}-config.json"
+            candidate_path.write_text(json.dumps(candidate), encoding="utf-8")
+            matrix_root = self.root / f"lambda-{index}-run"
+            matrix_root.mkdir()
+            marker = {
+                "schema": "hung-sprint2-development-matrix-v1",
+                "phase": "verification",
+                "budgets": [7, 14, 28],
+                "seeds": [7, 11, 19],
+                "selection_sha256": sha256_file(self.selection_path),
+                "config_sha256": sha256_file(candidate_path),
+                "code": {
+                    "commit": "calibration-code",
+                    "worktree_status": [],
+                    "executed_sources": {},
+                },
+            }
+            marker_path = matrix_root / "matrix_identity.json"
+            marker_path.write_text(json.dumps(marker), encoding="utf-8")
+            lambda_roots.append(
+                {
+                    "index": index,
+                    "path": str(matrix_root),
+                    "matrix_sha256": sha256_file(marker_path),
+                    "config": self.pin(candidate_path),
+                }
+            )
+            scores[index] = {}
+            for budget in (7, 14, 28):
+                scores[index][budget] = {}
+                for seed in (7, 11, 19):
+                    entity = chosen_entities[budget]
+                    run = (
+                        matrix_root
+                        / f"{budget}d"
+                        / f"seed-{seed}"
+                        / f"entity-{entity}"
+                        / "replay-90"
+                    )
+                    run.mkdir(parents=True)
+                    base_dir = matrix_root / f"{budget}d" / f"seed-{seed}"
+                    source = base_dir / "source" / "source_checkpoint.pt"
+                    source.parent.mkdir(exist_ok=True)
+                    source.write_bytes(f"source-{index}-{budget}-{seed}".encode())
+                    target = base_dir / f"entity-{entity}" / "target" / "target_checkpoint.pt"
+                    target.parent.mkdir(exist_ok=True)
+                    target.write_bytes(f"target-{index}-{budget}-{seed}".encode())
+                    checkpoint = run / "runner_checkpoint.pt"
+                    issued = [{"day_id": f"day-{day}", "y_scaled": 1.0} for day in range(80)]
+                    binding = {"entity_id": entity, "input_manifest_sha256": "a" * 64}
+                    torch.save(
+                        {"issued": issued, "pending": None, "next_index": 90, "binding": binding},
+                        checkpoint,
+                    )
+                    journal = run / "events.jsonl"
+                    journal.write_text("fixture event\n", encoding="utf-8")
+                    mae = 1.0 + index + budget / 100 + seed / 1000
+                    scores[index][budget][seed] = mae
+                    manifest = {
+                        "schema": "hung-sprint2-development-replay-v1",
+                        "status": "completed",
+                        "code": marker["code"],
+                        "runner_cursor": 90,
+                        "final_runner_checkpoint_sha256": sha256_file(checkpoint),
+                        "source_checkpoint_sha256": sha256_file(source),
+                        "target_checkpoint_sha256": sha256_file(target),
+                        "input_binding": binding,
+                        "event_journal": {"file": journal.name, "sha256": sha256_file(journal)},
+                        "coverage": {"scored": 80},
+                        "config": {
+                            "selection_rule": "confidence",
+                            "retention_kind": "parameter",
+                            "seed": seed,
+                            "max_origins": 90,
+                            "controller": {"levels": [0.0, level, 2 * level]},
+                        },
+                        "metrics_kwh": {"live": {"mae_kwh": mae}},
+                    }
+                    manifest_path = run / "run_manifest.json"
+                    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+                    proof.append(
+                        {
+                            "lambda_index": index,
+                            "budget": budget,
+                            "seed": seed,
+                            "entity_id": entity,
+                            "mae_kwh": mae,
+                            "scored_origins": 80,
+                            "issued_origins_sha256": hashlib.sha256(
+                                json.dumps(tuple(item["day_id"] for item in issued)).encode()
+                            ).hexdigest(),
+                            "scored_origins_sha256": hashlib.sha256(
+                                json.dumps(tuple(item["day_id"] for item in issued)).encode()
+                            ).hexdigest(),
+                            "source_checkpoint_sha256": sha256_file(source),
+                            "target_checkpoint_sha256": sha256_file(target),
+                            "runner_checkpoint_sha256": sha256_file(checkpoint),
+                            "run_manifest_sha256": sha256_file(manifest_path),
+                        }
+                    )
+        ranking = []
+        for index, level in enumerate(levels):
+            means = {
+                str(b): math.fsum(scores[index][b][s] for s in (7, 11, 19)) / 3 for b in (7, 14, 28)
+            }
+            ranking.append(
+                {
+                    "index": index,
+                    "lambda_low": level,
+                    "budget_seed_mean_mae_kwh": means,
+                    "equal_budget_mae_kwh": math.fsum(means.values()) / 3,
+                }
+            )
         self.lambda_path = self.root / "lambda.json"
         self.lambda_path.write_text(
             json.dumps(
                 {
                     "schema": "hung-parameter-lambda-development-selection-v1",
                     "scope": "UrbanEV SZH Development target_initial_adaptation only; no Final lock",
-                    "rule": "station_first_mean",
-                    "preflight_sha256": "b" * 64,
+                    "rule": "station-first seed mean within budget, equal budget mean, tie smaller lambda",
+                    "preflight_sha256": sha256_file(self.preflight_path),
                     "selection_sha256": sha256_file(self.selection_path),
                     "chosen_index": 0,
-                    "chosen_lambda_low": 0.01,
-                    "ranking": [{} for _ in range(4)],
-                    "cells": [{} for _ in range(36)],
+                    "chosen_lambda_low": 0.1,
+                    "ranking": ranking,
+                    "cells": proof,
                 }
             ),
             encoding="utf-8",
         )
+        self.lambda_roots = lambda_roots
+        self.proxy_plan_path = self.root / "proxy-plan.json"
+        self.proxy_plan_path.write_text(
+            json.dumps(
+                {
+                    "profile_sha256": sha256_file(self.proxy_profile_path),
+                    "profile": profile,
+                    "cells": [{} for _ in range(9)],
+                }
+            ),
+            encoding="utf-8",
+        )
+        self.proxy_runs_path = self.root / "proxy-runs.jsonl"
+        with self.proxy_runs_path.open("x", encoding="utf-8") as stream:
+            for cell_index in range(9):
+                for method in ("source_error", "uncertainty", "drift"):
+                    for recipe in range(4):
+                        run = self.root / f"proxy-{cell_index}-{method}-{recipe}"
+                        run.mkdir()
+                        manifest = run / "run_manifest.json"
+                        manifest.write_text("{}", encoding="utf-8")
+                        stream.write(
+                            json.dumps(
+                                {
+                                    "cell_index": cell_index,
+                                    "method": method,
+                                    "recipe": recipe,
+                                    "run_path": str(run),
+                                    "manifest_sha256": sha256_file(manifest),
+                                }
+                            )
+                            + "\n"
+                        )
+        self.proxy_verified = {
+            "schema": "hung-proxy-development-selection-v1",
+            "scope": "conditional_development_selection_only; no Final lock",
+            "cells": 9,
+            "matrix_runs": 108,
+            "null_run_cells": 0,
+            "seeds": [7, 11, 19],
+            "selection": {
+                name: {"provisional_recipe": 0} for name in ("source_error", "uncertainty", "drift")
+            },
+        }
         self.proxy_selection_path = self.root / "proxy-selection.json"
         self.proxy_selection_path.write_text(
             json.dumps(
                 {
-                    "schema": "hung-proxy-development-selection-v1",
-                    "scope": "conditional_development_selection_only; no Final lock",
-                    "cells": 9,
-                    "matrix_runs": 108,
-                    "null_run_cells": 0,
-                    "seeds": [7, 11, 19],
-                    "plan_sha256": "e" * 64,
-                    "runs_sha256": "f" * 64,
-                    "selection": {
-                        name: {"provisional_recipe": 0}
-                        for name in ("source_error", "uncertainty", "drift")
-                    },
+                    **self.proxy_verified,
+                    "plan_sha256": sha256_file(self.proxy_plan_path),
+                    "runs_sha256": sha256_file(self.proxy_runs_path),
                 }
             ),
             encoding="utf-8",
@@ -183,9 +363,16 @@ class PlanGeneratorTests(unittest.TestCase):
             "code_commit": "test-commit",
             "selection": self.pin(self.selection_path),
             "input_base": str(self.input_base),
-            "lambda": {"selection": self.pin(self.lambda_path), "chosen_lambda_low": 0.01},
+            "lambda": {
+                "selection": self.pin(self.lambda_path),
+                "preflight": self.pin(self.preflight_path),
+                "roots": self.lambda_roots,
+                "chosen_lambda_low": 0.1,
+            },
             "proxy_profile": self.pin(self.proxy_profile_path),
             "proxy_selection": self.pin(self.proxy_selection_path),
+            "proxy_plan": self.pin(self.proxy_plan_path),
+            "proxy_runs": self.pin(self.proxy_runs_path),
             "configs": {name: self.pin(path) for name, path in self.config_paths.items()},
             "drift_configs": self.drift_configs,
             "sources": [],
@@ -238,9 +425,15 @@ class PlanGeneratorTests(unittest.TestCase):
         self.code_patch.start()
         self.grid_patch.start()
         self.drift_patch.start()
+        self.proxy_select_patch = patch(
+            "experiments.hung_sprint2.matched_proxy_provenance.proxy_select",
+            return_value=self.proxy_verified,
+        )
+        self.proxy_select_patch.start()
         self.addCleanup(self.code_patch.stop)
         self.addCleanup(self.grid_patch.stop)
         self.addCleanup(self.drift_patch.stop)
+        self.addCleanup(self.proxy_select_patch.stop)
 
     @staticmethod
     def pin(path: Path) -> dict:
@@ -302,7 +495,7 @@ class PlanGeneratorTests(unittest.TestCase):
         )
         self.recipe["lambda"]["chosen_lambda_low"] = 0.02
         digest = self.save()
-        with self.assertRaisesRegex(ValueError, "lambda selection differs"):
+        with self.assertRaisesRegex(ValueError, "Lambda ranking/winner differs"):
             generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
         self.assertFalse(self.plan_path.exists())
 
@@ -312,6 +505,32 @@ class PlanGeneratorTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Checkpoint and run-manifest pins required"):
             generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
         self.assertFalse(self.plan_path.exists())
+
+    def test_fabricated_lambda_ranking_and_cells_are_rejected(self) -> None:
+        original = json.loads(self.lambda_path.read_text(encoding="utf-8"))
+        changes = (
+            (
+                "ranking",
+                lambda x: x["ranking"][0].update(equal_budget_mae_kwh=0.0),
+                "ranking/winner",
+            ),
+            ("empty_cell", lambda x: x["cells"].__setitem__(0, {}), "proof cell fields"),
+            (
+                "false_mae",
+                lambda x: x["cells"][0].update(mae_kwh=0.0),
+                "manifest/checkpoint evidence",
+            ),
+        )
+        for name, mutate, message in changes:
+            with self.subTest(name=name):
+                changed = copy.deepcopy(original)
+                mutate(changed)
+                self.lambda_path.write_text(json.dumps(changed), encoding="utf-8")
+                self.recipe["lambda"]["selection"] = self.pin(self.lambda_path)
+                digest = self.save()
+                with self.assertRaisesRegex(ValueError, message):
+                    generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
+                self.assertFalse(self.plan_path.exists())
 
     def test_existing_main_block7_jobs_need_explicit_decisions(self) -> None:
         self.recipe["existing_runs"].pop()
@@ -345,6 +564,55 @@ class PlanGeneratorTests(unittest.TestCase):
         self.recipe["configs"]["source_error"] = self.pin(path)
         digest = self.save()
         with self.assertRaisesRegex(ValueError, "selected recipe: source_error"):
+            generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
+        self.assertFalse(self.plan_path.exists())
+
+    def test_proxy_method_cannot_change_shared_controller_schedule(self) -> None:
+        for method in ("source_error", "uncertainty", "fixed_retention", "full_finetuning"):
+            for field, value in (
+                ("delta", 0.01),
+                ("level_one", 0.15),
+                ("level_two", 0.25),
+                ("block_days", 7),
+            ):
+                with self.subTest(method=method, field=field):
+                    configs = copy.deepcopy(self.configs)
+                    configs[method]["replay"][field] = value
+                    with self.assertRaisesRegex(ValueError, "Matched schedule differs"):
+                        generator.comparable_configs(configs)
+        for method in ("source_error", "uncertainty"):
+            configs = copy.deepcopy(self.configs)
+            configs[method]["replay"]["initial_level"] = 0.1
+            with self.assertRaisesRegex(ValueError, "Matched schedule differs"):
+                generator.comparable_configs(configs)
+        configs = copy.deepcopy(self.configs)
+        configs["fixed_retention"]["replay"]["initial_level"] = 0.2
+        with self.assertRaisesRegex(ValueError, "Fixed/Full target adaptation lambda"):
+            generator.comparable_configs(configs)
+
+    def test_fabricated_proxy_selection_or_missing_run_proof_is_rejected(self) -> None:
+        selection = json.loads(self.proxy_selection_path.read_text(encoding="utf-8"))
+        selection["selection"]["drift"]["provisional_recipe"] = 1
+        self.proxy_selection_path.write_text(json.dumps(selection), encoding="utf-8")
+        self.recipe["proxy_selection"] = self.pin(self.proxy_selection_path)
+        digest = self.save()
+        with self.assertRaisesRegex(ValueError, "differs from authenticated plan/run evidence"):
+            generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
+        self.assertFalse(self.plan_path.exists())
+        rows = self.proxy_runs_path.read_text(encoding="utf-8").splitlines()
+        self.proxy_runs_path.write_text("\n".join(rows[:-1]) + "\n", encoding="utf-8")
+        self.recipe["proxy_runs"] = self.pin(self.proxy_runs_path)
+        digest = self.save()
+        with self.assertRaisesRegex(ValueError, "grid incomplete"):
+            generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
+        self.assertFalse(self.plan_path.exists())
+
+    def test_proxy_run_manifest_bytes_must_match_runs_proof(self) -> None:
+        row = json.loads(self.proxy_runs_path.read_text(encoding="utf-8").splitlines()[0])
+        manifest = Path(row["run_path"]) / "run_manifest.json"
+        manifest.write_text('{"tampered": true}', encoding="utf-8")
+        digest = self.save()
+        with self.assertRaisesRegex(ValueError, "SHA-256 mismatch"):
             generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
         self.assertFalse(self.plan_path.exists())
 

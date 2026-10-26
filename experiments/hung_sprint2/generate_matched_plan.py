@@ -12,6 +12,7 @@ from pathlib import Path
 
 from ev_inputs.hourly_reader import sha256_file
 from experiments.hung_sprint2 import dispatch_matched as dispatch
+from experiments.hung_sprint2.matched_lambda_provenance import verify_lambda
 from experiments.hung_sprint2.matched_plan_provenance import (
     BASELINE_METHODS,
     CONFIG_NAMES,
@@ -22,7 +23,6 @@ from experiments.hung_sprint2.matched_plan_provenance import (
     pinned_json,
     require,
     verify_checkpoint_grid,
-    verify_lambda,
     verify_reuse,
 )
 from experiments.hung_sprint2.matched_proxy_provenance import (
@@ -51,6 +51,8 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
             "lambda",
             "proxy_profile",
             "proxy_selection",
+            "proxy_plan",
+            "proxy_runs",
             "configs",
             "drift_configs",
             "sources",
@@ -113,10 +115,17 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
     configs = {name: pinned_json(spec) for name, spec in config_specs.items()}
     comparable_configs(configs)
     proxy_proof = verify_proxy_selection(
-        recipe["proxy_profile"], recipe["proxy_selection"], configs
+        recipe["proxy_profile"],
+        recipe["proxy_selection"],
+        recipe["proxy_plan"],
+        recipe["proxy_runs"],
+        configs,
     )
     chosen = verify_lambda(
-        recipe["lambda"], configs["parameter_retention"], recipe["selection"]["sha256"]
+        recipe["lambda"],
+        configs["parameter_retention"],
+        recipe["selection"]["sha256"],
+        selection,
     )
     seeds = [7, 11, 19]
     require(configs["main"]["seeds"] == seeds, "Seed grid must be 7/11/19")

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import math
 from pathlib import Path
 
 from experiments.hung_sprint2 import dispatch_matched as dispatch
@@ -70,20 +69,7 @@ def cell_id(budget: int, seed: int, entity_id: str) -> str:
 
 def comparable_configs(configs: dict[str, dict]) -> None:
     main = configs["main"]
-    main_target = {
-        k: v
-        for k, v in main["target"].items()
-        if k not in {"retention_weight", "retention_kind", "initialization_kind"}
-    }
-    ignored_replay = {
-        "selection_rule",
-        "delta",
-        "initial_level",
-        "level_one",
-        "level_two",
-        "block_days",
-        "retention_kind",
-        "initialization_kind",
+    proxy_fields = {
         "proxy_low",
         "proxy_high",
         "proxy_level_low",
@@ -92,7 +78,24 @@ def comparable_configs(configs: dict[str, dict]) -> None:
         "drift_reference_mean",
         "drift_reference_scale",
     }
-    main_replay = {k: v for k, v in main["replay"].items() if k not in ignored_replay}
+    target_exceptions = {
+        "fixed_retention": {"retention_weight"},
+        "full_finetuning": {"retention_weight"},
+        "parameter_retention": {"retention_weight", "retention_kind"},
+        "no_source": {"initialization_kind"},
+    }
+    replay_exceptions = {
+        "online_best": {"selection_rule"},
+        "without_confidence": {"selection_rule", "delta"},
+        "fixed_retention": {"selection_rule", "initial_level"},
+        "full_finetuning": {"selection_rule", "initial_level"},
+        "source_error": {"selection_rule"} | proxy_fields,
+        "uncertainty": {"selection_rule"} | proxy_fields,
+        "parameter_retention": {"retention_kind", "initial_level", "level_one", "level_two"},
+        "block7": {"block_days"},
+        "block28": {"block_days"},
+        "no_source": {"initialization_kind"},
+    }
     for name, config in configs.items():
         require(config.get("schema") == "hung-sprint2-development-config-v1", f"Bad config {name}")
         require(
@@ -100,12 +103,12 @@ def comparable_configs(configs: dict[str, dict]) -> None:
         )
         require(config.get("seeds") == main["seeds"], f"Seed grid differs: {name}")
         require(config.get("source") == main["source"], f"Source schedule differs: {name}")
-        target = {
-            k: v
-            for k, v in config["target"].items()
-            if k not in {"retention_weight", "retention_kind", "initialization_kind"}
-        }
-        replay = {k: v for k, v in config["replay"].items() if k not in ignored_replay}
+        allowed_target = target_exceptions.get(name, set())
+        allowed_replay = replay_exceptions.get(name, set())
+        target = {k: v for k, v in config["target"].items() if k not in allowed_target}
+        main_target = {k: v for k, v in main["target"].items() if k not in allowed_target}
+        replay = {k: v for k, v in config["replay"].items() if k not in allowed_replay}
+        main_replay = {k: v for k, v in main["replay"].items() if k not in allowed_replay}
         require(
             target == main_target and replay == main_replay, f"Matched schedule differs: {name}"
         )
@@ -132,6 +135,13 @@ def comparable_configs(configs: dict[str, dict]) -> None:
             f"Block variant changes more than block_days: {name}",
         )
     require(main["replay"]["block_days"] == 14, "Main block must be 14 days")
+    fixed = configs["fixed_retention"]
+    full = configs["full_finetuning"]
+    require(
+        fixed["target"]["retention_weight"] == fixed["replay"]["initial_level"] > 0
+        and full["target"]["retention_weight"] == full["replay"]["initial_level"] == 0,
+        "Fixed/Full target adaptation lambda differs from replay policy",
+    )
     no_source = configs["no_source"]
     no_source_target = {**no_source["target"]}
     no_source_replay = {**no_source["replay"]}
@@ -222,54 +232,6 @@ def comparable_configs(configs: dict[str, dict]) -> None:
             drift_reference_mean=replay.get("drift_reference_mean"),
             drift_reference_scale=replay.get("drift_reference_scale"),
         ).validate(controller, name)
-
-
-def verify_lambda(spec: dict, config: dict, selection_sha256: str) -> float:
-    require(
-        isinstance(spec, dict) and set(spec) == {"selection", "chosen_lambda_low"},
-        "Chosen lambda pin required",
-    )
-    selected = pinned_json(spec["selection"])
-    value = spec["chosen_lambda_low"]
-    require(
-        selected.get("schema") == "hung-parameter-lambda-development-selection-v1"
-        and selected.get("scope")
-        == "UrbanEV SZH Development target_initial_adaptation only; no Final lock"
-        and set(selected)
-        == {
-            "schema",
-            "scope",
-            "rule",
-            "preflight_sha256",
-            "selection_sha256",
-            "chosen_index",
-            "chosen_lambda_low",
-            "ranking",
-            "cells",
-        }
-        and all(
-            isinstance(selected[key], str) and len(selected[key]) == 64
-            for key in ("preflight_sha256", "selection_sha256")
-        )
-        and type(selected["chosen_index"]) is int
-        and 0 <= selected["chosen_index"] < 4
-        and len(selected["ranking"]) == 4
-        and selected["selection_sha256"] == selection_sha256
-        and type(value) in {int, float}
-        and math.isfinite(value)
-        and value > 0
-        and selected.get("chosen_lambda_low") == value
-        and len(selected.get("cells", [])) == 36,
-        "Finite Development lambda selection differs or is incomplete",
-    )
-    target, replay = config["target"], config["replay"]
-    require(
-        target.get("retention_kind") == replay.get("retention_kind") == "parameter"
-        and target["retention_weight"] == replay["initial_level"] == replay["level_one"] == value
-        and replay["level_two"] > value,
-        "Parameter config does not bind chosen lambda",
-    )
-    return value
 
 
 def verify_reuse(spec: dict, job: dict, cell: dict, config: dict, code: dict) -> None:

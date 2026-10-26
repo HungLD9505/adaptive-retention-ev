@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
+from experiments.hung_sprint2 import dispatch_matched as dispatch
 from experiments.hung_sprint2.controller import ControllerConfig
-from experiments.hung_sprint2.matched_plan_provenance import pinned_json, require
+from experiments.hung_sprint2.matched_plan_provenance import pinned_file, pinned_json, require
 from experiments.hung_sprint2.proxy_selection import ProxyConfig
 from tools.hung_proxy_calibration import recipe as proxy_recipe
+from tools.hung_proxy_calibration import select as proxy_select
 from tools.hung_proxy_calibration import validate_profile
 
 
@@ -61,11 +66,46 @@ def verify_drift_config(config: dict, main: dict) -> None:
     ).validate(controller, "drift")
 
 
-def verify_proxy_selection(profile_spec: dict, selection_spec: dict, configs: dict) -> dict:
+def verify_proxy_selection(
+    profile_spec: dict,
+    selection_spec: dict,
+    plan_spec: dict,
+    runs_spec: dict,
+    configs: dict,
+) -> dict:
     """Bind all proxy threshold/mapping values to the provisional Development recipes."""
     profile = pinned_json(profile_spec)
     validate_profile(profile)
     selected = pinned_json(selection_spec)
+    plan = pinned_json(plan_spec)
+    runs_path = Path(pinned_file(runs_spec)["path"])
+    require(
+        plan.get("profile_sha256") == profile_spec["sha256"]
+        and plan.get("profile") == profile
+        and isinstance(plan.get("cells"), list)
+        and len(plan["cells"]) == 9,
+        "Proxy plan/profile evidence differs",
+    )
+    records = [json.loads(line) for line in runs_path.read_text(encoding="utf-8").splitlines()]
+    expected = {
+        (i, method, recipe)
+        for i in range(9)
+        for method in ("source_error", "uncertainty", "drift")
+        for recipe in range(4)
+    }
+    observed = set()
+    for record in records:
+        require(
+            isinstance(record, dict)
+            and set(record) == {"cell_index", "method", "recipe", "run_path", "manifest_sha256"},
+            "Proxy run evidence row fields differ",
+        )
+        key = (record["cell_index"], record["method"], record["recipe"])
+        require(key in expected and key not in observed, "Missing/duplicate proxy run evidence")
+        observed.add(key)
+        run_path = dispatch.project_path(record["run_path"])
+        dispatch.verify_file(run_path / "run_manifest.json", record["manifest_sha256"])
+    require(observed == expected, "Proxy run evidence grid incomplete")
     require(
         selected.get("schema") == "hung-proxy-development-selection-v1"
         and selected.get("scope") == "conditional_development_selection_only; no Final lock"
@@ -77,8 +117,16 @@ def verify_proxy_selection(profile_spec: dict, selection_spec: dict, configs: di
         and isinstance(selected.get("plan_sha256"), str)
         and len(selected["plan_sha256"]) == 64
         and isinstance(selected.get("runs_sha256"), str)
-        and len(selected["runs_sha256"]) == 64,
+        and len(selected["runs_sha256"]) == 64
+        and selected["plan_sha256"] == plan_spec["sha256"]
+        and selected["runs_sha256"] == runs_spec["sha256"],
         "Proxy selection is incomplete or not provisional Development evidence",
+    )
+    verified = proxy_select(plan, records)
+    require(
+        {key: value for key, value in selected.items() if key not in {"plan_sha256", "runs_sha256"}}
+        == verified,
+        "Proxy selection differs from authenticated plan/run evidence",
     )
     choices = {}
     for name in ("source_error", "uncertainty", "drift"):

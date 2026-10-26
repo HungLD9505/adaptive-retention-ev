@@ -20,10 +20,17 @@ Create a Git-ignored JSON file inside the worktree with these exact keys:
   "input_base": "<accepted Development input directory>",
   "lambda": {
     "selection": {"path": "<36-cell finite Development selection>", "sha256": "<SHA-256>"},
-    "chosen_lambda_low": 0.01
+    "preflight": {"path": "<predeclared calibration preflight>", "sha256": "<SHA-256>"},
+    "roots": [
+      {"index": 0, "path": "<lambda-0 matrix root>", "matrix_sha256": "<SHA-256>",
+       "config": {"path": "<lambda-0 config>", "sha256": "<SHA-256>"}}
+    ],
+    "chosen_lambda_low": 0.1
   },
   "proxy_profile": {"path": "<finite four-recipe Development profile>", "sha256": "<SHA-256>"},
   "proxy_selection": {"path": "<108-run provisional Development selection>", "sha256": "<SHA-256>"},
+  "proxy_plan": {"path": "<nine-cell proxy calibration plan>", "sha256": "<SHA-256>"},
+  "proxy_runs": {"path": "<108-row proxy runs.jsonl>", "sha256": "<SHA-256>"},
   "configs": {
     "main": {"path": "<config>", "sha256": "<SHA-256>"},
     "online_best": {"path": "<config>", "sha256": "<SHA-256>"},
@@ -87,6 +94,15 @@ The parameter config binds the selected positive λ to target adaptation,
 replay initial level and first nonzero candidate. Proxy recipes and drift
 reference must already be fixed in their reviewed configs; this generator
 does not choose them from outcomes.
+Provide all four lambda roots/configs, not only index 0 in the example. The
+generator authenticates each of 36 replay manifests/checkpoints, compares
+the selected cell MAE with its manifest and declared origin hashes across
+lambda candidates, then recomputes station/seed/budget
+means, the ranking and the tie-broken λ winner. It also authenticates the
+proxy plan and all 108 pinned run rows, then calls the existing proxy selector
+to re-verify the replay evidence and compare the entire provisional selection.
+That proxy verification replays the Development chronology on CPU and may take
+substantial time; it is read-only and writes no training output.
 It checks the three proxy thresholds and λ-bin mappings against the
 hash-pinned four-recipe profile and its 9-cell/108-run provisional Development
 selection. That selection remains conditional evidence, not approval of the
