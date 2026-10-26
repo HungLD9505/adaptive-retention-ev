@@ -6,6 +6,7 @@ import json
 import math
 import os
 import shutil
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import torch
@@ -204,6 +205,13 @@ def verify_final_runner(records: list[dict], state: dict, input_run: Path, bindi
         row["origin"]: _label_record(row, identity, row["origin"])
         for row in _target_rows(input_run / "labels.jsonl", identity)
     }
+    schedule = list(_target_rows(input_run / "schedule.jsonl", identity))
+    if not 0 < cursor <= len(schedule):
+        raise ValueError("Final runner cursor differs from Development schedule")
+    cutoff = datetime.fromisoformat(schedule[cursor - 1]["origin"])
+    if cursor == len(schedule):
+        cutoff += timedelta(days=1)
+    expected_scored: list[str] = []
     for forecast, issued in zip(created, state["issued"], strict=True):
         if (
             issued["index"] != forecast["index"]
@@ -212,18 +220,20 @@ def verify_final_runner(records: list[dict], state: dict, input_run: Path, bindi
         ):
             raise ValueError("Final runner prediction differs from issued journal")
         label = issued["y_scaled"]
+        record = labels.get(issued["day_id"])
+        if record is None:
+            raise ValueError("Final runner origin lacks authenticated Development label")
+        source_values = ready_labels(record, as_of=cutoff)
+        if (label is None) != (source_values is None):
+            raise ValueError("Final runner score eligibility differs from Development arrival")
         if label is None:
             if issued["normalized_mae"] is not None or issued["mae_kwh"] is not None:
                 raise ValueError("Unscored final origin carries a score")
             continue
         if label.shape != (24,) or not torch.isfinite(label).all():
             raise ValueError("Final runner label vector differs")
-        record = labels.get(issued["day_id"])
-        available = None if record is None else record.available_at
-        if available is None or any(value is None for value in available):
-            raise ValueError("Final runner scored label lacks authenticated arrival")
-        source_values = ready_labels(record, as_of=max(available))
-        if source_values is None or not torch.equal(
+        expected_scored.append(issued["day_id"])
+        if not torch.equal(
             label, torch.tensor(source_values, dtype=torch.float32) / state["energy_scale"]
         ):
             raise ValueError("Final runner label differs from authenticated Development input")
@@ -238,3 +248,18 @@ def verify_final_runner(records: list[dict], state: dict, input_run: Path, bindi
             issued["mae_kwh"], mae * state["energy_scale"], rel_tol=0, abs_tol=1e-7
         ):
             raise ValueError("Final runner score differs from issued forecast")
+    actual_scores = [
+        event.removeprefix("score:") for event in state["events"] if event.startswith("score:")
+    ]
+    actual_updates = [
+        event.removeprefix("update:") for event in state["events"] if event.startswith("update:")
+    ]
+    expected_updates = expected_scored if binding["method"] == "target_only" else []
+    if sorted(actual_scores) != sorted(expected_scored) or sorted(actual_updates) != sorted(
+        expected_updates
+    ):
+        raise ValueError("Final runner score/update event history differs")
+    if state["cost"]["update_steps"] != len(expected_updates) or state["cost"][
+        "inference_calls"
+    ] != len(created):
+        raise ValueError("Final runner score/update cost history differs")
