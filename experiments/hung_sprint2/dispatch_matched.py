@@ -691,12 +691,13 @@ def verify_execution_identity(
 
 
 def dispatch(path: Path, *, execute: bool) -> dict:
+    plan_sha256 = sha256_file(path)
     plan, configs, cells, jobs = parse_plan(path)
+    verify_file(path, plan_sha256)
     root = project_path(plan["output_root"])
     code = _code_identity()
     single_code = _single_code_identity()
     require(single_code["commit"] == code["commit"], "CLI code commits differ")
-    plan_sha256 = sha256_file(path)
     planned = []
     for job_id, job in jobs.items():
         cell = cells[job["cell"]]
