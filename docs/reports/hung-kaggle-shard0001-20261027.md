@@ -63,3 +63,16 @@ covered by subsequent CI. Full-repository Ruff and diff checks pass, including
 the prepared notebooks. This phase does not supply independent scientific
 acceptance, the #39 substitution decision, complete paired metrics or a Final
 lock. No issue was closed or PR merged.
+
+The subsequent clean full suite passed **287 tests with one skip**, exit 0,
+in 209.369 seconds (`.cache/provider-offline-tests-v3*`). The group-02 launcher
+now queries the authenticated quota API again inside its actual runtime,
+requires complete quota fields and disabled paid scaling, and applies the
+remaining-matrix estimate plus a 60-minute reserve to that fresh observation.
+The earlier preparation-time quota remains explicitly labelled as a reference.
+
+API probe version 362623009 failed before uploading any v2 control Dataset:
+`GetKernelSessionStatus` with an explicit version label returned 404. The official
+CLI implementation queries this endpoint without that label; v3 follows that
+request form and preserves both earlier failures. No successful API file
+readback or automatic GPU relay is asserted by this snapshot.
