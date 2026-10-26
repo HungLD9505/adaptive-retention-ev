@@ -31,7 +31,8 @@ class BlockAblationTests(unittest.TestCase):
         self.assertEqual(verification_split_limit(7, 90), 21)
         self.assertEqual(verification_split_limit(14, 90), 42)
         self.assertEqual(verification_split_limit(28, 90), 84)
-        self.assertEqual(verification_split_limit(28, 60), 60)
+        self.assertEqual(verification_split_limit(28, 60), 59)
+        self.assertEqual(verification_split_limit(28, 57), 56)
 
     def test_rejects_insufficient_or_invalid_horizon(self) -> None:
         for block_days, horizon in ((7, 14), (14, 28), (28, 56), (28, 0), (0, 90)):
