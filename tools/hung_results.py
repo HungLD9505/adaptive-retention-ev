@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 import math
+import struct
 from collections import defaultdict
 from pathlib import Path
 
@@ -244,7 +245,9 @@ def score_saved(state: dict, manifest: dict) -> dict:
         days[day_id] = {
             "absolute": float(error.abs().sum()),
             "squared": float(error.square().sum()),
-            "label_sha256": hashlib.sha256((labels * scale).numpy().tobytes()).hexdigest(),
+            "label_sha256": hashlib.sha256(
+                struct.pack("<24d", *(labels * scale).tolist())
+            ).hexdigest(),
         }
     coverage = manifest["coverage"]
     if len(issued_ids) != coverage["created"] or len(days) != coverage["scored"]:

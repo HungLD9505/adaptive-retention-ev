@@ -5,6 +5,7 @@ import math
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import torch
 
@@ -12,6 +13,14 @@ from tools import hung_results as results
 
 
 class ResultTests(unittest.TestCase):
+    def test_scoring_without_numpy(self):
+        state, manifest = self.saved()
+        with patch.object(
+            torch.Tensor, "numpy", side_effect=RuntimeError("Numpy is not available")
+        ):
+            row = results.score_saved(state, manifest)
+        self.assertEqual(row["metrics"]["mae_kwh"], 2)
+
     def test_family_keeps_ablation_and_single_baseline_identity(self):
         for family, config in [
             ("parameter_retention", "parameter_retention"),
