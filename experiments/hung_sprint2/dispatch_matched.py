@@ -7,6 +7,7 @@ no model or lambda selection and never reads Final inputs. Dry-run is default.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import os
@@ -50,7 +51,7 @@ def project_path(value: str | Path) -> Path:
     return path
 
 
-def read_json(path: Path) -> dict:
+def read_json(path: Path, *, data: bytes | None = None) -> dict:
     require(path.is_file(), f"Missing required JSON: {path}")
 
     def unique_pairs(pairs: list[tuple[str, object]]) -> dict:
@@ -60,7 +61,8 @@ def read_json(path: Path) -> dict:
             result[key] = value
         return result
 
-    value = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=unique_pairs)
+    raw = path.read_bytes() if data is None else data
+    value = json.loads(raw.decode("utf-8"), object_pairs_hook=unique_pairs)
     require(isinstance(value, dict), f"Expected JSON object: {path}")
     return value
 
@@ -68,6 +70,14 @@ def read_json(path: Path) -> dict:
 def verify_file(path: Path, digest: str) -> None:
     require(isinstance(digest, str) and len(digest) == 64, "Expected SHA-256")
     require(path.is_file() and sha256_file(path) == digest, f"File SHA-256 mismatch: {path}")
+
+
+def read_verified_json(path: Path, digest: str, *, data: bytes | None = None) -> dict:
+    """Parse the exact bytes whose digest was checked, including duplicate-key rejection."""
+    require(isinstance(digest, str) and len(digest) == 64, "Expected SHA-256")
+    raw = path.read_bytes() if data is None else data
+    require(hashlib.sha256(raw).hexdigest() == digest, f"File SHA-256 mismatch: {path}")
+    return read_json(path, data=raw)
 
 
 def free_space(path: Path) -> int:
@@ -127,8 +137,14 @@ def verify_source_schedule(record: dict, settings: dict, input_run: Path, manife
     )
 
 
-def parse_plan(path: Path) -> tuple[dict, dict[str, dict], dict[str, dict], dict[str, dict]]:
-    plan = read_json(path)
+def parse_plan(
+    path: Path, *, plan_bytes: bytes | None = None, plan_sha256: str | None = None
+) -> tuple[dict, dict[str, dict], dict[str, dict], dict[str, dict]]:
+    plan = (
+        read_verified_json(path, plan_sha256, data=plan_bytes)
+        if plan_sha256 is not None
+        else read_json(path, data=plan_bytes)
+    )
     require(
         plan.get("schema") == "hung-matched-development-dispatch-v1"
         and plan.get("scope") == "development_only",
@@ -175,8 +191,7 @@ def parse_plan(path: Path) -> tuple[dict, dict[str, dict], dict[str, dict], dict
     selection_spec = plan["selection"]
     require(set(selection_spec) == {"path", "sha256"}, "Selection fields mismatch")
     selection_path = project_path(selection_spec["path"])
-    verify_file(selection_path, selection_spec["sha256"])
-    selection = read_json(selection_path)
+    selection = read_verified_json(selection_path, selection_spec["sha256"])
     input_base = project_path(plan["input_base"])
     require(input_base.is_dir(), "Accepted input base missing")
     output_root = project_path(plan["output_root"])
@@ -206,8 +221,7 @@ def parse_plan(path: Path) -> tuple[dict, dict[str, dict], dict[str, dict], dict
         )
         config_path = project_path(item["path"])
         require(config_path.is_relative_to(ROOT.resolve()), "Config must stay in worktree")
-        verify_file(config_path, item["sha256"])
-        config = read_json(config_path)
+        config = read_verified_json(config_path, item["sha256"])
         require(
             config.get("schema") == "hung-sprint2-development-config-v1",
             "Unsupported config schema",
@@ -691,9 +705,13 @@ def verify_execution_identity(
 
 
 def dispatch(path: Path, *, execute: bool, expected_plan_sha256: str | None = None) -> dict:
-    plan_sha256 = expected_plan_sha256 or sha256_file(path)
-    verify_file(path, plan_sha256)
-    plan, configs, cells, jobs = parse_plan(path)
+    plan_bytes = path.read_bytes()
+    plan_sha256 = hashlib.sha256(plan_bytes).hexdigest()
+    require(
+        expected_plan_sha256 is None or plan_sha256 == expected_plan_sha256,
+        f"File SHA-256 mismatch: {path}",
+    )
+    plan, configs, cells, jobs = parse_plan(path, plan_bytes=plan_bytes, plan_sha256=plan_sha256)
     verify_file(path, plan_sha256)
     root = project_path(plan["output_root"])
     code = _code_identity()

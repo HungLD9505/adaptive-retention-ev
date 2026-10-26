@@ -321,6 +321,44 @@ class MatchedDispatcherTests(unittest.TestCase):
             dispatch.dispatch(self.plan_path, execute=False, expected_plan_sha256=approved_sha)
         self.assertFalse((self.root / "swapped-output").exists())
 
+    def test_aba_swaps_parse_only_verified_plan_selection_and_config_bytes(self) -> None:
+        self.save()
+        approved_sha = sha256_file(self.plan_path)
+        original_read = dispatch.read_json
+        originals = {
+            path: path.read_bytes()
+            for path in (self.plan_path, self.selection_path, self.config_path)
+        }
+        swapped = {
+            self.plan_path: json.dumps(
+                {**self.plan, "output_root": str(self.root / "swapped-output")}
+            ).encode(),
+            self.selection_path: b'{"budgets": {}}',
+            self.config_path: b'{"schema": "unapproved"}',
+        }
+        seen = set()
+
+        def swap_during_parse(path, *, data=None):
+            if path in swapped:
+                seen.add(path)
+                path.write_bytes(swapped[path])
+                try:
+                    return original_read(path, data=data)
+                finally:
+                    path.write_bytes(originals[path])
+            return original_read(path, data=data)
+
+        with patch.object(dispatch, "read_json", side_effect=swap_during_parse):
+            with patch("builtins.print") as printed:
+                result = dispatch.dispatch(
+                    self.plan_path, execute=False, expected_plan_sha256=approved_sha
+                )
+        self.assertEqual(seen, set(swapped))
+        self.assertFalse(result["executed"])
+        first = json.loads(printed.call_args_list[0].args[0])
+        self.assertIn("new-output", first["argv"][-1])
+        self.assertFalse((self.root / "swapped-output").exists())
+
     def test_mocked_execute_writes_separate_stage_logs_and_verifies_outputs(self) -> None:
         self.save()
 
