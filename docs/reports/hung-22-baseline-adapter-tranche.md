@@ -55,5 +55,11 @@ evaluation and a complete research report remain open.
 
 The new fixtures cover observed-mean selection, tie/keep, strict delta,
 insufficient valid days with null statistics, equal three-candidate step/count
-accounting, checkpoint restore and CLI policy binding. No dataset download,
-training run, or Final access is performed by the fixtures.
+accounting, checkpoint restore and CLI policy binding. A two-block synthetic
+fixture for each new policy forces a switch, verifies the next-block issued
+forecast and separate old-policy audit, then compares uninterrupted execution
+with a checkpoint saved after issuance and resumed before label arrival. It
+compares forecasts, decisions, events, update counts, active model/optimizer
+state and audit scores. The synthetic branch separation is an explicit fixture
+for state-flow coverage, not training-effectiveness or fair-start evidence.
+No dataset download, real training run, or Final access is performed by the fixtures.

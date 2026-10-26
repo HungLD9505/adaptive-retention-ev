@@ -1,10 +1,13 @@
 """Independent mean-selector expectations and common-runner budget checks."""
 
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import torch
 
 from experiments.hung_sprint2.baseline_selection import decide_mean_block
+from experiments.hung_sprint2.checkpoint import load_runner, save_runner
 from experiments.hung_sprint2.controller import ControllerConfig, DailyScore
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
 from experiments.hung_sprint2.retention import frozen_source_reference
@@ -122,6 +125,112 @@ class BaselineSelectionTests(unittest.TestCase):
         )
         self.assertEqual(restored.selection_rule, "online_best_lambda")
         self.assertEqual(restored.update_steps, [1, 1, 1])
+
+    def test_switch_next_block_audit_and_split_resume_for_each_policy(self) -> None:
+        x = torch.full((1, 24, 7), 0.2)
+        calendar = torch.full((1, 24, 5), 0.1)
+        label = LabelArrival(
+            "day-0", True, torch.full((24,), 0.7), torch.ones(24, dtype=torch.bool)
+        )
+
+        def prepared(rule: str) -> PrequentialRunner:
+            instance = runner(rule)
+            # Identified synthetic branch separation makes the challenger win by
+            # a wide margin; the test exercises runner state flow, not training efficacy.
+            with torch.no_grad():
+                for index, bias in enumerate((-3.0, 3.0, 0.0)):
+                    head = instance.candidates[index][0].forecast_head[0]
+                    head.weight.zero_()
+                    head.bias.fill_(bias)
+            return instance
+
+        def first_block(instance: PrequentialRunner) -> None:
+            instance.forecast(Origin("day-0", 0, x, calendar))
+            self.assertIsNone(instance.issued[0]["normalized_mae"])
+            instance.arrive(label)
+            for day in (1, 2):
+                instance.forecast(
+                    Origin(f"day-{day}", day, None, None, "skipped_all_missing_history")
+                )
+                instance.arrive(LabelArrival(f"day-{day}", False))
+            trained = instance.candidates[2][0].forecast_head[0].bias.detach().clone()
+            decision = instance.finish_block()
+            self.assertEqual(decision.selected_level, 0.2)
+            self.assertTrue(decision.switched)
+            self.assertEqual(decision.valid_days, 1)
+            self.assertEqual(decision.skipped_days, 2)
+            self.assertTrue(torch.equal(instance.active_model.forecast_head[0].bias, trained))
+            self.assertIsNotNone(instance.audit)
+            self.assertEqual(instance.audit[0], 0.1)
+            self.assertEqual(instance.update_steps, [1, 1, 1])
+
+        def finish(instance: PrequentialRunner) -> None:
+            instance.arrive(
+                LabelArrival(
+                    "day-3", True, torch.full((24,), 0.7), torch.ones(24, dtype=torch.bool)
+                )
+            )
+            for day in (4, 5):
+                instance.forecast(
+                    Origin(f"day-{day}", day, None, None, "skipped_all_missing_history")
+                )
+                instance.arrive(LabelArrival(f"day-{day}", False))
+            instance.finish_block()
+
+        for rule in ("online_best_lambda", "without_confidence"):
+            with self.subTest(rule=rule):
+                continuous = prepared(rule)
+                split = prepared(rule)
+                first_block(continuous)
+                first_block(split)
+                for instance in (continuous, split):
+                    instance.forecast(Origin("day-3", 3, x, calendar))
+                    issued = instance.issued[-1]
+                    self.assertEqual(issued["active_level"], 0.2)
+                    self.assertIsNotNone(issued["audit_forecast"])
+                    self.assertIsNone(issued["normalized_mae"])
+                    self.assertFalse(torch.equal(issued["forecasts"][2], issued["audit_forecast"]))
+                with TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as directory:
+                    checkpoint = Path(directory) / "runner.pt"
+                    save_runner(checkpoint, split)
+                    split = load_runner(checkpoint, expected_binding=split.binding)
+                self.assertEqual(split.selection_rule, rule)
+                self.assertIsNotNone(split.pending)
+                finish(continuous)
+                finish(split)
+                self.assertEqual(continuous.events, split.events)
+                self.assertEqual(continuous.decisions, split.decisions)
+                self.assertEqual(continuous.update_steps, split.update_steps)
+                self.assertEqual(continuous.audit_steps, split.audit_steps)
+                self.assertEqual(continuous.runtime_costs["audit"]["update_steps"], 1)
+                self.assertIsNotNone(continuous.issued[-1]["audit_mae_kwh"])
+                for left, right in zip(
+                    continuous.issued[-1]["forecasts"], split.issued[-1]["forecasts"], strict=True
+                ):
+                    self.assertTrue(torch.equal(left, right))
+                self.assertTrue(
+                    torch.equal(
+                        continuous.issued[-1]["audit_forecast"],
+                        split.issued[-1]["audit_forecast"],
+                    )
+                )
+                self.assertEqual(
+                    continuous.issued[-1]["audit_mae_kwh"],
+                    split.issued[-1]["audit_mae_kwh"],
+                )
+                for left, right in zip(
+                    continuous.active_model.parameters(),
+                    split.active_model.parameters(),
+                    strict=True,
+                ):
+                    self.assertTrue(torch.equal(left, right))
+                for left_state, right_state in zip(
+                    continuous.active_optimizer.state_dict()["state"].values(),
+                    split.active_optimizer.state_dict()["state"].values(),
+                    strict=True,
+                ):
+                    for name in left_state:
+                        self.assertTrue(torch.equal(left_state[name], right_state[name]))
 
 
 if __name__ == "__main__":
