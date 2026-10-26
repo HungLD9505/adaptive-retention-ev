@@ -142,7 +142,11 @@ def verify_source_schedule(record: dict, settings: dict, input_run: Path, manife
 
 
 def parse_plan(
-    path: Path, *, plan_bytes: bytes | None = None, plan_sha256: str | None = None
+    path: Path,
+    *,
+    plan_bytes: bytes | None = None,
+    plan_sha256: str | None = None,
+    allow_existing_output: bool = False,
 ) -> tuple[dict, dict[str, dict], dict[str, dict], dict[str, dict]]:
     plan = (
         read_verified_json(path, plan_sha256, data=plan_bytes)
@@ -202,7 +206,10 @@ def parse_plan(
     require(
         output_root.is_relative_to(ROOT.resolve()), "Output root must be inside current worktree"
     )
-    require(not output_root.exists(), f"Create-only output root already exists: {output_root}")
+    if allow_existing_output:
+        require(output_root.is_dir(), f"Resume output root missing: {output_root}")
+    else:
+        require(not output_root.exists(), f"Create-only output root already exists: {output_root}")
     ignored = (
         subprocess.run(
             ["git", "check-ignore", "-q", "--no-index", str(output_root)], cwd=ROOT, check=False
@@ -723,14 +730,22 @@ def verify_execution_identity(
     )
 
 
-def dispatch(path: Path, *, execute: bool, expected_plan_sha256: str | None = None) -> dict:
+def dispatch(
+    path: Path, *, execute: bool, expected_plan_sha256: str | None = None, resume: bool = False
+) -> dict:
+    require(execute or not resume, "Resume requires explicit --execute")
     plan_bytes = path.read_bytes()
     plan_sha256 = hashlib.sha256(plan_bytes).hexdigest()
     require(
         expected_plan_sha256 is None or plan_sha256 == expected_plan_sha256,
         f"File SHA-256 mismatch: {path}",
     )
-    plan, configs, cells, jobs = parse_plan(path, plan_bytes=plan_bytes, plan_sha256=plan_sha256)
+    plan, configs, cells, jobs = parse_plan(
+        path,
+        plan_bytes=plan_bytes,
+        plan_sha256=plan_sha256,
+        allow_existing_output=resume,
+    )
     verify_file(path, plan_sha256)
     root = project_path(plan["output_root"])
     code = _code_identity()
@@ -764,36 +779,61 @@ def dispatch(path: Path, *, execute: bool, expected_plan_sha256: str | None = No
             )
         return {"jobs": len(jobs), "stages": len(planned), "executed": False}
 
+    from experiments.hung_sprint2 import matched_resume
+
     require_capacity(root)
-    root.mkdir(parents=True, exist_ok=False)
+    identity = {
+        "schema": plan["schema"],
+        "plan_sha256": plan_sha256,
+        "code": code,
+        "single_code": single_code,
+        "jobs": len(jobs),
+        "stages": len(planned),
+    }
     temp_dir = root / "tmp"
-    temp_dir.mkdir()
-    with (root / "dispatch_identity.json").open("x", encoding="utf-8") as stream:
-        json.dump(
-            {
-                "schema": plan["schema"],
-                "plan_sha256": plan_sha256,
-                "code": code,
-                "single_code": single_code,
-                "jobs": len(jobs),
-                "stages": len(planned),
-            },
-            stream,
-            indent=2,
-            sort_keys=True,
+    if resume:
+        require(
+            read_json(root / "dispatch_identity.json") == identity and temp_dir.is_dir(),
+            "Resume root identity differs",
         )
-        stream.write("\n")
+    else:
+        root.mkdir(parents=True, exist_ok=False)
+        temp_dir.mkdir()
+        with (root / "dispatch_identity.json").open("x", encoding="utf-8") as stream:
+            json.dump(identity, stream, indent=2, sort_keys=True)
+            stream.write("\n")
+    new_stage_runs = 0
+    verified_skips = 0
     for job_id, job, cell, config, name, module, args, job_root in planned:
         require_capacity(root)
         verify_execution_identity(path, plan, plan_sha256, code, single_code)
         verify_dependencies(job, cell, config, code, single_code, job_root, name)
         stage_output = job_root / name
-        require(not stage_output.exists(), f"Stage output already exists: {stage_output}")
         log_path = root / "logs" / job_id / f"{name}.log"
+        command = [sys.executable, "-m", module, *args]
+        output_code = single_code if job["method"] in SINGLE_METHODS else code
+        if resume and (stage_output.exists() or log_path.exists()):
+            require(
+                stage_output.is_dir() and log_path.is_file(),
+                f"Partial stage preserved for review: {stage_output}",
+            )
+            receipt = matched_resume.stage_receipt(
+                stage_output, name, job_id, job, cell, config["value"], output_code
+            )
+            matched_resume.verify_completed_log(
+                log_path,
+                command,
+                config["sha256"],
+                cell["input_manifest_sha256"],
+                receipt,
+            )
+            print(json.dumps({"job": job_id, "stage": name, "status": "verified_skip"}), flush=True)
+            verified_skips += 1
+            continue
+        require(not stage_output.exists(), f"Stage output already exists: {stage_output}")
         require(not log_path.exists(), f"Stage log already exists: {log_path}")
         log_path.parent.mkdir(parents=True, exist_ok=True)
         job_root.mkdir(parents=True, exist_ok=True)
-        command = [sys.executable, "-m", module, *args]
         with log_path.open("x", encoding="utf-8") as log:
             log.write(
                 json.dumps(
@@ -824,13 +864,22 @@ def dispatch(path: Path, *, execute: bool, expected_plan_sha256: str | None = No
             result.returncode == 0,
             f"Stage failed ({result.returncode}); preserve output and inspect {log_path}",
         )
-        output_code = single_code if job["method"] in SINGLE_METHODS else code
-        verify_stage_output(stage_output, name, job["method"], output_code)
+        receipt = matched_resume.stage_receipt(
+            stage_output, name, job_id, job, cell, config["value"], output_code
+        )
+        matched_resume.append_receipt(log_path, receipt)
+        new_stage_runs += 1
         print(
             json.dumps({"job": job_id, "stage": name, "log": str(log_path), "status": "completed"}),
             flush=True,
         )
-    return {"jobs": len(jobs), "stages": len(planned), "executed": True}
+    return {
+        "jobs": len(jobs),
+        "stages": len(planned),
+        "executed": True,
+        "new_stage_runs": new_stage_runs,
+        "verified_skips": verified_skips,
+    }
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -840,11 +889,23 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--execute", action="store_true", help="Actually run jobs; default is dry-run"
     )
+    parser.add_argument(
+        "--resume", action="store_true", help="With --execute, verify completed stages and continue"
+    )
     args = parser.parse_args(argv)
     plan = project_path(args.plan)
     require(plan.is_relative_to(ROOT.resolve()), "Plan must be inside current worktree")
     verify_file(plan, args.plan_sha256)
-    print(json.dumps(dispatch(plan, execute=args.execute, expected_plan_sha256=args.plan_sha256)))
+    print(
+        json.dumps(
+            dispatch(
+                plan,
+                execute=args.execute,
+                expected_plan_sha256=args.plan_sha256,
+                resume=args.resume,
+            )
+        )
+    )
     return 0
 
 

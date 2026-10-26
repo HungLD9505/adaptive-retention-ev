@@ -126,6 +126,38 @@ class MatchedDispatcherTests(unittest.TestCase):
     def save(self) -> None:
         self.plan_path.write_text(json.dumps(self.plan), encoding="utf-8")
 
+    def fake_single_subprocess(self, command, **kwargs):
+        if command[0] == "git":
+            return SimpleNamespace(returncode=0)
+        output = Path(command[command.index("--output") + 1])
+        output.mkdir(parents=True)
+        checkpoint = output / "runner.pt"
+        checkpoint.write_bytes(b"fixture-runner")
+        journal = output / "forecasts.jsonl"
+        journal.write_text("fixture forecast\n", encoding="utf-8")
+        (output / "run_manifest.json").write_text(
+            json.dumps(
+                {
+                    "status": "completed",
+                    "run_id": output.name,
+                    "code": self.single_code,
+                    "input_binding": {
+                        "input_manifest_sha256": "b" * 64,
+                        "entity_id": "2264",
+                    },
+                    "config": {
+                        "method": "seasonal_naive",
+                        "max_origins": int(command[command.index("--max-origins") + 1]),
+                    },
+                    "runner_cursor": int(command[command.index("--max-origins") + 1]),
+                    "forecast_journal": {"file": journal.name, "sha256": sha256_file(journal)},
+                    "final_runner_checkpoint_sha256": sha256_file(checkpoint),
+                }
+            ),
+            encoding="utf-8",
+        )
+        return SimpleNamespace(returncode=0)
+
     def test_dry_run_builds_allowlisted_single_cli_and_writes_nothing(self) -> None:
         self.save()
         with patch("builtins.print") as printed:
@@ -374,35 +406,99 @@ class MatchedDispatcherTests(unittest.TestCase):
 
     def test_mocked_execute_writes_separate_stage_logs_and_verifies_outputs(self) -> None:
         self.save()
-
-        def fake_subprocess(command, **kwargs):
-            if command[0] == "git":
-                return SimpleNamespace(returncode=0)
-            output = Path(command[command.index("--output") + 1])
-            output.mkdir(parents=True)
-            checkpoint = output / "runner.pt"
-            checkpoint.write_bytes(b"fixture-runner")
-            (output / "run_manifest.json").write_text(
-                json.dumps(
-                    {
-                        "status": "completed",
-                        "run_id": output.name,
-                        "code": {"executed_sources": self.single_code["executed_sources"]},
-                        "final_runner_checkpoint_sha256": sha256_file(checkpoint),
-                    }
-                ),
-                encoding="utf-8",
-            )
-            return SimpleNamespace(returncode=0)
-
-        with patch.object(dispatch.subprocess, "run", side_effect=fake_subprocess):
+        with patch.object(dispatch.subprocess, "run", side_effect=self.fake_single_subprocess):
             with patch("builtins.print"):
                 result = dispatch.dispatch(self.plan_path, execute=True)
-        self.assertEqual(result, {"jobs": 1, "stages": 2, "executed": True})
+        self.assertEqual(
+            result,
+            {"jobs": 1, "stages": 2, "executed": True, "new_stage_runs": 2, "verified_skips": 0},
+        )
         output = self.root / "new-output"
         self.assertTrue((output / "dispatch_identity.json").is_file())
         self.assertTrue((output / "logs/seasonal7/replay-42.log").is_file())
         self.assertTrue((output / "logs/seasonal7/replay-90.log").is_file())
+
+    def test_resume_verifies_completed_stages_without_rerunning(self) -> None:
+        self.save()
+        with patch.object(dispatch.subprocess, "run", side_effect=self.fake_single_subprocess):
+            with patch("builtins.print"):
+                dispatch.dispatch(self.plan_path, execute=True)
+
+        def refuse_model_call(command, **kwargs):
+            if command[0] == "git":
+                return SimpleNamespace(returncode=0)
+            raise AssertionError("Completed stage was run again")
+
+        with patch.object(dispatch.subprocess, "run", side_effect=refuse_model_call):
+            with patch("builtins.print") as printed:
+                result = dispatch.dispatch(self.plan_path, execute=True, resume=True)
+        self.assertEqual(
+            result,
+            {"jobs": 1, "stages": 2, "executed": True, "new_stage_runs": 0, "verified_skips": 2},
+        )
+        self.assertEqual(
+            [json.loads(item.args[0])["status"] for item in printed.call_args_list],
+            ["verified_skip", "verified_skip"],
+        )
+
+    def test_resume_rejects_partial_stage_without_rerunning(self) -> None:
+        self.save()
+
+        def fail_after_partial_output(command, **kwargs):
+            if command[0] == "git":
+                return SimpleNamespace(returncode=0)
+            output = Path(command[command.index("--output") + 1])
+            output.mkdir(parents=True)
+            (output / "runner.pt").write_bytes(b"partial")
+            return SimpleNamespace(returncode=1)
+
+        with patch.object(dispatch.subprocess, "run", side_effect=fail_after_partial_output):
+            with self.assertRaisesRegex(ValueError, "Stage failed"):
+                dispatch.dispatch(self.plan_path, execute=True)
+        stage = self.root / "new-output/jobs/seasonal7/replay-42"
+        self.assertTrue(stage.is_dir())
+        with patch.object(dispatch.subprocess, "run", side_effect=fail_after_partial_output):
+            with self.assertRaisesRegex(ValueError, "run_manifest.json"):
+                dispatch.dispatch(self.plan_path, execute=True, resume=True)
+        self.assertTrue((stage / "runner.pt").is_file())
+
+    def test_resume_rejects_changed_log_or_manifest(self) -> None:
+        self.save()
+        with patch.object(dispatch.subprocess, "run", side_effect=self.fake_single_subprocess):
+            with patch("builtins.print"):
+                dispatch.dispatch(self.plan_path, execute=True)
+        log = self.root / "new-output/logs/seasonal7/replay-42.log"
+        original = log.read_text(encoding="utf-8")
+        log.write_text(original.replace("CODEX_VERIFIED_STAGE ", "BROKEN "), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "Stage log incomplete"):
+            dispatch.dispatch(self.plan_path, execute=True, resume=True)
+        log.write_text(
+            original.replace("\nCODEX_VERIFIED_STAGE ", "\nchanged\nCODEX_VERIFIED_STAGE "),
+            encoding="utf-8",
+        )
+        with self.assertRaisesRegex(ValueError, "log/receipt differs"):
+            dispatch.dispatch(self.plan_path, execute=True, resume=True)
+        log.write_text(original, encoding="utf-8")
+        manifest = self.root / "new-output/jobs/seasonal7/replay-42/run_manifest.json"
+        record = json.loads(manifest.read_text(encoding="utf-8"))
+        record["config"]["method"] = "other"
+        manifest.write_text(json.dumps(record), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "method/cursor/source differs"):
+            dispatch.dispatch(self.plan_path, execute=True, resume=True)
+
+    def test_resume_requires_exact_root_identity_and_execute(self) -> None:
+        self.save()
+        with self.assertRaisesRegex(ValueError, "explicit --execute"):
+            dispatch.dispatch(self.plan_path, execute=False, resume=True)
+        with patch.object(dispatch.subprocess, "run", side_effect=self.fake_single_subprocess):
+            with patch("builtins.print"):
+                dispatch.dispatch(self.plan_path, execute=True)
+        identity = self.root / "new-output/dispatch_identity.json"
+        record = json.loads(identity.read_text(encoding="utf-8"))
+        record["plan_sha256"] = "0" * 64
+        identity.write_text(json.dumps(record), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "Resume root identity differs"):
+            dispatch.dispatch(self.plan_path, execute=True, resume=True)
 
     def test_code_change_between_stages_blocks_second_subprocess(self) -> None:
         self.save()
@@ -417,28 +513,8 @@ class MatchedDispatcherTests(unittest.TestCase):
                 "executed_sources": {},
             }
 
-        def fake_subprocess(command, **kwargs):
-            if command[0] == "git":
-                return SimpleNamespace(returncode=0)
-            output = Path(command[command.index("--output") + 1])
-            output.mkdir(parents=True)
-            checkpoint = output / "runner.pt"
-            checkpoint.write_bytes(b"fixture-runner")
-            (output / "run_manifest.json").write_text(
-                json.dumps(
-                    {
-                        "status": "completed",
-                        "run_id": output.name,
-                        "code": {"executed_sources": self.single_code["executed_sources"]},
-                        "final_runner_checkpoint_sha256": sha256_file(checkpoint),
-                    }
-                ),
-                encoding="utf-8",
-            )
-            return SimpleNamespace(returncode=0)
-
         with patch.object(dispatch, "_code_identity", side_effect=changing_identity):
-            with patch.object(dispatch.subprocess, "run", side_effect=fake_subprocess):
+            with patch.object(dispatch.subprocess, "run", side_effect=self.fake_single_subprocess):
                 with patch("builtins.print"):
                     with self.assertRaisesRegex(ValueError, "code identity changed"):
                         dispatch.dispatch(self.plan_path, execute=True)

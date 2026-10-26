@@ -67,9 +67,23 @@ hashes before every stage. It refuses
 an existing output root, tracked output path, changed code commit, dirty
 tracked worktree, unsupported method, missing data, or less than 8 GiB free.
 It creates a dispatch identity, separate job stage directories, one log per
-stage, and split/resumed replay checkpoints. Interrupted or failed outputs
-remain for inspection; rerunning into that root is refused. Use a new plan
-and root after resolving a failure. Large run artifacts remain ignored.
+stage, and split/resumed replay checkpoints. Each successful stage appends a
+verified receipt to its log after checking the run manifest, checkpoint,
+Development binding and event/forecast journal. Interrupted or failed outputs
+remain for inspection.
+
+For an interrupted run, `--execute --resume` accepts its existing output root
+only when `dispatch_identity.json` exactly matches the pinned plan, code and
+job/stage counts. It rechecks the current plan, selection, code, input and
+dependencies before each stage. A completed stage is skipped only when its
+directory, manifest, checkpoint, journal and log receipt all verify; a missing
+or partial stage runs only if neither stage directory nor log exists. Any
+partial or mismatched output stops the dispatcher and stays untouched for
+review. Plain `--execute` remains create-only and refuses an existing root.
+The resume flag does not bypass the capacity or scientific review gates.
+The final command summary reports `new_stage_runs` and `verified_skips` so a
+resume can be audited without counting skipped work as a new run.
+Large run artifacts remain ignored.
 
 ## Commands
 
@@ -85,6 +99,8 @@ python -m experiments.hung_sprint2.dispatch_matched --plan $plan --plan-sha256 $
 # Review every printed command, artifact identity, method and output root.
 # A separate explicit decision is required before GPU execution:
 python -m experiments.hung_sprint2.dispatch_matched --plan $plan --plan-sha256 $sha --execute
+# Only for an interrupted, previously approved run after inspecting its root:
+python -m experiments.hung_sprint2.dispatch_matched --plan $plan --plan-sha256 $sha --execute --resume
 ```
 
 The dry-run performs no training and writes no outputs. The `--execute`
