@@ -2,7 +2,7 @@
 
 The [Colab template](../../notebooks/issue23_durable_city.ipynb) defaults to a
 Source-only storage probe using original JHB checkpoints and an exact hash-pinned
-4f174bd code bundle. It does not train in probe mode. Explicit new, resume and
+d5f6157 code bundle (including the canonical-JSON backup fix). It does not train in probe mode. Explicit new, resume and
 read-only rescue modes use accepted city inputs and unchanged primary selection;
 training modes require CUDA. Keep the same authorized account.
 
@@ -216,3 +216,8 @@ remain inaccessible and are not overwritten/replaced. No new city training was
 claimed at that observation. Each new city receives its own input, three Sources,
 cohort, backups and canonical handoff. See the
 [exact code, queue and verification evidence](issue23-durable-recovery-evidence.json).
+
+The maintained notebook pin was refreshed tod5f6157 and its exact shared bundle
+size/SHA. All cells remain unexecuted; per-cell syntax and combined Pyflakes/error
+checks passed. This avoids directing new training to the historical4f174bd report-
+representation bug. Historical storage-probe evidence retains its original code ID.
