@@ -110,13 +110,26 @@ standalone target stdout was not retained; no empty log was fabricated. JHB's
 verified committed forecasts/events/states and aggregate logs remain unchanged.
 See [exact evidence, code/proof downloads and scopes](issue23-durable-recovery-evidence.json).
 
-Implementation4f174bd passed GitHub Actions40350149501. The real artifact trial
-used ordinary local storage, not DriveFS; the notebook has only been syntax/lint
-checked, not cloud-executed. Actual GPU parity/continuation and remote storage
-acceptance remain open.
+Implementation4f174bd passed GitHub Actions40350149501; documentation/template
+commitde587d8 passed40354758097. The maintained notebook template has been
+syntax/lint checked, not executed as a whole.
 
-At implementation time, Kaggle runtime/export access remains unavailable. Colab
-CPU allocation succeeded, but the storage-only mount probe returned
-`credential propagation was unsuccessful`; interactive Drive authorization must
-complete before actual mounted-storage verification. No new cloud training,
-complete SPO raw handoff, Final lock/evaluation, peer approval or merge is claimed.
+The actual Colab CPU trial `qyroven-storage-drive-20261026-v2` then passed327 tests
+in23.715 seconds, Ruff lint/format, mounted-Drive publication and restoration of
+three original JHB Sources, and CPU RNG preservation. A separate anonymous
+remote download verified the proof package and all three checkpoint archives by
+size, SHA-256, ZIP CRC and original checkpoint bytes. The
+[Drive evidence folder](https://drive.google.com/drive/folders/1c9hIubhDQrHbKuMoUvtMsGVOthQugsJY)
+contains the executed script, config/context, receipts, logs and runtime versions.
+The first cloud attempt stopped before publication because the shared team folder
+was not directly exposed in My Drive; its outputs were preserved. Adding a My
+Drive shortcut to the existing approved folder resolved the path without moving
+or changing permissions on the shared data. The successful trial used a new ID.
+
+This verifies actual Source-only storage and independent download, not target-run
+GPU continuation or immunity to future provider/storage failures. No new fitting,
+inference, Final lock/evaluation, peer approval or merge is claimed. Colab GPU
+allocation remains usage-limited. Kaggle still displays `Session is starting`;
+current MEL liveness and complete SPO raw export remain unverified, so the old
+job has not been restarted. Next execution must first inspect/rescue that existing
+state and retain the accepted protocol and original Source identities.
