@@ -14,12 +14,22 @@ import os
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
 from experiments.hung_sprint2.cli import _binding, _code_identity, _examples, _load_run
+from experiments.hung_sprint2.dispatch_state import (
+    atomic_create,
+    exclusive_lock,
+    inventory,
+    object_sha256,
+    select_shard,
+    stage_receipt,
+    verify_receipt,
+)
 from experiments.hung_sprint2.run_development import verification_split_limit
 from experiments.hung_sprint2.single_baseline_cli import _code_identity as _single_code_identity
 from experiments.hung_sprint2.training import load_checkpoint
@@ -142,7 +152,11 @@ def verify_source_schedule(record: dict, settings: dict, input_run: Path, manife
 
 
 def parse_plan(
-    path: Path, *, plan_bytes: bytes | None = None, plan_sha256: str | None = None
+    path: Path,
+    *,
+    plan_bytes: bytes | None = None,
+    plan_sha256: str | None = None,
+    allow_existing_output: bool = False,
 ) -> tuple[dict, dict[str, dict], dict[str, dict], dict[str, dict]]:
     plan = (
         read_verified_json(path, plan_sha256, data=plan_bytes)
@@ -202,7 +216,10 @@ def parse_plan(
     require(
         output_root.is_relative_to(ROOT.resolve()), "Output root must be inside current worktree"
     )
-    require(not output_root.exists(), f"Create-only output root already exists: {output_root}")
+    require(
+        allow_existing_output or not output_root.exists(),
+        f"Create-only output root already exists: {output_root}",
+    )
     ignored = (
         subprocess.run(
             ["git", "check-ignore", "-q", "--no-index", str(output_root)], cwd=ROOT, check=False
@@ -252,6 +269,7 @@ def parse_plan(
         configs[key] = {"path": config_path, "sha256": item["sha256"], "value": config}
 
     cells = {}
+    input_cache = {}
     physical_cells = set()
     for item in plan["cells"]:
         require(
@@ -278,7 +296,10 @@ def parse_plan(
             "Cell is not predeclared representative",
         )
         input_run = project_path(input_base / f"urbanev-SZH-{budget}d")
-        manifest = _load_run(input_run, item["input_manifest_sha256"])
+        cache_key = (input_run, item["input_manifest_sha256"])
+        if cache_key not in input_cache:
+            input_cache[cache_key] = _load_run(*cache_key)
+        manifest = input_cache[cache_key]
         require(
             manifest["config"]["dataset_id"] == "urbanev"
             and manifest["config"]["city_id"] == "SZH"
@@ -583,11 +604,18 @@ def verify_dependencies(
     single_code: dict,
     job_root: Path,
     stage_name: str,
+    preflight_cache: dict | None = None,
 ) -> None:
     """Rehash all immutable input/config/model dependencies before each stage."""
     verify_file(config_spec["path"], config_spec["sha256"])
     input_run = cell["input_run"]
-    manifest = _load_run(input_run, cell["input_manifest_sha256"])
+    input_key = (input_run, cell["input_manifest_sha256"])
+    if preflight_cache is None:
+        manifest = _load_run(*input_key)
+    else:
+        if input_key not in preflight_cache:
+            preflight_cache[input_key] = _load_run(*input_key)
+        manifest = preflight_cache[input_key]
     if job["method"] == "target_only" and stage_name != "target-only-init":
         checkpoint = job_root / "target-only-init" / "initial.pt"
         record = read_json(checkpoint.parent / "run_manifest.json")
@@ -642,7 +670,16 @@ def verify_dependencies(
         job["source"].get("run_manifest_sha256"),
     )
     require(source_record["seed"] == cell["seed"], "Source seed differs")
-    verify_source_schedule(source_record, config_spec["value"]["source"], input_run, manifest)
+    settings_key = (
+        "source_schedule",
+        input_key,
+        job["source"]["sha256"],
+        json.dumps(config_spec["value"]["source"], sort_keys=True),
+    )
+    if preflight_cache is None or settings_key not in preflight_cache:
+        verify_source_schedule(source_record, config_spec["value"]["source"], input_run, manifest)
+        if preflight_cache is not None:
+            preflight_cache[settings_key] = True
     if job["method"] == "frozen_source" or stage_name == "target":
         return
     target = (
@@ -723,14 +760,28 @@ def verify_execution_identity(
     )
 
 
-def dispatch(path: Path, *, execute: bool, expected_plan_sha256: str | None = None) -> dict:
+def dispatch(
+    path: Path,
+    *,
+    execute: bool,
+    expected_plan_sha256: str | None = None,
+    resume: bool = False,
+    shards_path: Path | None = None,
+    shards_sha256: str | None = None,
+    shard_id: str | None = None,
+    verify_only: bool = False,
+) -> dict:
+    require(not (execute and verify_only), "Verification cannot execute stages")
+    require(not verify_only or resume, "Verification requires --resume")
     plan_bytes = path.read_bytes()
     plan_sha256 = hashlib.sha256(plan_bytes).hexdigest()
     require(
         expected_plan_sha256 is None or plan_sha256 == expected_plan_sha256,
         f"File SHA-256 mismatch: {path}",
     )
-    plan, configs, cells, jobs = parse_plan(path, plan_bytes=plan_bytes, plan_sha256=plan_sha256)
+    plan, configs, cells, jobs = parse_plan(
+        path, plan_bytes=plan_bytes, plan_sha256=plan_sha256, allow_existing_output=resume
+    )
     verify_file(path, plan_sha256)
     root = project_path(plan["output_root"])
     code = _code_identity()
@@ -743,7 +794,20 @@ def dispatch(path: Path, *, execute: bool, expected_plan_sha256: str | None = No
         job_root = root / "jobs" / job_id
         for name, module, args in build_stages(job, cell, config["value"], job_root):
             planned.append((job_id, job, cell, config, name, module, args, job_root))
-    if not execute:
+    total_jobs, total_stages = len(jobs), len(planned)
+    require(
+        (shards_path is None and shards_sha256 is None and shard_id is None)
+        or (shards_path is not None and shards_sha256 is not None and shard_id is not None),
+        "Shard path, SHA and ID must be supplied together",
+    )
+    if shards_path is not None:
+        shards_path = project_path(shards_path)
+        spec = read_verified_json(shards_path, shards_sha256)
+        selected = set(select_shard(spec, plan_sha256, list(jobs), shard_id))
+        jobs = {key: value for key, value in jobs.items() if key in selected}
+        planned = [row for row in planned if row[0] in selected]
+    if not execute and not verify_only:
+        preflight_cache = {}
         for job_id, job in jobs.items():
             if job["source"] is not None:
                 cell = cells[job["cell"]]
@@ -754,8 +818,21 @@ def dispatch(path: Path, *, execute: bool, expected_plan_sha256: str | None = No
                 )
                 stage_name = f"replay-{split}" if job["target"] is not None else "target"
                 verify_dependencies(
-                    job, cell, config, code, single_code, root / "jobs" / job_id, stage_name
+                    job,
+                    cell,
+                    config,
+                    code,
+                    single_code,
+                    root / "jobs" / job_id,
+                    stage_name,
+                    preflight_cache=preflight_cache,
                 )
+        # Rehash inputs after the read-only cached pass. Execution never uses this cache.
+        for input_run, digest in {
+            (cell["input_run"], cell["input_manifest_sha256"]) for cell in cells.values()
+        }:
+            _load_run(input_run, digest)
+        verify_execution_identity(path, plan, plan_sha256, code, single_code)
         for job_id, job, cell, config, name, module, args, job_root in planned:
             print(
                 json.dumps(
@@ -765,32 +842,164 @@ def dispatch(path: Path, *, execute: bool, expected_plan_sha256: str | None = No
         return {"jobs": len(jobs), "stages": len(planned), "executed": False}
 
     require_capacity(root)
-    root.mkdir(parents=True, exist_ok=False)
-    temp_dir = root / "tmp"
-    temp_dir.mkdir()
-    with (root / "dispatch_identity.json").open("x", encoding="utf-8") as stream:
-        json.dump(
-            {
-                "schema": plan["schema"],
-                "plan_sha256": plan_sha256,
-                "code": code,
-                "single_code": single_code,
-                "jobs": len(jobs),
-                "stages": len(planned),
-            },
-            stream,
-            indent=2,
-            sort_keys=True,
+    require(not verify_only or root.is_dir(), "Verification output root missing")
+    root.mkdir(parents=True, exist_ok=resume)
+    identity = {
+        "schema": "hung-resumable-dispatch-v1",
+        "plan_sha256": plan_sha256,
+        "code": code,
+        "single_code": single_code,
+        "jobs": total_jobs,
+        "stages": total_stages,
+        "shards_sha256": shards_sha256,
+    }
+    with exclusive_lock(root):
+        identity_path = root / "dispatch_identity.json"
+        if identity_path.exists():
+            require(resume, "Existing dispatch requires --resume")
+            verify_receipt(identity_path, identity, read_json)
+        else:
+            require(not verify_only, "Verification dispatch identity missing")
+            require(
+                set(p.name for p in root.iterdir()) == {".dispatch.lock"},
+                "Existing outputs without dispatch identity; preserve and inspect",
+            )
+            atomic_create(identity_path, identity)
+        if verify_only:
+            validate_existing_stages(
+                root,
+                jobs,
+                planned,
+                plan_sha256,
+                shards_sha256,
+                code,
+                single_code,
+                require_complete=True,
+            )
+            for job_id, job, cell, config, name, module, args, job_root in planned:
+                verify_execution_identity(path, plan, plan_sha256, code, single_code)
+                if shards_path is not None:
+                    verify_file(shards_path, shards_sha256)
+                verify_dependencies(job, cell, config, code, single_code, job_root, name)
+            return {"jobs": len(jobs), "stages": len(planned), "verified": True, "executed": False}
+        return execute_stages(
+            path,
+            plan,
+            plan_sha256,
+            code,
+            single_code,
+            root,
+            jobs,
+            planned,
+            shards_path=shards_path,
+            shards_sha256=shards_sha256,
         )
-        stream.write("\n")
+
+
+def execute_stages(
+    path: Path,
+    plan: dict,
+    plan_sha256: str,
+    code: dict,
+    single_code: dict,
+    root: Path,
+    jobs: dict,
+    planned: list,
+    *,
+    shards_path: Path | None,
+    shards_sha256: str | None,
+) -> dict:
+    """Continue only from complete, byte-authenticated stage receipts under the root lock."""
+    temp_dir = root / "tmp"
+    temp_dir.mkdir(exist_ok=True)
+    validate_existing_stages(root, jobs, planned, plan_sha256, shards_sha256, code, single_code)
+    return run_pending_stages(
+        path,
+        plan,
+        plan_sha256,
+        code,
+        single_code,
+        root,
+        jobs,
+        planned,
+        shards_path=shards_path,
+        shards_sha256=shards_sha256,
+    )
+
+
+def validate_existing_stages(
+    root: Path,
+    jobs: dict,
+    planned: list,
+    plan_sha256: str,
+    shards_sha256: str | None,
+    code: dict,
+    single_code: dict,
+    *,
+    require_complete: bool = False,
+) -> None:
+    # Check the entire selected shard before executing any new stage. Corruption
+    # in a later stage must not cause earlier missing jobs to run first.
+    for job_id, job, cell, config, name, module, args, job_root in planned:
+        receipt_path = root / "receipts" / job_id / f"{name}.json"
+        stage_output = job_root / name
+        log_path = root / "logs" / job_id / f"{name}.log"
+        binding = receipt_binding(plan_sha256, shards_sha256, job, cell, config, name, module, args)
+        if receipt_path.exists():
+            verify_stage_output(
+                stage_output,
+                name,
+                job["method"],
+                single_code if job["method"] in SINGLE_METHODS else code,
+            )
+            verify_receipt(receipt_path, stage_receipt(binding, stage_output, log_path), read_json)
+        else:
+            require(not require_complete, f"Missing stage receipt: {receipt_path}")
+            require(
+                not stage_output.exists() and not log_path.exists(),
+                f"Unreceipted partial output/log; preserve and inspect: {stage_output}",
+            )
+    for job_id in jobs:
+        job_receipt = root / "receipts" / job_id / "job.json"
+        if job_receipt.exists():
+            verify_receipt(
+                job_receipt,
+                completed_job_receipt(root, job_id, planned, plan_sha256, shards_sha256),
+                read_json,
+            )
+        else:
+            require(not require_complete, f"Missing job receipt: {job_receipt}")
+
+
+def run_pending_stages(
+    path: Path,
+    plan: dict,
+    plan_sha256: str,
+    code: dict,
+    single_code: dict,
+    root: Path,
+    jobs: dict,
+    planned: list,
+    *,
+    shards_path: Path | None,
+    shards_sha256: str | None,
+) -> dict:
+    temp_dir = root / "tmp"
     for job_id, job, cell, config, name, module, args, job_root in planned:
         require_capacity(root)
         verify_execution_identity(path, plan, plan_sha256, code, single_code)
+        if shards_path is not None:
+            verify_file(shards_path, shards_sha256)
         verify_dependencies(job, cell, config, code, single_code, job_root, name)
         stage_output = job_root / name
-        require(not stage_output.exists(), f"Stage output already exists: {stage_output}")
         log_path = root / "logs" / job_id / f"{name}.log"
-        require(not log_path.exists(), f"Stage log already exists: {log_path}")
+        receipt_path = root / "receipts" / job_id / f"{name}.json"
+        if receipt_path.exists():
+            binding = receipt_binding(
+                plan_sha256, shards_sha256, job, cell, config, name, module, args
+            )
+            verify_receipt(receipt_path, stage_receipt(binding, stage_output, log_path), read_json)
+            continue
         log_path.parent.mkdir(parents=True, exist_ok=True)
         job_root.mkdir(parents=True, exist_ok=True)
         command = [sys.executable, "-m", module, *args]
@@ -806,6 +1015,7 @@ def dispatch(path: Path, *, execute: bool, expected_plan_sha256: str | None = No
                 + "\n"
             )
             log.flush()
+            started = time.perf_counter()
             result = subprocess.run(
                 command,
                 cwd=ROOT,
@@ -820,17 +1030,93 @@ def dispatch(path: Path, *, execute: bool, expected_plan_sha256: str | None = No
                     "TMPDIR": str(temp_dir),
                 },
             )
+            wall_seconds = time.perf_counter() - started
         require(
             result.returncode == 0,
             f"Stage failed ({result.returncode}); preserve output and inspect {log_path}",
         )
         output_code = single_code if job["method"] in SINGLE_METHODS else code
         verify_stage_output(stage_output, name, job["method"], output_code)
+        readback_started = time.perf_counter()
+        files = inventory(stage_output)
+        readback_seconds = time.perf_counter() - readback_started
+        atomic_create(
+            stage_output / "dispatch_measurement.json",
+            {
+                "wall_seconds": wall_seconds,
+                "local_hash_readback_seconds": readback_seconds,
+                "output_bytes_before_measurement": sum(row["bytes"] for row in files.values()),
+                "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+            },
+        )
+        verify_execution_identity(path, plan, plan_sha256, code, single_code)
+        verify_dependencies(job, cell, config, code, single_code, job_root, name)
+        if shards_path is not None:
+            verify_file(shards_path, shards_sha256)
+        binding = receipt_binding(plan_sha256, shards_sha256, job, cell, config, name, module, args)
+        atomic_create(receipt_path, stage_receipt(binding, stage_output, log_path))
         print(
             json.dumps({"job": job_id, "stage": name, "log": str(log_path), "status": "completed"}),
             flush=True,
         )
+    for job_id in jobs:
+        value = completed_job_receipt(root, job_id, planned, plan_sha256, shards_sha256)
+        target = root / "receipts" / job_id / "job.json"
+        if target.exists():
+            verify_receipt(target, value, read_json)
+        else:
+            atomic_create(target, value)
     return {"jobs": len(jobs), "stages": len(planned), "executed": True}
+
+
+def completed_job_receipt(
+    root: Path,
+    job_id: str,
+    planned: list,
+    plan_sha256: str,
+    shards_sha256: str | None,
+) -> dict:
+    pins = {
+        row[4]: sha256_file(root / "receipts" / job_id / f"{row[4]}.json")
+        for row in planned
+        if row[0] == job_id
+    }
+    return {
+        "schema": "hung-dispatch-job-receipt-v1",
+        "plan_sha256": plan_sha256,
+        "shards_sha256": shards_sha256,
+        "job_id": job_id,
+        "stages": pins,
+    }
+
+
+def receipt_binding(
+    plan_sha256: str,
+    shards_sha256: str | None,
+    job: dict,
+    cell: dict,
+    config: dict,
+    name: str,
+    module: str,
+    args: list[str],
+) -> dict:
+    return {
+        "plan_sha256": plan_sha256,
+        "shards_sha256": shards_sha256,
+        "job": job,
+        "input_manifest_sha256": cell["input_manifest_sha256"],
+        "config_sha256": config["sha256"],
+        "stage": name,
+        "module": module,
+        "args": args,
+        "cell_sha256": object_sha256(
+            {
+                key: value
+                for key, value in cell.items()
+                if key not in {"input_run", "manifest", "entity"}
+            }
+        ),
+    }
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -838,13 +1124,35 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--plan", type=Path, required=True)
     parser.add_argument("--plan-sha256", required=True)
     parser.add_argument(
+        "--resume", action="store_true", help="Verify receipts and skip complete stages"
+    )
+    parser.add_argument("--shards", type=Path)
+    parser.add_argument("--shards-sha256")
+    parser.add_argument("--shard-id")
+    parser.add_argument(
+        "--verify-only", action="store_true", help="Verify complete receipts without training"
+    )
+    parser.add_argument(
         "--execute", action="store_true", help="Actually run jobs; default is dry-run"
     )
     args = parser.parse_args(argv)
     plan = project_path(args.plan)
     require(plan.is_relative_to(ROOT.resolve()), "Plan must be inside current worktree")
     verify_file(plan, args.plan_sha256)
-    print(json.dumps(dispatch(plan, execute=args.execute, expected_plan_sha256=args.plan_sha256)))
+    print(
+        json.dumps(
+            dispatch(
+                plan,
+                execute=args.execute,
+                expected_plan_sha256=args.plan_sha256,
+                resume=args.resume,
+                shards_path=args.shards,
+                shards_sha256=args.shards_sha256,
+                shard_id=args.shard_id,
+                verify_only=args.verify_only,
+            )
+        )
+    )
     return 0
 
 
