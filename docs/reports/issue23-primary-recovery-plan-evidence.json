@@ -1873,5 +1873,77 @@
     "independent_proof_url": "https://drive.google.com/file/d/1MEDYsNAF_f6ey52il_ar2XbmONPKJ3tI/view",
     "independent_proof_sha256": "e68ce6330aa24e51be255d88539e6144d520d1496ea22262e21b1673c222d8cf",
     "independent_proof_bytes": 9774
+  },
+  "latest_durability_snapshot": {
+    "date": "2026-10-27",
+    "primary_new_runtime_published": 260,
+    "primary_new_runtime_required": 742,
+    "proxy_published": 212,
+    "proxy_required": 212,
+    "matched_published": 48,
+    "matched_required": 530,
+    "next_matched_range": [
+      48,
+      60
+    ],
+    "next_range_status": "dispatched_and_polled_live_not_published",
+    "loa_target_published": 13,
+    "loa_target_required": 378,
+    "matched_24_36": {
+      "archive_id": "1Zy7xTf3Jdtqev6--89jsDZXrwgdDSiMo",
+      "receipt_id": "13XTl9EnIuYqIwgHCQu3auVFeUCoeO5q5",
+      "receipt_sha256": "3582f79d8a01ee53e0297a5efe638b8398d0d2985f6898a59af48df06c4015f7"
+    },
+    "matched_36_48": {
+      "archive_id": "18ebdrI7l6BuT1iqe2IWLHHgbq06w5PnT",
+      "bytes": 27893178,
+      "sha256": "7da739340542d7d0f51cc44c5efbcab78cfb9d26cc87ea892c420f3071870715",
+      "receipt_id": "1mdmVTP5OiEPEN5QAry0QSZJzoJnMi_gr",
+      "receipt_sha256": "bfcf82068e0ee86a4729c119ca4ebf745745f3c69d7efe3dbe063d1e3e5c3b17",
+      "proof_id": "15RdE7LHZ3pspkuVwbt-sVJZEaW19xbLC",
+      "proof_sha256": "9176d6afbe1eb2ad0b2e9bb4ed72373d91d8ec0958e4191321c1f24523bfc01d",
+      "acceptance": "Fresh Drive redownload, full independent daily/input/state equality and Source CPU reload passed"
+    },
+    "spo_original_sources": {
+      "status": "three_original_Source_weights_reports_stdout_authenticated_repacked_and_fresh_Drive_CPU_verified_no_training",
+      "original_metadata_archive_sha256": "cb611e1fd40fbc213e4d2d47965dac3b89c8626aae5a7e8ad543ce01391c2941",
+      "producer_code": "9057364e6a8e663b9ba9c204621d109c02bed3e0",
+      "drive_ids": {
+        "42": "1FtoFdhSSmvjKlmSvzBFBZflMGSCGuGTl",
+        "43": "1tEPvrtS2KV6Ia-fSLDXBh3YYLU24w0pj",
+        "44": "1J1dGdT22D1EvzJXQeRRw9dcyhkygWVzO"
+      },
+      "scope": "New transport of original Sources only; not new Source fitting or acceptance of missing original378 target raw payloads",
+      "publications": {
+        "42": {
+          "receipt_id": "1JNzKX01dyxPLvW9AX5OfBEhmAssR-ODO",
+          "proof_id": "1yCSYDxHczaS7Mq-sQZmsKCA4K6Vh4arl",
+          "receipt_sha256": "63db5e2c2b9e56afdb960aff55c67f316243df3d9b09d7dcff9474942029aa21",
+          "proof_sha256": "7fc39ca710b37b14769786c2c92a3983d9fbc9071792421171860ad6210fa879",
+          "source_checkpoint_sha256": "6e096dd5c74582b725777c1b1af3009fd2fb9af7d5e140a05e6abbe61ebd7376",
+          "source_examples": 2610,
+          "fresh_Drive_readback_and_independent_CPU_verification": "PASS"
+        },
+        "43": {
+          "receipt_id": "1Yz4kynlrl7DTEVQGSd7eiSGvdR3_ksFl",
+          "proof_id": "145yxTKpbzFBiDjy25apoCXJnUX-miw8u",
+          "receipt_sha256": "bda2101af81af057687cb5c9ae65a13eaf98a65b2f82b6ff78c3068994c7af7b",
+          "proof_sha256": "120b00fdb2df2c9837898f1eb333ebd372ab7c3e9f8a253d68653fe9a91e0abe",
+          "source_checkpoint_sha256": "75f93b6b39d8223cba3ee6c95ab8509a3f4749359d645a6f3b5cf9ca1f19388f",
+          "source_examples": 2610,
+          "fresh_Drive_readback_and_independent_CPU_verification": "PASS"
+        },
+        "44": {
+          "receipt_id": "1E1CR3XtOIBWY4z1yJMj-LTHwEu12eldE",
+          "proof_id": "1z5V34bKe5J_vs02Hi_loQMzxddUx6tuL",
+          "receipt_sha256": "f828db5b7ef1816a7a6268eec12aeb9b5c4dc457b8a166881ff03d2ac983788b",
+          "proof_sha256": "51dbe98b3000f28c3c3baace616bb55189462265bce357e0f2dc1ed47f6fbc21",
+          "source_checkpoint_sha256": "18003c08b4741cc5c40228a5f2c40efb89aa9c4f4597759b6b1d1a4e83df5b0a",
+          "source_examples": 2610,
+          "fresh_Drive_readback_and_independent_CPU_verification": "PASS"
+        }
+      }
+    },
+    "scope": "Recovery-prefix counts, not total-study completion. No Final execution, tuning, merge or independent approval claimed."
   }
 }

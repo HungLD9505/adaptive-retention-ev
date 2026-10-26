@@ -571,3 +571,36 @@ Next matched offsets24–35 were dispatched only after this publication. Actual
 PID2850 was polled live; its completion and publication are not claimed. LOA's
 verified13-cell prefix and all three Source checkpoints remain preserved.
 Neither count indicates a completed experiment matrix, thesis or Final gate.
+
+### Latest durability checkpoint: primary260/742; original SPO Sources recovered
+
+Matched offsets24–47 have now passed actual Drive redownload, exact archive
+fingerprints and independent daily/input/latest-state comparison with Source
+CPU reload. The accepted recovery prefix is **260/742**: proxy212/212 and
+matched48/530. These are recovery executions, not a count of unique scientific
+experiments or a percentage of thesis completion.
+
+The latest12-run [archive](https://drive.google.com/file/d/18ebdrI7l6BuT1iqe2IWLHHgbq06w5PnT/view),
+[publication receipt](https://drive.google.com/file/d/1mdmVTP5OiEPEN5QAry0QSZJzoJnMi_gr/view)
+and [independent proof](https://drive.google.com/file/d/15RdE7LHZ3pspkuVwbt-sVJZEaW19xbLC/view)
+are outside the Kaggle runtime. Its archive SHA-256 is
+`7da739340542d7d0f51cc44c5efbcab78cfb9d26cc87ea892c420f3071870715`.
+Offsets48–59 were dispatched only after that receipt was uploaded, and were
+polled live. Their completion and remote publication are not yet claimed.
+LOA remains13/378 independently published targets with all three Sources.
+
+All three original SPO Source weights, run reports and stdout were compared
+byte-for-byte against the authenticated historical metadata ZIP. Their complete
+core-code fingerprints and runtime profile match the current fixed methods.
+They were repacked without fitting; the original producer remains
+`9057364e6a8e663b9ba9c204621d109c02bed3e0`. New wrappers have been uploaded and all three passed independent CPU verification
+after fresh Drive download, including the exact2,610 Source examples per seed.
+Publication receipts and verification proofs are also on Drive; their identities
+and hashes are recorded in the accompanying evidence JSON.
+This does not recover or accept the missing original378 SPO target raw payloads.
+
+Each bounded job stops after at most12 runs pending external publication.
+A runtime failure can still lose an unpublished chunk; verified published
+chunks can be restored without refitting. Run IDs, source/input/config/code
+bindings, checksums, daily records, latest states and verification logs are
+retained. Full Sprint3 analysis and independently approved Final remain pending.
