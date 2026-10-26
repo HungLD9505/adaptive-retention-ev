@@ -904,16 +904,45 @@
     "count_limit": 12,
     "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
     "required_previous_receipt_sha256": "4242410e713976a10a72d1b310001622f4d96de3c730bd0491403b8d081205f6",
-    "status": "actual_dispatch_not_yet_content_published",
+    "status": "all12_targets_exit0_canonical_Drive_roundtrip_independently_verified",
     "log": "/kaggle/working/issue23-proxy-continue-0027-v1.log",
-    "scope": "At most12 frozen Development targets; prior complete independent publication required and verified. No automatic next or Final."
+    "scope": "At most12 frozen Development targets; prior complete independent publication required and verified. No automatic next or Final.",
+    "completed_runs": 12,
+    "canonical_url": "https://drive.google.com/file/d/10x4fO8X9XdUijDQ_hT1une6g_2GvsMJn/view",
+    "canonical_publication": {
+      "status": "actual_Kaggle_twelve_run_canonical_Drive_roundtrip_and_content_verified",
+      "runs": 12,
+      "all_three_Source_dependencies_cpu_verified": true,
+      "wrapper_sha256": "7fec1bb74118dc318178a16797d609b993447c8a2ff6bc4d7ec2767e761e08ac",
+      "wrapper_bytes": 30636849,
+      "catalog_sha256": "3633d39ebe123b0c5e909a057ba2185233fa9d4561acae3ef455491efa645a3e",
+      "daily_sha256": "9547515c559f518b4b2384157f1a45319fc0d0d9528801a927c445d8b606c946",
+      "states_sha256": "0845ab9d75c60ac15be91ee70ba5d3956cdb2c415e8dbcfdba302e9fe42fe55d",
+      "scope": "Actual normal Kaggle browser download, raw content restore, unchanged cloud canonical export, approved Drive upload, fresh anonymous readback, complete transport/Source/daily/state proof equality. No refitting, Final or next-chunk acceptance."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/1dOBxIC7RXmDGL5CNy2eZf0A9nFj2E9jJ/view",
+    "publication_receipt_sha256": "c5533f7ea8b02334434538b07f501c1153a9f7ab5d267bc0fbabb7fafee55500",
+    "independent_proof_url": "https://drive.google.com/file/d/1KYUP21Si04EV6oR1mEMcHJ14dQ6TgmpK/view",
+    "independent_proof_sha256": "babdb223b4d01bbb99a8f87080200c40cfdb2c10ac0279711f207fa4157df1b0",
+    "independent_proof_bytes": 7952
   },
   "current_recovery_status": {
-    "new_runtime_targets_fully_published": 27,
+    "new_runtime_targets_fully_published": 39,
     "new_runtime_planned_targets": 742,
     "old_missing_proxy_fully_restored": 648,
     "old_matched_prefix_fully_restored": 451,
     "old_matched_physically_missing": 239,
-    "interpretation": "Different collections with historical repeats; do not add as unique experiments or claim full scope. Old16 complete units/224 selected cells preserved; new742 selected replays remain frozen, with27 fully published. Final unapproved and not executed."
+    "interpretation": "Different collections with historical repeats; do not add as unique experiments or claim full scope. Old16 complete units/224 selected cells preserved; new742 selected replays remain frozen, with39 fully published. Final unapproved and not executed."
+  },
+  "kaggle_offset39_continuation": {
+    "pid": 1186,
+    "start": 39,
+    "end": 51,
+    "count_limit": 12,
+    "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+    "required_previous_receipt_sha256": "c5533f7ea8b02334434538b07f501c1153a9f7ab5d267bc0fbabb7fafee55500",
+    "status": "actual_dispatch_not_yet_content_published",
+    "log": "/kaggle/working/issue23-proxy-continue-0039-v1.log",
+    "scope": "Bounded frozen Development continuation only; stop for independent publication. No next offset, Final, favorable rerun or method change."
   }
 }

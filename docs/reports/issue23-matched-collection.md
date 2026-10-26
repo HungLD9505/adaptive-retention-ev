@@ -583,3 +583,23 @@ was dispatched as PID1124 only after actual prior acceptance. Existing fixtures
 and clean code hashes were reused; no duplicate full test run is claimed.
 Final-capable interfaces/cohort/capacity and independent lock approval remain
 open. No Final data records were decoded or evaluated in this handoff.
+
+### Third full bounded chunk accepted
+
+All12 original proxy targets [27,39) completed verification/export exit0 in
+95.303s including local handoff. The [canonical handoff](https://drive.google.com/file/d/10x4fO8X9XdUijDQ_hT1une6g_2GvsMJn/view)
+is30,636,849 bytes, SHA-256
+`7fec1bb74118dc318178a16797d609b993447c8a2ff6bc4d7ec2767e761e08ac`.
+The ordinary browser download, approved Drive upload/fresh readback, complete
+frozen-order/config/environment/input/daily/state restoration and all3 Source
+checkpoint CPU checks passed. [Independent proof](https://drive.google.com/file/d/1KYUP21Si04EV6oR1mEMcHJ14dQ6TgmpK/view)
+and [receipt](https://drive.google.com/file/d/1dOBxIC7RXmDGL5CNy2eZf0A9nFj2E9jJ/view)
+are preserved. There are39 newly published targets across the accepted prefixes.
+The next bounded [39,51) dispatch is PID1186; no completion is implied.
+
+This goal turn made authoritative progress:36 additional targets were actually
+executed, independently restored and Drive roundtrip verified, and old-city
+storage recovery attempts established a concrete access limitation. The full
+Sprint3 objective remains open. Final readiness was inspected; Final interfaces,
+cohort/capacity declaration and independent immutable-lock approval are still
+unimplemented/unaccepted, not inferred from green Development checks.
