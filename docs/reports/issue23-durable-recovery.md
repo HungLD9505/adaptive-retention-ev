@@ -269,3 +269,25 @@ from model work. No local real-data training, Final access or favorable reselect
 is enabled. Six independent offline tests cover ranges, receipt barriers and
 wrapper corruption/path/population/overwrite and copy-time-change rejection.
 Actual cloud acceptance is reported only after execution and independent readback.
+
+### Single-seed export boundary discovered by the real one-run trial
+
+The Kaggle bootstrap at103bf2c passed346 cloud fixtures (23.176s), Ruff and exact
+code/kit/input hashes. Its real first run
+`urbanev-SZH-1405-7d-source_error-seed42-recipe1` completed local backup and both
+independent daily/latest-state verifiers. Export then correctly rejected three
+Source descriptors for a bounded matrix containing only initial seed42. The
+failed export and trained run are retained; this was not a fitting failure and
+no next chunk was dispatched.
+
+The bounded driver now projects canonical Source descriptors to the actual
+initial seeds in that chunk, while attaching a separate hash-bound package of
+**all three original Source checkpoints/reports/logs**. This preserves uncertainty
+ensemble dependencies even when an individual chunk does not initialize all
+three seeds. The established canonical export's exact-Source validation is not
+weakened. A regression test covers one-seed projection, all-three dependency byte
+preservation and rejection of changed Source bytes. Full347 local fixtures PASS
+(6.043s); actual corrected cloud/canonical handoff acceptance remains separate.
+Source/target weights, predictions, configs, expected hashes and core algorithms
+are unchanged. Recovery must copy and re-export the completed first run, not
+silently retrain it or rewrite its original report.

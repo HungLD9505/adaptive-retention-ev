@@ -21,7 +21,7 @@ from ev_runner.replay import Replay
 from ev_runner.run import execute, runtime_code
 from tools.comparison_matrix import CachedInputs
 from tools.durable_run_backup import RunBackup
-from tools.export_development import safe_name
+from tools.export_development import put_file, safe_name
 from tools.replay_missing_primary import planned_rows, recovery_context, stage_original_sources
 
 
@@ -125,6 +125,36 @@ def package_outbox(exports: Path, record: dict, destination: Path) -> dict:
     }
 
 
+def initial_sources(rows: list[dict], sources: dict) -> dict:
+    """Match canonical initial-seed descriptors; keep ensemble dependencies separately."""
+    seeds = {r["binding"]["config"]["initial_training"]["seed"] for r in rows}
+    if not seeds or any(str(seed) not in sources for seed in seeds):
+        raise ValueError("Every bounded run needs its identified initial Source")
+    return {str(seed): sources[str(seed)] for seed in sorted(seeds)}
+
+
+def shared_source_package(study: Path, sources: dict, epoch: int, output: Path) -> dict:
+    """Preserve all three original Sources, including uncertainty ensemble dependencies."""
+    if set(sources) != {"42", "43", "44"} or type(epoch) is not int or epoch < 1:
+        raise ValueError("Three identified original Sources and epoch required")
+    with zipfile.ZipFile(output, "x", compression=zipfile.ZIP_DEFLATED) as archive:
+        manifest = {}
+        for seed, entry in sorted(sources.items()):
+            folder = study / f"source-seed{seed}"
+            for path in (
+                folder / f"epoch-{epoch}.pt",
+                folder / f"epoch-{epoch}.pt.sha256",
+                folder / "run.json",
+                study / f"source-seed{seed}.log",
+            ):
+                name = str(path.relative_to(study))
+                pin = entry["sha256"] if path.suffix == ".pt" else None
+                put_file(archive, name, path, pin)
+                manifest[name] = {"bytes": path.stat().st_size, "sha256": digest(path)}
+        archive.writestr("manifest.json", json.dumps(manifest, indent=2))
+    return {"name": output.name, "bytes": output.stat().st_size, "sha256": digest(output)}
+
+
 def run(args: argparse.Namespace) -> None:
     plan, original, rows = planned_rows(args.plan, args.plan_sha256, args.family)
     chunk = select_chunk(rows, args.start, args.count)
@@ -221,12 +251,17 @@ def run(args: argparse.Namespace) -> None:
         write_json(study / "progress.json", {"runs": executed, "status": "local_outbox_only"})
         print("CHUNK_LOCAL_COMPLETED", len(executed), len(chunk), row["run_id"], flush=True)
     matrix = {k: copy.deepcopy(v) for k, v in original.items() if k not in ("runs", "status")}
+    all_sources = {str(k): v for k, v in backup.sources.items()}
+    shared = shared_source_package(
+        study, all_sources, original["source_epochs"], args.output / "shared-original-sources.zip"
+    )
     matrix.update(
         status="technical_success",
         runs=executed,
         code=code,
         scope="Completed bounded Development chunk, not a full family or remote publication",
-        sources={str(k): v for k, v in backup.sources.items()},
+        sources=initial_sources(executed, all_sources),
+        shared_original_sources=shared,
         outbox_context=context,
         family_total=len(rows),
     )
@@ -271,6 +306,8 @@ def run(args: argparse.Namespace) -> None:
                 study,
                 "--output",
                 args.output / "exports",
+                "--attachment",
+                "shared-original-sources.zip=" + str(args.output / shared["name"]),
             ],
         ),
     ):

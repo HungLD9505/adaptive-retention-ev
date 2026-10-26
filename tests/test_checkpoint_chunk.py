@@ -9,10 +9,50 @@ from pathlib import Path
 from unittest.mock import patch
 
 from ev_models.checkpoint import digest
-from tools.replay_checkpoint_chunk import check_handoff, package_outbox, select_chunk
+from tools.replay_checkpoint_chunk import (
+    check_handoff,
+    initial_sources,
+    package_outbox,
+    select_chunk,
+    shared_source_package,
+)
 
 
 class CheckpointChunkTests(unittest.TestCase):
+    def test_one_seed_descriptor_keeps_three_source_dependency_package(self) -> None:
+        rows = [{"binding": {"config": {"initial_training": {"seed": 42}}}}]
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            study = root / "study"
+            study.mkdir()
+            sources = {}
+            for seed in (42, 43, 44):
+                folder = study / f"source-seed{seed}"
+                folder.mkdir()
+                checkpoint = folder / "epoch-10.pt"
+                checkpoint.write_bytes(f"independent opaque Source {seed}".encode())
+                sources[str(seed)] = {"sha256": digest(checkpoint)}
+                (folder / "epoch-10.pt.sha256").write_text(digest(checkpoint))
+                (folder / "run.json").write_text(json.dumps({"fixture_seed": seed}))
+                (study / f"source-seed{seed}.log").write_text("fixture, no training")
+            self.assertEqual(set(initial_sources(rows, sources)), {"42"})
+            output = root / "shared.zip"
+            artifact = shared_source_package(study, sources, 10, output)
+            self.assertEqual(artifact["sha256"], digest(output))
+            with zipfile.ZipFile(output) as z:
+                manifest = json.loads(z.read("manifest.json"))
+                self.assertEqual(len(manifest), 12)
+                for seed in (42, 43, 44):
+                    self.assertEqual(
+                        z.read(f"source-seed{seed}/epoch-10.pt"),
+                        (study / f"source-seed{seed}/epoch-10.pt").read_bytes(),
+                    )
+            (study / "source-seed43/epoch-10.pt").write_bytes(b"changed")
+            with self.assertRaises(ValueError):
+                shared_source_package(study, sources, 10, root / "retained-failed.zip")
+            with self.assertRaises(ValueError):
+                initial_sources(rows, {"43": sources["43"]})
+
     def setUp(self) -> None:
         self.rows = [{"run_id": f"fixture-{i}"} for i in range(31)]
 
