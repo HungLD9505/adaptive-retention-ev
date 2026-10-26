@@ -563,3 +563,23 @@ Selecting CPU and ordinary reload still gives a worker-start error; an ordinary
 SPO metadata file download produced no event within20seconds. The downloaded old
 notebook preserves cached code/output, not checkpoints. Old persisted raw files
 remain unverified, not declared lost. No Run All or blind city retraining occurred.
+
+### Second full bounded chunk accepted
+
+All12 original proxy targets [15,27) completed with unchanged code/config and
+cloud verification/export exit0. The [canonical handoff](https://drive.google.com/file/d/13PTvx0yg2X9L3KNUyuBEq0rytcqn0zFR/view)
+is34,288,498 bytes, SHA-256
+`12f7f2bb8f401e352dd786195d607ab62f6890c9aaf2f33d97d662d2124914a3`.
+Fresh Drive redownload and full independent restoration/daily/input/state/Source
+checks passed. The [proof](https://drive.google.com/file/d/1-upKDRiqX4gGwPbIQwvQyuY2JQzpodye/view)
+and [receipt](https://drive.google.com/file/d/16b7LoqvGJ2I3aFjolP7K5oXBW5E_XDjn/view)
+preserve exact checks. These12 targets consumed104.039 measured run seconds
+(range7.324–11.017s, median8.577s) and the cloud chunk's whole local pipeline
+took127.614s. Transport/storage/operator idle time is additional; this is not a
+whole-study capacity estimate or an isolated comparison of methods.
+
+There are27 new-runtime targets durably published, not742. Bounded range [27,39)
+was dispatched as PID1124 only after actual prior acceptance. Existing fixtures
+and clean code hashes were reused; no duplicate full test run is claimed.
+Final-capable interfaces/cohort/capacity and independent lock approval remain
+open. No Final data records were decoded or evaluated in this handoff.

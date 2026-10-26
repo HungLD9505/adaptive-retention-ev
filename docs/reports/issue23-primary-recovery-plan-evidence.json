@@ -862,9 +862,27 @@
     "count_limit": 12,
     "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
     "required_previous_receipt_sha256": "90d5db755bfce74fa241ad824b76b76a5d1c54ffda7eba96a72f2bfe8c455b45",
-    "status": "actual_dispatch_not_yet_content_published",
+    "status": "all12_targets_exit0_canonical_Drive_roundtrip_independently_verified",
     "log": "/kaggle/working/issue23-proxy-continue-0015-v1.log",
-    "scope": "Frozen next12 proxy IDs, prior verified unchanged checkout/cloud fixture gates reused. No automatic next, altered recipes or Final."
+    "scope": "Frozen next12 proxy IDs, prior verified unchanged checkout/cloud fixture gates reused. No automatic next, altered recipes or Final.",
+    "completed_runs": 12,
+    "canonical_url": "https://drive.google.com/file/d/13PTvx0yg2X9L3KNUyuBEq0rytcqn0zFR/view",
+    "canonical_publication": {
+      "status": "actual_Kaggle_twelve_run_canonical_Drive_roundtrip_and_content_verified",
+      "runs": 12,
+      "all_three_Source_dependencies_cpu_verified": true,
+      "wrapper_sha256": "12f7f2bb8f401e352dd786195d607ab62f6890c9aaf2f33d97d662d2124914a3",
+      "wrapper_bytes": 34288498,
+      "catalog_sha256": "d863055346def4f3bc759ec561351f6a65507938487eb46c56e0e4eea41e5ef3",
+      "daily_sha256": "9c6d37371bbeb9ea0fb0b6bd797fa577f2c8bed5529771ec1f53e549593cea33",
+      "states_sha256": "f4fb5538c6924d40cdc306c4a2ecf49e39ded8c19e7ca1992d7d2cfa0d63766f",
+      "scope": "Actual normal Kaggle browser download, raw content restore, unchanged cloud canonical export, approved Drive upload, fresh anonymous readback, complete transport/Source/daily/state proof equality. No refitting, Final or next-chunk acceptance."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/16b7LoqvGJ2I3aFjolP7K5oXBW5E_XDjn/view",
+    "publication_receipt_sha256": "4242410e713976a10a72d1b310001622f4d96de3c730bd0491403b8d081205f6",
+    "independent_proof_url": "https://drive.google.com/file/d/1-upKDRiqX4gGwPbIQwvQyuY2JQzpodye/view",
+    "independent_proof_sha256": "2c6647b36ad3d1010ca6d83c3e33e555ae5a0cd1695be3077159de139de0f21d",
+    "independent_proof_bytes": 8258
   },
   "old_kaggle_storage_followup": {
     "notebook_url": "https://www.kaggle.com/code/qert12345/qyroven-sprint-3-development-recovery-20261026/edit",
@@ -878,5 +896,24 @@
     ],
     "current_files": "persisted old SPO/MEL raw contents still unverified, not declared absent",
     "scope": "No Run All, Source refitting, old model overwrite or stop of current GPU. Queued saved versions are distinct and not assumed completed."
+  },
+  "kaggle_offset27_continuation": {
+    "pid": 1124,
+    "start": 27,
+    "end": 39,
+    "count_limit": 12,
+    "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+    "required_previous_receipt_sha256": "4242410e713976a10a72d1b310001622f4d96de3c730bd0491403b8d081205f6",
+    "status": "actual_dispatch_not_yet_content_published",
+    "log": "/kaggle/working/issue23-proxy-continue-0027-v1.log",
+    "scope": "At most12 frozen Development targets; prior complete independent publication required and verified. No automatic next or Final."
+  },
+  "current_recovery_status": {
+    "new_runtime_targets_fully_published": 27,
+    "new_runtime_planned_targets": 742,
+    "old_missing_proxy_fully_restored": 648,
+    "old_matched_prefix_fully_restored": 451,
+    "old_matched_physically_missing": 239,
+    "interpretation": "Different collections with historical repeats; do not add as unique experiments or claim full scope. Old16 complete units/224 selected cells preserved; new742 selected replays remain frozen, with27 fully published. Final unapproved and not executed."
   }
 }
