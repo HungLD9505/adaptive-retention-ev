@@ -47,7 +47,16 @@ def persist_shard(
         json.dump(record, stream, sort_keys=True, indent=2, allow_nan=False)
         stream.write("\n")
     started = time.perf_counter()
-    upload_private(dataset, folder, owner)
+    upload_outcome = "acknowledged"
+    try:
+        upload_private(dataset, folder, owner)
+    except Exception as error:
+        # HTTP499 can arrive after CreateDataset committed. Never retry creation
+        # or training: only an exact, separately mounted CPU readback can adopt it.
+        if getattr(getattr(error, "response", None), "status_code", None) != 499:
+            raise
+        upload_outcome = "HTTP499; reconciled only by exact CPU readback"
+        print(json.dumps({"uncertain_dataset_create": dataset, "http_status": 499}), flush=True)
     upload_seconds = time.perf_counter() - started
     source = source_prefix + "\nexpected = " + repr(record) + "\n"
     source += """
@@ -79,6 +88,7 @@ print(json.dumps(proof),flush=True)
         "artifact_sha256": record["artifact_sha256"],
         "artifact_bytes": record["artifact_bytes"],
         "upload_seconds": upload_seconds,
+        "upload_outcome": upload_outcome,
         "upload_and_readback_wall_seconds": time.perf_counter() - started,
         "cpu_readback": submitted,
         "peer_acceptance": "pending",

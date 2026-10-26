@@ -68,6 +68,59 @@ class StorageTests(unittest.TestCase):
                     )
                 upload.assert_not_called()
 
+    def test_499_requires_exact_cpu_readback_without_retry(self):
+        for state in ("COMPLETE", "ERROR"):
+            with self.subTest(state=state), tempfile.TemporaryDirectory(dir=".") as directory:
+                path, record = self.fixture(directory)
+                uncertain = RuntimeError("synthetic uncertain create")
+                uncertain.response = Mock(status_code=499)
+                submitted = Mock(return_value={"version": 1})
+                with patch.object(storage, "upload_private", side_effect=uncertain) as upload:
+                    if state == "ERROR":
+                        with self.assertRaises(AssertionError):
+                            storage.persist_shard(
+                                record,
+                                path,
+                                "",
+                                owner="test",
+                                submit=submitted,
+                                status=Mock(return_value=state),
+                            )
+                        self.assertFalse((path.parent / "durability.json").exists())
+                    else:
+                        proof = storage.persist_shard(
+                            record,
+                            path,
+                            "",
+                            owner="test",
+                            submit=submitted,
+                            status=Mock(return_value=state),
+                        )
+                        self.assertIn("HTTP499", proof["upload_outcome"])
+                    upload.assert_called_once()
+                    submitted.assert_called_once()
+                    self.assertIn(
+                        "json.loads(p.read_text()) == expected", submitted.call_args.args[1]
+                    )
+
+    def test_other_upload_errors_never_submit(self):
+        with tempfile.TemporaryDirectory(dir=".") as directory:
+            path, record = self.fixture(directory)
+            forbidden = RuntimeError("synthetic forbidden")
+            forbidden.response = Mock(status_code=403)
+            submitted = Mock()
+            with patch.object(storage, "upload_private", side_effect=forbidden):
+                with self.assertRaises(RuntimeError):
+                    storage.persist_shard(
+                        record,
+                        path,
+                        "",
+                        owner="test",
+                        submit=submitted,
+                        status=Mock(),
+                    )
+            submitted.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()
