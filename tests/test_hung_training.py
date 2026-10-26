@@ -211,6 +211,12 @@ class TrainingConsumerTests(unittest.TestCase):
             target_manifest = json.loads((target_output / "run_manifest.json").read_text())
             self.assertEqual(target_manifest["steps"], 1)
             self.assertEqual(target_manifest["input_binding"]["entity_id"], "dev-1")
+            _, _, _, target_metadata = load_checkpoint(
+                target_output / "target_checkpoint.pt",
+                expected_binding=target_manifest["input_binding"],
+            )
+            self.assertEqual(target_metadata["training_step"], 1)
+            self.assertEqual(target_metadata["initial_retention_weight"], 0.1)
             self.assertIn("peak_rss_bytes", target_manifest["memory_usage"])
             self.assertEqual(
                 target_manifest["input_binding"]["source_checkpoint_sha256"],

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 import os
 import re
 import tempfile
@@ -258,6 +259,7 @@ def save_checkpoint(
     seed: int,
     code_sha: str,
     training_step: int,
+    initial_retention_weight: float | None = None,
 ) -> None:
     """Create a new bound checkpoint; an existing path is never overwritten."""
     validate_binding(input_binding)
@@ -271,6 +273,15 @@ def save_checkpoint(
         raise ValueError("code_sha is required")
     if isinstance(training_step, bool) or not isinstance(training_step, int) or training_step < 0:
         raise ValueError("training_step must be a nonnegative integer")
+    if initial_retention_weight is not None:
+        if input_binding["stage"] != "target" or isinstance(initial_retention_weight, bool):
+            raise ValueError("Only target checkpoints can bind an initial retention weight")
+        if (
+            not isinstance(initial_retention_weight, (int, float))
+            or not math.isfinite(initial_retention_weight)
+            or initial_retention_weight < 0
+        ):
+            raise ValueError("Initial retention weight must be finite and nonnegative")
     payload = {
         "schema": CHECKPOINT_SCHEMA,
         "architecture": model.config.to_dict(),
@@ -278,6 +289,11 @@ def save_checkpoint(
         "seed": seed,
         "code_sha": code_sha,
         "training_step": training_step,
+        **(
+            {"initial_retention_weight": float(initial_retention_weight)}
+            if initial_retention_weight is not None
+            else {}
+        ),
         "model_state": model.state_dict(),
         "optimizer_type": "Adam",
         "optimizer_state": optimizer.state_dict(),
@@ -326,6 +342,15 @@ def load_checkpoint(
         or not payload["code_sha"]
     ):
         raise ValueError("Invalid checkpoint execution metadata")
+    initial_weight = payload.get("initial_retention_weight")
+    if initial_weight is not None and (
+        expected_binding["stage"] != "target"
+        or isinstance(initial_weight, bool)
+        or not isinstance(initial_weight, (int, float))
+        or not math.isfinite(initial_weight)
+        or initial_weight < 0
+    ):
+        raise ValueError("Invalid checkpoint initial retention weight")
     rng = _validated_checkpoint_rng(payload, torch.device(map_location)) if restore_rng else None
     config = ModelConfig(**payload["architecture"])
     model = ForecastGRU(config).to(map_location)
@@ -349,5 +374,6 @@ def load_checkpoint(
             "seed": payload["seed"],
             "code_sha": payload["code_sha"],
             "training_step": payload["training_step"],
+            "initial_retention_weight": (None if initial_weight is None else float(initial_weight)),
         },
     )

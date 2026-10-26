@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
+from argparse import Namespace
 from pathlib import Path
 from unittest.mock import patch
 
@@ -12,9 +13,9 @@ import torch
 
 from ev_inputs.hourly_reader import sha256_file
 from experiments.hung_sprint2.checkpoint import load_runner
-from experiments.hung_sprint2.cli import _binding, _load_run, _replay
+from experiments.hung_sprint2.cli import _binding, _load_run, _replay, _target
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.training import save_checkpoint
+from experiments.hung_sprint2.training import load_checkpoint, save_checkpoint
 from tests.test_hung_replay_inputs import input_run
 
 
@@ -23,8 +24,41 @@ class ReplayCliTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         torch.set_num_threads(1)
 
-    def _inputs(self, root: Path):
+    def _inputs(self, root: Path, *, trained_weight: float | None = None):
         run, digest = input_run(root, days=3)
+        if trained_weight is not None:
+            entities_path = run / "entities.jsonl"
+            entities = [json.loads(line) for line in entities_path.read_text().splitlines()]
+            entities[0]["initialization"] = "target_initial_adaptation"
+            entities[0]["initial_trainable"] = 1
+            entities_path.write_text(
+                "".join(json.dumps(row) + "\n" for row in entities), encoding="utf-8"
+            )
+            training_path = run / "training.jsonl"
+            training_path.write_text(
+                json.dumps(
+                    {
+                        "role": "development",
+                        "forecast": {
+                            "identity": ["urbanev", "SZH", "dev-1"],
+                            "input_run_id": run.name,
+                            "schema_id": "ev-input-v1",
+                            "scale_id": "scale-1",
+                            "x_hist": [[0.1] * 7 for _ in range(24)],
+                            "c_future": [[0.2] * 5 for _ in range(24)],
+                        },
+                        "y_scaled": [0.4] * 24,
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            input_manifest = run / "manifest.json"
+            manifest_data = json.loads(input_manifest.read_text(encoding="utf-8"))
+            for name in ("entities.jsonl", "training.jsonl"):
+                manifest_data["files"][name]["sha256"] = sha256_file(run / name)
+            input_manifest.write_text(json.dumps(manifest_data), encoding="utf-8")
+            digest = sha256_file(input_manifest)
         manifest = _load_run(run, digest)
         source_binding = _binding(manifest, digest, stage="source")
         source_folder = root / "source-model"
@@ -56,8 +90,30 @@ class ReplayCliTests(unittest.TestCase):
             source_checkpoint_sha256=source_sha,
         )
         target_folder = root / "target-model"
-        target_folder.mkdir()
         target_path = target_folder / "target_checkpoint.pt"
+        if trained_weight is not None:
+            result = _target(
+                Namespace(
+                    input_run=run,
+                    manifest_sha256=digest,
+                    source_input_run=run,
+                    source_manifest_sha256=digest,
+                    source_checkpoint=source_path,
+                    entity_id="dev-1",
+                    output=target_folder,
+                    steps=1,
+                    batch_size=1,
+                    seed=7,
+                    learning_rate=0.001,
+                    retention_weight=trained_weight,
+                    epsilon=1e-6,
+                    device="cpu",
+                )
+            )
+            self.assertEqual(result["steps"], 1)
+            self.assertEqual(result["retention_weight"], trained_weight)
+            return run, digest, source_path, target_path, target_binding
+        target_folder.mkdir()
         save_checkpoint(
             target_path,
             model,
@@ -231,11 +287,12 @@ class ReplayCliTests(unittest.TestCase):
         for rule, level in (("fixed_retention", 0.1), ("full_finetuning", 0.0)):
             with self.subTest(rule=rule), tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
-                run, digest, source, target, binding = self._inputs(root)
+                run, digest, source, target, binding = self._inputs(root, trained_weight=level)
                 target_manifest = target.parent / "run_manifest.json"
                 record = json.loads(target_manifest.read_text(encoding="utf-8"))
-                record["retention_weight"] = level
-                target_manifest.write_text(json.dumps(record), encoding="utf-8")
+                _, _, _, target_metadata = load_checkpoint(target, expected_binding=binding)
+                self.assertEqual(target_metadata["training_step"], 1)
+                self.assertEqual(target_metadata["initial_retention_weight"], level)
                 args = self._args(root, run, digest, source, target, "first", 1)
                 args.selection_rule = rule
                 args.initial_level = level
@@ -285,6 +342,68 @@ class ReplayCliTests(unittest.TestCase):
             args.selection_rule = "full_finetuning"
             args.initial_level = 0.1
             with self.assertRaisesRegex(ValueError, "inconsistent"):
+                _replay(args)
+            self.assertFalse(args.output.exists())
+
+    def test_trained_positive_lambda_cannot_be_relabelled_full_finetuning(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest, source, target, binding = self._inputs(root, trained_weight=0.1)
+            before_hash = sha256_file(target)
+            _, _, _, metadata = load_checkpoint(target, expected_binding=binding)
+            self.assertEqual(metadata["training_step"], 1)
+            self.assertEqual(metadata["initial_retention_weight"], 0.1)
+            manifest_path = target.parent / "run_manifest.json"
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["retention_weight"] = 0.0
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            args = self._args(root, run, digest, source, target, "relabelled-full-ft", 3)
+            args.selection_rule = "full_finetuning"
+            args.initial_level = 0.0
+            with self.assertRaisesRegex(ValueError, "manifest lambda disagrees with checkpoint"):
+                _replay(args)
+            self.assertEqual(sha256_file(target), before_hash)
+            self.assertFalse(args.output.exists())
+
+    def test_legacy_target_lambda_is_explicitly_unverified(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest, source, target, binding = self._inputs(root)
+            _, _, _, metadata = load_checkpoint(target, expected_binding=binding)
+            self.assertIsNone(metadata["initial_retention_weight"])
+            target_manifest = target.parent / "run_manifest.json"
+            record = json.loads(target_manifest.read_text(encoding="utf-8"))
+            record["retention_weight"] = 0.1
+            target_manifest.write_text(json.dumps(record), encoding="utf-8")
+            args = self._args(root, run, digest, source, target, "legacy-fixed", 1)
+            args.selection_rule = "fixed_retention"
+            args.initial_level = 0.1
+            with self.assertRaisesRegex(ValueError, "Legacy target checkpoint"):
+                _replay(args)
+            self.assertFalse(args.output.exists())
+            args.output = root / "legacy-confidence"
+            args.selection_rule = "confidence"
+            result = _replay(args)
+            self.assertFalse(result["config"]["target_initial_retention_weight_verified"])
+            self.assertIsNone(result["config"]["target_initial_retention_weight"])
+
+    def test_fixed_policy_resume_rejects_changed_lambda_proof(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest, source, target, _ = self._inputs(root, trained_weight=0.1)
+            args = self._args(root, run, digest, source, target, "first", 1)
+            args.selection_rule = "fixed_retention"
+            args.initial_level = 0.1
+            _replay(args)
+            checkpoint = args.output / "runner_checkpoint.pt"
+            first_manifest = args.output / "run_manifest.json"
+            record = json.loads(first_manifest.read_text(encoding="utf-8"))
+            record["config"]["target_initial_retention_weight"] = 0.0
+            first_manifest.write_text(json.dumps(record), encoding="utf-8")
+            args.resume_checkpoint = checkpoint
+            args.output = root / "changed-lambda-proof"
+            args.max_origins = 3
+            with self.assertRaisesRegex(ValueError, "lineage/config/code mismatch"):
                 _replay(args)
             self.assertFalse(args.output.exists())
 
