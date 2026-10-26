@@ -1,0 +1,75 @@
+# Issue23 — Final lock readiness (not approved)
+
+Executed October27,2026 ICT. This handoff inventories the remaining lock gate;
+it is not a competing schedule, a chosen Final cohort or permission to evaluate.
+Task tracking stays in #23 and the sole schedule stays in `SPRINT_PLAN.md`.
+
+## Frozen Development choices available for review
+
+The identified primary Development summary SHA-256 is
+`ecc8b1854128f84ab13070be4ab38d6179d7f15c331f8cf2caf72604576157b6`.
+It selects Source duration10 epochs; initial adaptation3 epochs; online1 epoch;
+batch64, learning rate0.001 and retention epsilon0.001. The controller uses
+levels0/0.1/1, starts at0.1,14-day blocks, Bmin7, delta0, alpha0.05, three-day
+bootstrap segments and2,000 draws. Seeds42/43/44 are paired replications, not
+winner candidates. Fixed Retention uses lambda1. The frozen proxy recipe indices
+are Source-error1, Uncertainty1, Drift3 and Parameter Retention2. Fourteen unique
+variants retain all required main/baseline/ablation categories through explicit
+Without Confidence→Online Best and Fixed lambda→Fixed Retention aliases.
+
+These are existing Development selections, not independently approved Final
+settings. Full configs, estimator mappings, analysis/context definitions, actual
+Source identities and all limitations must be reviewed together, not inferred
+from these abbreviated numbers. No new configuration search is authorized by
+this handoff. Current point estimates do not establish Adaptive superiority.
+
+## Metadata-only population inventory
+
+The actual accepted21 input manifests/entity summaries were authenticated using
+`InputRun`. No Final forecast, training or label JSONL records were decoded;
+training files were hashed as opaque bytes. The full ID/manifest/clock/Source-
+population inventory remains outside Git on
+[Drive](https://drive.google.com/file/d/1-imvDibNds7asZguLDvnEI7fQytHNu3W/view),
+SHA-256 `8a6d71cb881c14e86cf3315d1561076e7273e218adba960f2fc633ddfb023b07`.
+The independently rerunnable inventory script is retained with that local run.
+
+| Namespace | Ready Final IDs,7d | 14d | 28d |
+|---|---:|---:|---:|
+| UrbanEV SZH |340|341|345|
+| CHARGED AMS |478|478|478|
+| CHARGED JHB |13|13|13|
+| CHARGED LOA |41|41|41|
+| CHARGED MEL |15|15|15|
+| CHARGED SPO |10|10|10|
+| CHARGED SZH |271|271|271|
+
+There are3,510 ready entity-budget pairs, including35 with no initially trainable
+prefix samples. All-ready coverage at three seeds and14 unique variants would
+require147,420 target replays, plus the identified Source models and complete
+verification/storage/analysis. This is a population count, not a committed cohort,
+a runtime prediction or a reduced experimental design. Budgets can contain
+different IDs. No future activity/outcome was used to choose a favorable subset.
+Any bounded Final cohort requires an explicit outcome-blind declaration and review;
+it cannot be silently substituted to satisfy a compute deadline.
+
+## Gates still open
+
+- Complete/reverify the primary artifact recovery and six-city Development scope.
+  SPO/MEL raw-runtime access remains unresolved; their cached logs are not a
+  portable full handoff. Other city execution remains explicit in #23.
+- Preserve runtime fairness:114 historically retained selected-proxy cells need
+  additional same-Colab-runtime reference runs after the648/690 missing-artifact
+  batch. Choices/weights stay frozen. Do not mix old/new runtime cells and claim
+  a common-environment comparison. See the [exact replay/queue evidence](issue23-primary-recovery-plan-evidence.json).
+- Declare the actual Final cohort, source checkpoint identities, measured total
+  compute/storage envelope, complete configs and analysis/profile hashes.
+- Implement/review Final-capable execution and independent verification under a
+  fail-closed lock/approval gate. Existing Development-only readers/verifiers
+  must not be silently relabeled or bypassed. No Final execution was attempted.
+- Obtain independent immutable code/config/data/cohort/analysis approval before
+  opening Final for the locked algorithm. A hash or an author's prepared JSON
+  is not peer approval. Correctness changes after lock require reviewed relock
+  and affected reruns, not selection of favorable old/new results.
+- Verify complete outputs, independent reproduction and #10 report handoff before
+  declaring Sprint3 done. Negative/null findings are valid; missing required
+  evidence is not completion.

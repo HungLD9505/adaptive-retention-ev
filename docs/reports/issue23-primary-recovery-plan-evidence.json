@@ -73,7 +73,9 @@
     "process_exit_at_observation": null,
     "durable_observation_relative_path": "observations/20261026T171821825665Z",
     "progress_sha256": "b8aacc0db92821f2da1a41a785fb83c22c35f30a38416c7284921242f4c106a8",
-    "supervisor_log_prefix_sha256": "2aacca9181dda631d95dfe84886c84c2fcaf2c3eb7102f77e62db8863425de2f"
+    "supervisor_log_prefix_sha256": "2aacca9181dda631d95dfe84886c84c2fcaf2c3eb7102f77e62db8863425de2f",
+    "durable_observation_url": "https://drive.google.com/drive/folders/16-U7FP8MFCgq7PQU_GeSCi7mykToFwnh",
+    "anonymous_observation_readback": "PASS: progress6300310bytes/245rows and supervisor prefix100044bytes, both SHA-256 identical"
   },
   "first_target_remote_roundtrip": {
     "status": "PASS",
@@ -85,5 +87,21 @@
     "receipt_url": "https://drive.google.com/file/d/1jT2yqb7PuDOwTGpe0fLwmc5hbfFIwJ-g/view",
     "daily_and_latest_state_proofs_equal": true,
     "verification_url": "https://drive.google.com/file/d/1CviTnmaWB1_KdZU8YMAOvN7XMTi-bUNY/view"
+  },
+  "selected_proxy_runtime_bridge": {
+    "status": "queued_waiting_on_live_dependency_not_executed",
+    "run_id": "qyroven-selected-proxy-runtime-bridge-20261027-v1",
+    "pid": 13716,
+    "verified_wait_pid": 6583,
+    "scope": "114 previously retained selected-proxy configurations must be repeated under the matched Colab environment; no new tuning, no overwriting original456 retained cells, no Final",
+    "original_selected_proxy_cells": 276,
+    "selected_cells_in_missing_replay": 162,
+    "additional_selected_bridge_cells": 114,
+    "plan_sha256": "1af40201ab182ce97a8448b24020eec4dc2b838fcb4e04916ff148010625c380",
+    "kit_url": "https://drive.google.com/file/d/1Wq80R962uuKma3y87-0F7-NdgzxovFTZ/view",
+    "kit_bytes": 2320758,
+    "kit_sha256": "f945e2efb5cccf71037704b92d2ffec20cda486635929633775590d3ab060c34",
+    "folder_url": "https://drive.google.com/drive/folders/1JxhIwKEYEPlrDjrvW299K1PRMbHGui5k",
+    "gate": "OS pidfd must signal dependency exit; both648proxy/690matched matrices and exit records must prove success before dispatch; any failure stops rather than restarting"
   }
 }
