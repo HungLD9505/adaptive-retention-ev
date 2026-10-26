@@ -133,3 +133,30 @@ allocation remains usage-limited. Kaggle still displays `Session is starting`;
 current MEL liveness and complete SPO raw export remain unverified, so the old
 job has not been restarted. Next execution must first inspect/rescue that existing
 state and retain the accepted protocol and original Source identities.
+
+## Exact primary missing-artifact replay
+
+`python -m tools.replay_missing_primary` authenticates the existing recovery plan
+and original matrix, keeps the physical-absence partition and original Source
+weights, and requires CUDA plus mounted Drive publication. Supply `--plan`,
+`--plan-sha256`, `--family proxy|matched`, `--inputs-root`, `--source-root`, a NEW
+`--output`, `--backup-root` and `--drive-mount`. The Source root must include the
+original selected checkpoint, sidecar, report and stdout for every seed. Newly
+created outer completion descriptors are explicitly labeled, not presented as
+historical files. No missing logs or labels are synthesized.
+
+Every newly completed target passes independent daily/state checks and publishes
+its archive/receipt before the next cell executes. `--resume-backup` restores only
+a contiguous completed prefix of the originally declared missing cells into a new
+output under the same context; changed environment/config/input identities fail
+closed. New numeric differences from original metadata are retained, never used
+for reselection. Restored rows retain their independent backup-verification
+scope; comparison differences/daily proof arrays cover newly executed rows only.
+Invocation wall/backup costs are explicit, not reconstructed original total cost.
+
+Five offline fixture tests cover authenticated subsets, changed source/plan/matrix
+identities, reordered/overlapping/duplicate cells, changed protocol, and invalid
+resume prefixes. Read-only actual preflight validated648 proxy and690 matched
+cells and archived all three original Sources for each family without training.
+The full332-test suite, Ruff lint/format and diff checks passed before dispatch;
+actual GPU execution is reported separately and is not implied by those tests.
