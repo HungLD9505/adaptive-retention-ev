@@ -46,7 +46,7 @@ def _invoke(arguments: list[str], *, execute: bool) -> None:
 
 
 def verification_split_limit(block_days: int, max_origins: int) -> int:
-    """Cross two completed block decisions before the optional resumed segment."""
+    """Keep a resumed segment after two block boundaries, including the next origin."""
     if (
         isinstance(block_days, bool)
         or not isinstance(block_days, int)
@@ -56,7 +56,7 @@ def verification_split_limit(block_days: int, max_origins: int) -> int:
         or max_origins < 2 * block_days + 1
     ):
         raise ValueError("Verification replay needs two block boundaries and a next origin")
-    return min(3 * block_days, max_origins)
+    return min(3 * block_days, max_origins - 1)
 
 
 def run(args: argparse.Namespace) -> None:
