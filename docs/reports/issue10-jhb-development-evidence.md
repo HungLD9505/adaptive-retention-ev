@@ -1,14 +1,14 @@
-# Issue #10 evidence register: CHARGED JHB, SPO, and MEL Development
+# Issue #10 evidence register: five CHARGED Development cities
 
-**Status (2026-10-26): Development evidence, pending independent acceptance.** This register supports the [thesis draft](../THESIS_REPORT.md). It records three separate-city CHARGED replications and the evidence still needed for the Results, Discussion, and Conclusion. It does not report a Final result or establish an effectiveness claim.
+**Status (2026-10-26): Development evidence, pending independent acceptance.** This register supports the [thesis draft](../THESIS_REPORT.md). It records JHB, SPO, MEL, AMS, and SZH as separate-city CHARGED replications and the evidence still needed for the Results, Discussion, and Conclusion. SZH is separate because of UrbanEV coordinate overlap. It does not report a Final result or establish an effectiveness claim.
 
 ## Where this evidence belongs in the report
 
 | Report section | Evidence-supported content now | Pending content |
 | --- | --- | --- |
 | Motivation, research questions, and method | Retain Report 1 and the existing thesis draft as the method source. | Peer review of the final claim boundaries. |
-| Data and protocol | JHB, SPO, and MEL are separate supplementary cities, each with 7/14/28-day initial histories and three seeds. | Accepted input and cohort handoff for every reported city; publisher-processing limitations remain. |
-| Development evaluation | Separate JHB, SPO, and MEL matrices, independent daily and latest-state proofs, analyses, catalogued exports, and fresh restores below. | Peer review, independent teammate reproduction, and other city matrices. |
+| Data and protocol | JHB, SPO, MEL, AMS, and SZH are separate supplementary cities, each with 7/14/28-day initial histories and three seeds. | Accepted input and cohort handoff for every reported city; publisher-processing and SZH overlap limits remain. |
+| Development evaluation | Separate JHB, SPO, MEL, AMS, and SZH matrices, independent daily and latest-state proofs, analyses, catalogued exports, and fresh restores below. LOA has a completed matrix, proofs, and analysis. | LOA export/restore, peer review, and independent teammate reproduction. |
 | Final results, discussion, conclusion | Reporting table and questions already defined in the thesis draft. | Immutable Final lock, complete Final runs and proofs, paired effects/uncertainty, and cost interpretation. |
 
 ## JHB evidence available locally
@@ -73,6 +73,33 @@ The private Kaggle `mel_20261026_v6` run used committed execution code `83b877e1
 
 The pinned catalog restored 378 runs and 105,886 files to `D:\Đồ Án\.cache\charged-kaggle-four\runs\mel-r1`. Three Source checkpoints loaded on CPU during export and match their restored hashes. The local verifier independently rechecked the daily/input chronology and latest model/optimizer/RNG states after the Kaggle download; it did not train or replace forecasts. The Kaggle notebook's 2,712.99-second wall time and matrix's 2,472.29-second wall time cover different scopes, and neither includes independent teammate reproduction. MEL remains a Development supplement subject to publisher preprocessing/clock limits and peer review. Its scores must not be used to retune a Final design after lock or presented as Final effectiveness.
 
+## SZH and AMS Development addendum
+
+The private Kaggle `szh_20261026_v7` and `ams_20261026_v7` runs used the committed execution code `83b877e16e7e690d93bb1f7736ce1870ef08fadd`. Each completed a separate 378-cell matrix: 14 methods, nine entity-history combinations, three seeds, and 90 issued/scored days per run. Both full Kaggle Output ZIPs were downloaded; all recorded files below were rehashed locally without mismatch. Each complete export has 32 run ZIPs, one metadata ZIP, and one code bundle, and all part SHA-256/CRC checks pass. Fresh local restores and independent daily/input and latest-state checks passed for 378 runs, 69,930 committed daily files, and 378 latest states per city. Three city-specific Source checkpoints per catalog were CPU-loaded. These are Development checks, not Final effects or five-city pooled estimates.
+
+| City / artifact (under `D:\Đồ Án\.cache\charged-kaggle-four\runs`) | SHA-256 | Check or role |
+| --- | --- | --- |
+| `kaggle-cli-szh-v7/complete-v1-all/_output_.zip` | `f8bf92109165a52a323aebd1322b42c2389e091defbaa4b09d48cc6e922f1a3c` | Complete SZH Output download, 1,498,740,151 bytes; outer ZIP CRC PASS. |
+| `kaggle-cli-szh-v7/complete-v1-export-and-proof/charged-SZH-szh_20261026_v7/matrix.json` | `05c2c8909a13fac28b0854105901379191020d219b01962fdb59fe470e22ed5b` | `technical_success`, 378 cells. |
+| `kaggle-cli-szh-v7/complete-v1-export-and-proof/stage-SZH-szh_20261026_v7/daily-verification.json` | `632400471f47ac1c041af66b5d53f76ffb18022b5f6dbe1de871db210e9a08b3` | Kaggle daily proof, 378 runs / 69,930 files. |
+| `kaggle-cli-szh-v7/complete-v1-export-and-proof/stage-SZH-szh_20261026_v7/latest-states.json` | `6ce078cc23e78739faac3bd3fc90f92f76330b4f02ea9d8a8d24c17edae74ff2` | Kaggle latest-state proof, 378 states. |
+| `kaggle-cli-szh-v7/complete-v1-export-and-proof/analysis-SZH-szh_20261026_v7/summary.json` | `f48f2be08dc707748973f1b1a7e3c578bd7dbf943513b66803190fdfb8d102b6` | Separate-city Development analysis. |
+| `kaggle-cli-szh-v7/complete-v1-export-and-proof/export-SZH-szh_20261026_v7/catalog.json` | `1aa0fd6c229911afc5e1359ec06a3096e1f73278308aab06506290964d8a09d8` | Complete 34-part export. |
+| `kaggle-cli-szh-v7/restored-v1-daily-verification-v1.json` | `70d6cad10da7302c07531cca0b7f3d9bca9fb1ada3de939e93bd75db334f9af1` | Fresh restored daily/input proof, 378 runs / 69,930 files. |
+| `kaggle-cli-szh-v7/restored-v1-latest-states-v1.json` | `2341b2916b084e9647462d850e7584a6e4e7b063a10d888409af08a50afa02dd` | Fresh restored latest-state proof, 378 states, bound to fresh daily SHA. |
+| `kaggle-cli-szh-v7/evidence-register-v1.json` | `91f7f9c6e23bbe504c98e4cfe016d478aafc328e6c0957ce482e1fb052d43de7` | Ignored register: approved/remote notebooks, log, Output ZIP, every export part, restored files and proof hashes. |
+| `kaggle-cli-ams-v7/complete-v1-all/_output_.zip` | `78306dbcf4e8d454eb04b7dc93250fba2abca9098cdf0db4dd5c82c54205de18` | Complete AMS Output download, 1,660,644,042 bytes; outer ZIP CRC PASS. |
+| `kaggle-cli-ams-v7/complete-v1-export-and-proof/charged-AMS-ams_20261026_v7/matrix.json` | `1fb798e0dc976c283febc812585951a859e460718552a2f9e3f4553c27015f9b` | `technical_success`, 378 cells. |
+| `kaggle-cli-ams-v7/complete-v1-export-and-proof/stage-AMS-ams_20261026_v7/daily-verification.json` | `74c6a9a201349fc824ef80109fdbf9bbc1c95981b53b6074d231f00b8d34ebc7` | Kaggle daily proof, 378 runs / 69,930 files. |
+| `kaggle-cli-ams-v7/complete-v1-export-and-proof/stage-AMS-ams_20261026_v7/latest-states.json` | `a7cdb12785ac8ee82d55e8c29fb126307614aadfe333c336cfd190b0f203d349` | Kaggle latest-state proof, 378 states. |
+| `kaggle-cli-ams-v7/complete-v1-export-and-proof/analysis-AMS-ams_20261026_v7/summary.json` | `909d946e6223bf191853a0c0bcb652ee4e8d0c936440ce43fef79d4c94f9f2d9` | Separate-city Development analysis. |
+| `kaggle-cli-ams-v7/complete-v1-export-and-proof/export-AMS-ams_20261026_v7/catalog.json` | `5cba024958d117274200f8ecd8fa4885d1eeddc4c33cd25b3ea3b670d0882a33` | Complete 34-part export. |
+| `ams-r1-daily.json` | `2fb806ea8ddaff8c7223af29e251aaa79092a7de1906b701a1a1ed2b48508d6c` | Fresh restored daily/input proof, 378 runs / 69,930 files. |
+| `ams-r1-latest.json` | `9888550f5195a7d0748af990d6c7295a528485d98f469e89b140b83ca340e44b` | Fresh restored latest-state proof, 378 states, bound to fresh daily SHA. |
+| `kaggle-cli-ams-v7/evidence-register-v1.json` | `dbdd26d2b169f7099194676a15d6123d519db5e05b1215a17f23097e57d1bf54` | Ignored register with notebook, log, Output ZIP, export parts, restored files and proof hashes. |
+
+SZH has documented coordinate overlap with UrbanEV and must remain an overlap-limited supplement, not independent unseen-location validation or part of a five-city geographic score. AMS belongs to the five-city geographic supplement, but its provider-processed demand and publisher-local-naive clock do not certify strict-online causality. The raw Windows fresh-verifier JSON hashes above differ from Kaggle's Linux JSON because of CRLF versus LF line endings; the registers document byte normalization and proof binding. The verifier results agree in content, and each fresh latest-state proof binds the exact fresh daily bytes. Independent teammate reproduction and peer approval remain open.
+
 ## Evidence slots before closing Issue #10
 
 | Scope | Current local state | Required handoff for report completion |
@@ -80,9 +107,9 @@ The pinned catalog restored 378 runs and 105,886 files to `D:\Đồ Án\.cache
 | CHARGED JHB Development | Matrix, daily/state proof, relocation, local analysis, complete export, and fresh same-host restore with daily/state re-verification above. | Off-host transfer/readback and independent teammate reproduction; peer review of analysis and cost interpretation. |
 | CHARGED SPO Development | Preserved 229-cell interrupted root; new 378-cell matrix, daily/state proofs, relocation, analysis, complete export, and fresh same-host restore with proof re-verification above. | Off-host transfer/readback and independent teammate reproduction; peer review of analysis and cost interpretation. |
 | CHARGED MEL Development | Kaggle 378-cell matrix, proofs, analysis, full Output download, 34-part catalog, and fresh local restore/daily/state proof above. | Independent teammate reproduction and peer review of analysis, coverage, and cost interpretation. |
-| CHARGED LOA Development | Pending in this local evidence register. | Separate-city complete matched matrix, proofs, analysis, and restore. |
-| CHARGED AMS Development | Pending in this local evidence register. | Separate-city complete matched matrix, proofs, analysis, and restore. |
-| CHARGED SZH Development | Pending in this local evidence register; coordinate overlap with UrbanEV limits the claim. | Separate-city complete matched matrix, proofs, analysis, and restore; report separately from the five-city geographic supplement. |
+| CHARGED LOA Development | A resumed 378-cell matrix, original daily/latest proofs, Source relocation, and separate-city analysis have passed locally; analysis summary SHA-256 `e7b933ef840e9ef2231bc63e7c3ade177432464fdad9fdb9746e090cca259e26`. The interrupted original root and partial first export are preserved. | Complete fresh catalogued export and restore with independent daily/state proofs, then peer review of provenance, coverage, and cost. |
+| CHARGED AMS Development | Private Kaggle 378-cell matrix, full Output download, 34-part export, fresh local restore and independent daily/latest proofs above. | Independent teammate reproduction and peer review of analysis, coverage, and cost interpretation. |
+| CHARGED SZH Development | Private Kaggle 378-cell matrix, full Output download, 34-part export, fresh local restore and independent daily/latest proofs above; coordinate overlap with UrbanEV limits the claim. | Independent teammate reproduction and peer review; report separately from the five-city geographic supplement. |
 | Qyroven implementation/evaluation | PR #51/#52 are separate implementation evidence; no integrated acceptance is inferred here. | Cross-implementation reconciliation, reviewer decisions, accepted artifact handoff, and explicit treatment of incompatible configurations or cohorts. |
 | Final lock and Final evaluation | Not locked or reported by this evidence register. | Independent immutable code/data/cohort/config lock, Final-only execution, complete paired metrics and uncertainty, coverage/null/cost tables, and peer approval. |
 | Issue #10 report PR | The existing draft is open for review. | Reconcile each result paragraph with accepted #23 evidence; independent non-author review of the final report PR targeting `dev`. |
