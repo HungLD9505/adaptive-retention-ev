@@ -174,3 +174,35 @@ JSON form; changed values still fail. The regression test and full333-test suite
 Ruff lint/format and diff checks pass. The failed dispatch's original outputs,
 Sources, logs and receipts remain preserved; rescue/continuation must be reported
 as a separate execution using the fixed code, never a silent overwrite.
+
+## Complete city pipeline with mandatory backup
+
+`python -m tools.city_pipeline` promotes the previously executed independent city
+orchestration into maintained code. It preserves the five accepted stages:
+training, independent daily verification, latest-state verification, analysis,
+and canonical export. New required `--backup-root`, `--drive-mount` and
+`--handoff-root` arguments enforce identified mounted storage and separate unique
+output/backup/handoff directories. Existing accepted cohort, primary-summary,
+density hashes and expected Source-example count arguments are still mandatory.
+The module and `--repo` must refer to the same clean checkout.
+
+Every completed Source/target is verified and archived before continuing. Stage
+start/command, stdout and exit/timing records are also published. Failure stops
+before the next stage and preserves pending bytes; no automatic cleanup/restart
+or missing-log fabrication. After export, all catalogued parts, selected Sources,
+code bundle, proofs and analysis are copied/read back by size/SHA, with the catalog
+published last. Missing, extra, changed or duplicate payloads fail. Independent
+remote download and full off-runtime/peer acceptance still follow separately.
+
+`--resume-backup` restores only verified completed prefixes into NEW outputs and
+handoff directories under the same exact context. Method/seed/data/Source policy
+is unchanged; no new per-city tuning, Final execution, or claim about inaccessible
+old SPO/MEL outputs is introduced. Source/target backup timers, stage timers,
+canonical-handoff time and pipeline wall time are recorded separately. Provider
+wait, package installation and download overhead belong to the outer dispatch,
+not an invented total in the inner pipeline.
+
+Seven additional offline fixtures cover backup argument propagation, explicit
+resume, byte-preserving copy/overwrite refusal, corrupted pending copy, durable
+stage failure, changed-source copy identity, wrong-checkout refusal and canonical-export population/hash checks. Full cloud execution
+of this maintained pipeline is recorded only when actually observed.
