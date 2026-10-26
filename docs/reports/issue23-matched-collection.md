@@ -511,3 +511,18 @@ Full independent target-content restoration and actual Drive readback remain
 pending at this handoff. No next offset is authorized by this raw upload alone.
 A first verifier preflight stopped because the local tooling fix was uncommitted;
 it did not fit or alter any target.
+
+Full two-run backup restoration then passed, including the immutable target
+reports/weights, daily/input checks and latest branch states. Both runs exactly
+matched all checked original reference fields. The first wrapper attempt rejected
+the backup restoration's alphabetical order; a separate export restored frozen
+plan order without fitting or changing target bytes. Failed attempt logs remain
+preserved outside Git.
+
+The [canonical two-run handoff](https://drive.google.com/file/d/1sk6sQtiPLV-SeV0DUDYIPSjGhlf61LyH/view)
+is14,015,051 bytes, SHA-256
+`17aedfbacb317c5b27de43e31c8ef12f2a4af07c0dad5785fc608ef5e244d101`.
+Actual Drive redownload, canonical restore, full daily/state proof equality and
+CPU reload of all three original Source dependencies passed. Prefix [1,3) is
+accepted; [3,13) was never executed. The next eligible original offset is3.
+There are now3 actual new-runtime targets fully published, not742.
