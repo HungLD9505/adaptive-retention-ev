@@ -50,5 +50,6 @@
     "anonymous_readback": "PASS bytes/hash/CRC/all3 members",
     "actual_restore_and_reverification": "378 daily/state proof rows identical to independently verified reference",
     "script_safety_checks": "Existing output refused without changes; missing archives rejected before output creation"
-  }
+  },
+  "standalone_target_stdout": "Not retained in the core-run recovery ZIPs; aggregate training/source/pipeline logs and all committed forecast/event/state artifacts remain. No empty stdout files fabricated."
 }

@@ -1,0 +1,54 @@
+{
+  "status": "real_artifact_local_filesystem_trial_passed_not_drive_or_gpu_acceptance",
+  "code_commit": "4f174bd8971e22e99a57f193eb8e852469762a85",
+  "context_sha256": "905dcb77f2cd911aa181426eb5a71d1566e80e982add411c1310490e79f601e3",
+  "original_matrix_sha256": "dc690a85b48057cbf375c0f660c5fd77d550193b0a432994c9a245259077b501",
+  "selection": "First original declared proxy cell, no score-based selection",
+  "sources_cpu_loaded_and_backed_up": 3,
+  "target_runs": 1,
+  "target_run_id": "urbanev-SZH-1405-7d-source_error-seed42-recipe0",
+  "original_and_restored_file_hashes_equal": 295,
+  "daily_and_state_proofs_match_previously_verified_original": true,
+  "source_backup_preserves_torch_rng": true,
+  "receipt_hashes": {
+    "urbanev-SZH-1405-7d-source_error-seed42-recipe0.receipt.json": "f191826fa9e79c45f2cb430bcc1640e5fcaa9312e12e3e75bf860e0a6eb4bfed",
+    "source-seed44.receipt.json": "688cf990630777399202bf325d64b55c616fc7797553703f88d0589ebf2977d9",
+    "source-seed43.receipt.json": "cc6ccab182992fd03d720855758535aa99fc62cf33c9597c1c14cf141b44f016",
+    "source-seed42.receipt.json": "9f08a51fd8d6c0befec00e044ebe22d17e01c6ffdce6a4a91345b4f92dfdcf3c"
+  },
+  "scope": "No real training, optimization, inference or Final-label decoding. Ordinary local filesystem used deliberately; no actual mounted Drive or GPU continuation claim. Original accepted files/archives never modified. New outer Source completion descriptors explicitly labeled.",
+  "offline_checks": {
+    "tests": 327,
+    "result": "PASS",
+    "seconds": 5.975,
+    "ruff_lint": "PASS",
+    "ruff_format": "PASS",
+    "git_diff_check": "PASS",
+    "core_model_controller_runner_baseline_diff": "empty"
+  },
+  "code_bundle": {
+    "url": "https://drive.google.com/file/d/1MI_ICB2emSMJOtwHm3rnMu8-UxzVUg7z/view",
+    "bytes": 7876741,
+    "sha256": "6acc0cabc1e84e3f1c4c93006aa15e41aea6fecf0fa30eacfb8193aaa494fa91",
+    "anonymous_readback": "PASS bytes/SHA"
+  },
+  "proof_package": {
+    "url": "https://drive.google.com/file/d/1uJ409c5FYhinI-5bfKL1J0RoYSrU0jNI/view",
+    "bytes": 12757,
+    "sha256": "e29e34ace4ca2a18faa8034ba51427049e32373a6f32656ee15cbe5130148cd1",
+    "anonymous_readback": "PASS bytes/SHA/CRC/all4 payload members"
+  },
+  "cloud_scope": {
+    "colab_cpu_connection": "succeeded",
+    "drive_mount": "credential propagation was unsuccessful; user authorization completion pending",
+    "gpu_training": "not executed",
+    "kaggle_existing_job": "not restarted; current process/raw export still not observable"
+  },
+  "implementation_ci": {
+    "commit": "4f174bd8971e22e99a57f193eb8e852469762a85",
+    "run_id": 40350149501,
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "legacy_jhb_limit": "First staging trial found missing standalone target stdout; no empty file synthesized. Previously verified forecasts/events/latest states remain unchanged."
+}

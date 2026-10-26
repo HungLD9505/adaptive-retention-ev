@@ -1,5 +1,11 @@
 # Issue 23 — completed-run backup and recovery
 
+The [Colab template](../../notebooks/issue23_durable_city.ipynb) defaults to a
+Source-only storage probe using original JHB checkpoints and an exact hash-pinned
+4f174bd code bundle. It does not train in probe mode. Explicit new, resume and
+read-only rescue modes use accepted city inputs and unchanged primary selection;
+training modes require CUDA. Keep the same authorized account.
+
 The interactive-runtime incidents exposed a storage gap: complete notebook metrics
 are not complete forecasts/events/checkpoint delivery. This change adds optional
 mounted-Drive publication to the separate-city execution CLI. It does not modify
@@ -92,8 +98,22 @@ restore after removing the temporary study, intentional historical-state
 omissions, RNG preservation, overwrite refusal, changed context, failed copy,
 pending/orphan archives, non-Development targets, changed configs/daily bytes,
 unexpected files and traversal payloads. No raw dataset download, GPU or model
-fitting is required. The initial complete suite passed327 tests; later changes
-require their own recorded check result. Source listing is not a fresh raw audit.
+fitting is required. The final implementation suite passed327 tests in5.975 seconds;
+Ruff lint/format, source listing and diff checks passed. Source listing is not a fresh raw audit.
+
+Actual read-only CPU verification then archived three original UrbanEV Source
+checkpoints and the first original declared retained proxy run, removed only the
+disposable staging COPY and restored all295 file hashes identically. Daily and
+latest-state proofs match the previously verified original; no training, inference
+or Final labels were used. The first trial on legacy JHB stopped because its
+standalone target stdout was not retained; no empty log was fabricated. JHB's
+verified committed forecasts/events/states and aggregate logs remain unchanged.
+See [exact evidence, code/proof downloads and scopes](issue23-durable-recovery-evidence.json).
+
+Implementation4f174bd passed GitHub Actions40350149501. The real artifact trial
+used ordinary local storage, not DriveFS; the notebook has only been syntax/lint
+checked, not cloud-executed. Actual GPU parity/continuation and remote storage
+acceptance remain open.
 
 At implementation time, Kaggle runtime/export access remains unavailable. Colab
 CPU allocation succeeded, but the storage-only mount probe returned
