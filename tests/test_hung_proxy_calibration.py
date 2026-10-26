@@ -4,10 +4,12 @@ from __future__ import annotations
 
 import json
 import shutil
+import subprocess
 import tempfile
 import unittest
 from copy import deepcopy
 from pathlib import Path
+from unittest import mock
 
 import torch
 
@@ -20,12 +22,15 @@ from tools.hung_proxy_calibration import (
     ROOT,
     _development_entity,
     _ignored_output,
+    _run_args,
+    _same_state,
     _stable_support_file,
     _summarize_seen,
     _validate_plan,
     _verify_replay_proof,
     build_plan,
     recipe,
+    select,
     validate_profile,
 )
 
@@ -33,6 +38,83 @@ PROFILE = ROOT / "configs" / "hung-proxy-calibration-v1.json"
 
 
 class CalibrationTests(unittest.TestCase):
+    def _authentic_select_fixture(self, device: str) -> None:
+        from tests.test_hung_replay_cli import ReplayCliTests
+
+        (ROOT / ".cache").mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ROOT / ".cache") as directory:
+            root = Path(directory)
+            helper = ReplayCliTests()
+            run, digest, source, target, _ = helper._inputs(root)
+            profile = json.loads(PROFILE.read_text(encoding="utf-8"))
+            profile["device"] = device
+            profile["max_origins"] = 2
+            profile["controller"].update(
+                block_days=2, min_complete_days=1, bootstrap_segment_days=1
+            )
+            cell = {
+                "dataset_id": "urbanev",
+                "city_id": "SZH",
+                "history_days": 7,
+                "entity_id": "dev-1",
+                "seed": 7,
+                "initialization": "source_checkpoint_only",
+                "input_run": str(run),
+                "input_manifest_sha256": digest,
+                "source_input_run": str(run),
+                "source_manifest_sha256": digest,
+                "source_checkpoint": str(source),
+                "source_checkpoint_sha256": sha256_file(source),
+                "target_checkpoint": str(target),
+                "target_checkpoint_sha256": sha256_file(target),
+                "drift_reference_mean": 0.0,
+                "drift_reference_scale": 1.0,
+            }
+            code_commit = subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+            ).strip()
+            plan = {
+                "schema": "hung-proxy-plan-v1",
+                "scope": "development_only",
+                "profile": profile,
+                "cells": [cell],
+                "code_commit": code_commit,
+            }
+            rows = []
+            for method in METHODS:
+                for index in range(4):
+                    output = root / f"{method}-{index}"
+                    _replay(_run_args(profile, cell, method, index, output))
+                    rows.append(
+                        {
+                            "cell_index": 0,
+                            "method": method,
+                            "recipe": index,
+                            "run_path": str(output),
+                            "manifest_sha256": sha256_file(output / "run_manifest.json"),
+                        }
+                    )
+            # Aggregation's full-cohort invariant has its own tests; this
+            # fixture exercises all twelve authenticated artifact paths.
+            with mock.patch("tools.hung_proxy_calibration._validate_plan"):
+                result = select(plan, rows)
+            self.assertEqual(result["matrix_runs"], 12)
+            self.assertEqual(result["cells"], 1)
+
+    def test_selector_authenticates_cpu_fixture(self) -> None:
+        self._authentic_select_fixture("cpu")
+
+    @unittest.skipUnless(torch.cuda.is_available(), "CUDA unavailable")
+    def test_selector_authenticates_cuda_fixture(self) -> None:
+        self._authentic_select_fixture("cuda")
+
+    def test_state_comparison_preserves_values_across_devices(self) -> None:
+        _same_state(torch.tensor([1.0]), torch.tensor([1.0]))
+        if torch.cuda.is_available():
+            _same_state(torch.tensor([1.0]), torch.tensor([1.0], device="cuda"))
+            with self.assertRaisesRegex(ValueError, "Authenticated Development replay differs"):
+                _same_state(torch.tensor([1.0]), torch.tensor([2.0], device="cuda"))
+
     def test_outputs_must_be_ignored_and_inputs_stable(self) -> None:
         self.assertEqual(_ignored_output(ROOT / ".cache" / "new-run"), ROOT / ".cache" / "new-run")
         with self.assertRaisesRegex(ValueError, "Git-ignored"):
