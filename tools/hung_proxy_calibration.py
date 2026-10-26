@@ -382,6 +382,27 @@ def _run_args(profile: dict, cell: dict, method: str, index: int, output: Path) 
     )
 
 
+def _require_verified_initial_lambda(cell: dict) -> float:
+    """Exclude legacy target checkpoints whose adaptation lambda is only a manifest claim."""
+    checkpoint = _within_project(Path(cell["target_checkpoint"]))
+    payload = torch.load(checkpoint, map_location="cpu", weights_only=True)
+    weight = payload.get("initial_retention_weight")
+    if (
+        isinstance(weight, bool)
+        or not isinstance(weight, (int, float))
+        or not math.isfinite(weight)
+        or weight < 0
+    ):
+        raise ValueError("Target checkpoint has unverified initial lambda")
+    record = _json(checkpoint.parent / "run_manifest.json")
+    if (
+        record.get("checkpoint_sha256") != sha256_file(checkpoint)
+        or record.get("retention_weight") != weight
+    ):
+        raise ValueError("Target checkpoint initial lambda differs from run manifest")
+    return float(weight)
+
+
 def execute(plan_path: Path, expected_sha256: str, output: Path) -> None:
     """Run all twelve recipes per paired cell, preserving any partial output."""
     plan_path = _stable_support_file(plan_path)
@@ -417,6 +438,7 @@ def execute(plan_path: Path, expected_sha256: str, output: Path) -> None:
         for name in ("source_checkpoint", "target_checkpoint"):
             if sha256_file(_within_project(Path(cell[name]))) != cell[f"{name}_sha256"]:
                 raise ValueError("Changed Source/target checkpoint")
+        _require_verified_initial_lambda(cell)
         reference = _drift_reference(input_run, cell, plan["profile"]["drift_scale_floor"])
         if reference != (
             cell["drift_reference_mean"],
@@ -666,6 +688,7 @@ def select(plan: dict, records: list[dict]) -> dict:
         checkpoint = path / "runner_checkpoint.pt"
         if sha256_file(checkpoint) != manifest["final_runner_checkpoint_sha256"]:
             raise ValueError("Runner checkpoint SHA-256 mismatch")
+        _require_verified_initial_lambda(cell)
         runner = load_runner(
             checkpoint, expected_binding=manifest["input_binding"], device=config["device"]
         )

@@ -84,9 +84,12 @@ rejection, ignored-output preflight, authentic selection on CPU and CUDA, and
 forged checkpoint/manifest pairs with altered forecasts, arrived labels, RNG
 or cost counts plus a rewritten journal/hash. The CUDA fixture runs only when
 CUDA is available. Local
-Source/target checkpoints exist for earlier diagnostic runs, but no complete
-reviewed matrix for this calibration profile was established in this tranche,
-so no real Development selection was run. A complete
+Source/target checkpoints exist for earlier diagnostic runs, but their target
+checkpoint payloads predate the `initial_retention_weight` binding. Calibration
+execution and selection reject those legacy targets even if a manifest claims
+λ=0.1; use newly trained, verified target checkpoints. No complete reviewed
+matrix for this calibration profile was established in this tranche, so no real
+Development selection was run. A complete
 cohort, all run outputs, independent review, measured feasibility, mandatory
 baselines/ablations and the approved immutable lock remain required before
 Final. Published Qyroven Development scores cannot fill Hung cells.
