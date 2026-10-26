@@ -17,13 +17,18 @@ from collections import defaultdict
 from dataclasses import asdict
 from pathlib import Path
 
+import torch
+
 from ev_inputs.hourly_reader import sha256_file
 from experiments.hung_sprint2.checkpoint import load_runner
 from experiments.hung_sprint2.cli import _load_run, _replay
 from experiments.hung_sprint2.controller import ControllerConfig
 from experiments.hung_sprint2.evaluation import evaluate_replay
 from experiments.hung_sprint2.proxy_selection import ProxyConfig
-from experiments.hung_sprint2.replay_inputs import ReplaySummary
+from experiments.hung_sprint2.replay_inputs import ReplaySummary, _target_forecasts, replay_target
+from experiments.hung_sprint2.retention import frozen_source_reference
+from experiments.hung_sprint2.runner import PrequentialRunner
+from experiments.hung_sprint2.training import load_checkpoint
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = ROOT.parents[1] if ROOT.parent.name == ".cache" else ROOT
@@ -48,6 +53,48 @@ def _within_project(path: Path) -> Path:
     resolved = path.resolve()
     if not resolved.is_relative_to(PROJECT_ROOT):
         raise ValueError("Calibration paths must stay inside the project")
+    return resolved
+
+
+def _ignored_output(path: Path) -> Path:
+    resolved = _within_project(path)
+    if (
+        not resolved.is_relative_to(ROOT)
+        or subprocess.run(
+            ["git", "check-ignore", "-q", "--no-index", str(resolved)],
+            cwd=ROOT,
+            check=False,
+        ).returncode
+        != 0
+    ):
+        raise ValueError("Calibration output must be a Git-ignored path inside this worktree")
+    return resolved
+
+
+def _stable_support_file(path: Path) -> Path:
+    resolved = _within_project(path)
+    if not resolved.is_relative_to(ROOT):
+        raise ValueError("Plan/profile/cell files must stay inside this worktree")
+    tracked = (
+        subprocess.run(
+            ["git", "ls-files", "--error-unmatch", str(resolved)],
+            cwd=ROOT,
+            check=False,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        ).returncode
+        == 0
+    )
+    ignored = (
+        subprocess.run(
+            ["git", "check-ignore", "-q", "--no-index", str(resolved)],
+            cwd=ROOT,
+            check=False,
+        ).returncode
+        == 0
+    )
+    if not (tracked or ignored):
+        raise ValueError("Plan/profile/cell input must be tracked or Git-ignored")
     return resolved
 
 
@@ -160,13 +207,9 @@ def _drift_reference(input_run: Path, cell: dict, floor: float) -> tuple[float, 
     """Use the first issued Development history, never a future label."""
     identity = [cell["dataset_id"], cell["city_id"], cell["entity_id"]]
     first: dict | None = None
-    with (input_run / "forecasts.jsonl").open(encoding="utf-8") as stream:
-        for line in stream:
-            row = json.loads(line)
-            if row.get("role") != "development" or row.get("identity") != identity:
-                continue
-            if first is None or row["origin"] < first["origin"]:
-                first = row
+    for row in _target_forecasts(input_run / "forecasts.jsonl", identity):
+        if first is None or row["origin"] < first["origin"]:
+            first = row
     if first is None:
         raise ValueError("Drift reference requires a created Development origin")
     values = [
@@ -182,7 +225,7 @@ def _drift_reference(input_run: Path, cell: dict, floor: float) -> tuple[float, 
 
 
 def build_plan(profile_path: Path, cells_path: Path) -> dict:
-    profile_path, cells_path = _within_project(profile_path), _within_project(cells_path)
+    profile_path, cells_path = _stable_support_file(profile_path), _stable_support_file(cells_path)
     profile = _json(profile_path)
     validate_profile(profile)
     cells_document = _json(cells_path)
@@ -341,12 +384,12 @@ def _run_args(profile: dict, cell: dict, method: str, index: int, output: Path) 
 
 def execute(plan_path: Path, expected_sha256: str, output: Path) -> None:
     """Run all twelve recipes per paired cell, preserving any partial output."""
-    plan_path = _within_project(plan_path)
+    plan_path = _stable_support_file(plan_path)
     if sha256_file(plan_path) != expected_sha256:
         raise ValueError("Plan SHA-256 mismatch")
     plan = _json(plan_path)
     _validate_plan(plan)
-    output = _within_project(output)
+    output = _ignored_output(output)
     current = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     dirty = subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT, text=True).strip()
     if (
@@ -401,6 +444,141 @@ def execute(plan_path: Path, expected_sha256: str, output: Path) -> None:
                     stream.write(json.dumps(record, sort_keys=True, allow_nan=False) + "\n")
                     stream.flush()
                     os.fsync(stream.fileno())
+
+
+def _same_state(left, right, field: str = "state") -> None:
+    if isinstance(left, torch.Tensor) and isinstance(right, torch.Tensor):
+        if not torch.equal(left, right):
+            raise ValueError(f"Authenticated Development replay differs: {field}")
+    elif isinstance(left, dict) and isinstance(right, dict):
+        if left.keys() != right.keys():
+            raise ValueError(f"Authenticated Development replay differs: {field}")
+        for key in left:
+            _same_state(left[key], right[key], f"{field}.{key}")
+    elif isinstance(left, (list, tuple)) and isinstance(right, (list, tuple)):
+        if len(left) != len(right):
+            raise ValueError(f"Authenticated Development replay differs: {field}")
+        for index, (a, b) in enumerate(zip(left, right, strict=True)):
+            _same_state(a, b, f"{field}.{index}")
+    elif left != right:
+        raise ValueError(f"Authenticated Development replay differs: {field}")
+
+
+def _verify_event_journal(path: Path, manifest: dict, events: list[str]) -> None:
+    evidence = manifest["event_journal"]
+    journal = path / evidence["file"]
+    if evidence["file"] != "events.jsonl" or sha256_file(journal) != evidence["sha256"]:
+        raise ValueError("Event journal SHA-256 mismatch")
+    with journal.open(encoding="utf-8") as stream:
+        rows = [json.loads(line) for line in stream]
+    if (
+        not rows
+        or rows[0]
+        != {
+            "schema": "hung-sprint2-event-journal-v1",
+            "kind": "header",
+            "run_id": manifest["run_id"],
+            "input_binding": manifest["input_binding"],
+            "resumed_from": None,
+            "start_event_index": 0,
+        }
+        or evidence["start_event_index"] != 0
+        or evidence["end_event_index"] != len(events)
+        or evidence["events_written"] != len(events)
+        or rows[1:]
+        != [
+            {"kind": "event", "event_index": index, "value": event}
+            for index, event in enumerate(events)
+        ]
+    ):
+        raise ValueError("Event journal does not prove the replay event sequence")
+
+
+def _verify_replay_proof(
+    plan: dict, cell: dict, manifest: dict, saved: PrequentialRunner, path: Path
+) -> None:
+    """Re-execute authenticated Development chronology before trusting a score."""
+    config = manifest["config"]
+    device = config["device"]
+    input_run = _within_project(Path(cell["input_run"]))
+    source_run = _within_project(Path(cell["source_input_run"]))
+    target_manifest = _load_run(input_run, cell["input_manifest_sha256"])
+    _load_run(source_run, cell["source_manifest_sha256"])
+    _development_entity(input_run, target_manifest, cell)
+    source_binding = manifest["source_input_binding"]
+    if (
+        source_binding.get("stage") != "source"
+        or source_binding.get("input_manifest_sha256") != cell["source_manifest_sha256"]
+        or (source_binding.get("dataset_id"), source_binding.get("city_id"))
+        != (cell["dataset_id"], cell["city_id"])
+        or manifest["input_binding"].get("source_checkpoint_sha256")
+        != cell["source_checkpoint_sha256"]
+    ):
+        raise ValueError("Development Source/target input bindings differ")
+    for name in ("source_checkpoint", "target_checkpoint"):
+        if sha256_file(_within_project(Path(cell[name]))) != cell[f"{name}_sha256"]:
+            raise ValueError("Development replay input checkpoint changed")
+    source_model, _, source_scale, _ = load_checkpoint(
+        Path(cell["source_checkpoint"]),
+        expected_binding=manifest["source_input_binding"],
+        map_location=device,
+    )
+    target_model, optimizer, target_scale, _ = load_checkpoint(
+        Path(cell["target_checkpoint"]),
+        expected_binding=manifest["input_binding"],
+        map_location=device,
+    )
+    if source_scale is None or target_scale is None or not torch.equal(source_scale, target_scale):
+        raise ValueError("Development Source/target latent scales differ")
+    controller = dict(config["controller"])
+    controller["levels"] = tuple(controller["levels"])
+    proxy = dict(config["proxy_config"])
+    proxy["levels_by_bin"] = tuple(proxy["levels_by_bin"])
+    torch.manual_seed(config["seed"])
+    fresh = PrequentialRunner(
+        target_model,
+        optimizer,
+        frozen_source_reference(source_model),
+        source_scale,
+        binding=manifest["input_binding"],
+        controller=ControllerConfig(**controller),
+        epsilon=config["epsilon"],
+        energy_scale=saved.energy_scale,
+        selection_rule=config["selection_rule"],
+        proxy_config=ProxyConfig(**proxy),
+    )
+    summary = replay_target(
+        input_run,
+        manifest_sha256=cell["input_manifest_sha256"],
+        entity_id=cell["entity_id"],
+        runner=fresh,
+        max_origins=plan["profile"]["max_origins"],
+    )
+    if asdict(evaluate_replay(fresh, summary).coverage) != manifest["coverage"]:
+        raise ValueError("Authenticated Development coverage differs")
+    original, replayed = saved.state_dict(), fresh.state_dict()
+    for field in (
+        "issued",
+        "decisions",
+        "events",
+        "update_steps",
+        "audit_steps",
+        "current_level",
+        "next_index",
+        "block_id",
+        "days",
+        "pending",
+        "late_pending",
+        "active",
+        "candidates",
+        "audit",
+        "torch_rng",
+        "audit_rng",
+        "cuda_rng",
+        "audit_cuda_rng",
+    ):
+        _same_state(original[field], replayed[field], field)
+    _verify_event_journal(path, manifest, fresh.events)
 
 
 def select(plan: dict, records: list[dict]) -> dict:
@@ -470,6 +648,7 @@ def select(plan: dict, records: list[dict]) -> dict:
         runner = load_runner(
             checkpoint, expected_binding=manifest["input_binding"], device=config["device"]
         )
+        _verify_replay_proof(plan, cell, manifest, runner, path)
         scored = tuple(item["day_id"] for item in runner.issued if item["y_scaled"] is not None)
         coverage = manifest["coverage"]
         recomputed = evaluate_replay(
@@ -666,7 +845,7 @@ def main(argv: list[str] | None = None) -> int:
     choose.add_argument("--runs", type=Path, required=True)
     choose.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
-    args.output = _within_project(args.output)
+    args.output = _ignored_output(args.output)
     if args.command == "plan":
         result = build_plan(args.profile, args.cells)
         for cell in result["cells"]:
@@ -684,7 +863,7 @@ def main(argv: list[str] | None = None) -> int:
     elif args.command == "run":
         execute(args.plan, args.plan_sha256, args.output)
     else:
-        args.plan, args.runs = _within_project(args.plan), _within_project(args.runs)
+        args.plan, args.runs = _stable_support_file(args.plan), _stable_support_file(args.runs)
         if sha256_file(args.plan) != args.plan_sha256:
             raise ValueError("Plan SHA-256 mismatch")
         plan = _json(args.plan)

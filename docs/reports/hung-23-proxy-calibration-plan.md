@@ -42,20 +42,27 @@ reference, not a validated drift detector.
    manifest SHA-256 and Source/target checkpoint paths. Use **separate plans**
    for each dataset, city and initialization stratum. All 7/14/28 budgets and
    all three seeds must be present for every included entity/budget.
-2. On a clean commit, create a plan with
-   `python -m tools.hung_proxy_calibration plan --profile configs/hung-proxy-calibration-v1.json --cells CELLS.json --output NEW_PLAN.json`.
+2. On a clean commit, put the cell list in the worktree's Git-ignored
+   `.cache/` directory (or track it if it contains no sensitive paths), then
+   create a plan with
+   `python -m tools.hung_proxy_calibration plan --profile configs/hung-proxy-calibration-v1.json --cells .cache/CELLS.json --output .cache/NEW_PLAN.json`.
    The plan pins profile/cell/code/driver hashes, checkpoint bytes, Development
    role, first-history drift references and cohort identities.
 3. Record the plan SHA-256 and execute
-   `python -m tools.hung_proxy_calibration run --plan NEW_PLAN.json --plan-sha256 SHA --output NEW_RUN_DIR`.
-   The directory must be new and within the project. Each completed replay
+   `python -m tools.hung_proxy_calibration run --plan .cache/NEW_PLAN.json --plan-sha256 SHA --output .cache/NEW_RUN_DIR`.
+   The directory must be new and Git-ignored inside this worktree. Each completed replay
    appends a fsynced `runs.jsonl` row. A failure leaves all completed and
    partial artifacts untouched; there is no automatic favorable rerun or
    matrix-level resume in this tranche.
 4. Only after every declared cell completes, run
-   `python -m tools.hung_proxy_calibration select --plan NEW_PLAN.json --plan-sha256 SHA --runs NEW_RUN_DIR/runs.jsonl --output NEW_SELECTION.json`.
+   `python -m tools.hung_proxy_calibration select --plan .cache/NEW_PLAN.json --plan-sha256 SHA --runs .cache/NEW_RUN_DIR/runs.jsonl --output .cache/NEW_SELECTION.json`.
    The selector verifies every manifest/checkpoint SHA and bound configuration,
-   recomputes original-unit MAE/RMSE from saved issued forecasts and labels,
+   then re-executes each full Development chronology from its pinned Source and
+   target checkpoints plus manifest-hashed input. It requires the issued
+   forecasts, arrived labels, candidate/optimizer states, decisions, events and
+   authenticated event journal to match before recomputing original-unit
+   MAE/RMSE. This verification roughly doubles replay computation; an
+   unrepeatable CUDA result blocks selection rather than being silently used.
    requires identical scored origins, coverage, candidate update budgets and
    proxy inference counts across recipes, then averages seeds within station,
    stations within budget and the three budget means equally. Exact ties use
@@ -69,8 +76,9 @@ reference, not a validated drift detector.
 ## Evidence and remaining work
 
 Fixture tests exercise finite-grid validation, Development/Final isolation,
-masked first-history drift reference, null handling, tie order and pairing
-rejection. No locally accessible real Source/target checkpoint matrix was
+masked first-history drift reference, null handling, tie order, pairing
+rejection, ignored-output preflight and a forged checkpoint whose SHA is also
+rewritten in its copied run manifest. No locally accessible real Source/target checkpoint matrix was
 found in this checkout, so no real Development selection was run. A complete
 cohort, all run outputs, independent review, measured feasibility, mandatory
 baselines/ablations and the approved immutable lock remain required before
