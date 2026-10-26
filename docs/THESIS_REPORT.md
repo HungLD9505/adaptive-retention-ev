@@ -20,7 +20,7 @@ Answers require matched Final forecasts, uncertainty analysis, and complete cost
 
 ## 2. Related work and contribution boundary
 
-[Report 1, §3](../adaptive_retention_report_1.pdf) identifies online EV forecasting, continual time-series adaptation, online transfer, uncertainty-guided distillation, drift-aware updates, and online hyperparameter tuning as nearby work. Its bibliography lists Li et al., R-Tuning, BOTL, GUARD, PADRE, and Hyperon. A direct numerical comparison requires a faithful implementation or an explicitly labeled adaptation with compatible horizons and metrics; a project-built proxy controller is not a reproduction of those papers. Before the final literature chapter is accepted, verify each substantive comparison against its primary paper and record the exact task and implementation differences.
+[Report 1, §3](../adaptive_retention_report_1.pdf) identifies online EV forecasting, continual time-series adaptation, online transfer, uncertainty-guided distillation, drift-aware updates, and online hyperparameter tuning as nearby work. Its bibliography lists Li et al., R-Tuning, BOTL, GUARD, PADRE, and Hyperon. The [Li et al. preprint](https://arxiv.org/abs/2608.24441) addresses online probabilistic EV charging-load forecasts with delayed feedback, but its reported 1- and 4-hour horizons and probabilistic metrics do not directly match this 24-hour deterministic task. The other method descriptions here remain the proposal's related-work map, not verified claims about those papers' limitations. A direct numerical comparison requires a faithful implementation or an explicitly labeled adaptation with compatible horizons and metrics; a project-built proxy controller is not a reproduction of those papers. Before the final literature chapter is accepted, verify each substantive comparison against its primary paper and record the exact task and implementation differences.
 
 The scientific test here is narrower than a general claim that transfer learning helps: compare retention trajectories and their selection rules on the same forecast origins and labels. Full fine-tuning, fixed retention, and Simple Online Best-λ are particularly important controls. A negative or null result is a valid outcome and must be reported without selecting favorable seeds or sites afterward.
 
@@ -31,6 +31,8 @@ The scientific test here is narrower than a general claim that transfer learning
 UrbanEV supplies station-level hourly **estimated or derived charging energy**, not independently verified meter readings. CHARGED supplies provider-processed hourly demand for virtual sites formed from chargers. The six standard city namespaces are AMS, JHB, LOA, MEL, SPO, and SZH; they are separate experiments, not one pooled Source population. SZH has documented coordinate overlap with UrbanEV and cannot be presented as independent unseen-location validation. The [data flow](data/DATA_FLOW.md), [UrbanEV reference](data/URBANEV.md), [CHARGED reference](data/CHARGED.md), and [integration handoff](reports/data-integration.md) document the released inputs and limitations.
 
 The DATA-v1-20261019 snapshot contains prepared inputs for each city and each 7/14/28-day budget. Its [release catalog](../data/releases/DATA-v1-20261019.json) supplies package sizes and SHA-256 fingerprints; a consumer must rehash each downloaded archive before using it. The input acceptance policy retains missing historical hours through a zero placeholder plus mask, distinguishes a valid zero from a missing hour, and never fills missing target labels. A forecast is issued only when the history gate permits it; scoring and updates require all 24 labels to have arrived. Requested, issued, and scored counts are different denominators.
+
+The accepted model interface is `X_hist[24,7]`, known `C_future[24,5]`, and a separate `Y[24]` label vector. ID-hash Source/Development/Final splits are fixed before model work, with each CHARGED city split independently. The released UrbanEV profile has 1,682 station IDs and the six CHARGED profiles have 4,280 site IDs in total; these are inventory counts, not the number of independent physical facilities or eligible Final evaluation units. The [input handoff](reports/input-handoff.md) records 21 city/budget configurations and their exact coverage. For example, UrbanEV's 7-day profile requested 63,090 origins, emitted 48,701 forecast inputs, and had 45,416 emitted inputs with complete released labels; 6,030 origins were blocked by undefined scale and 8,359 skipped for empty history. These preprocessing counts are not model accuracy or proof of original observation completeness.
 
 The benchmark assumes the published bin clock and label availability at the exclusive horizon end. Actual arrival latency, upstream interpolation/imputation provenance, and physical-site disjointness remain unverified. Results must be called a **chronological benchmark on published data**, not a certified strict-online or causal evaluation.
 
@@ -56,7 +58,7 @@ The mandatory baselines are Seasonal Naive with fallback, Target-only GRU, Froze
 
 Development chooses the finite configuration, proxy mapping, candidate levels, bootstrap settings, block-size sensitivity, inclusion rules, and at least three seeds. Before Final, an independent reviewer must approve immutable data/cohort/code/config identities and a feasible run matrix. The Final experiment then runs that exact specification without result-driven revision. A correctness change that affects locked results requires a recorded new lock and affected reruns; preserve the old evidence. [Issue #23](https://github.com/HungLD9505/adaptive-retention-ev/issues/23) tracks this gate.
 
-The primary metric is original-unit MAE, with RMSE supplementary. Aggregate by site first; report coverage, distributions, and uncertainty that respects site/time dependence. Compare transfer gain and negative transfer rate with Target-only using a prespecified evaluation unit. Where Target-only MAE is zero, report an absolute difference instead of dividing by zero. Stratify by initial-history budget, site, time, and Development-defined sparse/dense context. Report switch paths, insufficient-evidence decisions, next-block audit outcomes, runtime, peak memory, inference and update steps for all three candidates, and audit overhead separately.
+The primary metric is original-unit MAE, with RMSE supplementary. Aggregate by site first; report coverage, distributions, and uncertainty that respects site/time dependence. Compare transfer gain `(MAE_Target-only − MAE_method) / MAE_Target-only` and negative transfer rate with Target-only using a prespecified evaluation unit. Where Target-only MAE is zero, report an absolute difference instead of dividing by zero. Stratify by initial-history budget, site, time, and Development-defined sparse/dense context. Report switch paths, insufficient-evidence decisions, next-block audit outcomes, runtime, peak memory, inference and update steps for all three candidates, and audit overhead separately.
 
 ## 6. Evidence available on 2026-10-26
 
@@ -66,11 +68,27 @@ Hung's independent [Sprint 2 implementation handoff](https://github.com/HungLD95
 
 The independently authored [baseline PR #51](https://github.com/HungLD9505/adaptive-retention-ev/pull/51) and [Development evaluation PR #52](https://github.com/HungLD9505/adaptive-retention-ev/pull/52) contain additional real runs and artifact checks. Their reviews, full off-runtime restore, complete CHARGED replication, compute acceptance, and Final lock remain pending. In the reported matched UrbanEV Development collection, the selected Adaptive controller did not beat selected Fixed Retention on the conditional equal-budget MAE point estimates. This is a tuning observation on a small scored cohort, not a Final effect or population claim. Do not combine outcomes from different implementation/configuration families as if they were independent replications.
 
-## 7. Final results, discussion, and conclusion — pending evidence
+## 7. Final results — pending evidence
 
-This section will be completed only from the independently approved #23 handoff. Required tables must identify each dataset/city, budget, method, seed, requested/issued/scored coverage, valid sites, MAE/RMSE, paired effects, uncertainty, and null or failed cells. Keep UrbanEV primary; show AMS/JHB/LOA/MEL/SPO supplementary results and SZH separately. Link the exact immutable lock, code SHA, input manifests, run IDs, forecast/event/checkpoint proofs, and cost artifacts used in each table.
+This section will be completed only from the independently approved #23 handoff. The table below is a reporting contract, not a table of measurements. Each result row must identify the exact immutable lock, code SHA, input manifest, run IDs, forecast/event/checkpoint proofs, and cost artifact.
+
+| Dataset/city | Budget | Method | Seeds | Requested / issued / scored days | Scored sites | Site-first MAE / RMSE (kWh) | Paired effect and uncertainty | Candidate cost / audit cost | Evidence |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| UrbanEV/SZH | 7, 14, 28 separately | Every accepted main method and ablation | At least three, as locked | Pending Final | Pending Final | Pending Final | Pending Final | Pending Final | Pending accepted #23 handoff |
+| CHARGED AMS/JHB/LOA/MEL/SPO, each separately | 7, 14, 28 separately | Every accepted main method and ablation | At least three, as locked | Pending Final | Pending Final | Pending Final | Pending Final | Pending Final | Pending accepted #23 handoff |
+| CHARGED SZH, separate overlap-limited supplement | 7, 14, 28 separately | Every accepted main method and ablation | At least three, as locked | Pending Final | Pending Final | Pending Final | Pending Final | Pending Final | Pending accepted #23 handoff |
+
+Report null and failed cells explicitly and distinguish an unissued origin from an issued forecast whose labels never became scorable. A run that lacks complete downloaded artifacts or verified state cannot silently fill a table cell. Do not pool the five geographic supplements or SZH into an independence claim.
+
+## 8. Discussion — pending Final comparison
 
 Answer RQ1–RQ3 even if Adaptive Retention has no advantage. Discuss transfer, retention, controller selection, robustness, and compute cost separately. State limitations from upstream processing, clock/arrival assumptions, ID-based splits, physical overlap, small scored cohorts, and any incomplete experiment cells. No conclusion about superiority, novelty, independent external validation, or deployment safety is justified by the current Development evidence.
+
+The discussion must separate: (a) Source initialization versus Target-only; (b) retention versus Full Fine-tuning; (c) adaptive versus Fixed Retention and Simple Online Best-λ; and (d) confidence selection versus proxy controllers. Paired performance and its uncertainty determine the direction and strength of each claim. A switch count or lower training loss alone cannot answer any of these comparisons. Conditional small-cohort Development results remain separate from Final estimates.
+
+## 9. Conclusion — pending Final evidence
+
+No final conclusion is available. After accepted Final results, summarize the answer to each research question, effect magnitude and uncertainty, practical compute cost, and limitations. If the confidence rule gives no useful advantage, state that result and narrow the contribution claim. Do not infer novelty merely from a favorable benchmark score.
 
 ## Reproduction and evidence register
 
@@ -83,3 +101,12 @@ Answer RQ1–RQ3 even if Adaptive Retention has no advantage. Discuss transfer, 
 | [Evaluation #52](https://github.com/HungLD9505/adaptive-retention-ev/pull/52) | Development calibration and partial analysis | Full artifact restore, six-city CHARGED, independent Final lock and Final runs |
 
 The execution log for this report must distinguish commands actually rerun from historical commands quoted in linked evidence. Large inputs, checkpoints, and forecasts remain outside Git; preserve old run directories and reports. The final report PR must link its exact validation commands, results, reviewer decision, and accepted experiment artifacts.
+
+## References
+
+1. AIP491_G10. [*Adaptive Transfer Learning for Cold-Start Electric Vehicle Charging Demand Forecasting* (Report 1)](../adaptive_retention_report_1.pdf), Fall 2026. Method proposal and source of the research questions; not experimental evidence.
+2. C. Li, Q. Liu, Y. Xu, and Y. Liang. [*A Behavior-Guided Online Probabilistic Forecasting Method for Electric Vehicle Charging Loads*](https://arxiv.org/abs/2608.24441), arXiv:2608.24441v2, 2026. Primary preprint and metadata checked against arXiv.
+3. [*UrbanEV: An Open Benchmark Dataset for Urban Electric Vehicle Charging Demand Prediction*](https://doi.org/10.1038/s41597-025-04874-4), *Scientific Data*, 2025. Title and link follow Report 1; this project's actual release schema and limitations are established by the repository's dataset audit, not inferred from the title.
+4. [*A City-scale and Harmonized Dataset for Global Electric Vehicle Charging Demand Analysis*](https://doi.org/10.1038/s41597-025-05584-7), *Scientific Data*, 2025. Title and link follow Report 1; the release's processed nature and site semantics are established by the repository's CHARGED audit.
+
+Report 1 also lists R-Tuning, BOTL, GUARD, PADRE, and Hyperon. Their citation metadata and specific mechanism/limitation claims still require primary-source review before they are used as substantive final-report references.
