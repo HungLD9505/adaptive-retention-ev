@@ -1,0 +1,30 @@
+{
+  "predecessor_version": "https://www.kaggle.com/code/hungluongduc/hung-matched-shard0001-44b8532-20261027?scriptVersionId=362612528",
+  "artifact_sha256": "29e3db51106402942959f80762e4c27995ad4ec9f2253fd96cc8a4681d3b2dcd",
+  "crc": "passed",
+  "jobs": 20,
+  "p95_job_subprocess_seconds": 25.97356730799993,
+  "p95_scope": "Per-job subprocess sums; excludes orchestration, independent verification and archive overhead",
+  "measured_whole_provider_seconds": 1810.4,
+  "peak_cuda_allocated_bytes": 39502336,
+  "peak_cuda_reserved_bytes": 44040192,
+  "replay_update_steps": 2133,
+  "update_scope": "Cumulative per-job maxima across continuation stages; includes candidate/audit/proxy updates, excludes reused Source/Target training",
+  "artifact_uncompressed_bytes": 76577575,
+  "hash_crc_readback_seconds": 1.5270425310000064,
+  "projected_remaining_gpu_minutes_with_1_25_margin": 1018.35,
+  "quota_observation": {
+    "observed_at_utc": "2026-10-26T21:16:58.401867+00:00",
+    "available_gpu_minutes": 1405.8924503666667,
+    "used_seconds": 23646.452978,
+    "reserved_seconds": 0.0,
+    "total_seconds": 108000.0,
+    "source": "Authenticated official SDK quota at execution"
+  },
+  "acceptance": "Technical durability only; independent peer acceptance pending",
+  "group02_version_url": "https://www.kaggle.com/code/hungluongduc/hung-matched-group02-44b8532-20261027?scriptVersionId=362625674",
+  "log_sha256": "75c572c9e4ec005870b20102c90ff39dc4a87c2d062aa17b92779eece9b2939a",
+  "completed_new_jobs_snapshot": 42,
+  "remote_readback_jobs_snapshot": 26,
+  "group02_execution": "running; not counted complete"
+}
