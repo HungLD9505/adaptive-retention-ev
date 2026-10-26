@@ -184,3 +184,25 @@ printed exit0 and code-only notebook are insufficient. No new training was
 started during this incident inspection. Independent review, all six delivered
 city scopes, complete primary restoration, compute acceptance and Final lock
 remain open. No Final, autonomous merge or issue closure.
+
+
+### Same-configuration JHB recovery started
+
+After the filesystem loss was confirmed, a new run was explicitly launched at
+`/kaggle/working/qyroven-jhb-storage-recovery-20261026-v2`, child PID407.
+Bootstrap fixtures, Ruff lint and format passed before launch. It checks out
+original city code `9057364e6a8e663b9ba9c204621d109c02bed3e0`, reuses the exact
+accepted JHB input/cohort, primary-summary and density fingerprints and retains
+seeds42/43/44, all7/14/28-day budgets,10 Source epochs and the same378 target cells.
+This is disclosed recovery from missing storage, not a new configuration search
+or selection of a favorable rerun. No recovered numerical result is claimed yet.
+
+The [self-contained recovery dependency archive](https://drive.google.com/file/d/13E4lTy6jqCrH6IEQlCDKbcj1Ea-lvKDz/view)
+is8,176,124 bytes, SHA-256
+`7f21d35ba89113aed187a644a7b583e70cf83f15f3a87052bc794144ad2076dd`.
+Anonymous archive size/hash/CRC and all member hashes passed; it contains complete
+code history, unchanged pipeline source, primary summary and density metadata,
+not trained weights or replacement evidence. The new launcher prepares both a
+small metadata archive and a single complete export ZIP immediately after the
+pipeline succeeds. Creating those files on temporary storage is still not durable
+acceptance; download/readback and independent full checks remain required.
