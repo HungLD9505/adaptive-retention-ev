@@ -25,6 +25,7 @@ GROUPS = (
     (35, 36),
 )
 LOCAL = {4, 5, 6, 7, 29, 30, 31, 32, 37, 38, 39}
+STORAGE_SOURCE = ""  # Embedded from the versioned storage module when building v2.
 EXPECTED_JOBSET_SHA = {
     "shard_0001": "e2051de08dfb0f0ee91c3617151f08d5cd2c712bb88344244980e4ec2f350c69",
     "shard_0002": "1cf89024e9c8b9d8488b386a54a0995924fad19a9334f9539d50843d345260f1",
@@ -197,18 +198,24 @@ def validate_groups() -> None:
 
 def slug(index: int) -> str:
     assert 0 <= index < len(GROUPS)
-    return f"hung-matched-group{index + 2:02d}-44b8532-20261027"
+    return f"hung-matched-group{index + 2:02d}-44b8532-20261027" + ("-v2" if index else "")
 
 
-def verify_predecessor(root: Path, shards: tuple[int, ...]) -> list[dict]:
+def verify_predecessor(
+    root: Path, shards: tuple[int, ...], *, archive_name="artifacts.zip"
+) -> list[dict]:
     """Hash/CRC readback of a pinned predecessor version, before new training."""
     records = []
     for number in shards:
         name = f"shard_{number:04d}"
-        matches = list(root.rglob(f"{name}/receipt.json"))
+        matches = [
+            p
+            for p in root.rglob("receipt.json")
+            if json.loads(p.read_text()).get("shard_id") == name
+        ]
         assert len(matches) == 1, f"Missing/ambiguous predecessor {name}"
         receipt = json.loads(matches[0].read_text())
-        archive = matches[0].with_name("artifacts.zip")
+        archive = matches[0].with_name(archive_name)
         assert receipt["shard_id"] == name
         assert receipt["exit_code"] == receipt["local_verify_exit_code"] == 0
         assert (receipt["plan_sha256"], receipt["shards_sha256"]) == EXPECTED_PROVIDER_PINS[name]
@@ -262,7 +269,14 @@ def status(slug_name: str) -> str:
     return value
 
 
-def submit(name: str, source: str, *, gpu: bool, predecessor: str | None = None) -> dict:
+def submit(
+    name: str,
+    source: str,
+    *,
+    gpu: bool,
+    predecessor: str | None = None,
+    datasets: list[str] | None = None,
+) -> dict:
     """One submission attempt. Caller must hold the unique relay chain position."""
     from kagglehub.clients import build_kaggle_client
     from kagglesdk.kernels.types.kernels_api_service import ApiSaveKernelRequest
@@ -273,7 +287,9 @@ def submit(name: str, source: str, *, gpu: bool, predecessor: str | None = None)
     request.text, request.language, request.kernel_type = source, "python", "script"
     request.is_private, request.enable_gpu, request.enable_internet = True, gpu, True
     request.session_timeout_seconds = 8 * 3600 if gpu else 5 * 3600
-    request.dataset_data_sources = [PAYLOAD] if gpu or predecessor else []
+    request.dataset_data_sources = (
+        datasets if datasets is not None else ([PAYLOAD] if gpu or predecessor else [])
+    )
     request.kernel_data_sources = [f"{OWNER}/{predecessor}/1"] if predecessor else []
     if gpu:
         request.machine_shape = "NvidiaTeslaT4"
@@ -320,6 +336,11 @@ def module_prefix(module_source: str) -> str:
     return module_source + "\nMODULE_SOURCE = " + repr(module_source) + "\n"
 
 
+def compose_module_source(queue_source: str, storage_source: str) -> str:
+    compile(storage_source, "hung_kaggle_storage.py", "exec")
+    return queue_source + "\nSTORAGE_SOURCE = " + repr(storage_source) + "\n"
+
+
 def gpu_source(module_source: str, setup: str, parity: str, index: int) -> str:
     assert 1 <= index < len(GROUPS)
     selected = [f"shard_{n:04d}" for n in GROUPS[index]]
@@ -327,6 +348,7 @@ def gpu_source(module_source: str, setup: str, parity: str, index: int) -> str:
     setup = setup.replace("hung-matched-group02-v1", base_name)
     setup = setup.replace('["shard_0002", "shard_0003"]', repr(selected))
     source = module_prefix(module_source)
+    source += "\nassert STORAGE_SOURCE\nexec(STORAGE_SOURCE, globals())\n"
     source += f"\nclaim({slug(index)!r}+'-execute', {{'group_index': {index}}})\n" + setup
     source += "\nreadback_started = time.perf_counter()\n"
     source += f"readback = verify_predecessor(Path('/kaggle/input'), {GROUPS[index - 1]!r})\n"
@@ -348,6 +370,8 @@ for shard_id in selected:
     assert shutil.disk_usage(base).free >= 8*1024**3, 'Disk reserve failed'
     assert time.perf_counter()-group_start < 6*3600, 'Bounded session limit'
     record = provider.execute_shard(repo, shard_id, base / shard_id)
+    persist_shard(record, base/shard_id/'artifacts.zip', module_prefix(MODULE_SOURCE),
+                  owner=OWNER, submit=submit, status=status)
     receipts.append(record)
     print(json.dumps(record), flush=True)
 provider.save(base / 'group-complete.json', {'shards': selected, 'receipts': receipts,
@@ -378,7 +402,7 @@ def relay(
 ) -> None:
     """CPU SDK relay: serial fixed GPU groups; 3h CPU relay bounds, no LLM polling."""
     validate_groups()
-    claim(f"hung-development-relay-{ordinal:02d}-execute-20261027-v1", {"group_index": index})
+    claim(f"hung-development-relay-{ordinal:02d}-execute-20261027-v2", {"group_index": index})
     evidence = Path(f"/kaggle/working/relay-{ordinal:02d}")
     evidence.mkdir(exist_ok=False)
     started = time.monotonic()
@@ -408,7 +432,7 @@ def relay(
                     + "print(json.dumps({'passed':True,'records':records}),flush=True)\n"
                 )
                 submit(
-                    "hung-development-last-readback-20261027-v1",
+                    "hung-development-last-readback-20261027-v2",
                     proof,
                     gpu=False,
                     predecessor=slug(index),
@@ -423,7 +447,7 @@ def relay(
             )
         if time.monotonic() - started >= 3 * 3600:
             assert ordinal + 1 < 12, "CPU relay count bound"
-            name = f"hung-development-cpu-relay-{ordinal + 1:02d}-20261027-v1"
+            name = f"hung-development-cpu-relay-{ordinal + 1:02d}-20261027-v2"
             submit(
                 name,
                 relay_source(
