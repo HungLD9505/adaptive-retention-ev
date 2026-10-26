@@ -3,19 +3,25 @@
 from __future__ import annotations
 
 import json
+import shutil
 import tempfile
 import unittest
 from copy import deepcopy
 from pathlib import Path
 
 from ev_inputs.hourly_reader import sha256_file
+from experiments.hung_sprint2.checkpoint import load_runner, save_runner
+from experiments.hung_sprint2.cli import _replay
 from tests.test_hung_replay_inputs import input_run
 from tools.hung_proxy_calibration import (
     METHODS,
     ROOT,
     _development_entity,
+    _ignored_output,
+    _stable_support_file,
     _summarize_seen,
     _validate_plan,
+    _verify_replay_proof,
     build_plan,
     recipe,
     validate_profile,
@@ -25,6 +31,14 @@ PROFILE = ROOT / "configs" / "hung-proxy-calibration-v1.json"
 
 
 class CalibrationTests(unittest.TestCase):
+    def test_outputs_must_be_ignored_and_inputs_stable(self) -> None:
+        self.assertEqual(_ignored_output(ROOT / ".cache" / "new-run"), ROOT / ".cache" / "new-run")
+        with self.assertRaisesRegex(ValueError, "Git-ignored"):
+            _ignored_output(ROOT / "new-untracked-run")
+        self.assertEqual(_stable_support_file(PROFILE), PROFILE)
+        with self.assertRaisesRegex(ValueError, "tracked or Git-ignored"):
+            _stable_support_file(ROOT / "new-untracked-cells.json")
+
     def test_finite_equal_grid_and_explicit_direction(self) -> None:
         profile = json.loads(PROFILE.read_text(encoding="utf-8"))
         validate_profile(profile)
@@ -46,7 +60,8 @@ class CalibrationTests(unittest.TestCase):
             validate_profile(malformed)
 
     def test_plan_uses_only_masked_first_development_history(self) -> None:
-        with tempfile.TemporaryDirectory(dir=ROOT) as directory:
+        (ROOT / ".cache").mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ROOT / ".cache") as directory:
             root = Path(directory)
             cells = []
             for budget in (7, 14, 28):
@@ -58,12 +73,9 @@ class CalibrationTests(unittest.TestCase):
                     row[0] = 0.0 if hour < 12 else 0.4
                     row[6] = 0.0 if hour < 12 else 1.0
                 # Earlier Final record is an exclusion bait, never a reference.
-                final = deepcopy(forecasts[0])
-                final["role"] = "final"
-                final["origin"] = "2020-01-01T00:00:00+08:00"
-                final["x_hist"] = [[999.0, 0, 0, 0, 0, 0, 1.0]] * 24
                 forecasts_path.write_text(
-                    "".join(json.dumps(row) + "\n" for row in [final, *forecasts]),
+                    '{"role": "final", MALFORMED PRIVATE FINAL ROW\n'
+                    + "".join(json.dumps(row) + "\n" for row in forecasts),
                     encoding="utf-8",
                 )
                 manifest_path = run / "manifest.json"
@@ -108,6 +120,70 @@ class CalibrationTests(unittest.TestCase):
             entities.write_text("".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "Development entity"):
                 _development_entity(Path(bad["input_run"]), manifest, bad)
+
+    def test_replay_proof_rejects_rewritten_checkpoint_and_manifest_hash(self) -> None:
+        from tests.test_hung_replay_cli import ReplayCliTests
+
+        (ROOT / ".cache").mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ROOT / ".cache") as directory:
+            root = Path(directory)
+            helper = ReplayCliTests()
+            run, digest, source, target, binding = helper._inputs(root)
+            args = helper._args(root, run, digest, source, target, "original", 1)
+            args.selection_rule = "source_error"
+            args.proxy_low, args.proxy_high = 0.1, 0.5
+            args.proxy_level_low, args.proxy_level_mid, args.proxy_level_high = 0.0, 0.1, 0.2
+            _replay(args)
+            manifest = json.loads((args.output / "run_manifest.json").read_text(encoding="utf-8"))
+            runner = load_runner(args.output / "runner_checkpoint.pt", expected_binding=binding)
+            cell = {
+                "dataset_id": "urbanev",
+                "city_id": "SZH",
+                "history_days": 7,
+                "entity_id": "dev-1",
+                "seed": 7,
+                "input_run": str(run),
+                "input_manifest_sha256": digest,
+                "source_input_run": str(run),
+                "source_manifest_sha256": digest,
+                "source_checkpoint": str(source),
+                "target_checkpoint": str(target),
+                "source_checkpoint_sha256": sha256_file(source),
+                "target_checkpoint_sha256": sha256_file(target),
+            }
+            plan = {"profile": {"max_origins": 1}}
+            _verify_replay_proof(plan, cell, manifest, runner, args.output)
+            runner.issued[0]["forecasts"][0].add_(0.5)
+            forged = root / "forged"
+            forged.mkdir()
+            save_runner(forged / "runner_checkpoint.pt", runner)
+            shutil.copyfile(args.output / "events.jsonl", forged / "events.jsonl")
+            altered = deepcopy(manifest)
+            altered["final_runner_checkpoint_sha256"] = sha256_file(forged / "runner_checkpoint.pt")
+            (forged / "run_manifest.json").write_text(json.dumps(altered), encoding="utf-8")
+            self.assertEqual(
+                altered["final_runner_checkpoint_sha256"],
+                sha256_file(forged / "runner_checkpoint.pt"),
+            )
+            forged_runner = load_runner(forged / "runner_checkpoint.pt", expected_binding=binding)
+            with self.assertRaisesRegex(ValueError, "Authenticated Development replay differs"):
+                _verify_replay_proof(plan, cell, altered, forged_runner, forged)
+            forged_events = root / "forged-events"
+            forged_events.mkdir()
+            journal_rows = [
+                json.loads(line) for line in (args.output / "events.jsonl").read_text().splitlines()
+            ]
+            journal_rows[1]["value"] = "forecast:forged-day"
+            (forged_events / "events.jsonl").write_text(
+                "".join(json.dumps(row) + "\n" for row in journal_rows), encoding="utf-8"
+            )
+            event_manifest = deepcopy(manifest)
+            event_manifest["event_journal"]["sha256"] = sha256_file(forged_events / "events.jsonl")
+            authentic_runner = load_runner(
+                args.output / "runner_checkpoint.pt", expected_binding=binding
+            )
+            with self.assertRaisesRegex(ValueError, "Event journal does not prove"):
+                _verify_replay_proof(plan, cell, event_manifest, authentic_runner, forged_events)
 
     def test_station_first_equal_budget_nulls_ties_and_pairing(self) -> None:
         cells = [
