@@ -9,6 +9,8 @@ import unittest
 from copy import deepcopy
 from pathlib import Path
 
+import torch
+
 from ev_inputs.hourly_reader import sha256_file
 from experiments.hung_sprint2.checkpoint import load_runner, save_runner
 from experiments.hung_sprint2.cli import _replay
@@ -152,7 +154,8 @@ class CalibrationTests(unittest.TestCase):
                 "target_checkpoint_sha256": sha256_file(target),
             }
             plan = {"profile": {"max_origins": 1}}
-            _verify_replay_proof(plan, cell, manifest, runner, args.output)
+            original_checkpoint = args.output / "runner_checkpoint.pt"
+            _verify_replay_proof(plan, cell, manifest, runner, args.output, original_checkpoint)
             runner.issued[0]["forecasts"][0].add_(0.5)
             forged = root / "forged"
             forged.mkdir()
@@ -167,7 +170,34 @@ class CalibrationTests(unittest.TestCase):
             )
             forged_runner = load_runner(forged / "runner_checkpoint.pt", expected_binding=binding)
             with self.assertRaisesRegex(ValueError, "Authenticated Development replay differs"):
-                _verify_replay_proof(plan, cell, altered, forged_runner, forged)
+                _verify_replay_proof(
+                    plan, cell, altered, forged_runner, forged, forged / "runner_checkpoint.pt"
+                )
+            for variant in ("rng", "cost"):
+                forged_path = root / f"forged-{variant}"
+                forged_path.mkdir()
+                payload = torch.load(original_checkpoint, map_location="cpu", weights_only=True)
+                altered = deepcopy(manifest)
+                if variant == "rng":
+                    torch.manual_seed(999)
+                    payload["torch_rng"] = torch.get_rng_state().clone()
+                else:
+                    payload["runtime_costs"]["candidate"][0]["inference_calls"] += 1
+                    altered["runtime_costs"]["candidate"][0]["inference_calls"] += 1
+                checkpoint = forged_path / "runner_checkpoint.pt"
+                torch.save(payload, checkpoint)
+                altered["final_runner_checkpoint_sha256"] = sha256_file(checkpoint)
+                (forged_path / "run_manifest.json").write_text(
+                    json.dumps(altered), encoding="utf-8"
+                )
+                shutil.copyfile(args.output / "events.jsonl", forged_path / "events.jsonl")
+                forged_runner = load_runner(checkpoint, expected_binding=binding)
+                with self.assertRaisesRegex(
+                    ValueError, f"{variant if variant == 'rng' else 'runtime_costs'}"
+                ):
+                    _verify_replay_proof(
+                        plan, cell, altered, forged_runner, forged_path, checkpoint
+                    )
             forged_events = root / "forged-events"
             forged_events.mkdir()
             journal_rows = [
@@ -183,7 +213,9 @@ class CalibrationTests(unittest.TestCase):
                 args.output / "runner_checkpoint.pt", expected_binding=binding
             )
             with self.assertRaisesRegex(ValueError, "Event journal does not prove"):
-                _verify_replay_proof(plan, cell, event_manifest, authentic_runner, forged_events)
+                _verify_replay_proof(
+                    plan, cell, event_manifest, authentic_runner, forged_events, original_checkpoint
+                )
 
     def test_station_first_equal_budget_nulls_ties_and_pairing(self) -> None:
         cells = [
