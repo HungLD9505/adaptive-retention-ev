@@ -1178,5 +1178,16 @@
     ],
     "cuda_visible_devices": "0",
     "scope": "Kernel lifetime and GPU inventory only, not exact allocation or provider billing. Includes operator idle; study target durations and per-component costs stay separate. No account, token, model or Final data inspected."
+  },
+  "kaggle_offset99_continuation": {
+    "pid": 1482,
+    "start": 99,
+    "end": 111,
+    "count_limit": 12,
+    "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+    "required_previous_receipt_sha256": "d6a7c09721affef41473e1e5bf35966d7ed81573f485d0d79aa2ec73ec84be33",
+    "status": "actual_dispatch_not_yet_content_published",
+    "log": "/kaggle/working/issue23-proxy-0099-0111-operator-v2.log",
+    "scope": "Only actual prior99-run publication permits this frozen next chunk. Max12 local outbox then independent publication; no automatic next, Final or schema/method changes."
   }
 }

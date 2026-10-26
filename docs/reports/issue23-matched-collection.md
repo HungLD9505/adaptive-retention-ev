@@ -647,3 +647,8 @@ costs stay separate. Do not sum target durations and call that total cloud cost.
 The old CPU storage session remains Starting/Waiting for Jupyter; bounded console
 classification still includes backend500 failures. No old Python or file-content
 proof exists and no old training cell was rerun.
+
+After all99 targets were durably published, the original next [99,111) range was
+dispatched as PID1482 using the same frozen checkout and externally verified
+receipt. No completion or remote publication of that range is implied. The lead's
+Final cohort question remains pending; Development recovery is independent of it.
