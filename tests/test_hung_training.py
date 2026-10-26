@@ -13,7 +13,13 @@ import torch
 from ev_inputs.hourly_reader import sha256_file
 from experiments.hung_sprint2.cli import ARTIFACTS, main
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.training import load_checkpoint, save_checkpoint, source_step
+from experiments.hung_sprint2.training import (
+    initialize_target,
+    load_checkpoint,
+    model_state_sha256,
+    save_checkpoint,
+    source_step,
+)
 
 
 def _input_run(
@@ -80,6 +86,37 @@ class TrainingConsumerTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         torch.set_num_threads(1)
+
+    def test_random_target_keeps_source_reference_without_source_weights(self) -> None:
+        source = ForecastGRU(ModelConfig(calendar_hidden=8))
+        source_digest = model_state_sha256(source)
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(41)
+            first, reference, first_optimizer = initialize_target(
+                source, learning_rate=0.001, initialization_kind="random_target"
+            )
+            torch.manual_seed(41)
+            second, _, _ = initialize_target(
+                source, learning_rate=0.001, initialization_kind="random_target"
+            )
+        self.assertNotEqual(model_state_sha256(first), source_digest)
+        self.assertEqual(model_state_sha256(first), model_state_sha256(second))
+        self.assertEqual(model_state_sha256(reference), source_digest)
+        self.assertFalse(any(parameter.requires_grad for parameter in reference.parameters()))
+        self.assertEqual(first_optimizer.state_dict()["state"], {})
+        with self.assertRaisesRegex(ValueError, "Unsupported target initialization"):
+            initialize_target(source, learning_rate=0.001, initialization_kind="unknown")
+
+    def test_no_source_proposal_changes_only_initialization(self) -> None:
+        root = Path(__file__).resolve().parents[1] / "experiments/hung_sprint2"
+        base = json.loads((root / "development_config_v1.json").read_text())
+        variant = json.loads(
+            (root / "development_no_source_initialization_proposal_v1.json").read_text()
+        )
+        self.assertEqual(variant["target"].pop("initialization_kind"), "random_target")
+        self.assertEqual(variant["replay"].pop("initialization_kind"), "random_target")
+        variant["status"] = base["status"]
+        self.assertEqual(variant, base)
 
     def test_source_limit_with_one_example_fails_before_output(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
