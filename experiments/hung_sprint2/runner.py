@@ -10,7 +10,11 @@ from typing import Any
 import torch
 from torch import Tensor
 
-from experiments.hung_sprint2.baseline_selection import SelectionRule, decide_mean_block
+from experiments.hung_sprint2.baseline_selection import (
+    SelectionRule,
+    decide_fixed_block,
+    decide_mean_block,
+)
 from experiments.hung_sprint2.controller import ControllerConfig, DailyScore, Decision, decide_block
 from experiments.hung_sprint2.memory import model_optimizer_tensor_bytes, model_tensor_bytes
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
@@ -131,8 +135,18 @@ class PrequentialRunner:
         if not 0 < epsilon < float("inf") or not 0 < energy_scale < float("inf"):
             raise ValueError("Epsilon and original-unit energy scale must be positive")
         validate_latent_scale(latent_scale)
-        if selection_rule not in {"confidence", "online_best_lambda", "without_confidence"}:
+        if selection_rule not in {
+            "confidence",
+            "online_best_lambda",
+            "without_confidence",
+            "fixed_retention",
+            "full_finetuning",
+        }:
             raise ValueError("Unsupported selection rule")
+        if selection_rule == "full_finetuning" and controller.initial_level != 0.0:
+            raise ValueError("Full fine-tuning must start at lambda zero")
+        if selection_rule == "fixed_retention" and controller.initial_level == 0.0:
+            raise ValueError("Fixed retention must start at a positive lambda")
         self.binding = deepcopy(binding)
         self.controller = controller
         self.selection_rule = selection_rule
@@ -428,6 +442,13 @@ class PrequentialRunner:
                 block_id=self.block_id,
                 days=self.days,
             )
+        elif self.selection_rule in {"fixed_retention", "full_finetuning"}:
+            decision = decide_fixed_block(
+                self.controller,
+                current_level=self.current_level,
+                days=self.days,
+                rule=self.selection_rule,
+            )
         else:
             decision = decide_mean_block(
                 self.controller,
@@ -521,8 +542,18 @@ class PrequentialRunner:
         runner.binding = deepcopy(expected_binding)
         runner.controller = ControllerConfig(**state["controller"])
         runner.selection_rule = state.get("selection_rule", "confidence")
-        if runner.selection_rule not in {"confidence", "online_best_lambda", "without_confidence"}:
+        if runner.selection_rule not in {
+            "confidence",
+            "online_best_lambda",
+            "without_confidence",
+            "fixed_retention",
+            "full_finetuning",
+        }:
             raise ValueError("Runner checkpoint selection rule mismatch")
+        if runner.selection_rule == "full_finetuning" and runner.controller.initial_level != 0.0:
+            raise ValueError("Full fine-tuning checkpoint must start at lambda zero")
+        if runner.selection_rule == "fixed_retention" and runner.controller.initial_level == 0.0:
+            raise ValueError("Fixed retention checkpoint must start at positive lambda")
         runner.epsilon = state["epsilon"]
         runner.energy_scale = state["energy_scale"]
         runner.reference = ForecastGRU(config).to(device).eval()
@@ -539,6 +570,10 @@ class PrequentialRunner:
         runner.audit_rng = state["audit_rng"]
         runner.audit_cuda_rng = state.get("audit_cuda_rng")
         runner.current_level = state["current_level"]
+        if runner.selection_rule in {"fixed_retention", "full_finetuning"} and (
+            runner.current_level != runner.controller.initial_level
+        ):
+            raise ValueError("Fixed-policy checkpoint changed its selected level")
         runner.block_id = state["block_id"]
         runner.next_index = state["next_index"]
         runner.pending = state["pending"]

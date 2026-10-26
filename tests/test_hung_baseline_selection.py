@@ -6,7 +6,7 @@ from tempfile import TemporaryDirectory
 
 import torch
 
-from experiments.hung_sprint2.baseline_selection import decide_mean_block
+from experiments.hung_sprint2.baseline_selection import decide_fixed_block, decide_mean_block
 from experiments.hung_sprint2.checkpoint import load_runner, save_runner
 from experiments.hung_sprint2.controller import ControllerConfig, DailyScore
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
@@ -14,10 +14,10 @@ from experiments.hung_sprint2.retention import frozen_source_reference
 from experiments.hung_sprint2.runner import LabelArrival, Origin, PrequentialRunner
 
 
-def config(*, delta: float = 0.0, minimum: int = 2) -> ControllerConfig:
+def config(*, delta: float = 0.0, minimum: int = 2, initial: float = 0.1) -> ControllerConfig:
     return ControllerConfig(
         (0.0, 0.1, 0.2),
-        0.1,
+        initial,
         3,
         minimum,
         delta,
@@ -33,7 +33,7 @@ def score(day: str, errors: tuple[float, float, float] | None) -> DailyScore:
     return DailyScore(day, errors is not None, errors is not None, errors)
 
 
-def runner(rule: str) -> PrequentialRunner:
+def runner(rule: str, *, initial: float = 0.1) -> PrequentialRunner:
     torch.manual_seed(7)
     model = ForecastGRU(ModelConfig(calendar_hidden=8))
     return PrequentialRunner(
@@ -54,7 +54,7 @@ def runner(rule: str) -> PrequentialRunner:
             "scale_id": "fixture-scale",
             "source_checkpoint_sha256": "b" * 64,
         },
-        controller=config(minimum=1),
+        controller=config(minimum=1, initial=initial),
         epsilon=1e-6,
         energy_scale=5.0,
         selection_rule=rule,
@@ -231,6 +231,68 @@ class BaselineSelectionTests(unittest.TestCase):
                 ):
                     for name in left_state:
                         self.assertTrue(torch.equal(left_state[name], right_state[name]))
+
+    def test_fixed_policies_ignore_scores_but_record_coverage(self) -> None:
+        rows = [score("a", (0.3, 0.9, 0.1)), score("b", None)]
+        for rule, level in (("fixed_retention", 0.1), ("full_finetuning", 0.0)):
+            with self.subTest(rule=rule):
+                decision = decide_fixed_block(
+                    config(initial=level), current_level=level, days=rows, rule=rule
+                )
+                self.assertEqual(decision.selected_level, level)
+                self.assertEqual((decision.valid_days, decision.skipped_days), (1, 1))
+                self.assertEqual(decision.reason, "fixed_policy")
+                self.assertEqual(decision.selection_statistic, "fixed_level")
+                self.assertEqual(decision.lower_bounds, (None, None, None))
+                self.assertIsNone(decision.observed_mean_improvement)
+        with self.assertRaisesRegex(ValueError, "requires zero"):
+            decide_fixed_block(config(), current_level=0.1, days=rows, rule="full_finetuning")
+
+    def test_fixed_policies_keep_trained_state_and_three_candidate_budget(self) -> None:
+        x = torch.full((1, 24, 7), 0.2)
+        calendar = torch.full((1, 24, 5), 0.1)
+        for rule, level in (("fixed_retention", 0.1), ("full_finetuning", 0.0)):
+            with self.subTest(rule=rule):
+                instance = runner(rule, initial=level)
+                for day in range(3):
+                    instance.forecast(Origin(f"day-{day}", day, x, calendar))
+                    instance.arrive(
+                        LabelArrival(
+                            f"day-{day}",
+                            True,
+                            torch.full((24,), 0.4),
+                            torch.ones(24, dtype=torch.bool),
+                        )
+                    )
+                selected_index = instance.controller.levels.index(level)
+                selected = {
+                    name: value.clone()
+                    for name, value in instance.candidates[selected_index][0].state_dict().items()
+                }
+                self.assertEqual(instance.update_steps, [3, 3, 3])
+                self.assertEqual(
+                    [item["inference_calls"] for item in instance.runtime_costs["candidate"]],
+                    [3, 3, 3],
+                )
+                decision = instance.finish_block()
+                self.assertFalse(decision.switched)
+                self.assertEqual(instance.current_level, level)
+                self.assertIsNone(instance.audit)
+                for name, value in selected.items():
+                    self.assertTrue(torch.equal(value, instance.active_model.state_dict()[name]))
+                restored = PrequentialRunner.from_state_dict(
+                    instance.state_dict(), expected_binding=instance.binding, device="cpu"
+                )
+                self.assertEqual(restored.selection_rule, rule)
+                self.assertEqual(restored.current_level, level)
+                self.assertEqual(restored.update_steps, [3, 3, 3])
+                self.assertEqual(restored.audit_steps, 0)
+                state = instance.state_dict()
+                state["current_level"] = 0.2 if level == 0.0 else 0.0
+                with self.assertRaisesRegex(ValueError, "changed its selected level"):
+                    PrequentialRunner.from_state_dict(
+                        state, expected_binding=instance.binding, device="cpu"
+                    )
 
 
 if __name__ == "__main__":

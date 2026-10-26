@@ -471,7 +471,13 @@ def _replay(args: argparse.Namespace) -> dict:
 
     started = time.perf_counter()
     selection_rule = getattr(args, "selection_rule", "confidence")
-    if selection_rule not in {"confidence", "online_best_lambda", "without_confidence"}:
+    if selection_rule not in {
+        "confidence",
+        "online_best_lambda",
+        "without_confidence",
+        "fixed_retention",
+        "full_finetuning",
+    }:
         raise ValueError("Unsupported selection rule")
     device = _device(getattr(args, "device", "cpu"))
     if args.seed < 0 or not 0 < args.epsilon < float("inf"):
@@ -540,6 +546,12 @@ def _replay(args: argparse.Namespace) -> dict:
         or target_record.get("input_binding") != target_binding
     ):
         raise ValueError("Target checkpoint run lineage mismatch")
+    if selection_rule in {"fixed_retention", "full_finetuning"}:
+        expected_weight = controller.initial_level
+        if (selection_rule == "full_finetuning") != (expected_weight == 0.0):
+            raise ValueError("Fixed policy and initial lambda are inconsistent")
+        if target_record.get("retention_weight") != expected_weight:
+            raise ValueError("Target initialization lambda does not match fixed replay policy")
     target_model, optimizer, target_scale, _ = load_checkpoint(
         args.target_checkpoint, expected_binding=target_binding, map_location=device
     )
@@ -766,7 +778,13 @@ def main(argv: list[str] | None = None) -> int:
     replay.add_argument("--resume-checkpoint", type=Path)
     replay.add_argument(
         "--selection-rule",
-        choices=("confidence", "online_best_lambda", "without_confidence"),
+        choices=(
+            "confidence",
+            "online_best_lambda",
+            "without_confidence",
+            "fixed_retention",
+            "full_finetuning",
+        ),
         default="confidence",
     )
     replay.add_argument("--device", choices=("cpu", "cuda"), default="cpu")

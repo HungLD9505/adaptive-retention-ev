@@ -7,7 +7,39 @@ from typing import Literal, Sequence
 
 from experiments.hung_sprint2.controller import ControllerConfig, DailyScore, Decision
 
-SelectionRule = Literal["confidence", "online_best_lambda", "without_confidence"]
+SelectionRule = Literal[
+    "confidence", "online_best_lambda", "without_confidence", "fixed_retention", "full_finetuning"
+]
+
+
+def decide_fixed_block(
+    config: ControllerConfig,
+    *,
+    current_level: float,
+    days: Sequence[DailyScore],
+    rule: Literal["fixed_retention", "full_finetuning"],
+) -> Decision:
+    """Keep a declared level without consulting scores for policy selection."""
+    if rule not in {"fixed_retention", "full_finetuning"}:
+        raise ValueError("Unsupported fixed selection rule")
+    if current_level not in config.levels or current_level != config.initial_level:
+        raise ValueError("Fixed policy must retain its configured initial level")
+    if (rule == "full_finetuning") != (current_level == 0.0):
+        raise ValueError("Full fine-tuning requires zero; fixed retention requires positive lambda")
+    if len(days) > config.block_days or len({day.day_id for day in days}) != len(days):
+        raise ValueError("Invalid fixed-policy day schedule")
+    valid = sum(day.normalized_mae is not None for day in days)
+    return Decision(
+        current_level,
+        current_level,
+        valid,
+        len(days) - valid,
+        (None, None, None),
+        0.0,
+        "fixed_policy",
+        selection_statistic="fixed_level",
+        observed_mean_improvement=None,
+    )
 
 
 def decide_mean_block(

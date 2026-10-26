@@ -227,6 +227,67 @@ class ReplayCliTests(unittest.TestCase):
                 _replay(args)
             self.assertFalse(args.output.exists())
 
+    def test_fixed_policy_requires_matching_target_initialization_and_resumes(self) -> None:
+        for rule, level in (("fixed_retention", 0.1), ("full_finetuning", 0.0)):
+            with self.subTest(rule=rule), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                run, digest, source, target, binding = self._inputs(root)
+                target_manifest = target.parent / "run_manifest.json"
+                record = json.loads(target_manifest.read_text(encoding="utf-8"))
+                record["retention_weight"] = level
+                target_manifest.write_text(json.dumps(record), encoding="utf-8")
+                args = self._args(root, run, digest, source, target, "first", 1)
+                args.selection_rule = rule
+                args.initial_level = level
+                first = _replay(args)
+                self.assertEqual(first["config"]["selection_rule"], rule)
+                checkpoint = args.output / "runner_checkpoint.pt"
+                args.output = root / "resumed"
+                args.resume_checkpoint = checkpoint
+                args.max_origins = 3
+                resumed = _replay(args)
+                self.assertEqual(
+                    resumed["event_evidence"]["decisions"][0]["reason"], "fixed_policy"
+                )
+                self.assertEqual(resumed["event_evidence"]["decisions"][0]["selected_level"], level)
+                self.assertEqual(
+                    [item["update_steps"] for item in resumed["runtime_costs"]["candidate"]],
+                    [2, 2, 2],
+                )
+                loaded = load_runner(args.output / "runner_checkpoint.pt", expected_binding=binding)
+                self.assertEqual(loaded.selection_rule, rule)
+                self.assertEqual(loaded.current_level, level)
+                self.assertEqual(loaded.audit_steps, 0)
+                args.output = root / "uninterrupted"
+                args.resume_checkpoint = None
+                uninterrupted = _replay(args)
+                direct = load_runner(args.output / "runner_checkpoint.pt", expected_binding=binding)
+                self.assertEqual(resumed["event_evidence"], uninterrupted["event_evidence"])
+                self.assertEqual(resumed["metrics_kwh"], uninterrupted["metrics_kwh"])
+                self.assertEqual(loaded.update_steps, direct.update_steps)
+                for resumed_day, direct_day in zip(loaded.issued, direct.issued, strict=True):
+                    for resumed_forecast, direct_forecast in zip(
+                        resumed_day["forecasts"], direct_day["forecasts"], strict=True
+                    ):
+                        self.assertTrue(torch.equal(resumed_forecast, direct_forecast))
+                args.output = root / "mismatched-initialization"
+                record["retention_weight"] = 0.2 if level == 0.0 else 0.0
+                target_manifest.write_text(json.dumps(record), encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, "initialization lambda"):
+                    _replay(args)
+                self.assertFalse(args.output.exists())
+
+    def test_full_finetuning_rejects_positive_initial_level(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest, source, target, _ = self._inputs(root)
+            args = self._args(root, run, digest, source, target, "wrong-level", 1)
+            args.selection_rule = "full_finetuning"
+            args.initial_level = 0.1
+            with self.assertRaisesRegex(ValueError, "inconsistent"):
+                _replay(args)
+            self.assertFalse(args.output.exists())
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -88,8 +88,10 @@ class Decision:
     skipped_days: int
     lower_bounds: tuple[float | None, float | None, float | None]
     alpha_per_challenger: float
-    reason: Literal["insufficient_days", "no_qualifying_challenger", "switch"]
-    selection_statistic: Literal["bootstrap_lcb", "observed_mean_improvement"] = "bootstrap_lcb"
+    reason: Literal["insufficient_days", "no_qualifying_challenger", "switch", "fixed_policy"]
+    selection_statistic: Literal["bootstrap_lcb", "observed_mean_improvement", "fixed_level"] = (
+        "bootstrap_lcb"
+    )
     observed_mean_improvement: tuple[float | None, float | None, float | None] | None = None
 
     @property
