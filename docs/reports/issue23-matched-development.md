@@ -73,13 +73,15 @@ invented automatic guarantee.
 
 ## Status and remaining scope
 
-**Current runtime:** the Colab threads described below were evicted and are no
-longer waiting or running. The Kaggle serial batch stages 690 fresh matched
-reference/comparison replays after the live proxy grid and independent verifier.
-That new matched stage has not started at the latest recorded probe. The
-[runtime-recovery record](issue23-runtime-recovery.md) identifies the environment
-change, original Source reuse and the fresh within-Kaggle Adaptive/FT/Fixed
-reference requirement. Historical staging observations follow for provenance.
+**Current runtime:** all 690 fresh Kaggle matched reference/comparison replays
+completed, with exit 0 daily verification and initial analysis. The complete
+matrix/proof and selected 966-cell station-first point estimates are authenticated
+locally from downloaded metadata; full off-runtime daily/state restore is still
+pending. See the [actual collection/results](issue23-matched-collection.md) and
+[exact evidence](issue23-matched-evidence.json). The original Colab threads below
+were evicted; their staging snapshots are historical and are not live work.
+The [recovery record](issue23-runtime-recovery.md) explains the fresh same-runtime
+Adaptive/FT/Fixed references and original Source reuse. No Final or merge.
 
 264 fixture tests pass locally and on Colab with local Ruff lint/format and diff
 checks. Ubuntu/Windows CI passed for code
