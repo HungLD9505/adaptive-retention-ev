@@ -45,6 +45,9 @@ controller method must equal the config's explicit `replay.selection_rule`
 (default `confidence`). Proxy settings, including a Drift reference, belong
 in that hash-pinned config; the dispatcher never derives them from scores.
 Source and compatible target checkpoints must be named with exact SHA-256.
+Generated plans also include `run_manifest_sha256` for each reused Source or
+target checkpoint; the dispatcher rechecks those manifest bytes before every
+stage.
 For a controller needing fresh target adaptation, set `target` to `null`;
 the dispatcher creates a new target stage using that config. Target-only
 always creates its own seeded initial stage and has `source: null,

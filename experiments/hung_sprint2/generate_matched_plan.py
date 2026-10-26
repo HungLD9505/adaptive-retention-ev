@@ -18,13 +18,19 @@ from experiments.hung_sprint2.matched_plan_provenance import (
     TARGET_NAMES,
     cell_id,
     comparable_configs,
-    pinned_file,
+    pinned_checkpoint,
     pinned_json,
     require,
     verify_checkpoint_grid,
     verify_lambda,
     verify_reuse,
 )
+from experiments.hung_sprint2.matched_proxy_provenance import (
+    proxy_recipe,
+    verify_drift_config,
+    verify_proxy_selection,
+)
+from tools.hung_proxy_calibration import _drift_reference as drift_reference
 
 
 def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_output: Path) -> dict:
@@ -43,7 +49,10 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
             "selection",
             "input_base",
             "lambda",
+            "proxy_profile",
+            "proxy_selection",
             "configs",
+            "drift_configs",
             "sources",
             "targets",
             "existing_runs",
@@ -103,6 +112,9 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
     )
     configs = {name: pinned_json(spec) for name, spec in config_specs.items()}
     comparable_configs(configs)
+    proxy_proof = verify_proxy_selection(
+        recipe["proxy_profile"], recipe["proxy_selection"], configs
+    )
     chosen = verify_lambda(
         recipe["lambda"], configs["parameter_retention"], recipe["selection"]["sha256"]
     )
@@ -126,6 +138,74 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
         len(cells) == 69 and len({x["id"] for x in cells}) == 69,
         "Expected 69 unique representative cells",
     )
+    drift_specs = recipe["drift_configs"]
+    require(
+        isinstance(drift_specs, list) and len(drift_specs) == 69,
+        "69 cell-specific Drift config pins required",
+    )
+    drift_configs = {}
+    drift_paths = set()
+    drift_policy = None
+    selected_drift = proxy_recipe(
+        proxy_proof["profile"],
+        "drift",
+        proxy_proof["choices"]["drift"],
+        {"drift_reference_mean": 0.0, "drift_reference_scale": 1.0},
+    )
+    for row in drift_specs:
+        require(
+            isinstance(row, dict) and set(row) == {"cell", "config"},
+            "Drift config pin fields mismatch",
+        )
+        cell = row["cell"]
+        path = dispatch.project_path(row["config"]["path"])
+        require(
+            cell not in drift_configs
+            and path not in drift_paths
+            and path.is_relative_to(dispatch.ROOT.resolve()),
+            "Duplicate/outside-worktree Drift config",
+        )
+        drift_paths.add(path)
+        drift = pinned_json(row["config"])
+        verify_drift_config(drift, configs["main"])
+        policy = tuple(
+            drift["replay"][name]
+            for name in (
+                "proxy_low",
+                "proxy_high",
+                "proxy_level_low",
+                "proxy_level_mid",
+                "proxy_level_high",
+            )
+        )
+        require(
+            drift_policy is None or policy == drift_policy,
+            "Drift threshold/mapping differs across cells",
+        )
+        require(
+            policy[:2] == (selected_drift["low"], selected_drift["high"])
+            and list(policy[2:]) == selected_drift["levels_by_bin"],
+            "Drift config does not match selected provisional recipe",
+        )
+        drift_policy = policy
+        drift_configs[cell] = row["config"]
+    require(set(drift_configs) == {c["id"] for c in cells}, "Drift config cell grid incomplete")
+    drift_origins = {}
+    for cell in (cell for cell in cells if cell["seed"] == seeds[0]):
+        input_run = input_base / f"urbanev-SZH-{cell['budget']}d"
+        mean, scale, origin = drift_reference(
+            input_run,
+            {"dataset_id": "urbanev", "city_id": "SZH", "entity_id": cell["entity_id"]},
+            proxy_proof["profile"]["drift_scale_floor"],
+        )
+        for seed in seeds:
+            id_for_seed = cell_id(cell["budget"], seed, cell["entity_id"])
+            drift = pinned_json(drift_configs[id_for_seed])["replay"]
+            require(
+                drift["drift_reference_mean"] == mean and drift["drift_reference_scale"] == scale,
+                f"Drift reference is not the first accepted Development history: {id_for_seed}",
+            )
+        drift_origins[f"b{cell['budget']}e{cell['entity_id']}"] = origin
     source_specs = recipe["sources"]
     require(isinstance(source_specs, list) and len(source_specs) == 9, "Nine Source pins required")
     sources = {}
@@ -133,7 +213,7 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
         require(set(row) == {"budget", "seed", "checkpoint"}, "Source pin fields mismatch")
         key = (row["budget"], row["seed"])
         require(key not in sources, "Duplicate Source pin")
-        sources[key] = pinned_file(row["checkpoint"])
+        sources[key] = pinned_checkpoint(row["checkpoint"])
     require(set(sources) == {(b, s) for b in (7, 14, 28) for s in seeds}, "Source grid incomplete")
     target_specs = recipe["targets"]
     require(
@@ -156,7 +236,7 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
             (row["mode"] == "create") == (row["checkpoint"] is None),
             "Target checkpoint/mode mismatch",
         )
-        targets[key] = None if row["mode"] == "create" else pinned_file(row["checkpoint"])
+        targets[key] = None if row["mode"] == "create" else pinned_checkpoint(row["checkpoint"])
     require(
         set(targets) == {(c["id"], v) for c in cells for v in TARGET_NAMES},
         "Target grid incomplete",
@@ -194,6 +274,7 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
         for name, method in BASELINE_METHODS:
             target = name if name in TARGET_NAMES else "main"
             add(name, cell, name, method, target)
+        add("drift", cell, f"drift_{cell['id']}", "drift", "main")
         if configs["without_confidence"]["replay"]["delta"] > 0:
             add("without_confidence", cell, "without_confidence", "without_confidence", "main")
         add("parameter_retention", cell, "parameter_retention", "confidence", "parameter_retention")
@@ -254,7 +335,10 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
         "input_base": recipe["input_base"],
         "budgets": [7, 14, 28],
         "seeds": seeds,
-        "configs": [{"id": name, **config_specs[name]} for name in CONFIG_NAMES],
+        "configs": [
+            *({"id": name, **config_specs[name]} for name in CONFIG_NAMES),
+            *({"id": f"drift_{cell['id']}", **drift_configs[cell["id"]]} for cell in cells),
+        ],
         "cells": cells,
         "jobs": [job for job in jobs if job["id"] not in reused],
         "output_root": recipe["output_root"],
@@ -266,6 +350,10 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
         "recipe_sha256": recipe_sha256,
         "code_commit": code["commit"],
         "chosen_lambda_low": chosen,
+        "proxy_selection_sha256": recipe["proxy_selection"]["sha256"],
+        "proxy_profile_sha256": recipe["proxy_profile"]["sha256"],
+        "provisional_proxy_recipes": proxy_proof["choices"],
+        "drift_reference_origins": drift_origins,
         "declared_cells": len(cells),
         "declared_jobs": len(jobs),
         "scheduled_jobs": len(plan["jobs"]),

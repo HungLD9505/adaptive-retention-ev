@@ -7,6 +7,8 @@ import math
 from pathlib import Path
 
 from experiments.hung_sprint2 import dispatch_matched as dispatch
+from experiments.hung_sprint2.controller import ControllerConfig
+from experiments.hung_sprint2.proxy_selection import ProxyConfig
 
 CONFIG_NAMES = (
     "main",
@@ -16,7 +18,6 @@ CONFIG_NAMES = (
     "full_finetuning",
     "source_error",
     "uncertainty",
-    "drift",
     "parameter_retention",
     "block7",
     "block28",
@@ -29,7 +30,6 @@ BASELINE_METHODS = (
     ("full_finetuning", "full_finetuning"),
     ("source_error", "source_error"),
     ("uncertainty", "uncertainty"),
-    ("drift", "drift"),
 )
 
 
@@ -49,6 +49,18 @@ def pinned_file(spec: dict) -> dict:
     path = dispatch.project_path(spec["path"])
     dispatch.verify_file(path, spec["sha256"])
     return {"path": str(path), "sha256": spec["sha256"]}
+
+
+def pinned_checkpoint(spec: dict) -> dict:
+    require(
+        isinstance(spec, dict) and set(spec) == {"path", "sha256", "run_manifest_sha256"},
+        "Checkpoint and run-manifest pins required",
+    )
+    checkpoint = pinned_file({"path": spec["path"], "sha256": spec["sha256"]})
+    dispatch.verify_file(
+        Path(checkpoint["path"]).parent / "run_manifest.json", spec["run_manifest_sha256"]
+    )
+    return {**checkpoint, "run_manifest_sha256": spec["run_manifest_sha256"]}
 
 
 def cell_id(budget: int, seed: int, entity_id: str) -> str:
@@ -185,6 +197,31 @@ def comparable_configs(configs: dict[str, dict]) -> None:
     require(comparable == online, "Without Confidence differs from Online Best beyond rule/delta")
     require(online["replay"].get("delta", 0) == 0, "Online Best requires delta=0")
     require(without["replay"]["delta"] >= 0, "Without Confidence delta must be nonnegative")
+    for name in ("source_error", "uncertainty"):
+        replay = configs[name]["replay"]
+        controller = ControllerConfig(
+            levels=(0.0, replay["level_one"], replay["level_two"]),
+            initial_level=replay["initial_level"],
+            block_days=replay["block_days"],
+            min_complete_days=replay["min_complete_days"],
+            delta=replay["delta"],
+            alpha=replay["alpha"],
+            bootstrap_segment_days=replay["bootstrap_segment_days"],
+            bootstrap_resamples=replay["bootstrap_resamples"],
+            seed=7,
+            challenger_rule=replay["challenger_rule"],
+        )
+        ProxyConfig(
+            low=replay["proxy_low"],
+            high=replay["proxy_high"],
+            levels_by_bin=(
+                replay["proxy_level_low"],
+                replay["proxy_level_mid"],
+                replay["proxy_level_high"],
+            ),
+            drift_reference_mean=replay.get("drift_reference_mean"),
+            drift_reference_scale=replay.get("drift_reference_scale"),
+        ).validate(controller, name)
 
 
 def verify_lambda(spec: dict, config: dict, selection_sha256: str) -> float:
@@ -196,7 +233,8 @@ def verify_lambda(spec: dict, config: dict, selection_sha256: str) -> float:
     value = spec["chosen_lambda_low"]
     require(
         selected.get("schema") == "hung-parameter-lambda-development-selection-v1"
-        and selected.get("scope") == "development_only"
+        and selected.get("scope")
+        == "UrbanEV SZH Development target_initial_adaptation only; no Final lock"
         and set(selected)
         == {
             "schema",
@@ -310,7 +348,11 @@ def verify_checkpoint_grid(
             source = sources[(budget, seed)]
             source_binding = dispatch._binding(manifest, manifest_sha, stage="source")
             source_record = dispatch.checked_checkpoint(
-                Path(source["path"]), source["sha256"], source_binding, code
+                Path(source["path"]),
+                source["sha256"],
+                source_binding,
+                code,
+                source["run_manifest_sha256"],
             )
             require(source_record.get("seed") == seed, "Source seed differs")
             dispatch.verify_source_schedule(
@@ -337,7 +379,11 @@ def verify_checkpoint_grid(
                         source_checkpoint_sha256=source["sha256"],
                     )
                     record = dispatch.checked_checkpoint(
-                        Path(target["path"]), target["sha256"], binding, code
+                        Path(target["path"]),
+                        target["sha256"],
+                        binding,
+                        code,
+                        target["run_manifest_sha256"],
                     )
                     settings = configs[variant]["target"]
                     dispatch.verify_target_schedule(record, settings, entity["initial_trainable"])

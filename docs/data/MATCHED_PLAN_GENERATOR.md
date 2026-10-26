@@ -22,6 +22,8 @@ Create a Git-ignored JSON file inside the worktree with these exact keys:
     "selection": {"path": "<36-cell finite Development selection>", "sha256": "<SHA-256>"},
     "chosen_lambda_low": 0.01
   },
+  "proxy_profile": {"path": "<finite four-recipe Development profile>", "sha256": "<SHA-256>"},
+  "proxy_selection": {"path": "<108-run provisional Development selection>", "sha256": "<SHA-256>"},
   "configs": {
     "main": {"path": "<config>", "sha256": "<SHA-256>"},
     "online_best": {"path": "<config>", "sha256": "<SHA-256>"},
@@ -30,19 +32,24 @@ Create a Git-ignored JSON file inside the worktree with these exact keys:
     "full_finetuning": {"path": "<config>", "sha256": "<SHA-256>"},
     "source_error": {"path": "<config>", "sha256": "<SHA-256>"},
     "uncertainty": {"path": "<config>", "sha256": "<SHA-256>"},
-    "drift": {"path": "<config>", "sha256": "<SHA-256>"},
     "parameter_retention": {"path": "<config>", "sha256": "<SHA-256>"},
     "block7": {"path": "<config>", "sha256": "<SHA-256>"},
     "block28": {"path": "<config>", "sha256": "<SHA-256>"},
     "no_source": {"path": "<config>", "sha256": "<SHA-256>"}
   },
+  "drift_configs": [
+    {"cell": "b7s7e2264",
+     "config": {"path": "<cell-specific drift config>", "sha256": "<SHA-256>"}}
+  ],
   "sources": [
     {"budget": 7, "seed": 7,
-     "checkpoint": {"path": "<Source checkpoint>", "sha256": "<SHA-256>"}}
+     "checkpoint": {"path": "<Source checkpoint>", "sha256": "<SHA-256>",
+                    "run_manifest_sha256": "<SHA-256>"}}
   ],
   "targets": [
     {"cell": "b7s7e2264", "variant": "main", "mode": "reuse",
-     "checkpoint": {"path": "<target checkpoint>", "sha256": "<SHA-256>"}},
+     "checkpoint": {"path": "<target checkpoint>", "sha256": "<SHA-256>",
+                    "run_manifest_sha256": "<SHA-256>"}},
     {"cell": "b7s7e2264", "variant": "parameter_retention", "mode": "create",
      "checkpoint": null}
   ],
@@ -58,7 +65,8 @@ Create a Git-ignored JSON file inside the worktree with these exact keys:
 ```
 
 The abbreviated arrays above show the row shapes, not a complete recipe.
-Provide all nine Source budget/seed pins; all 69 cells times five target
+Provide all nine Source budget/seed pins; 69 cell-specific Drift config pins;
+all 69 cells times five target
 variants (`main`, `fixed_retention`, `full_finetuning`,
 `parameter_retention`, `no_source`); and an explicit reuse or rerun decision
 for every one of the 69 main and 69 block-7 jobs. `create` means the dispatcher
@@ -67,13 +75,22 @@ old target. Reuse requires the checkpoint and completed run manifests to match
 input, code sources, schedule, seed, λ, and SHA. Incompatible old runs remain
 preserved but must be declared `rerun`; they cannot be relabeled.
 
-The config comparison keeps input release, seeds, Source training, target
+Each Drift config must pin that cell's first-history reference and may differ
+from the main config only in the Drift rule, proxy thresholds/mapping, and
+reference. The generator recomputes each of the 23 budget/entity references
+from the first accepted Development forecast history, checks the pinned
+values for all three seeds, and records the origin IDs in coverage. The other config comparison
+keeps input release, seeds, Source training, target
 batch/learning schedule, replay origins and update settings matched. Block-7
 and block-28 configs may change only block length from the 14-day main config.
 The parameter config binds the selected positive λ to target adaptation,
 replay initial level and first nonzero candidate. Proxy recipes and drift
 reference must already be fixed in their reviewed configs; this generator
 does not choose them from outcomes.
+It checks the three proxy thresholds and λ-bin mappings against the
+hash-pinned four-recipe profile and its 9-cell/108-run provisional Development
+selection. That selection remains conditional evidence, not approval of the
+method or a Final lock.
 
 The generator emits 23 deterministic Seasonal jobs and 69 jobs per other
 method/variant. Fixed λ aliases the exact Fixed Retention run. If Without

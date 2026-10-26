@@ -27,6 +27,8 @@ class PlanGeneratorTests(unittest.TestCase):
                 generator.dispatch.ROOT / "experiments/hung_sprint2/development_config_v1.json"
             ).read_text(encoding="utf-8")
         )
+        self.proxy_profile_path = generator.dispatch.ROOT / "configs/hung-proxy-calibration-v1.json"
+        profile = json.loads(self.proxy_profile_path.read_text(encoding="utf-8"))
         self.configs = {}
         self.config_paths = {}
         for name in generator.CONFIG_NAMES:
@@ -44,6 +46,17 @@ class PlanGeneratorTests(unittest.TestCase):
                 "drift",
             }:
                 replay["selection_rule"] = name
+            if name in {"source_error", "uncertainty", "drift"}:
+                low, high = profile["thresholds"][name][0]
+                replay.update(
+                    proxy_low=low,
+                    proxy_high=high,
+                    proxy_level_low=0.0,
+                    proxy_level_mid=0.1,
+                    proxy_level_high=0.2,
+                )
+                if name == "drift":
+                    replay.update(drift_reference_mean=0.0, drift_reference_scale=1.0)
             if name == "fixed_retention":
                 replay["initial_level"] = 0.1
             if name == "full_finetuning":
@@ -87,6 +100,26 @@ class PlanGeneratorTests(unittest.TestCase):
             }
         }
         self.selection_path.write_text(json.dumps(selection), encoding="utf-8")
+        self.drift_configs = []
+        for budget in (7, 14, 28):
+            for seed in (7, 11, 19):
+                for entity in selection["budgets"][str(budget)]["representative_entities"]:
+                    cell = generator.cell_id(budget, seed, entity["entity_id"])
+                    drift = copy.deepcopy(base)
+                    low, high = profile["thresholds"]["drift"][0]
+                    drift["replay"].update(
+                        selection_rule="drift",
+                        proxy_low=low,
+                        proxy_high=high,
+                        proxy_level_low=0.0,
+                        proxy_level_mid=0.1,
+                        proxy_level_high=0.2,
+                        drift_reference_mean=0.0,
+                        drift_reference_scale=1.0,
+                    )
+                    drift_path = self.root / f"drift-{cell}.json"
+                    drift_path.write_text(json.dumps(drift), encoding="utf-8")
+                    self.drift_configs.append({"cell": cell, "config": self.pin(drift_path)})
         for budget in (7, 14, 28):
             input_run = self.input_base / f"urbanev-SZH-{budget}d"
             input_run.mkdir()
@@ -109,7 +142,7 @@ class PlanGeneratorTests(unittest.TestCase):
             json.dumps(
                 {
                     "schema": "hung-parameter-lambda-development-selection-v1",
-                    "scope": "development_only",
+                    "scope": "UrbanEV SZH Development target_initial_adaptation only; no Final lock",
                     "rule": "station_first_mean",
                     "preflight_sha256": "b" * 64,
                     "selection_sha256": sha256_file(self.selection_path),
@@ -117,6 +150,26 @@ class PlanGeneratorTests(unittest.TestCase):
                     "chosen_lambda_low": 0.01,
                     "ranking": [{} for _ in range(4)],
                     "cells": [{} for _ in range(36)],
+                }
+            ),
+            encoding="utf-8",
+        )
+        self.proxy_selection_path = self.root / "proxy-selection.json"
+        self.proxy_selection_path.write_text(
+            json.dumps(
+                {
+                    "schema": "hung-proxy-development-selection-v1",
+                    "scope": "conditional_development_selection_only; no Final lock",
+                    "cells": 9,
+                    "matrix_runs": 108,
+                    "null_run_cells": 0,
+                    "seeds": [7, 11, 19],
+                    "plan_sha256": "e" * 64,
+                    "runs_sha256": "f" * 64,
+                    "selection": {
+                        name: {"provisional_recipe": 0}
+                        for name in ("source_error", "uncertainty", "drift")
+                    },
                 }
             ),
             encoding="utf-8",
@@ -131,7 +184,10 @@ class PlanGeneratorTests(unittest.TestCase):
             "selection": self.pin(self.selection_path),
             "input_base": str(self.input_base),
             "lambda": {"selection": self.pin(self.lambda_path), "chosen_lambda_low": 0.01},
+            "proxy_profile": self.pin(self.proxy_profile_path),
+            "proxy_selection": self.pin(self.proxy_selection_path),
             "configs": {name: self.pin(path) for name, path in self.config_paths.items()},
+            "drift_configs": self.drift_configs,
             "sources": [],
             "targets": [],
             "existing_runs": [],
@@ -139,10 +195,21 @@ class PlanGeneratorTests(unittest.TestCase):
         }
         for budget in (7, 14, 28):
             for seed in (7, 11, 19):
-                source = self.root / f"source-{budget}-{seed}.pt"
+                source_dir = self.root / f"source-{budget}-{seed}"
+                source_dir.mkdir()
+                source = source_dir / "source.pt"
                 source.write_bytes(f"{budget}-{seed}".encode())
+                source_manifest = source_dir / "run_manifest.json"
+                source_manifest.write_text(json.dumps({"seed": seed}), encoding="utf-8")
                 self.recipe["sources"].append(
-                    {"budget": budget, "seed": seed, "checkpoint": self.pin(source)}
+                    {
+                        "budget": budget,
+                        "seed": seed,
+                        "checkpoint": {
+                            **self.pin(source),
+                            "run_manifest_sha256": sha256_file(source_manifest),
+                        },
+                    }
                 )
                 for entity in selection["budgets"][str(budget)]["representative_entities"]:
                     cell = generator.cell_id(budget, seed, entity["entity_id"])
@@ -165,10 +232,15 @@ class PlanGeneratorTests(unittest.TestCase):
             return_value={"commit": "test-commit", "worktree_status": [], "executed_sources": {}},
         )
         self.grid_patch = patch.object(generator, "verify_checkpoint_grid")
+        self.drift_patch = patch.object(
+            generator, "drift_reference", return_value=(0.0, 1.0, "first-origin")
+        )
         self.code_patch.start()
         self.grid_patch.start()
+        self.drift_patch.start()
         self.addCleanup(self.code_patch.stop)
         self.addCleanup(self.grid_patch.stop)
+        self.addCleanup(self.drift_patch.stop)
 
     @staticmethod
     def pin(path: Path) -> dict:
@@ -190,6 +262,8 @@ class PlanGeneratorTests(unittest.TestCase):
         self.assertEqual(len([j for j in plan["jobs"] if j["method"] == "seasonal_naive"]), 23)
         self.assertFalse(any(j["id"].startswith("without_confidence_") for j in plan["jobs"]))
         self.assertEqual(coverage["plan_sha256"], sha256_file(self.plan_path))
+        self.assertEqual(len(coverage["drift_reference_origins"]), 23)
+        self.assertEqual(len([c for c in plan["configs"] if c["id"].startswith("drift_")]), 69)
 
         def fake_load_run(path, digest):
             budget = int(path.name.removeprefix("urbanev-SZH-").removesuffix("d"))
@@ -232,10 +306,57 @@ class PlanGeneratorTests(unittest.TestCase):
             generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
         self.assertFalse(self.plan_path.exists())
 
+    def test_source_manifest_sha_is_required(self) -> None:
+        self.recipe["sources"][0]["checkpoint"].pop("run_manifest_sha256")
+        digest = self.save()
+        with self.assertRaisesRegex(ValueError, "Checkpoint and run-manifest pins required"):
+            generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
+        self.assertFalse(self.plan_path.exists())
+
     def test_existing_main_block7_jobs_need_explicit_decisions(self) -> None:
         self.recipe["existing_runs"].pop()
         digest = self.save()
         with self.assertRaisesRegex(ValueError, "explicit reuse or rerun decision"):
+            generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
+        self.assertFalse(self.plan_path.exists())
+
+    def test_missing_or_inconsistent_cell_drift_config_fails_closed(self) -> None:
+        removed = self.recipe["drift_configs"].pop()
+        digest = self.save()
+        with self.assertRaisesRegex(ValueError, "69 cell-specific Drift"):
+            generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
+        self.assertFalse(self.plan_path.exists())
+        self.recipe["drift_configs"].append(removed)
+        drift_path = Path(removed["config"]["path"])
+        drift = json.loads(drift_path.read_text(encoding="utf-8"))
+        drift["replay"]["proxy_low"] = 0.12
+        drift_path.write_text(json.dumps(drift), encoding="utf-8")
+        removed["config"] = self.pin(drift_path)
+        digest = self.save()
+        with self.assertRaisesRegex(ValueError, "threshold/mapping differs"):
+            generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
+        self.assertFalse(self.plan_path.exists())
+
+    def test_proxy_config_must_match_selected_provisional_recipe(self) -> None:
+        path = self.config_paths["source_error"]
+        config = json.loads(path.read_text(encoding="utf-8"))
+        config["replay"]["proxy_high"] = 0.6
+        path.write_text(json.dumps(config), encoding="utf-8")
+        self.recipe["configs"]["source_error"] = self.pin(path)
+        digest = self.save()
+        with self.assertRaisesRegex(ValueError, "selected recipe: source_error"):
+            generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
+        self.assertFalse(self.plan_path.exists())
+
+    def test_drift_reference_must_match_first_accepted_history(self) -> None:
+        row = self.recipe["drift_configs"][0]
+        path = Path(row["config"]["path"])
+        drift = json.loads(path.read_text(encoding="utf-8"))
+        drift["replay"]["drift_reference_mean"] = 0.5
+        path.write_text(json.dumps(drift), encoding="utf-8")
+        row["config"] = self.pin(path)
+        digest = self.save()
+        with self.assertRaisesRegex(ValueError, "not the first accepted Development history"):
             generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
         self.assertFalse(self.plan_path.exists())
 

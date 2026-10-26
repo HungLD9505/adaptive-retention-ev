@@ -91,8 +91,12 @@ def require_capacity(root: Path) -> None:
     require(free_space(root) >= MIN_FREE_BYTES, "Less than 8 GiB free at output location")
 
 
-def checked_checkpoint(path: Path, digest: str, binding: dict, code: dict) -> dict:
+def checked_checkpoint(
+    path: Path, digest: str, binding: dict, code: dict, manifest_digest: str | None = None
+) -> dict:
     verify_file(path, digest)
+    if manifest_digest is not None:
+        verify_file(path.parent / "run_manifest.json", manifest_digest)
     record = read_json(path.parent / "run_manifest.json")
     require(record.get("status") == "completed", f"Incomplete checkpoint run: {path}")
     require(record.get("checkpoint_sha256") == digest, f"Checkpoint manifest mismatch: {path}")
@@ -335,13 +339,16 @@ def parse_plan(
             )
         else:
             require(
-                isinstance(item["source"], dict) and set(item["source"]) == {"path", "sha256"},
+                isinstance(item["source"], dict)
+                and set(item["source"])
+                in ({"path", "sha256"}, {"path", "sha256", "run_manifest_sha256"}),
                 "Source checkpoint declaration required",
             )
             require(
                 item["target"] is None
                 or isinstance(item["target"], dict)
-                and set(item["target"]) == {"path", "sha256"},
+                and set(item["target"])
+                in ({"path", "sha256"}, {"path", "sha256", "run_manifest_sha256"}),
                 "Invalid target checkpoint declaration",
             )
             if item["method"] == "frozen_source":
@@ -627,7 +634,13 @@ def verify_dependencies(
         return
     source = project_path(job["source"]["path"])
     source_binding = _binding(manifest, cell["input_manifest_sha256"], stage="source")
-    source_record = checked_checkpoint(source, job["source"]["sha256"], source_binding, code)
+    source_record = checked_checkpoint(
+        source,
+        job["source"]["sha256"],
+        source_binding,
+        code,
+        job["source"].get("run_manifest_sha256"),
+    )
     require(source_record["seed"] == cell["seed"], "Source seed differs")
     verify_source_schedule(source_record, config_spec["value"]["source"], input_run, manifest)
     if job["method"] == "frozen_source" or stage_name == "target":
@@ -650,7 +663,13 @@ def verify_dependencies(
         scale_id=cell["entity"]["scale"]["fit_sha256"],
         source_checkpoint_sha256=job["source"]["sha256"],
     )
-    target_record = checked_checkpoint(target, target_digest, target_binding, code)
+    target_record = checked_checkpoint(
+        target,
+        target_digest,
+        target_binding,
+        code,
+        job["target"].get("run_manifest_sha256") if job["target"] else None,
+    )
     settings = config_spec["value"]["target"]
     verify_target_schedule(target_record, settings, cell["entity"]["initial_trainable"])
     require(

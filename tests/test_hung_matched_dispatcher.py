@@ -184,6 +184,19 @@ class MatchedDispatcherTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "8 GiB"):
                 dispatch.require_capacity(self.root / "output")
 
+    def test_pinned_checkpoint_manifest_hash_is_checked_before_loading(self) -> None:
+        checkpoint = self.root / "checkpoint.pt"
+        checkpoint.write_bytes(b"fixture")
+        (self.root / "run_manifest.json").write_text("{}", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "SHA-256 mismatch"):
+            dispatch.checked_checkpoint(
+                checkpoint,
+                sha256_file(checkpoint),
+                {},
+                {"executed_sources": {}},
+                "0" * 64,
+            )
+
     def test_controller_builds_fresh_target_then_bound_split_resume(self) -> None:
         config = json.loads(self.config_path.read_text(encoding="utf-8"))
         job = {
