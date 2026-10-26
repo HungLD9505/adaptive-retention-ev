@@ -515,7 +515,7 @@ already use forward slashes and have independently passed transport/content
 verification. Frozen running checkouts and accepted artifacts were not modified,
 and no models were refitted. Core method files remain unchanged.
 
-## Current durable checkpoint — primary224/742, LOA13/378
+## Durable checkpoint — primary224/742, LOA13/378
 
 All212 selected-proxy recovery runs are independently published. The
 [last proxy archive](https://drive.google.com/file/d/1Z8vaMCHHedl9IUj02MHC0xqlpFeE6Y5T/view),
@@ -558,3 +558,16 @@ Ubuntu24.04 and Windows jobs after the portable Source-archive path correction.
 The failed prior CI remains linked above. No artifacts, fixtures or scientific
 thresholds were altered to hide it. Remaining matched/city runs, full analysis,
 independent Final approval and Final evaluation are still mandatory.
+
+### Latest accepted prefix: primary236/742, LOA13/378
+
+Matched offsets12–23 are now independently published, bringing the new-runtime
+recovery prefix to **236/742** (212/212 proxy and24/530 matched). Their
+[archive](https://drive.google.com/file/d/1FUGDvQol2n8XQPyiILmssQ1rP0hJ5_0P/view),
+[receipt](https://drive.google.com/file/d/1qfDb5aVEghzSj7RUzuyDsJHpahxNq5V4/view)
+and [proof](https://drive.google.com/file/d/1MEDYsNAF_f6ey52il_ar2XbmONPKJ3tI/view)
+passed actual Drive readback and full Source/daily/input/latest-state equality.
+Next matched offsets24–35 were dispatched only after this publication. Actual
+PID2850 was polled live; its completion and publication are not claimed. LOA's
+verified13-cell prefix and all three Source checkpoints remain preserved.
+Neither count indicates a completed experiment matrix, thesis or Final gate.
