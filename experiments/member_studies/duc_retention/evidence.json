@@ -1486,5 +1486,13 @@
       "sha256": "c3e0649be4efc56642c910f161d46617a99a2c90c579a1638e9f0118a351a470",
       "size_bytes": 220972
     }
+  },
+  "drive_artifact": {
+    "url": "https://drive.google.com/file/d/1OEbqhafhdgMpngDZC0kFBrRa9zI_tKDN/view?usp=drivesdk",
+    "owner_account": "ducnhhe182577@fpt.edu.vn",
+    "visibility": "owner-only; collaborator access pending",
+    "bytes": 23035669,
+    "sha256": "357431c94b033f6844162d727864e72ac779f60d89f6ea70e6ebcea3933e1fe4",
+    "readback_verification": "passed: bundle hash, ZIP CRC, all 152 artifact hashes"
   }
-}
+}\n

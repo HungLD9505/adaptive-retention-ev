@@ -18,10 +18,13 @@ acceptance gates. No merge or issue closure is performed by this report.
 - Evidence: [machine-readable results and per-artifact hashes](../../experiments/member_studies/duc_retention/evidence.json).
 - 49 checkpoints: one independently trained Source, 36 adapted targets, and 12
   zero-step source_checkpoint_only target snapshots. All are outside Git.
-- Distribution folder: [team Drive](https://drive.google.com/drive/folders/1jVSqUeZe0D_LSfTi5O9AeMVb3ZP_maVB).
-  Initial upload failed with HTTP403 `storageQuotaExceeded`; the folder's existence
-  is not evidence that files were uploaded. Distribution status will be updated
-  after a verified successful retry. The user offered to free space.
+- Artifact uploaded to the alternate School account (`ducnhhe182577@fpt.edu.vn`):
+  [duc-retention-cpu-20261026-v2.zip](https://drive.google.com/file/d/1OEbqhafhdgMpngDZC0kFBrRa9zI_tKDN/view?usp=drivesdk).
+  Drive metadata reports 23,035,669 bytes. Downloaded it back and verified the
+  exact bundle SHA-256, ZIP CRC, and all 152 contained artifact SHA-256 values.
+  This account can read, but not write into, the team's `Mạnh Quyền` parent folder;
+  the uploaded file is in the School account's My Drive root and currently owner-only.
+  It has not been shared with reviewers. Reviewer access remains to be arranged.
 
 ## Method and provenance
 
