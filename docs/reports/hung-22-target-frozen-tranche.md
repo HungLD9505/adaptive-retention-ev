@@ -41,7 +41,10 @@ index zero. A resumed output copies all verified ancestor forecast records and
 their immutable snapshots into the new output, so the final evidence is
 self-contained. The final runner checkpoint must contain the same issued
 predictions and scores; scored label vectors are cross-checked against the
-authenticated Development label artifact. If a run crashes after issuance,
+authenticated Development label artifact. The verifier independently derives
+which complete labels had arrived by the bounded/full replay cutoff, and binds
+the expected score/update events and cost counts. A scored day cannot be
+rewritten as null. If a run crashes after issuance,
 resume accepts only the latest committed forecast checkpoint and replays its
 label in a new output directory. A torn final append is ignored only for an
 interrupted run; a malformed complete line or missing middle row is rejected.
@@ -74,8 +77,8 @@ exact SHA rejection, split/resume parity for each method and the reader
 boundary. A simulated crash at label-read verifies durable issuance and
 interrupted resume parity for both methods. Tests also reject missing middle
 journal rows, malformed committed prefixes and final checkpoint divergence in
-prediction, score or Development label. No large dataset, GPU training or Final
-set is opened by these tests.
+prediction, score or Development label, including masking a scored day as null.
+No large dataset, GPU training or Final set is opened by these tests.
 
 Seasonal Naive remains separately proposed in PR #45. Adaptive and mean/fixed
 three-candidate selection policies are in PRs #46/#56/#57. Source-error,

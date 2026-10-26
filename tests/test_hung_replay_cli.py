@@ -17,6 +17,7 @@ from experiments.hung_sprint2.cli import _binding, _load_run, _replay, _target
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
 from experiments.hung_sprint2.training import load_checkpoint, save_checkpoint
 from tests.test_hung_replay_inputs import input_run
+from tests.test_hung_resume import assert_same_replay
 
 
 class ReplayCliTests(unittest.TestCase):
@@ -24,8 +25,25 @@ class ReplayCliTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         torch.set_num_threads(1)
 
-    def _inputs(self, root: Path, *, trained_weight: float | None = None):
+    def _inputs(
+        self, root: Path, *, trained_weight: float | None = None, proxy_history: bool = False
+    ):
         run, digest = input_run(root, days=3)
+        if proxy_history:
+            forecasts_path = run / "forecasts.jsonl"
+            forecasts = [json.loads(line) for line in forecasts_path.read_text().splitlines()]
+            for index, forecast in enumerate(forecasts):
+                for hour, row in enumerate(forecast["x_hist"]):
+                    row[0] = 0.0 if index == 1 and hour < 12 else (0.1 if index == 0 else 0.9)
+                    row[6] = 0.0 if index == 1 and hour < 12 else 1.0
+            forecasts_path.write_text(
+                "".join(json.dumps(row) + "\n" for row in forecasts), encoding="utf-8"
+            )
+            input_manifest = run / "manifest.json"
+            manifest_data = json.loads(input_manifest.read_text(encoding="utf-8"))
+            manifest_data["files"]["forecasts.jsonl"]["sha256"] = sha256_file(forecasts_path)
+            input_manifest.write_text(json.dumps(manifest_data), encoding="utf-8")
+            digest = sha256_file(input_manifest)
         if trained_weight is not None:
             entities_path = run / "entities.jsonl"
             entities = [json.loads(line) for line in entities_path.read_text().splitlines()]
@@ -189,6 +207,51 @@ class ReplayCliTests(unittest.TestCase):
             self.assertEqual(
                 resumed["proxy_costs"]["inference_calls"], resumed["coverage"]["created"]
             )
+
+    def test_all_proxy_cli_split_matches_uninterrupted(self) -> None:
+        for rule in ("source_error", "uncertainty", "drift"):
+            with self.subTest(rule=rule), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                run, digest, source, target, binding = self._inputs(root, proxy_history=True)
+                args = self._args(root, run, digest, source, target, "uninterrupted", 3)
+                args.selection_rule = rule
+                args.proxy_low = 0.2
+                args.proxy_high = 0.8
+                args.proxy_level_low = 0.0
+                args.proxy_level_mid = 0.1
+                args.proxy_level_high = 0.2
+                if rule == "drift":
+                    args.drift_reference_mean = 0.0
+                    args.drift_reference_scale = 1.0
+                full = _replay(args)
+                full_runner = load_runner(
+                    args.output / "runner_checkpoint.pt", expected_binding=binding
+                )
+                args.output = root / "prefix"
+                args.max_origins = 1
+                _replay(args)
+                args.resume_checkpoint = args.output / "runner_checkpoint.pt"
+                args.output = root / "resumed"
+                args.max_origins = 3
+                resumed = _replay(args)
+                resumed_runner = load_runner(
+                    args.output / "runner_checkpoint.pt", expected_binding=binding
+                )
+                assert_same_replay(self, full_runner, resumed_runner)
+                self.assertEqual(full_runner.decisions, resumed_runner.decisions)
+                self.assertEqual(
+                    full_runner.proxy_costs["inference_calls"],
+                    resumed_runner.proxy_costs["inference_calls"],
+                )
+                self.assertEqual(
+                    full_runner.proxy_costs["inference_calls"], full["coverage"]["created"]
+                )
+                self.assertEqual(
+                    resumed_runner.proxy_costs["inference_calls"], resumed["coverage"]["created"]
+                )
+                for left, right in zip(full_runner.issued, resumed_runner.issued, strict=True):
+                    self.assertEqual(left["proxy_value"], right["proxy_value"])
+                    self.assertTrue(torch.equal(left["source_forecast"], right["source_forecast"]))
 
     def test_bounded_replay_and_resume_create_new_run(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

@@ -563,6 +563,7 @@ class SingleBaselineTests(unittest.TestCase):
                     ("prediction", "prediction differs"),
                     ("score", "score differs"),
                     ("label", "label differs"),
+                    ("null_scored", "score eligibility differs"),
                 ):
                     with self.subTest(change=change):
                         state = deepcopy(original_state)
@@ -574,7 +575,7 @@ class SingleBaselineTests(unittest.TestCase):
                             )
                             if change == "score":
                                 scored["mae_kwh"] += 1
-                            else:
+                            elif change == "label":
                                 scored["y_scaled"][0] += 0.1
                                 mae = float(
                                     torch.abs(
@@ -583,6 +584,21 @@ class SingleBaselineTests(unittest.TestCase):
                                 )
                                 scored["normalized_mae"] = mae
                                 scored["mae_kwh"] = mae * state["energy_scale"]
+                            else:
+                                scored["y_scaled"] = None
+                                scored["normalized_mae"] = None
+                                scored["mae_kwh"] = None
+                                state["events"] = [
+                                    event
+                                    for event in state["events"]
+                                    if event
+                                    not in (
+                                        f"score:{scored['day_id']}",
+                                        f"update:{scored['day_id']}",
+                                    )
+                                ]
+                                if method == "target_only":
+                                    state["cost"]["update_steps"] -= 1
                         torch.save(state, checkpoint)
                         manifest["final_runner_checkpoint_sha256"] = sha256_file(checkpoint)
                         manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
