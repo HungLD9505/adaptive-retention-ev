@@ -1,0 +1,145 @@
+{
+  "accelerator": "None",
+  "cross_runtime": {
+    "atol": 1e-05,
+    "checks": {
+      "forecast": {
+        "max_absolute_difference": 5.960464477539063e-08,
+        "within_tolerance": true
+      },
+      "forecast_loss": {
+        "max_absolute_difference": 0.0,
+        "within_tolerance": true
+      },
+      "gradient/calendar_mlp.0.bias": {
+        "max_absolute_difference": 0.0,
+        "within_tolerance": true
+      },
+      "gradient/calendar_mlp.0.weight": {
+        "max_absolute_difference": 4.656612873077393e-10,
+        "within_tolerance": true
+      },
+      "gradient/encoder.bias_hh_l0": {
+        "max_absolute_difference": 1.1175870895385742e-08,
+        "within_tolerance": true
+      },
+      "gradient/encoder.bias_hh_l1": {
+        "max_absolute_difference": 4.6566128730773926e-09,
+        "within_tolerance": true
+      },
+      "gradient/encoder.bias_ih_l0": {
+        "max_absolute_difference": 1.1175870895385742e-08,
+        "within_tolerance": true
+      },
+      "gradient/encoder.bias_ih_l1": {
+        "max_absolute_difference": 1.0244548320770264e-08,
+        "within_tolerance": true
+      },
+      "gradient/encoder.weight_hh_l0": {
+        "max_absolute_difference": 3.725290298461914e-09,
+        "within_tolerance": true
+      },
+      "gradient/encoder.weight_hh_l1": {
+        "max_absolute_difference": 5.587935447692871e-09,
+        "within_tolerance": true
+      },
+      "gradient/encoder.weight_ih_l0": {
+        "max_absolute_difference": 1.4901161193847656e-08,
+        "within_tolerance": true
+      },
+      "gradient/encoder.weight_ih_l1": {
+        "max_absolute_difference": 4.6566128730773926e-09,
+        "within_tolerance": true
+      },
+      "gradient/forecast_head.0.bias": {
+        "max_absolute_difference": 1.862645149230957e-09,
+        "within_tolerance": true
+      },
+      "gradient/forecast_head.0.weight": {
+        "max_absolute_difference": 7.450580596923828e-09,
+        "within_tolerance": true
+      },
+      "latent": {
+        "max_absolute_difference": 9.313225746154785e-08,
+        "within_tolerance": true
+      },
+      "retention_loss": {
+        "max_absolute_difference": 4.6566128730773926e-09,
+        "within_tolerance": true
+      },
+      "updated/calendar_mlp.0.bias": {
+        "max_absolute_difference": 0.0,
+        "within_tolerance": true
+      },
+      "updated/calendar_mlp.0.weight": {
+        "max_absolute_difference": 0.0,
+        "within_tolerance": true
+      },
+      "updated/encoder.bias_hh_l0": {
+        "max_absolute_difference": 3.725290298461914e-09,
+        "within_tolerance": true
+      },
+      "updated/encoder.bias_hh_l1": {
+        "max_absolute_difference": 1.4901161193847656e-08,
+        "within_tolerance": true
+      },
+      "updated/encoder.bias_ih_l0": {
+        "max_absolute_difference": 3.725290298461914e-09,
+        "within_tolerance": true
+      },
+      "updated/encoder.bias_ih_l1": {
+        "max_absolute_difference": 1.862645149230957e-09,
+        "within_tolerance": true
+      },
+      "updated/encoder.weight_hh_l0": {
+        "max_absolute_difference": 1.4901161193847656e-08,
+        "within_tolerance": true
+      },
+      "updated/encoder.weight_hh_l1": {
+        "max_absolute_difference": 1.4901161193847656e-08,
+        "within_tolerance": true
+      },
+      "updated/encoder.weight_ih_l0": {
+        "max_absolute_difference": 1.4901161193847656e-08,
+        "within_tolerance": true
+      },
+      "updated/encoder.weight_ih_l1": {
+        "max_absolute_difference": 1.4901161193847656e-08,
+        "within_tolerance": true
+      },
+      "updated/forecast_head.0.bias": {
+        "max_absolute_difference": 0.0,
+        "within_tolerance": true
+      },
+      "updated/forecast_head.0.weight": {
+        "max_absolute_difference": 1.4901161193847656e-08,
+        "within_tolerance": true
+      }
+    },
+    "code_sha": "44b8532959d76fb20691881539f991ca44983727",
+    "passed": true,
+    "provider_torch": "2.11.0+cpu",
+    "reference_sha256": "10f4cee9ef8afcda2a27024136f08a9480ffc7116cec02f7215564cafca0ebf5",
+    "reference_torch": "2.8.0+cu126",
+    "rtol": 0.0001,
+    "scope": "Bounded initial Development CPU comparison across Torch versions; no full-trajectory or performance equivalence claim"
+  },
+  "dataset_url": "https://www.kaggle.com/datasets/hungluongduc/hung-local-pilot-readback-20261027-v1",
+  "independent_teammate_acceptance": "pending",
+  "local_download_of_provider_output": "not yet performed",
+  "log_capture_scope": "Visible provider log table, not raw downloaded provider files",
+  "max_cross_runtime_absolute_difference": 9.313225746154785e-08,
+  "schema": "hung-provider-mounted-readback-v1",
+  "storage_readback": {
+    "archive_sha256": "c567611587a247a29ba72ad01cfe700c8296c2609126d117a634609c5c26e833",
+    "bytes": 101854497,
+    "crc": "passed",
+    "job_receipts": 6,
+    "members": 485,
+    "provider_mounted_remote_readback_seconds": 3.906667992999985,
+    "scope": "Readback of persisted private Dataset on a different machine; not a local download or teammate review"
+  },
+  "terminal_ui_status": "Successfully ran in 73.4s",
+  "version_url": "https://www.kaggle.com/code/hungluongduc/hung-provider-cpu-readback-20261027-v1?scriptVersionId=362614432",
+  "visible_log_capture_sha256": "fe79e2fbbf411393aa076d908dc8239ea854593ae2245bd5c340cf3e4816c38e"
+}
