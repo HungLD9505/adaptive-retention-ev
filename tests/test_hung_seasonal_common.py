@@ -151,6 +151,37 @@ class SeasonalCommonTests(unittest.TestCase):
             self.assertEqual(completed["coverage"]["requested"], 3)
             self.assertEqual(completed["cost"]["fallback_hours"], 1)
 
+    def test_forged_journal_and_checkpoint_prediction_fail_input_recomputation(self) -> None:
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as directory:
+            root = Path(directory)
+            run, digest = seasonal_input(root)
+            args = fixture.replay_args(root, run, digest, "seasonal_naive", "forged", 1)
+            result = _replay(args)
+            journal_path = args.output / "forecasts.jsonl"
+            journal = [json.loads(line) for line in journal_path.read_text().splitlines()]
+            checkpoint = args.output / journal[1]["checkpoint"]
+            state = torch.load(checkpoint, map_location="cpu", weights_only=True)
+            state["pending"]["prediction"][0, 5] = 0.9
+            state["issued"][0]["prediction"][0, 5] = 0.9
+            torch.save(state, checkpoint)
+            journal[1]["prediction"][5] = float(state["issued"][0]["prediction"][0, 5])
+            journal[1]["checkpoint_sha256"] = sha256_file(checkpoint)
+            journal_path.write_text(
+                "".join(json.dumps(row) + "\n" for row in journal), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(
+                ValueError, "Seasonal forecast differs from authenticated Development history"
+            ):
+                verify_forecast_journal(args.output, run, result["input_binding"], result["code"])
+            state["pending"]["x_hist"][0, 0, 0] = 0.9
+            torch.save(state, checkpoint)
+            journal[1]["checkpoint_sha256"] = sha256_file(checkpoint)
+            journal_path.write_text(
+                "".join(json.dumps(row) + "\n" for row in journal), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(ValueError, "snapshot history differs from Development"):
+                verify_forecast_journal(args.output, run, result["input_binding"], result["code"])
+
     def test_final_payload_is_not_decoded_or_used_for_development_forecasts(self) -> None:
         with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as directory:
             root = Path(directory)

@@ -14,7 +14,7 @@ import torch
 from ev_inputs.hourly_reader import sha256_file
 from ev_inputs.windows import ready_labels
 from experiments.hung_sprint2.cli import _load_run
-from experiments.hung_sprint2.replay_inputs import _label_record, _target_rows
+from experiments.hung_sprint2.replay_inputs import _label_record, _target_forecasts, _target_rows
 
 SCHEMA = "hung-single-forecast-journal-v2"
 
@@ -110,6 +110,11 @@ def verify_forecast_journal(output: Path, input_run: Path, binding: dict, code: 
     manifest = _load_run(input_run, binding["input_manifest_sha256"])
     identity = [binding[key] for key in ("dataset_id", "city_id", "entity_id")]
     schedule = list(_target_rows(input_run / "schedule.jsonl", identity))
+    forecasts = (
+        _target_forecasts(input_run / "forecasts.jsonl", identity)
+        if binding["method"] == "seasonal_naive"
+        else None
+    )
     for expected_index, record in enumerate(records[1:], start=start_index):
         if set(record) != {
             "index",
@@ -165,6 +170,39 @@ def verify_forecast_journal(output: Path, input_run: Path, binding: dict, code: 
                 or issued["fallback_hours"] != record["fallback_hours"]
             ):
                 raise ValueError("Issued forecast was changed before label")
+            if forecasts is not None:
+                source = next(forecasts, None)
+                if source is None or (
+                    source["origin"] != record["day_id"]
+                    or source["input_run_id"] != manifest["run_id"]
+                    or source["scale_id"] != binding["scale_id"]
+                    or source["energy_scale"] != state["energy_scale"]
+                ):
+                    raise ValueError("Seasonal forecast Development input identity differs")
+                history = torch.tensor(source["x_hist"], dtype=torch.float32)
+                if history.shape != (24, 7) or not torch.isfinite(history).all():
+                    raise ValueError("Seasonal forecast Development history differs")
+                snapshot_history = pending.get("x_hist")
+                if (
+                    not isinstance(snapshot_history, torch.Tensor)
+                    or snapshot_history.shape != (1, 24, 7)
+                    or not torch.equal(snapshot_history.squeeze(0), history)
+                ):
+                    raise ValueError("Seasonal forecast snapshot history differs from Development")
+                mask = history[:, 6]
+                if not bool(torch.all((mask == 0) | (mask == 1))) or not bool((mask == 1).any()):
+                    raise ValueError("Seasonal forecast Development availability differs")
+                available = mask == 1
+                if bool(torch.any(history[available, 0] < 0)):
+                    raise ValueError("Seasonal forecast Development energy differs")
+                expected = history[:, 0].clone()
+                expected[~available] = history[available, 0][-1]
+                if record["prediction"] != expected.tolist() or record["fallback_hours"] != int(
+                    (~available).sum()
+                ):
+                    raise ValueError(
+                        "Seasonal forecast differs from authenticated Development history"
+                    )
         elif (
             issued is not None or record["prediction"] is not None or record["fallback_hours"] != 0
         ):
@@ -180,6 +218,8 @@ def verify_forecast_journal(output: Path, input_run: Path, binding: dict, code: 
         ]
         if issued_events != expected_events:
             raise ValueError("Forecast journal omits an issued origin in snapshot")
+    if forecasts is not None and len(records) - 1 == len(schedule) and next(forecasts, None):
+        raise ValueError("Seasonal forecast input has unmatched Development origins")
     return records[1:]
 
 
