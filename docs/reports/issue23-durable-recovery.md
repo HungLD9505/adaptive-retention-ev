@@ -291,3 +291,46 @@ preservation and rejection of changed Source bytes. Full347 local fixtures PASS
 Source/target weights, predictions, configs, expected hashes and core algorithms
 are unchanged. Recovery must copy and re-export the completed first run, not
 silently retrain it or rewrite its original report.
+
+### Separate-city Source outbox (implementation; cloud acceptance pending)
+
+`python -m tools.city_source_outbox` prepares exactly one own-city Source seed
+(42,43 or44), then stops before any target. It reuses the existing authenticated
+city cohort, frozen primary recipe, Source trainer and `RunBackup` verification;
+it does not copy UrbanEV/Hung weights, tune per city or change model/loss/runner
+algorithms. A new output below `/kaggle/working`, clean code, positive metadata
+Source count, hash-pinned cohort/primary/environment profile and deterministic
+CUDA/NumPy identity are required. Output setup is rechecked for code dirtiness
+before fitting. Inputs/raw data and existing runs cannot be overwritten.
+
+The environment profile is captured and pinned before fitting:
+`{"schema":"ev-city-cloud-environment-v1","environment":<actual environment>,"numpy":<actual version>}`.
+Do not regenerate it silently to accept a changed runtime. The CLI arguments are
+`--inputs-root`, `--cohort`, `--cohort-sha256`, `--primary-analysis`,
+`--primary-sha256`, `--environment-profile`, `--environment-sha256`, `--seed` and
+`--output`. Paths and hashes must refer to the actual accepted cloud files.
+
+A completed Source is weights/metadata/latent checked and committed as one ZIP
+and receipt, plus context. `source-handoff.zip` includes only this complete pair,
+its context, a member manifest and an explicit local-only handoff record. No
+automatic next seed, target or Final execution occurs. The external operator must
+actually download, safely restore/CPU-check the original namespace/population,
+seed/config/code/checkpoint/64-dimensional latent, upload and freshly read back
+Drive before accepting it. All three accepted same-city Sources are required for
+the later target/uncertainty stage. This Source-only CLI is not yet a bounded city
+target runner or a complete city handoff. Do not refit already usable Sources or
+blindly replace unresolved old SPO/MEL artifacts.
+
+Generic `RunBackup` receipt wording now says filesystem readback, accurately
+covering both an actual mounted caller and an explicit local outbox. Mounted
+callers still must pass `require_drive_mount`; no guard was removed. Remote
+acceptance still needs actual independent download/content evidence.
+
+Local356 fixtures passed (6.014s), including8 new independent Source wrapper,
+mutation/context/path/environment and no-CUDA guards; Ruff lint/format and diff
+checks passed. Routine checks require no raw data/network/GPU. A metadata-only
+preflight authenticated all existing city cohorts, the primary summary and all
+budgets, without fitting: AMS134,640 Source examples; JHB2,340; LOA12,330;
+MEL3,060; SPO2,610; SZH79,740. Each existing city plan declares378 target cells;
+these counts do not assert execution. New Source GPU fitting and portable Source
+publication remain unverified. No Final access, merge or issue acceptance.

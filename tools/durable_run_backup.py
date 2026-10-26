@@ -1,4 +1,4 @@
-"""Publish verified completed runs to mounted storage; never change training policy."""
+"""Copy verified completed runs; callers prove mounted/remote storage separately."""
 
 import json
 import os
@@ -169,17 +169,17 @@ class RunBackup:
                 os.fsync(target.fileno())
             checksum = digest(local)
             if pending.stat().st_size != local.stat().st_size or digest(pending) != checksum:
-                raise ValueError("Mounted-storage copy differs; no receipt committed")
+                raise ValueError("Filesystem copy differs; no receipt committed")
             with zipfile.ZipFile(pending) as copied:
                 if copied.testzip() is not None:
-                    raise ValueError("Mounted-storage ZIP CRC differs")
+                    raise ValueError("Filesystem ZIP CRC differs")
             if archive.exists():
                 raise ValueError("Concurrent backup writer; preserve both attempts")
             pending.rename(archive)
             envelope.update(
                 bytes=archive.stat().st_size,
                 sha256=checksum,
-                acceptance="Mounted-filesystem readback only; remote visibility remains external acceptance",
+                acceptance="Filesystem readback only; remote visibility remains external acceptance",
             )
             receipt_pending = self.root / (name + ".receipt.pending")
             with receipt_pending.open("xb") as stream:
