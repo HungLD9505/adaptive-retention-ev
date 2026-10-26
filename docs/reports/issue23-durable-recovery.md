@@ -714,3 +714,25 @@ original compatible runtime/CUDA topology and fixed recipe.
 Matched offsets96–107 were dispatched and polled live after Source42 stopped.
 Only308/742 primary replays, SPO13/378 and LOA25/378 are externally accepted
 at this snapshot. No Final, study completion, peer approval or merge is claimed.
+
+### Accepted primary320/742; AMS Source43 in progress
+
+Matched offsets96–107 passed actual fresh Drive download, exact frozen
+bindings, complete independent daily/input/latest-state equality and all three
+Source CPU reloads. Latest [archive](https://drive.google.com/file/d/1ES7XX3IRSxWxVfWsm3lyxFlu5kRMKoW_/view),
+[receipt](https://drive.google.com/file/d/1FTdXDwcH5ClWdsOwanYVTniqAH-Zpjy7/view),
+[proof](https://drive.google.com/file/d/1tGsrk6KZ8u7n7k94rvtzEaTcihvtPFxy/view).
+The prefix is320/742:212 proxy plus108 matched. Next matched108–119 is not
+dispatched while AMS Source43 uses the GPU.
+
+AMS Source43 was dispatched as PID3715 only after Source42's actual published
+receipt was downloaded and SHA/content checked. Its live process, epoch1
+checkpoint and134,640-example training log were observed. The fixed10-epoch
+run is not complete or externally published; seed44 and every AMS target
+remain required. Source42 is safely preserved as documented above.
+
+The [all13 SPO original/reconstruction comparison proof](https://drive.google.com/file/d/13oq2z2HhGt50PjC-ms3_yL0K1820F3F1/view)
+also passed fresh Drive bytes/SHA/CRC/all-member checks. All13 published
+reconstructed cells match nine declared original fields. This does not waive
+the remaining365 SPO cells or prove effectiveness. LOA remains25/378.
+No Final, peer approval, merge or full Sprint3 completion is claimed.

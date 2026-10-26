@@ -1876,17 +1876,17 @@
   },
   "latest_durability_snapshot": {
     "date": "2026-10-27",
-    "primary_new_runtime_published": 308,
+    "primary_new_runtime_published": 320,
     "primary_new_runtime_required": 742,
     "proxy_published": 212,
     "proxy_required": 212,
-    "matched_published": 96,
+    "matched_published": 108,
     "matched_required": 530,
     "next_matched_range": [
-      96,
-      108
+      108,
+      120
     ],
-    "next_range_status": "dispatched and polled live after AMS Source42 completed; remote publication not yet claimed",
+    "next_range_status": "not dispatched; AMS Source43 now training",
     "loa_target_published": 25,
     "loa_target_required": 378,
     "matched_24_36": {
@@ -2029,6 +2029,13 @@
         "bytes": 365981,
         "sha256": "307b82d7f45a537b755d1749df9aadbcb68dbfd5cdec1329c325b84d7331fa0a",
         "actual_Drive_readback": "PASS bytes/SHA/CRC/all manifest members"
+      },
+      "prefix13_comparison_proof": {
+        "id": "13oq2z2HhGt50PjC-ms3_yL0K1820F3F1",
+        "bytes": 5170,
+        "sha256": "6ff3b483d4acfaab55d34119427624c7f6d180aba1b61c840a37c9c6e6cb900e",
+        "actual_Drive_readback": "PASS bytes/SHA/CRC/all members",
+        "comparison": "All13 actually published reconstructions, 0 differences in9 predeclared fields"
       }
     },
     "matched_72_84": {
@@ -2114,6 +2121,28 @@
       "receipt_sha256": "b6c906622be264b3987a5b4fc25140f35198b0ad4a68c6f3fd96f7107fcae93a",
       "proof_id": "1VpTled81SFSO5xYPhWOiIOmO-Va6wZJ6",
       "proof_sha256": "250a0a1229958d0713703feca25787c971d6d820a2c1d62c1105b2b9f9738b47"
+    },
+    "matched_96_108": {
+      "archive_id": "1ES7XX3IRSxWxVfWsm3lyxFlu5kRMKoW_",
+      "receipt_id": "1FTdXDwcH5ClWdsOwanYVTniqAH-Zpjy7",
+      "proof_id": "1tGsrk6KZ8u7n7k94rvtzEaTcihvtPFxy",
+      "artifact": {
+        "drive_url": "https://drive.google.com/file/d/1ES7XX3IRSxWxVfWsm3lyxFlu5kRMKoW_/view",
+        "bytes": 18718135,
+        "sha256": "00aeebb04cecde43b0ce49913ac34895bc58f24af99b6f2f97abc76d38942c94"
+      },
+      "receipt_sha256": "0726a2fdd80c7caede331be29aece3285823f093e315db4cf2ab88388f09a822",
+      "proof_sha256": "6f0aebebab991e26a10c6e3c90e971d596ee7e90fe3135f6e8ee772ebecaf0eb",
+      "acceptance": "PASS fresh Drive download, exact bindings, complete independent Source/daily/input/latest-state verification"
+    },
+    "ams_source43": {
+      "status": "PID3715 polled live, actual epoch1 checkpoint and log observed; not completed or independently published",
+      "seed": 43,
+      "source_epochs": 10,
+      "source_examples": 134640,
+      "source_code": "b4376dc88d62c55ae23af56f3c0f595c2bfe463f",
+      "prior_Source42_publication_barrier": "Actual Drive receipt c1250275d22f6e90e6d7c932d288f2fe6e0b4b00cbe15c6b6d0c6cbb0afe2fc7 checked before fitting",
+      "scope": "Second own-city AMS Source, fixed recipe/seed; no new tuning, target/Final or automatic next."
     }
   }
 }
