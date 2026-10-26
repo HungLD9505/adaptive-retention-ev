@@ -77,12 +77,29 @@ New maintained files are `tools/hung_provider.py`, `tests/test_hung_provider.py`
 `experiments/hung_sprint2/kaggle_matched_shard0001.ipynb`, this report and its evidence
 JSON. Existing model and dispatcher source files are unchanged.
 
+The additional `kaggle_provider_readback.ipynb` is a CPU-only verifier of the
+persisted pilot Dataset and a pinned 343,183-byte Torch 2.8 CPU numerical reference
+(SHA `10f4cee9ef8afcda2a27024136f08a9480ffc7116cec02f7215564cafca0ebf5`).
+The private archive Dataset is
+https://www.kaggle.com/datasets/hungluongduc/hung-local-pilot-readback-20261027-v1.
+Submission alone does not establish a readback pass; its terminal evidence will
+be recorded separately.
+
 Commands completed: `python -m unittest tests.test_hung_provider -v` (5 passed),
 Ruff check/format, `git diff --check`, package/materialize, and a restored
 `dispatch_matched --shard-id shard_0001` dry-run (20 jobs / 40 stages, exit 0).
 The prior full dry-run remains 782 jobs / 1,909 stages, exit 0; prior offline suite
 277 tests passed with one skip, as recorded in PR #70. The launcher notebook code
 is saved in Git; its imported Kaggle representation is a Python script.
+
+The clean provider-branch full suite subsequently passed **282 tests, one skipped**
+in 215.949 seconds, exit 0 (`.cache/provider-offline-tests-v2*`). An earlier run
+retained two strict calibration-identity errors while a new notebook changed the
+worktree during the suite; no acceptance check or fixture was relaxed. CI then
+identified notebook import/style lint omitted from the first local Python-only
+lint invocation. Notebook imports/comments and formatting were corrected; the
+running Kaggle version retains its original submitted source. Full-repository
+Ruff check/format and diff checks, including both notebooks, are now required.
 
 Two preparation failures were corrected and their ignored outputs retained: Git
 cannot bundle a bare SHA without a named ref, and relative restored paths needed
