@@ -927,12 +927,12 @@
     "independent_proof_bytes": 7952
   },
   "current_recovery_status": {
-    "new_runtime_targets_fully_published": 39,
+    "new_runtime_targets_fully_published": 75,
     "new_runtime_planned_targets": 742,
     "old_missing_proxy_fully_restored": 648,
     "old_matched_prefix_fully_restored": 451,
     "old_matched_physically_missing": 239,
-    "interpretation": "Different collections with historical repeats; do not add as unique experiments or claim full scope. Old16 complete units/224 selected cells preserved; new742 selected replays remain frozen, with39 fully published. Final unapproved and not executed."
+    "interpretation": "Different collections with historical repeats; do not add as unique experiments or claim full scope. Old16 complete units/224 selected cells preserved; new742 selected replays remain frozen, with75 fully published. Final unapproved and not executed."
   },
   "kaggle_offset39_continuation": {
     "pid": 1186,
@@ -941,8 +941,137 @@
     "count_limit": 12,
     "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
     "required_previous_receipt_sha256": "c5533f7ea8b02334434538b07f501c1153a9f7ab5d267bc0fbabb7fafee55500",
-    "status": "actual_dispatch_not_yet_content_published",
+    "status": "actual_Drive_roundtrip_complete_independent_content_verified",
     "log": "/kaggle/working/issue23-proxy-continue-0039-v1.log",
-    "scope": "Bounded frozen Development continuation only; stop for independent publication. No next offset, Final, favorable rerun or method change."
+    "scope": "Bounded frozen Development continuation only; stop for independent publication. No next offset, Final, favorable rerun or method change.",
+    "completed_runs": 12,
+    "canonical_url": "https://drive.google.com/file/d/1AnKmzt72rMQLNIBcTF3ZU0ihF92imGOR/view",
+    "canonical_publication": {
+      "status": "actual_Drive_roundtrip_complete_independent_content_verified",
+      "runs": 12,
+      "family": "proxy",
+      "start": 39,
+      "end": 51,
+      "all_three_original_Source_dependencies_cpu_verified": true,
+      "wrapper_sha256": "d3c0cf3245fd7ed13230c9cc26d6596800a0420054ca503f72d1e81ec4924b89",
+      "wrapper_bytes": 21515578,
+      "catalog_sha256": "857a225758a393e9daa6a3394a0efcddf231f38ae625156b22b628c2817fdc92",
+      "daily_sha256": "e2386216b4d2cb0b63067a07e8e6388d07be3b2f44646240ab185687dbc30da8",
+      "states_sha256": "8543eb516b315c1ae481d9764f3eb7f67638456a8300ec0d2cc1b1cd9f5ee742",
+      "operator_verifier_sha256": "6abf5f5214b71cd2e71ec97d208ec07f6d9eda66a476273fb3baf865f7a106cb",
+      "stages": [
+        {
+          "name": "daily",
+          "exit_code": 0,
+          "seconds": 0.36306975001934916
+        },
+        {
+          "name": "states",
+          "exit_code": 0,
+          "seconds": 0.5558327500184532
+        }
+      ],
+      "seconds": 6.118312875012634,
+      "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/10famwPtKt5yfGK5GIpn1Gbv2ZCRxSqJS/view",
+    "publication_receipt_sha256": "4c789f4d2b507df349a685afc0892763b3fee21824c363cda43b5b543c08644e",
+    "independent_proof_url": "https://drive.google.com/file/d/1y0FHx_zHKbUzsKLSY4h5Ow4Dt4ugf7LW/view"
+  },
+  "kaggle_offset51_continuation": {
+    "start": 51,
+    "end": 63,
+    "completed_runs": 12,
+    "status": "actual_Drive_roundtrip_complete_independent_content_verified",
+    "canonical_url": "https://drive.google.com/file/d/1dVl81JfYT6ID9Um2qdJ4bI3XEOVG8Drw/view",
+    "canonical_publication": {
+      "status": "actual_Drive_roundtrip_complete_independent_content_verified",
+      "runs": 12,
+      "family": "proxy",
+      "start": 51,
+      "end": 63,
+      "all_three_original_Source_dependencies_cpu_verified": true,
+      "wrapper_sha256": "0e11700a289fd145bc1f668f9a55643ed215cc80be5a35f79a2dc0a82b137eb7",
+      "wrapper_bytes": 21021486,
+      "catalog_sha256": "1499c934cbd66f327451190db0f33a9ec87af4a030447e8b63fbecc0499d2a0c",
+      "daily_sha256": "f07c5c0be8f76f81b26511283816c1476e2c112486c27ad5fe2c460eee69bdcd",
+      "states_sha256": "ffc52f911a9ed61d561caae91593730be81ef16615d5d9b490bc353788113976",
+      "operator_verifier_sha256": "6abf5f5214b71cd2e71ec97d208ec07f6d9eda66a476273fb3baf865f7a106cb",
+      "stages": [
+        {
+          "name": "daily",
+          "exit_code": 0,
+          "seconds": 0.3050075829960406
+        },
+        {
+          "name": "states",
+          "exit_code": 0,
+          "seconds": 0.6415189999970607
+        }
+      ],
+      "seconds": 12.867408916994464,
+      "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/1ZnZ-jKQAzBYSDy853jbiSen-v2PbdHc_/view",
+    "publication_receipt_sha256": "7f805b6b13aac6640402a0ed25f0b6302efa1e08b081b3bae4ebf7ade163fd84",
+    "independent_proof_url": "https://drive.google.com/file/d/1coz2w8FsHyj17fpQxWud6sqDPqQPwDGA/view",
+    "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51"
+  },
+  "kaggle_offset63_continuation": {
+    "start": 63,
+    "end": 75,
+    "completed_runs": 12,
+    "status": "actual_Drive_roundtrip_complete_independent_content_verified",
+    "canonical_url": "https://drive.google.com/file/d/1XbbipqsDlqVPJ4LvsuRpe_nxT8FWSOkO/view",
+    "canonical_publication": {
+      "status": "actual_Drive_roundtrip_complete_independent_content_verified",
+      "runs": 12,
+      "family": "proxy",
+      "start": 63,
+      "end": 75,
+      "all_three_original_Source_dependencies_cpu_verified": true,
+      "wrapper_sha256": "6b2f481f4f9e22b354ebf843649ee064c911264ae54c3d4fa1dc77a00d244458",
+      "wrapper_bytes": 24366261,
+      "catalog_sha256": "031a318dd58c27c0dd39b223a264f97c574a0e6c3c7a6184dcb8d357822159e2",
+      "daily_sha256": "20193ef718925e179b76c37438a53fb32b8f870d9c9a51f49ca3aba303f8efa5",
+      "states_sha256": "94ce036c9fc971a4b57dd18e74792bdc046b5914177fc94666ab0091852f3c96",
+      "operator_verifier_sha256": "6abf5f5214b71cd2e71ec97d208ec07f6d9eda66a476273fb3baf865f7a106cb",
+      "stages": [
+        {
+          "name": "daily",
+          "exit_code": 0,
+          "seconds": 0.41554212497430854
+        },
+        {
+          "name": "states",
+          "exit_code": 0,
+          "seconds": 0.6355674579972401
+        }
+      ],
+      "seconds": 14.762234291003551,
+      "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/1dOJu0ebyuzkbHJqve9OQ3brcQ0c8t2S9/view",
+    "publication_receipt_sha256": "d55c9261f7b674e5e090777855b7f4a51d4737caa6cef82aaa949309c5dc9693",
+    "independent_proof_url": "https://drive.google.com/file/d/1W2UNukJNDOs_qP09N7HWPyuIFQU-4vBJ/view",
+    "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51"
+  },
+  "kaggle_offset75_continuation": {
+    "pid": 1363,
+    "start": 75,
+    "end": 87,
+    "count_limit": 12,
+    "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+    "required_previous_receipt_sha256": "d55c9261f7b674e5e090777855b7f4a51d4737caa6cef82aaa949309c5dc9693",
+    "status": "actual_dispatch_not_yet_content_published",
+    "log": "/kaggle/working/issue23-proxy-0075-0087-operator-v2.log",
+    "scope": "Frozen Development scope; max12 local outbox before independent publication. No automatic next or Final."
+  },
+  "external_operator_verification": {
+    "scope": "Outside-Git executed transport/CPU verifier and cloud launcher, copied with actual proof artifacts. Model/controller/runner/baseline algorithms unchanged. No network credential extraction or fake Drive mount. Actual fresh anonymous Drive download precedes complete content proof and receipt.",
+    "offline_fixtures": 7,
+    "offline_fixture_seconds": 0.004,
+    "coverage": "Regular extraction, parent/absolute paths, duplicate/case alias, directory member and >12 bounded range rejection before IO. These are operator fixtures, not additional model or CI tests.",
+    "preflight_failure": "Initial generic verifier used str __file__ with Path-only digest; failed before download/content work. Separate v2 output corrected Path(__file__) and actual12-run restore/readback passed. Failed log retained."
   }
 }

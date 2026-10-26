@@ -102,3 +102,20 @@ because this candidate is feasible or its JSON has a checksum. Complete
 Development evidence, actual Source/config/code/analysis identities, Final-capable
 interfaces and independent lock approval remain required. This handoff does not
 change the sole sprint schedule or create a competing execution plan.
+
+The rule-predeclared metadata-only candidate was executed after commita825ff4.
+It contains66 entity-budget pairs and2,772 three-seed/fourteen-variant cells:
+UrbanEV4 IDs per budget (three positive-prefix and one empty-prefix); every
+CHARGED city3 per budget. All seven namespaces and three budgets are represented.
+The [candidate, script and log](https://drive.google.com/file/d/1EbuB8A2iB1ZMhTgHzgQC2cYjGFvZtKJU/view)
+ZIP is9,349 bytes, SHA-256
+`1fe4665d998e9e8d89275712512046c086f02aab98b5dc6bdf30f02ffca7cbb0`;
+actual fresh Drive readback, ZIP CRC and every manifest member hash passed.
+Candidate JSON SHA-256 is
+`b1202774d85f24540ade9d2f8024c9a63e9284a537eeef5a719a7a9041cb2703`.
+No Final value records were decoded. There is still no cohort selection or
+independent Final-lock approval; PR52 review submissions were empty at inspection.
+A three-positive-site sample per budget has limited station-level inference,
+and budget groups can have different IDs. The all-ready147,420-cell inventory
+remains an alternative; the candidate cannot silently replace it. No measured
+Final capacity or Source/config/code/analysis lock is claimed.

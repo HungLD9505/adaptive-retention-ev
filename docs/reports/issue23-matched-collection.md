@@ -603,3 +603,22 @@ storage recovery attempts established a concrete access limitation. The full
 Sprint3 objective remains open. Final readiness was inspected; Final interfaces,
 cohort/capacity declaration and independent immutable-lock approval are still
 unimplemented/unaccepted, not inferred from green Development checks.
+
+### New-runtime published prefix reaches75
+
+Three more original proxy ranges [39,51),[51,63),[63,75) completed and were
+independently verified after actual Drive redownload. The exact ledger includes
+artifact bytes/SHA, all ordered frozen run/config/input/code/environment checks,
+daily/state fingerprints, all3 original Source checkpoints and publication
+receipts. Latest [12-run package](https://drive.google.com/file/d/1XbbipqsDlqVPJ4LvsuRpe_nxT8FWSOkO/view)
+and [proof](https://drive.google.com/file/d/1W2UNukJNDOs_qP09N7HWPyuIFQU-4vBJ/view).
+The external operator now reuses a captured parameterized verifier and launcher;
+it does not change the repository's model algorithms or pretend local output is
+Drive. Seven offline transport-safety fixtures pass; these do not increase the
+repository's348-test count or establish effectiveness. Initial operator Path
+preflight failure is preserved, with a separate successful v2 output.
+
+Only after actual external acceptance was range [75,87) dispatched as PID1363.
+The old CPU-only storage session is still Starting/Waiting for Jupyter; no old
+Python process or persisted file contents are newly verified, and no old training
+cell was rerun. Full Sprint3, city recovery/replication and Final gates remain open.
