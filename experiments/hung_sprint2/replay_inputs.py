@@ -3,15 +3,14 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Callable, Iterator
 
 import torch
 
-from ev_inputs.loader import iter_forecasts
-from ev_inputs.windows import LabelRecord, ready_labels
+from ev_inputs.windows import ForecastInput, LabelRecord, ready_labels
 from experiments.hung_sprint2.cli import _load_run
 from experiments.hung_sprint2.runner import LabelArrival, Origin, PrequentialRunner
 
@@ -26,15 +25,29 @@ class ReplaySummary:
     delayed_or_incomplete: int
 
 
-def _rows(path: Path) -> Iterator[dict]:
+def _target_rows(path: Path, identity: list[str], role: str = "development") -> Iterator[dict]:
+    # The accepted #18 writer emits identity first. Rejecting other headers
+    # before json.loads keeps non-target label arrays outside this consumer.
+    prefix = '{"identity": ' + json.dumps(identity, ensure_ascii=False) + ","
     with path.open(encoding="utf-8") as stream:
         for line in stream:
-            yield json.loads(line)
+            if not line.startswith(prefix):
+                continue
+            row = json.loads(line)
+            if row.get("identity") == identity and row.get("role", role) == role:
+                yield row
 
 
-def _target_rows(path: Path, identity: list[str], role: str = "development") -> Iterator[dict]:
-    for row in _rows(path):
-        if row.get("identity") == identity and row.get("role", role) == role:
+def _target_forecasts(path: Path, identity: list[str]) -> Iterator[dict]:
+    prefix = '{"role": "development", "identity": ' + json.dumps(identity, ensure_ascii=False) + ","
+    expected = {field.name for field in fields(ForecastInput)} | {"role"}
+    with path.open(encoding="utf-8") as stream:
+        for line in stream:
+            if not line.startswith(prefix):
+                continue
+            row = json.loads(line)
+            if set(row) != expected or row["role"] != "development" or row["identity"] != identity:
+                raise ValueError("Selected forecast schema/identity differs")
             yield row
 
 
@@ -120,9 +133,7 @@ def replay_target(
         if blocked != len(schedule) or entity.get("initialization") != "blocked_undefined_scale":
             raise ValueError("Undefined-scale schedule/initialization mismatch")
         if any(_target_rows(input_run / "labels.jsonl", identity)) or any(
-            row
-            for row in iter_forecasts(input_run, expected_manifest_sha256=manifest_sha256)
-            if row["role"] == "development" and row["identity"] == identity
+            _target_forecasts(input_run / "forecasts.jsonl", identity)
         ):
             raise ValueError("Undefined-scale target has unexpected forecast/label records")
         if runner is not None:
@@ -168,11 +179,7 @@ def replay_target(
     if not set(runner.late_pending).issubset(prior_created):
         raise ValueError("Runner deferred labels differ from accepted schedule")
 
-    forecasts = (
-        row
-        for row in iter_forecasts(input_run, expected_manifest_sha256=manifest_sha256)
-        if row["role"] == "development" and row["identity"] == identity
-    )
+    forecasts = _target_forecasts(input_run / "forecasts.jsonl", identity)
     labels = _target_rows(input_run / "labels.jsonl", identity)
     late_records: dict[str, LabelRecord] = {}
     next_event_index = event_start_index
