@@ -1876,18 +1876,18 @@
   },
   "latest_durability_snapshot": {
     "date": "2026-10-27",
-    "primary_new_runtime_published": 260,
+    "primary_new_runtime_published": 308,
     "primary_new_runtime_required": 742,
     "proxy_published": 212,
     "proxy_required": 212,
-    "matched_published": 48,
+    "matched_published": 96,
     "matched_required": 530,
     "next_matched_range": [
-      48,
-      60
+      96,
+      108
     ],
-    "next_range_status": "dispatched_and_polled_live_not_published",
-    "loa_target_published": 13,
+    "next_range_status": "dispatched and polled live after AMS Source42 completed; remote publication not yet claimed",
+    "loa_target_published": 25,
     "loa_target_required": 378,
     "matched_24_36": {
       "archive_id": "1Zy7xTf3Jdtqev6--89jsDZXrwgdDSiMo",
@@ -1944,6 +1944,176 @@
         }
       }
     },
-    "scope": "Recovery-prefix counts, not total-study completion. No Final execution, tuning, merge or independent approval claimed."
+    "scope": "Recovery-prefix counts, not total-study completion. No Final execution, tuning, merge or independent approval claimed.",
+    "matched_48_60": {
+      "archive_id": "1aoTPE5IWtgZhUQwaS2hTEao2M1giN8MZ",
+      "receipt_id": "18x-y86GCYOKQUnYWHFJgAb4QChg7uY80",
+      "proof_id": "1GECaayisTDCHno-Lu2cCAYf5QlZwrUoY",
+      "artifact": {
+        "drive_url": "https://drive.google.com/file/d/1aoTPE5IWtgZhUQwaS2hTEao2M1giN8MZ/view",
+        "bytes": 25048132,
+        "sha256": "210e91e09a4e2937eb707a9172f218b0e936198962ea5225c0c0b4fab2556c4d"
+      },
+      "receipt_sha256": "dd1e81e09dab1fe2a30633971490cadd57755dac336ad672d8996d6991f8c825",
+      "proof_sha256": "bdf7fd29f3ad3774b67a548ce3f70a654f36536ca31c440c76d1a8e8a64898d8",
+      "acceptance": "PASS actual Drive download/full independent daily/input/latest-state comparison and all3 Source CPU reloads"
+    },
+    "matched_60_72": {
+      "archive_id": "1PzzxtRlZVdA9VaAK6R5-5pWPaJcDl6X1",
+      "receipt_id": "18VlfPs99iwSz9SF6zEfFTFnY2638RMAQ",
+      "proof_id": "1yjKPgLX2p-JHfGfkaTdv3jmI8mRC1aMH",
+      "artifact": {
+        "drive_url": "https://drive.google.com/file/d/1PzzxtRlZVdA9VaAK6R5-5pWPaJcDl6X1/view",
+        "bytes": 23707580,
+        "sha256": "1cf2b68b608754a0b9a2a48409db55efcdb333294c43f862cb811369212fd7c6"
+      },
+      "receipt_sha256": "6f2f21010f4b0fdb7547e373f876dfea34fdb06dee7a56af14f68afc4dddde46",
+      "proof_sha256": "fbc0a6a7a676cf6724d68c9fbf700fee4e6c5fb10a00ab12419a717294308445",
+      "acceptance": "PASS actual Drive download/full independent daily/input/latest-state comparison and all3 Source CPU reloads"
+    },
+    "spo_target_reconstruction": {
+      "status": "first_predeclared_target_independently_published_and_original_metadata_compared",
+      "published": 13,
+      "required": 378,
+      "sources": "All3 original own-city Sources, no new Source fit",
+      "plan_sha256": "e1631fc537cf0b53f8ec70abb8aebe0b8d76a79c8c81cf45e52c304761f49b11",
+      "source_kit_sha256": "86162ca708f1fca77786d7048e4958106531bbb01ab2231e11436f5d4120dfb5",
+      "launch_kit": {
+        "id": "1mEQqKrQn2vPWfPRsZJHtHJyvkBXI0X5d",
+        "bytes": 17502365,
+        "sha256": "a3cc204bb484ae502d3148121d98dc3e93418a51ac2e5132e6ba5e575ca58b12"
+      },
+      "cloud_preparation": {
+        "code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "tests": 366,
+        "lint_format": "PASS",
+        "seconds": 39.76965964900046
+      },
+      "first_target": {
+        "run_id": "charged-SPO-17-7d-adaptive-seed42",
+        "archive_id": "1QfQRvOqz6FcKb58RRoMX3qYzhqQIlhw6",
+        "bytes": 12169007,
+        "sha256": "57affe5c73074d9756d2aa24922a6bc7629a10159b18961ba27b0669c7ce8556",
+        "receipt_id": "1rRJQqALcnE864IO25DSfoj0dkFsvr9kR",
+        "receipt_sha256": "6d31358ed835d1f49fb85a8ef09cb63051412d93d2d98b66a4bfc3b3e8213852",
+        "proof_id": "1Htl4gtWnIuSCaDcMOvcwWaab4Md4EoEa",
+        "proof_sha256": "5caaa1a1ed127221321633cf4b68d5e095ef933678948ffff06b385c6438a666",
+        "original_comparison": "0 differences across9 declared fields; all90days issued/scored",
+        "comparison_proof": {
+          "drive_id": "17GKk6VRQLd8x1Go_qXYnZLLNbPxvetDm",
+          "bytes": 5472,
+          "sha256": "11201a0f35d3cb0abe116711dc81c7f0af5a8d9f6398ef3ea596071ae53ac68f",
+          "actual_Drive_readback": "PASS size/SHA/CRC/all members"
+        }
+      },
+      "old_session_revalidation": "Observed original recovery tab still Session is starting and failed draft save after Continue editing; no restart/RunAll",
+      "scope": "New reconstruction; original raw target bytes still undelivered. No outcome-based choice, full378 completion or effectiveness/Final claim.",
+      "next_range": [
+        13,
+        25
+      ],
+      "next_status": "Not dispatched; first AMS Source42 uses GPU",
+      "next12_target_publication": {
+        "archive_id": "1vLcx7Jfa5PNkLDkuATdQhc0zhtxZSaZF",
+        "bytes": 27036692,
+        "sha256": "625d9ce8541cbca504a92ba9b647bd386b7988a1d68502f03053990b88e19bba",
+        "receipt_id": "1eakPttA2zYXK0taxkwf9vt7XtxTVTdH8",
+        "receipt_sha256": "5fbd4f8f48c456c84276dea4efa52bd0b4acda43b47d1ab8eb83d80fa3dad59b",
+        "proof_id": "1geTqFpwSMm1p6Xelc-RrLJQM-8u0zOBZ",
+        "proof_sha256": "09de30271430259a5ed4625dfe7447357afa7460545191baaa125e4f0eac05a4",
+        "independent_Drive_download_Source_daily_input_latest_state": "PASS",
+        "original_comparison": "All12 match9 declared original fields; combined13/378, no effectiveness claim"
+      },
+      "recovery_operators_proof": {
+        "id": "19oa4CF2E-CBvarG4YGq3y_VHle9ctq0X",
+        "bytes": 365981,
+        "sha256": "307b82d7f45a537b755d1749df9aadbcb68dbfd5cdec1329c325b84d7331fa0a",
+        "actual_Drive_readback": "PASS bytes/SHA/CRC/all manifest members"
+      }
+    },
+    "matched_72_84": {
+      "archive_id": "1-s42pcrCEq2FMT5xcAJ31zIdgGXUFLPQ",
+      "receipt_id": "1c2NnF46aLrfY3QVp4SPrb5S1LIbWpZnG",
+      "proof_id": "1MAUNiGtK4FF6fHX2XEF-LLqj2CKBe8OQ",
+      "artifact": {
+        "drive_url": "https://drive.google.com/file/d/1-s42pcrCEq2FMT5xcAJ31zIdgGXUFLPQ/view",
+        "bytes": 25149403,
+        "sha256": "c8749ed7fc955986edfeb150527fdf75a9b944d8572385461571a0d56d1ea8a4"
+      },
+      "receipt_sha256": "e817dd7da93b6abbb9b5d26f14cd8d65f5f8b7b33941da8aaf1cb5b7cc2bdf40",
+      "proof_sha256": "889f828757ae65cca0de74b31cf6f4cdc6599d5ad84901505da7f5176001e5a8",
+      "acceptance": "PASS actual Drive download/full independent daily/input/latest-state comparison and all3 Source CPU reloads"
+    },
+    "matched_84_96": {
+      "archive_id": "1-PISKuy39c7KceE4aQhxuBgZybTdJfvZ",
+      "receipt_id": "15ckg5jgGsd8Kvyy8mhSr8cnlsn8HjHmj",
+      "proof_id": "1sapm3DjagHGea67IFSEdAf6IgK1S-Pbo",
+      "artifact": {
+        "drive_url": "https://drive.google.com/file/d/1-PISKuy39c7KceE4aQhxuBgZybTdJfvZ/view",
+        "bytes": 23313269,
+        "sha256": "4b07198073a005ef1143fa772ed0dfd2d333bf2e04f1d9244ff9612ae2688d2c"
+      },
+      "receipt_sha256": "c869427cbe12cb0249127cc0a7652c3e7a7df75656428d4e8d73ab0744bad55d",
+      "proof_sha256": "ea94feb64f6b78b66dc9f019b721794d86bc863687244b1ee10eed1f051a8248",
+      "acceptance": "PASS actual Drive download/full independent daily/input/latest-state comparison and all3 Source CPU reloads"
+    },
+    "remaining_city_input_preflight": {
+      "status": "all3 input archives and Source metadata prepared on cloud, fresh Drive readback and independent local all3 metadata checks PASS; no fitting in preflight",
+      "proof_id": "1RLDbIZtio7ACfmRaX51yZX-3quluL8g3",
+      "bytes": 10737,
+      "sha256": "33279558cca8ee2586eff2f61cb64444a1cff906ecdf29f29f271e98fe3191d5",
+      "independent_proof_id": "1X4EWt7HIbMtjBcRXzemOhchdYLzEKxsF",
+      "independent_proof_sha256": "15299f070c40ee333f6b4b44f363d53fd8dca0df75cb4f2e4e2c38d07b63692f",
+      "Source_examples": {
+        "MEL": 3060,
+        "AMS": 134640,
+        "SZH": 79740
+      },
+      "fixture_scope": "Existing clean b437 Source checkout360 CPU fixture gate reused, not3 newly run fixture suites. No target/Final values decoded."
+    },
+    "ams_source42": {
+      "status": "completed10epochs; actual fresh Drive download and independent CPU Source/input/latent/count verification PASS; receipt/proof uploaded",
+      "source_examples": 134640,
+      "source_epochs": 10,
+      "seed": 42,
+      "source_code": "b4376dc88d62c55ae23af56f3c0f595c2bfe463f",
+      "cohort_sha256": "fd66da1548b98df0cdf024417363d0e8f503432b1ae1947d841ed65b57da9329",
+      "scope": "First own-city AMS Source only; original fixed recipe/profile and seed42. Count134640 verified. Seeds43/44 and all378 target cells remain required; no Final or complete-city claim.",
+      "last_observed_completed_epoch_checkpoints": 10,
+      "checkpoint_sha256": "a368c3ebabeb9cb91180ff01ee41b271dbbdf888b610083834bbc75a5b2eda2d",
+      "artifact": {
+        "id": "1_Kvx5MS4HZy1W4VCKxvejU-YRy2Gzah5",
+        "bytes": 859215,
+        "sha256": "049df8ffa02aae94222b1c3b47ff8dcabe3f83f980f0ac7fe35d5e426db1bb5a"
+      },
+      "receipt_id": "1fZuIJO1uCLBHNfzQmABW3OJptGrIGBOM",
+      "receipt_sha256": "c1250275d22f6e90e6d7c932d288f2fe6e0b4b00cbe15c6b6d0c6cbb0afe2fc7",
+      "proof_id": "1GpGsHGx0xDjWb8drcNOl2521CvHIHfGI",
+      "proof_sha256": "ecb3487b38073dd5c137169dcdf6d03ae9fe6e9d314036341504f1c90d93d3ce",
+      "source_outbox_seconds": 381.58120445699933,
+      "intermediate_epoch5_insurance": {
+        "id": "1e14G14MmzW1z17STgsl7ON90rMMLHXK4",
+        "bytes": 540845,
+        "sha256": "d5fb483d78cfbb10b2865940e8c2df730045c04b6b5edc6ce7d919657f7cdbdc",
+        "checkpoint_sha256": "3be2f100fece3a69bec1f7f8d4cf9d216c4327950672bc785c944233d62dd3d3",
+        "proof_id": "10AHN-VeXF0KmgSEcgIm7CGe-ND3Q63aK",
+        "proof_sha256": "90dd261247c19e5845aac1f3134669c3874606ef7292d33a7f315c382b13abe5",
+        "verification": "Actual fresh Drive download/CRC/all member hashes, CPU checkpoint/optimizer/RNG and Source binding verified. No interrupted cloud GPU resume executed; no checkpoint selection or final Source replacement."
+      }
+    },
+    "loa_next_target_publication": {
+      "range": [
+        13,
+        25
+      ],
+      "status": "PASS actual fresh Drive download and independent full Source/daily/input/latest-state verification; receipt and proof uploaded",
+      "archive_id": "1IczH1PPzEDpCEspHEc8sB2uGP3Vtzeqm",
+      "bytes": 27252474,
+      "sha256": "986f5ff708e89500028d42b32950bca488807c1bda142ace19ee330b50122eb2",
+      "receipt_id": "1b-0gsYNbKzjwzLY3MtyHZf6AILvzLlGI",
+      "receipt_sha256": "b6c906622be264b3987a5b4fc25140f35198b0ad4a68c6f3fd96f7107fcae93a",
+      "proof_id": "1VpTled81SFSO5xYPhWOiIOmO-Va6wZJ6",
+      "proof_sha256": "250a0a1229958d0713703feca25787c971d6d820a2c1d62c1105b2b9f9738b47"
+    }
   }
 }

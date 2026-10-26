@@ -604,3 +604,113 @@ A runtime failure can still lose an unpublished chunk; verified published
 chunks can be restored without refitting. Run IDs, source/input/config/code
 bindings, checksums, daily records, latest states and verification logs are
 retained. Full Sprint3 analysis and independently approved Final remain pending.
+
+### Primary284/742 and first SPO reconstruction independently published
+
+Matched offsets48–71 passed fresh Drive redownload and complete independent
+Source/daily/input/latest-state checks. The new-runtime recovery prefix is
+**284/742**, comprising212 proxy and72 matched replays. The latest
+[archive](https://drive.google.com/file/d/1PzzxtRlZVdA9VaAK6R5-5pWPaJcDl6X1/view),
+[receipt](https://drive.google.com/file/d/18VlfPs99iwSz9SF6zEfFTFnY2638RMAQ/view)
+and [proof](https://drive.google.com/file/d/1yjKPgLX2p-JHfGfkaTdv3jmI8mRC1aMH/view)
+are preserved outside the runtime. Next matched offsets72–83 were dispatched
+and polled live; they are not yet counted as externally published.
+
+SPO now has a complete378-cell frozen reconstruction plan using the three
+original authenticated own-city Source checkpoints. The
+[launch kit](https://drive.google.com/file/d/1mEQqKrQn2vPWfPRsZJHtHJyvkBXI0X5d/view)
+passed exact input/Source checks and366 clean cloud CPU tests, lint and format.
+No Source was refitted. The old runtime was rechecked and still showed
+Session is starting and failed draft save; its original target raw export
+remains undelivered. Reconstruction preserves the entire predeclared cohort,
+all14 variants, three budgets and three seeds, independent of outcomes.
+
+The first reconstructed target, `charged-SPO-17-7d-adaptive-seed42`, completed
+all90 Development days and passed fresh Drive download, full independent
+daily/input/state equality and all three Source CPU reloads:
+[archive](https://drive.google.com/file/d/1QfQRvOqz6FcKb58RRoMX3qYzhqQIlhw6/view),
+[receipt](https://drive.google.com/file/d/1rRJQqALcnE864IO25DSfoj0dkFsvr9kR/view),
+[proof](https://drive.google.com/file/d/1Htl4gtWnIuSCaDcMOvcwWaab4Md4EoEa/view).
+Its nine predeclared original/reconstruction metric/count/prediction/update/
+latest-state fields match exactly. MAE is0.615875263 kWh and RMSE0.940861169 kWh.
+This is1/378 reconstructed cells, not a baseline comparison, restored original
+raw bytes, full-city acceptance or scientific effectiveness claim.
+LOA remains13/378. No Final, peer approval or merge is claimed.
+
+The first SPO original/reconstruction [comparison proof](https://drive.google.com/file/d/17GKk6VRQLd8x1Go_qXYnZLLNbPxvetDm/view)
+passed fresh Drive size/SHA/CRC/all-member checks. Next SPO offsets1–12 were
+dispatched as PID3439 only after the prior publication receipt and primary
+GPU job had completed. This is a live dispatch, not accepted completion.
+
+### Primary308/742; SPO13/378; all remaining-city inputs independently checked
+
+Matched offsets72–95 are externally published and independently restored,
+bringing the recovery prefix to **308/742** (212 proxy and96 matched).
+Latest [archive](https://drive.google.com/file/d/1-PISKuy39c7KceE4aQhxuBgZybTdJfvZ/view),
+[receipt](https://drive.google.com/file/d/15ckg5jgGsd8Kvyy8mhSr8cnlsn8HjHmj/view),
+[proof](https://drive.google.com/file/d/1sapm3DjagHGea67IFSEdAf6IgK1S-Pbo/view).
+No historical/recovery counts are added as unique scientific experiments.
+
+SPO offsets1–12 also passed actual Drive readback, full independent daily/
+input/latest-state checks and all three Source CPU reloads:
+[archive](https://drive.google.com/file/d/1vLcx7Jfa5PNkLDkuATdQhc0zhtxZSaZF/view),
+[receipt](https://drive.google.com/file/d/1eakPttA2zYXK0taxkwf9vt7XtxTVTdH8/view),
+[proof](https://drive.google.com/file/d/1geTqFpwSMm1p6Xelc-RrLJQM-8u0zOBZ/view).
+All12 match the nine declared original metadata fields; combined with the
+first target this is13/378 reconstructed cells. The Source-repack, assembly,
+cloud-launch, publication and comparison [operators/proof](https://drive.google.com/file/d/19oa4CF2E-CBvarG4YGq3y_VHle9ctq0X/view)
+passed actual fresh Drive bytes/SHA/CRC/all-member verification.
+
+MEL, AMS and SZH accepted input archives were freshly downloaded on cloud,
+checked against release fingerprints, and validated against fixed cohorts.
+The [cloud preflight proof](https://drive.google.com/file/d/1RLDbIZtio7ACfmRaX51yZX-3quluL8g3/view)
+passed fresh Drive readback and [independent local metadata checks](https://drive.google.com/file/d/1X4EWt7HIbMtjBcRXzemOhchdYLzEKxsF/view)
+for all three cities. Source training-example counts are3,060,134,640 and79,740
+respectively. This is preparation only; no Final values decoded or fitting
+in that preflight. The clean existing b437 Source checkout's360-fixture gate
+was reused, not rerun and counted as three new suites. Original MEL Source/
+target payloads remain unverified; they are not counted or overwritten.
+
+First AMS own-city Source seed42 was dispatched as PID3623 using the unchanged
+10-epoch primary recipe, original fixed seed/profile and accepted AMS Source
+entities only. Its handle was polled live and epoch1–4 checkpoint files were
+observed. Completion, final model publication and AMS target results are not
+yet claimed. A completed intermediate epoch is being exported solely as
+resume insurance, never as checkpoint selection or a completed Source.
+No GPU fits overlapped. Source43/44 still require separate verified handoffs.
+
+LOA offsets13–24 have now passed fresh Drive redownload and independent
+full Source/daily/input/latest-state checks, bringing its prefix to25/378:
+[archive](https://drive.google.com/file/d/1IczH1PPzEDpCEspHEc8sB2uGP3Vtzeqm/view),
+[receipt](https://drive.google.com/file/d/1b-0gsYNbKzjwzLY3MtyHZf6AILvzLlGI/view),
+[proof](https://drive.google.com/file/d/1VpTled81SFSO5xYPhWOiIOmO-Va6wZJ6/view).
+AMS Source42 was subsequently polled live with epoch1–8 checkpoint files
+observed; it remains incomplete until the10-epoch final handoff is verified.
+All city and primary full-matrix, statistical analysis, independent lock
+approval and Final gates remain outstanding.
+
+### AMS Source42 final handoff accepted; next primary chunk live
+
+AMS Source42 completed its fixed10 epochs and134,640 Source examples. Its
+[final archive](https://drive.google.com/file/d/1_Kvx5MS4HZy1W4VCKxvejU-YRy2Gzah5/view),
+[receipt](https://drive.google.com/file/d/1fZuIJO1uCLBHNfzQmABW3OJptGrIGBOM/view)
+and [independent proof](https://drive.google.com/file/d/1GpGsHGx0xDjWb8drcNOl2521CvHIHfGI/view)
+passed fresh Drive download, exact bytes/hash, full independent CPU Source
+checkpoint, original input/population/config/code/seed and64-dimensional latent
+scale/count checks. Final checkpoint SHA-256:
+`a368c3ebabeb9cb91180ff01ee41b271dbbdf888b610083834bbc75a5b2eda2d`.
+The Source outbox operation took381.5812 seconds including validation/training/
+local packaging; this is not provider billing or isolated GPU fitting time.
+Seeds43/44 and every AMS target remain required; Source42 is1/3 Sources only.
+
+A fixed [epoch5 recovery archive](https://drive.google.com/file/d/1e14G14MmzW1z17STgsl7ON90rMMLHXK4/view)
+and [CPU verification proof](https://drive.google.com/file/d/10AHN-VeXF0KmgSEcgIm7CGe-ND3Q63aK/view)
+were also preserved mid-run. Actual Drive readback/checkpoint/optimizer/RNG
+verification passed. This insurance checkpoint was selected by fixed epoch
+index, never loss, and was not used as the final Source. No interrupted cloud
+GPU resume was executed or claimed; exact continuation still requires the
+original compatible runtime/CUDA topology and fixed recipe.
+
+Matched offsets96–107 were dispatched and polled live after Source42 stopped.
+Only308/742 primary replays, SPO13/378 and LOA25/378 are externally accepted
+at this snapshot. No Final, study completion, peer approval or merge is claimed.
