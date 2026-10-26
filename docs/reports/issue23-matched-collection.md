@@ -206,3 +206,16 @@ not trained weights or replacement evidence. The new launcher prepares both a
 small metadata archive and a single complete export ZIP immediately after the
 pipeline succeeds. Creating those files on temporary storage is still not durable
 acceptance; download/readback and independent full checks remain required.
+
+
+The three new JHB Sources have now been preserved independently of Kaggle:
+[Source checkpoints and training records](https://drive.google.com/file/d/1ebTZQ3lsNdtaR6TLbaxsowYDVxAaJ6ed/view),
+18,263,480 bytes, SHA-256
+`3ca64e13696ae7aa03ed5686cf2c99e83495eead1580cda4fa27dcdb1c914767`.
+Local download and anonymous Drive readback matched bytes/hash/ZIP CRC/all78
+manifest members. All three epoch10 checkpoints loaded on CPU using the
+weights-only loader; architecture, JHB Source binding, seeds42/43/44,10 completed
+epochs and finite64-dimensional latent scales passed. This is verification, not
+local training. Each Source used2,340 allowed examples; target comparisons remain
+in progress. These are the explicitly identified recovery Sources, not an
+undisclosed replacement for the missing original JHB checkpoints.
