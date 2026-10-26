@@ -622,3 +622,28 @@ Only after actual external acceptance was range [75,87) dispatched as PID1363.
 The old CPU-only storage session is still Starting/Waiting for Jupyter; no old
 Python process or persisted file contents are newly verified, and no old training
 cell was rerun. Full Sprint3, city recovery/replication and Final gates remain open.
+
+### Published prefix99 and exact87-run original comparison
+
+Two additional ranges [75,87),[87,99) completed and passed fresh Drive download,
+complete independent frozen binding/daily/state verification and original Source
+CPU checks. Latest [canonical package](https://drive.google.com/file/d/1Aj0hAUa98h9Xi1eL7QrNPZ9aWyeHvLuQ/view)
+and [proof](https://drive.google.com/file/d/1gr8pJDfVajBSHVct6L1k_JEtbzvx82RN/view)
+are durable. The exact ledger now records99 newly published targets.
+
+A separate read-only [87-run original/replay comparison](https://drive.google.com/file/d/1tfMVdbhuYKRUsrtHQQDjtWsx4HznAm_E/view)
+revalidates every publication dependency and finds zero differences across nine
+checked fields: original-unit MAE/RMSE, scheduled/issued/scored counts, prediction
+identity, candidate/audit steps and final branch-state hashes. Actual Drive
+readback, ZIP CRC and every member hash passed. This is evidence for this exact
+prefix, not the remaining matched/city matrix, algorithm equivalence or Adaptive
+superiority. It does not justify changing the outcome-blind runtime-fair plan.
+
+The actual notebook kernel observation at2026-10-26T21:12:32Z records7,170.853s
+since kernel creation, two physical Tesla T4 devices and CUDA_VISIBLE_DEVICES=0.
+It includes operator idle/setup/transport; it is not exact provider allocation or
+billing. Individual target/component durations and historical Source training
+costs stay separate. Do not sum target durations and call that total cloud cost.
+The old CPU storage session remains Starting/Waiting for Jupyter; bounded console
+classification still includes backend500 failures. No old Python or file-content
+proof exists and no old training cell was rerun.

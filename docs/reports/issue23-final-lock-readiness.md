@@ -119,3 +119,22 @@ A three-positive-site sample per budget has limited station-level inference,
 and budget groups can have different IDs. The all-ready147,420-cell inventory
 remains an alternative; the candidate cannot silently replace it. No measured
 Final capacity or Source/config/code/analysis lock is claimed.
+
+### Static-coordinate review risk; candidate unchanged
+
+A metadata-only audit of the unchanged66-pair candidate uses only station/site
+identity and coordinate columns plus prefix-trainable Source IDs. Publisher
+aggregate activity columns are ignored. Exactly one candidate entity-budget pair
+shares numeric coordinates with a trainable Source: UrbanEV14-day Final ID2155
+and Source ID2154. No Source coordinate is missing in this audit. Equal coordinates
+do not prove identical stations, time series or leakage; nonmatches do not prove
+geographic independence. The candidate was not reselected or silently filtered.
+
+The [audit/script and unchanged candidate](https://drive.google.com/file/d/1-taZc84doswZeKHlag1ZmzzuZjXLNhJI/view)
+ZIP is12,971 bytes, SHA-256
+`2fb694edacded8e34b382bd0dc7b2aacbaee82f4bea9c542dc124448ecf26353`;
+fresh Drive download/CRC/all member hashes passed. No Final forecast/training/label
+JSONL values were decoded. Review must distinguish unseen author IDs from physical
+site independence before approving claims. A scope-choice question is pending
+with the lead; it does not authorize Final or amend the method. Development work
+continues independently.

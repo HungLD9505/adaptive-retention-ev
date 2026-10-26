@@ -895,7 +895,16 @@
       "Direct ordinary SPO metadata download produced no download event in20seconds"
     ],
     "current_files": "persisted old SPO/MEL raw contents still unverified, not declared absent",
-    "scope": "No Run All, Source refitting, old model overwrite or stop of current GPU. Queued saved versions are distinct and not assumed completed."
+    "scope": "No Run All, Source refitting, old model overwrite or stop of current GPU. Queued saved versions are distinct and not assumed completed.",
+    "latest_CPU_attempt": {
+      "action": "Explicit Start session with accelerator None after provider terminal Cancelled; no Restart/Run All",
+      "current_observation": "Starting/Waiting for Jupyter; no Python/file proof yet",
+      "console_last5_error_classification": {
+        "server500": 2,
+        "network_failures": 2
+      },
+      "scope": "Same existing start attempt only. No old model execution or claim of file loss, recovery or billing. Current GPU session on separate notebook remains independent."
+    }
   },
   "kaggle_offset27_continuation": {
     "pid": 1124,
@@ -927,12 +936,12 @@
     "independent_proof_bytes": 7952
   },
   "current_recovery_status": {
-    "new_runtime_targets_fully_published": 75,
+    "new_runtime_targets_fully_published": 99,
     "new_runtime_planned_targets": 742,
     "old_missing_proxy_fully_restored": 648,
     "old_matched_prefix_fully_restored": 451,
     "old_matched_physically_missing": 239,
-    "interpretation": "Different collections with historical repeats; do not add as unique experiments or claim full scope. Old16 complete units/224 selected cells preserved; new742 selected replays remain frozen, with75 fully published. Final unapproved and not executed."
+    "interpretation": "Different collections with historical repeats; do not add as unique experiments or claim full scope. Old16 complete units/224 selected cells preserved; new742 selected replays remain frozen, with99 fully published. Final unapproved and not executed."
   },
   "kaggle_offset39_continuation": {
     "pid": 1186,
@@ -1063,9 +1072,42 @@
     "count_limit": 12,
     "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
     "required_previous_receipt_sha256": "d55c9261f7b674e5e090777855b7f4a51d4737caa6cef82aaa949309c5dc9693",
-    "status": "actual_dispatch_not_yet_content_published",
+    "status": "actual_Drive_roundtrip_complete_independent_content_verified",
     "log": "/kaggle/working/issue23-proxy-0075-0087-operator-v2.log",
-    "scope": "Frozen Development scope; max12 local outbox before independent publication. No automatic next or Final."
+    "scope": "Frozen Development scope; max12 local outbox before independent publication. No automatic next or Final.",
+    "completed_runs": 12,
+    "canonical_url": "https://drive.google.com/file/d/1xpnZawFY9dyCE6OUzUEHnavu-VQXSNXq/view",
+    "canonical_publication": {
+      "status": "actual_Drive_roundtrip_complete_independent_content_verified",
+      "runs": 12,
+      "family": "proxy",
+      "start": 75,
+      "end": 87,
+      "all_three_original_Source_dependencies_cpu_verified": true,
+      "wrapper_sha256": "2077e47dc98654357699ad5ce5bc99f56d88f29a45c9c62874303e3c3d1d55cb",
+      "wrapper_bytes": 33676004,
+      "catalog_sha256": "dce306e241a49bd0a5b6aea82e3ff28138a6890f897d65590ec89a074d89d3e4",
+      "daily_sha256": "f1285e520834e0bbc6f46efc3874ec06e066976ec1b197f71ccae21907f4ac76",
+      "states_sha256": "ab955ebdeffd8cc756869f1918e336d21dcf29f60311aae7e8a7f2c1b4a7f2a0",
+      "operator_verifier_sha256": "6abf5f5214b71cd2e71ec97d208ec07f6d9eda66a476273fb3baf865f7a106cb",
+      "stages": [
+        {
+          "name": "daily",
+          "exit_code": 0,
+          "seconds": 0.36606216701329686
+        },
+        {
+          "name": "states",
+          "exit_code": 0,
+          "seconds": 0.660591874999227
+        }
+      ],
+      "seconds": 5.92412120901281,
+      "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/10c5y1p15UvwsRNOJgOSIfOKkDEHYWRBL/view",
+    "publication_receipt_sha256": "058fd55e058d70110d52a57181d70cea721647248dcdf356945a2176c492fc09",
+    "independent_proof_url": "https://drive.google.com/file/d/1jNdCK1q0hX3JdYQS0bCUyOEe8abnuLLD/view"
   },
   "external_operator_verification": {
     "scope": "Outside-Git executed transport/CPU verifier and cloud launcher, copied with actual proof artifacts. Model/controller/runner/baseline algorithms unchanged. No network credential extraction or fake Drive mount. Actual fresh anonymous Drive download precedes complete content proof and receipt.",
@@ -1073,5 +1115,68 @@
     "offline_fixture_seconds": 0.004,
     "coverage": "Regular extraction, parent/absolute paths, duplicate/case alias, directory member and >12 bounded range rejection before IO. These are operator fixtures, not additional model or CI tests.",
     "preflight_failure": "Initial generic verifier used str __file__ with Path-only digest; failed before download/content work. Separate v2 output corrected Path(__file__) and actual12-run restore/readback passed. Failed log retained."
+  },
+  "kaggle_offset87_continuation": {
+    "start": 87,
+    "end": 99,
+    "completed_runs": 12,
+    "status": "actual_Drive_roundtrip_complete_independent_content_verified",
+    "canonical_url": "https://drive.google.com/file/d/1Aj0hAUa98h9Xi1eL7QrNPZ9aWyeHvLuQ/view",
+    "canonical_publication": {
+      "status": "actual_Drive_roundtrip_complete_independent_content_verified",
+      "runs": 12,
+      "family": "proxy",
+      "start": 87,
+      "end": 99,
+      "all_three_original_Source_dependencies_cpu_verified": true,
+      "wrapper_sha256": "4fdc5ddd5e368271f842d4dc853d1f8a656083996f6fca40cf8af8dc330dc0d1",
+      "wrapper_bytes": 31661259,
+      "catalog_sha256": "11cd1721640028e596b6b1bcdd6f818ec3b29bd39d4ac1950a0f8d4126ae60d8",
+      "daily_sha256": "1d256822f08a0ed78c046987427ab2005ab8d3b888bfaeb655a80050c8c89f1f",
+      "states_sha256": "30e90c65f962fcc8031cc26d11072cc60522cd780f9e44be29e15b6d25bb686a",
+      "operator_verifier_sha256": "6abf5f5214b71cd2e71ec97d208ec07f6d9eda66a476273fb3baf865f7a106cb",
+      "stages": [
+        {
+          "name": "daily",
+          "exit_code": 0,
+          "seconds": 0.2983769999991637
+        },
+        {
+          "name": "states",
+          "exit_code": 0,
+          "seconds": 0.6629981670121197
+        }
+      ],
+      "seconds": 6.088603625015821,
+      "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/15ioUD7gVfKa--uhDgzJ6lR5wH7z3nZf-/view",
+    "publication_receipt_sha256": "d6a7c09721affef41473e1e5bf35966d7ed81573f485d0d79aa2ec73ec84be33",
+    "independent_proof_url": "https://drive.google.com/file/d/1gr8pJDfVajBSHVct6L1k_JEtbzvx82RN/view",
+    "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51"
+  },
+  "published_replay_original_comparison87": {
+    "status": "87_original_fixed_references_vs_complete_independently_published_replays_checked",
+    "runs": 87,
+    "runs_with_any_of_nine_checked_differences": 0,
+    "max_mae_delta_kwh": 0.0,
+    "max_rmse_delta_kwh": 0.0,
+    "artifact_url": "https://drive.google.com/file/d/1tfMVdbhuYKRUsrtHQQDjtWsx4HznAm_E/view",
+    "artifact_bytes": 5925,
+    "artifact_sha256": "439caa2dd389fbb5aa02a9819033a1c2f87fb60064867cbd4d1d93fb5bece8b3",
+    "comparison_json_sha256": "887ba0b9066334370a44bad1a1f2d09cf5e03b888264a0802aba60a87c105352",
+    "actual_Drive_readback_all_member_hashes": "PASS",
+    "scope": "Exact metrics, scheduled/issued/scored counts, prediction identity, update/audit steps and final branch-state hashes for actual published prefix0-86. Not all99, remaining matched/city or scientific superiority/equivalence; does not waive frozen runtime-fair replays."
+  },
+  "kernel_cost_at99_observation": {
+    "observed_utc": "2026-10-26T21:12:32.182874+00:00",
+    "kernel_created_utc": "2026-10-26T19:13:01.330000+00:00",
+    "kernel_lifetime_seconds": 7170.852909088135,
+    "physical_gpu_names": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "cuda_visible_devices": "0",
+    "scope": "Kernel lifetime and GPU inventory only, not exact allocation or provider billing. Includes operator idle; study target durations and per-component costs stay separate. No account, token, model or Final data inspected."
   }
 }
