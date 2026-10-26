@@ -52,6 +52,19 @@ class RecoveryTests(unittest.TestCase):
         self.assertIn("carried / 'receipt.json'", source)
         self.assertIn("carried / 'artifacts.zip'", source)
         self.assertIn("assert readback[0]['sha256']", source)
+        claims = [
+            node.value
+            for node in tree.body
+            if isinstance(node, ast.Expr)
+            and isinstance(node.value, ast.Call)
+            and isinstance(node.value.func, ast.Name)
+            and node.value.func.id == "claim"
+        ]
+        self.assertEqual(len(claims), 1)
+        self.assertEqual(
+            eval(compile(ast.Expression(claims[0].args[0]), "claim", "eval")),
+            RECOVERY_SLUG + "-execute",
+        )
 
     def test_recovery_redirect_is_limited_to_failed_group(self):
         scope = {}
@@ -77,11 +90,11 @@ class RecoveryTests(unittest.TestCase):
             and isinstance(node.test.left.func, ast.Name)
             and node.test.left.func.id == "status"
         ]
-        self.assertEqual(len(barrier), 3)
+        self.assertEqual(len(barrier), 5)
         compiled = compile(ast.Module(body=barrier, type_ignores=[]), "barrier", "exec")
         for failed in ("RUNNING", "COMPLETE", "ERROR"):
             for readback in ("ERROR", "RUNNING", "COMPLETE"):
-                statuses = [failed, failed, readback]
+                statuses = [failed, failed, failed, failed, readback]
                 if failed == "ERROR" and readback == "COMPLETE":
                     exec(compiled, {"status": lambda _: statuses.pop(0)})
                 else:

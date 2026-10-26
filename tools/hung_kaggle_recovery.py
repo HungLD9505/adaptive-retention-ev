@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from tools.hung_kaggle_queue import gpu_source, module_prefix
 
-RECOVERY_SLUG = "hung-matched-group03-recovery-20261027-v1"
+RECOVERY_SLUG = "hung-matched-group03-recovery-20261027-v2"
 SHARD8_DATASET = "hungluongduc/hung-dev-shard0008-44b8532-20261027-v2/1"
 SHARD8_SHA = "a49fc9c6c56b5e6cdcf54bb1af15d05cb511d017f3be3cb4abfb41f17dc151e8"
 
@@ -29,6 +29,13 @@ def replace_once(source: str, old: str, new: str) -> str:
 def recovered_gpu_source(module_source: str, setup: str, parity: str) -> str:
     """Carry the exact completed shard8 archive; execute only disjoint shards9–13."""
     source = gpu_source(module_source, setup, parity, 1)
+    # gpu_source is called in the builder's module, whose slug function still
+    # denotes the original group. Redirect this emitted literal explicitly.
+    source = replace_once(
+        source,
+        "claim('hung-matched-group03-44b8532-20261027-v2'+'-execute', {'group_index': 1})",
+        f"claim({RECOVERY_SLUG!r}+'-execute', {{'group_index': 1}})",
+    )
     source = replace_once(
         source,
         "readback = verify_predecessor(Path('/kaggle/input'), (2, 3))",
@@ -62,6 +69,8 @@ def launcher_source(module_source: str, setup: str, parity: str) -> str:
     source += f"""
 assert status('hung-matched-group03-44b8532-20261027-v2') == 'ERROR'
 assert status('hung-development-cpu-coordinator-20261027-v2') == 'ERROR'
+assert status('hung-matched-group03-recovery-20261027-v1') == 'ERROR'
+assert status('hung-development-recovery-cpu-20261027-v1') == 'ERROR'
 assert status('hung-shard0008-reconcile-cpu-20261027-v1') == 'COMPLETE'
 records = verify_predecessor(Path('/kaggle/input'), (8,), archive_name='artifacts.zip.bin')
 assert records[0]['sha256'] == {SHARD8_SHA!r} and records[0]['bytes'] == 74362442
@@ -78,7 +87,7 @@ required = 3600 + 100 * 1810.4 / 20 * 1.25
 assert available >= required, 'Fresh quota insufficient for bounded recovery + reserve'
 print(json.dumps({{'fresh_available_gpu_seconds':available, 'required_seconds':required}}),flush=True)
 submit({RECOVERY_SLUG!r}, RECOVERY_GPU, gpu=True, datasets=[PAYLOAD, {SHARD8_DATASET!r}])
-relay(MODULE_SOURCE, SETUP, PARITY, 1, 2, submit_current=False)
+relay(MODULE_SOURCE, SETUP, PARITY, 1, 3, submit_current=False)
 """
     compile(source, "group03-recovery-cpu", "exec")
     return source
