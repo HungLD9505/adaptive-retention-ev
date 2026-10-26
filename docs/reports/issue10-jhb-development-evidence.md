@@ -1,14 +1,14 @@
-# Issue #10 evidence register: CHARGED JHB and SPO Development
+# Issue #10 evidence register: CHARGED JHB, SPO, and MEL Development
 
-**Status (2026-10-26): local Development evidence, pending independent acceptance.** This register supports the [thesis draft](../THESIS_REPORT.md). It records two separate-city CHARGED replications and the evidence still needed for the Results, Discussion, and Conclusion. It does not report a Final result or establish an effectiveness claim.
+**Status (2026-10-26): Development evidence, pending independent acceptance.** This register supports the [thesis draft](../THESIS_REPORT.md). It records three separate-city CHARGED replications and the evidence still needed for the Results, Discussion, and Conclusion. It does not report a Final result or establish an effectiveness claim.
 
 ## Where this evidence belongs in the report
 
 | Report section | Evidence-supported content now | Pending content |
 | --- | --- | --- |
 | Motivation, research questions, and method | Retain Report 1 and the existing thesis draft as the method source. | Peer review of the final claim boundaries. |
-| Data and protocol | JHB is one supplementary city, evaluated separately with 7/14/28-day initial histories and three seeds. | Accepted input and cohort handoff for every reported city; publisher-processing limitations remain. |
-| Development evaluation | Separate JHB and SPO matrices, independent daily and latest-state proofs, local analyses, catalogued exports, and fresh same-host restores below. | Off-host transfer/reproduction, peer review, and other city matrices. |
+| Data and protocol | JHB, SPO, and MEL are separate supplementary cities, each with 7/14/28-day initial histories and three seeds. | Accepted input and cohort handoff for every reported city; publisher-processing limitations remain. |
+| Development evaluation | Separate JHB, SPO, and MEL matrices, independent daily and latest-state proofs, analyses, catalogued exports, and fresh restores below. | Peer review, independent teammate reproduction, and other city matrices. |
 | Final results, discussion, conclusion | Reporting table and questions already defined in the thesis draft. | Immutable Final lock, complete Final runs and proofs, paired effects/uncertainty, and cost interpretation. |
 
 ## JHB evidence available locally
@@ -53,13 +53,33 @@ The matrix and analysis retain all 14 methods, three Development entities per 7/
 
 The matrix's 3,275.29-second `wall_seconds` covers the resumed segment only. Source training cost was 26.86 seconds once; target-run elapsed times sum to 5,317.54 seconds. These component costs do not establish end-to-end city wall time. SPO retains the same publisher preprocessing, local-clock, conditional-cohort, and descriptive-interval limitations as JHB. No SPO Development score is a Final result or an effect claim.
 
+## MEL Development addendum
+
+The private Kaggle `mel_20261026_v6` run used committed execution code `83b877e16e7e690d93bb1f7736ce1870ef08fadd` and native Save & Run All persistence. Its complete `_output_.zip` was downloaded to a different host, then a 34-part export was checked against its catalog and restored into a new local root. The original Kaggle proofs and fresh local daily/latest-state proofs are distinct. All 14 methods appear in 27 cells each; all 378 runs have 90 scheduled, issued, and scored days. These repeated method/seed days are not independent sites.
+
+| Artifact (under `D:\Đồ Án\.cache\charged-kaggle-four\runs\kaggle-cli-mel-v6`, except where stated) | SHA-256 | Check or role |
+| --- | --- | --- |
+| `issue23_charged_MEL_kaggle_v6_mel_20261026_v6.ipynb` | `879ff4ef4aae853672da5143e11c04d543194662df7f0250618e32b749a63c95` | Submitted MEL notebook. |
+| `complete-v1-key/issue23-charged-mel-kaggle-v6-mel-20261026-v6.log` | `171c2532e8a482d4122ae2daf9671965625879b7d6ac28320a5c93b2a937b42c` | Kaggle execution log, including the recorded handoff identities. |
+| `complete-v1-all/_output_.zip` | `1e88f2a0a9e35aab0d2e302d505307f08af9df87b41d9a32d84e18e72274b2a0` | Complete downloaded Output ZIP, 1,222,809,497 bytes. |
+| `complete-v1-export-and-proof/charged-MEL-mel_20261026_v6/matrix.json` | `38768a5c42bce398add908f975f2c256a9e0b575c9204d81d45017ce5314344f` | `technical_success`; 378 cells, three newly trained same-city Source models. |
+| `complete-v1-export-and-proof/stage-MEL-mel_20261026_v6/daily-verification.json` | `8df3710c9e73f0b45ade83888bbb0e636c4062bae8defbd8fdffd1ceec2ed0c9` | Kaggle daily proof: 378 runs, 69,930 committed files hashed. |
+| `complete-v1-export-and-proof/stage-MEL-mel_20261026_v6/latest-states.json` | `14455607f174fee1cab33fa9bd1a6ed43f56da52f6734d4362490b4b139a993c` | Kaggle latest-state proof: 378 states. |
+| `complete-v1-export-and-proof/analysis-MEL-mel_20261026_v6/summary.json` | `264cf39399420ab576beaf41ccefb33554119998e43f736d10131953a0a759fd` | Separate-city Development analysis bound to the matrix and daily proof. |
+| `complete-v1-export-and-proof/export-MEL-mel_20261026_v6/catalog.json` | `31530af6f1c666c2cd5ddc8a2a162bd133cc141c1b0cd4ff93402ac6e976b21a` | Complete export, 32 run ZIPs plus `metadata.zip` and `code.bundle`; all 34 part hashes, ZIP CRCs and populations checked after download. |
+| `D:\Đồ Án\.cache\charged-kaggle-four\runs\mel-r1-daily.json` | `87701ec69deb09dbfa43288290e9fd562fd77eb1c0973368f7252df40122867d` | Fresh local verification from restored root `mel-r1`: 378 runs, 69,930 files hashed against authenticated MEL inputs. |
+| `D:\Đồ Án\.cache\charged-kaggle-four\runs\mel-r1-latest.json` | `8d0026708bfc7f7523486490bc6d18424d3b88a459e3aa30f095c1819763e8d9` | Fresh local CPU verification of 378 latest states, bound to the fresh daily proof. |
+| `evidence-register-v1.json` | `98f140d5857635da9c4af9fdc093cd868325220fdc27dca142456e24b65099b3` | Ignored local register of exact notebook, metadata, log, handoff, full ZIP, every package part, Source, and restored-proof paths/hashes. |
+
+The pinned catalog restored 378 runs and 105,886 files to `D:\Đồ Án\.cache\charged-kaggle-four\runs\mel-r1`. Three Source checkpoints loaded on CPU during export and match their restored hashes. The local verifier independently rechecked the daily/input chronology and latest model/optimizer/RNG states after the Kaggle download; it did not train or replace forecasts. The Kaggle notebook's 2,712.99-second wall time and matrix's 2,472.29-second wall time cover different scopes, and neither includes independent teammate reproduction. MEL remains a Development supplement subject to publisher preprocessing/clock limits and peer review. Its scores must not be used to retune a Final design after lock or presented as Final effectiveness.
+
 ## Evidence slots before closing Issue #10
 
 | Scope | Current local state | Required handoff for report completion |
 | --- | --- | --- |
 | CHARGED JHB Development | Matrix, daily/state proof, relocation, local analysis, complete export, and fresh same-host restore with daily/state re-verification above. | Off-host transfer/readback and independent teammate reproduction; peer review of analysis and cost interpretation. |
 | CHARGED SPO Development | Preserved 229-cell interrupted root; new 378-cell matrix, daily/state proofs, relocation, analysis, complete export, and fresh same-host restore with proof re-verification above. | Off-host transfer/readback and independent teammate reproduction; peer review of analysis and cost interpretation. |
-| CHARGED MEL Development | Pending in this local evidence register. | Separate-city complete matched matrix, proofs, analysis, and restore. |
+| CHARGED MEL Development | Kaggle 378-cell matrix, proofs, analysis, full Output download, 34-part catalog, and fresh local restore/daily/state proof above. | Independent teammate reproduction and peer review of analysis, coverage, and cost interpretation. |
 | CHARGED LOA Development | Pending in this local evidence register. | Separate-city complete matched matrix, proofs, analysis, and restore. |
 | CHARGED AMS Development | Pending in this local evidence register. | Separate-city complete matched matrix, proofs, analysis, and restore. |
 | CHARGED SZH Development | Pending in this local evidence register; coordinate overlap with UrbanEV limits the claim. | Separate-city complete matched matrix, proofs, analysis, and restore; report separately from the five-city geographic supplement. |
