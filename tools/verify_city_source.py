@@ -97,7 +97,13 @@ def restore_source(
         or entry["sha256"] != record.get("source_checkpoint_sha256")
         or entry["run"].get("training_examples") != examples
         or record.get("expected_source_examples") != examples
-        or entry["run"].get("code") != record["code"]
+        or entry["run"].get("code")
+        != {
+            **record["code"],
+            "files": {
+                k: v for k, v in record["code"]["files"].items() if k.startswith("ev_models/")
+            },
+        }
         or entry["run"].get("environment") != expected_context["environment"]
     ):
         raise ValueError("Source count/checkpoint/producer report differs")

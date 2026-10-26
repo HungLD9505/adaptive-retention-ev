@@ -385,3 +385,36 @@ The verifier does not fit a model or inspect Final values. Four additional
 synthetic tests cover genuine CPU reload, changed dependencies/producer/count,
 unsafe or extra members and overwrite rejection; the full360-test suite passed
 in6.020 seconds. Real city GPU execution and remote proof remain pending.
+
+### Actual LOA Source42 acceptance and verifier correction
+
+The clean cloud checkout `b4376dc88d62c55ae23af56f3c0f595c2bfe463f`
+passed360 CPU tests plus Ruff lint/format, then trained only the predeclared
+LOA Source seed42 for10 epochs on12,330 same-city Source examples. The accepted
+input ZIP SHA-256 is `eca98b9b1be158e91379d98599c3b89a6fef3106c30f7cf05961369d8d44a13e`;
+the [launch kit](https://drive.google.com/file/d/1M6R4YEvfCRcbkqlI-eOfNioKal9R8km3/view)
+pins code, primary recipe, cohort and CUDA/NumPy profile. Source/outbox work took
+35.623069401 seconds, including local verification/packaging; this is not the
+whole provider allocation or exact billed GPU cost.
+
+The first independent verifier attempt stopped after CPU restoration because it
+compared Source-only `ev_models/` fingerprints with the runner's four-package
+fingerprint. Source and outer producer commit, clean flag and all actual model
+hashes agreed. The verifier now compares the Source-scoped projection while
+retaining exact full-core checks on the outer handoff/context. The regression
+fixture includes a nonempty runner fingerprint to expose this distinction.
+The failed proof/logs are preserved under
+`runs/issue23-loa-source42-publication-20261027-v1`; only verification was repeated,
+with a fresh Drive download and new output directory. No checkpoint was changed
+or Source refitted. The360-test corrected suite passed in6.294 seconds locally.
+
+The [Source wrapper](https://drive.google.com/file/d/1b4uLKPW5tYsFc8EruxgpE4LPgwVORqHm/view)
+is868,439 bytes/SHA-256
+`18549a2aed3e7d4277206aebbb16f0da5382d920976a91e82d213c8139eb3af8`;
+its actual epoch10 checkpoint is
+`ca703dc98859cefc8ac9145a97970c0b0c2f083eb07fcc39d56fd417d3d1b419`.
+The [actual Drive-roundtrip receipt](https://drive.google.com/file/d/1t4nqCC1yuxY4Yvj1O1OOQH6EN8xyg6Td/view)
+and [independent CPU proof](https://drive.google.com/file/d/1lI5vZjgNoxJY8uH6WXpd_6ViNGIL6H5q/view)
+preserve exact recipe/input/Source/latent identities and original training log.
+LOA target adaptation/evaluation and seeds43/44 were not completed by this receipt.
+This is Source acceptance only, not a city result or method-effectiveness claim.

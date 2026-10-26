@@ -24,7 +24,7 @@ class VerifyCitySourceTests(unittest.TestCase):
             cohort_sha256="c" * 64,
             primary_sha256="d" * 64,
             environment_profile_sha256="e" * 64,
-            core_files={},
+            core_files={"ev_runner/run.py": "fixture-runner-fingerprint"},
             numpy_version="fixture",
         )
         (storage.root / "context.json").write_bytes(canonical(storage.context))
@@ -45,7 +45,7 @@ class VerifyCitySourceTests(unittest.TestCase):
             "context_sha256": storage.context_sha,
             "source_checkpoint_sha256": entry["sha256"],
             "expected_source_examples": 3,
-            "code": entry["run"]["code"],
+            "code": {**entry["run"]["code"], "files": storage.context["core_files"]},
             **{
                 key: storage.context[key]
                 for key in (
@@ -85,6 +85,8 @@ class VerifyCitySourceTests(unittest.TestCase):
             self.assertEqual(proof["status"], "independent_source_content_verified")
             self.assertTrue((root / "verified/study/source-seed42/epoch-10.pt").is_file())
             self.assertFalse((root / "verified/study/fixture-target").exists())
+            source_report = json.loads((root / "verified/study/source-seed42/run.json").read_text())
+            self.assertNotEqual(source_report["code"]["files"], proof["producer_code"]["files"])
             with self.assertRaises(ValueError):
                 restore_source(archive, digest(archive), root / "verified", context, data)
 
