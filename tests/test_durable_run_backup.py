@@ -197,6 +197,23 @@ class DurableBackupTests(unittest.TestCase):
             )
             self.assertFalse((restored / "fixture-target/tick-0000/state.pt").exists())
 
+    def test_execution_tuples_match_json_lists_but_changed_values_are_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            storage, entry, row, _ = self.fixture(Path(tmp))
+            storage.source(entry)
+            # Dataclass reports contain tuples; persisted JSON necessarily contains lists.
+            row["method"] = {"proxy_order": (0, 1, 2), "thresholds": (0.1, 0.5)}
+            row["policy_state"] = {"descriptor": (1.0, 2.0, 3.0)}
+            report = storage.study / row["run_id"] / "run.json"
+            report.write_text(json.dumps(row))
+            storage.check_run(row)
+            changed = copy.deepcopy(row)
+            changed["policy_state"]["descriptor"] = (1.0, 9.0, 3.0)
+            with self.assertRaisesRegex(ValueError, "Saved run report differs"):
+                storage.check_run(changed)
+            storage.target(row)
+            self.assertTrue((storage.root / (row["run_id"] + ".receipt.json")).is_file())
+
     def test_wrong_context_overwrite_and_unmounted_directory_fail_closed(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

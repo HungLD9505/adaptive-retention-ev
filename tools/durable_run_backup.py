@@ -134,7 +134,7 @@ class RunBackup:
         if list(root.glob(".pending-*")):
             raise ValueError("Uncommitted daily transaction; preserve and inspect")
         saved = json.loads((root / "run.json").read_text())
-        if any(row.get(k) != v for k, v in saved.items()):
+        if canonical({k: row.get(k) for k in saved}) != canonical(saved):
             raise ValueError("Saved run report differs from execution record")
         return (
             verify_run(root, data.root, input_snapshots=self.snapshots),
@@ -208,6 +208,7 @@ class RunBackup:
         self.sources[seed] = entry
 
     def target(self, row: dict) -> None:
+        row = json.loads(canonical(row))
         daily, state = self.check_run(row)
         name = row["run_id"]
 

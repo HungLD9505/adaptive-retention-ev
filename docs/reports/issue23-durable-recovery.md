@@ -160,3 +160,17 @@ resume prefixes. Read-only actual preflight validated648 proxy and690 matched
 cells and archived all three original Sources for each family without training.
 The full332-test suite, Ruff lint/format and diff checks passed before dispatch;
 actual GPU execution is reported separately and is not implied by those tests.
+
+### First GPU dispatch and JSON representation fix
+
+The T4 dispatch on2026-10-26 passed332 cloud tests, lint/format and all pinned
+code/kit/input downloads. The first missing proxy cell completed92 ticks with59
+issued and52 scored days, then publication correctly stopped at the report check.
+Actual CPU readback of its final state established that decision `used_origins`
+were tuples in memory and lists in JSON: direct equality failed while JSON values
+were identical. No training or method defect was inferred from this serialization
+mismatch. Reports are now compared and passed to archive verification in canonical
+JSON form; changed values still fail. The regression test and full333-test suite,
+Ruff lint/format and diff checks pass. The failed dispatch's original outputs,
+Sources, logs and receipts remain preserved; rescue/continuation must be reported
+as a separate execution using the fixed code, never a silent overwrite.
