@@ -165,7 +165,9 @@ def verify_forecast_journal(output: Path, input_run: Path, binding: dict, code: 
                 or issued["fallback_hours"] != record["fallback_hours"]
             ):
                 raise ValueError("Issued forecast was changed before label")
-        elif issued is not None or record["prediction"] is not None or record["fallback_hours"] != 0:
+        elif (
+            issued is not None or record["prediction"] is not None or record["fallback_hours"] != 0
+        ):
             raise ValueError("Skipped origin carries a forecast")
         issued_events = [
             event

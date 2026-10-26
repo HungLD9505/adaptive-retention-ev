@@ -1,4 +1,4 @@
-"""One-model Target-only/Frozen-Source replay on the accepted daily event schedule."""
+"""Single-policy Target-only, Frozen Source and Seasonal Naive Development replay."""
 
 from __future__ import annotations
 
@@ -49,10 +49,14 @@ def validate_single_binding(binding: dict) -> None:
         raise ValueError("Invalid single-model input_manifest_sha256")
     initial_sha = binding["initial_checkpoint_sha256"]
     if binding["method"] == "seasonal_naive":
-        if any(binding[key] is not None for key in (
-            "initial_checkpoint_sha256", "source_checkpoint_sha256",
-            "source_input_manifest_sha256",
-        )):
+        if any(
+            binding[key] is not None
+            for key in (
+                "initial_checkpoint_sha256",
+                "source_checkpoint_sha256",
+                "source_input_manifest_sha256",
+            )
+        ):
             raise ValueError("Seasonal Naive must not use a model or Source checkpoint")
         return
     if not isinstance(initial_sha, str) or not re.fullmatch(r"[0-9a-f]{64}", initial_sha):
@@ -331,8 +335,8 @@ class SingleBaselineRunner:
         if runner.method == "seasonal_naive" and (
             runner.cost["update_steps"] != 0
             or runner.cost["update_ns"] != 0
-            or runner.cost["fallback_hours"]
-            != sum(row["fallback_hours"] for row in runner.issued)
+            or runner.cost["inference_calls"] != len(runner.issued)
+            or runner.cost["fallback_hours"] != sum(row["fallback_hours"] for row in runner.issued)
         ):
             raise ValueError("Seasonal Naive checkpoint cost accounting differs")
         torch.set_rng_state(state["torch_rng"])
