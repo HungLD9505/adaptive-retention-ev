@@ -10,6 +10,98 @@ from tools.verify_comparison import InputSnapshots, sha, verify_run
 
 
 class ArtifactVerifierTests(unittest.TestCase):
+    def complete_fixture(self, base):
+        run, data = self.fixture(base)
+        origin = "2023-07-01T00:00:00"
+        schedule = {
+            "identity": ["charged", "AMS", "0"],
+            "role": "development",
+            "origin": origin,
+            "input_run_id": "identified-input",
+            "status": "created",
+        }
+        (data / "schedule.jsonl").write_text(json.dumps(schedule) + "\n")
+        manifest = json.loads((data / "manifest.json").read_text())
+        manifest["run_id"] = "identified-input"
+        manifest["config"] = {
+            "dataset_id": "charged",
+            "city_id": "AMS",
+            "history_days": 7,
+            "deployment": origin,
+            "replay_stop": "2023-07-02T00:00:00",
+            "availability_delay_hours": 0,
+        }
+        manifest["files"]["schedule.jsonl"] = {
+            "sha256": sha(data / "schedule.jsonl"),
+            "size_bytes": (data / "schedule.jsonl").stat().st_size,
+        }
+        (data / "manifest.json").write_text(json.dumps(manifest))
+        last = run / "tick-0002"
+        last.mkdir()
+        (last / "forecasts.json").write_text("{}")
+        (last / "events.jsonl").write_text("")
+        (last / "state.pt").write_bytes(b"fixture-terminal")
+        report = json.loads((run / "run.json").read_text())
+        report["binding"]["schema"] = "ev-prequential-run-v1"
+        report["binding"]["config"] = {"replay_days": 1, "state_retention": "all"}
+        report["binding"]["input"].update(
+            input_manifest_sha256=sha(data / "manifest.json"),
+            input_run_id="identified-input",
+            history_days=7,
+        )
+        report.update(scheduled_days=1, pending_days=0, ticks=3)
+        (run / "run.json").write_text(json.dumps(report))
+        self.recommit(run)
+        return run, data
+
+    def test_complete_run_checks_terminal_schedule_and_due_score(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run, data = self.complete_fixture(Path(temp))
+            for cache in (None, InputSnapshots()):
+                result = verify_run(run, data, input_snapshots=cache)
+                self.assertEqual(result["scheduled_days"], 1)
+                self.assertEqual(result["complete_labels_scored"], 1)
+
+    def test_hash_consistent_truncated_run_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run, data = self.complete_fixture(Path(temp))
+            (run / "tick-0002").rename(run / "detached-terminal")
+            report = json.loads((run / "run.json").read_text())
+            report["ticks"] = 2
+            (run / "run.json").write_text(json.dumps(report))
+            self.recommit(run)
+            with self.assertRaisesRegex(ValueError, "terminal daily tick"):
+                verify_run(run, data)
+
+    def test_hash_consistent_missing_due_score_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run, data = self.complete_fixture(Path(temp))
+            (run / "tick-0001/events.jsonl").write_text("")
+            report = json.loads((run / "run.json").read_text())
+            report.update(scored_days=0, active_mae_kwh=None, active_rmse_kwh=None)
+            (run / "run.json").write_text(json.dumps(report))
+            self.recommit(run)
+            with self.assertRaisesRegex(ValueError, "score event"):
+                verify_run(run, data)
+
+    def test_identified_schedule_cannot_disagree_with_forecast(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run, data = self.complete_fixture(Path(temp))
+            row = json.loads((data / "schedule.jsonl").read_text())
+            row["status"] = "skipped_all_missing_history"
+            (data / "schedule.jsonl").write_text(json.dumps(row) + "\n")
+            manifest = json.loads((data / "manifest.json").read_text())
+            manifest["files"]["schedule.jsonl"].update(
+                sha256=sha(data / "schedule.jsonl"),
+                size_bytes=(data / "schedule.jsonl").stat().st_size,
+            )
+            (data / "manifest.json").write_text(json.dumps(manifest))
+            report = json.loads((run / "run.json").read_text())
+            report["binding"]["input"]["input_manifest_sha256"] = sha(data / "manifest.json")
+            (run / "run.json").write_text(json.dumps(report))
+            with self.assertRaisesRegex(ValueError, "identified schedule"):
+                verify_run(run, data, input_snapshots=InputSnapshots())
+
     def test_input_snapshot_reuse_preserves_proof_and_reads_label_bytes_once(self):
         with tempfile.TemporaryDirectory() as temp:
             run, data = self.audit_fixture(Path(temp))
