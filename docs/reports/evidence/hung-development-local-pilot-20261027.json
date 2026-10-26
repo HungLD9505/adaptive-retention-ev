@@ -1,0 +1,643 @@
+{
+  "artifact_archive": {
+    "bytes": 101854497,
+    "crc": "passed",
+    "members": 485,
+    "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\local-pilot-execution-v1\\pilot-artifacts.zip",
+    "remote_readback": "not yet performed",
+    "sha256": "c567611587a247a29ba72ad01cfe700c8296c2609126d117a634609c5c26e833"
+  },
+  "bounded_assignments": {
+    "other_shards": "unassigned pending measured capacity and durable readback",
+    "pilot_0000": "local completed, never rerun",
+    "shard_0001": "Kaggle 20 jobs running",
+    "shard_0039": "local 16 jobs running"
+  },
+  "code_sha": "44b8532959d76fb20691881539f991ca44983727",
+  "execution": {
+    "command": [
+      "C:\\Users\\HP\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "-u",
+      "-m",
+      "experiments.hung_sprint2.dispatch_matched",
+      "--plan",
+      "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\dispatch-plan-v1\\plan.json",
+      "--plan-sha256",
+      "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+      "--shards",
+      "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\dispatch-plan-v1\\shards.json",
+      "--shards-sha256",
+      "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f",
+      "--shard-id",
+      "pilot_0000",
+      "--execute"
+    ],
+    "exit_code": 0,
+    "finished_at_utc": "2026-10-26T19:52:53.211226+00:00",
+    "log_sha256": "31e6537cdeb545288a1e0127e5ef148c692d68a75e8bc9a8a5810501687344c0",
+    "pid": 24356,
+    "scope": "Six predeclared Development pilot jobs only",
+    "started_at_utc": "2026-10-26T19:47:21.734242+00:00",
+    "wall_seconds": 331.47705159999896
+  },
+  "kaggle_dataset_url": "https://www.kaggle.com/datasets/hungluongduc/hung-matched-payload-44b8532-20261027-v1",
+  "kaggle_observed": {
+    "completed_job_count": "not yet available; no completion claim",
+    "cross_torch_2_8_2_11_reference_check": "pending",
+    "device": "Tesla T4",
+    "parity_28_checks_passed": true,
+    "remote_input_archive_readback_sha": "23a6d420523d990d07ff07d814ed642a851925283a102a3ae806f3b666e1d6f4",
+    "state": "RUNNING",
+    "torch": "2.11.0+cu128",
+    "version": 362612528
+  },
+  "kaggle_payload": {
+    "archive_bytes": 149838818,
+    "archive_sha256": "23a6d420523d990d07ff07d814ed642a851925283a102a3ae806f3b666e1d6f4",
+    "parent_plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+    "parent_shards_sha256": "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f",
+    "payload_manifest_sha256": "ae83c207b0a412478e9a02182151fa586862928fc25200547cdb1d30ea208cb4"
+  },
+  "kaggle_version_url": "https://www.kaggle.com/code/hungluongduc/hung-matched-shard0001-44b8532-20261027?scriptVersionId=362612528",
+  "locally_completed_and_verified_pilot_jobs": 6,
+  "p95_nearest_rank_job_subprocess_seconds": 40.07708049999201,
+  "p95_scope": "n=6 predeclared heterogeneous jobs; subprocess sums exclude orchestration overhead; not provider throughput",
+  "parity": {
+    "atol": 1e-05,
+    "checks": {
+      "forecast": {
+        "max_absolute_difference": 1.0132789611816406e-06,
+        "within_tolerance": true
+      },
+      "forecast_loss": {
+        "max_absolute_difference": 8.940696716308594e-08,
+        "within_tolerance": true
+      },
+      "gradient/calendar_mlp.0.bias": {
+        "max_absolute_difference": 3.725290298461914e-09,
+        "within_tolerance": true
+      },
+      "gradient/calendar_mlp.0.weight": {
+        "max_absolute_difference": 4.6566128730773926e-09,
+        "within_tolerance": true
+      },
+      "gradient/encoder.bias_hh_l0": {
+        "max_absolute_difference": 2.0489096641540527e-08,
+        "within_tolerance": true
+      },
+      "gradient/encoder.bias_hh_l1": {
+        "max_absolute_difference": 4.284083843231201e-08,
+        "within_tolerance": true
+      },
+      "gradient/encoder.bias_ih_l0": {
+        "max_absolute_difference": 5.21540641784668e-08,
+        "within_tolerance": true
+      },
+      "gradient/encoder.bias_ih_l1": {
+        "max_absolute_difference": 4.842877388000488e-08,
+        "within_tolerance": true
+      },
+      "gradient/encoder.weight_hh_l0": {
+        "max_absolute_difference": 4.842877388000488e-08,
+        "within_tolerance": true
+      },
+      "gradient/encoder.weight_hh_l1": {
+        "max_absolute_difference": 6.146728992462158e-08,
+        "within_tolerance": true
+      },
+      "gradient/encoder.weight_ih_l0": {
+        "max_absolute_difference": 5.4016709327697754e-08,
+        "within_tolerance": true
+      },
+      "gradient/encoder.weight_ih_l1": {
+        "max_absolute_difference": 3.166496753692627e-08,
+        "within_tolerance": true
+      },
+      "gradient/forecast_head.0.bias": {
+        "max_absolute_difference": 1.1175870895385742e-08,
+        "within_tolerance": true
+      },
+      "gradient/forecast_head.0.weight": {
+        "max_absolute_difference": 6.146728992462158e-08,
+        "within_tolerance": true
+      },
+      "latent": {
+        "max_absolute_difference": 3.3974647521972656e-06,
+        "within_tolerance": true
+      },
+      "retention_loss": {
+        "max_absolute_difference": 0.0,
+        "within_tolerance": true
+      },
+      "updated/calendar_mlp.0.bias": {
+        "max_absolute_difference": 0.0,
+        "within_tolerance": true
+      },
+      "updated/calendar_mlp.0.weight": {
+        "max_absolute_difference": 4.656612873077393e-10,
+        "within_tolerance": true
+      },
+      "updated/encoder.bias_hh_l0": {
+        "max_absolute_difference": 7.450580596923828e-09,
+        "within_tolerance": true
+      },
+      "updated/encoder.bias_hh_l1": {
+        "max_absolute_difference": 2.9802322387695312e-08,
+        "within_tolerance": true
+      },
+      "updated/encoder.bias_ih_l0": {
+        "max_absolute_difference": 3.725290298461914e-09,
+        "within_tolerance": true
+      },
+      "updated/encoder.bias_ih_l1": {
+        "max_absolute_difference": 1.4901161193847656e-08,
+        "within_tolerance": true
+      },
+      "updated/encoder.weight_hh_l0": {
+        "max_absolute_difference": 2.9802322387695312e-08,
+        "within_tolerance": true
+      },
+      "updated/encoder.weight_hh_l1": {
+        "max_absolute_difference": 2.9802322387695312e-08,
+        "within_tolerance": true
+      },
+      "updated/encoder.weight_ih_l0": {
+        "max_absolute_difference": 2.9802322387695312e-08,
+        "within_tolerance": true
+      },
+      "updated/encoder.weight_ih_l1": {
+        "max_absolute_difference": 3.3527612686157227e-08,
+        "within_tolerance": true
+      },
+      "updated/forecast_head.0.bias": {
+        "max_absolute_difference": 1.4901161193847656e-08,
+        "within_tolerance": true
+      },
+      "updated/forecast_head.0.weight": {
+        "max_absolute_difference": 1.4901161193847656e-08,
+        "within_tolerance": true
+      }
+    },
+    "code": {
+      "commit": "44b8532959d76fb20691881539f991ca44983727",
+      "executed_sources": {
+        "experiments/hung_sprint2/baseline_selection.py": "bb045df8943a056e59acfd531d5d6178831d59cb86cda423dc3707fceffc6152",
+        "experiments/hung_sprint2/checkpoint.py": "d20c4a3d0f3394aee17ac0d982edce3ad7c4f297d5e242a7fe92334330f0af66",
+        "experiments/hung_sprint2/cli.py": "741cf2056919e0fa72fbd49fb13f5fbd0585652a2a2ade34e09d2742f5a44001",
+        "experiments/hung_sprint2/controller.py": "b97f49e6895d132b5d535a05d1941dc64893f0706537d82c810ca569ced94876",
+        "experiments/hung_sprint2/evaluation.py": "594d9a3f4cdc388be12034ff6cedfcbc3457cf91340b1724232f6291e4d31b25",
+        "experiments/hung_sprint2/model.py": "c8303d1c9e83ee4bdaf6f5ce6c3e520dc22ce95d51c442375ea8fa3e9879ef76",
+        "experiments/hung_sprint2/proxy_selection.py": "dd591262247fbf42049ef55ecec9411776186e9509ba7de0a31657816458a7b7",
+        "experiments/hung_sprint2/replay_inputs.py": "d03b3cf3031fa92f445a1f0f081ad45d1902e2ccb6fcf129c45de535cc274115",
+        "experiments/hung_sprint2/retention.py": "b5f5be226c3c4a4d777c391bda9c441e58e888696ade25e86465e883ceb9eced",
+        "experiments/hung_sprint2/runner.py": "38adc3c9952481e89c1417dfc677f3e9abb3bd3eda8accd2709bc547fdb52baa",
+        "experiments/hung_sprint2/training.py": "41c331dd18f11e525b37c472c1a038488db5c23efb1ef17647eacd707439215f"
+      },
+      "worktree_status": []
+    },
+    "device": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+    "elapsed_seconds": 2.9752277999941725,
+    "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+    "job_id": "online_best_b14s7e1153",
+    "passed": true,
+    "permitted_initial_examples_available": 13,
+    "permitted_initial_examples_used": 2,
+    "plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+    "rtol": 0.0001,
+    "schema": "hung-local-cuda-bounded-parity-v1",
+    "scope": "Initial Development forward/loss/gradient/one-Adam-update portability only; no saved model update or research result",
+    "source": {
+      "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-method-integration-v1\\.cache\\hung-urbanev-development-20261026-integrated-v1\\14d\\seed-7\\source\\source_checkpoint.pt",
+      "run_manifest_sha256": "66aa8723840881917ec659d0f8984df6a6178877538bfe961afa1ad1d3562fcc",
+      "sha256": "8a3ead480325aa55ff4eb0279693f7a95bdb40f0268a3539a829b560be71cac1"
+    },
+    "target": {
+      "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-method-integration-v1\\.cache\\hung-urbanev-development-20261026-integrated-v1\\14d\\seed-7\\entity-1153\\target\\target_checkpoint.pt",
+      "run_manifest_sha256": "90bdcd3c998fecafa3d1d977cdc0a41d7414e6d3c542a648ba7cde22cbb88c09",
+      "sha256": "58a4317e34c6d4b39a77d76d561007fde2a24c123802c85441a74216a3b62981"
+    },
+    "torch": "2.8.0+cu126"
+  },
+  "partition": {
+    "bytes": 30187,
+    "sha256": "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f"
+  },
+  "plan": {
+    "bytes": 594160,
+    "sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee"
+  },
+  "planned_jobs": 782,
+  "rows": [
+    {
+      "job_id": "seasonal_naive_b7s7e2264",
+      "receipt": {
+        "bytes": 447,
+        "sha256": "5ebdc6c1bf0a7c87f2a9094b48ad3527e6c31b0ace4f321316ab4c03558c105b"
+      },
+      "stages": [
+        {
+          "device": {
+            "torch": "2.8.0+cu126",
+            "type": "cpu"
+          },
+          "local_hash_readback_seconds": 0.022872200002893806,
+          "measurement": {
+            "bytes": 245,
+            "sha256": "542a6009c93917278bd286b30320f2e2e2cdbf73cc33b72c4403bd4eb1374aad"
+          },
+          "output_bytes_before_measurement": 1244853,
+          "run_manifest": {
+            "bytes": 12309,
+            "sha256": "469451d3580af6d86b3d2f02109c716c5dea47a89dbcacc56ff8cca48a938a7f"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "replay-42",
+          "wall_seconds": 8.465714500009199
+        },
+        {
+          "device": {
+            "torch": "2.8.0+cu126",
+            "type": "cpu"
+          },
+          "local_hash_readback_seconds": 0.04332129999238532,
+          "measurement": {
+            "bytes": 244,
+            "sha256": "c27ed1ab6f8f8c7fc1bbbec539fbbc143eb90b1ce2ea469f5f8ef79974fc0fd4"
+          },
+          "output_bytes_before_measurement": 4548429,
+          "run_manifest": {
+            "bytes": 22352,
+            "sha256": "db8318d3283364f15a033932c166a0ec87c1ad072c20ab1b62c1338c8a4c4ca4"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "replay-90",
+          "wall_seconds": 12.09629390000191
+        }
+      ],
+      "subprocess_wall_seconds": 20.56200840001111
+    },
+    {
+      "job_id": "target_only_b7s7e2264",
+      "receipt": {
+        "bytes": 536,
+        "sha256": "e6c772f2bfb77a2918f0113db8c75ebfc907905655313472067405c272823eb2"
+      },
+      "stages": [
+        {
+          "device": {
+            "cuda_runtime": "12.6",
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "peak_allocated_bytes": 18773504,
+            "peak_reserved_bytes": 23068672,
+            "torch": "2.8.0+cu126",
+            "type": "cuda"
+          },
+          "local_hash_readback_seconds": 0.03483429999323562,
+          "measurement": {
+            "bytes": 245,
+            "sha256": "e7dd645b5611cf861f3632d52fd174aad8ece16ba84dec629c8530b086a2c07e"
+          },
+          "output_bytes_before_measurement": 23392793,
+          "run_manifest": {
+            "bytes": 14309,
+            "sha256": "1e959142766a356f8e2eca23f4666ea0e9e1a04c01930516b6098e68fdd8da35"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "replay-42",
+          "wall_seconds": 12.52391260000877
+        },
+        {
+          "device": {
+            "cuda_runtime": "12.6",
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "peak_allocated_bytes": 19280896,
+            "peak_reserved_bytes": 25165824,
+            "torch": "2.8.0+cu126",
+            "type": "cuda"
+          },
+          "local_hash_readback_seconds": 0.07738370000151917,
+          "measurement": {
+            "bytes": 245,
+            "sha256": "6169d7ade3d1ed01a07964c69f72580b8b82417e5b69f0751586ef5205f1b1a0"
+          },
+          "output_bytes_before_measurement": 51544367,
+          "run_manifest": {
+            "bytes": 26402,
+            "sha256": "54cb6998e4669a54b1cafd45634343ca34a194364b4693eb4dbaa3b453c8b052"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "replay-90",
+          "wall_seconds": 17.44230159999279
+        },
+        {
+          "device": {
+            "cuda_runtime": "12.6",
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "peak_allocated_bytes": 18775040,
+            "peak_reserved_bytes": 25165824,
+            "torch": "2.8.0+cu126",
+            "type": "cuda"
+          },
+          "local_hash_readback_seconds": 0.0014301000046543777,
+          "measurement": {
+            "bytes": 245,
+            "sha256": "33e48018f443c5d1496838c9097d76537c49fc265bf052bd7b6665aea0da65b1"
+          },
+          "output_bytes_before_measurement": 521510,
+          "run_manifest": {
+            "bytes": 2177,
+            "sha256": "e40444a1b1de84107df5d9b29edc601a3d50515780e39d1894fff94cdce42585"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "target-only-init",
+          "wall_seconds": 9.630204300003243
+        }
+      ],
+      "subprocess_wall_seconds": 39.5964185000048
+    },
+    {
+      "job_id": "frozen_source_b14s7e1153",
+      "receipt": {
+        "bytes": 447,
+        "sha256": "80db82a2cb5b3e295f8f7c4f936d47d3b0afdc7729b94cd02faf42bb368b30a3"
+      },
+      "stages": [
+        {
+          "device": {
+            "cuda_runtime": "12.6",
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "peak_allocated_bytes": 9740288,
+            "peak_reserved_bytes": 23068672,
+            "torch": "2.8.0+cu126",
+            "type": "cuda"
+          },
+          "local_hash_readback_seconds": 0.02817689999938011,
+          "measurement": {
+            "bytes": 245,
+            "sha256": "7c53d2e599c7a0a2abf90549ebf62068f810376136ce50aa549a999b6ef2c0ba"
+          },
+          "output_bytes_before_measurement": 8547265,
+          "run_manifest": {
+            "bytes": 12827,
+            "sha256": "21e2370d5ce9a14f1439cee3c1e5919f94e450671d196f1e1e92974ee814896e"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "replay-42",
+          "wall_seconds": 13.732635299995309
+        },
+        {
+          "device": {
+            "cuda_runtime": "12.6",
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "peak_allocated_bytes": 9908736,
+            "peak_reserved_bytes": 23068672,
+            "torch": "2.8.0+cu126",
+            "type": "cuda"
+          },
+          "local_hash_readback_seconds": 0.051030000002356246,
+          "measurement": {
+            "bytes": 247,
+            "sha256": "d1f6178b024f7cc11587609a73843e1cc69f835b41f0e9f5871983eccd40c435"
+          },
+          "output_bytes_before_measurement": 19418657,
+          "run_manifest": {
+            "bytes": 21218,
+            "sha256": "685ca01ff033f32f61f0a8ec9f7f6483d7e858e593090e24ce7678be9f4b6647"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "replay-90",
+          "wall_seconds": 18.041564600003767
+        }
+      ],
+      "subprocess_wall_seconds": 31.774199899999076
+    },
+    {
+      "job_id": "online_best_b14s7e1153",
+      "receipt": {
+        "bytes": 445,
+        "sha256": "e52ccc9a0765800ef9f9a459beef06cd39ea8ebf61f901f3c6fca4feec53535b"
+      },
+      "stages": [
+        {
+          "device": {
+            "cuda_runtime": "12.6",
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "peak_allocated_bytes": 22353920,
+            "peak_reserved_bytes": 27262976,
+            "torch": "2.8.0+cu126",
+            "type": "cuda"
+          },
+          "local_hash_readback_seconds": 0.0036374000046635047,
+          "measurement": {
+            "bytes": 247,
+            "sha256": "a29c861aeca26aafb6b96ad9c274dddffb3ad6106cf4537e8d7ec831430470b5"
+          },
+          "output_bytes_before_measurement": 2343399,
+          "run_manifest": {
+            "bytes": 16012,
+            "sha256": "d8a0322d1a2134737ea75056bf024d6d5338809cbc4f0bdc85f171165b1614e5"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "replay-42",
+          "wall_seconds": 12.029682699998375
+        },
+        {
+          "device": {
+            "cuda_runtime": "12.6",
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "peak_allocated_bytes": 21647360,
+            "peak_reserved_bytes": 27262976,
+            "torch": "2.8.0+cu126",
+            "type": "cuda"
+          },
+          "local_hash_readback_seconds": 0.003509500005748123,
+          "measurement": {
+            "bytes": 246,
+            "sha256": "fc6767e6b3838c684fd6f4811061c4f8d282b22c93b2a09f6c913e6eb52944c6"
+          },
+          "output_bytes_before_measurement": 2371955,
+          "run_manifest": {
+            "bytes": 23655,
+            "sha256": "77aa907c41b8d175fa155b088e77dd73ae7e3b4d38033b6f8b8c317468d886bd"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "replay-90",
+          "wall_seconds": 11.746232299992698
+        }
+      ],
+      "subprocess_wall_seconds": 23.775914999991073
+    },
+    {
+      "job_id": "uncertainty_b28s7e1165",
+      "receipt": {
+        "bytes": 445,
+        "sha256": "cb49375dce2285acd28966d86c028973cb9100b69d11964c1abe065fefadcd67"
+      },
+      "stages": [
+        {
+          "device": {
+            "cuda_runtime": "12.6",
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "peak_allocated_bytes": 21672448,
+            "peak_reserved_bytes": 27262976,
+            "torch": "2.8.0+cu126",
+            "type": "cuda"
+          },
+          "local_hash_readback_seconds": 0.003387700009625405,
+          "measurement": {
+            "bytes": 246,
+            "sha256": "31a4eaea3e0abdf828862cb437ed5df544b7589c1c24d27ab4064bc48f374861"
+          },
+          "output_bytes_before_measurement": 2350549,
+          "run_manifest": {
+            "bytes": 15250,
+            "sha256": "6c666c6b26b487f97cfd10194dd84bc03df96e988eccb98a2be149c9fe0097b3"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "replay-42",
+          "wall_seconds": 12.271610800002236
+        },
+        {
+          "device": {
+            "cuda_runtime": "12.6",
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "peak_allocated_bytes": 21647872,
+            "peak_reserved_bytes": 27262976,
+            "torch": "2.8.0+cu126",
+            "type": "cuda"
+          },
+          "local_hash_readback_seconds": 0.0033284999954048544,
+          "measurement": {
+            "bytes": 246,
+            "sha256": "cdb5c1c7ec1d3959d136d45c8efd3fa691a58191103591bb134b95451fd1d280"
+          },
+          "output_bytes_before_measurement": 2385412,
+          "run_manifest": {
+            "bytes": 22546,
+            "sha256": "3b55f2d70c019136ae651331c39c73c6eb6cfc21f78bfdcf48a9f2dd235d067a"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "replay-90",
+          "wall_seconds": 11.50328120001359
+        }
+      ],
+      "subprocess_wall_seconds": 23.774892000015825
+    },
+    {
+      "job_id": "parameter_retention_b28s7e1165",
+      "receipt": {
+        "bytes": 535,
+        "sha256": "be52a800a2193649e42046924695c02d2dfe4106e8eef2ae1bc1802d63adfad0"
+      },
+      "stages": [
+        {
+          "device": {
+            "cuda_runtime": "12.6",
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "peak_allocated_bytes": 21675008,
+            "peak_reserved_bytes": 27262976,
+            "torch": "2.8.0+cu126",
+            "type": "cuda"
+          },
+          "local_hash_readback_seconds": 0.004214699991280213,
+          "measurement": {
+            "bytes": 246,
+            "sha256": "4373a678ec4e9c34dbd350255a490b299c62b69550eeb239e854a9d0c32b35a7"
+          },
+          "output_bytes_before_measurement": 2335655,
+          "run_manifest": {
+            "bytes": 15116,
+            "sha256": "802f3f56327d6c04eade16e559ee33665c835fb595e3fa75da914117eb059681"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "replay-42",
+          "wall_seconds": 12.436327799994615
+        },
+        {
+          "device": {
+            "cuda_runtime": "12.6",
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "peak_allocated_bytes": 21650432,
+            "peak_reserved_bytes": 27262976,
+            "torch": "2.8.0+cu126",
+            "type": "cuda"
+          },
+          "local_hash_readback_seconds": 0.0036051000060979277,
+          "measurement": {
+            "bytes": 247,
+            "sha256": "a7e40cf0293229caf389fe4ae03323df30abc0f0419e5a28540b6cd929c0074c"
+          },
+          "output_bytes_before_measurement": 2365138,
+          "run_manifest": {
+            "bytes": 22502,
+            "sha256": "5e409c33be4de32427b7cfcdcc88302a958919796d0db8d4bcf39594952342bf"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "replay-90",
+          "wall_seconds": 11.602192799997283
+        },
+        {
+          "device": {
+            "cuda_runtime": "12.6",
+            "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+            "peak_allocated_bytes": 19112448,
+            "peak_reserved_bytes": 25165824,
+            "torch": "2.8.0+cu126",
+            "type": "cuda"
+          },
+          "local_hash_readback_seconds": 0.0014752999995835125,
+          "measurement": {
+            "bytes": 245,
+            "sha256": "4145a0799d6302a9c65d526d46d8e7412b2f326b4e2f7c63ace48c5c3d7e9ba5"
+          },
+          "output_bytes_before_measurement": 524229,
+          "run_manifest": {
+            "bytes": 3174,
+            "sha256": "7d4c11502b8efe3e9f5a0c364b356f2134d7515589017812d5193c9da68028e6"
+          },
+          "scope": "Local stage subprocess and local readback; excludes provider quota and remote persistence",
+          "stage": "target",
+          "wall_seconds": 16.03855990000011
+        }
+      ],
+      "subprocess_wall_seconds": 40.07708049999201
+    }
+  ],
+  "schema": "hung-development-local-pilot-v1",
+  "scope": "Development execution evidence, not scientific or independent peer acceptance",
+  "stage_count": 14,
+  "unresolved": [
+    "independent peer acceptance",
+    "Block-7 fairness acceptance",
+    "remote output readback",
+    "#39 provider substitution decision",
+    "remaining Development execution",
+    "independent immutable Final lock"
+  ],
+  "verification": {
+    "command": [
+      "C:\\Users\\HP\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "-u",
+      "-m",
+      "experiments.hung_sprint2.dispatch_matched",
+      "--plan",
+      "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\dispatch-plan-v1\\plan.json",
+      "--plan-sha256",
+      "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+      "--shards",
+      "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\dispatch-plan-v1\\shards.json",
+      "--shards-sha256",
+      "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f",
+      "--shard-id",
+      "pilot_0000",
+      "--resume",
+      "--verify-only"
+    ],
+    "exit_code": 0,
+    "finished_at_utc": "2026-10-26T19:59:08.144273+00:00",
+    "log_sha256": "bcc0064ce8adab699ef4d37d494c20a197d5cff1314b69c779f352c244d6a22b",
+    "scope": "Independent local CPU verification, not independent teammate acceptance",
+    "training_executed": false,
+    "wall_seconds": 82.16380860000208
+  }
+}
