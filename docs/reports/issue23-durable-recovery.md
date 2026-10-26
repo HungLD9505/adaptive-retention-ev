@@ -446,3 +446,54 @@ Ruff lint/format passed. This does not yet prove target GPU execution, complete
 city integration or remote target publication. Those require actual cloud runs
 and independent readback. Core `ev_models`, `ev_control`, `ev_runner` and
 `ev_baselines` remain byte-identical to `1ac2ae0`.
+
+## Latest execution checkpoint — 2026-10-27, primary prefix195 and LOA1
+
+This checkpoint supersedes earlier progress counts without changing the frozen
+population or recipe. **195/742** new-runtime UrbanEV replays are durably
+published and independently restored. The latest
+[183–194 archive](https://drive.google.com/file/d/1ekdRidg9ET8rTiI66GL3COh6KAcoGqgu/view),
+[receipt](https://drive.google.com/file/d/1IuuCJwzeurEt1hxH2diwev8Msg-08F3q/view)
+and [independent proof](https://drive.google.com/file/d/1NRXffIdMtJ3FP6Un9KFjeUQZ1xhpkrq_/view)
+record complete daily/input/latest-state and original Source checks. Primary
+offsets195–206 were dispatched; completion/publication are not claimed here.
+This count is neither thesis completion nor unique experiments across overlapping
+historical collections.
+
+All three predeclared LOA Sources completed10 epochs on12,330 same-city Source
+examples in seed order42/43/44. Each actual wrapper was uploaded, freshly
+downloaded and independently restored/CPU-loaded. Seed42 evidence is above.
+
+| Seed | Epoch10 checkpoint SHA-256 | External proof |
+|---|---|---|
+|43|`31ee68e5ed021f4318b9fc1a239c30a914c8d2c8f3b40fabe2462cca43538086`|[wrapper](https://drive.google.com/file/d/1BBL1vezCemLPOlp7YgJ8cwivb6q4zCgs/view), [receipt](https://drive.google.com/file/d/1bPZTExQ3BB0PPRS-aLeZIZhTwJCaAwXC/view), [proof](https://drive.google.com/file/d/16pr4yaAxp450CQaRl68C66lgOjHq4lO9/view)|
+|44|`1549235c7bbb948005bdd970cb4a04d8527639f5f5d22bffa44ff3143dd47b8e`|[wrapper](https://drive.google.com/file/d/1Ilg5TueVkuaOKu9OM5I4Sf1xJNZcj60m/view), [receipt](https://drive.google.com/file/d/1NNVhg-BBizUiEZ_l1_qvHCcyzQvnIVhj/view), [proof](https://drive.google.com/file/d/1ofahGsNGBajMDxmgN05Inky8EjHi2D-1/view)|
+
+The [target launch kit](https://drive.google.com/file/d/1EMz-p_MhuZ8vDzWgXGLuhCqS1NIml7we/view)
+pins all three accepted Sources and the unchanged378-cell LOA order before
+target execution. The clean target checkout
+`aa9f91cdc828e0d48c693a26b306208ec41de640` passed366 cloud CPU tests plus
+Ruff lint/format; setup took32.140028441 seconds. No GPU model fits overlapped.
+Preparation/transport/verification overhead remains separate from model timers;
+these timers are not provider billing estimates.
+
+Exactly the first frozen cell, `charged-LOA-201-7d-adaptive-seed42`, completed
+90 issued and90 scored Development days,270 candidate updates and6 audit updates.
+MAE is1.267744379 kWh; RMSE is1.611225697 kWh. This is **one cell**, not a
+baseline comparison, a favorable selection or a complete city result. All377
+other cells remain required. No Source was refitted or configuration reselected
+after observing this value.
+
+The [target archive](https://drive.google.com/file/d/1NVFIpDSSJLOfTvZsb6u45amf5WnEEduu/view)
+is12,584,285 bytes, SHA-256
+`cc24309d24cd473838b0ce3073d8aec328b6a104f563a6c0771bf5f2887073b5`.
+Its [receipt](https://drive.google.com/file/d/1JA2oyl5K_ThHKBcoPtdOoo2IW6e6kR-q/view)
+and [independent proof](https://drive.google.com/file/d/1D3PwdC8mRSTl4ESMDp201qen48Ox3TuA/view)
+follow an actual fresh Drive download, safe full restoration, frozen city/input/
+config/code/Source checks, complete daily/input/latest-state equality and CPU
+reload of all three Source dependencies. No bundled code or training ran locally.
+The companion recovery-evidence JSON records exact receipt/proof hashes.
+
+SPO/MEL recovery, remaining cities/primary cells, complete paired analysis/cost,
+independent Final lock and Final evaluation remain outstanding. No merge, issue
+closure, Final access or claim of Adaptive superiority occurred.
