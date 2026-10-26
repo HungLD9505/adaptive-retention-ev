@@ -54,15 +54,26 @@ pooled six-city number labeled independent external validation.
 
 ## Current status
 
-The six cohorts were generated and authenticated. JHB subsequently logged three
-fresh same-city Sources,378 target runs and exit0 for training, daily/state
-verification, analysis and export. Its full files were not recovered before the
-temporary Kaggle session was replaced. JHB metrics and reproducible delivery
-therefore remain unaccepted; the other five cities have not started. See the
-[dated storage-loss/recovery evidence](issue23-matched-collection.md#runtime-loss-and-recovered-evidence-update--2026-10-26).
-The current321-test implementation passed before execution; fixtures do not
-replace missing real-data artifacts. No local real-data
-training, Final evaluation, configuration-lock approval or merge.
+JHB recovery is technically complete: three fresh same-city Sources and378 target
+runs completed on Kaggle, then all69,930 daily files,5,791 audit forecast errors
+and378 latest model/optimizer/RNG states were reverified outside the runtime.
+Local re-execution reproduced the full analysis, including intervals, contexts,
+proxy/switch/audit and cost summaries. Exact evidence and limits are below.
+The original JHB run lost its temporary files; it is not pooled with this recovery.
+
+SPO v1 failed before training because its launcher used a nonexistent working
+directory. The corrected v2 launched three Sources and the last persisted notebook
+output reports11 completed target runs, but a subsequent new runtime has neither
+its directory nor process handle. This does not establish how many runs completed
+before eviction. No SPO models/results have been delivered. MEL, LOA, SZH and AMS
+have not started. Persistence was changed from No persistence to Files only;
+retention across a session replacement still requires an actual test. No new SPO
+training was started after this second storage-loss observation.
+
+The321-test implementation passed before these executions; fixtures are not
+research-effectiveness evidence. Peer/complete storage acceptance, remaining city
+replication and full primary-artifact recovery remain open. No local training,
+Final evaluation, configuration-lock approval, autonomous merge or issue closure.
 
 ## Read-only city analysis
 
@@ -176,3 +187,68 @@ there is no promised city completion time or full Final capacity acceptance.
 The earlier all-ready Final extrapolation and its explicit shortfall remain in
 the implementation-comparison readiness report; this smaller predeclared
 Development cohort does not replace that unresolved Final scope.
+
+
+## JHB completed recovery — 2026-10-26
+
+Run root: `qyroven-jhb-storage-recovery-20261026-v2`. Training/analysis code was
+`9057364e6a8e663b9ba9c204621d109c02bed3e0`, one visible Tesla T4, seeds42/43/44,
+10 Source epochs,2,340 allowed examples per Source and all90 scheduled target days.
+The unchanged primary recipe used controller1, Fixed lambda1 and proxy recipes
+source-error1 / uncertainty1 / drift3 / parameter-retention2. No city-specific
+retuning, favorable seed selection, UrbanEV weights or Final data.
+
+All378 cells (14 unique variants ×3 sites ×3 budgets ×3 seeds) were retained.
+Budgets have their own predeclared site cohorts; do not interpret the table as a
+within-site causal learning curve. Same aliases and accepted missing-data/clock
+rules apply to every comparator. Source training, daily/state verification,
+analysis and export all exited0. Pipeline wall time was2,728.023 seconds, excluding
+later transfer/local verification; it is not per-method compute cost.
+
+Conditional Development MAE in kWh; paired seeds averaged within site, then sites
+weighted equally. The equal-budget mean is descriptive, not an additional tuning
+criterion or pooled six-city score.
+
+| Method | 7-day | 14-day | 28-day | Equal-budget mean |
+|---|---:|---:|---:|---:|
+| `adaptive` | 3.524105 | 1.361500 | 2.047969 | 2.311192 |
+| `block28` | 3.506936 | 1.332328 | 2.216287 | 2.351850 |
+| `block7` | 3.603782 | 1.346732 | 2.301959 | 2.417491 |
+| `drift` | 3.681726 | 1.401911 | 2.187773 | 2.423804 |
+| `fixed_retention` | 3.268851 | 1.333160 | 1.996912 | 2.199641 |
+| `frozen_source` | 3.724796 | 2.080778 | 1.715251 | 2.506942 |
+| `full_finetuning` | 3.603538 | 1.365060 | 2.416965 | 2.461854 |
+| `online_best` | 3.591935 | 1.447698 | 2.034288 | 2.357974 |
+| `parameter_retention` | 3.602083 | 1.365044 | 2.417790 | 2.461639 |
+| `seasonal_naive` | 5.912687 | 2.534477 | 3.385366 | 3.944177 |
+| `source_error` | 3.556886 | 1.372954 | 2.371548 | 2.433796 |
+| `target_only` | 5.614551 | 2.267374 | 3.420925 | 3.767617 |
+| `uncertainty` | 3.587051 | 1.378899 | 2.301957 | 2.422635 |
+| `without_source_initialization` | 5.506686 | 2.038389 | 3.445403 | 3.663492 |
+
+Adaptive does not beat selected Fixed Retention on any budget's MAE point
+estimate. Adaptive-minus-Fixed gaps are0.255255 /0.028341 /0.051057kWh; the
+exploratory marginal95% station/calendar bootstrap intervals are respectively
+[-0.029088,0.615095],[-0.033856,0.147521],[-0.284174,0.538875]. All include0.
+Adaptive-minus-Fine-tuning intervals also include0. These conditional intervals
+from only three nonrandom sites and fixed paired seeds do not establish population
+superiority, equivalence or a causal effect. Do not extend the grid until a win
+appears. Frozen Source has the lowest28-day point MAE in this selected cohort;
+adaptation is not assumed universally beneficial.
+
+Complete metadata/CSV point recomputation checked all378 cells and84 MAE/RMSE
+numbers. Both independently regenerated per-run daily/state proofs exactly match
+Kaggle's rows. The full local analysis and runs CSV reproduce the remote numeric
+results, context/proxy/switch/audit/cost summaries and intervals; only analysis
+commit and authenticated-proof envelope identities differ as recorded.
+[Exact fingerprints and artifact links](issue23-jhb-recovery-evidence.json).
+
+All raw target artifacts and three Source models are restored outside Kaggle.
+Source models, complete metadata, full local proof and the182-run prefix are on
+Drive with the stated readback checks. The remaining196-run ZIP is fully verified
+locally; its direct Drive upload/readback is not yet reconfirmed. A complete team
+cloud handoff is not inferred from local restoration. Kaggle saved version4 was
+Queued and is not accepted as an output backup. Publisher preprocessing,
+publisher-local-naive clocks, possible site co-location and conditional primary
+configuration transfer remain limitations. JHB is one supplementary city;
+Shenzhen must still be analyzed separately. No Final lock or peer acceptance.
