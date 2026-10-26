@@ -1,0 +1,103 @@
+{
+  "status": "verified_three_source_models_only_not_full_city",
+  "archive_bytes": 1670455,
+  "archive_sha256": "ddb20e28cc65d4c9da80d139c24ee4149770c6d72880c2ad01162cfe79cd91e9",
+  "members_checked": 12,
+  "sources": [
+    {
+      "seed": 42,
+      "sha256": "6e096dd5c74582b725777c1b1af3009fd2fb9af7d5e140a05e6abbe61ebd7376",
+      "training_examples": 2610,
+      "epochs": 10,
+      "city": "SPO",
+      "cpu_weights_only_load": "PASS",
+      "architecture": {
+        "schema": "ev-gru-v1",
+        "layers": 2,
+        "latent_dim": 64,
+        "history_shape": [
+          24,
+          7
+        ],
+        "calendar_shape": [
+          24,
+          5
+        ],
+        "horizon": 24,
+        "dropout": 0,
+        "head_activation": "ReLU",
+        "output_activation": "Softplus",
+        "head_width": 64
+      }
+    },
+    {
+      "seed": 43,
+      "sha256": "75f93b6b39d8223cba3ee6c95ab8509a3f4749359d645a6f3b5cf9ca1f19388f",
+      "training_examples": 2610,
+      "epochs": 10,
+      "city": "SPO",
+      "cpu_weights_only_load": "PASS",
+      "architecture": {
+        "schema": "ev-gru-v1",
+        "layers": 2,
+        "latent_dim": 64,
+        "history_shape": [
+          24,
+          7
+        ],
+        "calendar_shape": [
+          24,
+          5
+        ],
+        "horizon": 24,
+        "dropout": 0,
+        "head_activation": "ReLU",
+        "output_activation": "Softplus",
+        "head_width": 64
+      }
+    },
+    {
+      "seed": 44,
+      "sha256": "18003c08b4741cc5c40228a5f2c40efb89aa9c4f4597759b6b1d1a4e83df5b0a",
+      "training_examples": 2610,
+      "epochs": 10,
+      "city": "SPO",
+      "cpu_weights_only_load": "PASS",
+      "architecture": {
+        "schema": "ev-gru-v1",
+        "layers": 2,
+        "latent_dim": 64,
+        "history_shape": [
+          24,
+          7
+        ],
+        "calendar_shape": [
+          24,
+          5
+        ],
+        "horizon": 24,
+        "dropout": 0,
+        "head_activation": "ReLU",
+        "output_activation": "Softplus",
+        "head_width": 64
+      }
+    }
+  ],
+  "scope": "Three complete same-city Source models only;378 target matrix remains in progress; not Final or peer acceptance",
+  "source_archive_url": "https://drive.google.com/file/d/1KPWba0kpA5vRSJh-FIhwlriNBa-4La5N/view",
+  "anonymous_readback": "PASS bytes/hash/CRC/all12 model manifest members",
+  "training_code": "9057364e6a8e663b9ba9c204621d109c02bed3e0",
+  "bootstrap_sha256": "3c4eb380685b4540df90cebd5381aeb280dfd27e080098cb38abfbc739b8c73c",
+  "pid_at_verified_launch": 405,
+  "root": "/kaggle/working/qyroven-spo-persistent-recovery-20261026-v3",
+  "persistence_test": {
+    "mode": "Files only",
+    "scope": "Normal Stop session followed by replacement runtime; only80-byte probe, not forced eviction or long job certification",
+    "bytes": 80,
+    "before_sha256": "b6b0fe721923e6a80753660c159d029398b7cd930c896da50d1df12ff3486ad7",
+    "after_sha256": "b6b0fe721923e6a80753660c159d029398b7cd930c896da50d1df12ff3486ad7",
+    "exists_after_replacement": true
+  },
+  "unchanged_protocol": "Three seeds42/43/44,10 Source epochs,7/14/28 budgets,90 scheduled days,primary finite recipe; no city tuning or Final",
+  "prior_attempts": "v1 cwd startup failure; correctedv2 temporary files/process absent after replacement, last UI snapshot3 Sources/11 targets not delivered or pooled"
+}

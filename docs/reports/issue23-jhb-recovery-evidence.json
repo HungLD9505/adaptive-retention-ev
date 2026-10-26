@@ -38,8 +38,17 @@
   "suffix196_archive": {
     "bytes": 288618977,
     "sha256": "316db8dcf1b643e839c6185cf564b3850b58e4ad92d0075e00efed4cc1eb5f6f",
-    "scope": "Fully restored and verified locally; direct Drive upload completion/readback not yet reconfirmed after laptop closure"
+    "scope": "Complete direct UI upload after reconnect; anonymous bytes/hash/CRC and all54684 members PASS",
+    "url": "https://drive.google.com/file/d/1NFgELsgl-Md2Ng2wuUwoUYiNE-g2Xoun/view"
   },
   "method_effectiveness": "Adaptive point MAE exceeds Fixed Retention for all three budgets; exploratory conditional intervals include0; no superiority/equivalence claim",
-  "remaining": "Full primary missing artifacts; SPO reproducible delivery; MEL/LOA/SZH/AMS; complete capacity/peer acceptance and immutable Final lock"
+  "remaining": "Full primary missing artifacts; SPO reproducible delivery; MEL/LOA/SZH/AMS; complete capacity/peer acceptance and immutable Final lock",
+  "portable_handoff": {
+    "url": "https://drive.google.com/file/d/12WVuaN5C6LG1y1kOadzA0-nlx9fWZE01/view",
+    "bytes": 4807,
+    "sha256": "56409433cd91ae2a0314cee99c8ee2775246dfb03578c088fc203820785224d0",
+    "anonymous_readback": "PASS bytes/hash/CRC/all3 members",
+    "actual_restore_and_reverification": "378 daily/state proof rows identical to independently verified reference",
+    "script_safety_checks": "Existing output refused without changes; missing archives rejected before output creation"
+  }
 }

@@ -66,9 +66,12 @@ directory. The corrected v2 launched three Sources and the last persisted notebo
 output reports11 completed target runs, but a subsequent new runtime has neither
 its directory nor process handle. This does not establish how many runs completed
 before eviction. No SPO models/results have been delivered. MEL, LOA, SZH and AMS
-have not started. Persistence was changed from No persistence to Files only;
-retention across a session replacement still requires an actual test. No new SPO
-training was started after this second storage-loss observation.
+have not started. Files-only persistence subsequently passed an80-byte exact-hash probe across a
+normal Stop session/replacement runtime. This does not prove retention after every
+forced eviction or guarantee unattended job completion. A separately identified
+v3 recovery then started with unchanged settings. All three Source models are now
+verified outside Kaggle and on Drive; the378-target matrix remains in progress.
+See the exact [SPO recovery evidence](issue23-spo-recovery-evidence.json).
 
 The321-test implementation passed before these executions; fixtures are not
 research-effectiveness evidence. Peer/complete storage acceptance, remaining city
@@ -245,10 +248,38 @@ commit and authenticated-proof envelope identities differ as recorded.
 
 All raw target artifacts and three Source models are restored outside Kaggle.
 Source models, complete metadata, full local proof and the182-run prefix are on
-Drive with the stated readback checks. The remaining196-run ZIP is fully verified
-locally; its direct Drive upload/readback is not yet reconfirmed. A complete team
-cloud handoff is not inferred from local restoration. Kaggle saved version4 was
+Drive with the stated readback checks. The remaining196-run ZIP has also completed
+anonymous size/hash/CRC/all54,684-member readback. The full team cloud payload is
+therefore present. A [portable restore guide/script](https://drive.google.com/file/d/12WVuaN5C6LG1y1kOadzA0-nlx9fWZE01/view)
+was exercised with all four archives; all378 independent daily/state proof rows
+match the reference. It refuses existing outputs and missing inputs. This
+transport/reproduction acceptance is not independent peer or Final acceptance. Kaggle saved version4 was
 Queued and is not accepted as an output backup. Publisher preprocessing,
 publisher-local-naive clocks, possible site co-location and conditional primary
 configuration transfer remain limitations. JHB is one supplementary city;
 Shenzhen must still be analyzed separately. No Final lock or peer acceptance.
+
+
+## SPO persistent recovery v3 — in progress
+
+The prior startup/eviction failures remain recorded above. Before v3, an80-byte
+probe was created, the idle test session was stopped normally and a replacement
+session read the same bytes/SHA-256 with Files only selected. This tests that
+specific retention boundary; it does not certify forced provider eviction, large
+artifact retention or uninterrupted cloud execution. No fake activity, account
+rotation or paid resource was used.
+
+The new v3 uses a city-local repository checkout at unchanged code9057364 and the
+same primary numerical recipe/cohort/data/seeds. Its bootstrap fixtures, lint and
+format passed before launch. Three fresh SPO Source models trained10 epochs on
+2,610 allowed examples each. They were archived immediately rather than waiting
+for all target replays; local size/hash/ZIP CRC/all12 manifest-member checks and
+weights-only CPU reloads passed. City, seed, architecture and finite64-dimensional
+latent scales match; anonymous Drive readback also passed. No local training.
+
+[Source checkpoints and exact recovery scope](issue23-spo-recovery-evidence.json).
+The378 target comparisons remain active/unaccepted until complete full
+forecast/state verification and analysis. A Source archive is not a complete
+experiment collection. MEL/LOA/SZH/AMS and the missing primary raw artifacts
+remain outstanding. No Final, autonomous merge, issue closure or effectiveness
+claim is inferred from this recovery.
