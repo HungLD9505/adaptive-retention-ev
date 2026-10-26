@@ -495,7 +495,12 @@ def _verify_event_journal(path: Path, manifest: dict, events: list[str]) -> None
 
 
 def _verify_replay_proof(
-    plan: dict, cell: dict, manifest: dict, saved: PrequentialRunner, path: Path
+    plan: dict,
+    cell: dict,
+    manifest: dict,
+    saved: PrequentialRunner,
+    path: Path,
+    checkpoint: Path,
 ) -> None:
     """Re-execute authenticated Development chronology before trusting a score."""
     config = manifest["config"]
@@ -556,7 +561,10 @@ def _verify_replay_proof(
     )
     if asdict(evaluate_replay(fresh, summary).coverage) != manifest["coverage"]:
         raise ValueError("Authenticated Development coverage differs")
-    original, replayed = saved.state_dict(), fresh.state_dict()
+    # state_dict() samples the *current global* RNG. Read the persisted bytes
+    # instead: replay_target above has already advanced that global stream.
+    original = torch.load(checkpoint, map_location="cpu", weights_only=True)
+    replayed = fresh.state_dict()
     for field in (
         "issued",
         "decisions",
@@ -578,6 +586,19 @@ def _verify_replay_proof(
         "audit_cuda_rng",
     ):
         _same_state(original[field], replayed[field], field)
+    for category in ("candidate", "audit"):
+        prior = original["runtime_costs"][category]
+        actual = replayed["runtime_costs"][category]
+        pairs = zip(prior, actual, strict=True) if category == "candidate" else [(prior, actual)]
+        for old, new in pairs:
+            for counter in ("inference_calls", "update_steps"):
+                _same_state(old[counter], new[counter], f"runtime_costs.{category}.{counter}")
+    for counter in ("inference_calls", "update_steps"):
+        _same_state(
+            original["proxy_costs"][counter],
+            replayed["proxy_costs"][counter],
+            f"proxy_costs.{counter}",
+        )
     _verify_event_journal(path, manifest, fresh.events)
 
 
@@ -648,7 +669,7 @@ def select(plan: dict, records: list[dict]) -> dict:
         runner = load_runner(
             checkpoint, expected_binding=manifest["input_binding"], device=config["device"]
         )
-        _verify_replay_proof(plan, cell, manifest, runner, path)
+        _verify_replay_proof(plan, cell, manifest, runner, path, checkpoint)
         scored = tuple(item["day_id"] for item in runner.issued if item["y_scaled"] is not None)
         coverage = manifest["coverage"]
         recomputed = evaluate_replay(

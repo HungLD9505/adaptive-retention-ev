@@ -59,10 +59,13 @@ reference, not a validated drift detector.
    The selector verifies every manifest/checkpoint SHA and bound configuration,
    then re-executes each full Development chronology from its pinned Source and
    target checkpoints plus manifest-hashed input. It requires the issued
-   forecasts, arrived labels, candidate/optimizer states, decisions, events and
-   authenticated event journal to match before recomputing original-unit
+   forecasts, arrived labels, candidate/optimizer/RNG states, decisions, event
+   sequence, integer inference/update counts and authenticated event journal
+   to match before recomputing original-unit
    MAE/RMSE. This verification roughly doubles replay computation; an
    unrepeatable CUDA result blocks selection rather than being silently used.
+   Nanosecond timings and process peak RSS remain measured self-reports; they
+   cannot be expected to repeat exactly and are not independent timing proofs.
    requires identical scored origins, coverage, candidate update budgets and
    proxy inference counts across recipes, then averages seeds within station,
    stations within budget and the three budget means equally. Exact ties use
@@ -77,8 +80,11 @@ reference, not a validated drift detector.
 
 Fixture tests exercise finite-grid validation, Development/Final isolation,
 masked first-history drift reference, null handling, tie order, pairing
-rejection, ignored-output preflight and a forged checkpoint whose SHA is also
-rewritten in its copied run manifest. No locally accessible real Source/target checkpoint matrix was
+rejection, ignored-output preflight, and forged checkpoint/manifest pairs with
+altered forecasts, RNG or cost counts plus a rewritten journal/hash. Local
+Source/target checkpoints exist for earlier diagnostic runs, but no complete
+reviewed matrix for this calibration profile was established in this tranche;
+no real Development selection was
 found in this checkout, so no real Development selection was run. A complete
 cohort, all run outputs, independent review, measured feasibility, mandatory
 baselines/ablations and the approved immutable lock remain required before
