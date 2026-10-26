@@ -12,6 +12,8 @@ Download the shared [DATA-v1-20261019 snapshot](docs/data/DATA_DOWNLOADS.md) for
 
 Start with [From the two datasets to model inputs](docs/data/DATA_FLOW.md) for the complete raw → hourly → training/prediction-input flow and a guide to the actual local folders.
 
+The [thesis report draft](docs/THESIS_REPORT.md) assembles the method and verified evidence for Issue #10; Final results and conclusions remain pending.
+
 For file-by-file dataset explanations, read the [UrbanEV reference](docs/data/URBANEV.md) and [CHARGED / AMS reference](docs/data/CHARGED.md).
 
 The [input policy](docs/data/INPUT_ACCEPTANCE.md) defines masks, coverage gates, per-target initialization and checkpoint input binding. The [input handoff](docs/reports/input-handoff.md) records actual counts; the [integration report](docs/reports/data-integration.md) records final combined verification. Earlier fixture/trial reports retain their original snapshot status and do not supersede that acceptance record.
