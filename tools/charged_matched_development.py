@@ -10,12 +10,14 @@ from pathlib import Path
 import torch
 
 from ev_models.checkpoint import digest, write_json
+from ev_models.run import environment
 from ev_models.run import execute as train_source
 from ev_runner.replay import Replay
 from ev_runner.run import execute, runtime_code
 from tools.charged_development_cohort import CITIES, RULE, choose_entities
 from tools.comparison_matrix import CachedInputs
 from tools.controller_calibration import recipe_config as adaptive_config
+from tools.durable_run_backup import RunBackup, require_drive_mount
 from tools.matched_development import comparison_config, variants
 from tools.proxy_calibration import METHODS as PROXY_METHODS
 from tools.proxy_calibration import recipe_config as proxy_config
@@ -142,6 +144,46 @@ def validate_matrix(rows: list[dict], cohort: dict, summary: dict) -> None:
         raise ValueError("All declared CHARGED method/seed/entity/budget cells required")
 
 
+def backup_context(
+    cohort: dict,
+    summary: dict,
+    data: dict,
+    code: dict,
+    runtime: dict,
+    *,
+    cohort_sha256: str,
+    primary_sha256: str,
+) -> dict:
+    """Bind recovery to the original complete execution, never observed results."""
+    epoch, _, training = primary_recipe(summary, 42, "not-used-by-source")
+    return {
+        "schema": "ev-mounted-drive-execution-v1",
+        "namespace": list(data[7].namespace),
+        "cohort_sha256": cohort_sha256,
+        "primary_sha256": primary_sha256,
+        "source_population_sha256": data[7].source_hash,
+        "source_manifest_sha256": data[7].sha256,
+        "source_epochs": epoch,
+        "source_training": {**training, "epochs": epoch},
+        "seeds": cohort["seeds"],
+        "core_files": code["files"],
+        "environment": runtime,
+        "expected_runs": {
+            f"{cohort['namespace']}-{item['entity_id']}-{budget}d-{name}-seed{seed}": {
+                "config": config,
+                "entity_id": item["entity_id"],
+                "history_days": budget,
+                "input_manifest_sha256": data[budget].sha256,
+                "comparison_variant": name,
+            }
+            for budget in (7, 14, 28)
+            for item in cohort["budgets"][str(budget)]["entities"]
+            for seed in cohort["seeds"]
+            for name, config in method_configs(summary, seed, item["entity_id"]).items()
+        },
+    }
+
+
 def run(args: argparse.Namespace) -> None:
     if not torch.cuda.is_available():
         raise ValueError("Real CHARGED Source/target training requires CUDA")
@@ -167,6 +209,14 @@ def run(args: argparse.Namespace) -> None:
     code = runtime_code()
     if code["dirty"]:
         raise ValueError("Clean identified code required")
+    backup_root, mount = getattr(args, "backup_root", None), getattr(args, "drive_mount", None)
+    resume = getattr(args, "resume_backup", False)
+    if bool(backup_root) != bool(mount) or resume and not backup_root:
+        raise ValueError(
+            "Backup requires both --backup-root and --drive-mount; resume needs backup"
+        )
+    if backup_root:
+        require_drive_mount(backup_root, mount)
     args.output.mkdir(parents=True, exist_ok=False)
     matrix = {
         "scope": "Separate-city supplementary Development configuration replication; no Final or strict-online effectiveness claim",
@@ -180,10 +230,45 @@ def run(args: argparse.Namespace) -> None:
         "status": "running",
         "limits": "Primary hyperparameters transferred, never UrbanEV weights. No city-specific tuning; small prefix-selected cohort; publisher preprocessing/clock limitations; SZH separate overlap analysis.",
     }
+    backup = None
+    if backup_root:
+        context = backup_context(
+            cohort,
+            summary,
+            data,
+            code,
+            {**environment("cuda"), "deterministic_algorithms": True},
+            cohort_sha256=args.cohort_sha256,
+            primary_sha256=args.primary_sha256,
+        )
+        expected = context["expected_runs"]
+        backup = RunBackup(args.output, backup_root, context, data, resume=resume)
+        if resume:
+            restore_started = time.perf_counter()
+            sources, rows = backup.restore()
+            matrix["restore_verification_seconds"] = time.perf_counter() - restore_started
+            source_order = [s for s in cohort["seeds"] if s in backup.sources]
+            if source_order != cohort["seeds"][: len(sources)] or set(backup.runs) != set(
+                list(expected)[: len(rows)]
+            ):
+                raise ValueError(
+                    "Completed backups must be an execution prefix, never outcome-selected"
+                )
+            matrix["sources"] = [backup.sources[s] for s in source_order]
+            matrix["runs"] = [backup.runs[name] for name in expected if name in backup.runs]
+            matrix["resume_backup"] = str(backup_root)
+        matrix["backup"] = {
+            "root": str(backup_root),
+            "context_sha256": backup.context_sha,
+            "acceptance": "Mounted-filesystem readback; independent remote acceptance pending",
+        }
     write_json(args.output / "cohort.json", cohort)
+    backup_seconds = 0.0
     started = time.perf_counter()
     try:
         for seed in cohort["seeds"]:
+            if backup and seed in backup.sources:
+                continue
             training = {**source_config, "seed": seed, "epochs": epoch}
             config = {
                 "training": training,
@@ -203,6 +288,10 @@ def run(args: argparse.Namespace) -> None:
                 {"seed": seed, "run": source_report, "path": str(path), "sha256": digest(path)}
             )
             write_json(args.output / f"source-seed{seed}-complete.json", matrix["sources"][-1])
+            if backup:
+                before_backup = time.perf_counter()
+                backup.source(matrix["sources"][-1])
+                backup_seconds += time.perf_counter() - before_backup
             print(
                 json.dumps(
                     {"city": namespace, "source_seed": seed, "epochs": epoch, "status": "complete"}
@@ -219,6 +308,8 @@ def run(args: argparse.Namespace) -> None:
                 for seed in cohort["seeds"]:
                     for name, config in method_configs(summary, seed, entity).items():
                         run_id = f"{namespace}-{entity}-{budget}d-{name}-seed{seed}"
+                        if backup and run_id in backup.runs:
+                            continue
                         torch.cuda.reset_peak_memory_stats()
                         with (
                             (args.output / f"{run_id}.log").open("x") as log,
@@ -238,6 +329,10 @@ def run(args: argparse.Namespace) -> None:
                             )
                         row["comparison_variant"] = name
                         matrix["runs"].append(row)
+                        if backup:
+                            before_backup = time.perf_counter()
+                            backup.target(row)
+                            backup_seconds += time.perf_counter() - before_backup
                         progress = args.output / "progress.next.json"
                         progress.write_text(json.dumps(matrix, indent=2, allow_nan=False))
                         progress.replace(args.output / "progress.json")
@@ -254,6 +349,13 @@ def run(args: argparse.Namespace) -> None:
         raise
     finally:
         matrix["wall_seconds"] = time.perf_counter() - started
+        if resume:
+            matrix["wall_seconds_scope"] = (
+                "Current invocation only; original pre-interruption wall/backup overhead is not reconstructed. "
+                "Source/run component timers remain in their original records."
+            )
+        if backup:
+            matrix["backup_io_verification_seconds"] = backup_seconds
         write_json(args.output / "matrix.json", matrix)
 
 
@@ -263,6 +365,15 @@ def main() -> None:
         parser.add_argument("--" + name, type=Path, required=True)
     for name in ("cohort-sha256", "primary-sha256"):
         parser.add_argument("--" + name, required=True)
+    parser.add_argument("--backup-root", type=Path, help="Unique directory below mounted Drive")
+    parser.add_argument(
+        "--drive-mount", type=Path, help="Existing DriveFS mount, e.g. /content/drive"
+    )
+    parser.add_argument(
+        "--resume-backup",
+        action="store_true",
+        help="Restore verified completed prefix into NEW --output",
+    )
     run(parser.parse_args())
 
 
