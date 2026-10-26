@@ -1,0 +1,61 @@
+{
+  "schema": "hung-e2e-review-storage-observation-v1",
+  "observed_at_utc": "2026-10-26 19:37:29 UTC",
+  "dataset_url": "https://www.kaggle.com/datasets/hungluongduc/hung-e2e-review-gates-44b8532-20261027-v1",
+  "version": 1,
+  "private": true,
+  "privacy_evidence": "Authenticated Dataset page displays 'Private'; upload form also showed Private before Create",
+  "upload_status": "created_successfully_and_two_files_listed",
+  "compression_status": "awaiting_compression_observed_after_page_reload",
+  "remote_hash_crc_readback_status": "PENDING",
+  "remote_hashes_verified": 0,
+  "independent_teammate_reproduction": "pending",
+  "code_commit": "44b8532959d76fb20691881539f991ca44983727",
+  "files": [
+    {
+      "name": "e2e-review-bundle-v1.zip.bin",
+      "bytes": 212497,
+      "expected_sha256": "7e088184c279fed43c3f7cfc2a312e1400e44baa4aceb0fcf5c0bd826d4267eb",
+      "remote_sha256": null
+    },
+    {
+      "name": "transport-map.json",
+      "bytes": 419,
+      "expected_sha256": "aed7fc2f2e38cf08bac3be345e4cc2f1dfdd70dbced46b46e61db0f86afdf8d8",
+      "remote_sha256": null
+    }
+  ],
+  "local_verifier": {
+    "path": "docs/reports/evidence/verify_review_download_20261027.py",
+    "sha256": "6da31ee9f0a646e649c3c5da84391cbeee2ebb9189f260271cfa71a536432c03",
+    "valid_staging_exit_code": 0,
+    "corrupt_copy_exit_code": 1,
+    "corrupt_copy_created_output": false,
+    "review_bundle_crc": "passed_locally",
+    "members": 94,
+    "scope": "Local staging/negative fixture checks only; no downloaded remote bytes verified"
+  },
+  "preserved_earlier_evidence": "docs/reports/evidence/hung-e2e-gate-20261027.json",
+  "preserved_earlier_evidence_sha256": "ba2e3f07724815a02bd362087027d18c66fd1ac93923f20f440357cea8b09139",
+  "screenshot_project_path": ".cache/hung-e2e-handoff-20261027/.cache/review-dataset-awaiting-compression.png",
+  "gpu_execution": "not_started",
+  "approval_gates": {
+    "code_plan_peer_review": "pending",
+    "block7_fairness": "pending",
+    "colab_substitute": "pending recorded decision on #39",
+    "gpu_storage_pilot": "not executed",
+    "final_lock": "missing"
+  },
+  "source_files_added": [
+    "docs/reports/hung-e2e-review-storage-20261027.md",
+    "docs/reports/evidence/hung-e2e-review-storage-20261027.json",
+    "docs/reports/evidence/verify_review_download_20261027.py"
+  ],
+  "commands_run": [
+    "Python staging creation and SHA checks (two files)",
+    "ruff check docs/reports/evidence/verify_review_download_20261027.py",
+    "ruff format docs/reports/evidence/verify_review_download_20261027.py",
+    "python docs/reports/evidence/verify_review_download_20261027.py --download ../hung-safe-resume-v1/.cache/review-kaggle-stage-v1 --output .cache/review-staging-byte-check-v2.json",
+    "python docs/reports/evidence/verify_review_download_20261027.py --download .cache/review-corrupt-fixture-v1 --output .cache/review-corrupt-fixture-v1/should-not-exist.json (expected exit 1)"
+  ]
+}
