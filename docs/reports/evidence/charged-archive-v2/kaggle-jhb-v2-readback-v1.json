@@ -1,0 +1,13 @@
+{
+  "schema": "kaggle-binary-archive-readback-v1",
+  "dataset_id": "hungluongduc/hung-charged-jhb-development-archive-20261026-v2",
+  "is_private": true,
+  "status": "all_files_sha256_verified",
+  "file_count": 36,
+  "payload_bytes": 597938515,
+  "catalog_sha256": "4fb9e3c0c83d08a2436886a419b2fe0614b34e9942f7e4102a39f8452aaa3d40",
+  "transport_map_sha256": "d8daca640fab3788ce9f69b3f5987fb660875ea24f63249f5baec6fd266fe52f",
+  "journal_sha256": "79ddb3e70ca5cc3ecf3c2ac63224f4d838550eb1cc1bf63727a30e26bc6e9fd6",
+  "remote_file_listing_sha256": "f9233abe961722a967db097542f99a122a5e62fdb4c3cfa2379d262a5ab46acb",
+  "remote_metadata_sha256": "31bc296e00671be299f29dabe546a585665b974e0c15350e2e95aa6992475202"
+}

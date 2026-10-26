@@ -1,0 +1,13 @@
+{
+  "schema": "kaggle-binary-archive-readback-v1",
+  "dataset_id": "hungluongduc/hung-charged-spo-development-archive-20261026-v2",
+  "is_private": true,
+  "status": "all_files_sha256_verified",
+  "file_count": 36,
+  "payload_bytes": 591638516,
+  "catalog_sha256": "3437ab0282a1e17e9d6b02e09111b13ed25718c73cf03d2f4dd716d58d479381",
+  "transport_map_sha256": "36edf8669bebadfbe0250c357e58717a33d8a4b92cf120862d4a60a0aacc531f",
+  "journal_sha256": "424f40cf3ca56db6df498d868996604308c0e2f438ecb9ea9b2bad5ff82829cb",
+  "remote_file_listing_sha256": "93e6bb804582576d655d846b5337eca9764bafe54e802d327dd9ddebc88177ab",
+  "remote_metadata_sha256": "0fd9c0aff8aee1729b4338434e17fcb0620230b6c553f871867054f9099c4d5b"
+}

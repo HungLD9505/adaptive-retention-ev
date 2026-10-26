@@ -1,0 +1,13 @@
+{
+  "schema": "kaggle-binary-archive-readback-v1",
+  "dataset_id": "hungluongduc/hung-charged-loa-development-archive-20261026-v2",
+  "is_private": true,
+  "status": "all_files_sha256_verified",
+  "file_count": 36,
+  "payload_bytes": 581726354,
+  "catalog_sha256": "abceb5f1f687eca924a19924c1c23e560353835f26dfc7f0b20a75a5d67ff8c6",
+  "transport_map_sha256": "84ac8af9cddc806ce12756eae0ae65db5a6a91f7130a65416b2e5dde65ba62a3",
+  "journal_sha256": "7fd81d758cb82b9493bc9e604e8db6b076078369cf82220fa5cd6138943ff3c8",
+  "remote_file_listing_sha256": "704944ac5b643300a2025fe4394c4ad8c3331110f6d60cc840156fae4acd918e",
+  "remote_metadata_sha256": "da102f14ff58aa6bc8d7c274c93da3fcc080edc2887a4d041eb9d2e5d62c3d32"
+}
