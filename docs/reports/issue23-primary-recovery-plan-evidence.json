@@ -936,18 +936,21 @@
     "independent_proof_bytes": 7952
   },
   "current_recovery_status": {
-    "new_runtime_targets_fully_published": 195,
+    "new_runtime_targets_fully_published": 224,
     "new_runtime_planned_targets": 742,
     "old_missing_proxy_fully_restored": 648,
     "old_matched_prefix_fully_restored": 451,
     "old_matched_physically_missing": 239,
-    "interpretation": "Different collections with historical repeats; do not add as unique experiments or claim full scope. Old16 complete units/224 selected cells preserved; frozen742 replays now have195 fully published. Final unapproved and not executed.",
+    "interpretation": "Distinct overlapping historical/recovery collections; do not add as unique experiments. New742 frozen replays have224 published: all212 selected-proxy and first12/530 matched. Old16 complete units/224 selected cells remain preserved separately. Final unapproved and not executed.",
     "next_bounded_dispatch": {
-      "family": "proxy",
-      "start": 195,
-      "end": 207,
-      "status": "dispatched after actual195 publication and stopped city first target; completion/publication unverified"
-    }
+      "family": "matched",
+      "start": 12,
+      "end": 24,
+      "pid": 2791,
+      "status": "actual live handle polled None,9/12 local completions observed; chunk completion/publication not claimed"
+    },
+    "new_runtime_proxy_published": 212,
+    "new_runtime_matched_published": 12
   },
   "kaggle_offset39_continuation": {
     "pid": 1186,
@@ -1640,5 +1643,197 @@
     "candidate_steps": 270,
     "audit_steps": 6,
     "scope": "Only the first1/378 frozen city Development cells; all3 Source dependencies restored and independently CPU-verified. No baseline superiority, complete city or Final claim."
+  },
+  "kaggle_offset195_verified_publication": {
+    "start": 195,
+    "end": 207,
+    "publication": {
+      "schema": "verified-kaggle-outbox-publication-v1",
+      "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+      "family": "proxy",
+      "start": 195,
+      "end": 207,
+      "run_ids": [
+        "urbanev-SZH-1408-28d-parameter_retention-seed43-recipe2",
+        "urbanev-SZH-1408-28d-source_error-seed44-recipe1",
+        "urbanev-SZH-1408-28d-uncertainty-seed44-recipe1",
+        "urbanev-SZH-1408-28d-drift-seed44-recipe3",
+        "urbanev-SZH-1408-28d-parameter_retention-seed44-recipe2",
+        "urbanev-SZH-1251-28d-source_error-seed42-recipe1",
+        "urbanev-SZH-1251-28d-uncertainty-seed42-recipe1",
+        "urbanev-SZH-1251-28d-drift-seed42-recipe3",
+        "urbanev-SZH-1251-28d-parameter_retention-seed42-recipe2",
+        "urbanev-SZH-1251-28d-source_error-seed43-recipe1",
+        "urbanev-SZH-1251-28d-uncertainty-seed43-recipe1",
+        "urbanev-SZH-1251-28d-drift-seed43-recipe3"
+      ],
+      "independent_content_verified": true,
+      "remote_readback_verified": true,
+      "artifact": {
+        "drive_url": "https://drive.google.com/file/d/1XSBuDiWDVooBXNlyGbyXtnsRmTq0VQci/view",
+        "bytes": 20995887,
+        "sha256": "d53c05ac03a5667d577ea5a68aa2cf6541cb5224ec7775e6472b545e4abc8986"
+      },
+      "verification_sha256": "88f9d3d6c8a8641cbbdefc2da1f1a23062a74ec850dc82f1fea6272d7be8c9ef",
+      "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+      "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/1PVYTy2G_k-nOagPGXC7HBI_MCSSoNGUq/view",
+    "publication_receipt_sha256": "1e4a87f1e5b88f31c537317936ed6827c67999cea2ac248be55e8c735e20c12a",
+    "independent_proof_url": "https://drive.google.com/file/d/1fXIdC6deKo0wjCCgmvxupAWmg2WdOyZ-/view",
+    "independent_proof_sha256": "6b13fcae42125fbd43db0ba3dc1704f9288cc79db1328a2af538548bf3466bae",
+    "independent_proof_bytes": 8683
+  },
+  "kaggle_offset207_verified_publication": {
+    "start": 207,
+    "end": 212,
+    "publication": {
+      "schema": "verified-kaggle-outbox-publication-v1",
+      "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+      "family": "proxy",
+      "start": 207,
+      "end": 212,
+      "run_ids": [
+        "urbanev-SZH-1251-28d-parameter_retention-seed43-recipe2",
+        "urbanev-SZH-1251-28d-source_error-seed44-recipe1",
+        "urbanev-SZH-1251-28d-uncertainty-seed44-recipe1",
+        "urbanev-SZH-1251-28d-drift-seed44-recipe3",
+        "urbanev-SZH-1251-28d-parameter_retention-seed44-recipe2"
+      ],
+      "independent_content_verified": true,
+      "remote_readback_verified": true,
+      "artifact": {
+        "drive_url": "https://drive.google.com/file/d/1Z8vaMCHHedl9IUj02MHC0xqlpFeE6Y5T/view",
+        "bytes": 14778185,
+        "sha256": "6e13e7c4c90ec3eac5fb3037eacbfa0d05f4ec58a262c9a73dd3954a65e3de65"
+      },
+      "verification_sha256": "7698d58df4e8113255088d6343d816b250f0bababd811f26b8d5849d1c2038c9",
+      "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+      "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/1wjx1LMZMb4cmT2kFzkspS0sWuLiG4Qrv/view",
+    "publication_receipt_sha256": "89f2b4b8ba12e45290bbe5b23aba38a27bdf79175660a15aff85d11d1ba5b850",
+    "independent_proof_url": "https://drive.google.com/file/d/1wS3dtGeaYyO2la8g8VUHoKgp3Ev2vrIX/view",
+    "independent_proof_sha256": "bc180874269ca5d350e6052c2ddbf8198f80dd1d0a32347954af052298912d9e",
+    "independent_proof_bytes": 7794
+  },
+  "loa_targets_1_13_publication": {
+    "publication": {
+      "schema": "verified-kaggle-outbox-publication-v1",
+      "plan_sha256": "5f07a443c12a25dd229d9d0f03cb6554a245e95390fcc2533b90041e4e65a134",
+      "family": "charged-LOA",
+      "start": 1,
+      "end": 13,
+      "run_ids": [
+        "charged-LOA-201-7d-full_finetuning-seed42",
+        "charged-LOA-201-7d-fixed_retention-seed42",
+        "charged-LOA-201-7d-source_error-seed42",
+        "charged-LOA-201-7d-uncertainty-seed42",
+        "charged-LOA-201-7d-drift-seed42",
+        "charged-LOA-201-7d-parameter_retention-seed42",
+        "charged-LOA-201-7d-seasonal_naive-seed42",
+        "charged-LOA-201-7d-target_only-seed42",
+        "charged-LOA-201-7d-frozen_source-seed42",
+        "charged-LOA-201-7d-online_best-seed42",
+        "charged-LOA-201-7d-without_source_initialization-seed42",
+        "charged-LOA-201-7d-block7-seed42"
+      ],
+      "independent_content_verified": true,
+      "remote_readback_verified": true,
+      "artifact": {
+        "drive_url": "https://drive.google.com/file/d/1073tqC5GYB_kEtXRnsv01gZKUPgO-u2A/view",
+        "bytes": 26840362,
+        "sha256": "b9f2e38cb9f6e3c9837985ec2745f072858a36f42b4aa2918d761b455724ff73"
+      },
+      "verification_sha256": "db4a967216de1f1c1d56bff6c4cc317b208f46721b91f141c8104a3c7900d97a",
+      "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+      "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/1Z2h9-JQyITtTVKA3SjYJ7cdAPTRtAmm9/view",
+    "publication_receipt_sha256": "df45421a7aefee26c6864f75a090b697c2403813b34360f862c8d212e6b895d2",
+    "independent_proof_url": "https://drive.google.com/file/d/1px-GuRhl3CLWRTKl3X26ntKaEGDAwF1w/view",
+    "independent_proof_sha256": "b77dfd3063f4bf994a77439e8722013e81ef62f09f8cfb7c0824db55723a6ec9",
+    "city_targets_published": 13,
+    "city_targets_required": 378,
+    "scope": "Only exact13/378 ordered city prefix, complete Source/daily/input/state proof. Not a complete seed/budget/city or superiority claim."
+  },
+  "all_212_replay_original_comparison": {
+    "runs": 212,
+    "runs_with_any_checked_difference": 0,
+    "difference_counts": {
+      "active_mae_kwh": 0,
+      "active_rmse_kwh": 0,
+      "scheduled_days": 0,
+      "issued_days": 0,
+      "scored_days": 0,
+      "prediction_identity_sha256": 0,
+      "candidate_steps": 0,
+      "audit_steps": 0,
+      "final_branch_state_sha256": 0
+    },
+    "max_absolute_metric_delta_kwh": {
+      "active_mae_kwh": 0.0,
+      "active_rmse_kwh": 0.0
+    },
+    "comparison_json_sha256": "eec28fd955aedbb467c3649ff6340413679d89dd668ca93496ec7d4adfed87f6",
+    "proof_url": "https://drive.google.com/file/d/1asM5j-EBqFQBA5UsS9rshVyaE6lFtUJx/view",
+    "proof_sha256": "1759f0b3e30986bc8d9762effa708c38d7c463b11358b7d128e6fe1709a25177",
+    "proof_bytes": 8776,
+    "actual_Drive_readback": {
+      "status": "fresh_Drive_download_CRC_all_members_PASS",
+      "bytes": 8776,
+      "sha256": "1759f0b3e30986bc8d9762effa708c38d7c463b11358b7d128e6fe1709a25177"
+    },
+    "scope": "Only actual independently published new-runtime all212 selected proxy replays; no Final or unexecuted matched/city cells. Original weights/configs/cohort/seeds preserved. Exact comparisons include metrics, origins/counts, prediction identity, update/audit steps and latest branch tensors/RNG hashes. No result-based selection, threshold relaxation, algorithm equivalence or omitted runtime-fair replication justified by this comparison."
+  },
+  "windows_archive_path_fix": {
+    "code_commit": "e7e167278c21ade9c0eb63a300563e09f8eebe8d",
+    "failed_run": 40411194731,
+    "failure": "Native Windows backslashes in shared_source_package member name correctly rejected by safe portable ZIP guard. Corrected Path.as_posix; guard retained.",
+    "fixed_run": 40411978648,
+    "fixed_run_status": "completed_success",
+    "local_tests": 366,
+    "local_seconds": 6.133,
+    "core_method_files_changed": false,
+    "training_reruns": false
+  },
+  "kaggle_first_matched_verified_publication": {
+    "publication": {
+      "schema": "verified-kaggle-outbox-publication-v1",
+      "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+      "family": "matched",
+      "start": 0,
+      "end": 12,
+      "run_ids": [
+        "urbanev-SZH-1405-7d-seasonal_naive-seed42",
+        "urbanev-SZH-1405-7d-target_only-seed42",
+        "urbanev-SZH-1405-7d-frozen_source-seed42",
+        "urbanev-SZH-1405-7d-online_best-seed42",
+        "urbanev-SZH-1405-7d-without_source_initialization-seed42",
+        "urbanev-SZH-1405-7d-block7-seed42",
+        "urbanev-SZH-1405-7d-block28-seed42",
+        "urbanev-SZH-1405-7d-adaptive-seed42",
+        "urbanev-SZH-1405-7d-full_finetuning-seed42",
+        "urbanev-SZH-1405-7d-fixed_retention-seed42",
+        "urbanev-SZH-1405-7d-seasonal_naive-seed43",
+        "urbanev-SZH-1405-7d-target_only-seed43"
+      ],
+      "independent_content_verified": true,
+      "remote_readback_verified": true,
+      "artifact": {
+        "drive_url": "https://drive.google.com/file/d/13aGOScQAS-7ehP3TBypfCICvtAePxYRU/view",
+        "bytes": 25063044,
+        "sha256": "f21ec0363244ee7c7a4017d2933c2c535838d24f36f00ab71d0a13c2a4e82f5d"
+      },
+      "verification_sha256": "a1a16644b64bc04b48c7227a68ba2b261c6bb192fe087a81f9bb60a74666cd93",
+      "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+      "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/1l1QIewlT7arzrpLkFOPKEu4UQMNYJawT/view",
+    "publication_receipt_sha256": "5a9ad5c1a01a2176603299d290edc715e3430676ad63b53fa111209aaa821591",
+    "independent_proof_url": "https://drive.google.com/file/d/1T2UyJsOkIohua7Z14g9llXqevedus7cN/view",
+    "independent_proof_sha256": "279cc37aef7d13e341cb6683b0e81c66f9661b1628c4088cdebc0aa452f29b7c",
+    "independent_proof_bytes": 9560,
+    "scope": "First matched family has no prior same-family receipt; launch required completed/published proxy212. Full independent content proof, no Final or automatic next."
   }
 }

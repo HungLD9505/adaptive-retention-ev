@@ -447,7 +447,7 @@ city integration or remote target publication. Those require actual cloud runs
 and independent readback. Core `ev_models`, `ev_control`, `ev_runner` and
 `ev_baselines` remain byte-identical to `1ac2ae0`.
 
-## Latest execution checkpoint — 2026-10-27, primary prefix195 and LOA1
+## Execution checkpoint — 2026-10-27, primary prefix195 and LOA1
 
 This checkpoint supersedes earlier progress counts without changing the frozen
 population or recipe. **195/742** new-runtime UrbanEV replays are durably
@@ -514,3 +514,47 @@ This changes archive naming on Windows only. Existing Linux cloud member names
 already use forward slashes and have independently passed transport/content
 verification. Frozen running checkouts and accepted artifacts were not modified,
 and no models were refitted. Core method files remain unchanged.
+
+## Current durable checkpoint — primary224/742, LOA13/378
+
+All212 selected-proxy recovery runs are independently published. The
+[last proxy archive](https://drive.google.com/file/d/1Z8vaMCHHedl9IUj02MHC0xqlpFeE6Y5T/view),
+[receipt](https://drive.google.com/file/d/1wjx1LMZMb4cmT2kFzkspS0sWuLiG4Qrv/view)
+and [proof](https://drive.google.com/file/d/1wS3dtGeaYyO2la8g8VUHoKgp3Ev2vrIX/view)
+complete this family. A read-only comparison of all212 with the original frozen
+references found zero differences in nine checked fields: MAE/RMSE, scheduled/
+issued/scored counts, prediction identity, candidate/audit update steps and final
+branch-state hashes. Maximum checked metric delta is0. The
+[comparison script/results](https://drive.google.com/file/d/1asM5j-EBqFQBA5UsS9rshVyaE6lFtUJx/view)
+ZIP is8,776 bytes/SHA-256
+`1759f0b3e30986bc8d9762effa708c38d7c463b11358b7d128e6fe1709a25177`;
+fresh Drive download/CRC/all member hashes passed. This is reproduction evidence,
+not algorithm effectiveness, equal runtime cost or permission to omit the530
+matched replays required by the frozen runtime-fair plan.
+
+The first12/530 matched replays also completed and were independently restored
+after actual Drive download: [archive](https://drive.google.com/file/d/13aGOScQAS-7ehP3TBypfCICvtAePxYRU/view),
+[receipt](https://drive.google.com/file/d/1l1QIewlT7arzrpLkFOPKEu4UQMNYJawT/view),
+[complete proof](https://drive.google.com/file/d/1T2UyJsOkIohua7Z14g9llXqevedus7cN/view).
+The first matched-family call had no previous matched receipt; its operator
+required the complete proxy212 publication, without falsely passing that as a
+same-family predecessor. Next matched offsets12–23 were dispatched; live PID2791
+was polled with nine local completions, not accepted as a published chunk.
+The CPU operator supports this explicit empty-predecessor boundary; three valid
+and four invalid boundary fixtures passed without network or fitting.
+
+LOA now has13/378 frozen target cells independently restored, with all three
+published Source dependencies retained. The additional12-run
+[archive](https://drive.google.com/file/d/1073tqC5GYB_kEtXRnsv01gZKUPgO-u2A/view),
+[receipt](https://drive.google.com/file/d/1Z2h9-JQyITtTVKA3SjYJ7cdAPTRtAmm9/view)
+and [proof](https://drive.google.com/file/d/1px-GuRhl3CLWRTKl3X26ntKaEGDAwF1w/view)
+passed complete frozen bindings, daily/input/latest-state equality and three
+Source CPU reloads. This remains an incomplete city/multi-seed comparison;
+365 cells are outstanding. No results were used to change ordering or recipes.
+
+[CI40411978648](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40411978648)
+at code `e7e167278c21ade9c0eb63a300563e09f8eebe8d` now passed both
+Ubuntu24.04 and Windows jobs after the portable Source-archive path correction.
+The failed prior CI remains linked above. No artifacts, fixtures or scientific
+thresholds were altered to hide it. Remaining matched/city runs, full analysis,
+independent Final approval and Final evaluation are still mandatory.
