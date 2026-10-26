@@ -212,6 +212,7 @@ def verify_predecessor(
             p
             for p in root.rglob("receipt.json")
             if json.loads(p.read_text()).get("shard_id") == name
+            and p.with_name(archive_name).is_file()
         ]
         assert len(matches) == 1, f"Missing/ambiguous predecessor {name}"
         receipt = json.loads(matches[0].read_text())

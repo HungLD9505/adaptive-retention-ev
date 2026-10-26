@@ -61,6 +61,27 @@ class KaggleQueueTests(unittest.TestCase):
                 with self.assertRaises(AssertionError):
                     queue.verify_predecessor(root, (2,))
 
+    def test_publish_mirror_is_separate_from_canonical_archive(self):
+        with tempfile.TemporaryDirectory(dir=".") as temporary:
+            root = Path(temporary)
+            receipt, archive, jobhash = self.fixture(root)
+            mirror = receipt.parent / "publish"
+            mirror.mkdir()
+            (mirror / "receipt.json").write_bytes(receipt.read_bytes())
+            (mirror / "artifacts.zip.bin").write_bytes(archive.read_bytes())
+            with patch.dict(queue.EXPECTED_JOBSET_SHA, {"shard_0002": jobhash}):
+                self.assertEqual(queue.verify_predecessor(root, (2,))[0]["crc"], "passed")
+                self.assertEqual(
+                    queue.verify_predecessor(root, (2,), archive_name="artifacts.zip.bin")[0][
+                        "crc"
+                    ],
+                    "passed",
+                )
+                # Two canonical archives remain ambiguous, even with identical bytes.
+                (mirror / "artifacts.zip").write_bytes(archive.read_bytes())
+                with self.assertRaises(AssertionError):
+                    queue.verify_predecessor(root, (2,))
+
     def test_relabelled_job_and_nonzero_exit_stop(self):
         for mutation in ("job", "exit"):
             with self.subTest(mutation=mutation), tempfile.TemporaryDirectory(dir=".") as temporary:
