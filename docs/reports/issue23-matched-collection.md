@@ -112,21 +112,75 @@ provenance only. All common runtime/config/input/Source identities match.
 
 The downloaded context/proxy summary includes exploratory station/calendar
 intervals, density/weekday/initialization/30-day slices, descriptive proxy
-relationships and component costs. Complete off-runtime re-execution of those
-joins/intervals and stronger full-collection audit/switch checks remains pending;
+relationships and component costs. Stronger full-collection audit/switch verification also completed and its downloaded
+supplement was authenticated (see the recovery update below). Complete off-runtime
+re-execution of daily/state joins and intervals remains pending;
 no equivalence, causal, independent Final or related-paper reproduction claim.
 Independent review and complete compute/storage acceptance are still required.
-CHARGED's six separate-city full replications have not started.
+JHB subsequently logged a complete pipeline, but its full outputs were not recovered
+before the temporary runtime was replaced; the other five cities remain unstarted.
 
 [Exact metrics, provenance and acceptance boundaries](issue23-matched-evidence.json)
 · [metadata/proofs/analysis/logs ZIP](https://drive.google.com/file/d/1VTTbc30qxMbKA4oAdKcASiJMnqijkH5a/view).
 The ZIP passed anonymous byte/hash/CRC and all member fingerprints. It is not a
-full checkpoint/forecast backup. Complete exports are now generated on Kaggle
-(94 calibration parts, 60 matched parts) and are being transferred without deleting
-source runtime copies. No Final lock/evaluation, autonomous merge or issue closure.
+full checkpoint/forecast backup. Complete exports were generated on Kaggle
+(94 calibration parts, 60 matched parts). The runtime-loss update below supersedes
+the previous assumption that their source copies were still available. No Final lock/evaluation, autonomous merge or issue closure.
 
 Historical implementation status:269 fixture tests initially passed before the
 full matrices completed. The current321-test implementation and subsequent
 actual evidence do not imply independent peer approval. Earlier source/fixture
 snapshots retain their original scopes; see the linked evidence record and
 [analysis definitions](issue23-analysis-extensions.md).
+
+
+## Runtime-loss and recovered evidence update — 2026-10-26
+
+A fresh draft session was observed with only the 600,416-byte virtual notebook
+source under `/kaggle/working`; an executed read-only cell raised
+`FileNotFoundError` for the former JHB `pipeline-complete.json`. The old Output
+sidebar retained cached file names and is not evidence that those files survived.
+A test download of missing proxy part0038 timed out. No output-preserving saved
+version is verified: version3 is explicitly code-only and versions1/2 still show
+Starting. The exact cause/time of the original session replacement is unknown.
+This is a storage/handoff failure, not a new numerical research finding.
+
+The original notebook output records JHB's three same-city Source completions,
+378 target completions and pipeline exit0, with training/daily/state/analysis/
+export stage exits0 (2,467.321/21.434/16.284/54.499/95.747 seconds). It records
+matrix SHA-256 `64e6b865eacb3c7f5fc14e7b110198f0f11571430f7d77812b7b07619fd2d488`
+and export catalog `72e4508f01fc76b3b3774368553d20cd9ebb6f2aa3f353627a38672803eaf40e`.
+Those log identities cannot replace the missing files. **No JHB metrics, complete
+checkpoint handoff or off-runtime acceptance is claimed.** Do not call JHB
+unexecuted, but do not count it as reproducibly delivered either.
+
+Primary metadata/analysis/proofs and the three previously archived Source models,
+Fixed and controller archives remain available outside this runtime. Local proxy
+export parts0000–0037, `code.bundle` and `metadata.zip` match catalog size/SHA-256:
+40/94 parts,718,194,764 bytes. This is a partial backup; the remaining54 parts and
+the full60-part matched export are not recovered. The complete downloaded primary
+summary still supports the table above at its stated metadata-verification scope;
+it does not prove that every underlying checkpoint/forecast remains recoverable.
+
+The stronger completed analysis supplement is durably shared:
+[full switch/audit supplement](https://drive.google.com/file/d/1mQcEv5Lke8SxZqwIu-v63Rh0uJao_2-M/view),
+504,599 bytes, SHA-256
+`0e83c76254fee25928b51cdb6896bba27ef8094cfbb535d7daa00a14882d35b2`.
+Anonymous bytes/hash/ZIP CRC and all15 member fingerprints matched. Its summary
+SHA-256 is `ecc8b1854128f84ab13070be4ab38d6179d7f15c331f8cf2caf72604576157b6`;
+all previous14-method point estimates and finite selections are unchanged.
+The downloaded stronger proofs cover2,070 runs,382,950 daily files,12,696 decision
+events,741 finalized audit summaries and8,452 recomputed old-policy audit scores.
+These are recorded remote checks, not a new complete local daily/state restore.
+A local draft counter summary used the wrong key and reported0 audit scores; the
+corrected summary uses `audit_forecast_scores_verified`. Original archive and
+verifier bytes were preserved; no expected hash was changed.
+
+Recovery must use the unchanged finite configuration, seeds and input identities,
+with a distinct run identity and explicit comparison to retained metadata.
+Do not rerun until a favorable score appears. Before another city is delivered,
+verify its complete off-runtime archive or output-preserving saved version; a
+printed exit0 and code-only notebook are insufficient. No new training was
+started during this incident inspection. Independent review, all six delivered
+city scopes, complete primary restoration, compute acceptance and Final lock
+remain open. No Final, autonomous merge or issue closure.

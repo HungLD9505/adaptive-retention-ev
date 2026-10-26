@@ -54,10 +54,14 @@ pooled six-city number labeled independent external validation.
 
 ## Current status
 
-309 local fixture tests pass with Ruff lint/format and diff checks. The six
-cohorts were actually generated and authenticated, but this supplementary
-Source/target training has not started. The primary controller/proxy/matched
-jobs must finish and authenticate their selected recipe first. No local real-data
+The six cohorts were generated and authenticated. JHB subsequently logged three
+fresh same-city Sources,378 target runs and exit0 for training, daily/state
+verification, analysis and export. Its full files were not recovered before the
+temporary Kaggle session was replaced. JHB metrics and reproducible delivery
+therefore remain unaccepted; the other five cities have not started. See the
+[dated storage-loss/recovery evidence](issue23-matched-collection.md#runtime-loss-and-recovered-evidence-update--2026-10-26).
+The current321-test implementation passed before execution; fixtures do not
+replace missing real-data artifacts. No local real-data
 training, Final evaluation, configuration-lock approval or merge.
 
 ## Read-only city analysis
@@ -110,8 +114,9 @@ verification and artifact export remain separate acceptance gates; passing this
 analysis is not proof of durable off-runtime storage or teammate reproduction.
 Never pool Shenzhen into a five-city external-independence claim. The city
 analysis/provenance/cost fixtures pass, including null populations and deliberate
-cross-city/runtime/algorithm contamination. No complete real city matrix has yet
-been analyzed with this command, so those results remain pending.
+cross-city/runtime/algorithm contamination. JHB notebook output records this command exiting0, but its summary/matrix
+files were not recovered off-runtime. Numerical city findings remain pending
+artifact recovery or a declared same-configuration recovery run.
 
 The analysis implementation at `500e86a73da3ffd439a7c5012bda4a7ae7fa5540`
 and subsequent status documentation at `8ce25160b4a6711b773a3eddca646fb54b9db0ec`
