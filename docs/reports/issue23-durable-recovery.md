@@ -418,3 +418,31 @@ and [independent CPU proof](https://drive.google.com/file/d/1lI5vZjgNoxJY8uH6WXp
 preserve exact recipe/input/Source/latent identities and original training log.
 LOA target adaptation/evaluation and seeds43/44 were not completed by this receipt.
 This is Source acceptance only, not a city result or method-effectiveness claim.
+
+### Bounded city target consumer — implementation only
+
+`tools.city_target_outbox` consumes three independently published same-city Source
+pairs, restoring/rechecking their actual checkpoints before any target fitting.
+`source-kit.json` pins context, Source archives/receipts and the three external
+publication receipts. Those receipts are operator assertions backed by actual
+download proofs; the local CLI does not authenticate Google Drive or manufacture
+remote acceptance. The CLI rebuilds city inputs/cohort/primary recipe/environment,
+rejects cross-city/changed identities and keeps new outputs separate from inputs
+and the Source kit. It never imports or invokes Source training.
+
+The complete predeclared budget/entity/seed/method order and Source-kit identity
+are hashed before execution. All14 unique variants, budgets7/14/28 and seeds42/43/44
+remain; the existing full city cohort is unchanged. A call executes at most12
+targets, checks daily/input/latest states, exports canonical parts plus all three
+Source dependencies and stops for external publication. Every subsequent call
+requires the exact previous same-city/plan/range publication. There is no
+automatic next chunk, Final role or full-city acceptance. `--help` documents
+the hash-pinned dependencies and offset/count arguments.
+
+Six new fixtures cover complete method/budget/seed order, Source-kit changes,
+unaccepted publication, changed weights/namespace, cross-city continuation and
+the cloud-CUDA gate. The full366-test local suite passed in6.412 seconds;
+Ruff lint/format passed. This does not yet prove target GPU execution, complete
+city integration or remote target publication. Those require actual cloud runs
+and independent readback. Core `ev_models`, `ev_control`, `ev_runner` and
+`ev_baselines` remain byte-identical to `1ac2ae0`.
