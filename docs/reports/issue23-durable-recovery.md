@@ -497,3 +497,20 @@ The companion recovery-evidence JSON records exact receipt/proof hashes.
 SPO/MEL recovery, remaining cities/primary cells, complete paired analysis/cost,
 independent Final lock and Final evaluation remain outstanding. No merge, issue
 closure, Final access or claim of Adaptive superiority occurred.
+
+### Windows CI archive-path correction
+
+[Actions40411194731](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40411194731)
+at `98bd459` passed Ubuntu and failed Windows job121882009748. All366 fixtures
+ran; the sole error was `test_one_seed_descriptor_keeps_three_source_dependency_package`:
+`shared_source_package` converted a relative native Windows path with `str`,
+producing backslashes that the portable ZIP path guard correctly rejected.
+The fix uses `Path.as_posix()` for ZIP member names, keeping the guard strict.
+The fixture now requires the exact twelve portable Source member names.
+The complete local366-test suite passed in6.133 seconds; Ruff lint/format passed.
+Windows confirmation requires the new CI run, not inference from macOS.
+
+This changes archive naming on Windows only. Existing Linux cloud member names
+already use forward slashes and have independently passed transport/content
+verification. Frozen running checkouts and accepted artifacts were not modified,
+and no models were refitted. Core method files remain unchanged.

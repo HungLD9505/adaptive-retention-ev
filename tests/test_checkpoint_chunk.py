@@ -61,6 +61,18 @@ class CheckpointChunkTests(unittest.TestCase):
             with zipfile.ZipFile(output) as z:
                 manifest = json.loads(z.read("manifest.json"))
                 self.assertEqual(len(manifest), 12)
+                expected = {
+                    name
+                    for seed in (42, 43, 44)
+                    for name in (
+                        f"source-seed{seed}/epoch-10.pt",
+                        f"source-seed{seed}/epoch-10.pt.sha256",
+                        f"source-seed{seed}/run.json",
+                        f"source-seed{seed}.log",
+                    )
+                }
+                self.assertEqual(set(manifest), expected)
+                self.assertEqual(set(z.namelist()), {"manifest.json", *expected})
                 for seed in (42, 43, 44):
                     self.assertEqual(
                         z.read(f"source-seed{seed}/epoch-10.pt"),

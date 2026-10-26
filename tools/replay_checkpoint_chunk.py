@@ -154,7 +154,7 @@ def shared_source_package(study: Path, sources: dict, epoch: int, output: Path) 
                 folder / "run.json",
                 study / f"source-seed{seed}.log",
             ):
-                name = str(path.relative_to(study))
+                name = path.relative_to(study).as_posix()
                 pin = entry["sha256"] if path.suffix == ".pt" else None
                 put_file(archive, name, path, pin)
                 manifest[name] = {"bytes": path.stat().st_size, "sha256": digest(path)}
