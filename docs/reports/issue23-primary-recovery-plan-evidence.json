@@ -817,7 +817,23 @@
         "scope": "Actual normal Kaggle browser download, raw content restore, CPU-only descriptor repair, canonical export, approved Drive upload, fresh anonymous readback, complete transport/Source/daily/state proof equality. No refitting, Final or next-chunk acceptance."
       },
       "canonical_url": "https://drive.google.com/file/d/1sk6sQtiPLV-SeV0DUDYIPSjGhlf61LyH/view",
-      "publication_receipt_sha256": "52018f83746be2fac0f7d785e1649cce41ab4ed2a9c8d09114c5f6e6d3fe9173"
+      "publication_receipt_sha256": "52018f83746be2fac0f7d785e1649cce41ab4ed2a9c8d09114c5f6e6d3fe9173",
+      "publication_receipt_url": "https://drive.google.com/file/d/1skItKhLD53Qu-rT3ZARq4_tk8ld_uKr7/view",
+      "independent_proof_url": "https://drive.google.com/file/d/11Qk6zsq0AMYJmZe-fgbRulOROCZUBp-a/view",
+      "independent_proof_bytes": 11560,
+      "independent_proof_sha256": "b8e91e2a32d27909daf3e23596b60e8591a1f7f2d6cd45cf8a1b72c8d0f9b34e"
     }
+  },
+  "kaggle_offset3_continuation": {
+    "pid": 741,
+    "start": 3,
+    "end": 15,
+    "count_limit": 12,
+    "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+    "code_bundle_sha256": "debef8d63c2d3841f42d9c0adee60eec605ad86c292cda5f0e65b2734fd99302",
+    "required_previous_receipt_sha256": "52018f83746be2fac0f7d785e1649cce41ab4ed2a9c8d09114c5f6e6d3fe9173",
+    "status": "actual_dispatch_live_child_observed_fixture_gates_pending",
+    "log": "/kaggle/working/issue23-proxy-continue-0003-v1.log",
+    "scope": "No rerun of offsets0-2. At most12 Development targets, local per-run committed backups; stop for external independent canonical publication before next offset. No Final, city completion, bulk completion or provider persistence guarantee."
   }
 }

@@ -526,3 +526,11 @@ Actual Drive redownload, canonical restore, full daily/state proof equality and
 CPU reload of all three original Source dependencies passed. Prefix [1,3) is
 accepted; [3,13) was never executed. The next eligible original offset is3.
 There are now3 actual new-runtime targets fully published, not742.
+
+The two-run [publication receipt](https://drive.google.com/file/d/1skItKhLD53Qu-rT3ZARq4_tk8ld_uKr7/view)
+and [independent scripts/proofs](https://drive.google.com/file/d/11Qk6zsq0AMYJmZe-fgbRulOROCZUBp-a/view)
+are on approved Drive. Only after actual publication checks did offset3 dispatch
+as PID741 using codea94bfaf. Its code/receipt downloads and checkout were observed;
+fixture gates and target completion remain separately recorded when observed.
+There is no automatic next chunk. Completed but not externally published runs
+remain exposed to runtime loss; the bound is12, not a persistence guarantee.
