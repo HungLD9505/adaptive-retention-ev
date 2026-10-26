@@ -66,6 +66,17 @@ assert status('hung-shard0008-reconcile-cpu-20261027-v1') == 'COMPLETE'
 records = verify_predecessor(Path('/kaggle/input'), (8,), archive_name='artifacts.zip.bin')
 assert records[0]['sha256'] == {SHARD8_SHA!r} and records[0]['bytes'] == 74362442
 Path('/kaggle/working/reconciled-shard0008.json').open('x').write(json.dumps(records))
+from kagglehub.clients import build_kaggle_client
+from kagglesdk.kernels.types.kernels_api_service import ApiGetAcceleratorQuotaStatisticsRequest
+with build_kaggle_client() as client:
+    quota = client.kernels.kernels_api_client.get_accelerator_quota_statistics(
+        ApiGetAcceleratorQuotaStatisticsRequest()).gpu_quota
+assert quota is not None and not quota.is_pay_to_scale_enabled
+assert all(v is not None for v in (quota.total_time_allowed, quota.time_used, quota.time_reserved))
+available = (quota.total_time_allowed-quota.time_used-quota.time_reserved).total_seconds()
+required = 3600 + 100 * 1810.4 / 20 * 1.25
+assert available >= required, 'Fresh quota insufficient for bounded recovery + reserve'
+print(json.dumps({{'fresh_available_gpu_seconds':available, 'required_seconds':required}}),flush=True)
 submit({RECOVERY_SLUG!r}, RECOVERY_GPU, gpu=True, datasets=[PAYLOAD, {SHARD8_DATASET!r}])
 relay(MODULE_SOURCE, SETUP, PARITY, 1, 2, submit_current=False)
 """
