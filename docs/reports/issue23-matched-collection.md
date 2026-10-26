@@ -652,3 +652,14 @@ After all99 targets were durably published, the original next [99,111) range was
 dispatched as PID1482 using the same frozen checkout and externally verified
 receipt. No completion or remote publication of that range is implied. The lead's
 Final cohort question remains pending; Development recovery is independent of it.
+
+Range [99,111) has now completed and passed full independent publication. The
+[latest canonical package](https://drive.google.com/file/d/1PqBsST0prnlmm7k3Vc3MzXH44Sk26qFp/view)
+is33,458,195 bytes, SHA-256
+`ba7fe56f30df2442b2b5991033d0128691b8dc4c9662265a03d15314bb298ec4`.
+Actual fresh Drive readback and full original Sources/frozen bindings/daily/state
+checks passed. [Proof](https://drive.google.com/file/d/1eI0UOx4HbbuDv0caKCLNQqRFxqQKaze-/view)
+and [receipt](https://drive.google.com/file/d/1kXIW6yowkVN_rjUVARuVDxcPkUaVw7Q5/view)
+are preserved. Published new-runtime prefix is111; the separate cross-runtime
+original comparison above remains87 checked runs, not111. No full742-run or
+Sprint3 completion is implied. The next eligible proxy offset is111.

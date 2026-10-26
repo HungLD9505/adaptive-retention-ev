@@ -936,12 +936,12 @@
     "independent_proof_bytes": 7952
   },
   "current_recovery_status": {
-    "new_runtime_targets_fully_published": 99,
+    "new_runtime_targets_fully_published": 111,
     "new_runtime_planned_targets": 742,
     "old_missing_proxy_fully_restored": 648,
     "old_matched_prefix_fully_restored": 451,
     "old_matched_physically_missing": 239,
-    "interpretation": "Different collections with historical repeats; do not add as unique experiments or claim full scope. Old16 complete units/224 selected cells preserved; new742 selected replays remain frozen, with99 fully published. Final unapproved and not executed."
+    "interpretation": "Different collections with historical repeats; do not add as unique experiments or claim full scope. Old16 complete units/224 selected cells preserved; new742 selected replays remain frozen, with111 fully published. Final unapproved and not executed."
   },
   "kaggle_offset39_continuation": {
     "pid": 1186,
@@ -1186,8 +1186,41 @@
     "count_limit": 12,
     "code_sha": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
     "required_previous_receipt_sha256": "d6a7c09721affef41473e1e5bf35966d7ed81573f485d0d79aa2ec73ec84be33",
-    "status": "actual_dispatch_not_yet_content_published",
+    "status": "actual_Drive_roundtrip_complete_independent_content_verified",
     "log": "/kaggle/working/issue23-proxy-0099-0111-operator-v2.log",
-    "scope": "Only actual prior99-run publication permits this frozen next chunk. Max12 local outbox then independent publication; no automatic next, Final or schema/method changes."
+    "scope": "Only actual prior99-run publication permits this frozen next chunk. Max12 local outbox then independent publication; no automatic next, Final or schema/method changes.",
+    "completed_runs": 12,
+    "canonical_url": "https://drive.google.com/file/d/1PqBsST0prnlmm7k3Vc3MzXH44Sk26qFp/view",
+    "canonical_publication": {
+      "status": "actual_Drive_roundtrip_complete_independent_content_verified",
+      "runs": 12,
+      "family": "proxy",
+      "start": 99,
+      "end": 111,
+      "all_three_original_Source_dependencies_cpu_verified": true,
+      "wrapper_sha256": "ba7fe56f30df2442b2b5991033d0128691b8dc4c9662265a03d15314bb298ec4",
+      "wrapper_bytes": 33458195,
+      "catalog_sha256": "34267b59a5b261e8c1d3a1c1ede97a903f5f35e566787c6c47f3e3c131ebc3a7",
+      "daily_sha256": "f9f14f88412480e9e936c54ab6a1858e557458f86729ec64b3d185e2c6b0fcd2",
+      "states_sha256": "a0501c227607a04ee9f84cabb99c61a67b64c194ebfc0bcc2d5f88231832b00c",
+      "operator_verifier_sha256": "6abf5f5214b71cd2e71ec97d208ec07f6d9eda66a476273fb3baf865f7a106cb",
+      "stages": [
+        {
+          "name": "daily",
+          "exit_code": 0,
+          "seconds": 0.3114895840117242
+        },
+        {
+          "name": "states",
+          "exit_code": 0,
+          "seconds": 0.601612833008403
+        }
+      ],
+      "seconds": 6.146568166004727,
+      "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/1kXIW6yowkVN_rjUVARuVDxcPkUaVw7Q5/view",
+    "publication_receipt_sha256": "3e03be821433dc866ee5c954c47e052c78109ae3380b03c8ac5ec5801ea393d9",
+    "independent_proof_url": "https://drive.google.com/file/d/1eI0UOx4HbbuDv0caKCLNQqRFxqQKaze-/view"
   }
 }
