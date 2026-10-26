@@ -1,0 +1,180 @@
+{
+  "schema": "hung-review-capsule-evidence-v1",
+  "scope": "development_only",
+  "snapshot_utc": "2026-10-26T23:14:21.016217+00:00",
+  "code_commit": "ed040c20eb0e5d27abf698cd230da2550c5c99b6",
+  "model_code_commit": "44b8532959d76fb20691881539f991ca44983727",
+  "dataset_url": "https://www.kaggle.com/datasets/hungluongduc/hung-review-capsule-20261027-v1/versions/1",
+  "dataset_visibility": "Private; version1 confirmed in owner UI",
+  "cpu_version_url": "https://www.kaggle.com/code/hungluongduc/hung-review-capsule-cpu-readback-20261027-v1?scriptVersionId=362641156",
+  "provider_wall_seconds": 36.9,
+  "archive_receipt": {
+    "bytes": 281065935,
+    "crc": "passed",
+    "main_runs": 69,
+    "new_local_jobs": 56,
+    "parent_plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+    "schema": "hung-review-capsule-receipt-v1",
+    "scope": "development_only",
+    "sha256": "2493e0c1f440f6b5ead7c81facb3901623c4a58252ca7fa656cf9bdb1e32953d",
+    "spec": {
+      "ledger": {
+        "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\g0-ledger-v2.json",
+        "sha256": "13723182071619b32567db39f6f53f1c2362dcdfeedaff8de1107cbafbc22463"
+      },
+      "local_shards": [
+        {
+          "archive": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\local-shard0039-v1\\artifacts.zip",
+            "sha256": "76b3f2196c514c04a44587a6e4502dc864b4f3d08614e1a4cea8e857eaef2be8"
+          },
+          "id": "shard_0039",
+          "receipt": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\local-shard0039-v1\\archive.json",
+            "sha256": "50ef5b365e3c247ce1a0243db583c0fa4a6cf468bc7d4e8b6f55fc70daf97810"
+          },
+          "verify_exit": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\local-shard0039-v1\\verify-exit.json",
+            "sha256": "78f39d37c25854bc9ca98e618b040a7511db4da5807550373963f04422d4a1f3"
+          }
+        },
+        {
+          "archive": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1\\shard_0037\\artifacts.zip",
+            "sha256": "53cdb816e107c30d546e2256e48842b2b8011be7cf96db97ffbae3ccbc4c2d40"
+          },
+          "id": "shard_0037",
+          "receipt": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1\\shard_0037\\receipt.json",
+            "sha256": "eaca6f21d3d71bf415591b9022d96c477c87545519355918b069ecc4ca87035f"
+          },
+          "verify_exit": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1\\shard_0037\\verify-exit.json",
+            "sha256": "20bfacb40fdcb3a6729a5fbf8275515f81d9829ea5243a7aea510726f0ea6687"
+          }
+        },
+        {
+          "archive": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1\\shard_0038\\artifacts.zip",
+            "sha256": "ee9886b0c29530bf3c6bcc0c986c1c0d223184eff4742cc5c16849dbbf80cf26"
+          },
+          "id": "shard_0038",
+          "receipt": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1\\shard_0038\\receipt.json",
+            "sha256": "bfdb5231a28045e1514e8c65c93636d886ae331c048b5bd5f168a52157ce4744"
+          },
+          "verify_exit": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1\\shard_0038\\verify-exit.json",
+            "sha256": "20bfacb40fdcb3a6729a5fbf8275515f81d9829ea5243a7aea510726f0ea6687"
+          }
+        }
+      ],
+      "partition": {
+        "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\dispatch-plan-v1\\shards.json",
+        "sha256": "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f"
+      },
+      "plan": {
+        "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\dispatch-plan-v1\\plan.json",
+        "sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee"
+      },
+      "scorer": {
+        "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\tools\\hung_results.py",
+        "sha256": "68fccbed056734d9b4842f7bda088880d7812d12417d64878d1aa018fc010456"
+      }
+    }
+  },
+  "remote_summary": {
+    "schema": "hung-independent-capsule-readback-v1",
+    "scope": "Independent private Dataset readback and saved Development forecast scoring; no training or Final",
+    "passed": true,
+    "capsule_sha256": "2493e0c1f440f6b5ead7c81facb3901623c4a58252ca7fa656cf9bdb1e32953d",
+    "main_runs": 69,
+    "new_local_jobs": 56,
+    "scored_runs": 64,
+    "crc": "passed",
+    "review": "Independent scientific acceptance still pending",
+    "elapsed_seconds": 19.250579644000027,
+    "python": "3.13.15",
+    "torch": "2.11.0+cpu",
+    "device": "cpu",
+    "helper_sha256": "78c4bd421ec0971023dca141ed8e81b22dbc97fe5c5855cd2511bfb30d1761be"
+  },
+  "remote_log_sha256": "0b4ec2f4407b3ec8a44180cc57cc896113b94c5f2ec388e69c1ee43c18e764e6",
+  "local_readback_sha256": "7a61976518160fab27bfbcf7426b4cc7f0d92c52706c434b02393d97b8f236e3",
+  "local_summary": {
+    "capsule_sha256": "2493e0c1f440f6b5ead7c81facb3901623c4a58252ca7fa656cf9bdb1e32953d",
+    "crc": "passed",
+    "main_runs": 69,
+    "new_local_jobs": 56,
+    "passed": true,
+    "review": "Independent scientific acceptance still pending",
+    "schema": "hung-independent-capsule-readback-v1",
+    "scope": "development_only",
+    "scored_runs": 64
+  },
+  "new_local_shard0029": {
+    "artifact_bytes": 42296117,
+    "artifact_sha256": "77036b62c6174bbaceb38f27ca5119fa325d63daf508e2711ad15f3e41c43aee",
+    "crc": "passed",
+    "job_ids": [
+      "seasonal_naive_b28s7e1408",
+      "seasonal_naive_b28s7e1987",
+      "seasonal_naive_b28s7e2005",
+      "seasonal_naive_b28s7e2152",
+      "seasonal_naive_b28s7e2472",
+      "seasonal_naive_b28s7e2633",
+      "seasonal_naive_b7s7e1050",
+      "seasonal_naive_b7s7e1200",
+      "seasonal_naive_b7s7e1405",
+      "seasonal_naive_b7s7e2447",
+      "seasonal_naive_b7s7e2452",
+      "source_error_b14s11e1025",
+      "source_error_b14s11e1153",
+      "source_error_b14s11e1405",
+      "source_error_b14s11e1693",
+      "source_error_b14s11e1987",
+      "source_error_b14s11e2152",
+      "source_error_b14s11e2613",
+      "source_error_b14s11e2644",
+      "source_error_b14s19e1025"
+    ],
+    "partition_sha256": "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f",
+    "peer_acceptance": "pending",
+    "plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+    "remote_readback": "pending; archive is on persistent local SSD",
+    "shard_id": "shard_0029",
+    "wall_seconds": 1798.5153598000034
+  },
+  "shard0029_verify_terminal": {
+    "exit_code": 0,
+    "log_sha256": "8598662b7c53aa3187558f7de0de04935f566f56bc90f5f64e953566ff680298"
+  },
+  "new_jobs_in_complete_verified_shards": 142,
+  "new_jobs_remote_readback": 122,
+  "new_jobs_local_archive_remote_pending": 20,
+  "remaining": {
+    "local": 140,
+    "kaggle": 500
+  },
+  "tests": {
+    "ran": 311,
+    "skipped": 1,
+    "test_seconds": 213.137,
+    "terminal": {
+      "exit_code": 0,
+      "wall_seconds": 220.2944464
+    },
+    "log_sha256": "efdb5c95755ba68967e3768852d4fc3bbe96d033e38bf1294ea32b2fff59c41e",
+    "ci": "Windows and Ubuntu passed at ed040c2"
+  },
+  "memory_note": "Capsule-verifier peak RSS was not instrumented; no value inferred",
+  "updates_this_cpu_stage": 0,
+  "scientific_acceptance": "pending; a separate CPU readback is not non-author peer approval",
+  "pending": [
+    "Kaggle reviewer usernames/access",
+    "remaining Development jobs and readbacks",
+    "historical Block7 fairness decision",
+    "independent immutable Final lock",
+    "Final evaluation and final #10 Results/Discussion/Limitations"
+  ]
+}
