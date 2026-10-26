@@ -204,6 +204,29 @@ class ReplayCliTests(unittest.TestCase):
                 _replay(args)
             self.assertFalse(args.output.exists())
 
+    def test_online_best_policy_is_bound_and_cannot_resume_as_confidence(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest, source, target, binding = self._inputs(root)
+            args = self._args(root, run, digest, source, target, "online-best", 3)
+            args.selection_rule = "online_best_lambda"
+            result = _replay(args)
+            self.assertEqual(result["config"]["selection_rule"], "online_best_lambda")
+            self.assertEqual(result["coverage"]["requested"], 3)
+            self.assertEqual(
+                [item["update_steps"] for item in result["runtime_costs"]["candidate"]],
+                [2, 2, 2],
+            )
+            loaded = load_runner(args.output / "runner_checkpoint.pt", expected_binding=binding)
+            self.assertEqual(loaded.selection_rule, "online_best_lambda")
+            args.resume_checkpoint = args.output / "runner_checkpoint.pt"
+            args.output = root / "wrong-policy"
+            args.max_origins = 4
+            args.selection_rule = "confidence"
+            with self.assertRaisesRegex(ValueError, "lineage/config/code mismatch"):
+                _replay(args)
+            self.assertFalse(args.output.exists())
+
 
 if __name__ == "__main__":
     unittest.main()

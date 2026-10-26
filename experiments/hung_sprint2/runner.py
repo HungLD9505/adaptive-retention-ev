@@ -10,6 +10,7 @@ from typing import Any
 import torch
 from torch import Tensor
 
+from experiments.hung_sprint2.baseline_selection import SelectionRule, decide_mean_block
 from experiments.hung_sprint2.controller import ControllerConfig, DailyScore, Decision, decide_block
 from experiments.hung_sprint2.memory import model_optimizer_tensor_bytes, model_tensor_bytes
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
@@ -113,6 +114,7 @@ class PrequentialRunner:
         controller: ControllerConfig,
         epsilon: float,
         energy_scale: float,
+        selection_rule: SelectionRule = "confidence",
     ) -> None:
         validate_binding(binding)
         if binding["stage"] != "target":
@@ -129,8 +131,11 @@ class PrequentialRunner:
         if not 0 < epsilon < float("inf") or not 0 < energy_scale < float("inf"):
             raise ValueError("Epsilon and original-unit energy scale must be positive")
         validate_latent_scale(latent_scale)
+        if selection_rule not in {"confidence", "online_best_lambda", "without_confidence"}:
+            raise ValueError("Unsupported selection rule")
         self.binding = deepcopy(binding)
         self.controller = controller
+        self.selection_rule = selection_rule
         self.epsilon = epsilon
         self.energy_scale = energy_scale
         self.reference = deepcopy(reference).eval()
@@ -416,12 +421,20 @@ class PrequentialRunner:
             raise ValueError("Cannot decide before the final label event")
         if len(self.days) != self.controller.block_days:
             raise ValueError("A block requires its complete scheduled-day count")
-        decision = decide_block(
-            self.controller,
-            current_level=self.current_level,
-            block_id=self.block_id,
-            days=self.days,
-        )
+        if self.selection_rule == "confidence":
+            decision = decide_block(
+                self.controller,
+                current_level=self.current_level,
+                block_id=self.block_id,
+                days=self.days,
+            )
+        else:
+            decision = decide_mean_block(
+                self.controller,
+                current_level=self.current_level,
+                days=self.days,
+                rule=self.selection_rule,
+            )
         current_index = self.controller.levels.index(self.current_level)
         selected_index = self.controller.levels.index(decision.selected_level)
         old_active = self.candidates[current_index]
@@ -447,6 +460,7 @@ class PrequentialRunner:
             "schema": "hung-sprint2-runner-v1",
             "binding": deepcopy(self.binding),
             "controller": asdict(self.controller),
+            "selection_rule": self.selection_rule,
             "model_config": self.active_model.config.to_dict(),
             "epsilon": self.epsilon,
             "energy_scale": self.energy_scale,
@@ -506,6 +520,9 @@ class PrequentialRunner:
         runner.device = device
         runner.binding = deepcopy(expected_binding)
         runner.controller = ControllerConfig(**state["controller"])
+        runner.selection_rule = state.get("selection_rule", "confidence")
+        if runner.selection_rule not in {"confidence", "online_best_lambda", "without_confidence"}:
+            raise ValueError("Runner checkpoint selection rule mismatch")
         runner.epsilon = state["epsilon"]
         runner.energy_scale = state["energy_scale"]
         runner.reference = ForecastGRU(config).to(device).eval()

@@ -172,6 +172,7 @@ def _code_identity() -> dict:
             "training.py",
             "cli.py",
             "controller.py",
+            "baseline_selection.py",
             "runner.py",
             "replay_inputs.py",
             "checkpoint.py",
@@ -469,6 +470,9 @@ def _replay(args: argparse.Namespace) -> dict:
     from experiments.hung_sprint2.replay_inputs import replay_target
 
     started = time.perf_counter()
+    selection_rule = getattr(args, "selection_rule", "confidence")
+    if selection_rule not in {"confidence", "online_best_lambda", "without_confidence"}:
+        raise ValueError("Unsupported selection rule")
     device = _device(getattr(args, "device", "cpu"))
     if args.seed < 0 or not 0 < args.epsilon < float("inf"):
         raise ValueError("Replay seed/epsilon is invalid")
@@ -543,6 +547,7 @@ def _replay(args: argparse.Namespace) -> dict:
         raise ValueError("Target latent scale differs from bound Source")
     config = {
         "controller": {**asdict(controller), "levels": list(controller.levels)},
+        "selection_rule": selection_rule,
         "epsilon": args.epsilon,
         "seed": args.seed,
         "max_origins": args.max_origins,
@@ -560,6 +565,7 @@ def _replay(args: argparse.Namespace) -> dict:
             controller=controller,
             epsilon=args.epsilon,
             energy_scale=scale["energy_scale"],
+            selection_rule=selection_rule,
         )
         resumed_from = None
     else:
@@ -593,6 +599,7 @@ def _replay(args: argparse.Namespace) -> dict:
             or previous.get("input_binding") != target_binding
             or previous.get("source_input_binding") != source_binding
             or previous.get("config", {}).get("controller") != config["controller"]
+            or previous.get("config", {}).get("selection_rule", "confidence") != selection_rule
             or previous.get("config", {}).get("epsilon") != args.epsilon
             or previous.get("config", {}).get("seed") != args.seed
             or previous.get("config", {}).get("device", "cpu") != device.type
@@ -604,6 +611,7 @@ def _replay(args: argparse.Namespace) -> dict:
         runner = load_runner(args.resume_checkpoint, expected_binding=target_binding, device=device)
         if (
             runner.controller != controller
+            or runner.selection_rule != selection_rule
             or runner.epsilon != args.epsilon
             or runner.energy_scale != scale["energy_scale"]
             or runner.next_index != previous.get("runner_cursor")
@@ -756,6 +764,11 @@ def main(argv: list[str] | None = None) -> int:
     for name in ("level-one", "level-two", "initial-level", "delta", "alpha", "epsilon"):
         replay.add_argument(f"--{name}", type=float, required=True)
     replay.add_argument("--resume-checkpoint", type=Path)
+    replay.add_argument(
+        "--selection-rule",
+        choices=("confidence", "online_best_lambda", "without_confidence"),
+        default="confidence",
+    )
     replay.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
     args = parser.parse_args(argv)
     if args.command == "verify-input-zip":
