@@ -95,7 +95,8 @@ was submitted only after the full offline suite passed. It observed **77,750.532
 available GPU seconds**, required 14,915 seconds and received a version-1
 submission acknowledgement. [GPU recovery version 362649842](https://www.kaggle.com/code/hungluongduc/hung-matched-group03-recovery-20261027-v2?scriptVersionId=362649842)
 actually started on Tesla T4, Torch 2.11.0+cu128, model code `44b8532`. Its new
-execution claim and exact shard0008 SHA/CRC readback passed. It had
+execution claim, exact shard0008 SHA/CRC readback and all 28 CPU/CUDA parity
+checks passed (7.673 parity seconds). It had
 17,988,767,744 free disk bytes and 15,636,037,632 device-memory bytes. New job
 completion is not yet certified by this snapshot.
 [Machine-readable evidence](evidence/hung-provider-499-recovery-20261027.json)
