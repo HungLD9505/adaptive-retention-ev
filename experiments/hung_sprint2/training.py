@@ -46,7 +46,7 @@ def model_state_sha256(model: ForecastGRU) -> str:
         digest.update(name.encode("utf-8"))
         digest.update(str(tuple(tensor.shape)).encode("ascii"))
         digest.update(str(tensor.dtype).encode("ascii"))
-        digest.update(tensor.numpy().tobytes())
+        digest.update(bytes(tensor.view(torch.uint8).reshape(-1).tolist()))
     return digest.hexdigest()
 
 
