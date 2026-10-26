@@ -22,6 +22,29 @@ from tools.development_contexts import authenticate_contexts
 from tools.export_development import safe_name
 
 
+def canonical_code_files(files: dict[str, str]) -> dict[str, str]:
+    """Compare recorded code hashes across OS separators without changing artifact bytes."""
+    if not isinstance(files, dict):
+        raise ValueError("Code file fingerprints must be a mapping")
+    canonical = {}
+    for path, sha256 in files.items():
+        if not isinstance(path, str) or not isinstance(sha256, str):
+            raise ValueError("Malformed code file fingerprint")
+        key = path.replace("\\", "/")
+        parts = key.split("/")
+        if any(part in {"", ".", ".."} for part in parts) or ":" in parts[0]:
+            raise ValueError("Unsafe code file path")
+        if key in canonical:
+            raise ValueError("Duplicate code file path after separator normalization")
+        canonical[key] = sha256
+    return canonical
+
+
+def canonical_code(code: dict) -> dict:
+    """Retain commit/dirty provenance while canonicalizing only file path keys."""
+    return {**code, "files": canonical_code_files(code["files"])}
+
+
 def validate_collection(matrix: dict, cohort: dict, primary: dict, code_files: dict) -> dict:
     """Bind every city method to its own Source, unchanged recipe and common runtime."""
     validate_matrix(matrix["runs"], cohort, primary)
@@ -30,14 +53,16 @@ def validate_collection(matrix: dict, cohort: dict, primary: dict, code_files: d
         matrix["namespace"] != cohort["namespace"]
         or matrix["source_epochs"] != epoch
         or matrix["code"]["dirty"]
-        or matrix["code"]["files"] != code_files
+        or canonical_code_files(matrix["code"]["files"]) != canonical_code_files(code_files)
     ):
         raise ValueError("Changed city/Source duration/executed algorithms")
     sources = {s["seed"]: s for s in matrix["sources"]}
     if len(sources) != len(matrix["sources"]) or set(sources) != set(cohort["seeds"]):
         raise ValueError("Complete unique city Source seeds required")
     city = cohort["namespace"].removeprefix("charged-")
-    model_files = {k: v for k, v in code_files.items() if k.startswith("ev_models/")}
+    model_files = {
+        k: v for k, v in canonical_code_files(code_files).items() if k.startswith("ev_models/")
+    }
     for seed, source in sources.items():
         report = source["run"]
         b = report["input_binding"]
@@ -49,7 +74,7 @@ def validate_collection(matrix: dict, cohort: dict, primary: dict, code_files: d
             or report["training_config"] != {**source_config, "seed": seed, "epochs": epoch}
             or report["checkpoint_sha256"] != source["sha256"]
             or report["code"]["dirty"]
-            or report["code"]["files"] != model_files
+            or canonical_code_files(report["code"]["files"]) != model_files
         ):
             raise ValueError(
                 "Source must be independently trained on the identified city's Source population"
@@ -72,7 +97,7 @@ def validate_collection(matrix: dict, cohort: dict, primary: dict, code_files: d
             or row["source_checkpoint_sha256"] != sources[seed]["sha256"]
             or row["binding"]["source_population_sha256"] != cohort["source_population_sha256"]
             or row["code"]["dirty"]
-            or row["code"]["files"] != code_files
+            or canonical_code_files(row["code"]["files"]) != canonical_code_files(code_files)
         ):
             raise ValueError(
                 "Cross-runtime/Source population/algorithm contamination in city comparisons"
@@ -120,7 +145,11 @@ def analyze(args: argparse.Namespace) -> None:
         path = args.matrix.parent / f"source-seed{seed}" / f"epoch-{matrix['source_epochs']}.pt"
         _, _, value = load_checkpoint(path, sha256=source["sha256"], device="cpu")
         if value["completed_epochs"] != matrix["source_epochs"] or any(
-            value["metadata"][k] != source["run"][k]
+            (
+                canonical_code(value["metadata"][k]) != canonical_code(source["run"][k])
+                if k == "code"
+                else value["metadata"][k] != source["run"][k]
+            )
             for k in ("input_binding", "source_population_sha256", "training_config", "code")
         ):
             raise ValueError("Actual Source checkpoint contradicts city training provenance")
@@ -130,7 +159,10 @@ def analyze(args: argparse.Namespace) -> None:
         name = safe_name(row["run_id"])
         root = args.matrix.parent / name
         report = json.loads((root / "run.json").read_text())
-        if any(row.get(k) != v for k, v in report.items()):
+        if any(
+            (canonical_code(row.get(k)) != canonical_code(v) if k == "code" else row.get(k) != v)
+            for k, v in report.items()
+        ):
             raise ValueError("Changed city run report")
         b, c = row["binding"]["input"], row["binding"]["config"]
         seed, method = c["initial_training"]["seed"], row["comparison_variant"]
