@@ -448,7 +448,7 @@ def execute(plan_path: Path, expected_sha256: str, output: Path) -> None:
 
 def _same_state(left, right, field: str = "state") -> None:
     if isinstance(left, torch.Tensor) and isinstance(right, torch.Tensor):
-        if not torch.equal(left, right):
+        if not torch.equal(left.detach().cpu(), right.detach().cpu()):
             raise ValueError(f"Authenticated Development replay differs: {field}")
     elif isinstance(left, dict) and isinstance(right, dict):
         if left.keys() != right.keys():
