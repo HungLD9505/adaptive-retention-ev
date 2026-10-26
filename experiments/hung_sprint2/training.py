@@ -17,6 +17,7 @@ from experiments.hung_sprint2._create_only import publish_create_only
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
 from experiments.hung_sprint2.retention import (
     frozen_source_reference,
+    parameter_retention_loss,
     retention_loss,
     validate_latent_scale,
 )
@@ -179,10 +180,13 @@ def target_step(
     retention_weight: float,
     latent_scale: Tensor | None,
     epsilon: float,
+    retention_kind: str = "latent",
 ) -> StepLoss:
-    """Use identical target-normalized X for the target and frozen source."""
+    """Use latent or source-anchored parameter retention with a frozen reference."""
     if not 0 <= retention_weight < float("inf"):
         raise ValueError("retention_weight must be finite and nonnegative")
+    if retention_kind not in {"latent", "parameter"}:
+        raise ValueError("Unsupported retention kind")
     target.train()
     reference.eval()
     if any(parameter.requires_grad for parameter in reference.parameters()):
@@ -191,11 +195,14 @@ def target_step(
     forecast, target_latent = target.forecast_and_latent(x_hist, c_future)
     forecast_loss = forecast_mae(forecast, y_scaled)
     if retention_weight > 0:
-        if latent_scale is None:
-            raise ValueError("A fixed source-training latent scale is required")
-        with torch.no_grad():
-            source_latent = reference.encode(x_hist)
-        keep_loss = retention_loss(target_latent, source_latent, latent_scale, epsilon=epsilon)
+        if retention_kind == "latent":
+            if latent_scale is None:
+                raise ValueError("A fixed source-training latent scale is required")
+            with torch.no_grad():
+                source_latent = reference.encode(x_hist)
+            keep_loss = retention_loss(target_latent, source_latent, latent_scale, epsilon=epsilon)
+        else:
+            keep_loss = parameter_retention_loss(target, reference)
     else:
         keep_loss = forecast_loss.new_zeros(())
     total_loss = forecast_loss + retention_weight * keep_loss
@@ -260,6 +267,7 @@ def save_checkpoint(
     code_sha: str,
     training_step: int,
     initial_retention_weight: float | None = None,
+    initial_retention_kind: str | None = None,
 ) -> None:
     """Create a new bound checkpoint; an existing path is never overwritten."""
     validate_binding(input_binding)
@@ -282,6 +290,10 @@ def save_checkpoint(
             or initial_retention_weight < 0
         ):
             raise ValueError("Initial retention weight must be finite and nonnegative")
+    if initial_retention_kind is not None and (
+        input_binding["stage"] != "target" or initial_retention_kind not in {"latent", "parameter"}
+    ):
+        raise ValueError("Initial retention kind must be latent or parameter for target")
     payload = {
         "schema": CHECKPOINT_SCHEMA,
         "architecture": model.config.to_dict(),
@@ -292,6 +304,11 @@ def save_checkpoint(
         **(
             {"initial_retention_weight": float(initial_retention_weight)}
             if initial_retention_weight is not None
+            else {}
+        ),
+        **(
+            {"initial_retention_kind": initial_retention_kind}
+            if initial_retention_kind is not None
             else {}
         ),
         "model_state": model.state_dict(),
@@ -343,6 +360,7 @@ def load_checkpoint(
     ):
         raise ValueError("Invalid checkpoint execution metadata")
     initial_weight = payload.get("initial_retention_weight")
+    initial_kind = payload.get("initial_retention_kind")
     if initial_weight is not None and (
         expected_binding["stage"] != "target"
         or isinstance(initial_weight, bool)
@@ -351,6 +369,10 @@ def load_checkpoint(
         or initial_weight < 0
     ):
         raise ValueError("Invalid checkpoint initial retention weight")
+    if initial_kind is not None and (
+        expected_binding["stage"] != "target" or initial_kind not in {"latent", "parameter"}
+    ):
+        raise ValueError("Invalid checkpoint initial retention kind")
     rng = _validated_checkpoint_rng(payload, torch.device(map_location)) if restore_rng else None
     config = ModelConfig(**payload["architecture"])
     model = ForecastGRU(config).to(map_location)
@@ -375,5 +397,6 @@ def load_checkpoint(
             "code_sha": payload["code_sha"],
             "training_step": payload["training_step"],
             "initial_retention_weight": (None if initial_weight is None else float(initial_weight)),
+            "initial_retention_kind": initial_kind,
         },
     )

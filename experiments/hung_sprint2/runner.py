@@ -121,6 +121,7 @@ class PrequentialRunner:
         energy_scale: float,
         selection_rule: SelectionRule = "confidence",
         proxy_config: ProxyConfig | None = None,
+        retention_kind: str = "latent",
     ) -> None:
         validate_binding(binding)
         if binding["stage"] != "target":
@@ -148,6 +149,8 @@ class PrequentialRunner:
             "drift",
         }:
             raise ValueError("Unsupported selection rule")
+        if retention_kind not in {"latent", "parameter"}:
+            raise ValueError("Unsupported retention kind")
         if selection_rule in {"source_error", "uncertainty", "drift"}:
             if proxy_config is None:
                 raise ValueError("Proxy selection requires a locked Development configuration")
@@ -161,6 +164,7 @@ class PrequentialRunner:
         self.binding = deepcopy(binding)
         self.controller = controller
         self.selection_rule = selection_rule
+        self.retention_kind = retention_kind
         self.proxy_config = proxy_config
         self.epsilon = epsilon
         self.energy_scale = energy_scale
@@ -404,6 +408,7 @@ class PrequentialRunner:
                         retention_weight=self.controller.levels[index],
                         latent_scale=self.latent_scale,
                         epsilon=self.epsilon,
+                        retention_kind=self.retention_kind,
                     )
                     self._synchronize()
                     elapsed = perf_counter_ns() - started
@@ -436,6 +441,7 @@ class PrequentialRunner:
                             retention_weight=level,
                             latent_scale=self.latent_scale,
                             epsilon=self.epsilon,
+                            retention_kind=self.retention_kind,
                         )
                         self._synchronize()
                         elapsed = perf_counter_ns() - started
@@ -536,6 +542,7 @@ class PrequentialRunner:
             "binding": deepcopy(self.binding),
             "controller": asdict(self.controller),
             "selection_rule": self.selection_rule,
+            "retention_kind": self.retention_kind,
             "proxy_config": None if self.proxy_config is None else asdict(self.proxy_config),
             "model_config": self.active_model.config.to_dict(),
             "epsilon": self.epsilon,
@@ -598,6 +605,9 @@ class PrequentialRunner:
         runner.binding = deepcopy(expected_binding)
         runner.controller = ControllerConfig(**state["controller"])
         runner.selection_rule = state.get("selection_rule", "confidence")
+        runner.retention_kind = state.get("retention_kind", "latent")
+        if runner.retention_kind not in {"latent", "parameter"}:
+            raise ValueError("Runner checkpoint retention kind mismatch")
         if runner.selection_rule not in {
             "confidence",
             "online_best_lambda",

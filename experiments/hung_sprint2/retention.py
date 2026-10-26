@@ -1,4 +1,4 @@
-"""Fixed source representation scales and Report 1 latent retention loss."""
+"""Fixed source representation scales and latent/parameter retention losses."""
 
 from __future__ import annotations
 
@@ -66,4 +66,27 @@ def retention_loss(
     loss = (((target_latent - source_latent.detach()) / denominator) ** 2).mean()
     if not torch.isfinite(loss):
         raise ValueError("Retention loss is not finite")
+    return loss
+
+
+def parameter_retention_loss(target: ForecastGRU, source: ForecastGRU) -> Tensor:
+    """Mean squared displacement of all transferred GRU/head parameters from Source."""
+    target_parameters = dict(target.named_parameters())
+    source_parameters = dict(source.named_parameters())
+    if target_parameters.keys() != source_parameters.keys() or not target_parameters:
+        raise ValueError("Parameter-retention source/target architecture differs")
+    total: Tensor | None = None
+    count = 0
+    for name, parameter in target_parameters.items():
+        anchor = source_parameters[name]
+        if parameter.shape != anchor.shape or parameter.device != anchor.device:
+            raise ValueError("Parameter-retention source/target parameter differs")
+        if not torch.isfinite(parameter).all() or not torch.isfinite(anchor).all():
+            raise ValueError("Parameter-retention weights must be finite")
+        term = (parameter - anchor.detach()).square().sum()
+        total = term if total is None else total + term
+        count += parameter.numel()
+    loss = total / count
+    if not torch.isfinite(loss):
+        raise ValueError("Parameter-retention loss is not finite")
     return loss

@@ -354,6 +354,9 @@ def _source(args: argparse.Namespace) -> dict:
 def _target(args: argparse.Namespace) -> dict:
     started = time.perf_counter()
     _validate_limits(args)
+    retention_kind = getattr(args, "retention_kind", "latent")
+    if retention_kind not in {"latent", "parameter"}:
+        raise ValueError("Unsupported target retention kind")
     if not 0 <= args.retention_weight < float("inf") or not 0 < args.epsilon < float("inf"):
         raise ValueError("retention weight/epsilon must be valid")
     source_run = args.source_input_run.resolve()
@@ -418,6 +421,7 @@ def _target(args: argparse.Namespace) -> dict:
             retention_weight=args.retention_weight,
             latent_scale=latent_scale,
             epsilon=args.epsilon,
+            retention_kind=retention_kind,
         )
         steps += 1
     code = _code_identity()
@@ -441,6 +445,7 @@ def _target(args: argparse.Namespace) -> dict:
         code_sha=code["commit"],
         training_step=steps,
         initial_retention_weight=args.retention_weight,
+        initial_retention_kind=retention_kind,
     )
     summary = {
         "scope": "bounded_development_initialization; no online replay or effectiveness evidence",
@@ -455,6 +460,7 @@ def _target(args: argparse.Namespace) -> dict:
         "seed": args.seed,
         "learning_rate": args.learning_rate,
         "retention_weight": args.retention_weight,
+        "retention_kind": retention_kind,
         "epsilon": args.epsilon,
         "device": _device_record(device),
         "python": platform.python_version(),
@@ -474,6 +480,9 @@ def _replay(args: argparse.Namespace) -> dict:
 
     started = time.perf_counter()
     selection_rule = getattr(args, "selection_rule", "confidence")
+    retention_kind = getattr(args, "retention_kind", "latent")
+    if retention_kind not in {"latent", "parameter"}:
+        raise ValueError("Unsupported replay retention kind")
     if selection_rule not in {
         "confidence",
         "online_best_lambda",
@@ -592,8 +601,19 @@ def _replay(args: argparse.Namespace) -> dict:
         args.target_checkpoint, expected_binding=target_binding, map_location=device
     )
     checkpoint_weight = target_metadata["initial_retention_weight"]
+    checkpoint_kind = target_metadata["initial_retention_kind"]
     if checkpoint_weight is not None and target_record.get("retention_weight") != checkpoint_weight:
         raise ValueError("Target run manifest lambda disagrees with checkpoint payload")
+    if checkpoint_kind is not None and target_record.get("retention_kind") != checkpoint_kind:
+        raise ValueError("Target run manifest retention kind disagrees with checkpoint payload")
+    if retention_kind == "parameter" and (
+        checkpoint_kind != "parameter"
+        or checkpoint_weight != controller.initial_level
+        or target_record.get("retention_kind") != "parameter"
+    ):
+        raise ValueError("Parameter ablation needs matching checkpoint kind and initial lambda")
+    if retention_kind == "latent" and checkpoint_kind == "parameter":
+        raise ValueError("Parameter-initialized checkpoint cannot be replayed as latent retention")
     if selection_rule in {"fixed_retention", "full_finetuning"} and checkpoint_weight is None:
         raise ValueError("Legacy target checkpoint has unverified initial lambda")
     if selection_rule in {"fixed_retention", "full_finetuning"} and (
@@ -609,6 +629,8 @@ def _replay(args: argparse.Namespace) -> dict:
         if proxy_config is None
         else {**asdict(proxy_config), "levels_by_bin": list(proxy_config.levels_by_bin)},
         "target_initial_retention_weight": checkpoint_weight,
+        "retention_kind": retention_kind,
+        "target_initial_retention_kind": checkpoint_kind,
         "target_initial_retention_weight_verified": checkpoint_weight is not None,
         "epsilon": args.epsilon,
         "seed": args.seed,
@@ -629,6 +651,7 @@ def _replay(args: argparse.Namespace) -> dict:
             energy_scale=scale["energy_scale"],
             selection_rule=selection_rule,
             proxy_config=proxy_config,
+            retention_kind=retention_kind,
         )
         resumed_from = None
     else:
@@ -663,6 +686,8 @@ def _replay(args: argparse.Namespace) -> dict:
             or previous.get("source_input_binding") != source_binding
             or previous.get("config", {}).get("controller") != config["controller"]
             or previous.get("config", {}).get("selection_rule", "confidence") != selection_rule
+            or previous.get("config", {}).get("retention_kind", "latent") != retention_kind
+            or previous.get("config", {}).get("target_initial_retention_kind") != checkpoint_kind
             or previous.get("config", {}).get("proxy_config") != config["proxy_config"]
             or previous.get("config", {}).get("target_initial_retention_weight")
             != checkpoint_weight
@@ -680,6 +705,7 @@ def _replay(args: argparse.Namespace) -> dict:
         if (
             runner.controller != controller
             or runner.selection_rule != selection_rule
+            or runner.retention_kind != retention_kind
             or runner.proxy_config != proxy_config
             or runner.epsilon != args.epsilon
             or runner.energy_scale != scale["energy_scale"]
@@ -811,6 +837,7 @@ def main(argv: list[str] | None = None) -> int:
     target.add_argument("--source-checkpoint", type=Path, required=True)
     target.add_argument("--entity-id", required=True)
     target.add_argument("--retention-weight", type=float, required=True)
+    target.add_argument("--retention-kind", choices=("latent", "parameter"), default="latent")
     target.add_argument("--epsilon", type=float, required=True)
     for name in (
         "input-run",
@@ -834,6 +861,7 @@ def main(argv: list[str] | None = None) -> int:
     for name in ("level-one", "level-two", "initial-level", "delta", "alpha", "epsilon"):
         replay.add_argument(f"--{name}", type=float, required=True)
     replay.add_argument("--resume-checkpoint", type=Path)
+    replay.add_argument("--retention-kind", choices=("latent", "parameter"), default="latent")
     replay.add_argument(
         "--selection-rule",
         choices=(
