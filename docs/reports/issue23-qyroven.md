@@ -3,6 +3,36 @@
 Executed 2026-10-26. This is a partial technical handoff, not completion of #23.
 No Final fitting, tuning, evaluation, configuration lock, effectiveness claim or merge.
 
+## Current execution and report gate — October 27, 2026 (ICT)
+
+The [authenticated recovery evidence](issue23-primary-recovery-plan-evidence.json)
+now records a real Colab T4 recovery, not only a prepared kit. The continuation
+preserves the original648 missing proxy and690 matched cell population and three
+original Source checkpoints. The first14 proxy targets were observed independently
+verified and receipted on mounted Drive; this is a dated snapshot, not completion
+or a runtime-retention guarantee. An anonymous download of the first rescued
+actual target passed size/SHA/CRC and reproduced its full daily/latest-state proofs
+locally. No local training, Final access or new tuning was performed.
+
+The first dispatch stopped on a tuple/list JSON representation difference in its
+backup report comparison. Actual final-state readback identified the cause. The
+fixed backup compares canonical JSON values and still rejects changed values;
+333 local tests, cloud fixture checks and CI40363288016 passed at1ac2ae0. A launcher
+budget-assumption error stopped a continuation before any new training; the next
+continuation derives budgets from the unchanged missing-cell partition. Original
+failed runs/logs remain retained and the first completed cell was rescued, not
+retrained. See the [durability contract](issue23-durable-recovery.md).
+
+Full Sprint3 completion remains gated on all mandatory experiment/artifact
+acceptance, remaining CHARGED city scopes, independent immutable lock before Final,
+locked Final runs/analysis, and a second-developer reproduction/report review.
+Earlier sections below are historical phase evidence and do not override current
+calibration/replication results in the [primary collection](issue23-matched-collection.md)
+and [city handoff](issue23-charged-matched-development.md). In particular, current
+Development point results do not establish Adaptive superiority over Fixed
+Retention. No reduced mandatory matrix, positive-only selection, peer approval,
+autonomous merge or issue closure is claimed.
+
 ## Implemented and tested
 
 - `ev_evaluation/metrics.py`: complete24-hour original-unit errors; MAE and RMSE;

@@ -1,5 +1,5 @@
 {
-  "status": "prepared_not_gpu_executed",
+  "status": "durable_gpu_recovery_in_progress_not_complete",
   "scope": "Exact missing UrbanEV physical artifacts only; no recalibration or Final",
   "proxy_replay": 648,
   "matched_replay": 690,
@@ -25,5 +25,59 @@
     "source_checkpoints_cpu_loaded": 3,
     "checks": "Accepted role/ready status, exact per-target input/scaler binding, Source fingerprint/seed/common population and finite nonnegative64-dimensional latent scale",
     "scope": "Read-only metadata/opaque training-byte hashes and Source CPU reload; no example/Final-label decoding, optimization, inference or GPU recovery"
+  },
+  "durable_replay_implementation": {
+    "code_sha": "1ac2ae00c00cc0b7da67bf25d115b86d4d963f5a",
+    "code_url": "https://drive.google.com/file/d/1s9dqcl-fpEapw2C_0m0hlfaJZJah-4HG/view",
+    "code_bytes": 7895967,
+    "code_sha256": "f1a63c286c2453b5badbcc7d568688748ec0ef951af121a9fec6fbd21b0abe6d",
+    "kit_url": "https://drive.google.com/file/d/18mzjgncbWFVna7yx82zR_dVZn1sMQ_It/view",
+    "kit_bytes": 4670565,
+    "kit_sha256": "1406161c2fa3d3e1906417ccaaeff09d24106bc04e0f3e2ae2d6105e02ecdb5e",
+    "plan_sha256_unchanged": "6929cc7f5e525f8752072ba5c842f2a93e968fde19f7823e268a6bd44865ea79",
+    "local_checks": {
+      "tests": 333,
+      "seconds": 6.047,
+      "ruff_lint": "PASS",
+      "ruff_format": "PASS",
+      "diff": "PASS",
+      "core_algorithm_diff": "empty"
+    },
+    "scope": "Original missing-only partition and Source weights; completed-run backup mandatory. No missing matrix completion claim."
+  },
+  "live_execution": {
+    "run_id": "qyroven-primary-durable-recovery-20261026-v4",
+    "pid": 6583,
+    "device": "Tesla T4",
+    "code_sha": "1ac2ae00c00cc0b7da67bf25d115b86d4d963f5a",
+    "folder_url": "https://drive.google.com/drive/folders/1K3jHattKLtB5KD26HVzmgd8rbStgwDwf",
+    "proxy_archive_folder_url": "https://drive.google.com/drive/folders/1b09RACh7VHFahXDE-NsQCbsEguSyBxCz",
+    "last_observed_proxy_completed_and_receipted": 14,
+    "required_proxy": 648,
+    "required_matched": 690,
+    "scope": "Observed snapshot, not current liveness or completion guarantee",
+    "failures_preserved": {
+      "v2": "First target completed but backup rejected in-memory tuple vs JSON list decision history; fixed without changing algorithms or report values",
+      "v3": "Continuation launcher assumed all three budgets were still missing; stopped before rescue/training. v4 derives budgets from the authenticated missing-only rows."
+    },
+    "rescue": "First completed target copied and independently verified/published; not retrained",
+    "tests_cloud": 333,
+    "ruff_lint": "PASS",
+    "ruff_format": "PASS",
+    "implementation_ci": {
+      "run_id": 40363288016,
+      "conclusion": "success"
+    }
+  },
+  "first_target_remote_roundtrip": {
+    "status": "PASS",
+    "scope": "First rescued actual GPU target: independent anonymous download, size/SHA/CRC, complete local daily/state proof equality; no local training",
+    "run_id": "urbanev-SZH-1153-14d-drift-seed43-recipe0",
+    "archive_bytes": 1790525,
+    "archive_sha256": "6e16fcf16d796692b701e33ccdca43372f9e7790a8b0c2f195cb1fd5439a3c76",
+    "archive_url": "https://drive.google.com/file/d/1JylBOv0CG1WcKT-rycGQ0k1fW9rt0AYL/view",
+    "receipt_url": "https://drive.google.com/file/d/1jT2yqb7PuDOwTGpe0fLwmc5hbfFIwJ-g/view",
+    "daily_and_latest_state_proofs_equal": true,
+    "verification_url": "https://drive.google.com/file/d/1CviTnmaWB1_KdZU8YMAOvN7XMTi-bUNY/view"
   }
 }
