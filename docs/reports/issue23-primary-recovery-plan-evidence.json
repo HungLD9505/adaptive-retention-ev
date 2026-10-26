@@ -52,7 +52,7 @@
     "code_sha": "1ac2ae00c00cc0b7da67bf25d115b86d4d963f5a",
     "folder_url": "https://drive.google.com/drive/folders/1K3jHattKLtB5KD26HVzmgd8rbStgwDwf",
     "proxy_archive_folder_url": "https://drive.google.com/drive/folders/1b09RACh7VHFahXDE-NsQCbsEguSyBxCz",
-    "last_observed_proxy_completed_and_receipted": 14,
+    "last_observed_proxy_completed_and_receipted": 245,
     "required_proxy": 648,
     "required_matched": 690,
     "scope": "Observed snapshot, not current liveness or completion guarantee",
@@ -67,7 +67,13 @@
     "implementation_ci": {
       "run_id": 40363288016,
       "conclusion": "success"
-    }
+    },
+    "observed_at_utc": "2026-10-26T17:18:21.825665Z",
+    "observed_at_ict": "2026-10-27T00:18:21.825665+07:00",
+    "process_exit_at_observation": null,
+    "durable_observation_relative_path": "observations/20261026T171821825665Z",
+    "progress_sha256": "b8aacc0db92821f2da1a41a785fb83c22c35f30a38416c7284921242f4c106a8",
+    "supervisor_log_prefix_sha256": "2aacca9181dda631d95dfe84886c84c2fcaf2c3eb7102f77e62db8863425de2f"
   },
   "first_target_remote_roundtrip": {
     "status": "PASS",
