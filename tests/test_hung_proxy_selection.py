@@ -130,6 +130,74 @@ class ProxyTests(unittest.TestCase):
         self.assertIsNotNone(decision.proxy_value)
         self.assertEqual(run.update_steps, [0, 0, 0])
 
+    def test_each_policy_split_resume_matches_uninterrupted_state(self) -> None:
+        policies = {
+            "source_error": ProxyConfig(0.01, 0.05, (0.0, 0.1, 0.3)),
+            "uncertainty": ProxyConfig(0.01, 0.05, (0.3, 0.1, 0.0)),
+            "drift": ProxyConfig(0.2, 0.8, (0.0, 0.1, 0.3), 0.0, 1.0),
+        }
+
+        def prefix(run: PrequentialRunner) -> None:
+            masked = origin(0, 0.4)
+            masked.x_hist[:, :12, 0] = 0.0
+            masked.x_hist[:, :12, 6] = 0.0
+            run.forecast(masked)
+            run.arrive(LabelArrival("proxy-0", False, deferred=True))
+            run.forecast(origin(1, 0.9))
+            run.arrive(label(1))
+
+        def suffix(run: PrequentialRunner) -> None:
+            run.finish_block()
+            run.arrive(label(0, 0.6))  # Late label updates states, never the past decision.
+            run.forecast(origin(2, 0.1))
+            run.arrive(label(2))
+            run.forecast(origin(3, 0.8))
+            run.arrive(label(3))
+            run.finish_block()
+
+        for rule, config in policies.items():
+            with self.subTest(rule=rule):
+                uninterrupted = make_runner(rule, config)
+                prefix(uninterrupted)
+                suffix(uninterrupted)
+                split = make_runner(rule, config)
+                prefix(split)
+                resumed = PrequentialRunner.from_state_dict(
+                    split.state_dict(), expected_binding=binding()
+                )
+                suffix(resumed)
+                self.assertEqual(uninterrupted.decisions, resumed.decisions)
+                self.assertEqual(uninterrupted.update_steps, resumed.update_steps)
+                self.assertEqual(uninterrupted.events, resumed.events)
+                self.assertEqual(
+                    uninterrupted.proxy_costs["inference_calls"],
+                    resumed.proxy_costs["inference_calls"],
+                )
+                self.assertEqual(uninterrupted.proxy_costs["inference_calls"], 4)
+                for left, right in zip(uninterrupted.issued, resumed.issued, strict=True):
+                    self.assertEqual(left["day_id"], right["day_id"])
+                    self.assertEqual(left["proxy_value"], right["proxy_value"])
+                    self.assertTrue(torch.equal(left["source_forecast"], right["source_forecast"]))
+                    for left_forecast, right_forecast in zip(
+                        left["forecasts"], right["forecasts"], strict=True
+                    ):
+                        self.assertTrue(torch.equal(left_forecast, right_forecast))
+                for left_pair, right_pair in zip(
+                    uninterrupted.candidates, resumed.candidates, strict=True
+                ):
+                    for name, left_tensor in left_pair[0].state_dict().items():
+                        self.assertTrue(
+                            torch.equal(left_tensor, right_pair[0].state_dict()[name]), name
+                        )
+                    self.assertEqual(
+                        left_pair[1].state_dict()["param_groups"],
+                        right_pair[1].state_dict()["param_groups"],
+                    )
+                    for parameter, left_state in left_pair[1].state_dict()["state"].items():
+                        right_state = right_pair[1].state_dict()["state"][parameter]
+                        for key, left_value in left_state.items():
+                            self.assertTrue(torch.equal(left_value, right_state[key]), key)
+
 
 if __name__ == "__main__":
     unittest.main()
