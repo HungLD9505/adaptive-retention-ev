@@ -381,3 +381,75 @@ Its Drive mount failed after two minutes (`ValueError: mount failed`), so this
 step did not restore or execute matched targets. GPU access and the Drive mount
 remain concrete recovery blockers; the 451 archive contents are not yet claimed
 verified from the directory listing.
+
+
+### Matched interruption boundary: all 451 completed targets restored and verified
+
+The connected Drive stream retrieved the complete 909-file backup inventory
+(434,277,286 bytes) independently of the failed Colab mount. No permissions or
+accounts changed. The first local preflight stopped on an incorrect historical
+Source-report path before extraction; the failed script/log were retained and the
+correct original report path was used for the successful read-only second run.
+
+All 454 archive/receipt pairs passed byte hashes, ZIP CRC, envelopes, context and
+safe-path checks. The three original Source checkpoints/reports/latent scales
+were CPU-reloaded and matched their original hashes. All 451 target daily/input
+and latest-state proofs exactly reproduced their receipts: 83,435 files hashed,
+26,489 issued days, 14,332 scored days, 1,796 audit forecast scores and 451 latest
+model/optimizer/RNG states. These are repeated per-run counts, not unique target
+days or independent statistical samples. Every checked original MAE/RMSE,
+scheduled/issued/scored count, forecast identity, candidate/audit step count and
+final branch-state hash matched; zero difference records.
+
+The restored IDs form the exact first 451 of the original 690-run plan. Therefore
+239 matched runs remain, starting with `urbanev-SZH-2152-28d-target_only-seed42`.
+Exact backup continuation requires the recorded CUDA13.0/Torch2.11.0+cu130,
+Python3.13.16, TeslaT4/Linux environment, unchanged code/input/config/Source context
+and a real durable mount. A new provider/environment must not be silently
+appended to that context or mixed within paired comparisons.
+
+[Independent full prefix evidence](https://drive.google.com/file/d/1IGjxp_BxzBfZcofTjNCDjRKAnV0fBXk9/view):
+2,443,091 bytes, SHA-256
+`ac38ca60a2857cf2199be4e934c2a64e88648a1dd5523633add90e7a462d01b9`.
+The uploaded proof passed anonymous readback for size/hash/ZIP CRC and all464
+manifest payloads. Context SHA-256:
+`25839a9cfddcb6805e6ea8c52021d39042869917a91ce8eb4be0d3517e40a46f`.
+This is completed-prefix recovery, not 690-run completion or GPU continuation.
+No training, Final access or outcome-based reselection occurred locally.
+
+
+### Separate Kaggle runtime: preserve complete paired units, replay incomplete units
+
+A new independent Kaggle notebook successfully executed an environment-only probe
+on Tesla T4 (Python3.13.15, Torch2.11.0+cu128, CUDA12.8), with16 GPU hours remaining
+shown by the provider. The inaccessible SPO/MEL notebook was not restarted. Its
+latest saved version4 is a historical quick-version snapshot, not a new durable
+SPO/MEL raw export. Colab's exact-context GPU continuation remains unavailable.
+
+The new runtime cannot be silently appended to the Colab backup context. The
+existing analysis requires all methods within each station/budget/seed unit to
+share target execution environment. An outcome-blind artifact/identity inventory
+finds16 of69 units complete with all14 methods in the Colab environment. Those224
+selected cells are preserved. The remaining53 units must each execute all14
+methods together:212 frozen selected-proxy plus530 matched cells,742 replays.
+This includes291 already restored matched cells that require same-unit runtime
+replication; it does not redefine them as lost artifacts. The239 physically missing
+matched IDs remain distinguished in the interruption ledger. Existing outputs
+are never overwritten, and repeat runs are not independent statistical samples.
+
+The [prepared plan/Source kit](https://drive.google.com/file/d/1d7BozzYvIFC06lTfGHJVaBKdvXZgy7fj/view)
+is3,085,286 bytes, SHA-256
+`1aa4f8fca25701073862f39c55f2f06a372488f5c68907b1e8ae1ac4fb9c2d2f`;
+plan SHA-256 `984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8`.
+Both families passed authenticated metadata/Source validation. Selection uses only
+identity, method, execution environment and verified artifact availability, never
+errors/outcomes. Original69 units, three seeds, configs, selected recipes and
+Source checkpoints are unchanged. NumPy2.3.3 and the exact new execution profile
+are pinned before fitting; the initial notebook probe had NumPy2.1.3.
+
+The maintained bounded Kaggle outbox explicitly stops after at most12 target
+runs and requires external independent transport/content/Drive-readback acceptance
+before its next offset. It does not fake a Drive mount. The first actual cloud
+transport acceptance must use one run before expanding to larger chunks. This
+prepared742-run matrix is not executed or accepted yet. See the
+[outbox contract](issue23-durable-recovery.md) and exact evidence JSON.

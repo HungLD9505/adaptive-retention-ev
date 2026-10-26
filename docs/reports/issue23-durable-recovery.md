@@ -221,3 +221,51 @@ The maintained notebook pin was refreshed tod5f6157 and its exact shared bundle
 size/SHA. All cells remain unexecuted; per-cell syntax and combined Pyflakes/error
 checks passed. This avoids directing new training to the historical4f174bd report-
 representation bug. Historical storage-probe evidence retains its original code ID.
+
+## Bounded Kaggle outbox: explicit external publication barrier
+
+Colab's GPU runtime ended and its CPU Drive mount failed. A separate Kaggle probe
+actually obtained a Tesla T4, but CUDA/Python/kernel differ from the Colab runs.
+The original SPO/MEL notebook was not restarted. Existing mounted-Drive commands
+and their real-mount requirement remain unchanged.
+
+`python -m tools.replay_checkpoint_chunk` is an additional bounded transport
+workflow for the authenticated UrbanEV Development plan. It is **not** a fake
+Drive mount or automatic remote-backup implementation. It requires cloud CUDA,
+a clean unchanged core, a new output below `/kaggle/working`, exact plan-pinned
+execution environment/NumPy and original input/config/Source identities. It calls
+the existing runner without modifying model/controller/retention algorithms.
+
+A call executes at most twelve original-order target runs. Each Source/target is
+locally archived with the existing daily/state/CRC/receipt checks. Independent
+verification and canonical export follow. `handoff.zip` wraps the verified export
+parts, selected Source checkpoints, code and the bounded range record. The command
+then exits with `awaiting_external_publication`; it never starts another chunk.
+That status certifies local content, not remote durability or full-family success.
+
+Before the next nonzero offset, the external operator must:
+
+1. Download the actual wrapper through the notebook's normal file controls.
+2. Check wrapper/part hashes, CRC and paths, restore it, and independently reproduce
+   the complete daily/input/latest-state proofs using the accepted local inputs.
+3. Upload the unchanged wrapper to the approved Drive folder and read it back to
+   verify the same size/hash/CRC/content.
+4. Write a separate hash-pinned `verified-kaggle-outbox-publication-v1` receipt with
+   plan/family/start/end/run IDs, actual Drive URL/size/hash and both completed-check
+   flags. Pass its path/hash to the next call.
+
+The receipt gate rejects missing/changed scope, gaps, mismatched IDs and unverified
+publication declarations. It validates an external operator assertion; it does
+not independently authenticate OAuth or make a self-authored JSON into remote
+proof. Actual download/verification/readback evidence must accompany each receipt.
+The first cloud call is one run to test this complete handoff before larger chunks.
+
+If the operator is offline, no next chunk starts. An unacknowledged local chunk
+can still be lost to provider eviction, requiring at most twelve target replays;
+previous remotely verified chunks and original Sources are preserved. This is a
+bounded failure window, not a guarantee of unattended publication. Storage,
+verification, transfer, operator wait and GPU-idle costs must be reported separately
+from model work. No local real-data training, Final access or favorable reselection
+is enabled. Six independent offline tests cover ranges, receipt barriers and
+wrapper corruption/path/population/overwrite and copy-time-change rejection.
+Actual cloud acceptance is reported only after execution and independent readback.

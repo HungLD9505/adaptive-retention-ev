@@ -1,5 +1,5 @@
 {
-  "status": "proxy648_fully_restored_matched451_backup_pairs_gpu_provider_limit",
+  "status": "proxy648_and_matched451_fully_restored_remaining239_gpu_continuation_pending",
   "scope": "Exact missing UrbanEV physical artifacts only; no recalibration or Final",
   "proxy_replay": 648,
   "matched_replay": 690,
@@ -315,5 +315,441 @@
       "first_remaining_run": "urbanev-SZH-2152-28d-target_only-seed42",
       "scope": "Authenticated original plan plus complete connector folder listing; filename continuity only. Full archive/receipt/content checks pending. No favorable selection or fitting."
     }
+  },
+  "matched_prefix_full_verification": {
+    "status": "451_completed_matched_runs_independently_restored_and_content_verified",
+    "runs": 451,
+    "required": 690,
+    "remaining": 239,
+    "code_sha": "a01e6e07bef6271af0ba4b1319fd5fdcd5c73d7d",
+    "context_sha256": "25839a9cfddcb6805e6ea8c52021d39042869917a91ce8eb4be0d3517e40a46f",
+    "recovery_plan_sha256": "6929cc7f5e525f8752072ba5c842f2a93e968fde19f7823e268a6bd44865ea79",
+    "sources": {
+      "44": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5",
+      "43": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+      "42": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b"
+    },
+    "first_remaining_run": "urbanev-SZH-2152-28d-target_only-seed42",
+    "files_hashed": 83435,
+    "issued_days": 26489,
+    "scored_days": 14332,
+    "audit_forecast_scores_verified": 1796,
+    "latest_states": 451,
+    "difference_fields_checked": [
+      "active_mae_kwh",
+      "active_rmse_kwh",
+      "scheduled_days",
+      "issued_days",
+      "scored_days",
+      "prediction_identity_sha256",
+      "candidate_steps",
+      "audit_steps",
+      "final_branch_state_sha256"
+    ],
+    "difference_records": [],
+    "seconds": 36.78091895800026,
+    "runtime_needed_for_exact_backup_continuation": {
+      "cuda": "13.0",
+      "deterministic_algorithms": true,
+      "device": "cuda",
+      "device_name": "Tesla T4",
+      "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+      "python": "3.13.16",
+      "torch": "2.11.0+cu130"
+    },
+    "scope": "All454 archive/receipt pairs rehashed, CRC/envelopes/path checked, all3 Source bytes/reports/latent scales CPU reloaded, all451 complete daily/input/event chains and latest model/optimizer/RNG contents independently reverified against saved receipts and exact original plan/config/prefix. Read-only CPU, no fitting/Final/GPU continuation approval. Remaining239 and dependent queues still pending.",
+    "evidence_url": "https://drive.google.com/file/d/1IGjxp_BxzBfZcofTjNCDjRKAnV0fBXk9/view",
+    "evidence_bytes": 2443091,
+    "evidence_sha256": "ac38ca60a2857cf2199be4e934c2a64e88648a1dd5523633add90e7a462d01b9",
+    "evidence_remote_readback": "PASS size/SHA/ZIP CRC/all464 manifest payloads",
+    "transfer": "All909 original backup files downloaded via connected Drive stream (434277286bytes). No sharing/account change. First restore preflight used a missing local Source report path and stopped before extraction; corrected path and original failed script/log both preserved."
+  },
+  "runtime_fair_kaggle_replay": {
+    "status": "prepared_and_metadata_validated_not_executed",
+    "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+    "total_units": 69,
+    "retained_complete_units": [
+      [
+        14,
+        "1025",
+        42
+      ],
+      [
+        14,
+        "1025",
+        43
+      ],
+      [
+        14,
+        "1025",
+        44
+      ],
+      [
+        14,
+        "1153",
+        44
+      ],
+      [
+        14,
+        "1693",
+        42
+      ],
+      [
+        14,
+        "1693",
+        43
+      ],
+      [
+        14,
+        "1693",
+        44
+      ],
+      [
+        14,
+        "2613",
+        42
+      ],
+      [
+        14,
+        "2613",
+        43
+      ],
+      [
+        14,
+        "2613",
+        44
+      ],
+      [
+        14,
+        "2644",
+        42
+      ],
+      [
+        14,
+        "2644",
+        43
+      ],
+      [
+        14,
+        "2644",
+        44
+      ],
+      [
+        28,
+        "1987",
+        42
+      ],
+      [
+        28,
+        "1987",
+        43
+      ],
+      [
+        28,
+        "1987",
+        44
+      ]
+    ],
+    "replayed_complete_units": [
+      [
+        7,
+        "1050",
+        42
+      ],
+      [
+        7,
+        "1050",
+        43
+      ],
+      [
+        7,
+        "1050",
+        44
+      ],
+      [
+        7,
+        "1200",
+        42
+      ],
+      [
+        7,
+        "1200",
+        43
+      ],
+      [
+        7,
+        "1200",
+        44
+      ],
+      [
+        7,
+        "1405",
+        42
+      ],
+      [
+        7,
+        "1405",
+        43
+      ],
+      [
+        7,
+        "1405",
+        44
+      ],
+      [
+        7,
+        "2264",
+        42
+      ],
+      [
+        7,
+        "2264",
+        43
+      ],
+      [
+        7,
+        "2264",
+        44
+      ],
+      [
+        7,
+        "2447",
+        42
+      ],
+      [
+        7,
+        "2447",
+        43
+      ],
+      [
+        7,
+        "2447",
+        44
+      ],
+      [
+        7,
+        "2452",
+        42
+      ],
+      [
+        7,
+        "2452",
+        43
+      ],
+      [
+        7,
+        "2452",
+        44
+      ],
+      [
+        14,
+        "1153",
+        42
+      ],
+      [
+        14,
+        "1153",
+        43
+      ],
+      [
+        14,
+        "1405",
+        42
+      ],
+      [
+        14,
+        "1405",
+        43
+      ],
+      [
+        14,
+        "1405",
+        44
+      ],
+      [
+        14,
+        "1987",
+        42
+      ],
+      [
+        14,
+        "1987",
+        43
+      ],
+      [
+        14,
+        "1987",
+        44
+      ],
+      [
+        14,
+        "2152",
+        42
+      ],
+      [
+        14,
+        "2152",
+        43
+      ],
+      [
+        14,
+        "2152",
+        44
+      ],
+      [
+        28,
+        "1165",
+        42
+      ],
+      [
+        28,
+        "1165",
+        43
+      ],
+      [
+        28,
+        "1165",
+        44
+      ],
+      [
+        28,
+        "1188",
+        42
+      ],
+      [
+        28,
+        "1188",
+        43
+      ],
+      [
+        28,
+        "1188",
+        44
+      ],
+      [
+        28,
+        "1251",
+        42
+      ],
+      [
+        28,
+        "1251",
+        43
+      ],
+      [
+        28,
+        "1251",
+        44
+      ],
+      [
+        28,
+        "1408",
+        42
+      ],
+      [
+        28,
+        "1408",
+        43
+      ],
+      [
+        28,
+        "1408",
+        44
+      ],
+      [
+        28,
+        "2005",
+        42
+      ],
+      [
+        28,
+        "2005",
+        43
+      ],
+      [
+        28,
+        "2005",
+        44
+      ],
+      [
+        28,
+        "2152",
+        42
+      ],
+      [
+        28,
+        "2152",
+        43
+      ],
+      [
+        28,
+        "2152",
+        44
+      ],
+      [
+        28,
+        "2472",
+        42
+      ],
+      [
+        28,
+        "2472",
+        43
+      ],
+      [
+        28,
+        "2472",
+        44
+      ],
+      [
+        28,
+        "2633",
+        42
+      ],
+      [
+        28,
+        "2633",
+        43
+      ],
+      [
+        28,
+        "2633",
+        44
+      ]
+    ],
+    "preserved_selected_cells": 224,
+    "replay_proxy": 212,
+    "replay_matched": 530,
+    "replay_total": 742,
+    "old_environment": {
+      "cuda": "13.0",
+      "deterministic_algorithms": true,
+      "device": "cuda",
+      "device_name": "Tesla T4",
+      "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+      "python": "3.13.16",
+      "torch": "2.11.0+cu130"
+    },
+    "cohort_seeds_configs_and_original_Source_hashes_unchanged": true,
+    "scope": "Runtime-fair frozen Development replication. Preserve16 complete old-environment units; replay all14 methods for53 incomplete units on one new Kaggle environment. Not a new calibration, not all replays physically missing, no Final or outcome-based selection. Original partial outputs remain preserved.",
+    "durability_gate": "Kaggle has no authenticated mounted Drive. Do not fit until bounded outbox handoff/readback/ack workflow is implemented and verified; never pretend local outbox is remote durability.",
+    "kit_url": "https://drive.google.com/file/d/1d7BozzYvIFC06lTfGHJVaBKdvXZgy7fj/view",
+    "kit_bytes": 3085286,
+    "kit_sha256": "1aa4f8fca25701073862f39c55f2f06a372488f5c68907b1e8ae1ac4fb9c2d2f",
+    "preflight": {
+      "observation": "Executed Kaggle cell output, not a raw file download",
+      "scope": "Environment-only. No fitting/Final or modification of old SPO/MEL sessions.",
+      "python": "3.13.15",
+      "platform": "Linux-6.18.55+-x86_64-with-glibc2.39",
+      "torch": "2.11.0+cu128",
+      "numpy": "2.1.3",
+      "cuda": "12.8",
+      "gpu_available": true,
+      "visible_gpus": 1,
+      "gpu": "Tesla T4"
+    },
+    "notebook_url": "https://www.kaggle.com/code/qert12345/qyroven-sprint-3-resume-preflight-20261027/edit",
+    "provider_availability_observed": "Kaggle explicitly displayed16 GPU hours remaining and a new independent GPU probe executed. No alternate account or old-session replacement.",
+    "durability_scope": "Bounded local outbox implemented and fixture tested; actual one-run cloud transport/Drive-readback acceptance is pending. No742-run completion claim."
   }
 }
