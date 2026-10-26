@@ -19,7 +19,7 @@ records `source_checkpoint_sha256: null`.
 `frozen_source` loads a hash-checked Source checkpoint with its own Source input
 binding and dataset/city identity. The model remains eval/frozen. There is no
 target adaptation or online optimizer; update steps and update time stay zero.
-Its replay binding records the exact Source checkpoint SHA. Source pretraining
+Its replay binding records the exact Source input-manifest and checkpoint SHAs. Source pretraining
 cost, when available in that run's manifest, is referenced separately as reused
 upstream work and is not silently charged as a new target run.
 

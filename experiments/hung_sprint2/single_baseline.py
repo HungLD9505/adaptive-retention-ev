@@ -28,6 +28,7 @@ BINDING_FIELDS = {
     "scale_id",
     "initial_checkpoint_sha256",
     "source_checkpoint_sha256",
+    "source_input_manifest_sha256",
 }
 
 
@@ -45,10 +46,17 @@ def validate_single_binding(binding: dict) -> None:
         if not isinstance(binding[key], str) or not re.fullmatch(r"[0-9a-f]{64}", binding[key]):
             raise ValueError(f"Invalid single-model {key}")
     source_sha = binding["source_checkpoint_sha256"]
-    if binding["method"] == "target_only" and source_sha is not None:
+    source_manifest = binding["source_input_manifest_sha256"]
+    if binding["method"] == "target_only" and (
+        source_sha is not None or source_manifest is not None
+    ):
         raise ValueError("Target-only must not use a Source checkpoint")
     if binding["method"] == "frozen_source" and source_sha != binding["initial_checkpoint_sha256"]:
         raise ValueError("Frozen Source must bind its exact Source checkpoint")
+    if binding["method"] == "frozen_source" and (
+        not isinstance(source_manifest, str) or not re.fullmatch(r"[0-9a-f]{64}", source_manifest)
+    ):
+        raise ValueError("Frozen Source must bind its Source input manifest")
 
 
 class SingleBaselineRunner:

@@ -222,7 +222,14 @@ def _load_initial(
     args: argparse.Namespace, manifest: dict, entity: dict, device: torch.device
 ) -> tuple[ForecastGRU, torch.optim.Adam | None, str, str | None, dict]:
     if args.method == "target_only":
-        if args.source_checkpoint is not None or args.source_input_run is not None:
+        if any(
+            value is not None
+            for value in (
+                args.source_checkpoint,
+                args.source_input_run,
+                args.source_manifest_sha256,
+            )
+        ):
             raise ValueError("Target-only must not receive a Source checkpoint/run")
         if args.initial_checkpoint is None:
             raise ValueError("Target-only requires its own initial checkpoint")
@@ -333,6 +340,9 @@ def _replay(args: argparse.Namespace) -> dict:
         "scale_id": entity["scale"]["fit_sha256"],
         "initial_checkpoint_sha256": initial_sha,
         "source_checkpoint_sha256": source_sha,
+        "source_input_manifest_sha256": args.source_manifest_sha256
+        if args.method == "frozen_source"
+        else None,
     }
     validate_single_binding(binding)
     code = _code_identity()
@@ -401,6 +411,7 @@ def _replay(args: argparse.Namespace) -> dict:
         "input_binding": binding,
         "initial_checkpoint_sha256": initial_sha,
         "source_checkpoint_sha256": source_sha,
+        "source_input_manifest_sha256": binding["source_input_manifest_sha256"],
         "initial_run_id": initial_record.get("run_id"),
         "upstream_initialization_seconds": initial_record.get("initialization_seconds")
         if args.method == "target_only"
