@@ -213,7 +213,7 @@ class CalibrationTests(unittest.TestCase):
             root = Path(directory)
             helper = ReplayCliTests()
             run, digest, source, target, binding = helper._inputs(root)
-            args = helper._args(root, run, digest, source, target, "original", 1)
+            args = helper._args(root, run, digest, source, target, "original", 3)
             args.selection_rule = "source_error"
             args.proxy_low, args.proxy_high = 0.1, 0.5
             args.proxy_level_low, args.proxy_level_mid, args.proxy_level_high = 0.0, 0.1, 0.2
@@ -235,7 +235,7 @@ class CalibrationTests(unittest.TestCase):
                 "source_checkpoint_sha256": sha256_file(source),
                 "target_checkpoint_sha256": sha256_file(target),
             }
-            plan = {"profile": {"max_origins": 1}}
+            plan = {"profile": {"max_origins": 3}}
             original_checkpoint = args.output / "runner_checkpoint.pt"
             _verify_replay_proof(plan, cell, manifest, runner, args.output, original_checkpoint)
             runner.issued[0]["forecasts"][0].add_(0.5)
@@ -255,7 +255,7 @@ class CalibrationTests(unittest.TestCase):
                 _verify_replay_proof(
                     plan, cell, altered, forged_runner, forged, forged / "runner_checkpoint.pt"
                 )
-            for variant in ("rng", "cost"):
+            for variant in ("rng", "cost", "label"):
                 forged_path = root / f"forged-{variant}"
                 forged_path.mkdir()
                 payload = torch.load(original_checkpoint, map_location="cpu", weights_only=True)
@@ -263,9 +263,12 @@ class CalibrationTests(unittest.TestCase):
                 if variant == "rng":
                     torch.manual_seed(999)
                     payload["torch_rng"] = torch.get_rng_state().clone()
-                else:
+                elif variant == "cost":
                     payload["runtime_costs"]["candidate"][0]["inference_calls"] += 1
                     altered["runtime_costs"]["candidate"][0]["inference_calls"] += 1
+                else:
+                    scored = next(row for row in payload["issued"] if row["y_scaled"] is not None)
+                    scored["y_scaled"].add_(0.5)
                 checkpoint = forged_path / "runner_checkpoint.pt"
                 torch.save(payload, checkpoint)
                 altered["final_runner_checkpoint_sha256"] = sha256_file(checkpoint)
@@ -275,7 +278,8 @@ class CalibrationTests(unittest.TestCase):
                 shutil.copyfile(args.output / "events.jsonl", forged_path / "events.jsonl")
                 forged_runner = load_runner(checkpoint, expected_binding=binding)
                 with self.assertRaisesRegex(
-                    ValueError, f"{variant if variant == 'rng' else 'runtime_costs'}"
+                    ValueError,
+                    {"rng": "torch_rng", "cost": "runtime_costs", "label": "issued"}[variant],
                 ):
                     _verify_replay_proof(
                         plan, cell, altered, forged_runner, forged_path, checkpoint
