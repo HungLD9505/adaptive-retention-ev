@@ -408,6 +408,17 @@ class SingleBaselineTests(unittest.TestCase):
                 self.assertEqual(
                     len(
                         verify_forecast_journal(
+                            resume.output,
+                            run,
+                            result["input_binding"],
+                            result["code"],
+                        )
+                    ),
+                    3,
+                )
+                self.assertEqual(
+                    len(
+                        verify_forecast_journal(
                             direct.output,
                             run,
                             expected["input_binding"],
@@ -455,6 +466,133 @@ class SingleBaselineTests(unittest.TestCase):
         runner.arrive(LabelArrival("day-a", False))
         with self.assertRaisesRegex(ValueError, "origin sequence differs"):
             runner.forecast(Origin("day-a", 1, None, None, "skipped_all_missing_history"))
+
+    def test_deleted_middle_journal_row_and_torn_prefix_block_interrupted_resume(self) -> None:
+        for method in ("target_only", "frozen_source"):
+            with (
+                self.subTest(method=method),
+                tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as directory,
+            ):
+                root = Path(directory)
+                run, digest = target_input(root)
+                args = replay_args(root, run, digest, method, "interrupted", 3)
+                if method == "target_only":
+                    initial = Namespace(
+                        input_run=run,
+                        manifest_sha256=digest,
+                        entity_id="dev-1",
+                        output=root / "initial",
+                        device="cpu",
+                        calendar_hidden=8,
+                        seed=7,
+                        learning_rate=0.01,
+                        batch_size=1,
+                        steps=1,
+                    )
+                    _initialize_target_only(initial)
+                    args.initial_checkpoint = initial.output / "initial.pt"
+                else:
+                    args.source_input_run = run
+                    args.source_manifest_sha256 = digest
+                    args.source_checkpoint = source_checkpoint(root, run, digest)
+                from experiments.hung_sprint2 import replay_inputs
+
+                call_count = 0
+                original = replay_inputs._label_record
+
+                def crash_third(*values):
+                    nonlocal call_count
+                    call_count += 1
+                    if call_count == 3:
+                        raise RuntimeError("third label crash")
+                    return original(*values)
+
+                with patch.object(replay_inputs, "_label_record", side_effect=crash_third):
+                    with self.assertRaisesRegex(RuntimeError, "third label crash"):
+                        _replay(args)
+                journal = args.output / "forecasts.jsonl"
+                lines = journal.read_text(encoding="utf-8").splitlines()
+                self.assertEqual(len(lines), 4)
+                resumed = deepcopy(args)
+                resumed.resume_checkpoint = args.output / "forecast-000002.pt"
+                resumed.output = root / "deleted-middle"
+                journal.write_text("\n".join([lines[0], lines[1], lines[3]]) + "\n")
+                with self.assertRaisesRegex(ValueError, "origin order differs"):
+                    _replay(resumed)
+                self.assertFalse(resumed.output.exists())
+                journal.write_text(lines[0] + "\n" + lines[1] + lines[2] + lines[3] + "\n")
+                resumed.output = root / "torn-prefix"
+                with self.assertRaises(json.JSONDecodeError):
+                    _replay(resumed)
+                self.assertFalse(resumed.output.exists())
+
+    def test_final_runner_prediction_and_score_cannot_diverge_from_journal(self) -> None:
+        for method in ("target_only", "frozen_source"):
+            with (
+                self.subTest(method=method),
+                tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as directory,
+            ):
+                root = Path(directory)
+                run, digest = target_input(root)
+                args = replay_args(root, run, digest, method, "completed", 3)
+                if method == "target_only":
+                    initial = Namespace(
+                        input_run=run,
+                        manifest_sha256=digest,
+                        entity_id="dev-1",
+                        output=root / "initial",
+                        device="cpu",
+                        calendar_hidden=8,
+                        seed=7,
+                        learning_rate=0.01,
+                        batch_size=1,
+                        steps=1,
+                    )
+                    _initialize_target_only(initial)
+                    args.initial_checkpoint = initial.output / "initial.pt"
+                else:
+                    args.source_input_run = run
+                    args.source_manifest_sha256 = digest
+                    args.source_checkpoint = source_checkpoint(root, run, digest)
+                _replay(args)
+                checkpoint = args.output / "runner.pt"
+                original_state = torch.load(checkpoint, map_location="cpu", weights_only=True)
+                manifest_path = args.output / "run_manifest.json"
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                for change, message in (
+                    ("prediction", "prediction differs"),
+                    ("score", "score differs"),
+                    ("label", "label differs"),
+                ):
+                    with self.subTest(change=change):
+                        state = deepcopy(original_state)
+                        if change == "prediction":
+                            state["issued"][0]["prediction"][0, 0] += 0.1
+                        else:
+                            scored = next(
+                                row for row in state["issued"] if row["mae_kwh"] is not None
+                            )
+                            if change == "score":
+                                scored["mae_kwh"] += 1
+                            else:
+                                scored["y_scaled"][0] += 0.1
+                                mae = float(
+                                    torch.abs(
+                                        scored["prediction"].squeeze(0) - scored["y_scaled"]
+                                    ).mean()
+                                )
+                                scored["normalized_mae"] = mae
+                                scored["mae_kwh"] = mae * state["energy_scale"]
+                        torch.save(state, checkpoint)
+                        manifest["final_runner_checkpoint_sha256"] = sha256_file(checkpoint)
+                        manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+                        resumed = deepcopy(args)
+                        resumed.output = root / f"tampered-{change}"
+                        resumed.resume_checkpoint = checkpoint
+                        resumed.max_origins = 4
+                        with self.assertRaisesRegex(ValueError, message):
+                            _replay(resumed)
+                        self.assertFalse(resumed.output.exists())
 
 
 if __name__ == "__main__":

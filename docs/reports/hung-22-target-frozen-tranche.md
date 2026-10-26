@@ -36,12 +36,18 @@ relabelled. Each newly issued forecast or skipped origin gets a create-only
 before its label row is parsed. The record binds the exact prediction, origin,
 method/input/code and snapshot SHA. An independent verifier checks every
 record against its snapshot and the accepted schedule; completed manifests
-bind the journal SHA and count. If a run crashes after an issued forecast,
+bind the journal SHA and count. Every journal covers contiguous origins from
+index zero. A resumed output copies all verified ancestor forecast records and
+their immutable snapshots into the new output, so the final evidence is
+self-contained. The final runner checkpoint must contain the same issued
+predictions and scores; scored label vectors are cross-checked against the
+authenticated Development label artifact. If a run crashes after issuance,
 resume accepts only the latest committed forecast checkpoint and replays its
-label in a new output directory. A torn final journal append is ignored only
-for interrupted runs; complete runs verify the full journal hash. The output
-directory and each forecast checkpoint are create-only. This is a durable
-issuance boundary for future Final lock, not Final execution evidence.
+label in a new output directory. A torn final append is ignored only for an
+interrupted run; a malformed complete line or missing middle row is rejected.
+Completed runs verify the full journal hash. The output directory and each
+forecast checkpoint are create-only. This is a durable issuance boundary for
+future Final lock, not Final execution evidence.
 
 The one-model cost record includes inference calls/time and Target-only update
 steps/time; no audit or unused candidate is charged. Total replay duration
@@ -66,8 +72,10 @@ Offline tests cover pre-deployment one-pass Target-only initialization, no
 Source use, Frozen Source weight immutability, same-origin and null-day parity,
 exact SHA rejection, split/resume parity for each method and the reader
 boundary. A simulated crash at label-read verifies durable issuance and
-interrupted resume parity for both methods. No large dataset, GPU training or
-Final set is opened by these tests.
+interrupted resume parity for both methods. Tests also reject missing middle
+journal rows, malformed committed prefixes and final checkpoint divergence in
+prediction, score or Development label. No large dataset, GPU training or Final
+set is opened by these tests.
 
 Seasonal Naive remains separately proposed in PR #45. Adaptive and mean/fixed
 three-candidate selection policies are in PRs #46/#56/#57. Source-error,

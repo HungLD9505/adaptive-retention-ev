@@ -3,14 +3,17 @@
 from __future__ import annotations
 
 import json
+import math
 import os
+import shutil
 from pathlib import Path
 
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
+from ev_inputs.windows import ready_labels
 from experiments.hung_sprint2.cli import _load_run
-from experiments.hung_sprint2.replay_inputs import _target_rows
+from experiments.hung_sprint2.replay_inputs import _label_record, _target_rows
 
 SCHEMA = "hung-single-forecast-journal-v1"
 
@@ -21,12 +24,37 @@ def _append(stream, record: dict) -> None:
     os.fsync(stream.fileno())
 
 
-def start_journal(path: Path, binding: dict, code: dict):
+def start_journal(
+    path: Path,
+    binding: dict,
+    code: dict,
+    prior_output: Path | None = None,
+    prior_records: list[dict] | None = None,
+):
     stream = path.open("x", encoding="utf-8", newline="\n")
     _append(
         stream,
-        {"schema": SCHEMA, "binding": binding, "code": code["executed_sources"]},
+        {
+            "schema": SCHEMA,
+            "binding": binding,
+            "code": code["executed_sources"],
+            "start_index": 0,
+            "start_event_index": 0,
+        },
     )
+    if prior_output is not None:
+        if prior_records is None:
+            raise ValueError("Prior forecast records are required")
+        for record in prior_records:
+            source = prior_output / record["checkpoint"]
+            destination = path.parent / record["checkpoint"]
+            with source.open("rb") as reader, destination.open("xb") as writer:
+                shutil.copyfileobj(reader, writer)
+                writer.flush()
+                os.fsync(writer.fileno())
+            if sha256_file(destination) != record["checkpoint_sha256"]:
+                raise ValueError("Copied forecast checkpoint differs")
+            _append(stream, record)
     return stream
 
 
@@ -62,13 +90,25 @@ def verify_forecast_journal(output: Path, input_run: Path, binding: dict, code: 
         "schema": SCHEMA,
         "binding": binding,
         "code": code["executed_sources"],
+        "start_index": records[0].get("start_index"),
+        "start_event_index": records[0].get("start_event_index"),
     }:
         raise ValueError("Forecast journal header/binding/code differs")
+    start_index = records[0]["start_index"]
+    start_event_index = records[0]["start_event_index"]
+    if (
+        not isinstance(start_index, int)
+        or isinstance(start_index, bool)
+        or start_index < 0
+        or not isinstance(start_event_index, int)
+        or isinstance(start_event_index, bool)
+        or start_event_index < 0
+    ):
+        raise ValueError("Forecast journal start cursor differs")
     manifest = _load_run(input_run, binding["input_manifest_sha256"])
     identity = [binding[key] for key in ("dataset_id", "city_id", "entity_id")]
     schedule = list(_target_rows(input_run / "schedule.jsonl", identity))
-    previous = -1
-    for record in records[1:]:
+    for expected_index, record in enumerate(records[1:], start=start_index):
         if set(record) != {
             "index",
             "day_id",
@@ -82,7 +122,7 @@ def verify_forecast_journal(output: Path, input_run: Path, binding: dict, code: 
         if (
             not isinstance(index, int)
             or isinstance(index, bool)
-            or index <= previous
+            or index != expected_index
             or index >= len(schedule)
         ):
             raise ValueError("Forecast journal origin order differs")
@@ -123,5 +163,78 @@ def verify_forecast_journal(output: Path, input_run: Path, binding: dict, code: 
                 raise ValueError("Issued forecast was changed before label")
         elif issued is not None or record["prediction"] is not None:
             raise ValueError("Skipped origin carries a forecast")
-        previous = index
+        issued_events = [
+            event
+            for event in state["events"][start_event_index:]
+            if event.startswith(("forecast:", "skip:"))
+        ]
+        expected_events = [
+            ("forecast:" if row["status"] == "created" else "skip:") + row["day_id"]
+            for row in records[1 : expected_index - start_index + 2]
+        ]
+        if issued_events != expected_events:
+            raise ValueError("Forecast journal omits an issued origin in snapshot")
     return records[1:]
+
+
+def verify_final_runner(records: list[dict], state: dict, input_run: Path, binding: dict) -> None:
+    """Bind a completed runner's exact predictions and scores to issued records."""
+    cursor = state.get("next_index")
+    if (
+        not isinstance(cursor, int)
+        or cursor != len(records)
+        or state.get("pending") is not None
+        or [row["index"] for row in records] != list(range(cursor))
+    ):
+        raise ValueError("Final runner/journal origin coverage differs")
+    expected_events = [
+        ("forecast:" if row["status"] == "created" else "skip:") + row["day_id"] for row in records
+    ]
+    issued_events = [event for event in state["events"] if event.startswith(("forecast:", "skip:"))]
+    if issued_events != expected_events or state.get("seen_days") != [
+        row["day_id"] for row in sorted(records, key=lambda row: row["day_id"])
+    ]:
+        raise ValueError("Final runner/journal issued events differ")
+    created = [row for row in records if row["status"] == "created"]
+    if len(state["issued"]) != len(created):
+        raise ValueError("Final runner/journal forecast count differs")
+    _load_run(input_run, binding["input_manifest_sha256"])
+    identity = [binding[key] for key in ("dataset_id", "city_id", "entity_id")]
+    labels = {
+        row["origin"]: _label_record(row, identity, row["origin"])
+        for row in _target_rows(input_run / "labels.jsonl", identity)
+    }
+    for forecast, issued in zip(created, state["issued"], strict=True):
+        if (
+            issued["index"] != forecast["index"]
+            or issued["day_id"] != forecast["day_id"]
+            or issued["prediction"].squeeze(0).tolist() != forecast["prediction"]
+        ):
+            raise ValueError("Final runner prediction differs from issued journal")
+        label = issued["y_scaled"]
+        if label is None:
+            if issued["normalized_mae"] is not None or issued["mae_kwh"] is not None:
+                raise ValueError("Unscored final origin carries a score")
+            continue
+        if label.shape != (24,) or not torch.isfinite(label).all():
+            raise ValueError("Final runner label vector differs")
+        record = labels.get(issued["day_id"])
+        available = None if record is None else record.available_at
+        if available is None or any(value is None for value in available):
+            raise ValueError("Final runner scored label lacks authenticated arrival")
+        source_values = ready_labels(record, as_of=max(available))
+        if source_values is None or not torch.equal(
+            label, torch.tensor(source_values, dtype=torch.float32) / state["energy_scale"]
+        ):
+            raise ValueError("Final runner label differs from authenticated Development input")
+        mae = float(torch.abs(issued["prediction"].squeeze(0) - label).mean())
+        if not isinstance(issued["normalized_mae"], (int, float)) or not isinstance(
+            issued["mae_kwh"], (int, float)
+        ):
+            raise ValueError("Final runner score differs from issued forecast")
+        if not math.isclose(
+            issued["normalized_mae"], mae, rel_tol=0, abs_tol=1e-7
+        ) or not math.isclose(
+            issued["mae_kwh"], mae * state["energy_scale"], rel_tol=0, abs_tol=1e-7
+        ):
+            raise ValueError("Final runner score differs from issued forecast")

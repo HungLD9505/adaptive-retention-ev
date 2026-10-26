@@ -42,6 +42,7 @@ from experiments.hung_sprint2.single_baseline import SingleBaselineRunner, valid
 from experiments.hung_sprint2.single_forecast_journal import (
     append_forecast,
     start_journal,
+    verify_final_runner,
     verify_forecast_journal,
 )
 from experiments.hung_sprint2.training import load_checkpoint, source_step
@@ -367,6 +368,7 @@ def _replay(args: argparse.Namespace) -> dict:
             block_days=args.block_days,
         )
         resumed_from = None
+        prior_forecasts = []
     else:
         resume_path = args.resume_checkpoint.resolve()
         previous_path = resume_path.parent / "run_manifest.json"
@@ -397,6 +399,8 @@ def _replay(args: argparse.Namespace) -> dict:
         ):
             raise ValueError("Single-model resume lineage/config/code differs")
         state = torch.load(resume_path, map_location="cpu", weights_only=True)
+        if previous is not None:
+            verify_final_runner(prior_forecasts, state, path, binding)
         runner = SingleBaselineRunner.from_state_dict(
             state, expected_binding=binding, device=device
         )
@@ -418,7 +422,13 @@ def _replay(args: argparse.Namespace) -> dict:
     output.mkdir(parents=True, exist_ok=False)
     journal_path = output / "forecasts.jsonl"
     prior_event_count = len(runner.events)
-    with start_journal(journal_path, binding, code) as journal:
+    with start_journal(
+        journal_path,
+        binding,
+        code,
+        resume_path.parent if resumed_from is not None else None,
+        prior_forecasts,
+    ) as journal:
         replay = replay_target(
             path,
             manifest_sha256=args.manifest_sha256,
@@ -433,10 +443,17 @@ def _replay(args: argparse.Namespace) -> dict:
     expected_new = sum(
         event.startswith(("forecast:", "skip:")) for event in runner.events[prior_event_count:]
     )
-    if expected_new != len(journal_records):
+    if expected_new != len(journal_records) - len(prior_forecasts):
         raise ValueError("Forecast journal coverage differs")
     evaluation = _evaluate(runner, replay)
+    verify_final_runner(journal_records, runner.state_dict(), path, binding)
     checkpoint_sha = _save_state(output / "runner.pt", runner.state_dict())
+    verify_final_runner(
+        journal_records,
+        torch.load(output / "runner.pt", map_location="cpu", weights_only=True),
+        path,
+        binding,
+    )
     summary = {
         "schema": "hung-single-baseline-replay-v1",
         "status": "completed",
