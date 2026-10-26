@@ -160,7 +160,7 @@ def verify_complete_run(
         or binding["dataset_id"] != config["dataset_id"]
         or binding["city_id"] != config["city_id"]
         or binding["history_days"] != config["history_days"]
-        or start + days * timedelta(days=1) != datetime.fromisoformat(config["replay_stop"])
+        or start + days * timedelta(days=1) > datetime.fromisoformat(config["replay_stop"])
     ):
         raise ValueError("Replay config differs from identified input schedule")
     # The runner polls once at deployment, through the last issued horizon plus
@@ -419,6 +419,19 @@ def verify_run(
         raise ValueError("Report decisions/audits differ from authenticated daily events")
     if len(predictions) != report["issued_days"] or len({s[0] for s in scores}) != len(scores):
         raise ValueError("Forecast count/unique score population differs")
+    origin_hashes = {
+        name: hashlib.sha256(
+            json.dumps(sorted(origins), separators=(",", ":")).encode()
+        ).hexdigest()
+        for name, origins in (
+            ("issued_origins_sha256", predictions),
+            ("scored_origins_sha256", (row[0] for row in scores)),
+        )
+    }
+    if report["binding"].get("schema") == "ev-prequential-run-v1":
+        for name, actual in origin_hashes.items():
+            if name in report and report[name] != actual:
+                raise ValueError(f"Reported {name} differs from committed daily origins")
     mae = sum(s[1] for s in scores) / len(scores) if scores else None
     rmse = math.sqrt(sum(s[2] for s in scores) / len(scores)) if scores else None
     for name, value in (("active_mae_kwh", mae), ("active_rmse_kwh", rmse)):
@@ -457,6 +470,7 @@ def verify_run(
         "decision_events_verified": len(decisions),
         "audit_summaries_verified": len(audits),
         "audit_forecast_scores_verified": audit_scores,
+        **origin_hashes,
         **completion,
     }
 

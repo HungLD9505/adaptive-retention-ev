@@ -1,5 +1,6 @@
 """Independent minimal immutable-transaction fixtures for post-hoc checks."""
 
+import hashlib
 import json
 import tempfile
 import unittest
@@ -10,6 +11,12 @@ from tools.verify_comparison import InputSnapshots, sha, verify_run
 
 
 class ArtifactVerifierTests(unittest.TestCase):
+    @staticmethod
+    def origin_hash(origins):
+        return hashlib.sha256(
+            json.dumps(sorted(origins), separators=(",", ":")).encode()
+        ).hexdigest()
+
     def complete_fixture(self, base):
         run, data = self.fixture(base)
         origin = "2023-07-01T00:00:00"
@@ -49,7 +56,13 @@ class ArtifactVerifierTests(unittest.TestCase):
             input_run_id="identified-input",
             history_days=7,
         )
-        report.update(scheduled_days=1, pending_days=0, ticks=3)
+        report.update(
+            scheduled_days=1,
+            pending_days=0,
+            ticks=3,
+            issued_origins_sha256=self.origin_hash([origin]),
+            scored_origins_sha256=self.origin_hash([origin]),
+        )
         (run / "run.json").write_text(json.dumps(report))
         self.recommit(run)
         return run, data
@@ -78,7 +91,12 @@ class ArtifactVerifierTests(unittest.TestCase):
             run, data = self.complete_fixture(Path(temp))
             (run / "tick-0001/events.jsonl").write_text("")
             report = json.loads((run / "run.json").read_text())
-            report.update(scored_days=0, active_mae_kwh=None, active_rmse_kwh=None)
+            report.update(
+                scored_days=0,
+                scored_origins_sha256=self.origin_hash([]),
+                active_mae_kwh=None,
+                active_rmse_kwh=None,
+            )
             (run / "run.json").write_text(json.dumps(report))
             self.recommit(run)
             with self.assertRaisesRegex(ValueError, "score event"):

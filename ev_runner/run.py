@@ -1,6 +1,7 @@
 """GPU Development runner CLI; online policy/config is unvalidated until review."""
 
 import argparse
+import hashlib
 import json
 import math
 import os
@@ -296,6 +297,12 @@ def execute(
         "scheduled_days": config["replay_days"],
         "issued_days": len(predictions),
         "scored_days": len(scores),
+        "issued_origins_sha256": hashlib.sha256(
+            json.dumps(sorted(row["origin"] for row in predictions), separators=(",", ":")).encode()
+        ).hexdigest(),
+        "scored_origins_sha256": hashlib.sha256(
+            json.dumps(sorted(row["origin"] for row in scores), separators=(",", ":")).encode()
+        ).hexdigest(),
         "active_mae_kwh": sum(active_errors) / len(active_errors) if active_errors else None,
         "active_rmse_kwh": math.sqrt(
             sum(s["mse_scaled"][runner.levels.index(s["issued_active"])] for s in scores)

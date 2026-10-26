@@ -10,6 +10,7 @@ from pathlib import Path
 import torch
 
 from ev_control.confidence import ControllerConfig
+from ev_evaluation.artifacts import authenticate_matrix
 from ev_evaluation.selection import score_candidates
 from ev_models.checkpoint import digest, write_json
 from ev_runner.replay import Replay
@@ -111,7 +112,7 @@ def run(args: argparse.Namespace) -> None:
     if digest(args.selection) != profile["selection_sha256"]:
         raise ValueError("Identified cohort changed")
     cohort = json.loads(args.selection.read_text())
-    study = json.loads(args.study.read_text())
+    study = authenticate_matrix(args.study, args.verification)
     epoch, sources = selected_sources(study, cohort, profile)
     if runtime_code()["files"] != study["code"]["files"]:
         raise ValueError("Core algorithms changed since Source study")
