@@ -1,5 +1,5 @@
 {
-  "status": "durable_gpu_recovery_in_progress_not_complete",
+  "status": "proxy648_fully_restored_matched451_backup_pairs_gpu_provider_limit",
   "scope": "Exact missing UrbanEV physical artifacts only; no recalibration or Final",
   "proxy_replay": 648,
   "matched_replay": 690,
@@ -193,11 +193,127 @@
     "readback_scope": "Mounted file SHA/size readback and local observation receipt, not yet independent anonymous snapshot download"
   },
   "canonical_proxy_export": {
-    "status": "live_cpu_verification_not_complete",
+    "status": "complete_mounted_export_pending_independent_remote_restore",
     "pid": 31955,
     "run_id": "qyroven-proxy-complete-handoff-20261027-v1",
     "folder_url": "https://drive.google.com/drive/folders/1K1ai721dHeOqNBo8h9fkzsBLTmouh8_M",
     "script_url": "https://drive.google.com/file/d/1hc8cVSglFzdT0VZX85X58EML-7N-8VA-/view",
-    "scope": "Read-only complete daily/state verification and canonical export of648 recovered proxy runs. No fitting/Final. CPU and I/O overlap matched GPU runs; overlapping wall times must not be treated as isolated method latency. Full off-runtime restore still pending."
+    "scope": "Read-only CPU proof/export, no training/Final. CPU/I-O may overlap matched GPU execution, so do not treat affected wall times as isolated latency.",
+    "algorithm_export_code": "1ac2ae00c00cc0b7da67bf25d115b86d4d963f5a",
+    "transport_code": "d5f61570e29dd1b6c2b1b48dd00fd8eeb9670a48",
+    "matrix_sha256": "d6a9f48fae009b5f5046b101e8499f2b660b451eca31ee6222fb842099c178b2",
+    "matched_completed_before_overlap": 242,
+    "stages": [
+      {
+        "stage": "daily",
+        "exit_code": 0,
+        "seconds": 75.39342374900025,
+        "command": [
+          "/usr/bin/python3",
+          "-u",
+          "-m",
+          "tools.verify_comparison",
+          "--matrix",
+          "/content/qyroven-primary-durable-recovery-20261026-v4/proxy/matrix.json",
+          "--inputs-root",
+          "/content/qyroven-primary-durable-recovery-20261026-v2/input-release/data/inputs/issue18-input-handoff-v1-20261019",
+          "--output",
+          "/content/qyroven-proxy-complete-handoff-20261027-v1/verification.json",
+          "--cache-inputs"
+        ]
+      },
+      {
+        "stage": "states",
+        "exit_code": 0,
+        "seconds": 41.8249168909997,
+        "command": [
+          "/usr/bin/python3",
+          "-u",
+          "-m",
+          "tools.verify_latest_states",
+          "--matrix",
+          "/content/qyroven-primary-durable-recovery-20261026-v4/proxy/matrix.json",
+          "--verification",
+          "/content/qyroven-proxy-complete-handoff-20261027-v1/verification.json",
+          "--output",
+          "/content/qyroven-proxy-complete-handoff-20261027-v1/latest-states.json"
+        ]
+      },
+      {
+        "stage": "export",
+        "exit_code": 0,
+        "seconds": 236.25288948599973,
+        "command": [
+          "/usr/bin/python3",
+          "-u",
+          "-m",
+          "tools.export_development",
+          "--matrix",
+          "/content/qyroven-primary-durable-recovery-20261026-v4/proxy/matrix.json",
+          "--verification",
+          "/content/qyroven-proxy-complete-handoff-20261027-v1/verification.json",
+          "--latest-states",
+          "/content/qyroven-proxy-complete-handoff-20261027-v1/latest-states.json",
+          "--source-root",
+          "/content/qyroven-primary-durable-recovery-20261026-v4/proxy",
+          "--output",
+          "/content/qyroven-proxy-complete-handoff-20261027-v1/exports",
+          "--attachment",
+          "recovery-plan.json=/content/qyroven-primary-durable-recovery-20261026-v4/proxy/recovery-plan.json",
+          "--attachment",
+          "original-reference-matrix.json=/content/qyroven-primary-durable-recovery-20261026-v4/proxy/original-matrix.json"
+        ]
+      }
+    ],
+    "seconds": 372.5863627150002,
+    "matched_completed_after_overlap": 283,
+    "catalog_sha256": "c3818e006b014b4e2d47a0e1392eb5e73723ca00d2df2e385a8f946fcaf0bc59",
+    "parts": 56,
+    "export_bytes": 912026869,
+    "exports_url": "https://drive.google.com/drive/folders/1ykS8yHGKs-IiUgupbclkW2CWk6ahd-Hj",
+    "complete_url": "https://drive.google.com/file/d/1iG9X2GqAEkeJMs9-ibVQ4YcRCjmxM16I/view",
+    "catalog_url": "https://drive.google.com/file/d/1hegfvUH2CWuW0YDSazRv4YkiqoQaTWPQ/view",
+    "independent_remote_restore": {
+      "status": "full648_offruntime_transport_daily_and_state_verified",
+      "runs": 648,
+      "code_sha": "6b16a3eac3ba6a4d520ec8118ce982c10da27bcd",
+      "export_code_sha": "1ac2ae00c00cc0b7da67bf25d115b86d4d963f5a",
+      "catalog_sha256": "c3818e006b014b4e2d47a0e1392eb5e73723ca00d2df2e385a8f946fcaf0bc59",
+      "matrix_sha256": "d6a9f48fae009b5f5046b101e8499f2b660b451eca31ee6222fb842099c178b2",
+      "daily_sha256": "aaf25424fa9409b5e401786c80ea51435a160e417c5e52d5b1e7ddb12eb7d7e7",
+      "states_sha256": "f6e4724544b96c2a01d9bdf0244f93f89eec5b546c6a5f60ff6bba4c99760408",
+      "scope": "All56 public parts downloaded, size/SHA/CRC/paths/population/Source bytes authenticated; every daily/input proof and latest target branch content proof equals Colab. No training, Final or peer approval.",
+      "evidence_url": "https://drive.google.com/file/d/1k0gH58SMseJ_04MT7uQdFumgO6yi2hEh/view",
+      "evidence_bytes": 102070,
+      "evidence_sha256": "f1c41b25d1bac003ac97b30e6267dbc906845e6f564ada846f493abea4f3b53f",
+      "download_transport": "42 parts anonymous;14 parts connected Drive stream after public link retrieval failures. Same immutable catalog, no sharing/account changes.",
+      "evidence_remote_roundtrip": "PASS102070bytes/SHA/ZIP CRC/all15 manifest payloads after anonymous Drive readback"
+    }
+  },
+  "runtime_interruption": {
+    "provider_notice": "Colab runtime disconnected due to inactivity or reaching maximum duration; precise cause not supplied",
+    "reconnect_notice": "Cannot connect to GPU backend: usage limits in Colab",
+    "matched_target_archive_receipt_pairs_listed": 451,
+    "selected_source_archive_receipt_pairs_listed": 3,
+    "matched_required": 690,
+    "remaining_targets_if_all451_restore": 239,
+    "backup_folder_url": "https://drive.google.com/drive/folders/1xHOCjUbC-TM_b7lJqZEVed1ZEhrwGwu_",
+    "inventory_scope": "Complete909-file connector listing,451 target ZIP/receipt filename pairs plus3 Source pairs/context. Actual451 target content restore remains to be verified. No current GPU process liveness claim.",
+    "old_queue_scope": "Bridge/city queues belonged to the disconnected runtime, are not live waits now, and must be explicitly redispatched after verified restore. No account rotation/purchase/retraining of completed runs.",
+    "cpu_reconnect": {
+      "python": "3.13.16",
+      "torch": "2.11.0+cpu",
+      "gpu_available": false,
+      "old_runtime_files_present": false,
+      "drive_mount": "Failed after2minutes with ValueError: mount failed. Existing notebook authorization refresh attempted, no account or permissions changed."
+    },
+    "original_prefix_check": {
+      "status": "451_filename_pairs_exact_original_prefix",
+      "required": 690,
+      "present_pairs": 451,
+      "remaining": 239,
+      "first_remaining_run": "urbanev-SZH-2152-28d-target_only-seed42",
+      "scope": "Authenticated original plan plus complete connector folder listing; filename continuity only. Full archive/receipt/content checks pending. No favorable selection or fitting."
+    }
   }
 }

@@ -318,3 +318,66 @@ the catalog last. It neither retrains nor restarts the GPU process. CPU/I-O over
 with matched execution is recorded; affected wall times are not isolated latency
 measurements. Canonical completion, anonymous download, complete local restoration
 and peer acceptance remain pending. See the [exact evidence](issue23-primary-recovery-plan-evidence.json).
+
+
+### Complete 648-run recovery: independent physical verification passed
+
+The [canonical export](https://drive.google.com/drive/folders/1ykS8yHGKs-IiUgupbclkW2CWk6ahd-Hj)
+completed with 56 parts totaling 912,026,869 bytes. Catalog SHA-256:
+`c3818e006b014b4e2d47a0e1392eb5e73723ca00d2df2e385a8f946fcaf0bc59`.
+All parts were downloaded outside the runtime, checked for size/hash/ZIP CRC and
+safe nonoverlapping payload paths, then restored into a new local directory.
+42 parts used anonymous Drive downloads; 14 used the connected Drive stream after
+anonymous link retrieval failed. Sharing, accounts and expected hashes were not
+changed. The failed downloader log and each successful part were preserved.
+
+Independent read-only CPU verification of every restored daily forecast/label/event
+chain and latest model/optimizer/RNG branch passed for all 648 runs. Full daily/input
+and latest-state proof objects exactly equal the Colab proofs. The three selected
+Source checkpoint bytes also match the catalog and original Source hashes.
+No bundled code was executed and no local training was performed. The verifier
+code was confirmed unchanged from export commit `1ac2ae0`; local verification
+ran at `6b16a3e`. Historical states intentionally absent in the original latest-state
+policy remain absent; they were not reconstructed or presented as recovered.
+
+The [independent evidence archive](https://drive.google.com/file/d/1k0gH58SMseJ_04MT7uQdFumgO6yi2hEh/view)
+contains transport/content proofs, commands and actual stage logs, scripts and the
+immutable catalog: 102,070 bytes, SHA-256
+`f1c41b25d1bac003ac97b30e6267dbc906845e6f564ada846f493abea4f3b53f`.
+Daily proof SHA-256 is
+`aaf25424fa9409b5e401786c80ea51435a160e417c5e52d5b1e7ddb12eb7d7e7`;
+latest-state proof SHA-256 is
+`f6e4724544b96c2a01d9bdf0244f93f89eec5b546c6a5f60ff6bba4c99760408`.
+
+This completes the missing 648-run proxy physical-artifact recovery, not all
+primary comparisons, same-environment bridge, six-city Development acceptance,
+independent peer reproduction or Final. The 690 matched recovery and 114-cell
+bridge remain separate gates. The CPU verifier/export overlapped matched runs
+242–283 for 372.586 seconds; affected wall times are explicitly not isolated
+method-latency measurements. No calibration choice or outcome was changed.
+
+
+### Provider runtime interruption after the verified proxy handoff
+
+Colab then explicitly reported runtime disconnection due to inactivity or maximum
+duration, and the same-account reconnect reported GPU usage limits. The exact
+original disconnection cause is not supplied. There is no current GPU-job liveness
+claim. The queues in that runtime also need redispatch after restoration; cached
+PID/output text is not a live process. No account was rotated or compute purchased.
+
+The complete matched backup folder inventory has 909 files: 451 target ZIP/receipt
+filename pairs, three selected Source ZIP/receipt pairs and context. If every target
+pair passes restoration, 239 of the planned 690 matched runs remain. The filename
+inventory alone is not content verification; CPU restoration is the next check.
+The completed 648-run proxy handoff already passed complete off-runtime checks
+and remains safe on Drive and local storage. Its uploaded independent evidence
+also passed anonymous size/hash/ZIP CRC/all 15 payload checks on readback.
+
+The 451 matched filename pairs exactly form the first 451 IDs in the authenticated
+original 690-run plan; there are no ID gaps, reordered selection or extra targets.
+The first remaining ID is `urbanev-SZH-2152-28d-target_only-seed42`. A same-account
+CPU runtime connected with Python3.13.16/Torch2.11.0+cpu and no old runtime files.
+Its Drive mount failed after two minutes (`ValueError: mount failed`), so this
+step did not restore or execute matched targets. GPU access and the Drive mount
+remain concrete recovery blockers; the 451 archive contents are not yet claimed
+verified from the directory listing.
