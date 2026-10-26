@@ -91,6 +91,7 @@ def replay_target(
     max_origins: int | None = None,
     event_sink: Callable[[int, str], None] | None = None,
     event_start_index: int = 0,
+    forecast_sink: Callable[[int, str], None] | None = None,
 ) -> ReplaySummary:
     """Replay the accepted schedule; parse each label only after forecasting.
 
@@ -254,6 +255,8 @@ def replay_target(
                     event = Origin(origin_label, index, None, None, "skipped_all_missing_history")
                 runner.forecast(event)
                 flush_events()
+                if forecast_sink is not None:
+                    forecast_sink(index, origin_label)
         # A resumed prior origin was already forecast. New labels are parsed
         # only after the matching forecast or scheduled skip was persisted.
         label_row = next(labels, None)

@@ -39,6 +39,11 @@ from experiments.hung_sprint2.memory import model_optimizer_tensor_bytes, model_
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
 from experiments.hung_sprint2.replay_inputs import _target_rows, replay_target
 from experiments.hung_sprint2.single_baseline import SingleBaselineRunner, validate_single_binding
+from experiments.hung_sprint2.single_forecast_journal import (
+    append_forecast,
+    start_journal,
+    verify_forecast_journal,
+)
 from experiments.hung_sprint2.training import load_checkpoint, source_step
 
 
@@ -49,6 +54,7 @@ def _code_identity() -> dict:
         "replay_inputs.py",
         "single_baseline.py",
         "single_baseline_cli.py",
+        "single_forecast_journal.py",
         "evaluation.py",
     )
     return {
@@ -363,14 +369,26 @@ def _replay(args: argparse.Namespace) -> dict:
         resumed_from = None
     else:
         resume_path = args.resume_checkpoint.resolve()
-        previous = json.loads(
-            (resume_path.parent / "run_manifest.json").read_text(encoding="utf-8")
+        previous_path = resume_path.parent / "run_manifest.json"
+        previous = (
+            json.loads(previous_path.read_text(encoding="utf-8"))
+            if previous_path.exists()
+            else None
         )
         resume_sha = sha256_file(resume_path)
-        if (
+        prior_forecasts = verify_forecast_journal(resume_path.parent, path, binding, code)
+        if previous is None:
+            if not prior_forecasts or resume_path.name != prior_forecasts[-1]["checkpoint"]:
+                raise ValueError("Interrupted resume must use latest issued forecast")
+            if resume_sha != prior_forecasts[-1]["checkpoint_sha256"]:
+                raise ValueError("Interrupted forecast checkpoint hash differs")
+        elif (
             previous.get("schema") != "hung-single-baseline-replay-v1"
             or previous.get("status") != "completed"
             or previous.get("final_runner_checkpoint_sha256") != resume_sha
+            or previous.get("forecast_journal", {}).get("sha256")
+            != sha256_file(resume_path.parent / "forecasts.jsonl")
+            or previous.get("forecast_journal", {}).get("count") != len(prior_forecasts)
             or previous.get("input_binding") != binding
             or previous.get("config", {}).get("method") != args.method
             or previous.get("config", {}).get("block_days") != args.block_days
@@ -384,7 +402,11 @@ def _replay(args: argparse.Namespace) -> dict:
         )
         if runner.next_index >= args.max_origins:
             raise ValueError("Resume horizon must extend the committed cursor")
-        resumed_from = {"run_id": previous["run_id"], "checkpoint_sha256": resume_sha}
+        resumed_from = {
+            "run_id": previous["run_id"] if previous is not None else resume_path.parent.name,
+            "checkpoint_sha256": resume_sha,
+            "interrupted": previous is None,
+        }
     output = _new_output(
         args.output,
         path,
@@ -394,13 +416,25 @@ def _replay(args: argparse.Namespace) -> dict:
         *([args.resume_checkpoint.parent] if args.resume_checkpoint else []),
     )
     output.mkdir(parents=True, exist_ok=False)
-    replay = replay_target(
-        path,
-        manifest_sha256=args.manifest_sha256,
-        entity_id=args.entity_id,
-        runner=runner,
-        max_origins=args.max_origins,
+    journal_path = output / "forecasts.jsonl"
+    prior_event_count = len(runner.events)
+    with start_journal(journal_path, binding, code) as journal:
+        replay = replay_target(
+            path,
+            manifest_sha256=args.manifest_sha256,
+            entity_id=args.entity_id,
+            runner=runner,
+            max_origins=args.max_origins,
+            forecast_sink=lambda index, day_id: append_forecast(
+                journal, output, runner, index, day_id, _save_state
+            ),
+        )
+    journal_records = verify_forecast_journal(output, path, binding, code)
+    expected_new = sum(
+        event.startswith(("forecast:", "skip:")) for event in runner.events[prior_event_count:]
     )
+    if expected_new != len(journal_records):
+        raise ValueError("Forecast journal coverage differs")
     evaluation = _evaluate(runner, replay)
     checkpoint_sha = _save_state(output / "runner.pt", runner.state_dict())
     summary = {
@@ -429,6 +463,12 @@ def _replay(args: argparse.Namespace) -> dict:
         else model_tensor_bytes(runner.model),
         "cost_scope": "one-model inference/update timers; total duration includes validation, I/O and checkpointing; upstream training shown separately",
         "event_evidence": {"events": runner.events, "issued_count": len(runner.issued)},
+        "forecast_journal": {
+            "file": journal_path.name,
+            "sha256": sha256_file(journal_path),
+            "count": len(journal_records),
+            "checkpoints": [row["checkpoint_sha256"] for row in journal_records],
+        },
         "runner_cursor": runner.next_index,
         "final_runner_checkpoint_sha256": checkpoint_sha,
         "duration_seconds": time.perf_counter() - started,

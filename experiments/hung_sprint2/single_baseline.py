@@ -93,6 +93,7 @@ class SingleBaselineRunner:
         self.days: list[str] = []
         self.issued: list[dict] = []
         self.events: list[str] = []
+        self.seen_days: set[str] = set()
         self.cost = {
             "inference_calls": 0,
             "inference_ns": 0,
@@ -109,7 +110,7 @@ class SingleBaselineRunner:
     def forecast(self, origin: Origin) -> None:
         if self.pending is not None or len(self.days) == self.controller.block_days:
             raise ValueError("Previous event/block is unfinished")
-        if origin.index != self.next_index or not origin.day_id:
+        if origin.index != self.next_index or not origin.day_id or origin.day_id in self.seen_days:
             raise ValueError("Forecast origin sequence differs")
         if origin.status == "skipped_all_missing_history":
             if origin.x_hist is not None or origin.c_future is not None:
@@ -120,6 +121,7 @@ class SingleBaselineRunner:
                 "status": origin.status,
                 "block_id": self.block_id,
             }
+            self.seen_days.add(origin.day_id)
             self.events.append(f"skip:{origin.day_id}")
             return
         if origin.status != "created" or origin.x_hist is None or origin.c_future is None:
@@ -159,6 +161,7 @@ class SingleBaselineRunner:
                 "y_scaled": None,
             }
         )
+        self.seen_days.add(origin.day_id)
         self.events.append(f"forecast:{origin.day_id}")
 
     def arrive(self, label: LabelArrival) -> None:
@@ -237,6 +240,7 @@ class SingleBaselineRunner:
             "days": list(self.days),
             "issued": deepcopy(self.issued),
             "events": list(self.events),
+            "seen_days": sorted(self.seen_days),
             "cost": deepcopy(self.cost),
             "torch_rng": torch.get_rng_state().clone(),
             "cuda_rng": torch.cuda.get_rng_state(self.device).clone()
@@ -290,6 +294,9 @@ class SingleBaselineRunner:
             "cost",
         ):
             setattr(runner, name, deepcopy(state[name]))
+        runner.seen_days = set(state["seen_days"])
+        if len(runner.seen_days) != len(state["seen_days"]):
+            raise ValueError("Duplicate forecast day in checkpoint")
         if runner.cost["candidate_count"] != 1 or runner.cost["audit_calls"] != 0:
             raise ValueError("Single-model cost accounting differs")
         torch.set_rng_state(state["torch_rng"])
