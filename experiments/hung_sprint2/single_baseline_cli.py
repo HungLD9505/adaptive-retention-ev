@@ -1,4 +1,4 @@
-"""Create-only Target-only initialization and single-model Development replay."""
+"""Create-only Target-only initialization and single-policy Development replay."""
 
 from __future__ import annotations
 
@@ -231,9 +231,12 @@ def _load_initial(
 ) -> tuple[ForecastGRU | None, torch.optim.Adam | None, str | None, str | None, dict]:
     if args.method == "seasonal_naive":
         if device.type != "cpu" or any(
-            value is not None for value in (
-                args.initial_checkpoint, args.source_checkpoint,
-                args.source_input_run, args.source_manifest_sha256,
+            value is not None
+            for value in (
+                args.initial_checkpoint,
+                args.source_checkpoint,
+                args.source_input_run,
+                args.source_manifest_sha256,
             )
         ):
             raise ValueError("Seasonal Naive uses CPU history only and no checkpoint/Source")
@@ -369,7 +372,8 @@ def _replay(args: argparse.Namespace) -> dict:
         "max_origins": args.max_origins,
         "device": device.type,
         "fallback_policy": "previous_day_24h_last_observed_fallback"
-        if args.method == "seasonal_naive" else None,
+        if args.method == "seasonal_naive"
+        else None,
     }
     if args.resume_checkpoint is None:
         runner = SingleBaselineRunner(
@@ -486,8 +490,11 @@ def _replay(args: argparse.Namespace) -> dict:
         **evaluation,
         "cost": runner.cost,
         "model_tensor_bytes": 0 if runner.model is None else model_tensor_bytes(runner.model),
-        "model_optimizer_tensor_bytes": 0 if runner.model is None else model_optimizer_tensor_bytes(runner.model, runner.optimizer)
-        if runner.optimizer is not None else model_tensor_bytes(runner.model),
+        "model_optimizer_tensor_bytes": 0
+        if runner.model is None
+        else model_optimizer_tensor_bytes(runner.model, runner.optimizer)
+        if runner.optimizer is not None
+        else model_tensor_bytes(runner.model),
         "cost_scope": "One forecasting policy, zero trainable models for Seasonal Naive; no candidate/audit/update work. Total duration includes validation, I/O and checkpointing; upstream training shown separately.",
         "event_evidence": {"events": runner.events, "issued_count": len(runner.issued)},
         "forecast_journal": {
@@ -525,7 +532,9 @@ def main(argv: list[str] | None = None) -> int:
     initial.add_argument("--learning-rate", type=float, required=True)
     initial.add_argument("--batch-size", type=int, required=True)
     initial.add_argument("--steps", type=int, required=True)
-    replay.add_argument("--method", choices=("target_only", "frozen_source", "seasonal_naive"), required=True)
+    replay.add_argument(
+        "--method", choices=("target_only", "frozen_source", "seasonal_naive"), required=True
+    )
     replay.add_argument("--initial-checkpoint", type=Path)
     replay.add_argument("--source-input-run", type=Path)
     replay.add_argument("--source-manifest-sha256")
