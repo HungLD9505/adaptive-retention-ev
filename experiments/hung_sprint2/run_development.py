@@ -45,10 +45,32 @@ def _invoke(arguments: list[str], *, execute: bool) -> None:
         )
 
 
+def verification_split_limit(block_days: int, max_origins: int) -> int:
+    """Cross two completed block decisions before the optional resumed segment."""
+    if (
+        isinstance(block_days, bool)
+        or not isinstance(block_days, int)
+        or block_days < 1
+        or isinstance(max_origins, bool)
+        or not isinstance(max_origins, int)
+        or max_origins < 2 * block_days + 1
+    ):
+        raise ValueError("Verification replay needs two block boundaries and a next origin")
+    return min(3 * block_days, max_origins)
+
+
 def run(args: argparse.Namespace) -> None:
     config = json.loads(args.config.read_text(encoding="utf-8"))
     if config.get("schema") != "hung-sprint2-development-config-v1":
         raise ValueError("Expected reviewed Development config v1")
+    target_kind = config["target"].get("retention_kind", "latent")
+    replay_kind = config["replay"].get("retention_kind", "latent")
+    if target_kind != replay_kind or target_kind not in {"latent", "parameter"}:
+        raise ValueError("Target/replay retention kind differs")
+    if target_kind == "parameter" and (
+        config["target"]["retention_weight"] != config["replay"]["initial_level"]
+    ):
+        raise ValueError("Parameter ablation initial lambda differs from target initialization")
     selection = json.loads(args.selection.read_text(encoding="utf-8"))
     runs = []
     for budget in (7, 14, 28):
@@ -168,6 +190,8 @@ def run(args: argparse.Namespace) -> None:
                     str(config["target"]["learning_rate"]),
                     "--retention-weight",
                     str(config["target"]["retention_weight"]),
+                    "--retention-kind",
+                    target_kind,
                     "--epsilon",
                     str(config["target"]["epsilon"]),
                     "--seed",
@@ -211,9 +235,9 @@ def run(args: argparse.Namespace) -> None:
                         for item in ("--" + key.replace("_", "-"), str(value))
                     ],
                 ]
-                first_limit = min(42, replay_config["max_origins"])
-                if first_limit < 28:
-                    raise ValueError("Verification replay must cross two 14-day boundaries")
+                first_limit = verification_split_limit(
+                    replay_config["block_days"], replay_config["max_origins"]
+                )
                 first_output = replay_parent / f"replay-{first_limit}"
                 first = _verified_output(first_output, "runner_checkpoint.pt", code)
                 if first is None:

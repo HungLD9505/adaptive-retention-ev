@@ -39,9 +39,15 @@ parameter. The 7- and 28-day variants change only this value from the main
 candidate count and update budgets remain unchanged. Offline 7/28 fixtures
 cross a decision boundary and verify split/resume parity with uninterrupted
 replay, including candidate models, optimizers, issued forecasts and events.
-The Development matrix orchestrator still assumes two **14-day** boundaries in
-its dedicated verification mode; 7/28 experiments require an explicit
-compatible execution plan and cannot be claimed from that mode.
+The two versioned proposal files are `development_block7_proposal_v1.json` and
+`development_block28_proposal_v1.json`; tests compare them against the 14-day
+base config and require no other method-setting difference.
+The Development matrix orchestrator now derives its verification split from
+`block_days`: 21/42/84 origins for 7/14/28-day blocks at a 90-origin horizon.
+It requires two block boundaries and the next origin, and checks target/replay
+retention kind plus initial parameter lambda before execution. The existing
+14-day config still splits at 42. These are code-path checks only; no 7/28
+real-data runs are claimed.
 
 ## Remaining evidence
 
