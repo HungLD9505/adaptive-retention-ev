@@ -206,3 +206,13 @@ Seven additional offline fixtures cover backup argument propagation, explicit
 resume, byte-preserving copy/overwrite refusal, corrupted pending copy, durable
 stage failure, changed-source copy identity, wrong-checkout refusal and canonical-export population/hash checks. Full cloud execution
 of this maintained pipeline is recorded only when actually observed.
+
+The maintained city pipeline atd5f6157 passed340 local tests in5.753 seconds,
+Ruff/source-list/diff checks and CI40369603121. Its actual Colab bootstrap passed
+340 tests in30.830 seconds and Ruff checks, then the city queue was observed
+waiting on the live selected-proxy-bridge PID13716. The queue holds LOA→SZH→AMS;
+MEL had already been launched earlier, but its old job and full SPO raw outputs
+remain inaccessible and are not overwritten/replaced. No new city training was
+claimed at that observation. Each new city receives its own input, three Sources,
+cohort, backups and canonical handoff. See the
+[exact code, queue and verification evidence](issue23-durable-recovery-evidence.json).

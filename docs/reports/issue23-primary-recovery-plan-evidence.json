@@ -103,5 +103,22 @@
     "kit_sha256": "f945e2efb5cccf71037704b92d2ffec20cda486635929633775590d3ab060c34",
     "folder_url": "https://drive.google.com/drive/folders/1JxhIwKEYEPlrDjrvW299K1PRMbHGui5k",
     "gate": "OS pidfd must signal dependency exit; both648proxy/690matched matrices and exit records must prove success before dispatch; any failure stops rather than restarting"
+  },
+  "partial_reproduction_check": {
+    "snapshot_completed_rows": 245,
+    "newly_executed_difference_records": 244,
+    "rescued_first_record_stored_separately": true,
+    "changed_field_counts": {},
+    "fields_checked": [
+      "active_mae_kwh",
+      "active_rmse_kwh",
+      "scheduled_days",
+      "issued_days",
+      "scored_days",
+      "prediction_identity_sha256",
+      "candidate_steps",
+      "audit_steps"
+    ],
+    "scope": "All checked fields identical in this downloaded partial snapshot; not complete-matrix, original-byte, final-state equality or effectiveness acceptance"
   }
 }

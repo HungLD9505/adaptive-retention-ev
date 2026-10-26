@@ -133,5 +133,42 @@
     "run_id": 40354758097,
     "status": "completed",
     "conclusion": "success"
+  },
+  "city_pipeline": {
+    "code_sha": "d5f61570e29dd1b6c2b1b48dd00fd8eeb9670a48",
+    "code_bundle_url": "https://drive.google.com/file/d/11IoGXLmS3U2u7yGe_ZVlh0rM1PjSlnq4/view",
+    "bytes": 7910447,
+    "sha256": "4318d5dcb43ce2ee83c2721a4e14e6c4d0bf4e47b4a938190a2d678dba2cdf08",
+    "core_algorithm_diff": "empty relative to1ac2ae0",
+    "local_tests": 340,
+    "local_seconds": 5.753,
+    "cloud_bootstrap_tests": 340,
+    "cloud_seconds": 30.83,
+    "ruff_lint": "PASS",
+    "ruff_format": "PASS",
+    "ci_run_id": 40369603121,
+    "ci_conclusion": "success",
+    "scope": "Pipeline orchestration/bootstrap verified; no new city training/completion or independent handoff claimed yet"
+  },
+  "charged_queue": {
+    "run_id": "qyroven-charged-durable-queue-20261027-v1",
+    "pid": 18387,
+    "status": "live_verified_wait_on_bridge_pid13716",
+    "folder_url": "https://drive.google.com/drive/folders/1aRkLSsCjIqJVYDll7M4h-t7MFJZsCiQz",
+    "queue_source_url": "https://drive.google.com/file/d/1_hLH6KBwayb02t561JsJ2R_GOBP7_Stt/view",
+    "tests_log_url": "https://drive.google.com/file/d/1BM9CkEhJ5GcuAfyhuL8LPdTFpgdfcOR5/view",
+    "cities": [
+      "LOA",
+      "SZH",
+      "AMS"
+    ],
+    "expected_target_runs_per_city": 378,
+    "expected_source_examples_per_epoch": {
+      "LOA": 12330,
+      "SZH": 79740,
+      "AMS": 134640
+    },
+    "admission": "OS pidfd must confirm bridge completion; bridge exit0/complete114-row matrix required. Every city stage must succeed before next city; failed bytes/logs preserved, no automatic rerun. Each city trains its own three Sources; primary numerical choices only are transferred.",
+    "remaining": "Old SPO/MEL full artifact/liveness recovery remains unresolved and is not silently replaced"
   }
 }
