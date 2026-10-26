@@ -936,12 +936,18 @@
     "independent_proof_bytes": 7952
   },
   "current_recovery_status": {
-    "new_runtime_targets_fully_published": 111,
+    "new_runtime_targets_fully_published": 135,
     "new_runtime_planned_targets": 742,
     "old_missing_proxy_fully_restored": 648,
     "old_matched_prefix_fully_restored": 451,
     "old_matched_physically_missing": 239,
-    "interpretation": "Different collections with historical repeats; do not add as unique experiments or claim full scope. Old16 complete units/224 selected cells preserved; new742 selected replays remain frozen, with111 fully published. Final unapproved and not executed."
+    "interpretation": "Different collections with historical repeats; do not add as unique experiments or claim full scope. Old16 complete units/224 selected cells preserved; frozen742 replays now have135 fully published. Final unapproved and not executed.",
+    "next_bounded_dispatch": {
+      "family": "proxy",
+      "start": 135,
+      "end": 147,
+      "status": "submitted; terminal completion and external publication not yet verified"
+    }
   },
   "kaggle_offset39_continuation": {
     "pid": 1186,
@@ -1222,5 +1228,85 @@
     "publication_receipt_url": "https://drive.google.com/file/d/1kXIW6yowkVN_rjUVARuVDxcPkUaVw7Q5/view",
     "publication_receipt_sha256": "3e03be821433dc866ee5c954c47e052c78109ae3380b03c8ac5ec5801ea393d9",
     "independent_proof_url": "https://drive.google.com/file/d/1eI0UOx4HbbuDv0caKCLNQqRFxqQKaze-/view"
+  },
+  "kaggle_offset111_verified_publication": {
+    "start": 111,
+    "end": 123,
+    "publication": {
+      "schema": "verified-kaggle-outbox-publication-v1",
+      "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+      "family": "proxy",
+      "start": 111,
+      "end": 123,
+      "run_ids": [
+        "urbanev-SZH-1153-14d-parameter_retention-seed42-recipe2",
+        "urbanev-SZH-1153-14d-source_error-seed43-recipe1",
+        "urbanev-SZH-1153-14d-uncertainty-seed43-recipe1",
+        "urbanev-SZH-1153-14d-drift-seed43-recipe3",
+        "urbanev-SZH-1153-14d-parameter_retention-seed43-recipe2",
+        "urbanev-SZH-2152-28d-source_error-seed42-recipe1",
+        "urbanev-SZH-2152-28d-uncertainty-seed42-recipe1",
+        "urbanev-SZH-2152-28d-drift-seed42-recipe3",
+        "urbanev-SZH-2152-28d-parameter_retention-seed42-recipe2",
+        "urbanev-SZH-2152-28d-source_error-seed43-recipe1",
+        "urbanev-SZH-2152-28d-uncertainty-seed43-recipe1",
+        "urbanev-SZH-2152-28d-drift-seed43-recipe3"
+      ],
+      "independent_content_verified": true,
+      "remote_readback_verified": true,
+      "artifact": {
+        "drive_url": "https://drive.google.com/file/d/1Cf-TDiL_aoVsM1s3_UZjx2XFfuLWiabv/view",
+        "bytes": 32783319,
+        "sha256": "a8e421cac16527842f0f4e12a0daeb79ec56f7078439d58f1ab2ceb861ac2e7f"
+      },
+      "verification_sha256": "77eb9e12a5f4f3bcd578603fb8a918b3150636c6052398efb6b4807c70eab4ac",
+      "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+      "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/1WEboUsOxJ_EX4jV_O0vnGdLin8_-ajqn/view",
+    "publication_receipt_sha256": "0d038fd9ef40decdecf37e2ac1a8290de3f2e816b07e48cba46d637a59bd9790",
+    "independent_proof_url": "https://drive.google.com/file/d/1n0vgelp1oyqPMPQgOyxEYpL7nkpL3LOw/view",
+    "independent_proof_sha256": "8e87ddba9ddb3b92c04060f4e051d6cdb2b4dd6a2cb453878d12090a935244f8",
+    "independent_proof_bytes": 9202
+  },
+  "kaggle_offset123_verified_publication": {
+    "start": 123,
+    "end": 135,
+    "publication": {
+      "schema": "verified-kaggle-outbox-publication-v1",
+      "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+      "family": "proxy",
+      "start": 123,
+      "end": 135,
+      "run_ids": [
+        "urbanev-SZH-2152-28d-parameter_retention-seed43-recipe2",
+        "urbanev-SZH-2152-28d-source_error-seed44-recipe1",
+        "urbanev-SZH-2152-28d-uncertainty-seed44-recipe1",
+        "urbanev-SZH-2152-28d-drift-seed44-recipe3",
+        "urbanev-SZH-2152-28d-parameter_retention-seed44-recipe2",
+        "urbanev-SZH-2005-28d-source_error-seed42-recipe1",
+        "urbanev-SZH-2005-28d-uncertainty-seed42-recipe1",
+        "urbanev-SZH-2005-28d-drift-seed42-recipe3",
+        "urbanev-SZH-2005-28d-parameter_retention-seed42-recipe2",
+        "urbanev-SZH-2005-28d-source_error-seed43-recipe1",
+        "urbanev-SZH-2005-28d-uncertainty-seed43-recipe1",
+        "urbanev-SZH-2005-28d-drift-seed43-recipe3"
+      ],
+      "independent_content_verified": true,
+      "remote_readback_verified": true,
+      "artifact": {
+        "drive_url": "https://drive.google.com/file/d/1Mmx8eFQNP_v-_fGEZ5k3Li-wJqdkSbl9/view",
+        "bytes": 35631751,
+        "sha256": "5eef50ca177b8ab3c5db3fd4af0db66a5e28e4e9ae6f103e4f14aa2dea62eb29"
+      },
+      "verification_sha256": "585cc0f400aa9ae0183b356c83970a263bf4f554cb193bc19b56ba7794c22022",
+      "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+      "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+    },
+    "publication_receipt_url": "https://drive.google.com/file/d/1DoWUf-wfIK80JUSYx-gTQsZQs0bEVA_m/view",
+    "publication_receipt_sha256": "ee8ab27a57c9e488e8835763f9bc5816c3749e8a5598567d649009627ad99355",
+    "independent_proof_url": "https://drive.google.com/file/d/175III5KRbw9UOVfErLhFdgF1BzVFO_oV/view",
+    "independent_proof_sha256": "f7031386cae580dcd313cfec4d3e212e96ce29120f073e931779aae5a7418629",
+    "independent_proof_bytes": 9447
   }
 }

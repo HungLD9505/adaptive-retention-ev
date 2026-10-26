@@ -334,3 +334,34 @@ budgets, without fitting: AMS134,640 Source examples; JHB2,340; LOA12,330;
 MEL3,060; SPO2,610; SZH79,740. Each existing city plan declares378 target cells;
 these counts do not assert execution. New Source GPU fitting and portable Source
 publication remain unverified. No Final access, merge or issue acceptance.
+
+
+## Recovery checkpoint — 2026-10-27, published prefix 135
+
+The frozen runtime-fair UrbanEV recovery plan now has **135/742** target replays
+externally published and independently restored. This is recovery-plan progress,
+not the percentage of the thesis or the complete experiment matrix. Historical
+648 proxy outputs and the451 matched prefix remain separately preserved; these
+collections overlap and must not be added as unique experiments.
+
+The latest12-run chunk, offsets123–134, completed on cloud GPU. Its35,631,751-byte
+[canonical archive](https://drive.google.com/file/d/1Mmx8eFQNP_v-_fGEZ5k3Li-wJqdkSbl9/view)
+has SHA-256 `5eef50ca177b8ab3c5db3fd4af0db66a5e28e4e9ae6f103e4f14aa2dea62eb29`.
+A fresh Drive download passed safe restoration, complete daily/input/state checks
+and all three original Source checkpoint reloads. The
+[publication receipt](https://drive.google.com/file/d/1DoWUf-wfIK80JUSYx-gTQsZQs0bEVA_m/view)
+and [independent proof](https://drive.google.com/file/d/175III5KRbw9UOVfErLhFdgF1BzVFO_oV/view)
+are uploaded separately. Exact run IDs and hashes are recorded in
+`issue23-primary-recovery-plan-evidence.json`.
+
+Only after this publication was verified was the next bounded chunk135–146
+submitted. Its completion and backup are not yet claimed. Each chunk stops after
+at most12 runs pending external publication. A lost runtime can still lose its
+unpublished chunk; already published chunks can be restored without retraining.
+The notebook/runtime alone is not durable storage.
+
+The exact committed code at `cab601d` passed356 tests in5.986 seconds locally.
+The new separate-city Source outbox remains implementation-tested only; no new
+city Source GPU training is claimed. CHARGED six-city completion, the remaining
+runtime-fair comparisons, independent Final-lock approval and Final evaluation
+are outstanding. No merge, protocol change or Final execution occurred.
