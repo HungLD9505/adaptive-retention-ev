@@ -15,7 +15,7 @@ from ev_inputs.windows import ready_labels
 from experiments.hung_sprint2.cli import _load_run
 from experiments.hung_sprint2.replay_inputs import _label_record, _target_rows
 
-SCHEMA = "hung-single-forecast-journal-v1"
+SCHEMA = "hung-single-forecast-journal-v2"
 
 
 def _append(stream, record: dict) -> None:
@@ -72,6 +72,7 @@ def append_forecast(stream, output: Path, runner, index: int, day_id: str, save_
             "day_id": day_id,
             "status": runner.pending["status"],
             "prediction": None if issued is None else issued["prediction"].squeeze(0).tolist(),
+            "fallback_hours": 0 if issued is None else issued["fallback_hours"],
             "checkpoint": checkpoint_name,
             "checkpoint_sha256": digest,
         },
@@ -114,6 +115,7 @@ def verify_forecast_journal(output: Path, input_run: Path, binding: dict, code: 
             "day_id",
             "status",
             "prediction",
+            "fallback_hours",
             "checkpoint",
             "checkpoint_sha256",
         }:
@@ -159,9 +161,10 @@ def verify_forecast_journal(output: Path, input_run: Path, binding: dict, code: 
                 or issued["normalized_mae"] is not None
                 or issued["y_scaled"] is not None
                 or issued["prediction"].squeeze(0).tolist() != record["prediction"]
+                or issued["fallback_hours"] != record["fallback_hours"]
             ):
                 raise ValueError("Issued forecast was changed before label")
-        elif issued is not None or record["prediction"] is not None:
+        elif issued is not None or record["prediction"] is not None or record["fallback_hours"] != 0:
             raise ValueError("Skipped origin carries a forecast")
         issued_events = [
             event
@@ -209,6 +212,7 @@ def verify_final_runner(records: list[dict], state: dict, input_run: Path, bindi
             issued["index"] != forecast["index"]
             or issued["day_id"] != forecast["day_id"]
             or issued["prediction"].squeeze(0).tolist() != forecast["prediction"]
+            or issued["fallback_hours"] != forecast["fallback_hours"]
         ):
             raise ValueError("Final runner prediction differs from issued journal")
         label = issued["y_scaled"]

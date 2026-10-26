@@ -12,9 +12,10 @@ import torch
 
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
 from experiments.hung_sprint2.runner import LabelArrival, Origin
+from experiments.hung_sprint2.seasonal_naive import forecast_previous_day
 from experiments.hung_sprint2.training import source_step
 
-METHODS = ("target_only", "frozen_source")
+METHODS = ("target_only", "frozen_source", "seasonal_naive")
 BINDING_FIELDS = {
     "schema",
     "method",
@@ -42,9 +43,20 @@ def validate_single_binding(binding: dict) -> None:
     for key in ("input_run_id", "dataset_id", "city_id", "entity_id", "scale_id"):
         if not isinstance(binding[key], str) or not binding[key]:
             raise ValueError(f"Missing single-model {key}")
-    for key in ("input_manifest_sha256", "initial_checkpoint_sha256"):
-        if not isinstance(binding[key], str) or not re.fullmatch(r"[0-9a-f]{64}", binding[key]):
-            raise ValueError(f"Invalid single-model {key}")
+    if not isinstance(binding["input_manifest_sha256"], str) or not re.fullmatch(
+        r"[0-9a-f]{64}", binding["input_manifest_sha256"]
+    ):
+        raise ValueError("Invalid single-model input_manifest_sha256")
+    initial_sha = binding["initial_checkpoint_sha256"]
+    if binding["method"] == "seasonal_naive":
+        if any(binding[key] is not None for key in (
+            "initial_checkpoint_sha256", "source_checkpoint_sha256",
+            "source_input_manifest_sha256",
+        )):
+            raise ValueError("Seasonal Naive must not use a model or Source checkpoint")
+        return
+    if not isinstance(initial_sha, str) or not re.fullmatch(r"[0-9a-f]{64}", initial_sha):
+        raise ValueError("Invalid single-model initial_checkpoint_sha256")
     source_sha = binding["source_checkpoint_sha256"]
     source_manifest = binding["source_input_manifest_sha256"]
     if binding["method"] == "target_only" and (
@@ -64,7 +76,7 @@ class SingleBaselineRunner:
 
     def __init__(
         self,
-        model: ForecastGRU,
+        model: ForecastGRU | None,
         optimizer: torch.optim.Adam | None,
         *,
         binding: dict,
@@ -75,12 +87,14 @@ class SingleBaselineRunner:
         if not math.isfinite(energy_scale) or energy_scale <= 0 or block_days < 1:
             raise ValueError("Invalid single-model scale/block length")
         if (binding["method"] == "target_only") != (optimizer is not None):
-            raise ValueError("Target-only requires Adam; Frozen Source forbids updates")
+            raise ValueError("Target-only requires Adam; fixed baselines forbid updates")
+        if (binding["method"] == "seasonal_naive") != (model is None):
+            raise ValueError("Only Seasonal Naive is model-free")
         self.binding = deepcopy(binding)
         self.method = binding["method"]
         self.model = model
         self.optimizer = optimizer
-        self.device = next(model.parameters()).device
+        self.device = torch.device("cpu") if model is None else next(model.parameters()).device
         if self.device.type not in ("cpu", "cuda"):
             raise ValueError("Unsupported model device")
         if self.method == "frozen_source":
@@ -101,6 +115,7 @@ class SingleBaselineRunner:
             "update_ns": 0,
             "candidate_count": 1,
             "audit_calls": 0,
+            "fallback_hours": 0,
         }
 
     def _sync(self) -> None:
@@ -131,14 +146,21 @@ class SingleBaselineRunner:
             raise ValueError("Forecast inputs must arrive on CPU")
         if x.shape != (1, 24, 7) or calendar.shape != (1, 24, 5):
             raise ValueError("Forecast input shape differs")
-        self.model.eval()
         self._sync()
         start = time.perf_counter_ns()
-        with torch.no_grad():
-            prediction = self.model(x.to(self.device), calendar.to(self.device)).cpu()
+        fallback_hours = 0
+        if self.method == "seasonal_naive":
+            seasonal = forecast_previous_day(x.squeeze(0))
+            prediction = seasonal.scaled_kwh.unsqueeze(0)
+            fallback_hours = seasonal.fallback_hours
+        else:
+            self.model.eval()
+            with torch.no_grad():
+                prediction = self.model(x.to(self.device), calendar.to(self.device)).cpu()
         self._sync()
         self.cost["inference_calls"] += 1
         self.cost["inference_ns"] += time.perf_counter_ns() - start
+        self.cost["fallback_hours"] += fallback_hours
         if not torch.isfinite(prediction).all() or torch.any(prediction < 0):
             raise ValueError("Single-model forecast is invalid")
         self.pending = {
@@ -149,6 +171,7 @@ class SingleBaselineRunner:
             "x_hist": x,
             "c_future": calendar,
             "prediction": prediction.clone(),
+            "fallback_hours": fallback_hours,
         }
         self.issued.append(
             {
@@ -156,6 +179,7 @@ class SingleBaselineRunner:
                 "index": origin.index,
                 "block_id": self.block_id,
                 "prediction": prediction.clone(),
+                "fallback_hours": fallback_hours,
                 "normalized_mae": None,
                 "mae_kwh": None,
                 "y_scaled": None,
@@ -227,8 +251,8 @@ class SingleBaselineRunner:
         return {
             "schema": "hung-single-baseline-runner-v1",
             "binding": deepcopy(self.binding),
-            "architecture": self.model.config.to_dict(),
-            "model": self.model.state_dict(),
+            "architecture": None if self.model is None else self.model.config.to_dict(),
+            "model": None if self.model is None else self.model.state_dict(),
             "optimizer": None if self.optimizer is None else self.optimizer.state_dict(),
             "energy_scale": self.energy_scale,
             "block_days": self.controller.block_days,
@@ -267,15 +291,20 @@ class SingleBaselineRunner:
             device.type == "cuda" and not torch.cuda.is_available()
         ):
             raise ValueError("Single-model checkpoint device differs")
-        model = ForecastGRU(ModelConfig(**state["architecture"])).to(device)
-        model.load_state_dict(state["model"])
-        model.encoder.flatten_parameters()
+        model = None
+        if expected_binding["method"] == "seasonal_naive":
+            if state["architecture"] is not None or state["model"] is not None:
+                raise ValueError("Seasonal Naive checkpoint contains model weights")
+        else:
+            model = ForecastGRU(ModelConfig(**state["architecture"])).to(device)
+            model.load_state_dict(state["model"])
+            model.encoder.flatten_parameters()
         optimizer = None
         if expected_binding["method"] == "target_only":
             optimizer = torch.optim.Adam(model.parameters(), lr=1.0)
             optimizer.load_state_dict(state["optimizer"])
         elif state["optimizer"] is not None:
-            raise ValueError("Frozen Source checkpoint contains optimizer")
+            raise ValueError("Fixed baseline checkpoint contains optimizer")
         runner = cls(
             model,
             optimizer,
@@ -299,6 +328,13 @@ class SingleBaselineRunner:
             raise ValueError("Duplicate forecast day in checkpoint")
         if runner.cost["candidate_count"] != 1 or runner.cost["audit_calls"] != 0:
             raise ValueError("Single-model cost accounting differs")
+        if runner.method == "seasonal_naive" and (
+            runner.cost["update_steps"] != 0
+            or runner.cost["update_ns"] != 0
+            or runner.cost["fallback_hours"]
+            != sum(row["fallback_hours"] for row in runner.issued)
+        ):
+            raise ValueError("Seasonal Naive checkpoint cost accounting differs")
         torch.set_rng_state(state["torch_rng"])
         if device.type == "cuda":
             torch.cuda.set_rng_state(state["cuda_rng"], device)
