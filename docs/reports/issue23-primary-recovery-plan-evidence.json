@@ -14,5 +14,16 @@
   "anonymous_readback": "PASS size/SHA/CRC/all9 manifest members",
   "plan_sha256": "6929cc7f5e525f8752072ba5c842f2a93e968fde19f7823e268a6bd44865ea79",
   "validation": "Read-only actual full-plan validation plus valid miniature fixture and eight fail-closed rejection cases; GPU execution and actual recovery verification pending",
-  "code_scope": "Standalone artifact driver calls unchanged runner; production model/control/runner/baseline files unchanged"
+  "code_scope": "Standalone artifact driver calls unchanged runner; production model/control/runner/baseline files unchanged",
+  "real_input_source_preflight": {
+    "url": "https://drive.google.com/file/d/1BxkYi91VLRsycS9O1azNx6EAhkuKweUQ/view",
+    "bytes": 2843,
+    "sha256": "1f7d0daabd71e4100cc129c63906488350f4216d4f6c7a50f8645e813455dcb8",
+    "anonymous_readback": "PASS size/SHA/CRC/both payload member hashes",
+    "planned_rows_verified": 1338,
+    "entity_budget_pairs": 23,
+    "source_checkpoints_cpu_loaded": 3,
+    "checks": "Accepted role/ready status, exact per-target input/scaler binding, Source fingerprint/seed/common population and finite nonnegative64-dimensional latent scale",
+    "scope": "Read-only metadata/opaque training-byte hashes and Source CPU reload; no example/Final-label decoding, optimization, inference or GPU recovery"
+  }
 }
