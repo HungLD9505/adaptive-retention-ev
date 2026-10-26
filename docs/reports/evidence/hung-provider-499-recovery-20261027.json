@@ -1,0 +1,210 @@
+{
+  "schema": "hung-provider-499-reconciliation-v1",
+  "observed_at_utc": "2026-10-26T23:49:13.931074+00:00",
+  "scope": "Development only; no independent acceptance or Final evaluation",
+  "model_code_sha": "44b8532959d76fb20691881539f991ca44983727",
+  "prepared_provider_head": "2c00a418868fe7404065325211973c60d739bb07",
+  "canonical_plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+  "shard8": {
+    "artifact_sha256": "a49fc9c6c56b5e6cdcf54bb1af15d05cb511d017f3be3cb4abfb41f17dc151e8",
+    "artifact_bytes": 74362442,
+    "execution_wall_seconds": 2087.102206692,
+    "execute_exit_code": 0,
+    "local_verify_exit_code": 0,
+    "cpu_readback_version": 362647578,
+    "cpu_readback_wall_seconds": 15.1,
+    "readback_passed": true,
+    "dataset": "https://www.kaggle.com/datasets/hungluongduc/hung-dev-shard0008-44b8532-20261027-v2/versions/1",
+    "log": {
+      "path": ".cache/kaggle-shard0008-reconcile-v1.txt",
+      "sha256": "284b8378219dc9bec667fa0d3808d25c56b5d0d58602ee9a6c313fdf2273b6ed",
+      "bytes": 790
+    }
+  },
+  "historical_failures": [
+    {
+      "path": ".cache/kaggle-group03-failure-v2.txt",
+      "sha256": "4a432617679eec8c0a22f8525f7b22fe585ac9f9fda0313d9b8e6c355207b4e0",
+      "bytes": 5175
+    },
+    {
+      "path": ".cache/kaggle-group03-recovery-v1-failure.txt",
+      "sha256": "2e8e8be3abc98cf57acbb83d64732db25330020c95bd41ea74ff1d5bb9e102ec",
+      "bytes": 1580
+    }
+  ],
+  "local_new_shards": [
+    {
+      "receipt": {
+        "artifact_bytes": 42296117,
+        "artifact_sha256": "77036b62c6174bbaceb38f27ca5119fa325d63daf508e2711ad15f3e41c43aee",
+        "crc": "passed",
+        "job_ids": [
+          "seasonal_naive_b28s7e1408",
+          "seasonal_naive_b28s7e1987",
+          "seasonal_naive_b28s7e2005",
+          "seasonal_naive_b28s7e2152",
+          "seasonal_naive_b28s7e2472",
+          "seasonal_naive_b28s7e2633",
+          "seasonal_naive_b7s7e1050",
+          "seasonal_naive_b7s7e1200",
+          "seasonal_naive_b7s7e1405",
+          "seasonal_naive_b7s7e2447",
+          "seasonal_naive_b7s7e2452",
+          "source_error_b14s11e1025",
+          "source_error_b14s11e1153",
+          "source_error_b14s11e1405",
+          "source_error_b14s11e1693",
+          "source_error_b14s11e1987",
+          "source_error_b14s11e2152",
+          "source_error_b14s11e2613",
+          "source_error_b14s11e2644",
+          "source_error_b14s19e1025"
+        ],
+        "partition_sha256": "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f",
+        "peer_acceptance": "pending",
+        "plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+        "remote_readback": "pending; archive is on persistent local SSD",
+        "shard_id": "shard_0029",
+        "wall_seconds": 1798.5153598000034
+      },
+      "receipt_pin": {
+        "path": ".cache/local-development-worker-v1/shard_0029/receipt.json",
+        "sha256": "ea35c3cc83274fd886a48da00853b2edfb770e4c58754d0f8eb88fbddefbbb04",
+        "bytes": 1147
+      },
+      "verification": {
+        "path": ".cache/local-development-worker-v1/shard_0029/verify-exit.json",
+        "sha256": "20bfacb40fdcb3a6729a5fbf8275515f81d9829ea5243a7aea510726f0ea6687",
+        "bytes": 105
+      }
+    },
+    {
+      "receipt": {
+        "artifact_bytes": 62014181,
+        "artifact_sha256": "479def89f1ca1cab3b0f74ad7a24319dfafdbe8219b7bffaf051a6b217bc6c9d",
+        "crc": "passed",
+        "job_ids": [
+          "source_error_b14s19e1153",
+          "source_error_b14s19e1405",
+          "source_error_b14s19e1693",
+          "source_error_b14s19e1987",
+          "source_error_b14s19e2152",
+          "source_error_b14s19e2613",
+          "source_error_b14s19e2644",
+          "source_error_b14s7e1025",
+          "source_error_b14s7e1153",
+          "source_error_b14s7e1405",
+          "source_error_b14s7e1693",
+          "source_error_b14s7e1987",
+          "source_error_b14s7e2152",
+          "source_error_b14s7e2613",
+          "source_error_b14s7e2644",
+          "source_error_b28s11e1165",
+          "source_error_b28s11e1188",
+          "source_error_b28s11e1251",
+          "source_error_b28s11e1408",
+          "source_error_b28s11e1987"
+        ],
+        "partition_sha256": "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f",
+        "peer_acceptance": "pending",
+        "plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+        "remote_readback": "pending; archive is on persistent local SSD",
+        "shard_id": "shard_0030",
+        "wall_seconds": 2932.993851399995
+      },
+      "receipt_pin": {
+        "path": ".cache/local-development-worker-v1/shard_0030/receipt.json",
+        "sha256": "f423fd97dea8016adc9acc630b6307b38c880d7bc37271ad1965c15f241d9bda",
+        "bytes": 1132
+      },
+      "verification": {
+        "path": ".cache/local-development-worker-v1/shard_0030/verify-exit.json",
+        "sha256": "20bfacb40fdcb3a6729a5fbf8275515f81d9829ea5243a7aea510726f0ea6687",
+        "bytes": 105
+      }
+    }
+  ],
+  "workload": {
+    "planned": 782,
+    "complete_shard_jobs": 182,
+    "remote_readback_jobs": 142,
+    "remote_pending_jobs": 40,
+    "remaining_outside_completed_shards": 600
+  },
+  "review": {
+    "peer_acceptance": "pending",
+    "block7": "EXTERNAL_COMPLETE_UNMATCHED",
+    "issue39_provider_substitution": "pending independent decision; issue remains open",
+    "final_lock": "absent; execution forbidden"
+  },
+  "provider_code_sha": "2a91a64179f3e4bfbe660f6479a3473f5b51dd38",
+  "validation": {
+    "full_offline_tests": {
+      "exit_code": 0,
+      "python_utf8": 1,
+      "clean_before": true,
+      "code_sha": "2a91a64179f3e4bfbe660f6479a3473f5b51dd38",
+      "wall_seconds": 214.1761345
+    },
+    "tests_run": 318,
+    "skipped": 1,
+    "test_seconds": 207.765,
+    "log": {
+      "path": ".cache/provider-offline-tests-v10.log",
+      "sha256": "a19850fde3c2a86ce824c7e959f462c8a243775cd3e451e36736e5138f81657c",
+      "bytes": 50469
+    },
+    "ruff_check": "passed",
+    "ruff_format_files": 118,
+    "diff_check": "passed",
+    "earlier_failures": [
+      {
+        "name": "v8",
+        "reason": "worktree/HEAD changed during provenance fixture; exit1 preserved"
+      },
+      {
+        "name": "v9",
+        "reason": "dirty worktree and Windows default encoding with project-local TEMP; exit1 preserved"
+      }
+    ]
+  },
+  "restart": {
+    "cpu_version": 362649780,
+    "notebook": {
+      "path": "experiments/hung_sprint2/kaggle_group03_recovery_cpu_v2.ipynb",
+      "sha256": "9b91b8552ecadf6d829b921e2323fe6f8068210af42eb4e41d2d1b6f92dbbfed",
+      "bytes": 146319
+    },
+    "latest_live_log": {
+      "path": ".cache/kaggle-group03-recovery-cpu-start-v2.txt",
+      "sha256": "e1c9c8cd21ebe99b75180b6776fefe63c68fa3b81e52a3f736aa5fe9645d7925",
+      "bytes": 623
+    },
+    "current_quota_observation_seconds": 77750.531876,
+    "required_seconds": 14915.0,
+    "training_scope": "Only shards0009-0013; shard0008 never selected",
+    "status": "GPU VM running at model44; new claim and exact shard8 readback passed; job completion not yet certified",
+    "gpu_version": 362649842,
+    "gpu_source_sha256": "067eb75ef241ac5231c55adb126031c092211ee6e75a923f7faf0c9cb47e81e2",
+    "cpu_log": {
+      "path": ".cache/kaggle-group03-recovery-cpu-start-v2-latest.txt",
+      "bytes": 1276,
+      "sha256": "fe3e36ee60a9a24da70375a6f0747273fcf3b5c7b5262772b06f26fc365bd782"
+    },
+    "gpu_log": {
+      "path": ".cache/kaggle-group03-recovery-gpu-start-v2-proof.txt",
+      "bytes": 1542,
+      "sha256": "275a9369f9d6454bd229dbb769a2fe19c7376a1f809fcd892a6f2612af2b38ec"
+    },
+    "device": "Tesla T4",
+    "torch": "2.11.0+cu128",
+    "device_memory_bytes": 15636037632,
+    "initial_disk_free_bytes": 17988767744
+  },
+  "ci": {
+    "ubuntu": "success at 2a91a64",
+    "windows": "in progress at observation",
+    "run": "https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40422379754"
+  }
+}
