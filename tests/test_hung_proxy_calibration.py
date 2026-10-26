@@ -22,6 +22,7 @@ from tools.hung_proxy_calibration import (
     ROOT,
     _development_entity,
     _ignored_output,
+    _require_verified_initial_lambda,
     _run_args,
     _same_state,
     _stable_support_file,
@@ -45,7 +46,7 @@ class CalibrationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=ROOT / ".cache") as directory:
             root = Path(directory)
             helper = ReplayCliTests()
-            run, digest, source, target, _ = helper._inputs(root)
+            run, digest, source, target, _ = helper._inputs(root, trained_weight=0.1)
             profile = json.loads(PROFILE.read_text(encoding="utf-8"))
             profile["device"] = device
             profile["max_origins"] = 2
@@ -58,7 +59,7 @@ class CalibrationTests(unittest.TestCase):
                 "history_days": 7,
                 "entity_id": "dev-1",
                 "seed": 7,
-                "initialization": "source_checkpoint_only",
+                "initialization": "target_initial_adaptation",
                 "input_run": str(run),
                 "input_manifest_sha256": digest,
                 "source_input_run": str(run),
@@ -114,6 +115,29 @@ class CalibrationTests(unittest.TestCase):
             _same_state(torch.tensor([1.0]), torch.tensor([1.0], device="cuda"))
             with self.assertRaisesRegex(ValueError, "Authenticated Development replay differs"):
                 _same_state(torch.tensor([1.0]), torch.tensor([2.0], device="cuda"))
+
+    def test_calibration_excludes_legacy_and_relabelled_target_lambda(self) -> None:
+        from tests.test_hung_replay_cli import ReplayCliTests
+
+        (ROOT / ".cache").mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ROOT / ".cache") as directory:
+            root = Path(directory)
+            helper = ReplayCliTests()
+            (root / "legacy").mkdir()
+            (root / "trained").mkdir()
+            _, _, _, legacy, _ = helper._inputs(root / "legacy")
+            with self.assertRaisesRegex(ValueError, "unverified initial lambda"):
+                _require_verified_initial_lambda({"target_checkpoint": str(legacy)})
+            _, _, _, trained, _ = helper._inputs(root / "trained", trained_weight=0.1)
+            self.assertEqual(
+                _require_verified_initial_lambda({"target_checkpoint": str(trained)}), 0.1
+            )
+            manifest_path = trained.parent / "run_manifest.json"
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["retention_weight"] = 0.0
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "differs from run manifest"):
+                _require_verified_initial_lambda({"target_checkpoint": str(trained)})
 
     def test_outputs_must_be_ignored_and_inputs_stable(self) -> None:
         self.assertEqual(_ignored_output(ROOT / ".cache" / "new-run"), ROOT / ".cache" / "new-run")
