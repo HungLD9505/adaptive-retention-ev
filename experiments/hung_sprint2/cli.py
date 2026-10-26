@@ -20,6 +20,7 @@ from experiments.hung_sprint2.checkpoint import load_runner, save_runner
 from experiments.hung_sprint2.controller import ControllerConfig
 from experiments.hung_sprint2.evaluation import evaluate_replay
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
+from experiments.hung_sprint2.proxy_selection import ProxyConfig
 from experiments.hung_sprint2.retention import frozen_source_reference, source_latent_scale
 from experiments.hung_sprint2.runner import PrequentialRunner
 from experiments.hung_sprint2.training import (
@@ -173,6 +174,7 @@ def _code_identity() -> dict:
             "cli.py",
             "controller.py",
             "baseline_selection.py",
+            "proxy_selection.py",
             "runner.py",
             "replay_inputs.py",
             "checkpoint.py",
@@ -478,6 +480,9 @@ def _replay(args: argparse.Namespace) -> dict:
         "without_confidence",
         "fixed_retention",
         "full_finetuning",
+        "source_error",
+        "uncertainty",
+        "drift",
     }:
         raise ValueError("Unsupported selection rule")
     device = _device(getattr(args, "device", "cpu"))
@@ -495,6 +500,36 @@ def _replay(args: argparse.Namespace) -> dict:
         seed=args.seed,
         challenger_rule=args.challenger_rule,
     )
+    proxy_config = None
+    proxy_rules = {"source_error", "uncertainty", "drift"}
+    proxy_names = (
+        "proxy_low",
+        "proxy_high",
+        "proxy_level_low",
+        "proxy_level_mid",
+        "proxy_level_high",
+        "drift_reference_mean",
+        "drift_reference_scale",
+    )
+    proxy_values = {name: getattr(args, name, None) for name in proxy_names}
+    proxy_args = tuple(proxy_values[name] for name in proxy_names[:5])
+    if selection_rule in proxy_rules:
+        if any(value is None for value in proxy_args):
+            raise ValueError("Proxy rule requires two thresholds and three explicit level bins")
+        proxy_config = ProxyConfig(
+            low=proxy_values["proxy_low"],
+            high=proxy_values["proxy_high"],
+            levels_by_bin=(
+                proxy_values["proxy_level_low"],
+                proxy_values["proxy_level_mid"],
+                proxy_values["proxy_level_high"],
+            ),
+            drift_reference_mean=proxy_values["drift_reference_mean"],
+            drift_reference_scale=proxy_values["drift_reference_scale"],
+        )
+        proxy_config.validate(controller, selection_rule)
+    elif any(value is not None for value in proxy_values.values()):
+        raise ValueError("Proxy parameters require a proxy selection rule")
     input_run = args.input_run.resolve()
     source_run = args.source_input_run.resolve()
     manifest = _load_run(input_run, args.manifest_sha256)
@@ -570,6 +605,9 @@ def _replay(args: argparse.Namespace) -> dict:
     config = {
         "controller": {**asdict(controller), "levels": list(controller.levels)},
         "selection_rule": selection_rule,
+        "proxy_config": None
+        if proxy_config is None
+        else {**asdict(proxy_config), "levels_by_bin": list(proxy_config.levels_by_bin)},
         "target_initial_retention_weight": checkpoint_weight,
         "target_initial_retention_weight_verified": checkpoint_weight is not None,
         "epsilon": args.epsilon,
@@ -590,6 +628,7 @@ def _replay(args: argparse.Namespace) -> dict:
             epsilon=args.epsilon,
             energy_scale=scale["energy_scale"],
             selection_rule=selection_rule,
+            proxy_config=proxy_config,
         )
         resumed_from = None
     else:
@@ -624,6 +663,7 @@ def _replay(args: argparse.Namespace) -> dict:
             or previous.get("source_input_binding") != source_binding
             or previous.get("config", {}).get("controller") != config["controller"]
             or previous.get("config", {}).get("selection_rule", "confidence") != selection_rule
+            or previous.get("config", {}).get("proxy_config") != config["proxy_config"]
             or previous.get("config", {}).get("target_initial_retention_weight")
             != checkpoint_weight
             or previous.get("config", {}).get("target_initial_retention_weight_verified")
@@ -640,6 +680,7 @@ def _replay(args: argparse.Namespace) -> dict:
         if (
             runner.controller != controller
             or runner.selection_rule != selection_rule
+            or runner.proxy_config != proxy_config
             or runner.epsilon != args.epsilon
             or runner.energy_scale != scale["energy_scale"]
             or runner.next_index != previous.get("runner_cursor")
@@ -721,6 +762,7 @@ def _replay(args: argparse.Namespace) -> dict:
             "audit_scored_days": evaluation.audit_scored_days,
         },
         "runtime_costs": runner.runtime_costs,
+        "proxy_costs": runner.proxy_costs,
         "state_tensor_memory": runner.state_tensor_memory(),
         "event_evidence": {
             "events": runner.events,
@@ -800,10 +842,23 @@ def main(argv: list[str] | None = None) -> int:
             "without_confidence",
             "fixed_retention",
             "full_finetuning",
+            "source_error",
+            "uncertainty",
+            "drift",
         ),
         default="confidence",
     )
     replay.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
+    for name in (
+        "proxy-low",
+        "proxy-high",
+        "proxy-level-low",
+        "proxy-level-mid",
+        "proxy-level-high",
+        "drift-reference-mean",
+        "drift-reference-scale",
+    ):
+        replay.add_argument(f"--{name}", type=float)
     args = parser.parse_args(argv)
     if args.command == "verify-input-zip":
         print(json.dumps(_verify_input_zip(args.archive, args.package)))

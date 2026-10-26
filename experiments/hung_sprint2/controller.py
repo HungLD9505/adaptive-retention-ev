@@ -89,10 +89,12 @@ class Decision:
     lower_bounds: tuple[float | None, float | None, float | None]
     alpha_per_challenger: float
     reason: Literal["insufficient_days", "no_qualifying_challenger", "switch", "fixed_policy"]
-    selection_statistic: Literal["bootstrap_lcb", "observed_mean_improvement", "fixed_level"] = (
-        "bootstrap_lcb"
-    )
+    selection_statistic: Literal[
+        "bootstrap_lcb", "observed_mean_improvement", "fixed_level", "proxy_mean"
+    ] = "bootstrap_lcb"
     observed_mean_improvement: tuple[float | None, float | None, float | None] | None = None
+    proxy_value: float | None = None
+    proxy_samples: int | None = None
 
     @property
     def switched(self) -> bool:

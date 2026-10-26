@@ -8,7 +8,14 @@ from typing import Literal, Sequence
 from experiments.hung_sprint2.controller import ControllerConfig, DailyScore, Decision
 
 SelectionRule = Literal[
-    "confidence", "online_best_lambda", "without_confidence", "fixed_retention", "full_finetuning"
+    "confidence",
+    "online_best_lambda",
+    "without_confidence",
+    "fixed_retention",
+    "full_finetuning",
+    "source_error",
+    "uncertainty",
+    "drift",
 ]
 
 

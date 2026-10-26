@@ -18,6 +18,7 @@ from experiments.hung_sprint2.baseline_selection import (
 from experiments.hung_sprint2.controller import ControllerConfig, DailyScore, Decision, decide_block
 from experiments.hung_sprint2.memory import model_optimizer_tensor_bytes, model_tensor_bytes
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
+from experiments.hung_sprint2.proxy_selection import ProxyConfig, decide_proxy_block
 from experiments.hung_sprint2.retention import validate_latent_scale
 from experiments.hung_sprint2.training import target_step, validate_binding
 
@@ -119,6 +120,7 @@ class PrequentialRunner:
         epsilon: float,
         energy_scale: float,
         selection_rule: SelectionRule = "confidence",
+        proxy_config: ProxyConfig | None = None,
     ) -> None:
         validate_binding(binding)
         if binding["stage"] != "target":
@@ -141,8 +143,17 @@ class PrequentialRunner:
             "without_confidence",
             "fixed_retention",
             "full_finetuning",
+            "source_error",
+            "uncertainty",
+            "drift",
         }:
             raise ValueError("Unsupported selection rule")
+        if selection_rule in {"source_error", "uncertainty", "drift"}:
+            if proxy_config is None:
+                raise ValueError("Proxy selection requires a locked Development configuration")
+            proxy_config.validate(controller, selection_rule)
+        elif proxy_config is not None:
+            raise ValueError("Proxy configuration requires a proxy selection rule")
         if selection_rule == "full_finetuning" and controller.initial_level != 0.0:
             raise ValueError("Full fine-tuning must start at lambda zero")
         if selection_rule == "fixed_retention" and controller.initial_level == 0.0:
@@ -150,6 +161,7 @@ class PrequentialRunner:
         self.binding = deepcopy(binding)
         self.controller = controller
         self.selection_rule = selection_rule
+        self.proxy_config = proxy_config
         self.epsilon = epsilon
         self.energy_scale = energy_scale
         self.reference = deepcopy(reference).eval()
@@ -172,6 +184,7 @@ class PrequentialRunner:
         self.update_steps = [0, 0, 0]
         self.audit_steps = 0
         self.runtime_costs = _runtime_costs(complete=True)
+        self.proxy_costs = _empty_cost_record()
         if self.device.type == "cuda":
             self.runtime_costs["scope"] = (
                 "CUDA synchronized model.forward and target_step calls only"
@@ -244,6 +257,15 @@ class PrequentialRunner:
         model_x = x_hist.to(self.device)
         model_calendar = c_future.to(self.device)
         with torch.no_grad():
+            source_forecast = None
+            if self.proxy_config is not None:
+                started = perf_counter_ns()
+                source_output = self.reference(model_x, model_calendar)
+                self._synchronize()
+                elapsed = perf_counter_ns() - started
+                source_forecast = source_output.detach().cpu().clone()
+                self.proxy_costs["inference_calls"] += 1
+                self.proxy_costs["inference_ns"] += elapsed
             for index, (model, _) in enumerate(self.candidates):
                 model.eval()
                 started = perf_counter_ns()
@@ -274,7 +296,21 @@ class PrequentialRunner:
             "c_future": c_future,
             "forecasts": forecasts,
             "audit_forecast": audit_forecast,
+            "source_forecast": source_forecast,
         }
+        proxy_value = None
+        if self.selection_rule == "uncertainty":
+            # Deterministic within-horizon Source dispersion; a heuristic to
+            # validate on Development, not a calibrated predictive interval.
+            proxy_value = float(source_forecast.std(unbiased=False))
+        elif self.selection_rule == "drift":
+            # x_hist channel zero is scaled historical load in the bound schema.
+            observed = x_hist[0, :, 0][x_hist[0, :, 6] == 1]
+            if observed.numel():
+                descriptor = float(observed.mean())
+                proxy_value = abs(descriptor - self.proxy_config.drift_reference_mean) / (
+                    self.proxy_config.drift_reference_scale
+                )
         self.issued.append(
             {
                 "day_id": origin.day_id,
@@ -283,6 +319,8 @@ class PrequentialRunner:
                 "active_level": self.current_level,
                 "forecasts": [forecast.clone() for forecast in forecasts],
                 "audit_forecast": audit_forecast,
+                "source_forecast": source_forecast,
+                "proxy_value": proxy_value,
                 "normalized_mae": None,
                 "mae_kwh": None,
                 "y_scaled": None,
@@ -340,6 +378,8 @@ class PrequentialRunner:
                 issued["normalized_mae"] = scores
                 issued["mae_kwh"] = tuple(value * self.energy_scale for value in scores)
                 issued["y_scaled"] = y.squeeze(0).clone()
+                if self.selection_rule == "source_error":
+                    issued["proxy_value"] = float(torch.abs(pending["source_forecast"] - y).mean())
                 if pending["audit_forecast"] is not None:
                     audit_mae = float(torch.abs(pending["audit_forecast"] - y).mean())
                     issued["audit_normalized_mae"] = audit_mae
@@ -449,6 +489,20 @@ class PrequentialRunner:
                 days=self.days,
                 rule=self.selection_rule,
             )
+        elif self.proxy_config is not None:
+            values = [
+                item["proxy_value"]
+                for item in self.issued
+                if item["block_id"] == self.block_id and item["proxy_value"] is not None
+            ]
+            decision = decide_proxy_block(
+                self.controller,
+                current_level=self.current_level,
+                scheduled_days=len(self.days),
+                values=values,
+                config=self.proxy_config,
+                rule=self.selection_rule,
+            )
         else:
             decision = decide_mean_block(
                 self.controller,
@@ -482,6 +536,7 @@ class PrequentialRunner:
             "binding": deepcopy(self.binding),
             "controller": asdict(self.controller),
             "selection_rule": self.selection_rule,
+            "proxy_config": None if self.proxy_config is None else asdict(self.proxy_config),
             "model_config": self.active_model.config.to_dict(),
             "epsilon": self.epsilon,
             "energy_scale": self.energy_scale,
@@ -507,6 +562,7 @@ class PrequentialRunner:
             "update_steps": list(self.update_steps),
             "audit_steps": self.audit_steps,
             "runtime_costs": deepcopy(self.runtime_costs),
+            "proxy_costs": deepcopy(self.proxy_costs),
             "torch_rng": torch.get_rng_state().clone(),
             "cuda_rng": self._cuda_rng(),
         }
@@ -548,8 +604,19 @@ class PrequentialRunner:
             "without_confidence",
             "fixed_retention",
             "full_finetuning",
+            "source_error",
+            "uncertainty",
+            "drift",
         }:
             raise ValueError("Runner checkpoint selection rule mismatch")
+        proxy_payload = state.get("proxy_config")
+        runner.proxy_config = None if proxy_payload is None else ProxyConfig(**proxy_payload)
+        if runner.selection_rule in {"source_error", "uncertainty", "drift"}:
+            if runner.proxy_config is None:
+                raise ValueError("Proxy checkpoint lacks configuration")
+            runner.proxy_config.validate(runner.controller, runner.selection_rule)
+        elif runner.proxy_config is not None:
+            raise ValueError("Nonproxy checkpoint has proxy configuration")
         if runner.selection_rule == "full_finetuning" and runner.controller.initial_level != 0.0:
             raise ValueError("Full fine-tuning checkpoint must start at lambda zero")
         if runner.selection_rule == "fixed_retention" and runner.controller.initial_level == 0.0:
@@ -590,6 +657,17 @@ class PrequentialRunner:
             runner.audit_steps,
             device.type,
         )
+        runner.proxy_costs = deepcopy(state.get("proxy_costs", _empty_cost_record()))
+        if (
+            not isinstance(runner.proxy_costs, dict)
+            or set(runner.proxy_costs) != set(_empty_cost_record())
+            or any(type(value) is not int or value < 0 for value in runner.proxy_costs.values())
+            or runner.proxy_costs["update_steps"] != 0
+            or runner.proxy_costs["update_ns"] != 0
+            or runner.proxy_costs["inference_calls"]
+            != sum(item.get("source_forecast") is not None for item in runner.issued)
+        ):
+            raise ValueError("Proxy checkpoint cost accounting mismatch")
         torch.set_rng_state(state["torch_rng"])
         runner._set_cuda_rng(state.get("cuda_rng"))
         return runner

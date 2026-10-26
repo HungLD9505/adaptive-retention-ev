@@ -160,6 +160,36 @@ class ReplayCliTests(unittest.TestCase):
             resume_checkpoint=None,
         )
 
+    def test_proxy_replay_binds_config_cost_and_resume(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest, source, target, binding = self._inputs(root)
+            args = self._args(root, run, digest, source, target, "proxy-first", 1)
+            args.selection_rule = "source_error"
+            args.proxy_low = 0.1
+            args.proxy_high = 0.5
+            args.proxy_level_low = 0.0
+            args.proxy_level_mid = 0.1
+            args.proxy_level_high = 0.2
+            first = _replay(args)
+            self.assertEqual(first["config"]["proxy_config"]["levels_by_bin"], [0.0, 0.1, 0.2])
+            self.assertEqual(first["proxy_costs"]["inference_calls"], 1)
+            checkpoint = args.output / "runner_checkpoint.pt"
+            self.assertEqual(
+                load_runner(checkpoint, expected_binding=binding).proxy_costs, first["proxy_costs"]
+            )
+            args.output = root / "proxy-resume"
+            args.resume_checkpoint = checkpoint
+            args.max_origins = 3
+            args.proxy_high = 0.6
+            with self.assertRaisesRegex(ValueError, "lineage/config/code mismatch"):
+                _replay(args)
+            args.proxy_high = 0.5
+            resumed = _replay(args)
+            self.assertEqual(
+                resumed["proxy_costs"]["inference_calls"], resumed["coverage"]["created"]
+            )
+
     def test_bounded_replay_and_resume_create_new_run(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
