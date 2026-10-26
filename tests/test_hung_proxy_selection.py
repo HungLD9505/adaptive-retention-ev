@@ -122,6 +122,13 @@ class ProxyTests(unittest.TestCase):
         state["proxy_costs"]["inference_calls"] = 0
         with self.assertRaisesRegex(ValueError, "cost accounting"):
             PrequentialRunner.from_state_dict(state, expected_binding=binding())
+        run.arrive(LabelArrival("proxy-0", False, deferred=True))
+        run.forecast(origin(1))
+        run.arrive(LabelArrival("proxy-1", False, deferred=True))
+        decision = run.finish_block()
+        self.assertEqual(decision.proxy_samples, 2)
+        self.assertIsNotNone(decision.proxy_value)
+        self.assertEqual(run.update_steps, [0, 0, 0])
 
 
 if __name__ == "__main__":
