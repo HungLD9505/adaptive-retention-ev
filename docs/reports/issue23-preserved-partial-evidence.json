@@ -1,0 +1,23 @@
+{
+  "status": "verified_preserved_subset_only",
+  "scope": "Read-only CPU artifact restoration and verification; not full matrix acceptance or training; no Final",
+  "catalog_sha256": "4e6af5526142086e8ace0e75e11e57dede63a8f1317c6a117e3b6a5976eefe50",
+  "matrix_sha256": "dc690a85b48057cbf375c0f660c5fd77d550193b0a432994c9a245259077b501",
+  "runs_expected": 1104,
+  "runs_physically_restored_verified": 456,
+  "parts_preserved": 40,
+  "daily_files": 84360,
+  "audit_scores": 2696,
+  "state_contents_verified": 456,
+  "missing_part_count": 54,
+  "proof_sha256": "c52a7a867a2602a4c7a4be75ed90a5229aa0afdbbf0b9f086a15e43cf7ef7127",
+  "proof_archive": {
+    "url": "https://drive.google.com/file/d/1es-e8xD6z-KBFNVKGnfUkeypzj6-6qHQ/view",
+    "bytes": 77175,
+    "sha256": "6741dfc0f5baca01949e0b2f79a2f3662f8d0e2d75f1b7aceb3cd0e352500643",
+    "anonymous_bytes_crc_all_members": "PASS"
+  },
+  "null_metric_runs_retained": 192,
+  "selection": "Original ordered ZIP prefix, not outcome-selected or representative new evaluation cohort",
+  "no_training_or_final": true
+}

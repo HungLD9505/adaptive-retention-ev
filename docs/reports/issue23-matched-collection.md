@@ -219,3 +219,23 @@ epochs and finite64-dimensional latent scales passed. This is verification, not
 local training. Each Source used2,340 allowed examples; target comparisons remain
 in progress. These are the explicitly identified recovery Sources, not an
 undisclosed replacement for the missing original JHB checkpoints.
+
+
+### Independent verification of physically preserved proxy runs
+
+All40 available export parts were rechecked against the original complete catalog
+(size/SHA-256/ZIP CRC) and restored into a new explicitly partial directory. This
+recovers456 complete original proxy/parameter runs, not all1,104. Their saved
+reports match the unchanged original matrix. The existing daily/input verifier
+recomputed all84,360 daily-file hashes, availability-bound original-unit scores,
+commit chains and2,696 audit forecast errors; each per-run proof exactly matches
+the stronger original remote proof. The existing weights-only CPU state verifier
+also matched all456 latest serialized model/optimizer/RNG branch contents.
+No model was trained, no Final label decoded, and no source expected hash changed.
+
+This preserves192 null-metric runs rather than filling or dropping them. The
+runs are an ordered archive prefix, not a newly selected performance cohort.
+[Exact scope and partial proof](issue23-preserved-partial-evidence.json) links the
+77,175-byte proof/source/log/catalog ZIP; anonymous bytes/hash/CRC/all4-member
+readback passed. Missing54 proxy parts and the60-part matched export remain
+explicitly unrecovered; partial verification cannot grant full-matrix acceptance.
