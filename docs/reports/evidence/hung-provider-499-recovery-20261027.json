@@ -193,14 +193,19 @@
       "sha256": "fe3e36ee60a9a24da70375a6f0747273fcf3b5c7b5262772b06f26fc365bd782"
     },
     "gpu_log": {
-      "path": ".cache/kaggle-group03-recovery-gpu-start-v2-proof.txt",
-      "bytes": 1542,
-      "sha256": "275a9369f9d6454bd229dbb769a2fe19c7376a1f809fcd892a6f2612af2b38ec"
+      "path": ".cache/kaggle-group03-recovery-gpu-phase-v2.txt",
+      "sha256": "a97c37b5540dc8b4af74f8440d3c90f057b8ac4e8db90440c91fdbb6551374be",
+      "bytes": 1620
     },
     "device": "Tesla T4",
     "torch": "2.11.0+cu128",
     "device_memory_bytes": 15636037632,
-    "initial_disk_free_bytes": 17988767744
+    "initial_disk_free_bytes": 17988767744,
+    "parity": {
+      "passed": true,
+      "checks": 28,
+      "elapsed_seconds": 7.673014872999943
+    }
   },
   "ci": {
     "ubuntu": "success at 2a91a64",
