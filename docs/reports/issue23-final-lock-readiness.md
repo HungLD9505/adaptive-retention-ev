@@ -74,3 +74,31 @@ it cannot be silently substituted to satisfy a compute deadline.
 - Verify complete outputs, independent reproduction and #10 report handoff before
   declaring Sprint3 done. Negative/null findings are valid; missing required
   evidence is not completion.
+
+## Outcome-blind cohort candidate for later review — not selected
+
+The all-ready147,420-cell inventory has no accepted compute envelope. A concrete
+bounded alternative can be prepared for review using the existing Development
+cohort rule applied to Final entity metadata: for each separate namespace and
+7/14/28-day budget, sort ready positive-prefix IDs by initial_trainable and an
+identity hash; partition rank positions into three equal-count bins; take the
+hash-minimum ID in each nonempty bin; add one hash-minimum no-initial-trainable
+ID when present. Hash payload is the JSON array
+`["final-three-prefix-rank-bins-plus-one-empty-proposal-v1", manifest_sha256,
+[dataset,city], budget, entity_id]` with compact separators. This exact rule is
+recorded before executing the candidate selection. It does not inspect any
+forecast/label records, energy values, post-deployment activity, missing-label
+counts, errors, zero fractions, or outcomes. Prefix counts/readiness/IDs only.
+All methods/ablations, three seeds, budgets and seven separate namespaces remain
+in the candidate; CHARGED SZH stays separately reported. Empty target prefixes
+retain their existing initialization policy. No city is silently removed.
+
+This is a proposal, not an amendment or permission to run Final. The actual IDs,
+manifest/Source-population identities and cell count will be exported for review.
+A small cohort weakens station-level inference and cannot be called a population
+validation. Its limitations must be accepted explicitly or a larger/all-ready
+cohort selected by the lead/reviewers. No Final evaluation may start merely
+because this candidate is feasible or its JSON has a checksum. Complete
+Development evidence, actual Source/config/code/analysis identities, Final-capable
+interfaces and independent lock approval remain required. This handoff does not
+change the sole sprint schedule or create a competing execution plan.
