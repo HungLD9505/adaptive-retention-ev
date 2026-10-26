@@ -120,5 +120,84 @@
       "audit_steps"
     ],
     "scope": "All checked fields identical in this downloaded partial snapshot; not complete-matrix, original-byte, final-state equality or effectiveness acceptance"
+  },
+  "complete_proxy_metadata_verification": {
+    "status": "complete648_missing_proxy_metadata_verified_raw_restore_pending",
+    "rows": 648,
+    "original_matrix_rows": 1104,
+    "preserved_original_rows_not_replaced": 456,
+    "fields_checked": [
+      "active_mae_kwh",
+      "active_rmse_kwh",
+      "scheduled_days",
+      "issued_days",
+      "scored_days",
+      "prediction_identity_sha256",
+      "candidate_steps",
+      "audit_steps",
+      "final_branch_state_sha256"
+    ],
+    "changed_field_counts": {},
+    "restored_prefix_count": 1,
+    "source_hashes": {
+      "42": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+      "43": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+      "44": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5"
+    },
+    "matrix_bytes": 17982875,
+    "matrix_sha256": "d6a9f48fae009b5f5046b101e8499f2b660b451eca31ee6222fb842099c178b2",
+    "phase_wall_seconds_current_invocation": 4047.2328318050004,
+    "scope": "Authenticated exact original missing population, config/input/Source/core-code identity and reported metric/forecast-ID/step/final-branch-state agreement. Not complete off-runtime daily/checkpoint content verification or Final/peer acceptance.",
+    "matrix_url": "https://drive.google.com/file/d/1BydlagbTSqGvF9hVt7AlrUJxmxBskV7x/view",
+    "phase_exit_url": "https://drive.google.com/file/d/1qmLTaFhPLp6b_oXyi5ZQfajOR_YW1Eod/view"
+  },
+  "latest_durable_observation": {
+    "observed_at_utc": "20261026T182256678530Z",
+    "counts": {
+      "proxy": 648,
+      "matched": 224
+    },
+    "process_exits": {
+      "primary": null,
+      "bridge": null,
+      "charged": null
+    },
+    "files": {
+      "proxy-progress.json": {
+        "bytes": 17982815,
+        "sha256": "ae12fba12942364ad52bab45865069f1fd05568d9a4a3d9baccb05eca96b1a8e"
+      },
+      "matched-progress.json": {
+        "bytes": 5000219,
+        "sha256": "dfb58e7c986e6fe2126c7450085f8c3b190c7e72bd880910a3bf4adbede87040"
+      },
+      "primary-log-prefix.txt": {
+        "bytes": 349402,
+        "sha256": "acbe54e576ddad134415b2d54b70a688a3c9bb67d096c05ccafb6c9575db36ec"
+      },
+      "bridge-log-prefix.txt": {
+        "bytes": 306,
+        "sha256": "5744e535bfbace83f6835fc605225b2af600e951fb9345c270d7d646927cc59b"
+      },
+      "charged-log-prefix.txt": {
+        "bytes": 1270,
+        "sha256": "ded6afaa6c09ed805450a967949c6398ffe53eb580f399b937d8b8fdcedfe510"
+      },
+      "package-versions.json": {
+        "bytes": 49958,
+        "sha256": "d49762d01471749723f6aded94fac3e957ab22bef355e4c4d1157f49a9912858"
+      }
+    },
+    "scope": "Immutable live progress/stdout-prefix/environment snapshot; per-run archives/receipts remain primary recovery evidence. No in-flight acceptance.",
+    "drive_relative_path": "observations/20261026T182256678530Z",
+    "readback_scope": "Mounted file SHA/size readback and local observation receipt, not yet independent anonymous snapshot download"
+  },
+  "canonical_proxy_export": {
+    "status": "live_cpu_verification_not_complete",
+    "pid": 31955,
+    "run_id": "qyroven-proxy-complete-handoff-20261027-v1",
+    "folder_url": "https://drive.google.com/drive/folders/1K1ai721dHeOqNBo8h9fkzsBLTmouh8_M",
+    "script_url": "https://drive.google.com/file/d/1hc8cVSglFzdT0VZX85X58EML-7N-8VA-/view",
+    "scope": "Read-only complete daily/state verification and canonical export of648 recovered proxy runs. No fitting/Final. CPU and I/O overlap matched GPU runs; overlapping wall times must not be treated as isolated method latency. Full off-runtime restore still pending."
   }
 }

@@ -290,3 +290,31 @@ the original results. It performs no new calibration or favorable selection.
 Core model/controller/runner/baseline files are byte-identical between original
 training54131cbb and recovery9057364. GPU numerical equality and full physical
 recovery remain to be tested; no original expected hashes are replaced.
+
+
+### Missing-proxy recovery: complete metadata, physical handoff still pending
+
+The unchanged missing-only plan completed all 648 proxy runs on Colab with
+phase exit0. The independently downloaded 17,982,875-byte matrix has SHA-256
+`d6a9f48fae009b5f5046b101e8499f2b660b451eca31ee6222fb842099c178b2`.
+All 648 exact original missing IDs are present, with unchanged inputs/configs/three
+Source checkpoint identities. MAE/RMSE, scheduled/issued/scored days, forecast
+identity, candidate/audit steps and final branch-state hashes have zero reported
+differences from the original matrix. The 456 original preserved proxy runs remain
+untouched. This is metadata/digest agreement, not yet independent verification
+of every raw prediction/event/checkpoint byte.
+
+At 01:22 ICT October 27, the actual primary handle was live with 224/690 matched
+runs completed; the 114-cell same-runtime selected-proxy bridge and subsequent
+LOA/SZH/AMS city queue were live waits on their verified process dependencies.
+An immutable progress/log/package snapshot was saved and hash-checked on the
+mounted Drive, with a separate local observation receipt. This is a dated
+observation, not a promise of future job liveness.
+
+A separate [CPU-only canonical handoff](https://drive.google.com/drive/folders/1K1ai721dHeOqNBo8h9fkzsBLTmouh8_M)
+was dispatched as PID 31955. It independently verifies all 648 daily and final-state
+records before exporting immutable parts, verifying mounted copies and publishing
+the catalog last. It neither retrains nor restarts the GPU process. CPU/I-O overlap
+with matched execution is recorded; affected wall times are not isolated latency
+measurements. Canonical completion, anonymous download, complete local restoration
+and peer acceptance remain pending. See the [exact evidence](issue23-primary-recovery-plan-evidence.json).
