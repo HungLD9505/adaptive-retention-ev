@@ -1,0 +1,37 @@
+{
+  "archive_members": 673,
+  "code_commit": "ffa133686a81a375dd58c1030e4205fda45bc7e0",
+  "dataset_id": 12874791,
+  "dataset_status": {
+    "current_version_number": 1,
+    "status": "ready"
+  },
+  "dataset_url": "https://www.kaggle.com/datasets/hungluongduc/hung-urbanev-lambda-dev-ffa1336-20261026-v1",
+  "files": [
+    {
+      "bytes": 148082,
+      "name": "catalog.json",
+      "sha256": "422c8d17b778f05a1007cab1344e8b80bc493b72c76fc4b0937f3c6e95f60b9c"
+    },
+    {
+      "bytes": 7019357,
+      "name": "code.bundle",
+      "sha256": "64b8ec8887f3b2701699cd648b1b47dc746d2ce1ac50693d72d41c0ca23eeb66"
+    },
+    {
+      "bytes": 256605000,
+      "name": "parameter-lambda-development.zip.bin",
+      "sha256": "da715afc3bba78d5ed5c6c9edbbe116267c9de0a3460bb55f4720a99aa30a05b"
+    },
+    {
+      "bytes": 29107,
+      "name": "selector-recomputed.json",
+      "sha256": "275f440d981f45d8b4ea69795d46859be40ed80dd851c32adc133d2832933e0b"
+    }
+  ],
+  "is_private": true,
+  "readback_log_sha256": "0996056195dfb3e797bd3da947b99dbccdc465b34702c036ce9bc17046d17c6d",
+  "schema": "hung-parameter-lambda-kaggle-readback-v1",
+  "scope": "UrbanEV SZH Development calibration archive; no Final lock",
+  "selector_sha256": "275f440d981f45d8b4ea69795d46859be40ed80dd851c32adc133d2832933e0b"
+}
