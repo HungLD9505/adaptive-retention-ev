@@ -24,6 +24,14 @@ The complete calibration plan, 108 run manifests, event logs, runner checkpoints
 
 For either archive, an authorized reviewer should download the three Dataset files, verify the transport map and catalog SHA-256, remove the `.bin` suffix from the ZIP, then restore the ZIP. The original large run artifacts remain outside Git.
 
+## Block-7 Development variant (subsequent execution)
+
+A separately pinned block-size-7 proposal was executed on the same representative UrbanEV/SZH Development cohort at code commit `a0edded8228e8a1b64b0aee18c2655d94a1c4144` (documentation-only successor of the integrated code above). The config SHA-256 was `1a3877487eda15c7b0f8c28e7efc677b4a38dc9f1b90d783387be80b34d63fb8`. An actual-input dry-run enumerated 9 Source, 69 target, and 138 replay commands. The CUDA execution then exited 0 with 216/216 stages. This is **one diagnostic variant**, not the complete matched nine-baseline/five-ablation matrix.
+
+An external audit completed 216/216 stages, checked 354 hashes across 69 rows, and found zero missing. Its summary SHA-256 is `78ce835a322382d70f76470bebd51e59265fdf99ccf2375e528498448648377b`; 33 rows had no complete-label MAE and remain null. The first audit attempt correctly stopped without writing a summary because its new script expected the old split cursor 42; the block-7 run used cursor 21. After fixing those three audit-script references, the audit passed without retraining or changing run artifacts.
+
+The complete block-7 run, checkpoints, forecasts, logs, audit and Git bundle are in the [Private block-7 Development archive](https://www.kaggle.com/datasets/hungluongduc/hung-urbanev-block7-dev-a0edded-20261026-v1). The uploaded `hung-matched-block7-development.zip.bin` is 252,607,537 bytes, SHA-256 `6191688c21da85640302d98a866e96bbb8829de07aa6ccdcf06ae77c36a9a8f8`; catalog SHA-256 is `d76feb68805533b9e812936ead8807a69bec2bc982927234e9b097b8ae285814`. The ZIP contains 576 members. Kaggle metadata reported `isPrivate: true`; all three remote files matched their expected size and SHA-256 via streaming readback without saving another ZIP locally. The readback proof SHA-256 is `0610fcfebbcb812dd4bab236a2a7e65bee399b847cf227da08712f0003a43f78`. Remove the `.bin` suffix after an authorized download and verify against the catalog before restoring.
+
 ## Scope and remaining acceptance work
 
 The separate six-city CHARGED Development matrices retain their original code/run attribution; [PR #54](https://github.com/HungLD9505/adaptive-retention-ev/pull/54) records their archive proofs. This integrated UrbanEV execution does not complete Qyroven's separate Issue #23 recovery or certify those CHARGED runs as executed on commit `969f3de`.
