@@ -6,6 +6,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from ev_inputs.hourly_reader import sha256_file
@@ -221,6 +222,38 @@ class MatchedDispatcherTests(unittest.TestCase):
         bad.write_text('{"schema": "one", "schema": "two"}', encoding="utf-8")
         with self.assertRaisesRegex(ValueError, "Duplicate JSON key"):
             dispatch.read_json(bad)
+
+    def test_mocked_execute_writes_separate_stage_logs_and_verifies_outputs(self) -> None:
+        self.save()
+
+        def fake_subprocess(command, **kwargs):
+            if command[0] == "git":
+                return SimpleNamespace(returncode=0)
+            output = Path(command[command.index("--output") + 1])
+            output.mkdir(parents=True)
+            checkpoint = output / "runner.pt"
+            checkpoint.write_bytes(b"fixture-runner")
+            (output / "run_manifest.json").write_text(
+                json.dumps(
+                    {
+                        "status": "completed",
+                        "run_id": output.name,
+                        "code": {"executed_sources": {}},
+                        "final_runner_checkpoint_sha256": sha256_file(checkpoint),
+                    }
+                ),
+                encoding="utf-8",
+            )
+            return SimpleNamespace(returncode=0)
+
+        with patch.object(dispatch.subprocess, "run", side_effect=fake_subprocess):
+            with patch("builtins.print"):
+                result = dispatch.dispatch(self.plan_path, execute=True)
+        self.assertEqual(result, {"jobs": 1, "stages": 2, "executed": True})
+        output = self.root / "new-output"
+        self.assertTrue((output / "dispatch_identity.json").is_file())
+        self.assertTrue((output / "logs/seasonal7/replay-42.log").is_file())
+        self.assertTrue((output / "logs/seasonal7/replay-90.log").is_file())
 
 
 if __name__ == "__main__":
