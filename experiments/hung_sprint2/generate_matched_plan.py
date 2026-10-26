@@ -115,19 +115,19 @@ def generate(recipe_path: Path, recipe_sha256: str, output: Path, coverage_outpu
     )
     configs = {name: pinned_json(spec) for name, spec in config_specs.items()}
     comparable_configs(configs)
-    proxy_proof = verify_proxy_selection(
-        recipe["proxy_profile"],
-        recipe["proxy_selection"],
-        recipe["proxy_plan"],
-        recipe["proxy_runs"],
-        configs,
-    )
     chosen = verify_lambda(
         recipe["lambda"],
         configs["parameter_retention"],
         recipe["selection"]["sha256"],
         selection,
         input_base,
+    )
+    proxy_proof = verify_proxy_selection(
+        recipe["proxy_profile"],
+        recipe["proxy_selection"],
+        recipe["proxy_plan"],
+        recipe["proxy_runs"],
+        configs,
     )
     seeds = [7, 11, 19]
     require(configs["main"]["seeds"] == seeds, "Seed grid must be 7/11/19")

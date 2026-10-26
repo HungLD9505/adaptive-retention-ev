@@ -642,6 +642,42 @@ class PlanGeneratorTests(unittest.TestCase):
                     generator.generate(self.recipe_path, digest, self.plan_path, self.coverage_path)
                 self.assertFalse(self.plan_path.exists())
 
+    def test_lambda_marker_commit_may_differ_but_executed_sources_must_match(self) -> None:
+        spec = copy.deepcopy(self.recipe["lambda"])
+        preflight = json.loads(self.preflight_path.read_text(encoding="utf-8"))
+        preflight["code_commit"] = "earlier-preflight-commit"
+        self.preflight_path.write_text(json.dumps(preflight), encoding="utf-8")
+        spec["preflight"] = self.pin(self.preflight_path)
+        selected = json.loads(self.lambda_path.read_text(encoding="utf-8"))
+        selected["preflight_sha256"] = spec["preflight"]["sha256"]
+        self.lambda_path.write_text(json.dumps(selected), encoding="utf-8")
+        spec["selection"] = self.pin(self.lambda_path)
+        accepted = json.loads(self.selection_path.read_text(encoding="utf-8"))
+        self.assertEqual(
+            generator.verify_lambda(
+                spec,
+                self.configs["parameter_retention"],
+                sha256_file(self.selection_path),
+                accepted,
+                self.input_base,
+            ),
+            0.1,
+        )
+        first = spec["roots"][0]
+        marker_path = Path(first["path"]) / "matrix_identity.json"
+        marker = json.loads(marker_path.read_text(encoding="utf-8"))
+        marker["code"]["executed_sources"] = {"runner.py": "f" * 64}
+        marker_path.write_text(json.dumps(marker), encoding="utf-8")
+        first["matrix_sha256"] = sha256_file(marker_path)
+        with self.assertRaisesRegex(ValueError, "Lambda matrix marker/config differs"):
+            generator.verify_lambda(
+                spec,
+                self.configs["parameter_retention"],
+                sha256_file(self.selection_path),
+                accepted,
+                self.input_base,
+            )
+
     def test_manifest_metric_and_winner_forgery_fails_against_runner_forecasts(self) -> None:
         selected = json.loads(self.lambda_path.read_text(encoding="utf-8"))
         root = Path(self.lambda_roots[0]["path"])

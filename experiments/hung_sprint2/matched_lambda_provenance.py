@@ -201,6 +201,8 @@ def verify_lambda(
     require(isinstance(roots, list) and len(roots) == 4, "Four lambda matrix roots required")
     matrices = {}
     chronologies = {}
+    current_sources = dispatch._code_identity()["executed_sources"]
+    marker_code = None
     for budget in BUDGETS:
         input_run = dispatch.project_path(input_base / f"urbanev-SZH-{budget}d")
         dispatch._load_run(input_run, preflight["budgets"][str(budget)]["input_manifest_sha256"])
@@ -220,6 +222,7 @@ def verify_lambda(
         marker = dispatch.read_verified_json(path / "matrix_identity.json", row["matrix_sha256"])
         candidate = pinned_json(row["config"])
         level = LEVELS[row["index"]]
+        candidate_code = marker.get("code", {})
         require(
             marker.get("schema") == "hung-sprint2-development-matrix-v1"
             and marker.get("phase") == "verification"
@@ -227,8 +230,10 @@ def verify_lambda(
             and marker.get("seeds") == list(SEEDS)
             and marker.get("selection_sha256") == selection_sha256
             and marker.get("config_sha256") == row["config"]["sha256"]
-            and marker.get("code", {}).get("worktree_status") == []
-            and marker.get("code", {}).get("commit") == preflight.get("code_commit")
+            and candidate_code.get("worktree_status") == []
+            and isinstance(candidate_code.get("commit"), str)
+            and candidate_code.get("executed_sources") == current_sources
+            and (marker_code is None or marker_code == candidate_code)
             and candidate["target"].get("retention_kind") == "parameter"
             and candidate["replay"].get("retention_kind") == "parameter"
             and candidate["target"]["retention_weight"]
@@ -238,6 +243,7 @@ def verify_lambda(
             and candidate["replay"]["level_two"] == 2 * level,
             "Lambda matrix marker/config differs",
         )
+        marker_code = candidate_code
         matrices[row["index"]] = (path, marker)
     require(set(matrices) == set(range(4)), "Lambda root grid incomplete")
     scores = {index: {budget: {} for budget in BUDGETS} for index in range(4)}
