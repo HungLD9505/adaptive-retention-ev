@@ -438,6 +438,7 @@ def _target(args: argparse.Namespace) -> dict:
         seed=args.seed,
         code_sha=code["commit"],
         training_step=steps,
+        initial_retention_weight=args.retention_weight,
     )
     summary = {
         "scope": "bounded_development_initialization; no online replay or effectiveness evidence",
@@ -552,14 +553,25 @@ def _replay(args: argparse.Namespace) -> dict:
             raise ValueError("Fixed policy and initial lambda are inconsistent")
         if target_record.get("retention_weight") != expected_weight:
             raise ValueError("Target initialization lambda does not match fixed replay policy")
-    target_model, optimizer, target_scale, _ = load_checkpoint(
+    target_model, optimizer, target_scale, target_metadata = load_checkpoint(
         args.target_checkpoint, expected_binding=target_binding, map_location=device
     )
+    checkpoint_weight = target_metadata["initial_retention_weight"]
+    if checkpoint_weight is not None and target_record.get("retention_weight") != checkpoint_weight:
+        raise ValueError("Target run manifest lambda disagrees with checkpoint payload")
+    if selection_rule in {"fixed_retention", "full_finetuning"} and checkpoint_weight is None:
+        raise ValueError("Legacy target checkpoint has unverified initial lambda")
+    if selection_rule in {"fixed_retention", "full_finetuning"} and (
+        checkpoint_weight != controller.initial_level
+    ):
+        raise ValueError("Target checkpoint lambda does not match fixed replay policy")
     if target_scale is None or not torch.equal(target_scale, source_scale):
         raise ValueError("Target latent scale differs from bound Source")
     config = {
         "controller": {**asdict(controller), "levels": list(controller.levels)},
         "selection_rule": selection_rule,
+        "target_initial_retention_weight": checkpoint_weight,
+        "target_initial_retention_weight_verified": checkpoint_weight is not None,
         "epsilon": args.epsilon,
         "seed": args.seed,
         "max_origins": args.max_origins,
@@ -612,6 +624,10 @@ def _replay(args: argparse.Namespace) -> dict:
             or previous.get("source_input_binding") != source_binding
             or previous.get("config", {}).get("controller") != config["controller"]
             or previous.get("config", {}).get("selection_rule", "confidence") != selection_rule
+            or previous.get("config", {}).get("target_initial_retention_weight")
+            != checkpoint_weight
+            or previous.get("config", {}).get("target_initial_retention_weight_verified")
+            != (checkpoint_weight is not None)
             or previous.get("config", {}).get("epsilon") != args.epsilon
             or previous.get("config", {}).get("seed") != args.seed
             or previous.get("config", {}).get("device", "cpu") != device.type
