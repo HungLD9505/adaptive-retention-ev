@@ -13,6 +13,22 @@ from tools import hung_results as results
 
 
 class ResultTests(unittest.TestCase):
+    def test_saved_forecast_scorer_runs_without_model_package(self):
+        import builtins
+
+        original_import = builtins.__import__
+
+        def isolated_import(name, *args, **kwargs):
+            if name.startswith("experiments"):
+                raise ImportError("Model package deliberately absent")
+            return original_import(name, *args, **kwargs)
+
+        namespace = {"__name__": "standalone_saved_forecast_scorer"}
+        with patch("builtins.__import__", side_effect=isolated_import):
+            exec(Path(results.__file__).read_text(), namespace)
+            state, manifest = self.saved()
+            self.assertEqual(namespace["score_saved"](state, manifest)["metrics"]["mae_kwh"], 2)
+
     def test_scoring_without_numpy(self):
         state, manifest = self.saved()
         with patch.object(

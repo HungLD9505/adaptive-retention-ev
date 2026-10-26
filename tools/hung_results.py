@@ -17,8 +17,6 @@ from pathlib import Path
 
 import torch
 
-from experiments.hung_sprint2.dispatch_state import atomic_create
-
 
 def file_sha(path: Path) -> str:
     with path.open("rb") as stream:
@@ -448,6 +446,8 @@ def aggregate_results(catalog: dict, root: Path) -> dict:
 
 
 def main() -> None:
+    from experiments.hung_sprint2.dispatch_state import atomic_create
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--catalog", type=Path, required=True)
     parser.add_argument("--catalog-sha256", required=True)
