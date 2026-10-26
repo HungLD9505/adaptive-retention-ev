@@ -6,6 +6,7 @@ import json
 import tempfile
 import unittest
 from argparse import Namespace
+from copy import deepcopy
 from pathlib import Path
 from unittest.mock import patch
 
@@ -26,9 +27,15 @@ class ReplayCliTests(unittest.TestCase):
         torch.set_num_threads(1)
 
     def _inputs(
-        self, root: Path, *, trained_weight: float | None = None, proxy_history: bool = False
+        self,
+        root: Path,
+        *,
+        trained_weight: float | None = None,
+        proxy_history: bool = False,
+        retention_kind: str = "latent",
+        days: int = 3,
     ):
-        run, digest = input_run(root, days=3)
+        run, digest = input_run(root, days=days)
         if proxy_history:
             forecasts_path = run / "forecasts.jsonl"
             forecasts = [json.loads(line) for line in forecasts_path.read_text().splitlines()]
@@ -124,6 +131,7 @@ class ReplayCliTests(unittest.TestCase):
                     seed=7,
                     learning_rate=0.001,
                     retention_weight=trained_weight,
+                    retention_kind=retention_kind,
                     epsilon=1e-6,
                     device="cpu",
                 )
@@ -499,6 +507,101 @@ class ReplayCliTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "lineage/config/code mismatch"):
                 _replay(args)
             self.assertFalse(args.output.exists())
+
+    def test_parameter_retention_initialization_replay_and_resume_binding(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            run, digest, source, target, binding = self._inputs(
+                root, trained_weight=0.1, retention_kind="parameter"
+            )
+            _, _, _, metadata = load_checkpoint(target, expected_binding=binding)
+            self.assertEqual(metadata["initial_retention_kind"], "parameter")
+            self.assertEqual(metadata["initial_retention_weight"], 0.1)
+            args = self._args(root, run, digest, source, target, "parameter-first", 1)
+            args.retention_kind = "parameter"
+            args.initial_level = 0.1
+            first = _replay(args)
+            self.assertEqual(first["config"]["retention_kind"], "parameter")
+            checkpoint = args.output / "runner_checkpoint.pt"
+            resumed_args = deepcopy(args)
+            resumed_args.resume_checkpoint = checkpoint
+            resumed_args.output = root / "parameter-resumed"
+            resumed_args.max_origins = 3
+            resumed = _replay(resumed_args)
+            direct_args = deepcopy(resumed_args)
+            direct_args.output = root / "parameter-direct"
+            direct_args.resume_checkpoint = None
+            direct = _replay(direct_args)
+            resumed_runner = load_runner(
+                resumed_args.output / "runner_checkpoint.pt", expected_binding=binding
+            )
+            direct_runner = load_runner(
+                direct_args.output / "runner_checkpoint.pt", expected_binding=binding
+            )
+            self.assertEqual(resumed_runner.retention_kind, "parameter")
+            assert_same_replay(self, resumed_runner, direct_runner)
+            self.assertEqual(resumed["metrics_kwh"], direct["metrics_kwh"])
+            self.assertEqual(
+                [item["update_steps"] for item in resumed["runtime_costs"]["candidate"]],
+                [2, 2, 2],
+            )
+            self.assertEqual(resumed_runner.proxy_costs["update_steps"], 0)
+            wrong = deepcopy(args)
+            wrong.output = root / "wrong-kind"
+            wrong.retention_kind = "latent"
+            with self.assertRaisesRegex(ValueError, "cannot be replayed as latent"):
+                _replay(wrong)
+            self.assertFalse(wrong.output.exists())
+            target_record_path = target.parent / "run_manifest.json"
+            target_record = json.loads(target_record_path.read_text(encoding="utf-8"))
+            target_record["retention_kind"] = "latent"
+            target_record_path.write_text(json.dumps(target_record), encoding="utf-8")
+            wrong = deepcopy(args)
+            wrong.output = root / "changed-manifest-kind"
+            with self.assertRaisesRegex(ValueError, "manifest retention kind disagrees"):
+                _replay(wrong)
+            self.assertFalse(wrong.output.exists())
+            target_record["retention_kind"] = "parameter"
+            payload = torch.load(target, map_location="cpu", weights_only=True)
+            payload["initial_retention_kind"] = "latent"
+            torch.save(payload, target)
+            target_record["checkpoint_sha256"] = sha256_file(target)
+            target_record_path.write_text(json.dumps(target_record), encoding="utf-8")
+            wrong = deepcopy(args)
+            wrong.output = root / "changed-checkpoint-kind"
+            with self.assertRaisesRegex(ValueError, "manifest retention kind disagrees"):
+                _replay(wrong)
+            self.assertFalse(wrong.output.exists())
+
+    def test_declarative_seven_and_twenty_eight_day_blocks_resume_at_boundary(self) -> None:
+        for block_days in (7, 28):
+            with self.subTest(block_days=block_days), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                run, digest, source, target, binding = self._inputs(root, days=block_days + 1)
+                first_args = self._args(root, run, digest, source, target, "first", block_days)
+                first_args.block_days = block_days
+                first = _replay(first_args)
+                self.assertEqual(first["config"]["controller"]["block_days"], block_days)
+                resumed_args = deepcopy(first_args)
+                resumed_args.output = root / "resumed"
+                resumed_args.max_origins = block_days + 1
+                resumed_args.resume_checkpoint = first_args.output / "runner_checkpoint.pt"
+                resumed = _replay(resumed_args)
+                direct_args = deepcopy(resumed_args)
+                direct_args.output = root / "direct"
+                direct_args.resume_checkpoint = None
+                direct = _replay(direct_args)
+                self.assertEqual(len(resumed["event_evidence"]["decisions"]), 1)
+                self.assertEqual(resumed["metrics_kwh"], direct["metrics_kwh"])
+                assert_same_replay(
+                    self,
+                    load_runner(
+                        resumed_args.output / "runner_checkpoint.pt", expected_binding=binding
+                    ),
+                    load_runner(
+                        direct_args.output / "runner_checkpoint.pt", expected_binding=binding
+                    ),
+                )
 
 
 if __name__ == "__main__":

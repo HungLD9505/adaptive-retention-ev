@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import tempfile
 import unittest
+from copy import deepcopy
 from pathlib import Path
 from unittest.mock import patch
 
 import torch
 
 from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
+from experiments.hung_sprint2.retention import frozen_source_reference, parameter_retention_loss
 from experiments.hung_sprint2.training import (
     forecast_mae,
     initialize_target,
@@ -105,6 +107,46 @@ class ModelTests(unittest.TestCase):
         self.assertFalse(
             torch.equal(before["forecast_head.0.weight"], self.model.forecast_head[0].weight)
         )
+
+    def test_parameter_retention_anchors_all_transferred_weights_only(self) -> None:
+        reference = frozen_source_reference(self.model)
+        target = deepcopy(self.model)
+        self.assertEqual(float(parameter_retention_loss(target, reference).detach()), 0.0)
+        with torch.no_grad():
+            target.forecast_head[0].weight[0, 0] += 2.0
+        count = sum(parameter.numel() for parameter in target.parameters())
+        self.assertAlmostEqual(
+            float(parameter_retention_loss(target, reference).detach()), 4.0 / count
+        )
+        optimizer = torch.optim.Adam(target.parameters(), lr=0.001)
+        result = target_step(
+            target,
+            reference,
+            optimizer,
+            self.history,
+            self.calendar,
+            self.labels,
+            retention_weight=0.2,
+            latent_scale=None,
+            epsilon=1e-6,
+            retention_kind="parameter",
+        )
+        self.assertGreater(result.retention, 0)
+        self.assertAlmostEqual(result.total, result.forecast + 0.2 * result.retention)
+        self.assertTrue(all(parameter.grad is None for parameter in reference.parameters()))
+        with self.assertRaisesRegex(ValueError, "Unsupported retention kind"):
+            target_step(
+                target,
+                reference,
+                optimizer,
+                self.history,
+                self.calendar,
+                self.labels,
+                retention_weight=0.2,
+                latent_scale=None,
+                epsilon=1e-6,
+                retention_kind="unknown",
+            )
 
     def test_source_step_rejects_nonfinite_loss_and_gradient_before_update(self) -> None:
         optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
