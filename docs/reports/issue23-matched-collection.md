@@ -453,3 +453,61 @@ before its next offset. It does not fake a Drive mount. The first actual cloud
 transport acceptance must use one run before expanding to larger chunks. This
 prepared742-run matrix is not executed or accepted yet. See the
 [outbox contract](issue23-durable-recovery.md) and exact evidence JSON.
+
+
+### First new-runtime run published; bounded continuation dispatched
+
+Kaggle bootstrap code103bf2c passed346 actual cloud fixtures (23.176s), Ruff and
+code/kit/input hashes. One actual Source-error run completed:
+`urbanev-SZH-1405-7d-source_error-seed42-recipe1`. Daily/state verification passed,
+but canonical export rejected its three Source descriptors for one initial seed.
+No further run was dispatched after that failure. The original Source/target
+archive/receipt set was retrieved using the notebook's ordinary Download control.
+
+All four backup pairs were independently restored locally. The checked metrics,
+forecast identities, step counts and final branch-state hash exactly matched the
+original frozen reference, with zero difference records. The export-only fix
+e831501 preserves actual initial-seed descriptors and attaches all three original
+Source dependencies; it leaves the original target report, weights and predictions
+unchanged. CPU-only rescue/export succeeded without refitting.
+
+The [canonical first-run handoff](https://drive.google.com/file/d/1dhIos4YMXDRAAX2TQINthFaH1kBcriEx/view)
+is12,108,887 bytes, SHA-256
+`15a6addbf533d336ce1769cefed3fa166a4e6831c5509876f896ba09f00a63be`.
+Actual Drive readback, canonical restoration, complete daily/input/state equality
+and CPU reload of all three shared Source dependencies passed. The hash-pinned
+[publication receipt](https://drive.google.com/file/d/1sfLpwKvAc4Dock3Jsr35OzsWKmwg_owe/view)
+SHA-256 is `5f3462380fb190bf1463693420f55c7d3dbf251d88d850dda9a383af4a0257d3`.
+[Independent proof/scripts](https://drive.google.com/file/d/1AG5Itn7u9h5jlYJ170WglJfW215KZQGU/view)
+and the unchanged original backup wrapper are linked in the exact evidence JSON.
+
+Only after those actual checks was the next range [1,13) dispatched as PID453
+in the same Kaggle notebook, using a separate corrected checkout and that receipt.
+It must pass fixtures and stop after at most12 runs for external publication.
+Process dispatch is not12-run completion; the742-run matrix, remaining cities,
+analysis, review and Final gates remain open. The source/export fix passed347
+local fixtures (6.043s); new cloud fix acceptance is reported when actually seen.
+
+### Two-run prefix preserved after progress metadata failure
+
+The next chunk passed347 real Kaggle fixtures (22.146s), Ruff lint and format.
+Two targets completed and committed their immutable archive/receipt pairs:
+`urbanev-SZH-1405-7d-uncertainty-seed42-recipe1` and
+`urbanev-SZH-1405-7d-drift-seed42-recipe3`. The process then exited1 because
+the second progress update used exclusive creation for an existing progress.json.
+This is an orchestration metadata failure; neither completed target is rerun.
+
+The fix replaces only the progress pointer atomically after writing a new pending
+file; immutable completed archives are untouched. The regression checks repeated
+updates and preservation of prior progress/archives on an interrupted pending
+write.348 local tests passed (6.926s), Ruff lint/format and diff checks passed.
+No model, controller, runner or baseline algorithm changed.
+
+The [two-run raw backup](https://drive.google.com/file/d/1GyrrXLF663N4Ldwf4_2Mg9PoO7Th77Qr/view)
+was downloaded outside Kaggle and verified for ZIP CRC and all11 manifest payload
+hashes before upload. It is5,541,810 bytes, SHA-256
+`44898cec34489f92d1b0a6572974fd37f37a693a69e8f10287caa549914b74b3`.
+Full independent target-content restoration and actual Drive readback remain
+pending at this handoff. No next offset is authorized by this raw upload alone.
+A first verifier preflight stopped because the local tooling fix was uncommitted;
+it did not fit or alter any target.

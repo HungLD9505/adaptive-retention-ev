@@ -11,6 +11,7 @@ from unittest.mock import patch
 from ev_models.checkpoint import digest
 from tools.replay_checkpoint_chunk import (
     check_handoff,
+    checkpoint_progress,
     initial_sources,
     package_outbox,
     select_chunk,
@@ -19,6 +20,24 @@ from tools.replay_checkpoint_chunk import (
 
 
 class CheckpointChunkTests(unittest.TestCase):
+    def test_second_progress_update_and_pending_failure_preserve_completed_state(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            study = Path(temp)
+            sentinel = study / "committed-run.zip"
+            sentinel.write_bytes(b"immutable completed run fixture")
+            first = [{"run_id": "a"}]
+            second = first + [{"run_id": "b"}]
+            checkpoint_progress(study, first)
+            checkpoint_progress(study, second)
+            self.assertEqual(json.loads((study / "progress.json").read_text())["runs"], second)
+            pending = study / "progress.next.json"
+            pending.write_text("interrupted metadata, preserve for inspection")
+            with self.assertRaises(FileExistsError):
+                checkpoint_progress(study, second + [{"run_id": "c"}])
+            self.assertEqual(json.loads((study / "progress.json").read_text())["runs"], second)
+            self.assertTrue(pending.exists())
+            self.assertEqual(sentinel.read_bytes(), b"immutable completed run fixture")
+
     def test_one_seed_descriptor_keeps_three_source_dependency_package(self) -> None:
         rows = [{"binding": {"config": {"initial_training": {"seed": 42}}}}]
         with tempfile.TemporaryDirectory() as temp:

@@ -37,6 +37,13 @@ def select_chunk(rows: list[dict], start: int, count: int) -> list[dict]:
     return rows[start : start + count]
 
 
+def checkpoint_progress(study: Path, rows: list[dict]) -> None:
+    """Replace only the progress pointer; immutable per-run archives remain authoritative."""
+    temporary = study / "progress.next.json"
+    write_json(temporary, {"runs": rows, "status": "local_outbox_only"})
+    temporary.replace(study / "progress.json")
+
+
 def check_handoff(
     rows: list[dict], start: int, plan_sha: str, family: str, path: Path | None, pin: str | None
 ) -> None:
@@ -248,7 +255,7 @@ def run(args: argparse.Namespace) -> None:
             raise ValueError("Executed config differs from frozen reference")
         backup.target(row)
         executed.append(row)
-        write_json(study / "progress.json", {"runs": executed, "status": "local_outbox_only"})
+        checkpoint_progress(study, executed)
         print("CHUNK_LOCAL_COMPLETED", len(executed), len(chunk), row["run_id"], flush=True)
     matrix = {k: copy.deepcopy(v) for k, v in original.items() if k not in ("runs", "status")}
     all_sources = {str(k): v for k, v in backup.sources.items()}

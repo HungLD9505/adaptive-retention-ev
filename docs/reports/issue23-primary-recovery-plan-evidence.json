@@ -365,7 +365,7 @@
     "transfer": "All909 original backup files downloaded via connected Drive stream (434277286bytes). No sharing/account change. First restore preflight used a missing local Source report path and stopped before extraction; corrected path and original failed script/log both preserved."
   },
   "runtime_fair_kaggle_replay": {
-    "status": "prepared_and_metadata_validated_not_executed",
+    "status": "one_real_run_published_next12_dispatched_not742_complete",
     "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
     "total_units": 69,
     "retained_complete_units": [
@@ -751,5 +751,60 @@
     "notebook_url": "https://www.kaggle.com/code/qert12345/qyroven-sprint-3-resume-preflight-20261027/edit",
     "provider_availability_observed": "Kaggle explicitly displayed16 GPU hours remaining and a new independent GPU probe executed. No alternate account or old-session replacement.",
     "durability_scope": "Bounded local outbox implemented and fixture tested; actual one-run cloud transport/Drive-readback acceptance is pending. No742-run completion claim."
+  },
+  "kaggle_first_run_publication": {
+    "status": "actual_Kaggle_one_run_canonical_Drive_roundtrip_and_content_verified",
+    "runs": 1,
+    "all_three_Source_dependencies_cpu_verified": true,
+    "wrapper_sha256": "15a6addbf533d336ce1769cefed3fa166a4e6831c5509876f896ba09f00a63be",
+    "wrapper_bytes": 12108887,
+    "catalog_sha256": "59df98936a04e845fbb547a4ce091de7d3d22b16aef5bf372a6a1745a157fd32",
+    "daily_sha256": "dd0d9973395050d5f5ce2efe1883e1a9dad6048b5d28a2e6a7ec0a50bf801968",
+    "states_sha256": "5d3ecaed8d344a628fbe78088a45a7f5be749fe0cbcf408149a5cf1e51b31d30",
+    "scope": "Actual normal Kaggle browser download, raw content restore, CPU-only descriptor repair, canonical export, approved Drive upload, fresh anonymous readback, complete transport/Source/daily/state proof equality. No refitting, Final or next-chunk acceptance.",
+    "run_id": "urbanev-SZH-1405-7d-source_error-seed42-recipe1",
+    "artifact_url": "https://drive.google.com/file/d/1dhIos4YMXDRAAX2TQINthFaH1kBcriEx/view",
+    "publication_receipt_url": "https://drive.google.com/file/d/1sfLpwKvAc4Dock3Jsr35OzsWKmwg_owe/view",
+    "publication_receipt_sha256": "5f3462380fb190bf1463693420f55c7d3dbf251d88d850dda9a383af4a0257d3",
+    "original_backup_url": "https://drive.google.com/file/d/12juKKW2cmny8YDfERa7irlTCd0z-82zA/view",
+    "original_backup_bytes": 3631481,
+    "original_backup_sha256": "354cdd58d1d0faea7ddd417d013cab5ab3c9332398d994aa5e9e7f71e1eedb95",
+    "evidence_url": "https://drive.google.com/file/d/1AG5Itn7u9h5jlYJ170WglJfW215KZQGU/view",
+    "evidence_bytes": 12116,
+    "evidence_sha256": "87978a682e5d984b42746896c7e03a39f8b1b3a556e881ca31cc5206e52e8cb9",
+    "target_code": "103bf2c472c02a36640ed04952955328cd01267f",
+    "export_fix_code": "e831501ce60c89928eece7e8bb36b0b83fae8702",
+    "failure_and_rescue": "The real run, local backup and daily/state checks completed. Original exporter correctly rejected3 initial Sources for one seed. Existing bytes were downloaded and independently restored; descriptor-only CPU export repair preserves all3 dependencies in a shared attachment. No refitting or altered target report/state.",
+    "original_difference_records": {},
+    "cloud_bootstrap_tests": {
+      "count": 346,
+      "seconds": 23.176,
+      "ruff_lint": "PASS",
+      "ruff_format": "PASS"
+    },
+    "next_chunk": {
+      "pid": 453,
+      "start": 1,
+      "end": 13,
+      "required_runs": 12,
+      "code_sha": "e831501ce60c89928eece7e8bb36b0b83fae8702",
+      "status": "stopped_after_two_committed_targets_progress_pointer_FileExistsError",
+      "scope": "No process active. Two completed targets were packaged, downloaded, ZIP/manifest/hash verified and uploaded to approved Drive. Full model-content and fresh remote readback verification remain pending; no next chunk permitted yet.",
+      "exit_code": 1,
+      "actual_completed_runs": 2,
+      "cloud_tests": {
+        "count": 347,
+        "seconds": 22.146,
+        "ruff_lint": "PASS",
+        "ruff_format": "PASS"
+      },
+      "raw_backup_url": "https://drive.google.com/file/d/1GyrrXLF663N4Ldwf4_2Mg9PoO7Th77Qr/view",
+      "raw_backup_bytes": 5541810,
+      "raw_backup_sha256": "44898cec34489f92d1b0a6572974fd37f37a693a69e8f10287caa549914b74b3",
+      "completed_prefix": [
+        1,
+        3
+      ]
+    }
   }
 }
