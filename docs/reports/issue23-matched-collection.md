@@ -239,3 +239,33 @@ runs are an ordered archive prefix, not a newly selected performance cohort.
 77,175-byte proof/source/log/catalog ZIP; anonymous bytes/hash/CRC/all4-member
 readback passed. Missing54 proxy parts and the60-part matched export remain
 explicitly unrecovered; partial verification cannot grant full-matrix acceptance.
+
+
+All40 preserved proxy parts (718,194,764 bytes) are now in the shared partial
+export folder and have passed anonymous remote size/SHA-256 checks; every ZIP
+also passed CRC. Exact returned file IDs and fingerprints are in the linked
+partial-evidence JSON. This covers the same456 original runs, not the648 missing
+ones. The folder has an explicit `README-PARTIAL.txt` and partial index; the
+original complete catalog and expected run population were not weakened.
+
+The JHB recovery's first182 completed target runs were captured from one immutable
+progress snapshot and backed up locally. The289,105,442-byte ZIP was too large
+for the browser download to return a file within its observation timeout. Fourteen
+20MiB-or-smaller transport chunks were downloaded and independently hashed, then
+concatenated; the exact original ZIP SHA-256
+`b7c8de2733f0e7720b28698e83e8a20d0b7e0c400d416a71b6707d216b9867f9`,
+CRC and all50,778 manifest member hashes matched. Existing read-only verifiers
+then recomputed33,670 daily files,3,261 old-policy audit forecast errors and all182
+latest model/optimizer/RNG branch states against the accepted JHB Development
+inputs and archived Source identities. This is a completed-prefix check, not a
+full378-cell result. The first local draft inspection used the wrong nesting
+for a Source seed and raised `KeyError`; its failure log was retained. Corrected
+v2 verification passed without changing any data, expected hash or model.
+
+Uploading that289MB archive through the connector failed with a300-second blob
+transfer timeout and returned no Drive file ID. Direct Drive UI upload was then
+started; it is not counted complete until confirmed and read back. A Quick Save
+with **Save output for this version** was also requested; version4 remains Queued,
+so it is not accepted as a durable backup. No new training was dispatched by the
+save operation. SPO inputs have been staged and their archive/all three manifest
+hashes verified, but SPO training has not started.
