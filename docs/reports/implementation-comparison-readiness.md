@@ -1,5 +1,28 @@
 # Independent implementation comparison — readiness, 2026-10-26
 
+## October 27 current-head recheck
+
+Read-only inspection of Hung's PR #72 head
+`30fe7d196d9e3ede954384089790e718aa314d32` and Qyroven's
+`6d3feeced568eea8bd691e41b8bb97e55ce15333` reconfirmed the material head
+topology and bootstrap quantile/RNG differences described below. Fresh bounded
+CPU fixtures on the newly pinned component bytes give encoder maximum absolute
+difference 0 with shared encoder weights, identical retention loss
+2.5089153428333866, exactly equal target gradients and absent reference gradients.
+Parameter counts remain 52,376 versus 41,696 at the declared head widths.
+See [current component evidence](issue23-current-hung-comparison.json).
+
+This does not establish full-head/controller/runner parity or authorize merging
+the implementations. No foreign implementation or trained weights were adopted.
+Hung's current [phase handoff](https://github.com/HungLD9505/adaptive-retention-ev/blob/30fe7d196d9e3ede954384089790e718aa314d32/docs/reports/hung-e2e-phase-20261027-1045.md)
+reports 362/782 new jobs completed, 302 with remote readback and 60 awaiting it;
+his work is explicitly incomplete. Those counts use a different job definition
+and cannot be combined with Qyroven's counts. This inspection did not independently
+restore Hung's large private archives or verify live provider jobs.
+
+The historical profiles below remain attributed to their original executions;
+they are not relabeled as the newest calibrated profiles.
+
 The Qyroven implementation was already independently committed/executed before
 inspecting Hung's code for this comparison. No Hung model/controller/training code
 or trained weights are incorporated into Qyroven's implementation.

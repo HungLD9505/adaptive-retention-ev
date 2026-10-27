@@ -1199,3 +1199,76 @@ after at most12 runs. A14-method unit may span chunks on its assigned worker.
 Different hardware/profiles must not be silently pooled into comparable cost
 numbers. This is resource feasibility evidence under #23, not a competing sprint
 schedule or a silent replacement of the accepted742-cell recovery plan.
+
+## October 27 — authorized E2E checklist, current peer comparison and Colab resume gate
+
+The lead authorized continuation after the earlier stop. The single task-level
+[E2E checklist and stop/recovery rules](https://github.com/HungLD9505/adaptive-retention-ev/issues/23#issuecomment-6433415375)
+are now on Issue #23; a new active execution goal preserves those gates. This does
+not approve Final scope, method changes, automatic merge or main promotion.
+
+Read-only local inventory found 67 publication-verification records, including
+overlapping/historical collections. This is not 67 independent experiment batches.
+Fresh local SHA/ZIP-CRC rechecks of the already downloaded primary276–288,
+primary288–300 and SPO37–49 wrappers passed; see the
+[bounded byte audit](issue23-resume-gate-local-artifact-audit.json).
+Externally published primary prefix remains500/742 (212 proxy+288 matched);
+the next12 have local independent verification and raw Drive bytes but their proof
+publication still needs completing. Do not silently promote them to full handoff.
+SPO's accepted reconstructed prefix is49/378, not its older37 snapshot.
+AMS61–73 cloud completion is not counted without external publication acceptance.
+
+The [current Hung component recheck](implementation-comparison-readiness.md#october-27-current-head-recheck)
+pins PR #72 at30fe7d and retains head/bootstrap/profile differences. Encoders agree
+under shared encoder weights and latent loss/gradients match exactly on bounded
+CPU fixtures. Full model/controller/runner parity and a fair metric leaderboard
+are not established. No Hung weights or implementation were adopted.
+
+The new [Colab notebook](https://colab.research.google.com/drive/12pPMj0ghylZjbYZgr-yqUUW_HV7xrM6w)
+obtained Tesla T4, Python3.13.16, PyTorch2.11.0+cu130; fresh child processes use
+NumPy2.3.3. Three bounded processes ran a five-day synthetic CUDA fixture:
+uninterrupted, partial through day2, then resumed from a SHA-verified archive
+copied back from mounted Drive. All three exited0. Total measured orchestration
+was28.636s, excluding runtime allocation/setup. Complete model/Adam/RNG/cursor/
+controller state (excluding measured cost durations), prediction hashes,
+decisions and counters match exactly. Two block decisions kept the active policy;
+this fixture does not cover a switching audit, missing/delayed labels, epoch-boundary
+Source resume or real-data migration. Existing evidence for those paths retains
+its original environment and scope.
+
+[Exact cloud result](issue23-colab-resume-gate.json) and
+[independent Drive API readback](issue23-colab-resume-readback.json) authenticate
+the1,340,486-byte checkpoint archive SHA
+`4848e73f1e4d97b68bd6b20db1be8fee429e4a41d067a9f7d065ea7238c6ed80`.
+The external CPU integrity check verified three committed ticks, their hash chain
+and three candidate states. Direct CUDA-tagged Store restore on CPU failed;
+explicit map_location=cpu was used only for independent integrity loading, never
+as a cross-device resume claim. The first local integrity command also lacked
+Torch in system Python; the pinned model environment was used for the actual
+check. Raw failed attempts are preserved locally. Exact report bytes were fetched
+through Drive rather than relying on JavaScript-rounded large RNG integers.
+
+[Drive folder](https://drive.google.com/drive/folders/1k-5ytClnEU0VB5Ds9bqGI1xFqW16R9Tm)
+contains the checkpoint, probe source, summaries and logs. Connector metadata
+reports shared=true; a second-user access test was not performed. The executed
+core code is1ac2ae0, byte-identical in ev_models/ev_control/ev_runner/ev_baselines
+to the current6d3feec review head. No actual VM deletion/network outage, real-data
+benchmark, Final execution or completion of E2E is claimed by this fixture.
+
+Colab reported99.97 available units and approximately1.15 units/hour for this T4
+at observation, with two active sessions. That is a provider UI estimate, not a
+guaranteed job price or a claim that both sessions use GPUs. The lead explicitly
+requires compute conservation. Initial real-data migration/resume preflight is
+capped at2 further units and30 minutes, with bounded child timeouts and no bulk
+queue before measured capacity review. Provisionally reserve30 units for later
+Final/analysis; this is a reserve, not evidence that Final fits. Do not consume it
+or silently remove mandatory methods/seeds/budgets; report a scope/capacity blocker
+if projected work does not fit. Disconnect idle owned GPU resources after required
+artifacts are preserved; do not terminate another session or discard unique state.
+No fake clicks, keep-alives, automatic quota-evasion account switching, duplicate
+Run All launches after reconnect, or unlimited retries are authorized.
+
+Only synthetic fixture updates ran this phase; real Development queue continuation,
+whole-unit profile migration, epoch/day real-data restore and immutable Final
+approval gates remain next. The previous373-test/CI result is historical; this
+prose/evidence update does not claim a fresh full-suite run.
