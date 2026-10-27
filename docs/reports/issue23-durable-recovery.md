@@ -1870,3 +1870,33 @@ Authenticated native kit/script readback matched exact bytes/hash/CRC after a
 direct anonymous response failed byte equality and was rejected. Same56-cell,
 20min/1unit/120s deadman/30-unit reserve; no automatic next batch. Dispatch is
 not accepted completion, and does not increase the100/231 accepted count.
+
+### Namespace-aware Development migration preparation
+
+The remaining CHARGED work needs original city Source reuse under the actual
+Colab target environment. `tools.prepare_city_units` now prepares1..4 strict
+pending ledger units in one city. It authenticates pinned original context/target
+plan and the existing three-source publication kit without rebuilding or relabeling
+its producer environment. All14 exact original configs, ready Development roles,
+input/scaler/Source population and seed/checkpoint identities are required. It
+copies only explicitly named original Source members; it performs no fitting and
+records references as `predeclared_development_reference`, never as historical
+successful outcomes.
+
+The existing replay operator admits this separately named city-plan schema while
+legacy primary plans remain UrbanEV-only. It validates the complete-unit
+declaration, same-city namespace, every method, fixed seed/budget/protocol and
+Source hashes, then uses unchanged execute/Replay/CachedInputs/RunBackup logic.
+Actual target runtime goes into the new backup context; original Source report
+metadata/environment stays unchanged and is checked by RunBackup. New city
+execution is not described as recovering old outcome bytes. Final is still
+rejected by the existing Development readers and role checks.
+
+Verification:384 offline tests passed, including5 new city recipe/namespace/
+Source/method/role/declaration cases; Ruff lint and format200 Python files passed,
+source catalog listing and diff checks passed. No datasets were downloaded or
+training performed by these tests. Raw archives were not freshly rechecked in
+this turn; source-list output is a catalog read, not fresh archive verification.
+The18 research-core file fingerprints are unchanged. Actual city Colab execution
+and full-source/target external acceptance remain pending; fixtures do not supply
+research effectiveness or the Final lock.

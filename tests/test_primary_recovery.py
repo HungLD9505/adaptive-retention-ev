@@ -135,6 +135,89 @@ class PrimaryRecoveryTests(unittest.TestCase):
             )
             self.assertEqual(context["source_manifest_sha256"], "source-manifest")
 
+    def city_fixture(self, root: Path) -> tuple[Path, dict, dict, dict]:
+        path, plan, original = self.fixture(root)
+        base = original["runs"][0]
+        original.update(status="predeclared_development_reference", namespace=["charged", "AMS"])
+        original["runs"] = []
+        for index in range(14):
+            row = copy.deepcopy(base)
+            row["run_id"] = f"city-method-{index}"
+            row["comparison_variant"] = f"method{index}"
+            row["binding"]["input"].update(dataset_id="charged", city_id="AMS")
+            original["runs"].append(row)
+        declaration = {
+            "chosen_units": [["charged", "AMS", 7, "fixture", 42]],
+            "required_variants": [r["comparison_variant"] for r in original["runs"]],
+            "rows": original["runs"],
+            "producer_context_sha256": "producer-context",
+        }
+        (root / "whole-unit.json").write_text(json.dumps(declaration))
+        (root / "matrix.json").write_text(json.dumps(original))
+        plan.update(
+            schema="exact-city-development-migration-v1",
+            namespace=["charged", "AMS"],
+            whole_unit_sha256=digest(root / "whole-unit.json"),
+            producer_context_sha256="producer-context",
+        )
+        plan["families"] = {
+            "matched": {
+                "original_matrix": "matrix.json",
+                "original_matrix_sha256": digest(root / "matrix.json"),
+                "original_total": 14,
+                "preserved_ids": [],
+                "replay_ids": [r["run_id"] for r in original["runs"]],
+            }
+        }
+        path.write_text(json.dumps(plan))
+        return path, plan, original, declaration
+
+    def test_city_reference_is_explicit_and_context_uses_actual_target_environment(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            path, plan, original, _ = self.city_fixture(Path(temp))
+            _, _, rows = planned_rows(path, digest(path), "matched")
+            self.assertEqual(len(rows), 14)
+            producer = {
+                "training_config": {"seed": 42, "epochs": 10},
+                "source_population_sha256": "own-population",
+                "input_binding": {"input_manifest_sha256": "own-input"},
+                "environment": {"python": "producer"},
+            }
+            unchanged = copy.deepcopy(producer)
+            context = recovery_context(plan, original, rows, {"python": "target"}, producer)
+            self.assertEqual(context["namespace"], ["charged", "AMS"])
+            self.assertEqual(context["environment"], {"python": "target"})
+            self.assertEqual(producer, unchanged)
+            with self.assertRaises(ValueError):
+                planned_rows(path, digest(path), "proxy")
+
+    def test_city_rejects_incomplete_mixed_or_changed_declaration(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for mutation in ("hash", "missing", "mixed", "namespace", "status", "stage"):
+                path, plan, original, declaration = self.city_fixture(root)
+                if mutation == "hash":
+                    plan["whole_unit_sha256"] = "changed"
+                elif mutation == "missing":
+                    declaration["required_variants"].pop()
+                elif mutation == "mixed":
+                    declaration["chosen_units"][0][1] = "LOA"
+                elif mutation == "namespace":
+                    plan["namespace"] = ["urbanev", "SZH"]
+                elif mutation == "status":
+                    original["status"] = "technical_success"
+                else:
+                    original["runs"][0]["binding"]["input"]["stage"] = "source"
+                    declaration["rows"] = original["runs"]
+                (root / "whole-unit.json").write_text(json.dumps(declaration))
+                (root / "matrix.json").write_text(json.dumps(original))
+                if mutation != "hash":
+                    plan["whole_unit_sha256"] = digest(root / "whole-unit.json")
+                plan["families"]["matched"]["original_matrix_sha256"] = digest(root / "matrix.json")
+                path.write_text(json.dumps(plan))
+                with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                    planned_rows(path, digest(path), "matched")
+
 
 if __name__ == "__main__":
     unittest.main()

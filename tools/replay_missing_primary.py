@@ -14,10 +14,27 @@ from ev_models.checkpoint import digest, write_json
 from ev_models.run import environment
 from ev_runner.replay import Replay
 from ev_runner.run import execute, runtime_code
+from tools.charged_development_cohort import CITIES
 from tools.comparison_matrix import CachedInputs
 from tools.durable_run_backup import RunBackup, require_drive_mount
 from tools.verify_comparison import InputSnapshots, verify_run
 from tools.verify_latest_states import verify_state
+
+
+def replay_namespace(plan: dict) -> tuple[str, str]:
+    """Keep legacy primary recovery separate from explicitly declared city migration."""
+    if plan.get("schema") == "exact-missing-development-recovery-v1":
+        return "urbanev", "SZH"
+    namespace = plan.get("namespace")
+    if (
+        plan.get("schema") != "exact-city-development-migration-v1"
+        or not isinstance(namespace, list)
+        or len(namespace) != 2
+        or namespace[0] != "charged"
+        or namespace[1] not in CITIES
+    ):
+        raise ValueError("Identified primary recovery or separate CHARGED migration required")
+    return tuple(namespace)
 
 
 def planned_rows(plan_path: Path, expected_sha: str, family: str) -> tuple[dict, dict, list]:
@@ -25,11 +42,10 @@ def planned_rows(plan_path: Path, expected_sha: str, family: str) -> tuple[dict,
     if digest(plan_path) != expected_sha:
         raise ValueError("Changed recovery plan")
     plan = json.loads(plan_path.read_text())
-    if plan["schema"] != "exact-missing-development-recovery-v1" or family not in (
-        "proxy",
-        "matched",
-    ):
-        raise ValueError("Only identified primary Development recovery is permitted")
+    namespace = replay_namespace(plan)
+    city_migration = namespace[0] == "charged"
+    if family not in ("proxy", "matched") or (city_migration and family != "matched"):
+        raise ValueError("Unsupported Development execution family")
     scope = plan["families"][family]
     path = plan_path.parent / scope["original_matrix"]
     if (
@@ -41,7 +57,9 @@ def planned_rows(plan_path: Path, expected_sha: str, family: str) -> tuple[dict,
     ids = [r["run_id"] for r in original["runs"]]
     kept, replay = scope["preserved_ids"], scope["replay_ids"]
     if (
-        original["status"] != "technical_success"
+        original["status"]
+        != ("predeclared_development_reference" if city_migration else "technical_success")
+        or (city_migration and original.get("namespace") != list(namespace))
         or len(ids) != len(set(ids))
         or len(ids) != scope["original_total"]
         or len(kept) != len(set(kept))
@@ -64,13 +82,44 @@ def planned_rows(plan_path: Path, expected_sha: str, family: str) -> tuple[dict,
         if original["sources"][seed]["sha256"] != value["sha256"]:
             raise ValueError("Source differs from original study")
     rows = [r for r in original["runs"] if r["run_id"] in set(replay)]
+    if city_migration:
+        declaration_path = plan_path.parent / "whole-unit.json"
+        if digest(declaration_path) != plan["whole_unit_sha256"]:
+            raise ValueError("Changed complete-unit city declaration")
+        declaration = json.loads(declaration_path.read_text())
+        units, variants = declaration["chosen_units"], declaration["required_variants"]
+        if (
+            not 1 <= len(units) <= 4
+            or len({tuple(u) for u in units}) != len(units)
+            or len(variants) != 14
+            or len(set(variants)) != 14
+            or rows != declaration["rows"]
+            or len(rows) != 14 * len(units)
+            or kept
+            or declaration["producer_context_sha256"] != plan["producer_context_sha256"]
+        ):
+            raise ValueError("Complete predeclared city units required")
+        for index, unit in enumerate(units):
+            group = rows[index * 14 : (index + 1) * 14]
+            if {r["comparison_variant"] for r in group} != set(variants) or any(
+                [
+                    r["binding"]["input"]["dataset_id"],
+                    r["binding"]["input"]["city_id"],
+                    r["binding"]["input"]["history_days"],
+                    r["binding"]["input"]["entity_id"],
+                    r["binding"]["config"]["initial_training"]["seed"],
+                ]
+                != unit
+                for r in group
+            ):
+                raise ValueError("Missing, mixed or duplicate city methods")
     for row in rows:
         binding, config = row["binding"]["input"], row["binding"]["config"]
         if (
             Path(row["run_id"]).name != row["run_id"]
             or row["run_id"] in (".", "..")
             or (binding["dataset_id"], binding["city_id"], binding["stage"])
-            != ("urbanev", "SZH", "target")
+            != (*namespace, "target")
             or binding["history_days"] not in (7, 14, 28)
             or config["replay_days"] != 90
             or config["initial_training"]["seed"] not in (42, 43, 44)
@@ -90,7 +139,7 @@ def recovery_context(
     training.pop("seed")
     return {
         "schema": "ev-primary-missing-backup-v1",
-        "namespace": ["urbanev", "SZH"],
+        "namespace": list(replay_namespace(plan)),
         "seeds": [42, 43, 44],
         "source_epochs": training["epochs"],
         "source_training": training,
@@ -156,6 +205,7 @@ def main() -> None:
     parser.add_argument("--resume-backup", action="store_true")
     args = parser.parse_args()
     plan, original, rows = planned_rows(args.plan, args.plan_sha256, args.family)
+    namespace = replay_namespace(plan)
     code = runtime_code()
     if code["dirty"] or code["files"] != original["code"]["files"]:
         raise ValueError("Recovery requires clean byte-identical core algorithms")
@@ -172,7 +222,9 @@ def main() -> None:
         }
         if len(checksums) != 1:
             raise ValueError("Exactly one original input identity per budget required")
-        inputs[budget] = CachedInputs(args.inputs_root / f"urbanev-SZH-{budget}d", checksums.pop())
+        inputs[budget] = CachedInputs(
+            args.inputs_root / f"{'-'.join(namespace)}-{budget}d", checksums.pop()
+        )
     sources = {
         int(k): (args.plan.parent / v["path"], v["sha256"]) for k, v in plan["sources"].items()
     }
@@ -215,7 +267,11 @@ def main() -> None:
         if k not in ("runs", "status", "wall_seconds")
     }
     output.update(
-        scope="Exact missing-artifact subset recovery; not complete original matrix acceptance or recalibration",
+        scope=(
+            "Predeclared separate-city Development migration; not original-byte recovery or Final"
+            if namespace[0] == "charged"
+            else "Exact missing-artifact subset recovery; not complete original matrix acceptance or recalibration"
+        ),
         recovery_plan_sha256=args.plan_sha256,
         recovery_family=args.family,
         original_matrix_sha256=plan["families"][args.family]["original_matrix_sha256"],
@@ -285,10 +341,15 @@ def main() -> None:
             output["differences"].append(
                 {
                     "run_id": row["run_id"],
+                    "comparison_scope": (
+                        "No historical outcomes in predeclared city reference"
+                        if namespace[0] == "charged"
+                        else "Original recorded outcomes versus new recovery"
+                    ),
                     "fields": {
                         f: {"original": reference[f], "recovery": row[f]}
                         for f in fields
-                        if reference[f] != row[f]
+                        if namespace[0] != "charged" and reference[f] != row[f]
                     },
                 }
             )
