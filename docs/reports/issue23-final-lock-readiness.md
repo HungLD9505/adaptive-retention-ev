@@ -192,3 +192,46 @@ plus an empty-prefix UrbanEV case when available. This is a resource/coverage
 tradeoff, not permission to remove comparisons, select favorable stations or
 claim population-wide validation. No training-time estimate or quota guarantee
 is implied by either count.
+
+## Conditional resource scenarios — paid-compute review, not capacity acceptance
+
+A read-only review authenticates the existing full JHB matrix and its independent
+378-row daily proof, then checks9 complete entity-budget groups. Each group has
+all14 unique variants ×3 fixed seeds,90 issued/scored days per cell, and the
+recorded Tesla T4/torch2.11.0+cu128 environment. Its summed runner-reported elapsed
+time ranges4.399–5.233 minutes per42-cell entity-budget group. No models were
+fitted and no Final value records were decoded for this review.
+
+Applying budget-specific observed group rates to existing metadata yields:
+
+| Unapproved Final scope | Entity-budget pairs | Replay cells | Conditional serial runner-hour scenario |
+|---|---:|---:|---:|
+| Small candidate |66|2,772|4.86–5.40|
+| All-ready population |3,510|147,420|258.43–287.18|
+
+These are **illustrative workload scenarios from JHB**, not measured Colab
+throughput, confidence bounds, guaranteed completion times or a compute-unit/
+currency quote. Dataset/target, caching, backend and hardware differences can
+change costs outside these ranges. They exclude full data/setup, Source fitting,
+transport, independent verification, idle allocation, failures/retries, analysis,
+review and report writing. Existing21 accepted Source weights are intended for
+identified reuse only after lock approval; any required retraining adds cost.
+Parallel runtimes would require actual independent allocations and consume
+aggregate resources; no specific concurrency or linear speedup is promised.
+
+[Scripts, exact hashes, group timings and scenarios](https://drive.google.com/file/d/1UIS-RN89jPuFG542H8-KR4iVHKdz0ZI8/view)
+are preserved in10,488 bytes, SHA-256
+`f18c9946697b84dd22af28d097de610450091203eec3510a6d0ba71f9325f9b1`.
+Actual fresh Drive readback passed bytes/hash/CRC/all6 manifest members. An
+initial syntax-failing script/log is retained; it produced no estimate. The
+corrected read-only script passed identity, complete-cell and finite-time checks.
+The remaining Development queue is1,947 cells:254 primary runtime-fair recovery
+plus1,693 separate CHARGED targets after latest accepted primary488. That is a
+queue inventory, not a new study-total denominator or elapsed-time forecast.
+
+The lead asked whether paid Colab and parallel notebooks could complete E2E.
+No purchase, Final scope, concurrency entitlement or immutable lock approval has
+been authorized by that question. Colab-only execution is a feasible platform
+choice but requires identified code/dependencies/input/Source restoration and
+within-unit runtime fairness; payment alone does not close the scientific or
+artifact/reproduction acceptance gates. No Final execution is authorized here.

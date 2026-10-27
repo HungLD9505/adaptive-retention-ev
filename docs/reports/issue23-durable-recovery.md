@@ -1118,3 +1118,23 @@ for that notebook/account, not all of the user's accounts or a precise reset tim
 No purchase, account switch, quota evasion, Run All or local real-data fit occurred.
 Screenshots and a timestamped structured observation remain in the ignored local
 resource-status run. Development/Final acceptance remains unchanged.
+
+The primary264–275 publication passed actual fresh Drive and complete independent
+Source/daily/input/latest-state checks. Its receipt/proof were uploaded, bringing
+the accepted new-runtime prefix to **488/742 =212 proxy+276 matched**.
+[Receipt](https://drive.google.com/file/d/1T0AqiZudHAMK2Dhqh4E_rGDewDLM1aYQ/view),
+[proof](https://drive.google.com/file/d/1AjQ9v9xHcgTHIJJ1xoL9ZIOSdQG729lD/view).
+No new fitting was dispatched during the lead's paid-compute clarification.
+Current three-tab inventory contains Colab and two Drive tabs; the original
+Kaggle tab17 is absent. Tab closure is not proof the allocated runtime has stopped
+or exhausted quota. Primary276–288 remains undispatched. A bounded live job is
+never restarted merely because its tab/observation disappeared.
+
+A read-only capacity review now preserves an authenticated9-group/378-cell JHB
+timing sample and conditional Final scope scenarios in the Final-readiness
+report. Its fresh Drive bytes/hash/member check passed. The review changes no
+methods, inputs, seeds or selected cohort, makes no Colab billing/parallelism/
+completion-time guarantee and is not Final approval. No new training, Final
+value access, paid purchase or account switch occurred. Previous turn classification:
+progress from fresh resource evidence and rescued outputs; current turn adds
+actual publication acceptance and a reproducible resource-sizing artifact.

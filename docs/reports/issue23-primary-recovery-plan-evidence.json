@@ -936,21 +936,20 @@
     "independent_proof_bytes": 7952
   },
   "current_recovery_status": {
-    "new_runtime_targets_fully_published": 476,
+    "new_runtime_targets_fully_published": 488,
     "new_runtime_planned_targets": 742,
     "old_missing_proxy_fully_restored": 648,
     "old_matched_prefix_fully_restored": 451,
     "old_matched_physically_missing": 239,
-    "interpretation": "Distinct overlapping historical/recovery collections; do not add. Accepted prefix476/742=212proxy+264matched.16 original complete units/224 selected cells retained separately;239 original matched payloads still undelivered, new replay is not original-byte recovery. Final unapproved and not executed.",
+    "interpretation": "Overlapping collections are not unique study totals. Accepted runtime-fair prefix488/742=212proxy+276matched.16 original complete units/224 selected cells preserved.239 original matched payloads still undelivered; replacement acceptance pending. Final unapproved and not executed.",
     "next_bounded_dispatch": {
       "family": "matched",
-      "start": 264,
-      "end": 276,
-      "pid": 5561,
-      "status": "actually polled live None; excluded until independent external publication"
+      "start": 276,
+      "end": 288,
+      "status": "not dispatched; read-only resource review active"
     },
     "new_runtime_proxy_published": 212,
-    "new_runtime_matched_published": 264
+    "new_runtime_matched_published": 276
   },
   "kaggle_offset39_continuation": {
     "pid": 1186,
@@ -1876,17 +1875,17 @@
   },
   "latest_durability_snapshot": {
     "date": "2026-10-27",
-    "primary_new_runtime_published": 476,
+    "primary_new_runtime_published": 488,
     "primary_new_runtime_required": 742,
     "proxy_published": 212,
     "proxy_required": 212,
-    "matched_published": 264,
+    "matched_published": 276,
     "matched_required": 530,
     "next_matched_range": [
-      264,
-      276
+      276,
+      288
     ],
-    "next_range_status": "Dispatched PID5561; external acceptance pending",
+    "next_range_status": "Not dispatched; preparing read-only capacity review after lead asked to slow down and clarify paid compute",
     "loa_target_published": 49,
     "loa_target_required": 378,
     "matched_24_36": {
@@ -2778,7 +2777,7 @@
     "szh_target_published": 13,
     "szh_target_required": 378,
     "all_CHARGED_city_Source_sets": "All6 own-city sets,3 fixed seeds each, independently externally accepted; original SPO Sources restored without refitting",
-    "current_GPU_job": "Primary264\u2013276 PID5561 actually polled live None after published prior receipt; MEL25\u201337 externally accepted",
+    "current_GPU_job": "No new fitting dispatch since primary264\u2013276 terminal0; old Kaggle tab17 absent from current3-tab inventory, runtime allocation itself not revalidated",
     "matched_144_156": {
       "receipt": {
         "schema": "verified-kaggle-outbox-publication-v1",
@@ -3627,6 +3626,50 @@
       "proof_id": "1XCBbE4bMX-yt-RkKzU-qY48YQH9sbHcr",
       "receipt_sha256": "b7aa17332b345052820e0c0c57655dbd7ffd375d7eb288603cc6a35f4b2fa926",
       "proof_sha256": "583931bb6d6d7a820c5b46d7ff5d0e46951ad5e713d562a3fc0567dcd05e7dc2"
+    },
+    "matched_264_276": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 264,
+        "end": 276,
+        "run_ids": [
+          "urbanev-SZH-2152-14d-without_source_initialization-seed44",
+          "urbanev-SZH-2152-14d-block7-seed44",
+          "urbanev-SZH-2152-14d-block28-seed44",
+          "urbanev-SZH-2152-14d-adaptive-seed44",
+          "urbanev-SZH-2152-14d-full_finetuning-seed44",
+          "urbanev-SZH-2152-14d-fixed_retention-seed44",
+          "urbanev-SZH-1153-14d-seasonal_naive-seed42",
+          "urbanev-SZH-1153-14d-target_only-seed42",
+          "urbanev-SZH-1153-14d-frozen_source-seed42",
+          "urbanev-SZH-1153-14d-online_best-seed42",
+          "urbanev-SZH-1153-14d-without_source_initialization-seed42",
+          "urbanev-SZH-1153-14d-block7-seed42"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1TFoAsuFwxP1-Nof4tsIwfFnyCIbVG02k/view",
+          "bytes": 26449192,
+          "sha256": "4583670a6fa460e9c9e59d9bd54191aae23162195dff358c6b068701a6185081"
+        },
+        "verification_sha256": "557658701f1ae38772b88b32623af3dfe5fe9deb8919bd623e2afddc7eb39e4a",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "1TFoAsuFwxP1-Nof4tsIwfFnyCIbVG02k",
+      "receipt_id": "1T0AqiZudHAMK2Dhqh4E_rGDewDLM1aYQ",
+      "proof_id": "1AjQ9v9xHcgTHIJJ1xoL9ZIOSdQG729lD",
+      "receipt_sha256": "37b8f8f7bc6ee2e28f8604b5e82daae1106090ebe24af2d102d304cd7a82a1b7",
+      "proof_sha256": "98e4fd24a693725c0ae87e5944ecf602cccc78ba49f2cfd72d8537fd94ede3ae"
+    },
+    "latest_resource_observation": {
+      "kaggle_last_displayed_quota": "13:09 /30hrs",
+      "kaggle_current_tab_access": "Original tab17 no longer in session; current3-tab inventory contains Colab and two Drive tabs. Closing tab is not proof of runtime termination or quota exhaustion.",
+      "colab_fresh_allocation": "Cannot connect to GPU backend due to usage limits; current account only.",
+      "no_new_fit": "Read-only verification and capacity analysis; no new training or Final access, spend or account switch."
     }
   }
 }
