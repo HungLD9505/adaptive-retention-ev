@@ -736,3 +736,66 @@ also passed fresh Drive bytes/SHA/CRC/all-member checks. All13 published
 reconstructed cells match nine declared original fields. This does not waive
 the remaining365 SPO cells or prove effectiveness. LOA remains25/378.
 No Final, peer approval, merge or full Sprint3 completion is claimed.
+
+
+### Durable primary344; all AMS Sources, MEL replication and SZH progress
+
+Actual published and independently verified primary recovery is344/742:
+212 proxy and132 matched. New matched ranges108–119 and120–131 passed fresh
+Drive bytes/SHA, independent daily/input/latest-state equality and Source reload.
+The latest [archive](https://drive.google.com/file/d/1MqGffTYWabUwQ-gfjRCE62dwE4WNaYdU/view),
+[receipt](https://drive.google.com/file/d/1a9nLQ6IVf4AnihbC0FPBvZwyrCTrgMWl/view)
+and [proof](https://drive.google.com/file/d/1UpSs6LI2-c2eeD5LsbYvReVuuVCT3Nwj/view)
+are external to the runtime. Exact identities for both ranges are recorded in
+the evidence JSON beside this report. These are recovery cells, not percentage
+completion or unique full-study results.
+
+AMS Sources42/43/44 completed their fixed10 epochs on134,640 examples each.
+All three archives passed fresh Drive download and independent CPU checkpoint,
+input/population/config/seed and64-dimensional latent-scale verification.
+AMS first target1200/7d/adaptive/seed42 passed90 scheduled/scored days and the
+same external publication gate: MAE12.79950616845391 kWh and
+RMSE12.802859758457855 kWh. This single cell establishes neither superiority
+nor full-city completion. [Archive](https://drive.google.com/file/d/1Xu6sQl4XJmHZKIAp72r4tXBp9L_8-gIo/view),
+[receipt](https://drive.google.com/file/d/1Az5pgLKMBXlhHEeEWkDeKY888GBff62h/view),
+[proof](https://drive.google.com/file/d/1yz-rWkbQUKv1tnXC3PfDPt8XVBbb-alt/view).
+The next bounded range1–12 was dispatched as PID3995 only after all GPU child
+processes were terminal success and the actual prior receipt was available.
+It is not counted as published until independent external verification passes.
+
+The original MEL session remains inaccessible for portable checkpoint recovery.
+A [predeclared complete replication](https://drive.google.com/file/d/1QZHk7kOVcU61pfi4EmOLLgakf-m804aX/view)
+retains the same city inputs, cohort, fixed seeds,10 epochs and378-cell matrix,
+with new output paths. Original cached59 targets are not mixed or adopted.
+MEL Sources42 and43 now passed fresh Drive and independent CPU verification;
+seed44 and all new targets remain outstanding. Latest
+[Source43 archive](https://drive.google.com/file/d/1F6-5gLRNVs0IX4Z2yTBe9BGG9kk30tPk/view),
+[receipt](https://drive.google.com/file/d/1bdHXG_QRuku_c-B4QzsEVeALQHHCvwP7/view),
+[proof](https://drive.google.com/file/d/1IepGwkzdFJXmWhWiOOTAoF9IImNtCkbh/view).
+This is new execution, not recovery of original MEL bytes.
+
+SZH Source42 completed10 epochs on79,740 own-city Source examples and passed
+fresh Drive and independent CPU verification. [Archive](https://drive.google.com/file/d/1GN_i74J_TP4oAufxO3u9GJMAn27r6XdZ/view),
+[receipt](https://drive.google.com/file/d/1o51qHhADQ8l9mQpOUGw1pov1bKClrxz2/view),
+[proof](https://drive.google.com/file/d/1YWurNknyab0t5FnPK6j0M_uhHHqvtBrd/view).
+Seeds43/44 and its target matrix remain outstanding. No UrbanEV Source
+weights or cross-city pooling were used. SZH retains its separate temporal/
+possible-overlap interpretation.
+
+**Research finding requiring review:** on the first predeclared AMS1200
+Development forecast input, Sources42 and44 produce near-zero predictions
+(mean1.00e-9 and6.86e-10 kWh) with near-zero Softplus derivatives, while
+Source43 predicts mean12.9387 kWh. Final normalized Source train MAE is
+0.20237,0.02092,0.20237 respectively. The
+[diagnostic script/results/Source bindings](https://drive.google.com/file/d/1yFj43gCsmsHa8pvTqfjhjevioAIoyv1l/view)
+are preserved. This was CPU inference on one input, without opening Y/Final
+records or fitting. Saturation is observed; its cause and population-wide
+impact are not proven. Keep all three seeds. No favorable checkpoint selection,
+reinitialization, loss/architecture change or claim of method effectiveness.
+
+The last actual storage scan found14.916 GiB generated working content and
+4.141 GiB filesystem free. No cleanup was performed. Preserve raw/input
+archives, Sources, code, logs and all unpublished or failed partial work.
+JHB remains378/378, LOA25/378 and SPO13/378 accepted. Full Development,
+statistical comparisons, independent Final lock approval and Final remain
+outstanding. No peer approval, merge or Sprint3 completion is claimed.

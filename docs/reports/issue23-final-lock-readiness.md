@@ -138,3 +138,17 @@ JSONL values were decoded. Review must distinguish unseen author IDs from physic
 site independence before approving claims. A scope-choice question is pending
 with the lead; it does not authorize Final or amend the method. Development work
 continues independently.
+
+
+## AMS Source optimization risk identified before lock
+
+All three fixed AMS Source checkpoints are technically verified and retained.
+A one-input Development diagnostic observed near-zero outputs and Softplus
+derivatives for seeds42/44, but not43. Source normalized training MAE also
+varies materially across these seeds. See the durable recovery report and
+linked diagnostic proof for exact checkpoint/input/metric identities.
+This is not evidence for dropping seeds or silently changing initialization,
+head, loss, or training duration. Complete the frozen Development comparisons,
+report seed sensitivity/negative transfer, and explicitly review this risk
+before Final approval. A proposed method change requires separate review and
+a new lock; checkpoint validity alone does not establish useful pretraining.

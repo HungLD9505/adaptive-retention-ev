@@ -1876,17 +1876,17 @@
   },
   "latest_durability_snapshot": {
     "date": "2026-10-27",
-    "primary_new_runtime_published": 320,
+    "primary_new_runtime_published": 344,
     "primary_new_runtime_required": 742,
     "proxy_published": 212,
     "proxy_required": 212,
-    "matched_published": 108,
+    "matched_published": 132,
     "matched_required": 530,
     "next_matched_range": [
-      108,
-      120
+      132,
+      144
     ],
-    "next_range_status": "not dispatched; AMS Source43 now training",
+    "next_range_status": "Not dispatched; bounded AMS target range1-13 dispatched PID3995, acceptance pending",
     "loa_target_published": 25,
     "loa_target_required": 378,
     "matched_24_36": {
@@ -2143,6 +2143,305 @@
       "source_code": "b4376dc88d62c55ae23af56f3c0f595c2bfe463f",
       "prior_Source42_publication_barrier": "Actual Drive receipt c1250275d22f6e90e6d7c932d288f2fe6e0b4b00cbe15c6b6d0c6cbb0afe2fc7 checked before fitting",
       "scope": "Second own-city AMS Source, fixed recipe/seed; no new tuning, target/Final or automatic next."
-    }
+    },
+    "ams_target_published": 1,
+    "ams_target_required": 378,
+    "ams_sources_published": 3,
+    "mel_replication_sources_published": 2,
+    "szh_sources_published": 1,
+    "matched_108_120": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 108,
+        "end": 120,
+        "run_ids": [
+          "urbanev-SZH-1050-7d-full_finetuning-seed43",
+          "urbanev-SZH-1050-7d-fixed_retention-seed43",
+          "urbanev-SZH-1050-7d-seasonal_naive-seed44",
+          "urbanev-SZH-1050-7d-target_only-seed44",
+          "urbanev-SZH-1050-7d-frozen_source-seed44",
+          "urbanev-SZH-1050-7d-online_best-seed44",
+          "urbanev-SZH-1050-7d-without_source_initialization-seed44",
+          "urbanev-SZH-1050-7d-block7-seed44",
+          "urbanev-SZH-1050-7d-block28-seed44",
+          "urbanev-SZH-1050-7d-adaptive-seed44",
+          "urbanev-SZH-1050-7d-full_finetuning-seed44",
+          "urbanev-SZH-1050-7d-fixed_retention-seed44"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1mobh9RItRNa38h7o3tIpqSmzO8tUGO61/view",
+          "bytes": 17910865,
+          "sha256": "eb49987e2f5f7d02815d4322b5815b4706e16efc51efabc15ebd5ef0ea8a46f6"
+        },
+        "verification_sha256": "ce6a0e384064f8ec0c95c475e9c0f5a63ee238bde58772f9b8f8882455a55b73",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "1mobh9RItRNa38h7o3tIpqSmzO8tUGO61",
+      "receipt_id": "1fYKBEoAwsvgH_uGf6spnWQp4ccQYCs3h",
+      "proof_id": "1x7bfdjqDWnAsVF1wbbSCCV1gziiuhbO8",
+      "receipt_sha256": "aa769a2271897ba052678c200fc5f1ce54cb16722d2cc705a5f642bee4768815"
+    },
+    "matched_120_132": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 120,
+        "end": 132,
+        "run_ids": [
+          "urbanev-SZH-1200-7d-seasonal_naive-seed42",
+          "urbanev-SZH-1200-7d-target_only-seed42",
+          "urbanev-SZH-1200-7d-frozen_source-seed42",
+          "urbanev-SZH-1200-7d-online_best-seed42",
+          "urbanev-SZH-1200-7d-without_source_initialization-seed42",
+          "urbanev-SZH-1200-7d-block7-seed42",
+          "urbanev-SZH-1200-7d-block28-seed42",
+          "urbanev-SZH-1200-7d-adaptive-seed42",
+          "urbanev-SZH-1200-7d-full_finetuning-seed42",
+          "urbanev-SZH-1200-7d-fixed_retention-seed42",
+          "urbanev-SZH-1200-7d-seasonal_naive-seed43",
+          "urbanev-SZH-1200-7d-target_only-seed43"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1MqGffTYWabUwQ-gfjRCE62dwE4WNaYdU/view",
+          "bytes": 17115215,
+          "sha256": "cc130fd3d80938c1cd98add2a0dcd06677559475f06baf67f45e10bf3bbb2e73"
+        },
+        "verification_sha256": "0c2e3d0865af7be6c5cc44f132a546d8e17cb509c0c532751bce5eeb50c0da1b",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "1MqGffTYWabUwQ-gfjRCE62dwE4WNaYdU",
+      "receipt_id": "1a9nLQ6IVf4AnihbC0FPBvZwyrCTrgMWl",
+      "proof_id": "1UpSs6LI2-c2eeD5LsbYvReVuuVCT3Nwj",
+      "receipt_sha256": "e8b19ea385e850e782bea95da5da0361418695c53567a4dc935ba9f8fe4b0425"
+    },
+    "ams_source43_accepted": {
+      "receipt": {
+        "schema": "verified-city-source-publication-v1",
+        "namespace": "charged-AMS",
+        "seed": 43,
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1l_AeBZRFlt9ntsZLayB-72Wm8BnJeVWC/view",
+          "bytes": 875118,
+          "sha256": "c782f446a0fd5d34cf50e6a848d79015b2bc9839ea9f723e963332b8d482c42c"
+        },
+        "source_checkpoint_sha256": "14053287dbc260984dba17d2948dae26533b516aa16e3e3b25e74c3ab212e660",
+        "context_sha256": "0a121d63370c4e1b81970c737e4942850f5f5965ac9b3b9e2c9d7814c1cb00be",
+        "cohort_sha256": "fd66da1548b98df0cdf024417363d0e8f503432b1ae1947d841ed65b57da9329",
+        "primary_sha256": "ecc8b1854128f84ab13070be4ab38d6179d7f15c331f8cf2caf72604576157b6",
+        "environment_profile_sha256": "0b18bd43de36915b70d00dbe7633dc707cfd9d85f8561dbdb1ea439ff916bffc",
+        "verification_sha256": "0de53197d1bc93bdef5905ddf249e2046889d1a7e5f61f219cdca89765d4369a",
+        "operator_seconds": 5.222431875008624,
+        "scope": "Actual fresh anonymous Drive download, exact content restoration and independent CPU Source metadata/latent/input/count verification. No fitting, target/Final inference, full-city completion or effectiveness claim."
+      },
+      "archive_id": "1l_AeBZRFlt9ntsZLayB-72Wm8BnJeVWC",
+      "receipt_id": "1S_lg2ZiWv7JHjTSSPXv0rgDQ3f87vjlu",
+      "proof_id": "1aqbimsbGLEd3OrhbVjIm6E5dAbTFhDnV",
+      "receipt_sha256": "d6a5dae378b1bbb1b95bc59240f74cd8c0cf9694658cee25e607a8c1f16c69d3"
+    },
+    "ams_source44_accepted": {
+      "receipt": {
+        "schema": "verified-city-source-publication-v1",
+        "namespace": "charged-AMS",
+        "seed": 44,
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1z96cuTpr7eum_jeYlsIJJMx0k7wJ3CGY/view",
+          "bytes": 860431,
+          "sha256": "c6014bac7b0ed90515409cc66fec78c3bfdc1255dd73ff230e271397e71a32c7"
+        },
+        "source_checkpoint_sha256": "2354032b5314bbfcf81d5572474fe1513506d90e36abd1b36e5c6b82e37d35b7",
+        "context_sha256": "0a121d63370c4e1b81970c737e4942850f5f5965ac9b3b9e2c9d7814c1cb00be",
+        "cohort_sha256": "fd66da1548b98df0cdf024417363d0e8f503432b1ae1947d841ed65b57da9329",
+        "primary_sha256": "ecc8b1854128f84ab13070be4ab38d6179d7f15c331f8cf2caf72604576157b6",
+        "environment_profile_sha256": "0b18bd43de36915b70d00dbe7633dc707cfd9d85f8561dbdb1ea439ff916bffc",
+        "verification_sha256": "d7554d4868600fef453c5e16a9eee8972b7f9148b88c8445cfa8ec9dce28444d",
+        "operator_seconds": 5.1256691250018775,
+        "scope": "Actual fresh anonymous Drive download, exact content restoration and independent CPU Source metadata/latent/input/count verification. No fitting, target/Final inference, full-city completion or effectiveness claim."
+      },
+      "archive_id": "1z96cuTpr7eum_jeYlsIJJMx0k7wJ3CGY",
+      "receipt_id": "1Ga_eZjJsvmUWVM_oPOexHVVzBDk5BFnd",
+      "proof_id": "16U68x_kOK-kb9zt862my3fgXxnuudbeV",
+      "receipt_sha256": "22856d2d307b77b365727a87861e0b6ad0f9ea4b2a2cbc4796acad01b7cabcb9"
+    },
+    "mel_source42_accepted": {
+      "receipt": {
+        "schema": "verified-city-source-publication-v1",
+        "namespace": "charged-MEL",
+        "seed": 42,
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1d0pksjbcTQOwmzdFJwsxYPhj9LlZ6uR6/view",
+          "bytes": 873273,
+          "sha256": "287cf1d45dfcb7dec4742eed0a443a1d1d990e1caba263d9954a6ed814c2538d"
+        },
+        "source_checkpoint_sha256": "5eb1778e3a9df10699fd614cffb8b37d667e541db6608d3d417054c2c9770c4c",
+        "context_sha256": "e6f1225a669eda66e587911c899269865f7c4a8fa2d782669eefec04da12636e",
+        "cohort_sha256": "920c1264232dea1239ea6152effa2d0731e3701b7223b474660103c123d2568f",
+        "primary_sha256": "ecc8b1854128f84ab13070be4ab38d6179d7f15c331f8cf2caf72604576157b6",
+        "environment_profile_sha256": "0b18bd43de36915b70d00dbe7633dc707cfd9d85f8561dbdb1ea439ff916bffc",
+        "verification_sha256": "4ab8f11dc7260036cfcd5b2fbda053f7527566989b9fa8bcce629c78cf6ff2d1",
+        "operator_seconds": 4.072038957994664,
+        "scope": "Actual fresh anonymous Drive download, exact content restoration and independent CPU Source metadata/latent/input/count verification. No fitting, target/Final inference, full-city completion or effectiveness claim.",
+        "operation": "new_complete_MEL_replication_not_original_byte_recovery",
+        "replication_declaration_sha256": "3826e32c76258b16efe3bc4d8243d6ac95135e9a27a5023d0c304d031c74e55f"
+      },
+      "archive_id": "1d0pksjbcTQOwmzdFJwsxYPhj9LlZ6uR6",
+      "receipt_id": "1d7LtY58YcaN5_CLDk6-643bXtDJk4ZY2",
+      "proof_id": "14bBi0o7eaN0mwilZMTUX4g9V2k0Lk9Si",
+      "receipt_sha256": "011c92c8af408108b30821cd9895229dc1021feedb2b3ae865c69255b3107325"
+    },
+    "mel_source43_accepted": {
+      "receipt": {
+        "schema": "verified-city-source-publication-v1",
+        "namespace": "charged-MEL",
+        "seed": 43,
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1F6-5gLRNVs0IX4Z2yTBe9BGG9kk30tPk/view",
+          "bytes": 874195,
+          "sha256": "2ab7f84b549a14ebd0397f8c7a7c251c7456fd9912b45ffd2f857de5b86f0fc3"
+        },
+        "source_checkpoint_sha256": "11782c2f2cb773ec5c98745520f9e98dc899b510dd60fabf3bd2f25b2ba12bb0",
+        "context_sha256": "e6f1225a669eda66e587911c899269865f7c4a8fa2d782669eefec04da12636e",
+        "cohort_sha256": "920c1264232dea1239ea6152effa2d0731e3701b7223b474660103c123d2568f",
+        "primary_sha256": "ecc8b1854128f84ab13070be4ab38d6179d7f15c331f8cf2caf72604576157b6",
+        "environment_profile_sha256": "0b18bd43de36915b70d00dbe7633dc707cfd9d85f8561dbdb1ea439ff916bffc",
+        "verification_sha256": "adbac90ab2e52bb64cb579ce334ea78fd3379898f288ea6307ddafe3f79cabbf",
+        "operator_seconds": 4.16759254198405,
+        "scope": "Actual fresh anonymous Drive download, exact content restoration and independent CPU Source metadata/latent/input/count verification. No fitting, target/Final inference, full-city completion or effectiveness claim.",
+        "operation": "new_complete_MEL_replication_not_original_byte_recovery",
+        "replication_declaration_sha256": "3826e32c76258b16efe3bc4d8243d6ac95135e9a27a5023d0c304d031c74e55f"
+      },
+      "archive_id": "1F6-5gLRNVs0IX4Z2yTBe9BGG9kk30tPk",
+      "receipt_id": "1bdHXG_QRuku_c-B4QzsEVeALQHHCvwP7",
+      "proof_id": "1IepGwkzdFJXmWhWiOOTAoF9IImNtCkbh",
+      "receipt_sha256": "5cd3f4e289a91dc77f7e7e040ff75888e21c3af757fba32469787929229879a1"
+    },
+    "szh_source42_accepted": {
+      "receipt": {
+        "schema": "verified-city-source-publication-v1",
+        "namespace": "charged-SZH",
+        "seed": 42,
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1GN_i74J_TP4oAufxO3u9GJMAn27r6XdZ/view",
+          "bytes": 868184,
+          "sha256": "2ad284c49b65821614c92542f048e5404723e5d9dc6c7a2c6cd4a3054f895af5"
+        },
+        "source_checkpoint_sha256": "c8da9be3701c65c3cf96edd5f979ff2457beaeaba7611459568d7b3e0e53352a",
+        "context_sha256": "f0ad7622e68e5718ee889317b8cb4bcff3c8ebe2eda5dba4c49a7b3eb777f6f6",
+        "cohort_sha256": "465fa0c58f92bb8e824ea6384cf4d1df2eb641e2ae5dd5057dcc6903d9ebfd13",
+        "primary_sha256": "ecc8b1854128f84ab13070be4ab38d6179d7f15c331f8cf2caf72604576157b6",
+        "environment_profile_sha256": "0b18bd43de36915b70d00dbe7633dc707cfd9d85f8561dbdb1ea439ff916bffc",
+        "verification_sha256": "96a767d523958a21b33718bb11f75dde3b6e8b20d8e7d050cea6416cce4b0b84",
+        "operator_seconds": 5.831344583013561,
+        "scope": "Actual fresh anonymous Drive download, exact content restoration and independent CPU Source metadata/latent/input/count verification. No fitting, target/Final inference, full-city completion or effectiveness claim."
+      },
+      "archive_id": "1GN_i74J_TP4oAufxO3u9GJMAn27r6XdZ",
+      "receipt_id": "1o51qHhADQ8l9mQpOUGw1pov1bKClrxz2",
+      "proof_id": "1YWurNknyab0t5FnPK6j0M_uhHHqvtBrd",
+      "receipt_sha256": "db6675c8ae7538f21dc6fac89ff167ad0590db159afee9c164016ffae32939e6"
+    },
+    "ams_target_first": {
+      "archive_id": "1Xu6sQl4XJmHZKIAp72r4tXBp9L_8-gIo",
+      "receipt_id": "1Az5pgLKMBXlhHEeEWkDeKY888GBff62h",
+      "proof_id": "1yz-rWkbQUKv1tnXC3PfDPt8XVBbb-alt",
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "7aafc9a5b18d38f0415d4b51f42fffe1e4e3ecb14a33aa947b799a127686443c",
+        "family": "charged-AMS",
+        "start": 0,
+        "end": 1,
+        "run_ids": [
+          "charged-AMS-1200-7d-adaptive-seed42"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1Xu6sQl4XJmHZKIAp72r4tXBp9L_8-gIo/view",
+          "bytes": 12068628,
+          "sha256": "10e6bb983c5a9cd4b03a1108639e07ee2b07090da151e5aa3dd7b1b899b3e08f"
+        },
+        "verification_sha256": "d6698f92cabeb5ab21545c91e0d574ed40d80d1dfe75073e02ecd71fb6cf1d4e",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      }
+    },
+    "ams_source_head_diagnostic": {
+      "schema": "ev-AMS-Source-head-diagnostic-v1",
+      "scope": "One predeclared first ready7d Development entity at deployment; forecast inputs only, no Y files/arrays opened, no fitting, Source/seed selection, hyperparameter change or Final records. Diagnostics do not establish cause or whole-cohort performance. All3 fixed Sources remain retained.",
+      "entity_id": "1200",
+      "origin": "2023-07-01T00:00:00",
+      "source_input_manifest_sha256": "ced8bde958ca038228548a13e4990cd89b5a36cd25f9c34af3bb9f06e557e754",
+      "script_sha256": "5e9ec752bc4128d0545a40e0b564936c8d3528c2a4ddfb60155a525dfc9c3302",
+      "diagnostic_threshold": 1e-06,
+      "rows": [
+        {
+          "seed": 42,
+          "checkpoint_sha256": "a368c3ebabeb9cb91180ff01ee41b271dbbdf888b610083834bbc75a5b2eda2d",
+          "final_Source_train_MAE_normalized": 0.20236956455915794,
+          "prediction_normalized_min": 2.494887976767224e-11,
+          "prediction_normalized_mean": 7.824179498738815e-11,
+          "prediction_normalized_max": 1.8291021475214109e-10,
+          "prediction_kwh_mean": 1.0014949980430288e-09,
+          "fraction_outputs_below_1e_minus6": 1.0,
+          "head_hidden_ReLU_positive_fraction": 0.46875,
+          "pre_Softplus_logit_min": -24.41419219970703,
+          "pre_Softplus_logit_max": -22.422025680541992,
+          "Softplus_derivative_mean": 7.824178110960034e-11
+        },
+        {
+          "seed": 43,
+          "checkpoint_sha256": "14053287dbc260984dba17d2948dae26533b516aa16e3e3b25e74c3ab212e660",
+          "final_Source_train_MAE_normalized": 0.020915906035977146,
+          "prediction_normalized_min": 1.004653811454773,
+          "prediction_normalized_mean": 1.0108369588851929,
+          "prediction_normalized_max": 1.014803171157837,
+          "prediction_kwh_mean": 12.938713073730469,
+          "fraction_outputs_below_1e_minus6": 0.0,
+          "head_hidden_ReLU_positive_fraction": 0.046875,
+          "pre_Softplus_logit_min": 0.5486770868301392,
+          "pre_Softplus_logit_max": 0.5646432042121887,
+          "Softplus_derivative_mean": 0.6360845565795898
+        },
+        {
+          "seed": 44,
+          "checkpoint_sha256": "2354032b5314bbfcf81d5572474fe1513506d90e36abd1b36e5c6b82e37d35b7",
+          "final_Source_train_MAE_normalized": 0.20236956466009273,
+          "prediction_normalized_min": 2.477787246213392e-11,
+          "prediction_normalized_mean": 5.3564801899552705e-11,
+          "prediction_normalized_max": 8.867104966947537e-11,
+          "prediction_kwh_mean": 6.856294976209654e-10,
+          "fraction_outputs_below_1e_minus6": 1.0,
+          "head_hidden_ReLU_positive_fraction": 0.5,
+          "pre_Softplus_logit_min": -24.421070098876953,
+          "pre_Softplus_logit_max": -23.146087646484375,
+          "Softplus_derivative_mean": 5.3564801899552705e-11
+        }
+      ],
+      "proof_id": "1yFj43gCsmsHa8pvTqfjhjevioAIoyv1l"
+    },
+    "storage_risk": {
+      "working_logical_GiB": 14.915691,
+      "filesystem_free_GiB": 4.141064,
+      "cleanup_performed": false,
+      "scope": "Last actual read-only scan; do not assume subsequent writes leave free space unchanged."
+    },
+    "final_status": "Not run; independent immutable lock approval and full Development remain outstanding"
   }
 }
