@@ -173,3 +173,22 @@ This is one station/budget. Source, target initialization and controller RNG var
 together, so the observation does not isolate a causal Source-quality effect.
 Keep all seeds and adverse results, finish the declared comparisons and request
 independent review before Final; no silent research-method change is authorized.
+
+## Clarification of the pending cohort decision
+
+The lead requested an explanation of the proposed scope; this is **not approval**
+of the66-pair candidate, a reduced Final scope or the immutable Final lock.
+Development execution continues independently. A decision requires review of
+actual candidate IDs, limitations, Source/code/config identities and measured
+compute/storage capacity before any Final values are opened.
+
+An entity-budget pair is one station/site with one initial-history budget. The
+same physical entity under7/14/28 days can contribute three pairs;66 pairs do
+not mean66 distinct physical locations. Each pair has14 unique method variants
+and3 fixed seeds, hence42 replay cells:66×42=2,772. The all-ready alternative
+is3,510×42=147,420 cells. The small candidate keeps all seven separate namespaces
+and budgets but has only three positive-prefix entities per namespace/budget,
+plus an empty-prefix UrbanEV case when available. This is a resource/coverage
+tradeoff, not permission to remove comparisons, select favorable stations or
+claim population-wide validation. No training-time estimate or quota guarantee
+is implied by either count.

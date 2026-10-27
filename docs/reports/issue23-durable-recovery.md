@@ -1034,3 +1034,53 @@ children stopped, using its existing exact published receipt and fixed own-city
 Source bank. SZH accepted count remains1 until the external gate passes.
 The last working-storage observation was5.224 GiB. No new research code changed;
 JSON syntax, diff whitespace and core-module byte identity checks passed.
+
+## October27 continuation — primary476 and separately verified city increments
+
+The next three12-cell primary batches passed independent external acceptance,
+raising the frozen runtime-fair recovery prefix from440 to **476/742**:
+212 selected-proxy and264/530 matched. All accepted batches have actual local
+and Drive copies, exact frozen inputs/config/Source/code/environment bindings,
+complete independently recomputed daily/input/latest-state equality and all3
+Source CPU reloads. The newest [primary archive](https://drive.google.com/file/d/1bQKR1IcqdmESf9XYy6OpOFJcDC_v93MJ/view),
+[receipt](https://drive.google.com/file/d/1F-LPYW3nZ4uoZ7KCjio6ci8cJX2TFDyp/view)
+and [proof](https://drive.google.com/file/d/1DhN6wy-BYhGzVKRKguu334nzi-TNMi6G/view)
+are catalogued with bytes/hash in the evidence JSON. This counts plan cells,
+not unique experiments across overlapping old/new collections or thesis percent.
+
+Separately, SZH1–12, AMS49–60 and LOA37–48 passed the same independent city
+publication gates. Current accepted target prefixes are:
+
+| Namespace | Accepted / planned | Latest increment receipt |
+|---|---:|---|
+| JHB |378/378|Previously complete and independently restored|
+| AMS |61/378|[49–61](https://drive.google.com/file/d/1_SeSU8mOAun88DAdLKBDQuw-BZ2iZemw/view)|
+| LOA |49/378|[37–49](https://drive.google.com/file/d/1eldoarngG12nPmEaVgBXv4zffW-8lkpt/view)|
+| SPO |37/378|Previously published37, original metadata comparison retained|
+| MEL |25/378|New complete replication; original cached59 not adopted|
+| SZH |13/378|[1–13](https://drive.google.com/file/d/10pZPo9TAtPoyvvty0n8MDy5tcE5sAISZ/view)|
+
+All18 own-city Source checkpoints are retained; these increments did not refit
+Sources or mix cities. The original matched-completed Drive folder was inspected
+read-only and is reachable with published Source/receipt/archive entries. Its
+virtualized first visible rows are not a complete folder inventory. An empty
+scoped connector search is not proof missing original bytes are irrecoverable;
+239 original matched payloads remain undelivered, not proven destroyed. The
+new frozen replays remain distinct replacement evidence requiring review.
+
+The lead's reply to the Final-cohort question asked for clarification; it did
+not select the66-pair candidate or authorize Final. The readiness report now
+explains pair versus physical station,42 method/seed cells per pair and the
+2,772 versus147,420-cell alternatives. No Final values were decoded or executed,
+and no configuration or scientific method was changed. Full Development,
+compute/capacity review, Final-capable interfaces and independent immutable-lock
+approval remain outstanding. No new efficacy claim follows from these prefixes.
+
+Latest continuation boundary: primary264–276 has not been dispatched. MEL25–37
+was dispatched after all GPU children stopped and its existing exact prior
+publication/Source/launcher identities were verified; it is excluded from the
+accepted25 until external verification passes. The last observed working free
+space was4.459 GiB, with the1 GiB launch guard retained. No raw/input/Source/code
+or unpublished output cleanup occurred. The bounded read-only probe now reports
+exact current PID/log and uniquely identified output, avoiding stale older cell
+output as evidence of a live job.

@@ -936,21 +936,20 @@
     "independent_proof_bytes": 7952
   },
   "current_recovery_status": {
-    "new_runtime_targets_fully_published": 440,
+    "new_runtime_targets_fully_published": 476,
     "new_runtime_planned_targets": 742,
     "old_missing_proxy_fully_restored": 648,
     "old_matched_prefix_fully_restored": 451,
     "old_matched_physically_missing": 239,
-    "interpretation": "Overlapping historical/recovery collections must not be added. Latest accepted prefix440/742=212 proxy+228 matched; incomplete.16 original complete units/224 selected cells retained separately.239 original matched payloads remain missing; new replay is not original-byte restoration. Final unapproved and not executed.",
+    "interpretation": "Distinct overlapping historical/recovery collections; do not add. Accepted prefix476/742=212proxy+264matched.16 original complete units/224 selected cells retained separately;239 original matched payloads still undelivered, new replay is not original-byte recovery. Final unapproved and not executed.",
     "next_bounded_dispatch": {
-      "family": "charged-SZH",
-      "start": 1,
-      "end": 13,
-      "pid": 5148,
-      "status": "dispatched; external acceptance pending; primary228\u2013240 not dispatched"
+      "family": "charged-MEL",
+      "start": 25,
+      "end": 37,
+      "status": "dispatched; external acceptance pending; primary264\u2013276 not dispatched"
     },
     "new_runtime_proxy_published": 212,
-    "new_runtime_matched_published": 228
+    "new_runtime_matched_published": 264
   },
   "kaggle_offset39_continuation": {
     "pid": 1186,
@@ -1876,18 +1875,18 @@
   },
   "latest_durability_snapshot": {
     "date": "2026-10-27",
-    "primary_new_runtime_published": 440,
+    "primary_new_runtime_published": 476,
     "primary_new_runtime_required": 742,
     "proxy_published": 212,
     "proxy_required": 212,
-    "matched_published": 228,
+    "matched_published": 264,
     "matched_required": 530,
     "next_matched_range": [
-      228,
-      240
+      264,
+      276
     ],
-    "next_range_status": "Not dispatched; separate SZH1\u201313 dispatched after all GPU children stopped",
-    "loa_target_published": 37,
+    "next_range_status": "Not dispatched; separate MEL25\u201337 in flight; accepted counts exclude it",
+    "loa_target_published": 49,
     "loa_target_required": 378,
     "matched_24_36": {
       "archive_id": "1Zy7xTf3Jdtqev6--89jsDZXrwgdDSiMo",
@@ -2163,7 +2162,7 @@
       "scope": "Second own-city AMS Source, fixed recipe/seed; no new tuning, target/Final or automatic next.",
       "initial_observation_status": "PID3715 polled live, actual epoch1 checkpoint and log observed; not completed or independently published"
     },
-    "ams_target_published": 49,
+    "ams_target_published": 61,
     "ams_target_required": 378,
     "ams_sources_published": 3,
     "mel_replication_sources_published": 3,
@@ -2462,7 +2461,7 @@
         "cleanup_performed": false,
         "scope": "Last actual read-only scan; do not assume subsequent writes leave free space unchanged."
       },
-      "latest_observed_filesystem_free_GiB": 5.343456268310547,
+      "latest_observed_filesystem_free_GiB": 4.458805084228516,
       "minimum_new_dispatch_free_GiB": 1,
       "completed_scratch_relocation": {
         "directories": 34,
@@ -2775,10 +2774,10 @@
       "receipt_sha256": "4f4b8dd97d194043fbb28b07008a771e832787603a0235d7cbf840483fe45231",
       "proof_sha256": "8875cb6fc4e1a68973c5beb6d69187c28dbe707b653a914c45d17314c5cfe22a"
     },
-    "szh_target_published": 1,
+    "szh_target_published": 13,
     "szh_target_required": 378,
     "all_CHARGED_city_Source_sets": "All6 own-city sets,3 fixed seeds each, independently externally accepted; original SPO Sources restored without refitting",
-    "current_GPU_job": "SZH1\u201313 dispatched as PID5148 using previous published receipt and fixed Source bank; external acceptance pending",
+    "current_GPU_job": "MEL25\u201337 dispatched; primary264\u2013276 not dispatched",
     "matched_144_156": {
       "receipt": {
         "schema": "verified-kaggle-outbox-publication-v1",
@@ -2894,8 +2893,8 @@
       "proof_sha256": "0f407437394a7fecf948f5fffaf44a3179fab8e3055dbb1424f6acded47da3b2"
     },
     "next_ams_range": [
-      49,
-      61
+      61,
+      73
     ],
     "matched_168_180": {
       "receipt": {
@@ -3345,8 +3344,250 @@
       "proof_sha256": "3d8247a60d29f225338f9b3394d0265b5bbb3a1b91aac54e673bc1199a8f74af"
     },
     "szh_next_range": [
-      1,
-      13
-    ]
+      13,
+      25
+    ],
+    "matched_228_240": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 228,
+        "end": 240,
+        "run_ids": [
+          "urbanev-SZH-1987-14d-full_finetuning-seed43",
+          "urbanev-SZH-1987-14d-fixed_retention-seed43",
+          "urbanev-SZH-1987-14d-seasonal_naive-seed44",
+          "urbanev-SZH-1987-14d-target_only-seed44",
+          "urbanev-SZH-1987-14d-frozen_source-seed44",
+          "urbanev-SZH-1987-14d-online_best-seed44",
+          "urbanev-SZH-1987-14d-without_source_initialization-seed44",
+          "urbanev-SZH-1987-14d-block7-seed44",
+          "urbanev-SZH-1987-14d-block28-seed44",
+          "urbanev-SZH-1987-14d-adaptive-seed44",
+          "urbanev-SZH-1987-14d-full_finetuning-seed44",
+          "urbanev-SZH-1987-14d-fixed_retention-seed44"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1IA4KCuZENeJhIEBTEH1ngU4r52LS_d22/view",
+          "bytes": 22545547,
+          "sha256": "2906fca925c6c4563a029f1e8e69a21595efeefca5b15a5a0c05ba907550b311"
+        },
+        "verification_sha256": "a0c715971980381224abb2ccd55790d842f6e3020f85a97b894b99387f6cfbc2",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "1IA4KCuZENeJhIEBTEH1ngU4r52LS_d22",
+      "receipt_id": "1w81VQWY0LwBkpS8VWU24-SMJiGbJ9R6s",
+      "proof_id": "19ZmByyDwJnjYDPosDMm_PEO6dCdP84Je",
+      "receipt_sha256": "ad6f91fc1f7bb49297df9b2eed3f25e95155246599dbdaa2b6da69545bda6108",
+      "proof_sha256": "f845b0d1a4a80d0918413eeb21a4ddc4b75298f82dd51bc79abe2dc217b877b7"
+    },
+    "matched_240_252": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 240,
+        "end": 252,
+        "run_ids": [
+          "urbanev-SZH-2152-14d-seasonal_naive-seed42",
+          "urbanev-SZH-2152-14d-target_only-seed42",
+          "urbanev-SZH-2152-14d-frozen_source-seed42",
+          "urbanev-SZH-2152-14d-online_best-seed42",
+          "urbanev-SZH-2152-14d-without_source_initialization-seed42",
+          "urbanev-SZH-2152-14d-block7-seed42",
+          "urbanev-SZH-2152-14d-block28-seed42",
+          "urbanev-SZH-2152-14d-adaptive-seed42",
+          "urbanev-SZH-2152-14d-full_finetuning-seed42",
+          "urbanev-SZH-2152-14d-fixed_retention-seed42",
+          "urbanev-SZH-2152-14d-seasonal_naive-seed43",
+          "urbanev-SZH-2152-14d-target_only-seed43"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1XCLPL9r9_CQoqJoxH1hDx6e6aLcKFu2s/view",
+          "bytes": 23718186,
+          "sha256": "8873764a3bb03d7ec8dca536ea6f696844bd511f37625dea5691300f2512c131"
+        },
+        "verification_sha256": "45110d3e35b1f6f75932f344c5ae759a5079fdc476802a58d305972e94bd6886",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "1XCLPL9r9_CQoqJoxH1hDx6e6aLcKFu2s",
+      "receipt_id": "1hUdqtCBWjQtb6uwvA5lAlS1jVNx6Ba26",
+      "proof_id": "1g8XnOpt7Mt_T5fD4pb3MikTkNSi7_4ws",
+      "receipt_sha256": "aaef8876ace63b26705efd2d59cfe7d0b397f5335b6bb60965b1ef5b9e01f67c",
+      "proof_sha256": "fea8dc4dd2f811869cc00beef9a8439689b477abd042f5f26815f800e387f325"
+    },
+    "szh_target_1_13": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "9975bd0b4a491c8984da5ee2cd03bb15e826db2a844bf97239921e5ce24a577a",
+        "family": "charged-SZH",
+        "start": 1,
+        "end": 13,
+        "run_ids": [
+          "charged-SZH-4-7d-full_finetuning-seed42",
+          "charged-SZH-4-7d-fixed_retention-seed42",
+          "charged-SZH-4-7d-source_error-seed42",
+          "charged-SZH-4-7d-uncertainty-seed42",
+          "charged-SZH-4-7d-drift-seed42",
+          "charged-SZH-4-7d-parameter_retention-seed42",
+          "charged-SZH-4-7d-seasonal_naive-seed42",
+          "charged-SZH-4-7d-target_only-seed42",
+          "charged-SZH-4-7d-frozen_source-seed42",
+          "charged-SZH-4-7d-online_best-seed42",
+          "charged-SZH-4-7d-without_source_initialization-seed42",
+          "charged-SZH-4-7d-block7-seed42"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1l0QoRQUoqt5H2Hv8GIKcRCWNjKi-pzEa/view",
+          "bytes": 26730554,
+          "sha256": "7f1aad493bfda8b99d5653ee17852e43e80de0e59fd44ecb3069154983c93d7a"
+        },
+        "verification_sha256": "0a87a710c4b03057438f6242b6520d33b0a262f332f958828187583a0617395d",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1l0QoRQUoqt5H2Hv8GIKcRCWNjKi-pzEa",
+      "receipt_id": "10pZPo9TAtPoyvvty0n8MDy5tcE5sAISZ",
+      "proof_id": "1CYdAsO1W6QbNFeUpbBPB99sNNojAN8p7",
+      "receipt_sha256": "8dd9f648c65a4101932eaeb11090c91fe89928af519520b45f5eb70978d2a598",
+      "proof_sha256": "b33c848b2c01c9a71f7868e92a3d0347f53c24bbbe4ac6b6c09c9937f8f14c28"
+    },
+    "ams_target_49_61": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "7aafc9a5b18d38f0415d4b51f42fffe1e4e3ecb14a33aa947b799a127686443c",
+        "family": "charged-AMS",
+        "start": 49,
+        "end": 61,
+        "run_ids": [
+          "charged-AMS-1359-7d-seasonal_naive-seed42",
+          "charged-AMS-1359-7d-target_only-seed42",
+          "charged-AMS-1359-7d-frozen_source-seed42",
+          "charged-AMS-1359-7d-online_best-seed42",
+          "charged-AMS-1359-7d-without_source_initialization-seed42",
+          "charged-AMS-1359-7d-block7-seed42",
+          "charged-AMS-1359-7d-block28-seed42",
+          "charged-AMS-1359-7d-adaptive-seed43",
+          "charged-AMS-1359-7d-full_finetuning-seed43",
+          "charged-AMS-1359-7d-fixed_retention-seed43",
+          "charged-AMS-1359-7d-source_error-seed43",
+          "charged-AMS-1359-7d-uncertainty-seed43"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1lLSb-0N9gFEpWkZsH6xtl4WmNSmJtsy8/view",
+          "bytes": 27269034,
+          "sha256": "e612b873758b4f11d69811510b4f71c5771f35e3f1e3456f4b3dee27a9e8929b"
+        },
+        "verification_sha256": "75b0bac0bcef63ede06c650dbc0673a3d5851f2aa71448656a844c250746528c",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1lLSb-0N9gFEpWkZsH6xtl4WmNSmJtsy8",
+      "receipt_id": "1_SeSU8mOAun88DAdLKBDQuw-BZ2iZemw",
+      "proof_id": "1rIenjEm5hTyrGTqJmxVcNC0gRneN9J00",
+      "receipt_sha256": "335501838cc98b802144022f5a2ddb601c0278394e92f8caa566d97bd540cff5",
+      "proof_sha256": "e9c85a3ef571035e0e5d06875caa84a88c09ca8dde90bd09522970910bd941ce"
+    },
+    "pending_Final_scope_decision": {
+      "status": "unapproved",
+      "lead_reply": "Requested explanation; no cohort selection or Final-lock approval",
+      "candidate_entity_budget_pairs": 66,
+      "candidate_cells": 2772,
+      "all_ready_entity_budget_pairs": 3510,
+      "all_ready_cells": 147420,
+      "scope": "Identity/prefix-metadata-only proposal; no Final value reads/execution. Distinct pairs need not be distinct physical locations. Capacity and independent lock review remain required."
+    },
+    "original_folder_followup": {
+      "folder_id": "1xHOCjUbC-TM_b7lJqZEVed1ZEhrwGwu_",
+      "observation": "Original matched-completed folder reachable in ordinary Drive UI; first visible archive/source/receipt entries present. Virtualized partial listing is not a complete inventory or absence proof. Scoped connector search returned no2152 entries; not treated as proof missing bytes are irrecoverable.",
+      "scope": "Read-only, no data or permissions changed"
+    },
+    "loa_target_37_49": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "5f07a443c12a25dd229d9d0f03cb6554a245e95390fcc2533b90041e4e65a134",
+        "family": "charged-LOA",
+        "start": 37,
+        "end": 49,
+        "run_ids": [
+          "charged-LOA-201-7d-frozen_source-seed44",
+          "charged-LOA-201-7d-online_best-seed44",
+          "charged-LOA-201-7d-without_source_initialization-seed44",
+          "charged-LOA-201-7d-block7-seed44",
+          "charged-LOA-201-7d-block28-seed44",
+          "charged-LOA-164-7d-adaptive-seed42",
+          "charged-LOA-164-7d-full_finetuning-seed42",
+          "charged-LOA-164-7d-fixed_retention-seed42",
+          "charged-LOA-164-7d-source_error-seed42",
+          "charged-LOA-164-7d-uncertainty-seed42",
+          "charged-LOA-164-7d-drift-seed42",
+          "charged-LOA-164-7d-parameter_retention-seed42"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1lYG6XyWid7JeFjJIzKcxrK-dtcvtN88y/view",
+          "bytes": 30897721,
+          "sha256": "dcc27b5d5d3a75c8f5340089c75ffacb57c2765e5084feacac1b76c39a078ef4"
+        },
+        "verification_sha256": "fa2cad05835ea1263adf49e7266fa0244a733489f4434f84e6a10ce879952857",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1lYG6XyWid7JeFjJIzKcxrK-dtcvtN88y",
+      "receipt_id": "1eldoarngG12nPmEaVgBXv4zffW-8lkpt",
+      "proof_id": "1H8-tnKuen_RV71z_iwNfvrz6CcDm1tqS",
+      "receipt_sha256": "3466460ddd393a984f9906f6a2d7f37934ca16b07976b53d1d6ba6635180da51",
+      "proof_sha256": "6b662c1ca1bc4c2b9aa51eef2292b7d78197a98948fff50108f651a828098ea3"
+    },
+    "matched_252_264": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 252,
+        "end": 264,
+        "run_ids": [
+          "urbanev-SZH-2152-14d-frozen_source-seed43",
+          "urbanev-SZH-2152-14d-online_best-seed43",
+          "urbanev-SZH-2152-14d-without_source_initialization-seed43",
+          "urbanev-SZH-2152-14d-block7-seed43",
+          "urbanev-SZH-2152-14d-block28-seed43",
+          "urbanev-SZH-2152-14d-adaptive-seed43",
+          "urbanev-SZH-2152-14d-full_finetuning-seed43",
+          "urbanev-SZH-2152-14d-fixed_retention-seed43",
+          "urbanev-SZH-2152-14d-seasonal_naive-seed44",
+          "urbanev-SZH-2152-14d-target_only-seed44",
+          "urbanev-SZH-2152-14d-frozen_source-seed44",
+          "urbanev-SZH-2152-14d-online_best-seed44"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1bQKR1IcqdmESf9XYy6OpOFJcDC_v93MJ/view",
+          "bytes": 25100051,
+          "sha256": "f38697d6e2d255e75aff2b8fbd98a0f688d3104d2f51f553af0fbadfa815ab7b"
+        },
+        "verification_sha256": "414946a5a5b4927cf6c82ada235e4376e5055bc4ecad43109eca5e5532ab3f4a",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "1bQKR1IcqdmESf9XYy6OpOFJcDC_v93MJ",
+      "receipt_id": "1F-LPYW3nZ4uoZ7KCjio6ci8cJX2TFDyp",
+      "proof_id": "1DhN6wy-BYhGzVKRKguu334nzi-TNMi6G",
+      "receipt_sha256": "8b250c88fcbeced829745b8775f13717da9faa89264419c41631c48ec10dea00",
+      "proof_sha256": "1af9bd4bf92e6cd1202ef2732e5078a0729a240a635307ceb0de75f9c312318d"
+    }
   }
 }
