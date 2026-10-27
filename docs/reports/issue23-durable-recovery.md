@@ -1992,3 +1992,11 @@ elapsed accounting; earlier input/bootstrap setup remains separate. No completio
 or representative-city E2E estimate is claimed before its external acceptance.
 Latest observed provider UI94.39units, approximately1.07/hour, one active session.
 No paid purchase, Final, self merge, main promotion or issue closure.
+
+### AMS A06 accepted and disjoint multiworker dispatch
+
+A06's four complete AMS7-day units (1359seed44 and1515seeds42/43/44) passed fresh external raw transport, CRC, independent daily/latest-state, all three original Source, exact configuration/input and within-unit coverage checks. Each method has90 identical scored origins per unit. Acceptance SHA `a0819acf3905f7363f203ae09277d38a80f67a2c9794aea8afed12036fde238f` is in [the acceptance record](issue23-colab-whole06-acceptance.json). Independent proof SHA `c41bf56bd29debf7df56f47334089770e53453c2a4d9d35fb4c72a0ed21c4258`; both uploaded artifacts passed fresh native exact-byte readback and ZIP CRC. [Published acceptance](https://drive.google.com/file/d/1CX3RvNfXLMQ-ZkbR9zu203-Tjha-nNAQ/view), [proof](https://drive.google.com/file/d/1wgB8ebBVou_I94IpOb4ooUkgqLqD2U4q/view), [canonical export](https://drive.google.com/drive/folders/1cCny1JDU8uHUD_WXTstiU7B9TXRgJi2N). Catalog SHA `1abc8f9640f9855473871196061b573ea17879b2ec60ac3e3f66c374493881e0`; child wall578.541seconds is not full end-to-end time.
+
+The new ledger v12 SHA `8244646c4227417830ae5d7c9b9b3c3ea2d72c0288040fce882af900d4e1b3ef` has112/231 accepted and119pending. UrbanEV remains69/69 complete; CHARGED cities remain separate. [Multiworker controls](issue23-multiworker-controls.md) document actual guards, manual billing/release gaps, failed staging, publication repair and disjoint B07/C08/A09 reservations. No claim is made that a Goal alone prevents idle provider charges.
+
+The [complete UrbanEV primary Development analysis](issue23-urbanev-development-primary.md) covers966cells. Observed Adaptive MAE exceeds Fixed retention by0.0339/0.0418/0.0246kWh at7/14/28days; corresponding exploratory paired intervals crosszero.462null cells remain explicit. This does not establish superiority or population effectiveness. Final values/execution remain untouched.
