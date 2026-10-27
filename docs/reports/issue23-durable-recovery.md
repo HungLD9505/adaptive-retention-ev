@@ -1421,3 +1421,83 @@ was clicked, no runtime release is yet claimed and no new GPU batch was opened
 while that dialog is pending. Independent Final-scope selection is also pending
 with the lead; elapsed time is not approval. Latest7254a62 CI passed Ubuntu and
 Windows ([run40452459625](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40452459625)).
+
+
+### Next whole unit: UrbanEV1165 /28d /seed43
+
+The existing Colab T4 session was retained by cancelling the deletion dialog;
+no destructive confirmation or new runtime was used. The provider showed98.94
+units before dispatch and98.85 at the subsequent observation (approximately1.07/hour).
+No cost-per-experiment inference is made from these allocation readings.
+
+The next outcome-blind ledger identity was1165/28d/seed43. Its first12 methods
+completed at PID18527, exit0, in96.198s with unchanged core/config/input/Source
+identities. Plan SHA
+`1f27f8f1a26f11feb8ede8a963c323df1cc33300490ca62a0f26d588fc8e2d39`;
+operator ZIP SHA
+`7c5fb66a9ce5f4d127a057999341554087d881470146f7c745ee82b57433faf4`.
+All5 exported parts (26,107,308 bytes) were freshly downloaded from shared
+[Drive](https://drive.google.com/drive/folders/1HrBAh0rddlkNlTBOzRScR0gKNCXjCHXT),
+authenticated against catalog SHA
+`a2a75c59968c2b25f8d371cd8315f4e22856b64d9c2bf96703d4ea65221a901e`,
+ZIP-CRC checked and restored (3,373 files). Independent daily/input verification
+checked12 runs/2,220 hashes; latest-state verification checked12 states. All3
+original Source checkpoints were separately CPU-loaded against their fixed
+hashes, seed and epoch identities; no Source was refitted.
+
+The resulting external partition receipt SHA is
+`1fe8ebd1b48c685092e993fd972d06b3cba6ad498484d63b8837fd6ddf98d814`.
+Only after those checks were its proof and receipt copied back to Drive and
+the last2-method partition dispatched. Those2 are not yet accepted merely
+because dispatch was requested. The prior84/231 complete-unit count is retained
+until all14 methods pass joint external acceptance. Four old partial cells
+must be replaced as a whole unit rather than counted as extra observations.
+
+`python -m tools.prepare_primary_unit` now prepares first12/last2 metadata
+partitions from an exact externally pinned remaining ledger and runtime reference
+(`--ledger`, `--ledger-sha256`, `--template`, `--template-sha256`, `--output`).
+It never trains or dispatches. It selects only the first pending primary identity,
+requires all14 unique methods, original config/input/core hashes and all3 original
+Source identities, rejects already-complete units and preserves historical rows
+as references. A CHARGED context is explicitly rejected by this primary helper;
+city migration must retain separate provenance. The execution-time role checks,
+profile validation, mounted backup, time limits and external publication gate
+remain necessary. Preparing both partitions does not authorize last2 dispatch.
+This replaces repeated manual metadata selection without changing algorithms.
+
+The last2 then completed at PID19991, exit0, in32.019s. Its3 canonical parts
+(13,937,128 bytes) were freshly downloaded from
+[Drive](https://drive.google.com/drive/folders/1IWibxu335sJiTnjyKYGVr2SzRf2UhWw_),
+checked against catalog SHA
+`9d26ba62c5c24a259562aa0e717926dec73355190b21ba4e8cb6f6f938506c7c`,
+and safely restored (571 files). Independent daily/input verification checked2
+runs/370 hashes and latest-state verification checked both states.
+[Joint acceptance](issue23-colab-unit1165-seed43-acceptance.json) verifies all14
+methods, identical52 scored origins,90 scheduled/59 issued days, exact frozen
+configs/input bindings and the same actual Colab code/environment. Its SHA is
+`ce446202be583011afcc672c398b82eab4f1b290d01dae670e62507805b1f0c0`;
+the [shared receipt](https://drive.google.com/file/d/1KwYhzYWp8-UhaQzvdmXSyP1SxzGj5Ehl/view)
+was saved and freshly downloaded with that exact hash. The two partitions total
+128.218s child wall, excluding setup/export/readback/idle. Both handles are
+terminal0. No new GPU batch was automatically launched.
+
+The refreshed immutable local ledger (`remaining-whole-unit-ledger-v2.json`, SHA
+`e34a138fc7ed14b3e1142b22d3209363e57e19c4aac613e0c65fdd24c6685ce0`)
+now has85/231 complete units,146 incomplete. Whole-unit migration would require
+2,044 cells:1,903 missing and141 declared repeats. Primary is46/69 complete;
+the next identity is1165/28d/seed44. Existing JHB and completed city units remain
+unchanged. Counts are not thesis completion or method-effectiveness estimates.
+For this seed43 unit alone Adaptive MAE10.078115kWh exceeds Fixed9.981572;
+no favourable seed/config selection or superiority claim is made.
+
+Verification for the metadata preparation helper:376 offline tests PASS
+(including3 new independent preparation tests), Ruff lint PASS, Ruff format
+PASS (196 Python files), sources catalog listing PASS and git diff --check PASS.
+A real-metadata dry preparation reproduced the frozen1165/28d/seed43 configs
+without reading labels or fitting. The first mutation-test attempt failed because
+the fixture used the production create-only writer to overwrite itself; the test
+now explicitly mutates only its temporary fixture, preserving production guards.
+The latest prior045f78d CI passed Ubuntu/Windows
+([run40452998747](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40452998747));
+new helper commit CI is not inferred from that prior result. Final scope and
+independent lock approval remain pending; no merge/main promotion occurred.
