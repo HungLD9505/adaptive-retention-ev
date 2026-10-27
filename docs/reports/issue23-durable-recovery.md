@@ -1713,3 +1713,52 @@ The kit was [uploaded natively](https://drive.google.com/file/d/1RNS5gU990WY1gDq
 and freshly downloaded/hash/CRC checked. These are preparation facts, not56-run
 completion. Final membership remains the lead-selected full3,510 pairs, with
 independent immutable execution approval still pending.
+
+### First complete four-unit publication independently accepted
+
+The predeclared56-cell job PID43036 exited0 in242.863 seconds, including19.593s
+of mounted completed-run backup time. All56 runs retain exact original configs,
+input/scaler/Source bindings and the unchanged18 core file fingerprints under
+actual clean cloud1ac2ae0, Python3.13/Torch2.11.0+cu130/NumPy2.3.3/T4. This is
+new cross-environment execution, not recovery of original missing bytes.
+
+CPU daily/input and latest-state checks passed before canonical export. All16
+parts (47,520,786 bytes, each below8MB) were freshly downloaded from
+[Drive](https://drive.google.com/drive/folders/1tSOZ9M7rcgFXIQSA4v5khJ4px12a6qs_).
+Catalog SHA `3f3425c81ab87029e4007367b3eb31e71761ae3ed0aa2f551c2b869404614ef4`;
+external bytes/SHA/ZIP-CRC, safe restore, independent daily/input/state verification
+and CPU integrity loads of all3 original epoch10 Sources passed. The per-unit
+check additionally enforces all14 variants, unique run IDs, exact reference
+configs, same environment and identical scored origins **within each unit**.
+It does not incorrectly require different stations to share scoring coverage.
+
+[Acceptance](issue23-colab-whole01-acceptance.json), SHA
+`2c2ee464657f2c0d462d25115fc473d76d336bce5e49299a0d437df9d53e24ba`,
+covers1188/28d/seed44 and1251/28d/seeds42/43/44. Each has90 scheduled,59 issued
+and0 scored days. Their MAE/RMSE stay null; completion is operational, not
+supervised-adaptation or scientific-effectiveness evidence. Null units stay in
+coverage denominators, with original initialization statuses preserved.
+
+[Receipt](https://drive.google.com/file/d/12So0yupwET0XILWM66cwARhm1kwcNqVN/view)
+and [independent proofs](https://drive.google.com/file/d/1JrbP861DtawPvDYZW4b9vbMxd-exLvwk/view)
+were uploaded natively and freshly downloaded again with matching hashes/CRC.
+The proof ZIP SHA is
+`38e7b1715277f9133b09d64fdf9e0ef5f2635522017b94dadd5d484d4d11d2a9`.
+Ledger-v6 SHA `36f984d1643e0017273b12616a412a1747848146a4879a4f51d83d943b7a1b74`
+now credits92/231 whole Development units,139 incomplete; primary53/69 complete.
+Historical partial cells are replaced canonically, never double counted.
+
+The next strict prefix is1408/28d/seeds42/43/44 and2005/28d/seed42, with the
+same56-cell/20min/1unit allowance,120s no-completed-run deadman and30-unit reserve.
+Plan SHA `d3fb1e2ae16c3eee1c539143e0fd986807ac4ce9b8f5fc7265c00d02cc150198`;
+158,073-byte kit SHA
+`362f16e01a8ed35ff8aedc7b6a19658c18c0d7963dbe2bf779fc50422615dcb5`.
+Dispatch requires the prior externally verified acceptance on mounted Drive and
+probes the actual environment again. A dispatched batch is not accepted evidence.
+
+All379 previously recorded tests are unchanged; head364b2d3 additionally passed
+[Ubuntu/Windows CI40462236054](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40462236054).
+This handoff adds actual evidence, not a new method. No Final execution, self merge,
+main promotion, runtime deletion or issue closure. Latest observed provider UI:
+97.07 units at approximately1.07/hour with one active T4 session; this is not a
+promise that the full147,420-cell Final scope fits available compute.
