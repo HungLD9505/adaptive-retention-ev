@@ -1020,3 +1020,17 @@ inside a live/unpublished batch is made.
 
 Sprint3, full paired analyses and Final acceptance remain incomplete. Final has
 not been opened or executed. No autonomous approval, merge or issue closure.
+
+Matched216–227 subsequently completed and passed fresh Drive download and all
+independent Source/daily/input/latest-state checks, raising the accepted prefix
+to **440/742 =212 proxy+228 matched**. Latest
+[archive](https://drive.google.com/file/d/1DoFThQH4vB8HCflKzBE0LzyHRcpLFPMG/view),
+[receipt](https://drive.google.com/file/d/19Ca1a0UoK6xabvOQZ5mqYpvCp0qgLWWt/view),
+[proof](https://drive.google.com/file/d/1rSJ3_6kC9ABoOX2xX3GBK43BAzm_6oRx/view).
+The SPO additional24-target [original-metadata comparison proof](https://drive.google.com/file/d/13JrrWLHBRm7e_CRT2IF5A1KhuSBbITSL/view)
+also passed actual fresh Drive bytes/hash/CRC/all4 manifest members. Primary228–240
+has not been dispatched. SZH1–13 was dispatched as PID5148 only after all GPU
+children stopped, using its existing exact published receipt and fixed own-city
+Source bank. SZH accepted count remains1 until the external gate passes.
+The last working-storage observation was5.224 GiB. No new research code changed;
+JSON syntax, diff whitespace and core-module byte identity checks passed.

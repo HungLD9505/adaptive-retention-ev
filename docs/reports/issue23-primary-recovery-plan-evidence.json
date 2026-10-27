@@ -936,21 +936,21 @@
     "independent_proof_bytes": 7952
   },
   "current_recovery_status": {
-    "new_runtime_targets_fully_published": 428,
+    "new_runtime_targets_fully_published": 440,
     "new_runtime_planned_targets": 742,
     "old_missing_proxy_fully_restored": 648,
     "old_matched_prefix_fully_restored": 451,
     "old_matched_physically_missing": 239,
-    "interpretation": "Overlapping historical/recovery collections must not be added. Latest accepted prefix428/742=212 proxy+216 matched; incomplete.16 original complete units/224 selected cells retained separately.239 original matched payloads remain missing; new replay is not original-byte restoration. Final unapproved and not executed.",
+    "interpretation": "Overlapping historical/recovery collections must not be added. Latest accepted prefix440/742=212 proxy+228 matched; incomplete.16 original complete units/224 selected cells retained separately.239 original matched payloads remain missing; new replay is not original-byte restoration. Final unapproved and not executed.",
     "next_bounded_dispatch": {
-      "family": "matched",
-      "start": 216,
-      "end": 228,
-      "pid": 5091,
-      "status": "dispatched; external acceptance pending"
+      "family": "charged-SZH",
+      "start": 1,
+      "end": 13,
+      "pid": 5148,
+      "status": "dispatched; external acceptance pending; primary228\u2013240 not dispatched"
     },
     "new_runtime_proxy_published": 212,
-    "new_runtime_matched_published": 216
+    "new_runtime_matched_published": 228
   },
   "kaggle_offset39_continuation": {
     "pid": 1186,
@@ -1876,17 +1876,17 @@
   },
   "latest_durability_snapshot": {
     "date": "2026-10-27",
-    "primary_new_runtime_published": 428,
+    "primary_new_runtime_published": 440,
     "primary_new_runtime_required": 742,
     "proxy_published": 212,
     "proxy_required": 212,
-    "matched_published": 216,
+    "matched_published": 228,
     "matched_required": 530,
     "next_matched_range": [
-      216,
-      228
+      228,
+      240
     ],
-    "next_range_status": "Dispatched as PID5091 after previous external publication, terminal success, no-live-GPU-child and >=1GiB working headroom guards; acceptance pending",
+    "next_range_status": "Not dispatched; separate SZH1\u201313 dispatched after all GPU children stopped",
     "loa_target_published": 37,
     "loa_target_required": 378,
     "matched_24_36": {
@@ -2048,6 +2048,12 @@
         "differences": 0,
         "sha256": "ddccb2002475419a6f2bf37fbe805d8a831cf76477bb3a819a7095d1526c129e",
         "scope": "Only actual published SPO offsets25\u201336 reconstructed Development targets. Original Sources, input/config/seed/environment unchanged; new target producer code recorded separately. No selection, complete378 claim or recovery of original raw target bytes."
+      },
+      "next13_37_comparison_proof": {
+        "id": "13JrrWLHBRm7e_CRT2IF5A1KhuSBbITSL",
+        "bytes": 5514,
+        "sha256": "01ead0ba80f3bf7fcce2df7e4e8f19d1d97d27d843d47f2515bd6d52a01acfb2",
+        "readback": "PASS actual fresh Drive bytes/SHA/CRC/all4 manifest members"
       }
     },
     "matched_72_84": {
@@ -2772,7 +2778,7 @@
     "szh_target_published": 1,
     "szh_target_required": 378,
     "all_CHARGED_city_Source_sets": "All6 own-city sets,3 fixed seeds each, independently externally accepted; original SPO Sources restored without refitting",
-    "current_GPU_job": "Primary matched216\u2013228 dispatched as PID5091; no automatic successor. Accepted counters exclude it.",
+    "current_GPU_job": "SZH1\u201313 dispatched as PID5148 using previous published receipt and fixed Source bank; external acceptance pending",
     "matched_144_156": {
       "receipt": {
         "schema": "verified-kaggle-outbox-publication-v1",
@@ -3299,6 +3305,48 @@
       "proof_id": "1_rZs4Llga2HugTaBHHumPFHNKvDdoYNn",
       "receipt_sha256": "1b96ab5f0e7b49f6394663a140d5c712ffd39cb3457146ab663d26f5ff7c2a13",
       "proof_sha256": "45174497adf70ab43e6734e839ab60e465f8737cb045b40708d150cc40093992"
-    }
+    },
+    "matched_216_228": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 216,
+        "end": 228,
+        "run_ids": [
+          "urbanev-SZH-1987-14d-block28-seed42",
+          "urbanev-SZH-1987-14d-adaptive-seed42",
+          "urbanev-SZH-1987-14d-full_finetuning-seed42",
+          "urbanev-SZH-1987-14d-fixed_retention-seed42",
+          "urbanev-SZH-1987-14d-seasonal_naive-seed43",
+          "urbanev-SZH-1987-14d-target_only-seed43",
+          "urbanev-SZH-1987-14d-frozen_source-seed43",
+          "urbanev-SZH-1987-14d-online_best-seed43",
+          "urbanev-SZH-1987-14d-without_source_initialization-seed43",
+          "urbanev-SZH-1987-14d-block7-seed43",
+          "urbanev-SZH-1987-14d-block28-seed43",
+          "urbanev-SZH-1987-14d-adaptive-seed43"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1DoFThQH4vB8HCflKzBE0LzyHRcpLFPMG/view",
+          "bytes": 24565438,
+          "sha256": "6b87843b675df532b30b51fce99992361134efd727be6d857a605b858e13755c"
+        },
+        "verification_sha256": "6144231bab110400eb39283b7b6529e7e36855a8a47ca85a841c1d8da1bc428b",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "1DoFThQH4vB8HCflKzBE0LzyHRcpLFPMG",
+      "receipt_id": "19Ca1a0UoK6xabvOQZ5mqYpvCp0qgLWWt",
+      "proof_id": "1rSJ3_6kC9ABoOX2xX3GBK43BAzm_6oRx",
+      "receipt_sha256": "7f54dab908dbd18b56649550005089758632f0d51415ea6f549fdd3a8f92ce89",
+      "proof_sha256": "3d8247a60d29f225338f9b3394d0265b5bbb3a1b91aac54e673bc1199a8f74af"
+    },
+    "szh_next_range": [
+      1,
+      13
+    ]
   }
 }
