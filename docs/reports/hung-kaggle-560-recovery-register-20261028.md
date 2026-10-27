@@ -10,6 +10,8 @@ The ledger verifier now has a **prepared**, optional `--recovery-manifest` route
 
 The version IDs in that ignored manifest are caller-supplied identifiers; this local verifier does not query Kaggle to authenticate them. Before assigning remote-readback status, compare each ID and archive fingerprint against the saved provider receipt/log independently. A successful local row means local byte/receipt/manifest verification only.
 
+When a recovery manifest is supplied, the new CSV includes `claimed_saved_provider_version_id` and `claimed_readback_provider_version_id` on each recovered job row; other rows leave those columns empty. These preserve the declared version binding for review without labeling it independently authenticated. The default v2 CSV retains its original columns and bytes.
+
 Once genuine archive files and version receipts are in place, create an ignored JSON file such as `.cache/recovered-shards-v3/manifest.json` with schema `hung-kaggle-archive-recovery-v1` and an `archives` array. Each entry needs the seven fields listed above; use the exact `planned_jobset_sha256` from the checklist and an archive path relative to the repository root. Then run:
 
 ```sh

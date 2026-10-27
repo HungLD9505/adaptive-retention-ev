@@ -129,6 +129,7 @@ assert copied == recorded
 assert recorded["job_ids"] == next(s["job_ids"] for s in SHARDS["shards"] if s["id"] == sid)
 archive_specs.append((sid, recovered / "artifacts.zip", recorded["sha256"], recorded["bytes"]))
 
+provider_versions = {}
 if args.recovery_manifest is not None:
     manifest_path = args.recovery_manifest.resolve()
     if not manifest_path.is_relative_to(ROOT / ".cache"):
@@ -155,6 +156,10 @@ if args.recovery_manifest is not None:
         if not path.is_relative_to(ROOT / ".cache") or not path.is_file():
             raise SystemExit(f"Missing ignored repository archive: {sid}")
         archive_specs.append((sid, path, item["archive_sha256"], int(item["archive_bytes"])))
+        provider_versions[sid] = (
+            int(item["saved_version_id"]),
+            int(item["readback_version_id"]),
+        )
         seen_shards.add(sid)
 
 errors = []
@@ -279,6 +284,11 @@ if (
     )
 ):
     raise SystemExit("Recovery output must be a new versioned file under docs/reports")
+if args.recovery_manifest is not None:
+    for row in rows.values():
+        saved, readback = provider_versions.get(row["shard_id"], ("", ""))
+        row["claimed_saved_provider_version_id"] = saved
+        row["claimed_readback_provider_version_id"] = readback
 stream = io.StringIO(newline="")
 writer = csv.DictWriter(stream, fieldnames=list(next(iter(rows.values()))))
 writer.writeheader()
