@@ -2170,3 +2170,17 @@ Ledger42 SHA `9db282d6cb2940eb9b33838553d4605665f5c71dffcec07154a5ab04d54347bb` 
 [B40 acceptance](issue23-colab-whole40-acceptance.json), SHA `165807af850b2e1424f7626cb8bddaa3772b8ceb8b8c98f8cdb63459fe8e6d22`, [native receipt](https://drive.google.com/file/d/121OK-E4nXBz1L8-OGfLBD2Xy9GJwMAXG/view) and [proof](https://drive.google.com/file/d/1COuRueBa1NF4PNNbbRaiHfAztGh2G9hm/view), proof SHA `bc70706542bd69e2f91e36e438ddb0a5489d622d8cda068352b6dbb76d3fb32e`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA is `04567568546851e7a9af0ebcffbe0807981dedaae1c235670ae1d894afc9219d`. Fit/publication/verification took103.199/117.139/18.272seconds.
 
 Whole-unit completion is not full city-analysis acceptance. LOA next requires canonical reconciliation, fresh daily/latest-state/cost-state-event checks and unchanged frozen analysis on a clean committed checkout. B42 follows with the final MEL unit; A35 continues SZH. No Final execution or method change occurred.
+
+### MEL complete coverage and A100 release: 224 accepted units
+
+Ledger44 SHA `a2c10c334badd75cae923aebf4adb42120de7a31ced1c95cd134a2513215d7db` records224/231 accepted and7pending. A35 adds four SZH units (ledger43 reached223); B42 adds one MEL unit/14cells, completing MEL27/27. Every method per unit has90 common scored origins, with fresh independent raw/input/daily/latest-state/own-city Source/profile/coverage checks and root pinned-CLI acceptance.
+
+[A35 acceptance](issue23-colab-whole35-acceptance.json), SHA `fb3e192f8cfb9601ecb435bdcaea4a8adf630cf600ec91677a3e43ef8b068cf0`, [native receipt](https://drive.google.com/file/d/1sKt5TyWUxsjiKVgPDU4yTx_K8mWPhKSb/view) and [proof](https://drive.google.com/file/d/1mC2uSBVLuESrrmFF8TjXsC-ySb8VzXZe/view), proof SHA `96afa3d6ba4e11ca98e73322420b5fea147da1d6121b12f79ebfcc7a741397f3`.
+
+[B42 acceptance](issue23-colab-whole42-acceptance.json), SHA `a751b7f4e4304e366459a952a4253181c85248b88d2db837da538a69cf12d9e6`, [native receipt](https://drive.google.com/file/d/1flyC8OrQGO_3n5XIH2QRyT7djFLE7YOf/view) and [proof](https://drive.google.com/file/d/1_SY6jMWLowU2ekedFfE-ob1n8VbUR7RO/view), proof SHA `576adfe86fee3c50040f67ce55bebbfc4b6bf916027c0c77e0a2622b67496312`.
+
+All four uploads passed fresh native exact-byte/SHA/ZIP-CRC checks; readback receipt SHAs are `c3fba264cb1a7c59e90114d6ca3c3214ca99963392921f23d73d11e21424f707` and `236c31705f54185db087a931b535e11d97ff6e572ddc3d293fcf3486ab2fb327`. A35 fit/publication/verification took537.109/576.872/59.485seconds; B42 took105.209/118.952/20.173seconds for14cells.
+
+B42 was worker B's last fitting/publication job. After external verification and native readback, root terminated only its A100 session. Provider active-session UI then showed only worker A's T4, one active session and approximately1.07units/hour;74.76units remained displayed. This is a UI observation, not an isolated bill. Needed B artifacts are durable; no B GPU remains idle for CPU analysis.
+
+The LOA27/27 canonical assembly and fresh378-run daily/latest-state/cost-state-event checks passed, followed by unchanged frozen analysis. Report/bundle review continues; whole-unit acceptance is not human scientific acceptance. Root deferred maintained acceptance copies while that workflow needed a clean checkout, then restored exact JSON copies after it completed. MEL analysis remains to run. No Final values/execution, method change, merge or issue closure occurred.
