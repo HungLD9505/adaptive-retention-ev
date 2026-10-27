@@ -943,10 +943,11 @@
     "old_matched_physically_missing": 239,
     "interpretation": "Distinct overlapping historical/recovery collections; do not add. Accepted prefix476/742=212proxy+264matched.16 original complete units/224 selected cells retained separately;239 original matched payloads still undelivered, new replay is not original-byte recovery. Final unapproved and not executed.",
     "next_bounded_dispatch": {
-      "family": "charged-MEL",
-      "start": 25,
-      "end": 37,
-      "status": "dispatched; external acceptance pending; primary264\u2013276 not dispatched"
+      "family": "matched",
+      "start": 264,
+      "end": 276,
+      "pid": 5561,
+      "status": "actually polled live None; excluded until independent external publication"
     },
     "new_runtime_proxy_published": 212,
     "new_runtime_matched_published": 264
@@ -1885,7 +1886,7 @@
       264,
       276
     ],
-    "next_range_status": "Not dispatched; separate MEL25\u201337 in flight; accepted counts exclude it",
+    "next_range_status": "Dispatched PID5561; external acceptance pending",
     "loa_target_published": 49,
     "loa_target_required": 378,
     "matched_24_36": {
@@ -2461,7 +2462,7 @@
         "cleanup_performed": false,
         "scope": "Last actual read-only scan; do not assume subsequent writes leave free space unchanged."
       },
-      "latest_observed_filesystem_free_GiB": 4.458805084228516,
+      "latest_observed_filesystem_free_GiB": 4.316371917724609,
       "minimum_new_dispatch_free_GiB": 1,
       "completed_scratch_relocation": {
         "directories": 34,
@@ -2478,7 +2479,7 @@
       }
     },
     "final_status": "Not run; independent immutable lock approval and full Development remain outstanding",
-    "mel_replication_target_published": 25,
+    "mel_replication_target_published": 37,
     "mel_replication_target_required": 378,
     "matched_132_144": {
       "receipt": {
@@ -2777,7 +2778,7 @@
     "szh_target_published": 13,
     "szh_target_required": 378,
     "all_CHARGED_city_Source_sets": "All6 own-city sets,3 fixed seeds each, independently externally accepted; original SPO Sources restored without refitting",
-    "current_GPU_job": "MEL25\u201337 dispatched; primary264\u2013276 not dispatched",
+    "current_GPU_job": "Primary264\u2013276 PID5561 actually polled live None after published prior receipt; MEL25\u201337 externally accepted",
     "matched_144_156": {
       "receipt": {
         "schema": "verified-kaggle-outbox-publication-v1",
@@ -3588,6 +3589,44 @@
       "proof_id": "1DhN6wy-BYhGzVKRKguu334nzi-TNMi6G",
       "receipt_sha256": "8b250c88fcbeced829745b8775f13717da9faa89264419c41631c48ec10dea00",
       "proof_sha256": "1af9bd4bf92e6cd1202ef2732e5078a0729a240a635307ceb0de75f9c312318d"
+    },
+    "mel_replication_target_25_37": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "278754516a90fb484fdcdf7ef443f51513dc1cbc28605130ca5c8698de99d034",
+        "family": "charged-MEL",
+        "start": 25,
+        "end": 37,
+        "run_ids": [
+          "charged-MEL-15-7d-without_source_initialization-seed43",
+          "charged-MEL-15-7d-block7-seed43",
+          "charged-MEL-15-7d-block28-seed43",
+          "charged-MEL-15-7d-adaptive-seed44",
+          "charged-MEL-15-7d-full_finetuning-seed44",
+          "charged-MEL-15-7d-fixed_retention-seed44",
+          "charged-MEL-15-7d-source_error-seed44",
+          "charged-MEL-15-7d-uncertainty-seed44",
+          "charged-MEL-15-7d-drift-seed44",
+          "charged-MEL-15-7d-parameter_retention-seed44",
+          "charged-MEL-15-7d-seasonal_naive-seed44",
+          "charged-MEL-15-7d-target_only-seed44"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1gygOiKXmSKb4wavx4FpH03QANpfVo6-1/view",
+          "bytes": 29131734,
+          "sha256": "b0f71e51d5193d012f6faea04f6a4c8aecfdc837449b31ae31d5e7b1fd295f0d"
+        },
+        "verification_sha256": "7dca4dbb09d07a63b246c83f923000d5a50601f334857d9d17bcd816c9cfba56",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1gygOiKXmSKb4wavx4FpH03QANpfVo6-1",
+      "receipt_id": "1kbfAWc3Fw5JI8u-PDOagMJj4MQehLn16",
+      "proof_id": "1XCBbE4bMX-yt-RkKzU-qY48YQH9sbHcr",
+      "receipt_sha256": "b7aa17332b345052820e0c0c57655dbd7ffd375d7eb288603cc6a35f4b2fa926",
+      "proof_sha256": "583931bb6d6d7a820c5b46d7ff5d0e46951ad5e713d562a3fc0567dcd05e7dc2"
     }
   }
 }

@@ -1084,3 +1084,18 @@ space was4.459 GiB, with the1 GiB launch guard retained. No raw/input/Source/cod
 or unpublished output cleanup occurred. The bounded read-only probe now reports
 exact current PID/log and uniquely identified output, avoiding stale older cell
 output as evidence of a live job.
+
+MEL25–36 subsequently passed independent fresh Drive bytes/hash, complete frozen
+city/Source/input/config/code bindings, daily/input/latest-state proof equality
+and all3 Source CPU reloads. Its new-replication accepted prefix is now37/378;
+[archive](https://drive.google.com/file/d/1gygOiKXmSKb4wavx4FpH03QANpfVo6-1/view),
+[receipt](https://drive.google.com/file/d/1kbfAWc3Fw5JI8u-PDOagMJj4MQehLn16/view),
+[proof](https://drive.google.com/file/d/1XCBbE4bMX-yt-RkKzU-qY48YQH9sbHcr/view).
+No original cached59 adoption or original-byte recovery is claimed.
+Next primary264–276 was dispatched as PID5561 from the actual published preceding
+receipt; that exact handle was polled live (`None`) with4.316 GiB working free.
+Accepted primary count remains476 until the external gate passes. All other
+GPU children were terminal before dispatch. The current turn completed actual
+artifact acceptance, not merely a status restatement or wait. Goal remains active;
+Final scope and independent lock approval are unresolved, not implicitly accepted.
+Only maintained evidence/clarification changed in Git; no research code changed.
