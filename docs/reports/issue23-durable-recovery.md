@@ -1395,3 +1395,29 @@ renewal, top-up, second paid account or additional spend was initiated. The
 30-unit reserve remains intact. Both owned fit handles were terminal0 before
 preserving the remaining operational-gate outputs and preparing GPU release.
 The full E2E goal remains active; Final scope/independent lock are still unapproved.
+
+A refreshed outcome-blind remaining-work ledger authenticates the two primary
+reference matrices, five still-incomplete city target contexts and this new
+whole-unit receipt. It preserves the already complete JHB27 units without rerunning
+them. Across the selected Development scope there are231 comparison units:
+84 complete and147 incomplete. Migrating all remaining whole units requires2,058
+method replays, comprising1,913 new missing cells and145 explicitly repeated old
+partial-method cells. These are operational counts, not an experiment completion
+percentage or pooled metric. No outcome ranked the queue; the next identity is
+UrbanEV1165/28d/seed43. The full local metadata ledger SHA is
+`260d5740327b4c2bba4b9da79eda172a807938738bb99e7614f61cc8d74b6b17`.
+It is an inventory, not an automatically activated multi-unit queue.
+
+At the later resource check Colab showed99.12 units and one active session.
+Both fit handles remained terminal. Every unique operational-gate output archive
+was freshly downloaded from Drive and passed bytes/SHA/CRC: synthetic full attempt
+25,552,254 bytes/SHA
+`e6eca59d0b9d69163192fce5e8c2c0c2d200934e6dca9016a4a06081a77079a4`,
+real-data whole/partial/resumed outputs4,881,662 bytes/SHA
+`dbdfe2d88c8a7e973bd16205bab4c65236e6f227c09bc7098a0e6fb813317456`.
+The Colab release action explicitly warns that VM files/variables are lost;
+browser action-time confirmation for that deletion is pending. No Yes/reset
+was clicked, no runtime release is yet claimed and no new GPU batch was opened
+while that dialog is pending. Independent Final-scope selection is also pending
+with the lead; elapsed time is not approval. Latest7254a62 CI passed Ubuntu and
+Windows ([run40452459625](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40452459625)).
