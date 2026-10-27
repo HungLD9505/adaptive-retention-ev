@@ -1272,3 +1272,126 @@ Only synthetic fixture updates ran this phase; real Development queue continuati
 whole-unit profile migration, epoch/day real-data restore and immutable Final
 approval gates remain next. The previous373-test/CI result is historical; this
 prose/evidence update does not claim a fresh full-suite run.
+
+### Real-data restore gate and first bounded Colab comparison partition
+
+The same Colab T4 then ran an explicitly declared operational Development gate:
+UrbanEV1001,7-day budget,seed42,14 replay days, the existing Source10 checkpoint
+SHA `a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b`
+and unchanged calibrated learning/retention settings. Only the probe horizon is
+14 days rather than the scientific90-day matrix; this probe is not counted as a
+matrix cell or tuning result. Whole/partial/resumed execute in separate processes;
+the partial stops after five committed ticks, is copied to/from mounted Drive,
+then resumes. Prediction identity, final candidate model/Adam/RNG states and
+decisions agree exactly. Whole issued/scored14 days; orchestration35.128s and
+whole runner4.608s exclude input download/runtime setup. No VM deletion was used.
+
+[Exact real-data gate](issue23-colab-real-resume-gate.json) and
+[external verification](issue23-colab-real-resume-readback.json) retain original
+JSON integers. Fresh authenticated Drive download outside Colab verified the
+1,599,548-byte partial ZIP SHA
+`e25f773369db5016b9b2fa92bae5818f2ebbe135397379ec86b345ff4af0d660`
+and ZIP CRC. Independent local verification reproduced all four scored days of
+the five-tick partial from accepted input bytes and CPU-verified its latest
+model/optimizer/RNG state against the committed run report. This integrity load
+does not claim cross-device continuation. [Drive evidence](https://drive.google.com/drive/folders/1NJABKJIO8ewAxEdAhewXRYlo5O4zPaor).
+
+Before dispatch, the [next unit and allowance](https://github.com/HungLD9505/adaptive-retention-ev/issues/23#issuecomment-6433753277)
+were declared: UrbanEV1165/28d/seed42,90 days, all14 frozen variants in one actual
+Colab environment, first12 then external verification before the last2. Ordering
+minimizes already-accepted cells needing repetition, then budget/entity/seed;
+it does not rank by outcomes or remove any incomplete unit. This unit repeats4
+earlier partial-method cells solely for runtime fairness.44/69 primary units
+are already complete at accepted proxy212/matched288 prefixes;25 remain incomplete.
+The enclosing14-method unit is not accepted until all14 new same-profile variants
+are verified. Old partial outputs remain historical evidence, not combined with
+the new unit or silently removed.
+
+Operator kit55,700 bytes, SHA
+`5e0193d79c588f988adad3cc4404598c46c67b2ba1d293c98d1bf2a79a5950e4`;
+derived frozen-reference batch plan SHA
+`9f7b26b32a088208c4a111bbaaaaa0a688b628548ab9253538dbc3e0bf5461fe`.
+The existing1ac2ae0 `tools.replay_missing_primary` runs unchanged behind a finite
+operator wrapper. Derived reference scores are kept only for discrepancy
+reporting, not adopted as new outcomes or described as original-byte recovery.
+All three original Source bytes/reports/logs are retained and preflight checked;
+no Source fitting or Hùng implementation is used. The new context records actual
+Colab profile/core/input/config identities, not the old Kaggle profile.
+
+The wrapper allows at most120 seconds without a completed run and1,200 seconds
+overall, terminates the child on timeout, preserves its outputs and does not
+retry. The batch allowance is1 unit with30 units reserved; the T4 UI rate is an
+estimate and does not prove the entire remaining E2E fits. Actual PID8454 was
+observed live with two independently checked/mounted-backed-up targets at the
+first status sample. This is an execution observation, not12-run completion or
+external handoff acceptance. Per-run Drive backups and logs are followed by
+external verification before the remaining2 or another unit.
+
+The first12 subsequently completed with child exit0 in96.200s. Cloud daily/input,
+latest-state and canonical export stages all passed. Five canonical parts total
+25,977,181 bytes, catalog SHA
+`a8dbd68f38f71e14012480bd0d82906d50cb21b814e678e42145376c85ffac66`.
+Fresh off-Colab Drive downloads verified every part's size/SHA/ZIP-CRC; safe restore
+checked3,373 files, independent daily/input verification checked12 runs/2,220 hashes,
+and independent CPU state verification checked all12 latest states. All3 original
+Source dependencies were independently CPU-loaded against their original SHA/epoch/
+seed identities. No downloaded Git bundle was executed. The Drive connector did
+not return a usable raw code.bundle URI; ordinary direct Drive downloads with
+unchanged expected hashes completed the transport without changing permissions.
+
+[Partition receipt](issue23-colab-unit1165-first12-receipt.json),
+[raw parts and independent proofs](https://drive.google.com/drive/folders/1YN4rJ6dKG6Oh01gF-a_3wvTs7B8XWe84).
+Original operator receipt SHA
+`a9dd550e95d50aaefc111299d6954a702ad4504bda5df592634efd7109583717`
+and5,294-byte proof ZIP SHA
+`c9c46765642e92655870838c0444a3965f1b9def79531f307f6e21c142bbdae1`
+were copied to the shared Drive before the last2 were dispatched. The tracked
+receipt additionally includes the observed transport IDs/folder and is therefore
+a different derived evidence file, not claimed to have the operator receipt hash.
+
+Only after that external verification did the same-profile final2 start: Uncertainty
+recipe1 and Without Source Initialization, same1165/28d/seed42/90-day identity.
+New plan SHA `b9ea8a2fa8138240678a056d08a3160a9f241198ce1c0f7edcb34b5a1c8f80f5`;
+kit SHA `0dd91978ff9b3af187c2dea44d4d004dcc7e6f8e20516db80c1d765cb15ee56b`.
+Its wrapper requires the exact prior receipt and allows at most300 seconds total,
+120 seconds without run progress and0.25 units, retaining the30-unit reserve.
+Actual dispatch PID11151 was observed; no terminal/whole14 acceptance is inferred
+from that dispatch. The14-method unit still requires complete last2 external proof
+before entering any canonical comparison collection.
+
+The last2 then completed with exit0 in30.017s. Cloud daily/state/export stages
+passed; three canonical parts total13,904,671 bytes, catalog SHA
+`844fb9ddfc120c5ddceafb4cbdcf1786193d39dae25e631b2699eaec95229617`.
+Fresh off-Colab downloads passed all part sizes/SHA/ZIP-CRC and safe restore of571
+files. Independent daily/input verification reproduced2 runs/370 hashes and
+independent CPU verification authenticated both latest states.
+
+[Complete unit acceptance](issue23-colab-unit1165-acceptance.json) now proves all14
+unique frozen variants, exact original configs/input bindings, the same actual
+environment/code and identical52 scored origins across all methods. Each method
+scheduled90 days and issued59 forecasts; missing-history/label gates explain the
+smaller evaluated population and remain in the preserved schedules. Initial
+adaptation is present; this is not a source-checkpoint-only unit. This one unit
+is not a population estimate or proof of Adaptive superiority.
+
+The two batches took126.217s combined child wall time and98.929s summed runner
+time, excluding runtime/setup/download/export/independent verification/idle costs.
+The externally verified full-unit receipt SHA
+`071d8f8b4d5c6c337bfc2b210b273426bf8a400d5b5907be770acfe5567b22ef`
+was saved to shared Drive and freshly downloaded with that exact hash:
+[receipt](https://drive.google.com/file/d/1lSF4KEhBWWig7kUvweqNuY268gXrSDrC/view?usp=drivesdk),
+[last2 raw parts](https://drive.google.com/drive/folders/1_KaL6F-TvlxTLynCBU3eG0QOcXPjY8iL).
+Matched analysis must use the complete new14-method unit instead of its4 old
+partial-method cells, while retaining all historical bytes. Do not count the4
+repeats as additional independent observations or change the old contiguous
+Kaggle publication prefix. Under that whole-unit ledger,45/69 primary selected
+comparison units are complete,24 remain incomplete; this is not thesis completion.
+
+The provider UI then reported99.21 available units, approximately1.07/hour and
+one active session. Compared with the initial100 balance, this includes setup,
+verification and idle resource allocation; it is not a direct experiment-only
+bill. Previous1.15/hour and99.97 readings retain their observation times. No
+renewal, top-up, second paid account or additional spend was initiated. The
+30-unit reserve remains intact. Both owned fit handles were terminal0 before
+preserving the remaining operational-gate outputs and preparing GPU release.
+The full E2E goal remains active; Final scope/independent lock are still unapproved.

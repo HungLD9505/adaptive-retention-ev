@@ -1,0 +1,663 @@
+{
+  "status": "PASS",
+  "plan": {
+    "scope": "Operational Development resume only, not tuning, Final or a matrix-completion cell",
+    "entity": "1001",
+    "history_days": 7,
+    "replay_days": 14,
+    "seed": 42,
+    "source_sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+    "code_sha": "1ac2ae00c00cc0b7da67bf25d115b86d4d963f5a",
+    "maximum_child_seconds": 180,
+    "maximum_child_count": 3,
+    "phase_unit_cap": 2,
+    "phase_minutes_cap": 30
+  },
+  "config": {
+    "controller": {
+      "lambda_low": 0.1,
+      "lambda_high": 1.0,
+      "initial_lambda": 0.1,
+      "block_days": 14,
+      "min_valid_days": 7,
+      "delta": 0.0,
+      "alpha": 0.05,
+      "segment_days": 3,
+      "resamples": 2000,
+      "seed": 42
+    },
+    "initial_training": {
+      "seed": 42,
+      "epochs": 3,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "online_training": {
+      "seed": 42,
+      "epochs": 1,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "development_entities": [
+      "1001"
+    ],
+    "replay_days": 14,
+    "state_retention": "latest"
+  },
+  "fields": [
+    "prediction_identity_sha256",
+    "final_branch_state_sha256",
+    "decisions"
+  ],
+  "whole": {
+    "scope": "Development technical replay only; unvalidated example policy, no Final or effectiveness claim",
+    "run_id": "whole",
+    "method": {
+      "name": "adaptive",
+      "fixed_lambda": 0.01,
+      "proxy_thresholds": [
+        0.1,
+        0.5
+      ],
+      "proxy_order": [
+        0,
+        1,
+        2
+      ]
+    },
+    "candidate_levels": [
+      0.0,
+      0.1,
+      1.0
+    ],
+    "baseline_state_summary": {
+      "0.0": {
+        "steps": 17,
+        "fallbacks": null
+      },
+      "0.1": {
+        "steps": 17,
+        "fallbacks": null
+      },
+      "1.0": {
+        "steps": 17,
+        "fallbacks": null
+      }
+    },
+    "code": {
+      "commit": "1ac2ae00c00cc0b7da67bf25d115b86d4d963f5a",
+      "dirty": false,
+      "files": {
+        "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+        "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+        "ev_models/data.py": "b030861a59ef9d549db4f96404f43ac38525dcb61acbd7a02c77b5eea2380660",
+        "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+        "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+        "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+        "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+        "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+        "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+        "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+        "ev_runner/replay.py": "8ecae7246d6169d32b04fbd185b9be826b2968d062598dca2113cab2241f337b",
+        "ev_runner/run.py": "1cd7ef9732419d3c18399dff140cde4034a44914b0345f57232a85f0a574bff3",
+        "ev_runner/state.py": "8f922db2a539c08eca80a535cef67bfe38111bc1f43a4f8186c7e1a0c75f222a",
+        "ev_runner/store.py": "718c6813fb2a595e6309c755b0388f8a91bd414ed464b4b1e001dbfbacb10797",
+        "ev_baselines/__init__.py": "761479b2da6db28d81d2791501660a609ec9d0b271d2aabf1181150ddf3def48",
+        "ev_baselines/naive.py": "50a5842de61779e5b5494b988da8a1d61c8e40c7aeb647354b212812af00a5ef",
+        "ev_baselines/policies.py": "a9ba2e53843b6c93316506a41e001f090b3b361cc717c9929d3e6615e02fbcb0",
+        "ev_baselines/retention.py": "79e6b7338e6d02cf96318dfe014bdff3dcf9f48d86894b09169b4ba69cb526f4"
+      }
+    },
+    "binding": {
+      "schema": "ev-prequential-run-v1",
+      "input": {
+        "schema": "ev-checkpoint-input-binding-v1",
+        "feature_schema": "ev-input-v1",
+        "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "input_run_id": "urbanev-SZH-7d",
+        "dataset_id": "urbanev",
+        "city_id": "SZH",
+        "stage": "target",
+        "entity_id": "1001",
+        "history_days": 7,
+        "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+        "source_checkpoint_sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b"
+      },
+      "config": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "1001"
+        ],
+        "replay_days": 14,
+        "state_retention": "latest"
+      },
+      "environment": {
+        "python": "3.13.16",
+        "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+        "torch": "2.11.0+cu130",
+        "cuda": "13.0",
+        "device": "cuda",
+        "device_name": "Tesla T4",
+        "deterministic_algorithms": true
+      },
+      "code_files": {
+        "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+        "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+        "ev_models/data.py": "b030861a59ef9d549db4f96404f43ac38525dcb61acbd7a02c77b5eea2380660",
+        "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+        "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+        "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+        "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+        "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+        "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+        "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+        "ev_runner/replay.py": "8ecae7246d6169d32b04fbd185b9be826b2968d062598dca2113cab2241f337b",
+        "ev_runner/run.py": "1cd7ef9732419d3c18399dff140cde4034a44914b0345f57232a85f0a574bff3",
+        "ev_runner/state.py": "8f922db2a539c08eca80a535cef67bfe38111bc1f43a4f8186c7e1a0c75f222a",
+        "ev_runner/store.py": "718c6813fb2a595e6309c755b0388f8a91bd414ed464b4b1e001dbfbacb10797",
+        "ev_baselines/__init__.py": "761479b2da6db28d81d2791501660a609ec9d0b271d2aabf1181150ddf3def48",
+        "ev_baselines/naive.py": "50a5842de61779e5b5494b988da8a1d61c8e40c7aeb647354b212812af00a5ef",
+        "ev_baselines/policies.py": "a9ba2e53843b6c93316506a41e001f090b3b361cc717c9929d3e6615e02fbcb0",
+        "ev_baselines/retention.py": "79e6b7338e6d02cf96318dfe014bdff3dcf9f48d86894b09169b4ba69cb526f4"
+      },
+      "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+      "latent_sha256": "f820ae43693b372e676f077f097a92f72d9d2a125b8eded1449f8447c41d0169",
+      "source_checkpoint_used": true,
+      "method": {
+        "name": "adaptive",
+        "fixed_lambda": 0.01,
+        "proxy_thresholds": [
+          0.1,
+          0.5
+        ],
+        "proxy_order": [
+          0,
+          1,
+          2
+        ]
+      },
+      "uncertainty_members": []
+    },
+    "source_checkpoint_sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+    "initial_examples": 6,
+    "initial_logs": [
+      {
+        "loss": 0.22078336775302887,
+        "forecast_mae_scaled": 0.22078336775302887,
+        "retention_mse": 0.0,
+        "examples": 6,
+        "steps": 1,
+        "epoch": 1
+      },
+      {
+        "loss": 0.209015354514122,
+        "forecast_mae_scaled": 0.2080654352903366,
+        "retention_mse": 0.009499127976596355,
+        "examples": 6,
+        "steps": 1,
+        "epoch": 2
+      },
+      {
+        "loss": 0.19860541820526123,
+        "forecast_mae_scaled": 0.19724087417125702,
+        "retention_mse": 0.013645372353494167,
+        "examples": 6,
+        "steps": 1,
+        "epoch": 3
+      }
+    ],
+    "initialization": "target_initial_adaptation",
+    "scheduled_days": 14,
+    "issued_days": 14,
+    "scored_days": 14,
+    "active_mae_kwh": 5.5180730719170565,
+    "active_rmse_kwh": 7.900198803920391,
+    "policy_state": {
+      "method": {
+        "name": "adaptive",
+        "fixed_lambda": 0.01,
+        "proxy_thresholds": [
+          0.1,
+          0.5
+        ],
+        "proxy_order": [
+          0,
+          1,
+          2
+        ]
+      },
+      "signals": [],
+      "reference_descriptor": [
+        0.3695687091288467,
+        0.9331409384806951,
+        0.19444444444444445
+      ],
+      "reference_std": [
+        0.07314089891321181,
+        0.2946299684527909,
+        0.1332175423142422
+      ]
+    },
+    "decisions": [
+      {
+        "algorithm": "ev-retention-controller-mbb-v1",
+        "stream_id": "('urbanev', 'SZH')/1001/7d/seed42",
+        "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+        "block_start": "2022-12-01T00:00:00+08:00",
+        "effective_from": "2022-12-15T00:00:00+08:00",
+        "active_lambda": 0.1,
+        "selected_lambda": 0.1,
+        "reason": "no_qualifying_challenger",
+        "valid_days": 14,
+        "pending_days": 0,
+        "incomplete_days": 0,
+        "absent_days": 0,
+        "valid_day_gaps": 0,
+        "used_origins": [
+          "2022-12-01T00:00:00+08:00",
+          "2022-12-02T00:00:00+08:00",
+          "2022-12-03T00:00:00+08:00",
+          "2022-12-04T00:00:00+08:00",
+          "2022-12-05T00:00:00+08:00",
+          "2022-12-06T00:00:00+08:00",
+          "2022-12-07T00:00:00+08:00",
+          "2022-12-08T00:00:00+08:00",
+          "2022-12-09T00:00:00+08:00",
+          "2022-12-10T00:00:00+08:00",
+          "2022-12-11T00:00:00+08:00",
+          "2022-12-12T00:00:00+08:00",
+          "2022-12-13T00:00:00+08:00",
+          "2022-12-14T00:00:00+08:00"
+        ],
+        "comparisons": [
+          {
+            "challenger": 0.0,
+            "mean_improvement": 0.0006126187695745641,
+            "lcb": -0.0032197659436601408,
+            "qualifies": false
+          },
+          {
+            "challenger": 1.0,
+            "mean_improvement": -0.0003777944409292512,
+            "lcb": -0.005362316265672815,
+            "qualifies": false
+          }
+        ],
+        "config": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "bootstrap_seed": 46409986053726338151119784341430201572597969050713243820756324777968854099313,
+        "paired_input_sha256": "8dd0318c3e684ab813115af14d1ffa676893af9860bb2e64077b8d5e149fba87"
+      }
+    ],
+    "audits": [],
+    "candidate_steps": 42,
+    "audit_steps": 0,
+    "cost": {
+      "inference_seconds": 0.07466559199974654,
+      "update_seconds": 0.4370517730008032,
+      "audit_inference_seconds": 0.0,
+      "audit_update_seconds": 0.0,
+      "controller_seconds": 0.014722591999998258,
+      "proxy_seconds": 0.00017689400010567624
+    },
+    "elapsed_seconds": 4.607642785999815,
+    "gpu_peak_allocated_bytes": 89912832,
+    "gpu_peak_reserved_bytes": 94371840,
+    "pending_days": 0,
+    "ticks": 16,
+    "commit_chain": "0b4552cffcc08fd90be9ea609f97be02f7736b90c95a209cd0fed7e5b1ff013b",
+    "prediction_identity_sha256": "c8e4d2b557137aea78d14f6e1c817e6be4c1492d4ff469269a33cd05b0bc46aa",
+    "final_branch_state_sha256": {
+      "0.0": "47b4c3b01be15abea9dbd5e1bb49708052ce17f9b4c155e8bd78151ea5a33843",
+      "0.1": "47b4c3b01be15abea9dbd5e1bb49708052ce17f9b4c155e8bd78151ea5a33843",
+      "1.0": "47b4c3b01be15abea9dbd5e1bb49708052ce17f9b4c155e8bd78151ea5a33843"
+    },
+    "resume_from": null
+  },
+  "resumed": {
+    "scope": "Development technical replay only; unvalidated example policy, no Final or effectiveness claim",
+    "run_id": "resumed",
+    "method": {
+      "name": "adaptive",
+      "fixed_lambda": 0.01,
+      "proxy_thresholds": [
+        0.1,
+        0.5
+      ],
+      "proxy_order": [
+        0,
+        1,
+        2
+      ]
+    },
+    "candidate_levels": [
+      0.0,
+      0.1,
+      1.0
+    ],
+    "baseline_state_summary": {
+      "0.0": {
+        "steps": 17,
+        "fallbacks": null
+      },
+      "0.1": {
+        "steps": 17,
+        "fallbacks": null
+      },
+      "1.0": {
+        "steps": 17,
+        "fallbacks": null
+      }
+    },
+    "code": {
+      "commit": "1ac2ae00c00cc0b7da67bf25d115b86d4d963f5a",
+      "dirty": false,
+      "files": {
+        "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+        "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+        "ev_models/data.py": "b030861a59ef9d549db4f96404f43ac38525dcb61acbd7a02c77b5eea2380660",
+        "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+        "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+        "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+        "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+        "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+        "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+        "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+        "ev_runner/replay.py": "8ecae7246d6169d32b04fbd185b9be826b2968d062598dca2113cab2241f337b",
+        "ev_runner/run.py": "1cd7ef9732419d3c18399dff140cde4034a44914b0345f57232a85f0a574bff3",
+        "ev_runner/state.py": "8f922db2a539c08eca80a535cef67bfe38111bc1f43a4f8186c7e1a0c75f222a",
+        "ev_runner/store.py": "718c6813fb2a595e6309c755b0388f8a91bd414ed464b4b1e001dbfbacb10797",
+        "ev_baselines/__init__.py": "761479b2da6db28d81d2791501660a609ec9d0b271d2aabf1181150ddf3def48",
+        "ev_baselines/naive.py": "50a5842de61779e5b5494b988da8a1d61c8e40c7aeb647354b212812af00a5ef",
+        "ev_baselines/policies.py": "a9ba2e53843b6c93316506a41e001f090b3b361cc717c9929d3e6615e02fbcb0",
+        "ev_baselines/retention.py": "79e6b7338e6d02cf96318dfe014bdff3dcf9f48d86894b09169b4ba69cb526f4"
+      }
+    },
+    "binding": {
+      "schema": "ev-prequential-run-v1",
+      "input": {
+        "schema": "ev-checkpoint-input-binding-v1",
+        "feature_schema": "ev-input-v1",
+        "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "input_run_id": "urbanev-SZH-7d",
+        "dataset_id": "urbanev",
+        "city_id": "SZH",
+        "stage": "target",
+        "entity_id": "1001",
+        "history_days": 7,
+        "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+        "source_checkpoint_sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b"
+      },
+      "config": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "1001"
+        ],
+        "replay_days": 14,
+        "state_retention": "latest"
+      },
+      "environment": {
+        "python": "3.13.16",
+        "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+        "torch": "2.11.0+cu130",
+        "cuda": "13.0",
+        "device": "cuda",
+        "device_name": "Tesla T4",
+        "deterministic_algorithms": true
+      },
+      "code_files": {
+        "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+        "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+        "ev_models/data.py": "b030861a59ef9d549db4f96404f43ac38525dcb61acbd7a02c77b5eea2380660",
+        "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+        "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+        "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+        "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+        "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+        "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+        "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+        "ev_runner/replay.py": "8ecae7246d6169d32b04fbd185b9be826b2968d062598dca2113cab2241f337b",
+        "ev_runner/run.py": "1cd7ef9732419d3c18399dff140cde4034a44914b0345f57232a85f0a574bff3",
+        "ev_runner/state.py": "8f922db2a539c08eca80a535cef67bfe38111bc1f43a4f8186c7e1a0c75f222a",
+        "ev_runner/store.py": "718c6813fb2a595e6309c755b0388f8a91bd414ed464b4b1e001dbfbacb10797",
+        "ev_baselines/__init__.py": "761479b2da6db28d81d2791501660a609ec9d0b271d2aabf1181150ddf3def48",
+        "ev_baselines/naive.py": "50a5842de61779e5b5494b988da8a1d61c8e40c7aeb647354b212812af00a5ef",
+        "ev_baselines/policies.py": "a9ba2e53843b6c93316506a41e001f090b3b361cc717c9929d3e6615e02fbcb0",
+        "ev_baselines/retention.py": "79e6b7338e6d02cf96318dfe014bdff3dcf9f48d86894b09169b4ba69cb526f4"
+      },
+      "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+      "latent_sha256": "f820ae43693b372e676f077f097a92f72d9d2a125b8eded1449f8447c41d0169",
+      "source_checkpoint_used": true,
+      "method": {
+        "name": "adaptive",
+        "fixed_lambda": 0.01,
+        "proxy_thresholds": [
+          0.1,
+          0.5
+        ],
+        "proxy_order": [
+          0,
+          1,
+          2
+        ]
+      },
+      "uncertainty_members": []
+    },
+    "source_checkpoint_sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+    "initial_examples": 6,
+    "initial_logs": [
+      {
+        "loss": 0.22078336775302887,
+        "forecast_mae_scaled": 0.22078336775302887,
+        "retention_mse": 0.0,
+        "examples": 6,
+        "steps": 1,
+        "epoch": 1
+      },
+      {
+        "loss": 0.209015354514122,
+        "forecast_mae_scaled": 0.2080654352903366,
+        "retention_mse": 0.009499127976596355,
+        "examples": 6,
+        "steps": 1,
+        "epoch": 2
+      },
+      {
+        "loss": 0.19860541820526123,
+        "forecast_mae_scaled": 0.19724087417125702,
+        "retention_mse": 0.013645372353494167,
+        "examples": 6,
+        "steps": 1,
+        "epoch": 3
+      }
+    ],
+    "initialization": "target_initial_adaptation",
+    "scheduled_days": 14,
+    "issued_days": 14,
+    "scored_days": 14,
+    "active_mae_kwh": 5.5180730719170565,
+    "active_rmse_kwh": 7.900198803920391,
+    "policy_state": {
+      "method": {
+        "name": "adaptive",
+        "fixed_lambda": 0.01,
+        "proxy_thresholds": [
+          0.1,
+          0.5
+        ],
+        "proxy_order": [
+          0,
+          1,
+          2
+        ]
+      },
+      "signals": [],
+      "reference_descriptor": [
+        0.3695687091288467,
+        0.9331409384806951,
+        0.19444444444444445
+      ],
+      "reference_std": [
+        0.07314089891321181,
+        0.2946299684527909,
+        0.1332175423142422
+      ]
+    },
+    "decisions": [
+      {
+        "algorithm": "ev-retention-controller-mbb-v1",
+        "stream_id": "('urbanev', 'SZH')/1001/7d/seed42",
+        "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+        "block_start": "2022-12-01T00:00:00+08:00",
+        "effective_from": "2022-12-15T00:00:00+08:00",
+        "active_lambda": 0.1,
+        "selected_lambda": 0.1,
+        "reason": "no_qualifying_challenger",
+        "valid_days": 14,
+        "pending_days": 0,
+        "incomplete_days": 0,
+        "absent_days": 0,
+        "valid_day_gaps": 0,
+        "used_origins": [
+          "2022-12-01T00:00:00+08:00",
+          "2022-12-02T00:00:00+08:00",
+          "2022-12-03T00:00:00+08:00",
+          "2022-12-04T00:00:00+08:00",
+          "2022-12-05T00:00:00+08:00",
+          "2022-12-06T00:00:00+08:00",
+          "2022-12-07T00:00:00+08:00",
+          "2022-12-08T00:00:00+08:00",
+          "2022-12-09T00:00:00+08:00",
+          "2022-12-10T00:00:00+08:00",
+          "2022-12-11T00:00:00+08:00",
+          "2022-12-12T00:00:00+08:00",
+          "2022-12-13T00:00:00+08:00",
+          "2022-12-14T00:00:00+08:00"
+        ],
+        "comparisons": [
+          {
+            "challenger": 0.0,
+            "mean_improvement": 0.0006126187695745641,
+            "lcb": -0.0032197659436601408,
+            "qualifies": false
+          },
+          {
+            "challenger": 1.0,
+            "mean_improvement": -0.0003777944409292512,
+            "lcb": -0.005362316265672815,
+            "qualifies": false
+          }
+        ],
+        "config": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "bootstrap_seed": 46409986053726338151119784341430201572597969050713243820756324777968854099313,
+        "paired_input_sha256": "8dd0318c3e684ab813115af14d1ffa676893af9860bb2e64077b8d5e149fba87"
+      }
+    ],
+    "audits": [],
+    "candidate_steps": 42,
+    "audit_steps": 0,
+    "cost": {
+      "inference_seconds": 0.0733891039997161,
+      "update_seconds": 0.4655172979996678,
+      "audit_inference_seconds": 0.0,
+      "audit_update_seconds": 0.0,
+      "controller_seconds": 0.016551086999925246,
+      "proxy_seconds": 0.00017144400044344366
+    },
+    "elapsed_seconds": 3.97114729000009,
+    "gpu_peak_allocated_bytes": 90544128,
+    "gpu_peak_reserved_bytes": 96468992,
+    "pending_days": 0,
+    "ticks": 16,
+    "commit_chain": "b3fb8a46c1ce80b155d9c7495b5370a8075fb11899ce77cf9b93fe6f40f0afbe",
+    "prediction_identity_sha256": "c8e4d2b557137aea78d14f6e1c817e6be4c1492d4ff469269a33cd05b0bc46aa",
+    "final_branch_state_sha256": {
+      "0.0": "47b4c3b01be15abea9dbd5e1bb49708052ce17f9b4c155e8bd78151ea5a33843",
+      "0.1": "47b4c3b01be15abea9dbd5e1bb49708052ce17f9b4c155e8bd78151ea5a33843",
+      "1.0": "47b4c3b01be15abea9dbd5e1bb49708052ce17f9b4c155e8bd78151ea5a33843"
+    },
+    "resume_from": "/content/qyroven-real-resume-gate-20261027-v1/restored-from-drive/partial"
+  },
+  "partial_archive_sha256": "e25f773369db5016b9b2fa92bae5818f2ebbe135397379ec86b345ff4af0d660",
+  "seconds": 35.12794261499994,
+  "scope": "One UrbanEV Development entity/budget/seed,14 replay days; new Colab profile operational test only; not full matrix, tuning or Final"
+}
