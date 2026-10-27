@@ -2206,3 +2206,11 @@ Ledger46 SHA `5257cd9b6f987017b03e4a820e276252c4e8ed094949e04a8783847fc07eac7e` 
 [A39 acceptance](issue23-colab-whole39-acceptance.json), SHA `c0638a99c9424591dce855777bf7917d98f6f873394c3afc9cb6935fc92122fe`, [native receipt](https://drive.google.com/file/d/1zpcKicRMyaJAAfrb6MsWin18b2soZhOX/view) and [proof](https://drive.google.com/file/d/1jIN1yEoK83HEdZeDPX9mZbtfgW7qfAks/view), proof SHA `31dfe11080f9e262ead882a160bc67cc5a1e9edb4b39b13054ce71a0df92f845`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA is `8569cde62b3519e06d741945a0d1bf21ad2dcd8a66c2b1ae2d80b9dd82e451b4`. Fit/publication/verification took146.471/168.382/26.444seconds.
 
 AMS complete canonical daily/latest/cost verification and frozen analysis are next; unit completion does not establish scientific effectiveness. A41 SPO is running, followed by final A43 SZH. No Final, changed method, merge or issue closure occurred.
+
+### SPO full-unit completion: 230 accepted units
+
+Ledger47 SHA `2a4b5fadaf2403d5cae8637765a5a961fad3d017c5e1253f3460a7304817ca86` records230/231 accepted and one pending. A41 adds SPO7-day/entity11/seed42, completing SPO27/27 units/378cells. Its14methods share90 scored origins. Fresh independent raw/input/daily/latest-state/own-SPO Source/profile/coverage checks and root pinned-CLI acceptance passed.
+
+[A41 acceptance](issue23-colab-whole41-acceptance.json), SHA `0653e0866e39d5ce1bc41f73249e207980391d7872a3cb9f976fd11f55588b4b`, [native receipt](https://drive.google.com/file/d/1UQA5SBbUdlX6dCcls3CrEmmtycCoIynH/view) and [proof](https://drive.google.com/file/d/1_aqam9Yu_eYrZkHYSLeK3eN65abVdh8A/view), proof SHA `2d2ed5a601cdf929050a6afa1f5e05a1d2f3379055cf20c61bcb990eb65f12bf`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA `f076c1e3465a9e1723a4835d35ff414aabdd051e00a9bdfcf7576cacea5db7c5`; fit/publication/verification133.481/154.237/24.997seconds.
+
+AMS complete378-cell daily/latest-state/cost and frozen analysis passed; report/bundle review continues with all adverse seed outcomes retained. Root deferred the A41 maintained copy during its clean-checkout workflow, then copied exact bytes after completion. SPO canonical analysis is next. Final A43 SZH is running; no Final, method change, merge or issue closure occurred.
