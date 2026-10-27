@@ -1,4 +1,4 @@
-"""GPU Development runner CLI; online policy/config is unvalidated until review."""
+"""GPU replay core; the ordinary CLI remains restricted to Development inputs."""
 
 import argparse
 import json
@@ -83,6 +83,20 @@ def execute(
         raise ValueError("Unknown state-retention policy")
     if entity_id not in config["development_entities"]:
         raise ValueError("Target not in declared Development smoke cohort")
+    final_access = getattr(inputs, "final_access", None)
+    if getattr(inputs, "target_role", "development") == "final":
+        if final_access is None:
+            raise ValueError("Final execution requires approved immutable lock access")
+        final_access.check_run(inputs, entity_id, config, source_sha)
+        if environment(device) != final_access.lock["runtime_profile"]:
+            raise ValueError("Final runtime differs from measured locked profile")
+        if digest(source) != source_sha:
+            raise ValueError("Reused Final Source bytes changed")
+        group = final_access.input_group(inputs, entity_id)
+        if config.get("method", {}).get("name") == "uncertainty" and {
+            checksum for _, checksum in ensemble_sources
+        } != {item["sha256"] for item in group["sources"].values()}:
+            raise ValueError("Final uncertainty must reuse exactly the three locked Sources")
     method = Method(**config.get("method", {"name": "adaptive"}))
     controller = ControllerConfig(**config["controller"])
     initial_config = TrainingConfig(**config["initial_training"])
@@ -144,10 +158,17 @@ def execute(
         if model is not None
         else None
     )
-    initial_records = inputs.training("development", entity_id)
-    initial_logs = []
+    initial_records = inputs.training(inputs.target_role, entity_id)
+    restore_initial = final_access is not None and resume_from is not None
+    initial_logs = (
+        json.loads((resume_from / "initial-adaptation.json").read_text()) if restore_initial else []
+    )
     for epoch in range(initial_config.epochs):
-        if initial_records and method.name not in {"seasonal_naive", "frozen_source"}:
+        if (
+            not restore_initial
+            and initial_records
+            and method.name not in {"seasonal_naive", "frozen_source"}
+        ):
             initial_logs.append(
                 (
                     parameter_epoch(
@@ -222,7 +243,17 @@ def execute(
         "method": json.loads(json.dumps(asdict(method))),
         "uncertainty_members": member_ids,
     }
+    if final_access is not None:
+        binding["final_authorization"] = final_access.provenance()
+        binding["initial_adaptation_identity"] = state_digest(initial_logs)
     store = Store(output, binding, resume_from=resume_from)
+    if final_access is not None:
+        # Separate durable initialization record permits resume before run.json exists.
+        # The Store binding commits its semantic identity; resume never refits it.
+        with (output / "initial-adaptation.json").open("xb") as stream:
+            stream.write(json.dumps(initial_logs, allow_nan=False).encode())
+            stream.flush()
+            os.fsync(stream.fileno())
     runner = Runner(
         replay,
         initial,
@@ -324,6 +355,15 @@ def execute(
         },
         "resume_from": str(resume_from) if resume_from else None,
     }
+    if final_access is not None:
+        report["scope"] = (
+            "Locked Final replay; interpretation requires independent artifact verification"
+        )
+        report["initial_adaptation_reused"] = restore_initial
+        report["elapsed_seconds_scope"] = (
+            "Current invocation only; resumed state component counters are cumulative. "
+            "Retain predecessor invocations separately; missing elapsed costs are unknown, not zero."
+        )
     write_json(output / "run.json", report)
     return report
 

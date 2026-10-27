@@ -1,4 +1,4 @@
-"""Identified Development inputs and separately gated labels for daily replay."""
+"""Identified permitted target inputs and separately gated labels for daily replay."""
 
 import json
 from dataclasses import dataclass
@@ -27,8 +27,7 @@ class Replay:
         self.stop = self.start + days * DAY
         self.identity = (*inputs.namespace, entity_id)
         summary = inputs.entities.get(self.identity, {})
-        if summary.get("role") != "development" or summary.get("status") != "ready":
-            raise ValueError("Only ready Development targets may enter this smoke runner")
+        inputs.check_target(entity_id)
         if days < 1 or self.stop > datetime.fromisoformat(inputs.config["replay_stop"]):
             raise ValueError("Invalid replay horizon")
         self.scale_id = summary["scale"]["fit_sha256"]
@@ -43,7 +42,7 @@ class Replay:
                 if origin in self.forecasts:
                     raise ValueError("Duplicate replay forecast")
                 self.forecasts[origin] = inputs.validate_forecast(
-                    r, role="development", before_deployment=False
+                    r, role=inputs.target_role, before_deployment=False
                 )
         inputs.verify("schedule.jsonl")
         self.schedule = {}

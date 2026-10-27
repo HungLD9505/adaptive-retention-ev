@@ -1,4 +1,4 @@
-"""Read identified #18 artifacts without permitting Final training or tuning."""
+"""Read #18 artifacts; ordinary inputs remain Development-only for target values."""
 
 import hashlib
 import json
@@ -26,6 +26,14 @@ def jsonl(path: Path) -> Iterator[dict]:
 
 class InputRun:
     """Validate manifest, artifacts, identities, prefix containment and normalized labels."""
+
+    target_role = "development"
+
+    def check_target(self, entity_id: str) -> None:
+        """Check scope before selected target values are decoded."""
+        summary = self.entities.get((*self.namespace, entity_id), {})
+        if summary.get("role") != self.target_role or summary.get("status") != "ready":
+            raise ValueError("Only ready declared Development/approved Final targets permitted")
 
     def __init__(self, root: Path, sha256: str) -> None:
         self.root = root
@@ -181,21 +189,17 @@ class InputRun:
                     yield json.loads(line)
 
     def replay_forecasts(self, entity_id: str) -> Iterator[dict]:
-        """Yield only one ready Development target; no other entity values decoded."""
-        summary = self.entities.get((*self.namespace, entity_id), {})
-        if summary.get("role") != "development" or summary.get("status") != "ready":
-            raise ValueError("Replay permits only one ready Development target")
+        """Yield only one permitted ready target; other entity values stay opaque."""
+        self.check_target(entity_id)
         expected = {field.name for field in fields(ForecastInput)} | {"role"}
-        for record in self._selected_rows("forecasts.jsonl", "development", entity_id):
+        for record in self._selected_rows("forecasts.jsonl", self.target_role, entity_id):
             if set(record) != expected:
                 raise ValueError("Predictor record contains unexpected/missing fields")
             yield record
 
     def evaluation_labels(self, entity_id: str, origins: set[str]) -> Iterator[dict]:
-        """Static evaluator: decode Y only for this Development target's issued days."""
-        summary = self.entities.get((*self.namespace, entity_id), {})
-        if summary.get("role") != "development" or summary.get("status") != "ready":
-            raise ValueError("Evaluation permits only one ready Development target")
+        """Static evaluator: decode Y only for this permitted target's issued days."""
+        self.check_target(entity_id)
         self.verify("labels.jsonl")
         prefix = (
             '{"identity": '
@@ -213,10 +217,14 @@ class InputRun:
                     yield json.loads(line)
 
     def training(self, role: str, entity_id: str | None = None) -> list[dict]:
-        if role not in ("source", "development") or (role == "development" and entity_id is None):
+        if role not in ("source", self.target_role) or (
+            role == self.target_role and entity_id is None
+        ):
             raise ValueError(
                 "Training permits source or one explicitly identified Development target"
             )
+        if role == self.target_role:
+            self.check_target(entity_id)
         if (
             entity_id is not None
             and self.entities.get((*self.namespace, entity_id), {}).get("role") != role

@@ -31,6 +31,16 @@ deleted. CI billing is blocked, not passed. No purchase, merge or Final executio
 is authorized by the scope decision. UrbanEV remains primary; CHARGED reports
 remain city-wise supplementary and SZH separately qualified for overlap.
 
+Concrete bounded membership is now in
+[`final-bounded-cohort-v1.json`](../../configs/issue23/final-bounded-cohort-v1.json).
+Its current lock candidate is
+[`final-execution-lock-candidate-v2.json`](../../configs/issue23/final-execution-lock-candidate-v2.json).
+The [bounded preparation handoff](issue23-final-bounded-preparation.md) records exact
+IDs, Source reuse, coordinate risks, synthetic E2E verification and remaining
+human/runtime gates. This candidate is deliberately incomplete (`runtime_profile`
+is null) and cannot authorize Final execution. The historical all-ready config
+and evidence were not overwritten.
+
 ---
 
 The following scope decision and preparation records are historical and are

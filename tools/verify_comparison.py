@@ -7,6 +7,10 @@ import json
 import math
 from datetime import datetime
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ev_runner.final_gate import FinalAccess, FinalInputRun
 
 
 def sha(path: Path) -> str:
@@ -99,18 +103,49 @@ class InputSnapshots:
 
 
 def verify_run(
-    root: Path, input_root: Path, *, input_snapshots: InputSnapshots | None = None
+    root: Path,
+    input_root: Path,
+    *,
+    input_snapshots: InputSnapshots | None = None,
+    final_access: "FinalAccess | None" = None,
+    final_inputs: "FinalInputRun | None" = None,
 ) -> dict:
     report = json.loads((root / "run.json").read_text())
     binding = report["binding"]["input"]
     expected = (binding["dataset_id"], binding["city_id"], binding["entity_id"])
+    if final_access is not None:
+        from ev_runner.final_gate import FinalInputRun
+
+        if input_snapshots is not None:
+            raise ValueError("Final verification does not accept Development snapshots")
+        data = final_inputs or FinalInputRun(
+            input_root, binding["input_manifest_sha256"], final_access
+        )
+        if (
+            data.root.resolve() != input_root.resolve()
+            or data.sha256 != binding["input_manifest_sha256"]
+            or data.final_access is not final_access
+        ):
+            raise ValueError("Prepared Final verifier inputs differ")
+        final_access.check_run(
+            data,
+            binding["entity_id"],
+            report["binding"]["config"],
+            binding["source_checkpoint_sha256"],
+        )
+        if report["binding"].get("final_authorization") != final_access.provenance():
+            raise ValueError("Final report authorization differs from reviewed lock")
+        if json.loads((root / "binding.json").read_bytes()) != report["binding"]:
+            raise ValueError("Final report binding differs from saved execution binding")
+    elif "final_authorization" in report["binding"]:
+        raise ValueError("Final artifact verification requires independent approved lock access")
     if input_snapshots is not None:
         summary, labels = input_snapshots.target(input_root, binding)
     else:
         with (input_root / "entities.jsonl").open() as stream:
             entities = [json.loads(line) for line in stream]
         summary = next(row for row in entities if tuple(row["identity"]) == expected)
-        if summary["role"] != "development":
+        if summary["role"] != ("final" if final_access is not None else "development"):
             raise ValueError("This verifier only permits Development")
         if sha(input_root / "manifest.json") != binding["input_manifest_sha256"]:
             raise ValueError("Input manifest changed")
