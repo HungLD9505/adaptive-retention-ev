@@ -7,7 +7,9 @@ import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "docs/reports"
-ALLOCATION = json.loads((REPORTS / "evidence/hung-development-allocation-20261027-v1.json").read_text(encoding="utf8"))
+ALLOCATION = json.loads(
+    (REPORTS / "evidence/hung-development-allocation-20261027-v1.json").read_text(encoding="utf8")
+)
 PLAN_PATH = ROOT / ".cache/kaggle-payload-v2/payload/parent-plan.json"
 SHARDS_PATH = ROOT / ".cache/kaggle-payload-v2/payload/parent-shards.json"
 PLAN = json.loads(PLAN_PATH.read_text(encoding="utf8"))
@@ -80,19 +82,41 @@ for shard in SHARDS["shards"]:
 pilot = REPORTS / "evidence/hung-development-local-pilot-20261027.json"
 pilot_data = json.loads(pilot.read_text(encoding="utf8"))
 local_dir = ROOT / ".cache/local-development-worker-v1"
-archive_specs = [("pilot_0000", ROOT / ".cache/readback-upload-v1/pilot-artifacts.zip.bin", pilot_data["artifact_archive"]["sha256"], pilot_data["artifact_archive"]["bytes"])]
-for sid in ["shard_0004", "shard_0005", "shard_0006", "shard_0007", "shard_0029", "shard_0030", "shard_0031", "shard_0032", "shard_0037", "shard_0038"]:
+archive_specs = [
+    (
+        "pilot_0000",
+        ROOT / ".cache/readback-upload-v1/pilot-artifacts.zip.bin",
+        pilot_data["artifact_archive"]["sha256"],
+        pilot_data["artifact_archive"]["bytes"],
+    )
+]
+for sid in [
+    "shard_0004",
+    "shard_0005",
+    "shard_0006",
+    "shard_0007",
+    "shard_0029",
+    "shard_0030",
+    "shard_0031",
+    "shard_0032",
+    "shard_0037",
+    "shard_0038",
+]:
     base = local_dir / sid
     receipt = json.loads((base / "receipt.json").read_text(encoding="utf8"))
     assert receipt["shard_id"] == sid
     assert receipt["plan_sha256"] == ALLOCATION["plan_sha256"]
     assert receipt["partition_sha256"] == ALLOCATION["partition_sha256"]
     assert receipt["job_ids"] == next(s["job_ids"] for s in SHARDS["shards"] if s["id"] == sid)
-    archive_specs.append((sid, base / "artifacts.zip", receipt["artifact_sha256"], receipt["artifact_bytes"]))
+    archive_specs.append(
+        (sid, base / "artifacts.zip", receipt["artifact_sha256"], receipt["artifact_bytes"])
+    )
 
 sid = "shard_0039"
 recovered = ROOT / ".cache/recovered-shards-v2" / sid
-recorded = json.loads((REPORTS / "evidence/hung-local-shard0039-20261027.json").read_text(encoding="utf8"))["archive"]
+recorded = json.loads(
+    (REPORTS / "evidence/hung-local-shard0039-20261027.json").read_text(encoding="utf8")
+)["archive"]
 copied = json.loads((recovered / "archive.json").read_text(encoding="utf8"))
 assert copied == recorded
 assert recorded["job_ids"] == next(s["job_ids"] for s in SHARDS["shards"] if s["id"] == sid)
@@ -113,7 +137,11 @@ for sid, path, expected_sha, expected_bytes in archive_specs:
         if archive.testzip() is not None:
             errors.append(f"{sid}: ZIP CRC failed")
             continue
-        receipt_jobs = {name.split("/")[1] for name in names if name.startswith("receipts/") and name.endswith("/job.json")}
+        receipt_jobs = {
+            name.split("/")[1]
+            for name in names
+            if name.startswith("receipts/") and name.endswith("/job.json")
+        }
         if receipt_jobs != set(expected_jobs):
             errors.append(f"{sid}: receipt jobset mismatch")
             continue
@@ -124,7 +152,11 @@ for sid, path, expected_sha, expected_bytes in archive_specs:
             jr_path = f"receipts/{jid}/job.json"
             jr_raw = archive.read(jr_path)
             jr = json.loads(jr_raw)
-            if jr["job_id"] != jid or jr["plan_sha256"] != ALLOCATION["plan_sha256"] or jr["shards_sha256"] != ALLOCATION["partition_sha256"]:
+            if (
+                jr["job_id"] != jid
+                or jr["plan_sha256"] != ALLOCATION["plan_sha256"]
+                or jr["shards_sha256"] != ALLOCATION["partition_sha256"]
+            ):
                 errors.append(f"{sid}/{jid}: job receipt binding mismatch")
                 shard_good = False
                 continue
@@ -139,7 +171,12 @@ for sid, path, expected_sha, expected_bytes in archive_specs:
                     break
                 sr = json.loads(sr_raw)
                 binding = sr["binding"]
-                if binding["job"] != job or binding["input_manifest_sha256"] != cell["input_manifest_sha256"] or binding["config_sha256"] != configs[job["config"]]["sha256"] or binding["stage"] != stage:
+                if (
+                    binding["job"] != job
+                    or binding["input_manifest_sha256"] != cell["input_manifest_sha256"]
+                    or binding["config_sha256"] != configs[job["config"]]["sha256"]
+                    or binding["stage"] != stage
+                ):
                     errors.append(f"{sid}/{jid}/{stage}: plan/config/input binding mismatch")
                     job_good = False
                     break
@@ -159,14 +196,31 @@ for sid, path, expected_sha, expected_bytes in archive_specs:
                     break
                 manifest = json.loads(archive.read(f"jobs/{jid}/{stage}/run_manifest.json"))
                 input_binding = manifest.get("input_binding", manifest.get("binding", {}))
-                if manifest["status"] != "completed" or manifest["code"]["commit"] != ALLOCATION["canonical_code_sha"] or input_binding["entity_id"] != str(cell["entity_id"]) or input_binding["history_days"] != cell["budget"] or input_binding["input_manifest_sha256"] != cell["input_manifest_sha256"]:
+                if (
+                    manifest["status"] != "completed"
+                    or manifest["code"]["commit"] != ALLOCATION["canonical_code_sha"]
+                    or input_binding["entity_id"] != str(cell["entity_id"])
+                    or input_binding["history_days"] != cell["budget"]
+                    or input_binding["input_manifest_sha256"] != cell["input_manifest_sha256"]
+                ):
                     errors.append(f"{sid}/{jid}/{stage}: run manifest identity/status mismatch")
                     job_good = False
                     break
                 manifests.append(f"{stage}:{sr['files']['run_manifest.json']['sha256']}")
             if job_good:
                 row = rows[jid]
-                row.update({"archive_path": str(path.relative_to(ROOT)).replace("\\", "/"), "archive_bytes": expected_bytes, "archive_sha256": expected_sha, "job_receipt_path": jr_path, "job_receipt_sha256": hashlib.sha256(jr_raw).hexdigest(), "stage_manifest_sha256": ";".join(manifests), "status": "VERIFIED_LOCAL_BYTES", "reason": "Archive SHA/CRC and all listed member bytes/SHA, receipt and manifest bindings rechecked locally"})
+                row.update(
+                    {
+                        "archive_path": str(path.relative_to(ROOT)).replace("\\", "/"),
+                        "archive_bytes": expected_bytes,
+                        "archive_sha256": expected_sha,
+                        "job_receipt_path": jr_path,
+                        "job_receipt_sha256": hashlib.sha256(jr_raw).hexdigest(),
+                        "stage_manifest_sha256": ";".join(manifests),
+                        "status": "VERIFIED_LOCAL_BYTES",
+                        "reason": "Archive SHA/CRC and all listed member bytes/SHA, receipt and manifest bindings rechecked locally",
+                    }
+                )
             else:
                 shard_good = False
                 rows[jid]["status"] = "INVALID"
@@ -189,4 +243,21 @@ if out.exists():
         raise SystemExit("Existing ledger differs; preserve it and investigate")
 else:
     out.write_bytes(output_bytes)
-print(json.dumps({"rows": len(rows), "verified_local_bytes": sum(row["status"] == "VERIFIED_LOCAL_BYTES" for row in rows.values()), "missing_reviewable_archive": sum(row["status"] == "MISSING_REVIEWABLE_ARCHIVE" for row in rows.values()), "duplicate": len(assigned)-len(set(assigned)), "invalid": len(errors), "verified_shards": verified_shards, "ledger": str(out)}, indent=2))
+print(
+    json.dumps(
+        {
+            "rows": len(rows),
+            "verified_local_bytes": sum(
+                row["status"] == "VERIFIED_LOCAL_BYTES" for row in rows.values()
+            ),
+            "missing_reviewable_archive": sum(
+                row["status"] == "MISSING_REVIEWABLE_ARCHIVE" for row in rows.values()
+            ),
+            "duplicate": len(assigned) - len(set(assigned)),
+            "invalid": len(errors),
+            "verified_shards": verified_shards,
+            "ledger": str(out),
+        },
+        indent=2,
+    )
+)

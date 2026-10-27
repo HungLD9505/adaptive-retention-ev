@@ -47,8 +47,12 @@ def compare(coverage: dict, manifest_dir: pathlib.Path = DEFAULT_MANIFEST_DIR) -
             raise ValueError(f"Missing Main run: {main_id}")
         old = checked_manifest(proof["run_manifest"], manifest_dir / f"block7_{cell_id}.json")
         current = checked_manifest(main[main_id], manifest_dir / f"main_{cell_id}.json")
-        old_binding = {k: v for k, v in old["input_binding"].items() if k != "source_checkpoint_sha256"}
-        main_binding = {k: v for k, v in current["input_binding"].items() if k != "source_checkpoint_sha256"}
+        old_binding = {
+            k: v for k, v in old["input_binding"].items() if k != "source_checkpoint_sha256"
+        }
+        main_binding = {
+            k: v for k, v in current["input_binding"].items() if k != "source_checkpoint_sha256"
+        }
         old_config = json.loads(json.dumps(old["config"]))
         main_config = json.loads(json.dumps(current["config"]))
         old_block = old_config["controller"].pop("block_days")
@@ -57,10 +61,13 @@ def compare(coverage: dict, manifest_dir: pathlib.Path = DEFAULT_MANIFEST_DIR) -
             "input_except_source_sha_equal": old_binding == main_binding,
             "source_input_equal": old["source_input_binding"] == current["source_input_binding"],
             "config_except_block_days_equal": old_config == main_config,
-            "executed_sources_equal": old["code"]["executed_sources"] == current["code"]["executed_sources"],
+            "executed_sources_equal": old["code"]["executed_sources"]
+            == current["code"]["executed_sources"],
             "coverage_equal": old["coverage"] == current["coverage"],
-            "historical_source_recorded": old["source_checkpoint_sha256"] == proof["source"]["sha256"],
-            "historical_target_recorded": old["target_checkpoint_sha256"] == proof["target"]["sha256"],
+            "historical_source_recorded": old["source_checkpoint_sha256"]
+            == proof["source"]["sha256"],
+            "historical_target_recorded": old["target_checkpoint_sha256"]
+            == proof["target"]["sha256"],
             "only_block7_vs_main": old_block == 7 and main_block == 14,
         }
         rows.append(
@@ -106,7 +113,18 @@ def main() -> None:
             raise SystemExit("Existing review table differs")
     else:
         args.output.write_bytes(data)
-    print(json.dumps({"rows": len(rows), "manifest_consistent": sum(row["review_status"] == "PENDING_PEER" for row in rows), "manifest_mismatch": sum(row["review_status"] == "MANIFEST_MISMATCH" for row in rows), "peer_accepted": 0}))
+    print(
+        json.dumps(
+            {
+                "rows": len(rows),
+                "manifest_consistent": sum(row["review_status"] == "PENDING_PEER" for row in rows),
+                "manifest_mismatch": sum(
+                    row["review_status"] == "MANIFEST_MISMATCH" for row in rows
+                ),
+                "peer_accepted": 0,
+            }
+        )
+    )
 
 
 if __name__ == "__main__":

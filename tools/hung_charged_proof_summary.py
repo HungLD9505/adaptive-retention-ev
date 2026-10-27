@@ -18,9 +18,19 @@ BUDGETS = (7, 14, 28)
 SEEDS = (42, 43, 44)
 METHODS = frozenset(
     {
-        "adaptive", "block28", "block7", "drift", "fixed_retention",
-        "frozen_source", "full_finetuning", "online_best", "parameter_retention",
-        "seasonal_naive", "source_error", "target_only", "uncertainty",
+        "adaptive",
+        "block28",
+        "block7",
+        "drift",
+        "fixed_retention",
+        "frozen_source",
+        "full_finetuning",
+        "online_best",
+        "parameter_retention",
+        "seasonal_naive",
+        "source_error",
+        "target_only",
+        "uncertainty",
         "without_source_initialization",
     }
 )
