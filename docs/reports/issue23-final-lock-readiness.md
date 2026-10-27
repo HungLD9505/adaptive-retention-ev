@@ -23,8 +23,30 @@ The existing outcome-blind metadata inventory is SHA-256
 `8a6d71cb881c14e86cf3315d1561076e7273e218adba960f2fc633ddfb023b07`.
 It contains the3,510 IDs/budget assignments across21 accepted input manifests;
 its count is a metadata-ready population, not proof every Final day has a
-scorable label. Exact all-ready cohort and lock artifacts still require preparation
-and review. Missing scores remain null, with explicit coverage denominators.
+scorable label. The exact [all-ready cohort](../../configs/issue23/final-all-ready-cohort.json)
+is now prepared with SHA-256
+`88e9203c552cc4b4404f54c4be08e4fd5ab8a845cae8b0bc62805e18f6586734`.
+All21 current accepted input profiles and exact ID lists match the prior pinned
+inventory; no Final value records were decoded. It retains35 no-initial-trainable
+pairs. Immutable execution lock artifacts and independent approval remain pending.
+Missing scores remain null, with explicit coverage denominators.
+
+A full-population static-coordinate audit now flags7 entity-budget pairs with
+exact numeric coordinates shared with a prefix-trainable Source ID: UrbanEV7d
+1768→1769;14d1768→1769 and2155→2154;28d1132→1131,1768→1769,
+1790→1791 and2155→2154. All3,510 selected pairs remain unchanged. Equal
+coordinates indicate a physical-independence risk, not proof of identical traces
+or leakage; nonmatches do not establish geographic independence. No distance
+threshold, energy/activity column or outcome was used. This expands the historical
+66-pair audit below and is part of the required independent lock review.
+
+The [scope/audit evidence](issue23-final-scope-evidence.json) links the35,734-byte
+[reproducible metadata bundle](https://drive.google.com/file/d/1pNc_J41uKVFoSxBeWWWr1Am-i1IBQHSK/view),
+SHA-256 `783bcf8aec0845297aef868f0701aa1116bdd01d17b4cca7bacf857250da34e2`.
+Fresh Drive readback verified bytes/hash/ZIP-CRC and all9 manifest members.
+The scripts, prior inventory, exact cohort, metadata-file fingerprints and logs
+are included. The cohort configuration records experiment membership IDs only.
+
 
 ---
 

@@ -1579,3 +1579,67 @@ PID24550 was dispatched on the same T4 session with20-minute/1-unit allowance,
 only; it does not increase the86 complete-unit count. Completed per-run payloads
 are backed up to mounted Drive; first12 external readback must pass before last2.
 No Final or further automatic GPU queue was activated.
+
+### 1188 /28d /seed42 complete; full Final scope metadata prepared
+
+After re-opening the saved notebook, Colab reconnected to the same existing VM;
+no Run All, restart or duplicate Source/target launch was used. The first12
+PID24550 was already terminal0 with mounted per-run backups. All5 canonical
+parts (17,572,156 bytes), catalog SHA
+`38a79fb8ce1851bde6900682c97e459fa9b7381600b6a08250478a07235a4fba`,
+were freshly downloaded, SHA/CRC checked, safely restored and independently
+verified for daily/input/latest states and all3 original Source checkpoints.
+External receipt SHA
+`7503e6beee0da2e991936398885205affc802b372467d087ac66a8522b4336dc`
+was copied back before last2 dispatch.
+
+Last2 plan SHA `ca42c2cfae2b30255e546b347e2a6ebdad193cb4d5f2e4a1e960fdb63dd63c73`,
+22,407-byte kit SHA
+`271ed1b50e8255baea8be5b78020d925dd67974b250b830458a580ca54fab9ab`.
+PID26998 exited0 in21.011s. Its3 parts (11,749,961 bytes), catalog SHA
+`6c2480e591560efce33c637dbf033b812f80a1b39d8560150d2c8a9b17b6f3ef`,
+passed fresh external transport/restore/daily/input/latest-state and Source checks.
+[Joint acceptance](issue23-colab-unit1188-seed42-acceptance.json) verifies all14
+frozen methods on the same actual code/environment and exact original bindings.
+It records90 scheduled days,59 issued forecasts,0 scored days and0 initial
+examples for every method. MAE/RMSE remain null, not zero. Source-checkpoint-only,
+frozen, random-target and seasonal-history initialization policies are explicit.
+This unit is complete execution/coverage evidence, **not a scorable effectiveness
+result**. Its81.116s combined child wall excludes setup, verification and idle.
+
+The [shared acceptance](https://drive.google.com/file/d/1pjBG3TwNsvn_nYIk4C2afdvTxzO9naSd/view),
+SHA `98223f56dc13f3dcfc7b8b247bab95c19850c31b60e030cf3e2b644e35ec7a9a`,
+was freshly downloaded with the exact hash. [First12 parts](https://drive.google.com/drive/folders/1-MkUBfrvPY0WFtHAlLRe4lAp5FbFu-uO)
+and [last2 parts](https://drive.google.com/drive/folders/1HC2Quhh43b8O5y7CgZBw6RltBQSqhPbc)
+retain every forecast/event chain and latest state. Both process handles are
+terminal0. The immutable ledger-v4 SHA
+`ea4c17c362a440a5a0dfdfd9faddd018a7e6e1a2ed00df1e7c36ff1b36a70f5a`
+now counts87/231 complete units,144 incomplete (primary48/69). Remaining migration
+is2,016 cells:1,883 new missing and133 declared repeats. The next identity is
+1188/28d/seed43. Null-score units remain explicit in all scientific denominators.
+
+The lead's subsequent direct reply selected **all3,510 ready Final entity-budget
+pairs =147,420 target cells**, accepting additional compute/time. It supersedes
+the earlier pending-scope/66-pair proposal; independent immutable execution lock
+approval is still absent. No new date or paid top-up is implied. The actual
+[all-ready cohort](../../configs/issue23/final-all-ready-cohort.json), SHA
+`88e9203c552cc4b4404f54c4be08e4fd5ab8a845cae8b0bc62805e18f6586734`,
+revalidated all21 current accepted manifests/entity files and exact IDs against
+the pinned prior inventory, while hashing training records only as opaque bytes.
+It preserves35 no-initial-trainable pairs. No Final value records were decoded.
+Independent structural checks passed group uniqueness, all seven namespaces,
+three budgets/seeds,14 methods, all counts and same-city Source population across
+budgets. This prepares membership; it does not supply a Final-capable reader.
+
+The full static-coordinate audit flags7 pairs /4 distinct Final IDs with exact
+coordinates shared with prefix-trainable Source IDs. All3,510 pairs remain kept;
+coordinate equality is a physical-independence risk rather than proof of shared
+traces/leakage. Exact IDs, metadata fingerprints, scripts/logs and limitations
+are in the [scope evidence](issue23-final-scope-evidence.json) and
+[metadata-only bundle](https://drive.google.com/file/d/1pNc_J41uKVFoSxBeWWWr1Am-i1IBQHSK/view)
+(35,734 bytes, SHA
+`783bcf8aec0845297aef868f0701aa1116bdd01d17b4cca7bacf857250da34e2`).
+Fresh external Drive readback passed bytes/hash/ZIP-CRC/all9 manifest members.
+Issue23 now leads with this updated scope decision, preserving its history.
+No research code/protocol was changed; no artificial unit suite rerun was needed.
+No Final execution, merge, main promotion, runtime deletion or issue closure.
