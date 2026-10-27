@@ -1099,3 +1099,22 @@ GPU children were terminal before dispatch. The current turn completed actual
 artifact acceptance, not merely a status restatement or wait. Goal remains active;
 Final scope and independent lock approval are unresolved, not implicitly accepted.
 Only maintained evidence/clarification changed in Git; no research code changed.
+
+## Fresh resource check after the lead's quota question
+
+The current Kaggle session exposes GPU T4 x2 with literal UI quota text
+`13:09 /30 hrs`; this snapshot does not independently interpret the counter
+as used versus remaining. Primary264–276 PID5561 was freshly polled terminal0,
+with no usage-limit error. Its outbox is locally downloaded and hash-checked;
+it is not yet added to the accepted476 until independent Drive/content gates pass.
+The old notebook's earlier connection problem is not treated as proof that this
+working session/account has exhausted quota. Future GPU availability is not guaranteed.
+
+The authorized Colab notebook showed a disconnected-runtime dialog. Reconnect
+was attempted without running any notebook cells; the fresh allocation result
+was `Cannot connect to GPU backend` and `You cannot currently connect to a GPU
+due to usage limits in Colab.` This confirms a current GPU usage-limit block
+for that notebook/account, not all of the user's accounts or a precise reset time.
+No purchase, account switch, quota evasion, Run All or local real-data fit occurred.
+Screenshots and a timestamped structured observation remain in the ignored local
+resource-status run. Development/Final acceptance remains unchanged.
