@@ -1,3 +1,4 @@
+import argparse
 import csv
 import hashlib
 import io
@@ -7,6 +8,12 @@ import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "docs/reports"
+parser = argparse.ArgumentParser(description="Reconcile pinned Hung Development archives")
+parser.add_argument("--recovery-manifest", type=pathlib.Path)
+parser.add_argument("--out", type=pathlib.Path)
+args = parser.parse_args()
+if args.recovery_manifest is not None and args.out is None:
+    parser.error("--out is required with --recovery-manifest to preserve the v2 ledger")
 ALLOCATION = json.loads(
     (REPORTS / "evidence/hung-development-allocation-20261027-v1.json").read_text(encoding="utf8")
 )
@@ -122,6 +129,32 @@ assert copied == recorded
 assert recorded["job_ids"] == next(s["job_ids"] for s in SHARDS["shards"] if s["id"] == sid)
 archive_specs.append((sid, recovered / "artifacts.zip", recorded["sha256"], recorded["bytes"]))
 
+if args.recovery_manifest is not None:
+    manifest_path = args.recovery_manifest.resolve()
+    if not manifest_path.is_relative_to(ROOT / ".cache"):
+        raise SystemExit("Recovery manifest must be inside ignored repository .cache")
+    recovery = json.loads(manifest_path.read_text(encoding="utf8"))
+    if recovery.get("schema") != "hung-kaggle-archive-recovery-v1":
+        raise SystemExit("Unexpected recovery manifest schema")
+    seen_shards = {spec[0] for spec in archive_specs}
+    for item in recovery["archives"]:
+        sid = item["shard_id"]
+        if sid in seen_shards or ALLOCATION["routes"].get(sid) != "kaggle":
+            raise SystemExit(f"Duplicate or non-Kaggle recovered shard: {sid}")
+        expected_jobs = next(s["job_ids"] for s in SHARDS["shards"] if s["id"] == sid)
+        jobset_sha = hashlib.sha256(
+            json.dumps(expected_jobs, separators=(",", ":")).encode("utf8")
+        ).hexdigest()
+        if item["planned_jobset_sha256"] != jobset_sha:
+            raise SystemExit(f"Recovered shard jobset SHA mismatch: {sid}")
+        if int(item["saved_version_id"]) <= 0 or int(item["readback_version_id"]) <= 0:
+            raise SystemExit(f"Missing saved/readback version identity: {sid}")
+        path = (ROOT / item["archive_path"]).resolve()
+        if not path.is_relative_to(ROOT / ".cache") or not path.is_file():
+            raise SystemExit(f"Missing ignored repository archive: {sid}")
+        archive_specs.append((sid, path, item["archive_sha256"], int(item["archive_bytes"])))
+        seen_shards.add(sid)
+
 errors = []
 verified_shards = []
 for sid, path, expected_sha, expected_bytes in archive_specs:
@@ -232,7 +265,18 @@ if errors:
     print("ERRORS", len(errors), errors[:30])
     raise SystemExit(1)
 
-out = REPORTS / "hung-development-782-job-ledger-20261028-v2.csv"
+out = args.out or REPORTS / "hung-development-782-job-ledger-20261028-v2.csv"
+out = out.resolve()
+if (
+    not out.is_relative_to(REPORTS)
+    or not out.name.startswith("hung-development-782-job-ledger-")
+    or out.suffix != ".csv"
+    or (
+        args.recovery_manifest is not None
+        and out.name == "hung-development-782-job-ledger-20261028-v2.csv"
+    )
+):
+    raise SystemExit("Recovery output must be a new versioned file under docs/reports")
 stream = io.StringIO(newline="")
 writer = csv.DictWriter(stream, fieldnames=list(next(iter(rows.values()))))
 writer.writeheader()
