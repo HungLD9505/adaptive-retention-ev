@@ -1501,3 +1501,81 @@ The latest prior045f78d CI passed Ubuntu/Windows
 ([run40452998747](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40452998747));
 new helper commit CI is not inferred from that prior result. Final scope and
 independent lock approval remain pending; no merge/main promotion occurred.
+
+### Complete1165 /28d /seed44 and three-seed case study
+
+The next metadata-only preparation authenticated the immutable remaining ledger
+SHA `e34a138fc7ed14b3e1142b22d3209363e57e19c4aac613e0c65fdd24c6685ce0`
+and the accepted runtime reference. It selected1165/28d/seed44 without inspecting
+new outcomes. First12 plan SHA
+`8d70581eeae30103252a6d597e9f6d944b4502f791cf4f76a613de0649f394d8`,
+kit SHA `842c84fa253afd6ecde319011297e1b4b2bd987039e071f71bd55478fba0b188`.
+The existing mounted T4 session showed98.67 units before dispatch; no new runtime,
+paid top-up, account rotation, keep-alive activity or Source fitting was used.
+
+First12 PID21555 exited0 in100.223s. Cloud daily/state/export passed. All5
+canonical parts (26,009,753 bytes), catalog SHA
+`257e125ade3e5b5b7cb25fee3511deb9b026707b1e2345c76045d6fa6d75d329`,
+were freshly downloaded and independently restored/daily/input/state checked,
+including all3 original Source checkpoints. External receipt SHA
+`060e040efec68b77389b322b49e9d2bc73b0d60c7cd40cbc0e643dd009ee77d0`
+was copied back with its proof before last2 dispatch. The new read-only local
+`verify_colab_partition.py` script reuses the existing canonical restore/daily/
+latest-state verifiers and automates bytes/SHA/CRC, exact reference bindings,
+Source reload and proof packaging. It does not run models or dispatch jobs.
+The script and its environment/proofs are retained with the analysis bundle.
+
+Last2 PID22553 exited0 in31.023s. Its3 parts (13,915,157 bytes), catalog SHA
+`0c76e7f6a95ec8015ac38afb7deb1ea4b4f6d2a523b11c4bb278ba4f5a62f204`,
+also passed actual fresh external transport/CRC, safe restore and independent
+daily/input/latest-state checks. Together the14 runs authenticate2,590 daily
+file hashes and14 latest states. All14 preserve90 scheduled days,59 issued
+forecasts and identical52 scored origins. Exact configs/input bindings and the
+actual Colab code/environment match across methods. Sum child wall is131.246s,
+excluding setup/transfer/verification/idle and therefore not a billing estimate.
+[Joint acceptance](issue23-colab-unit1165-seed44-acceptance.json) SHA
+`bb6cd79b14b6e7a8db1c725bacc24ada2c13135346e17a5334e6fb7d5f6fdc4d`
+was saved to [Drive](https://drive.google.com/file/d/1Oz3jlBagvUVWFjZAL2O9bTZVX2tiOpEK/view)
+and freshly downloaded with that hash. Both handles are terminal0; no next unit
+was automatically launched.
+
+[First12 raw artifacts](https://drive.google.com/drive/folders/1Z_tsIgLDSlaARS7cBynJT2sfQ0bpjl0V),
+[last2 raw artifacts](https://drive.google.com/drive/folders/126MrFyu1Ro9bAvxDstg1g32W-Ru6T2AD).
+The refreshed immutable ledger SHA
+`9c9d74c84c7256d520034732680ab770017ef2cb42e3c1345f51f1951264c4dd`
+now records86/231 complete whole Development units,145 incomplete; primary47/69.
+Remaining migration is2,030 cells:1,893 new missing plus137 declared repeats.
+The next outcome-blind identity isUrbanEV1188/28d/seed42. JHB and other already
+complete units are preserved. No count is a thesis-completion percentage.
+
+The [complete1165/28d three-seed case study](issue23-urbanev1165-28d.md) now contains
+all42 method/seed replays, actual same52 scored origins, a14-method numeric table,
+CSV/JSON, PNG/SVG, pinned sources/code/profile/partition proofs and reproducible
+script/environment. Adaptive mean seed MAE10.265471kWh exceeds Fixed10.155355
+by0.110116kWh on this one case. This is not a population/significance claim;
+all fixed seeds and unfavourable/null findings are retained. Analysis does not
+fit models or decode Final records. The small bundle is225,727 bytes, SHA
+`e1723509d6ed4177280c1453384bbfad06f6107775cc7f0d522fa4d888197c43`;
+[fresh Drive readback](https://drive.google.com/file/d/10sK5-zoe5gaAqicb7uWYZ3A_plUDsJDO/view)
+passed bytes/hash/ZIP-CRC and every manifest member. The separate plotting
+virtual environment leaves the research/training environments untouched.
+
+Commit8b0bb61 CI passed Ubuntu/Windows
+([run40454417284](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40454417284)).
+This evidence/figure addition changes no research code or protocol; no artificial
+unit suite was rerun. The failed legacy-proxy analysis attempt, repaired script
+and layout draft are preserved; final CSV bytes match the pre-layout version.
+Full Development and independently approved Final remain incomplete. No merge,
+main promotion, approval impersonation or issue closure occurred.
+
+After the complete1165/28d three-seed artifact was externally read back, the
+provider showed98.49 available units at approximately1.07/hour. The next
+outcome-blind unit1188/28d/seed42 was prepared from ledger-v3, with first12 plan
+SHA `dd996e3201d7f611504ad1e8cc461206351bce1699678a2bfbb600f7c69b55d5`
+and27,670-byte kit SHA
+`2d97af7da51158d43cd6354b169c091e19272e1ae37cb02b7daea101c7497d3d`.
+PID24550 was dispatched on the same T4 session with20-minute/1-unit allowance,
+120-second no-completed-run deadman and30-unit reserve. This is dispatch evidence
+only; it does not increase the86 complete-unit count. Completed per-run payloads
+are backed up to mounted Drive; first12 external readback must pass before last2.
+No Final or further automatic GPU queue was activated.
