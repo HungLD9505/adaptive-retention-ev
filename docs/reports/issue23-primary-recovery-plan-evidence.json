@@ -936,21 +936,21 @@
     "independent_proof_bytes": 7952
   },
   "current_recovery_status": {
-    "new_runtime_targets_fully_published": 236,
+    "new_runtime_targets_fully_published": 428,
     "new_runtime_planned_targets": 742,
     "old_missing_proxy_fully_restored": 648,
     "old_matched_prefix_fully_restored": 451,
     "old_matched_physically_missing": 239,
-    "interpretation": "Distinct overlapping historical/recovery collections; do not add as unique experiments. New742 frozen replays have236 published: all212 selected-proxy and first24/530 matched. Old16 complete units/224 selected cells remain preserved separately. Final unapproved and not executed.",
+    "interpretation": "Overlapping historical/recovery collections must not be added. Latest accepted prefix428/742=212 proxy+216 matched; incomplete.16 original complete units/224 selected cells retained separately.239 original matched payloads remain missing; new replay is not original-byte restoration. Final unapproved and not executed.",
     "next_bounded_dispatch": {
       "family": "matched",
-      "start": 24,
-      "end": 36,
-      "pid": 2850,
-      "status": "actual current handle polled live None; completion/publication not claimed"
+      "start": 216,
+      "end": 228,
+      "pid": 5091,
+      "status": "dispatched; external acceptance pending"
     },
     "new_runtime_proxy_published": 212,
-    "new_runtime_matched_published": 24
+    "new_runtime_matched_published": 216
   },
   "kaggle_offset39_continuation": {
     "pid": 1186,
@@ -1876,18 +1876,18 @@
   },
   "latest_durability_snapshot": {
     "date": "2026-10-27",
-    "primary_new_runtime_published": 380,
+    "primary_new_runtime_published": 428,
     "primary_new_runtime_required": 742,
     "proxy_published": 212,
     "proxy_required": 212,
-    "matched_published": 168,
+    "matched_published": 216,
     "matched_required": 530,
     "next_matched_range": [
-      168,
-      180
+      216,
+      228
     ],
-    "next_range_status": "Not dispatched; AMS25-37 running as PID4492",
-    "loa_target_published": 25,
+    "next_range_status": "Dispatched as PID5091 after previous external publication, terminal success, no-live-GPU-child and >=1GiB working headroom guards; acceptance pending",
+    "loa_target_published": 37,
     "loa_target_required": 378,
     "matched_24_36": {
       "archive_id": "1Zy7xTf3Jdtqev6--89jsDZXrwgdDSiMo",
@@ -1972,8 +1972,8 @@
       "acceptance": "PASS actual Drive download/full independent daily/input/latest-state comparison and all3 Source CPU reloads"
     },
     "spo_target_reconstruction": {
-      "status": "first_predeclared_target_independently_published_and_original_metadata_compared",
-      "published": 13,
+      "status": "first37_predeclared_targets_independently_published_all37_match9_original_metadata_fields",
+      "published": 37,
       "required": 378,
       "sources": "All3 original own-city Sources, no new Source fit",
       "plan_sha256": "e1631fc537cf0b53f8ec70abb8aebe0b8d76a79c8c81cf45e52c304761f49b11",
@@ -2009,10 +2009,10 @@
       "old_session_revalidation": "Observed original recovery tab still Session is starting and failed draft save after Continue editing; no restart/RunAll",
       "scope": "New reconstruction; original raw target bytes still undelivered. No outcome-based choice, full378 completion or effectiveness/Final claim.",
       "next_range": [
-        13,
-        25
+        37,
+        49
       ],
-      "next_status": "Not dispatched; first AMS Source42 uses GPU",
+      "next_status": "not_dispatched",
       "next12_target_publication": {
         "archive_id": "1vLcx7Jfa5PNkLDkuATdQhc0zhtxZSaZF",
         "bytes": 27036692,
@@ -2036,6 +2036,18 @@
         "sha256": "6ff3b483d4acfaab55d34119427624c7f6d180aba1b61c840a37c9c6e6cb900e",
         "actual_Drive_readback": "PASS bytes/SHA/CRC/all members",
         "comparison": "All13 actually published reconstructions, 0 differences in9 predeclared fields"
+      },
+      "next13-25-reconstruction-comparison.json": {
+        "runs": 12,
+        "differences": 0,
+        "sha256": "fc129f2e7d6acbe6e2f5b3a86d650babcf858a8bae6b79957a6a7fb1699859ee",
+        "scope": "Only actual published SPO offsets13\u201324 reconstructed Development targets. Original Sources, input/config/seed/environment unchanged; new target producer code recorded separately. No selection, complete378 claim or recovery of original raw target bytes."
+      },
+      "next25-37-reconstruction-comparison.json": {
+        "runs": 12,
+        "differences": 0,
+        "sha256": "ddccb2002475419a6f2bf37fbe805d8a831cf76477bb3a819a7095d1526c129e",
+        "scope": "Only actual published SPO offsets25\u201336 reconstructed Development targets. Original Sources, input/config/seed/environment unchanged; new target producer code recorded separately. No selection, complete378 claim or recovery of original raw target bytes."
       }
     },
     "matched_72_84": {
@@ -2145,7 +2157,7 @@
       "scope": "Second own-city AMS Source, fixed recipe/seed; no new tuning, target/Final or automatic next.",
       "initial_observation_status": "PID3715 polled live, actual epoch1 checkpoint and log observed; not completed or independently published"
     },
-    "ams_target_published": 25,
+    "ams_target_published": 49,
     "ams_target_required": 378,
     "ams_sources_published": 3,
     "mel_replication_sources_published": 3,
@@ -2438,13 +2450,30 @@
       "proof_id": "1yFj43gCsmsHa8pvTqfjhjevioAIoyv1l"
     },
     "storage_risk": {
-      "working_logical_GiB": 14.915691,
-      "filesystem_free_GiB": 4.141064,
-      "cleanup_performed": false,
-      "scope": "Last actual read-only scan; do not assume subsequent writes leave free space unchanged."
+      "previous_readonly_observation": {
+        "working_logical_GiB": 14.915691,
+        "filesystem_free_GiB": 4.141064,
+        "cleanup_performed": false,
+        "scope": "Last actual read-only scan; do not assume subsequent writes leave free space unchanged."
+      },
+      "latest_observed_filesystem_free_GiB": 5.343456268310547,
+      "minimum_new_dispatch_free_GiB": 1,
+      "completed_scratch_relocation": {
+        "directories": 34,
+        "files": 114408,
+        "freed_GiB": 3.3985824584960938,
+        "destination": "/tmp/qyroven-externally-verified-completed-scratch-20261027-v1",
+        "old_paths": "retained as directory aliases; all file bytes/hash checked before move and through aliases",
+        "raw_inputs_sourcebanks_code_and_root_export_zips": "untouched",
+        "proof_id": "1gr-b7R16DSb3T3lCWMA4q6c6Mp7gw-tR",
+        "proof_bytes": 5887185,
+        "proof_sha256": "ef4e5d9376184da00f4cfc2739baf1f196aaf9954b40c6705234c3af3223d82c",
+        "independent_readback_id": "16esaQkwHCxeshzui_MC6rjcBpQH6eSFe",
+        "scope": "Reversible relocation, no discarded payload. tmp remains volatile; durability derives from local and Drive canonical publications. Historical model states are not all externally exported; accepted handoffs retain latest state plus all committed forecasts/events."
+      }
     },
     "final_status": "Not run; independent immutable lock approval and full Development remain outstanding",
-    "mel_replication_target_published": 13,
+    "mel_replication_target_published": 25,
     "mel_replication_target_required": 378,
     "matched_132_144": {
       "receipt": {
@@ -2743,7 +2772,7 @@
     "szh_target_published": 1,
     "szh_target_required": 378,
     "all_CHARGED_city_Source_sets": "All6 own-city sets,3 fixed seeds each, independently externally accepted; original SPO Sources restored without refitting",
-    "current_GPU_job": "AMS25-37 PID4492 polled live; accepted counter remains25 until independent external publication",
+    "current_GPU_job": "Primary matched216\u2013228 dispatched as PID5091; no automatic successor. Accepted counters exclude it.",
     "matched_144_156": {
       "receipt": {
         "schema": "verified-kaggle-outbox-publication-v1",
@@ -2859,8 +2888,417 @@
       "proof_sha256": "0f407437394a7fecf948f5fffaf44a3179fab8e3055dbb1424f6acded47da3b2"
     },
     "next_ams_range": [
-      25,
-      37
-    ]
+      49,
+      61
+    ],
+    "matched_168_180": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 168,
+        "end": 180,
+        "run_ids": [
+          "urbanev-SZH-2447-7d-full_finetuning-seed43",
+          "urbanev-SZH-2447-7d-fixed_retention-seed43",
+          "urbanev-SZH-2447-7d-seasonal_naive-seed44",
+          "urbanev-SZH-2447-7d-target_only-seed44",
+          "urbanev-SZH-2447-7d-frozen_source-seed44",
+          "urbanev-SZH-2447-7d-online_best-seed44",
+          "urbanev-SZH-2447-7d-without_source_initialization-seed44",
+          "urbanev-SZH-2447-7d-block7-seed44",
+          "urbanev-SZH-2447-7d-block28-seed44",
+          "urbanev-SZH-2447-7d-adaptive-seed44",
+          "urbanev-SZH-2447-7d-full_finetuning-seed44",
+          "urbanev-SZH-2447-7d-fixed_retention-seed44"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/19o40TfTBBRf0IAL92GQZRQe4TCOwKe75/view",
+          "bytes": 17273571,
+          "sha256": "1d016a144e57cfbe4e66f24482100e4c30140016f8bec29e1acc4efad98b5ae0"
+        },
+        "verification_sha256": "3b17596749f32dbf7252eb3db3b35306b48e2547537c69f8d3e14bd72240e85e",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "19o40TfTBBRf0IAL92GQZRQe4TCOwKe75",
+      "receipt_id": "1UFb7QkgdXp6fSggVT0zFZm5nKZWMxsCY",
+      "proof_id": "1I9fGuNjFWJonemd0BXlq_s0PWtyDvfa0",
+      "receipt_sha256": "8be44c7babeefd79052f4f33836ee726bb3bfa5313ece36daf3a40d429b97a9c",
+      "proof_sha256": "ce9d43c1c1beb4d4f3ee237286eb96799f40fcafa0069e0b1c87d6ef0fe25d84"
+    },
+    "matched_180_192": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 180,
+        "end": 192,
+        "run_ids": [
+          "urbanev-SZH-1405-14d-seasonal_naive-seed42",
+          "urbanev-SZH-1405-14d-target_only-seed42",
+          "urbanev-SZH-1405-14d-frozen_source-seed42",
+          "urbanev-SZH-1405-14d-online_best-seed42",
+          "urbanev-SZH-1405-14d-without_source_initialization-seed42",
+          "urbanev-SZH-1405-14d-block7-seed42",
+          "urbanev-SZH-1405-14d-block28-seed42",
+          "urbanev-SZH-1405-14d-adaptive-seed42",
+          "urbanev-SZH-1405-14d-full_finetuning-seed42",
+          "urbanev-SZH-1405-14d-fixed_retention-seed42",
+          "urbanev-SZH-1405-14d-seasonal_naive-seed43",
+          "urbanev-SZH-1405-14d-target_only-seed43"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/126y6943DGAbob8t-I-4dPJQoOT2qtzCi/view",
+          "bytes": 25067253,
+          "sha256": "0cbdac284c6b88bf3baa9c80e3ee45f8e96f8c23eeca903350ac85ce2e246c9b"
+        },
+        "verification_sha256": "93aff4b9b41b72e3a8a3c67f82f9236d5df7b0d8cc0b030b08b2ea8e472879f8",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "126y6943DGAbob8t-I-4dPJQoOT2qtzCi",
+      "receipt_id": "1fEj3YBS3zrVLrW2tN6xapAU3UaebCjKW",
+      "proof_id": "19jqeNtgwgA9W8aNr4253i55RInrShfsy",
+      "receipt_sha256": "6be3edeeba0b4167781bb91d12d0700d43fd830ba74f6c856244de3360f9f546",
+      "proof_sha256": "86a6928cfe81e5e8bb5909c498a2a2278484f7933fb991b0a7fac440a45078a6"
+    },
+    "ams_target_25_37": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "7aafc9a5b18d38f0415d4b51f42fffe1e4e3ecb14a33aa947b799a127686443c",
+        "family": "charged-AMS",
+        "start": 25,
+        "end": 37,
+        "run_ids": [
+          "charged-AMS-1200-7d-without_source_initialization-seed43",
+          "charged-AMS-1200-7d-block7-seed43",
+          "charged-AMS-1200-7d-block28-seed43",
+          "charged-AMS-1200-7d-adaptive-seed44",
+          "charged-AMS-1200-7d-full_finetuning-seed44",
+          "charged-AMS-1200-7d-fixed_retention-seed44",
+          "charged-AMS-1200-7d-source_error-seed44",
+          "charged-AMS-1200-7d-uncertainty-seed44",
+          "charged-AMS-1200-7d-drift-seed44",
+          "charged-AMS-1200-7d-parameter_retention-seed44",
+          "charged-AMS-1200-7d-seasonal_naive-seed44",
+          "charged-AMS-1200-7d-target_only-seed44"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1xZd8icS-qQjHZrrMYflFk3DpbTSdOEFt/view",
+          "bytes": 28331491,
+          "sha256": "b5538ff2ede8ea8702257b8e0227ef9750e453cf4542397705dd95ac6a649272"
+        },
+        "verification_sha256": "a470af4b6e37790c367e40203b2c933961ab61ac5472a2d5fd00477de31baccb",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1xZd8icS-qQjHZrrMYflFk3DpbTSdOEFt",
+      "receipt_id": "1AZTnP4wwN_am_CfLs0GA0U2d7Q5feR5W",
+      "proof_id": "10wHl-83YlCuTXEqRd9_tKkdCfx9xKlrj",
+      "receipt_sha256": "9965cfd8f5ce95f08486938f381b4c3bf380f7ce0e5dd9c12b18e969a51c8e75",
+      "proof_sha256": "afa7a23e3808d4d2da5d434d344f9b776c7ac66729b206872f09a500e81fe110"
+    },
+    "ams_target_37_49": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "7aafc9a5b18d38f0415d4b51f42fffe1e4e3ecb14a33aa947b799a127686443c",
+        "family": "charged-AMS",
+        "start": 37,
+        "end": 49,
+        "run_ids": [
+          "charged-AMS-1200-7d-frozen_source-seed44",
+          "charged-AMS-1200-7d-online_best-seed44",
+          "charged-AMS-1200-7d-without_source_initialization-seed44",
+          "charged-AMS-1200-7d-block7-seed44",
+          "charged-AMS-1200-7d-block28-seed44",
+          "charged-AMS-1359-7d-adaptive-seed42",
+          "charged-AMS-1359-7d-full_finetuning-seed42",
+          "charged-AMS-1359-7d-fixed_retention-seed42",
+          "charged-AMS-1359-7d-source_error-seed42",
+          "charged-AMS-1359-7d-uncertainty-seed42",
+          "charged-AMS-1359-7d-drift-seed42",
+          "charged-AMS-1359-7d-parameter_retention-seed42"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1dkAkfdb-56CTNFKl3DXFNaX08G6O0GMP/view",
+          "bytes": 29734403,
+          "sha256": "36d7728d22b5d31151279013da8126401ac1e054a6509611d2d3977f0282a463"
+        },
+        "verification_sha256": "fc1a728977b05dc99a4fdf31741441fbcb5e7beb7e2a006aabf003980bd4ef4b",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1dkAkfdb-56CTNFKl3DXFNaX08G6O0GMP",
+      "receipt_id": "1lU_NfouJpGSNZTIXGXGXzaxe6tHzu3iu",
+      "proof_id": "18axfMQCHdISeYN79fw1C-OlH9YleAxVY",
+      "receipt_sha256": "17f549f97216bcb4f12e4b4bb6abe72c2224ae5f1182571561dd5b8ab75b5a10",
+      "proof_sha256": "8a1f306752a20bc98a695f2235bf9b830512ddbb719661c5590ab1f377b258fa"
+    },
+    "pinned_existing_city_launchers": {
+      "artifact_id": "11MhREnfcPZNrs4XgqsCW4xMHgdEUZIJD",
+      "bytes": 12487,
+      "sha256": "63fb36cf98b34495feaea80ccd39d75da413d72a28876f519cba94c1522f2873",
+      "scope": "Exact existing unchanged five launch_next.py scripts plus installer. Compile/hash verified in live cloud, fresh Drive bytes/SHA/CRC/all6 members. No fitting or research/config change; next calls still require exact previous external publication and no live GPU children."
+    },
+    "ams_first_complete_three_seed_group": {
+      "artifact_id": "1VPRlng7dPVGzEYMR8XKDfLqpi5fbISUD",
+      "bytes": 238205,
+      "sha256": "b52c5896e921b8f848f06484c0d64626c09c240019d286d2ebdbcd194506acfa",
+      "fresh_Drive_readback": "PASS exact bytes/SHA/CRC/all14 manifest members",
+      "scope": "First predeclared AMS1200/7d group,14 variants x3 fixed seeds,42 daily chains and exact90 scored origins authenticated; one station conditional description, no CI/p-value, Final or efficacy claim. Initial analysis rejected expected per-seed Source fingerprint variation; corrected strict check pins each Source and compares all remaining input fields; failed script/log retained. No research run or metrics changed.",
+      "figure_svg_sha256": "fab705cbf41f2795fcbf215fd69c96e750e2ab99aac2fae03f15a99950f0b7cc",
+      "limitations": "One station/budget; Source/model/controller RNG vary together across seeds, not a controlled causal Source-quality ablation. All42 runs share identical90 scored origins. No population efficacy/statistical significance claim.",
+      "active_prediction_ranges_kwh": {
+        "42": [
+          2.25454854785312e-10,
+          3.123013812000864e-08
+        ],
+        "43": [
+          10.392755126953128,
+          13.901699829101567
+        ],
+        "44": [
+          3.188058483871715e-10,
+          6.767053406520065e-09
+        ]
+      }
+    },
+    "matched_192_204": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 192,
+        "end": 204,
+        "run_ids": [
+          "urbanev-SZH-1405-14d-frozen_source-seed43",
+          "urbanev-SZH-1405-14d-online_best-seed43",
+          "urbanev-SZH-1405-14d-without_source_initialization-seed43",
+          "urbanev-SZH-1405-14d-block7-seed43",
+          "urbanev-SZH-1405-14d-block28-seed43",
+          "urbanev-SZH-1405-14d-adaptive-seed43",
+          "urbanev-SZH-1405-14d-full_finetuning-seed43",
+          "urbanev-SZH-1405-14d-fixed_retention-seed43",
+          "urbanev-SZH-1405-14d-seasonal_naive-seed44",
+          "urbanev-SZH-1405-14d-target_only-seed44",
+          "urbanev-SZH-1405-14d-frozen_source-seed44",
+          "urbanev-SZH-1405-14d-online_best-seed44"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1OjT3sIeDCyZ26EUeZv0lnlCDnqqKUNWl/view",
+          "bytes": 26432542,
+          "sha256": "b9732562a552be4e1fbab40cd0a9e0977dca47add17553092b407dace0f2b82b"
+        },
+        "verification_sha256": "9c20015f585300a870652efb1f7f6abb9a59ec307e62f556d63c636d8744a65a",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "1OjT3sIeDCyZ26EUeZv0lnlCDnqqKUNWl",
+      "receipt_id": "1FEC-qmk1vWziJ4BSrJgTKz_OmI3mxxta",
+      "proof_id": "1F-fqsn6xh5B-cnBbVEeF0VUXIYMEG91X",
+      "receipt_sha256": "7d81deefdc13204d2b5a6d0fa9e893069b50fc4b6208546318c534492b1d4e19",
+      "proof_sha256": "ae4c874aa1a08e5181b7bceda861de70d96725b4c29c011f5e597810617c09e4"
+    },
+    "matched_204_216": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 204,
+        "end": 216,
+        "run_ids": [
+          "urbanev-SZH-1405-14d-without_source_initialization-seed44",
+          "urbanev-SZH-1405-14d-block7-seed44",
+          "urbanev-SZH-1405-14d-block28-seed44",
+          "urbanev-SZH-1405-14d-adaptive-seed44",
+          "urbanev-SZH-1405-14d-full_finetuning-seed44",
+          "urbanev-SZH-1405-14d-fixed_retention-seed44",
+          "urbanev-SZH-1987-14d-seasonal_naive-seed42",
+          "urbanev-SZH-1987-14d-target_only-seed42",
+          "urbanev-SZH-1987-14d-frozen_source-seed42",
+          "urbanev-SZH-1987-14d-online_best-seed42",
+          "urbanev-SZH-1987-14d-without_source_initialization-seed42",
+          "urbanev-SZH-1987-14d-block7-seed42"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1zdTBjUz8cgjvm5GU9XAI1lqAAjalpUWK/view",
+          "bytes": 26095178,
+          "sha256": "32bceda8020dab32e77d86bb48f096fffabe8a640ba2a19728626a6393ca8451"
+        },
+        "verification_sha256": "92fb882d7f1050e76ed3d884874bd22b812523dd3b566f2632ea1a5a5747131a",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "1zdTBjUz8cgjvm5GU9XAI1lqAAjalpUWK",
+      "receipt_id": "1dCFJ-4z8m9g_ySnHwcs-aWEigd4C96xS",
+      "proof_id": "15XbjmBd2IZVM-Nkj9FgjlIt3DWJHz3mf",
+      "receipt_sha256": "7382d553ea31a8fbe4a09d10086bc78163656e51477b69ba201ba420ef0013bd",
+      "proof_sha256": "10c05633c57871e5d3af1434e1a68c13be0ba04d208b3e92854e20c384d2286a"
+    },
+    "loa_target_25_37": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "5f07a443c12a25dd229d9d0f03cb6554a245e95390fcc2533b90041e4e65a134",
+        "family": "charged-LOA",
+        "start": 25,
+        "end": 37,
+        "run_ids": [
+          "charged-LOA-201-7d-without_source_initialization-seed43",
+          "charged-LOA-201-7d-block7-seed43",
+          "charged-LOA-201-7d-block28-seed43",
+          "charged-LOA-201-7d-adaptive-seed44",
+          "charged-LOA-201-7d-full_finetuning-seed44",
+          "charged-LOA-201-7d-fixed_retention-seed44",
+          "charged-LOA-201-7d-source_error-seed44",
+          "charged-LOA-201-7d-uncertainty-seed44",
+          "charged-LOA-201-7d-drift-seed44",
+          "charged-LOA-201-7d-parameter_retention-seed44",
+          "charged-LOA-201-7d-seasonal_naive-seed44",
+          "charged-LOA-201-7d-target_only-seed44"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1veP91jhVEfKHVltaW94MX3WjE6WNvA6E/view",
+          "bytes": 28655214,
+          "sha256": "9a1bfa512fc8bb28c6562815892139da61ebad2841878297e1e1b2d4d102772b"
+        },
+        "verification_sha256": "8e611ce00b6621a3c6b3622e0eb831d33b4ca95e0e7b1a6a1097d16649d0b753",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1veP91jhVEfKHVltaW94MX3WjE6WNvA6E",
+      "receipt_id": "1hkXqSoWVGtq-G6prvlBb8ciJs6ByvYJi",
+      "proof_id": "1Wxj7Z_PjD-Sp1XrpNYZhqKImqzTP4jCx",
+      "receipt_sha256": "e658cdbae19a5733ae03d677aa40a80c2f9e03ec14db08db2b5b4a4a10b32482",
+      "proof_sha256": "14e521a605938de875832960c5e0faa4aba75955fc83f90621d6603c143ab98c"
+    },
+    "spo_target_13_25": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "e1631fc537cf0b53f8ec70abb8aebe0b8d76a79c8c81cf45e52c304761f49b11",
+        "family": "charged-SPO",
+        "start": 13,
+        "end": 25,
+        "run_ids": [
+          "charged-SPO-17-7d-block28-seed42",
+          "charged-SPO-17-7d-adaptive-seed43",
+          "charged-SPO-17-7d-full_finetuning-seed43",
+          "charged-SPO-17-7d-fixed_retention-seed43",
+          "charged-SPO-17-7d-source_error-seed43",
+          "charged-SPO-17-7d-uncertainty-seed43",
+          "charged-SPO-17-7d-drift-seed43",
+          "charged-SPO-17-7d-parameter_retention-seed43",
+          "charged-SPO-17-7d-seasonal_naive-seed43",
+          "charged-SPO-17-7d-target_only-seed43",
+          "charged-SPO-17-7d-frozen_source-seed43",
+          "charged-SPO-17-7d-online_best-seed43"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/17rBSCIbdOUHh_epQgZbZj-_oIDwS9nyF/view",
+          "bytes": 28644955,
+          "sha256": "8cb2755fdcc419fc2b42120c3b50046ed8444f4173677d720e9a518c1a378aa5"
+        },
+        "verification_sha256": "2a18ef944e161839a86da51abb2cd7ccbb56d38ee466fe3932e0c046c5815b68",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "17rBSCIbdOUHh_epQgZbZj-_oIDwS9nyF",
+      "receipt_id": "1w-vy_0vYkmTj_Rbo3C0mclDPWK7Bav74",
+      "proof_id": "16vO0LnctCy1cD-wKsVblay1Gzvv7wY4m",
+      "receipt_sha256": "28b429d91cb51afb738b8879612c1638a3deac07f8d9d996a2fb992f711788d2",
+      "proof_sha256": "52bc70d19a45cdb0d57f7607dc87a10ed5d5d1f43adeb5378086d4db0345a4f0"
+    },
+    "spo_target_25_37": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "e1631fc537cf0b53f8ec70abb8aebe0b8d76a79c8c81cf45e52c304761f49b11",
+        "family": "charged-SPO",
+        "start": 25,
+        "end": 37,
+        "run_ids": [
+          "charged-SPO-17-7d-without_source_initialization-seed43",
+          "charged-SPO-17-7d-block7-seed43",
+          "charged-SPO-17-7d-block28-seed43",
+          "charged-SPO-17-7d-adaptive-seed44",
+          "charged-SPO-17-7d-full_finetuning-seed44",
+          "charged-SPO-17-7d-fixed_retention-seed44",
+          "charged-SPO-17-7d-source_error-seed44",
+          "charged-SPO-17-7d-uncertainty-seed44",
+          "charged-SPO-17-7d-drift-seed44",
+          "charged-SPO-17-7d-parameter_retention-seed44",
+          "charged-SPO-17-7d-seasonal_naive-seed44",
+          "charged-SPO-17-7d-target_only-seed44"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1swpwnFzmHeOneosRfGz6AbcaZyRN_HoQ/view",
+          "bytes": 29617790,
+          "sha256": "815f407dc89dd04353fdfe921805915c152e9554a906f40e3b7f9a263ff421be"
+        },
+        "verification_sha256": "284d8639ca5fdae36f4b65a15e0fedaae8e77eabf272769ee0ea2f49b8aa213a",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1swpwnFzmHeOneosRfGz6AbcaZyRN_HoQ",
+      "receipt_id": "1K_JM0Z-GQX9EXJLoFbpGQo3-AcwmbW6T",
+      "proof_id": "1j5ScEyVfZwHhM8RjGW3-VcNe-RHKk61v",
+      "receipt_sha256": "2de9c33850a82764febaee754adba112ec33f302f14afc47c45ed99e469b9b08",
+      "proof_sha256": "d87e07da85860c96de656c974e1adf72c431130b3320dd0273ddf4feb1b2cfb5"
+    },
+    "mel_replication_target_13_25": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "278754516a90fb484fdcdf7ef443f51513dc1cbc28605130ca5c8698de99d034",
+        "family": "charged-MEL",
+        "start": 13,
+        "end": 25,
+        "run_ids": [
+          "charged-MEL-15-7d-block28-seed42",
+          "charged-MEL-15-7d-adaptive-seed43",
+          "charged-MEL-15-7d-full_finetuning-seed43",
+          "charged-MEL-15-7d-fixed_retention-seed43",
+          "charged-MEL-15-7d-source_error-seed43",
+          "charged-MEL-15-7d-uncertainty-seed43",
+          "charged-MEL-15-7d-drift-seed43",
+          "charged-MEL-15-7d-parameter_retention-seed43",
+          "charged-MEL-15-7d-seasonal_naive-seed43",
+          "charged-MEL-15-7d-target_only-seed43",
+          "charged-MEL-15-7d-frozen_source-seed43",
+          "charged-MEL-15-7d-online_best-seed43"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1sWOMWYJtwSveQeE3bzbVOAAtWIsleXbC/view",
+          "bytes": 29848158,
+          "sha256": "c2e982ef560c9db3f70c81931ab0e60f8b95297ac947cf160fbb00aa8dd5295f"
+        },
+        "verification_sha256": "5b41ba8015a847e95fda879404e995277d6f8aef24e960f0f3eb7221fddd456b",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1sWOMWYJtwSveQeE3bzbVOAAtWIsleXbC",
+      "receipt_id": "12fRrBHlwpnb9LFwnNFVxkmGVHfTL2f8P",
+      "proof_id": "1_rZs4Llga2HugTaBHHumPFHNKvDdoYNn",
+      "receipt_sha256": "1b96ab5f0e7b49f6394663a140d5c712ffd39cb3457146ab663d26f5ff7c2a13",
+      "proof_sha256": "45174497adf70ab43e6734e839ab60e465f8737cb045b40708d150cc40093992"
+    }
   }
 }

@@ -918,3 +918,105 @@ Its accepted city counter remains25 until the external gate passes. Never
 restart it solely because browser observation times out. No Final/merge/full-
 completion claim. Only maintained handoff/evidence files changed in Git;
 research model/controller/runner/baseline bytes remain identical to1ac2ae0.
+
+## October27 — durable428 prefix, complete first AMS seed group and storage guard
+
+The latest externally accepted new-runtime prefix is **428/742**, comprising
+all212 selected-proxy cells and216/530 matched cells. This is recovery progress,
+not the fraction of the thesis completed. All four additional12-cell primary
+batches (168–180,180–192,192–204,204–216) passed fresh Drive download, exact
+frozen configuration/input/code/Source binding, full independent daily/input/
+latest-state equality and all3 Source CPU reloads. Exact receipt hashes and
+Drive IDs are recorded in the [evidence catalog](issue23-primary-recovery-plan-evidence.json).
+Latest primary [archive](https://drive.google.com/file/d/1zdTBjUz8cgjvm5GU9XAI1lqAAjalpUWK/view),
+[receipt](https://drive.google.com/file/d/1dCFJ-4z8m9g_ySnHwcs-aWEigd4C96xS/view),
+[proof](https://drive.google.com/file/d/15XbjmBd2IZVM-Nkj9FgjlIt3DWJHz3mf/view).
+Next matched216–228 was dispatched as PID5091 only after actual prior publication,
+terminal success, no live GPU child and the working-storage guard. It has no
+automatic successor and is not included in accepted counts.
+
+Current separately verified CHARGED target prefixes are JHB378, AMS49, LOA37,
+SPO37, MEL25 (new complete replication) and SZH1, each against its own378-cell
+plan. All18 own-city Source checkpoints remain preserved; no pooling or new
+Source fitting was used for these target batches. SPO's additional24 reconstructed
+targets match all9 declared original fields exactly, extending the original
+metadata comparison to37 targets; this does not recover the original raw bytes.
+Latest SPO [archive](https://drive.google.com/file/d/1swpwnFzmHeOneosRfGz6AbcaZyRN_HoQ/view),
+[receipt](https://drive.google.com/file/d/1K_JM0Z-GQX9EXJLoFbpGQo3-AcwmbW6T/view),
+[proof](https://drive.google.com/file/d/1j5ScEyVfZwHhM8RjGW3-VcNe-RHKk61v/view).
+All accepted handoffs exist locally and on Drive. Unpublished/failed work remains
+preserved and is never counted as externally accepted.
+
+### Complete first AMS group: adverse result retained
+
+The first predeclared AMS1200/7d group now has all14 variants ×3 fixed seeds,
+42 authenticated daily chains and identical90 scored forecast origins. The full
+analysis includes CSV, JSON, PNG/SVG, scripts, environment and input/Source identities.
+[Analysis bundle](https://drive.google.com/file/d/1VPRlng7dPVGzEYMR8XKDfLqpi5fbISUD/view),
+238,205 bytes, SHA-256
+`b52c5896e921b8f848f06484c0d64626c09c240019d286d2ebdbcd194506acfa`;
+fresh Drive readback passed bytes/hash/CRC/all14 manifest members. Extract the
+bundle under this repository's `runs/issue23-ams-first-three-seed-analysis-20261027-v1/`
+for its documented relative paths. Plotting used a separate Matplotlib environment;
+the training environment and research implementation were unchanged.
+
+| Method | Seed42 MAE,kWh | Seed43 | Seed44 |
+|---|---:|---:|---:|
+| Adaptive |12.799506|0.336414|12.799506|
+| Fixed Retention |12.799506|0.274458|12.799506|
+| Target-only |0.844062|0.794008|0.685789|
+| Seasonal Naive |0.089383|0.089383|0.089383|
+
+![AMS1200,7-day history: three fixed seeds and six displayed comparisons; logarithmic MAE axis](figures/ams-first-three-seeds-20261027.svg)
+
+Across all90×24 issued Adaptive predictions, seed42 ranges from
+2.2545e-10 to3.1230e-8 kWh; seed44 from3.1881e-10 to6.7671e-9 kWh.
+Seed43 ranges from10.3928 to13.9017 kWh. Thus near-zero predictions persist
+through this complete replay under the frozen update budget, rather than only
+appearing on the earlier single diagnostic input. Adaptive loses to Seasonal
+Naive for all three seeds on this one station. Differences below2e-10 between
+Adaptive and Fixed for42/44 are not interpreted as meaningful wins.
+
+This is **one station/budget**, not population efficacy or a significance test.
+Source/model/controller RNG vary together across seeds; this is not a controlled
+causal Source-quality ablation. The cause and wider impact remain unresolved.
+All seeds, checkpoints and negative results are retained. No method, head,
+initialization, loss, epoch count or checkpoint selection was changed. The first
+analysis script rejected expected seed-specific Source fingerprint differences;
+the corrected verifier requires every other input field identical and each
+Source exactly pinned. The failed script/log are retained; no experiment or
+metric was changed to make the analysis pass.
+
+### Storage durability and resumption boundary
+
+A read-only filesystem check found `/kaggle/working` and `/tmp` on different
+devices. A reversible move relocated34 **already externally verified** primary
+scratch directories,114,408 files, into the runtime's own `/tmp` cache. Every
+file hash was checked before relinquishing its old location and again through
+the retained original-path aliases. Raw/input files, Source banks, code, root
+export ZIPs and unpublished/failed chunks were untouched. No payload was discarded.
+Working free space increased from2.509 to5.907 GiB; a later live observation was
+5.343 GiB after subsequent writes. This is measured storage, not a runtime estimate.
+
+[Move proof](https://drive.google.com/file/d/1gr-b7R16DSb3T3lCWMA4q6c6Mp7gw-tR/view)
+(5,887,185 bytes, SHA-256
+`ef4e5d9376184da00f4cfc2739baf1f196aaf9954b40c6705234c3af3223d82c`)
+and [independent Drive readback](https://drive.google.com/file/d/16esaQkwHCxeshzui_MC6rjcBpQH6eSFe/view)
+preserve the allowlist,34 file manifests, move journal, alias verification and
+result. Local verification proves the archive/manifest consistency; the cloud
+worker performed the actual file reads. New dispatches reject live GPU/cache-move
+children and less than1 GiB working headroom. Existing city launchers were pinned,
+compiled and [published](https://drive.google.com/file/d/11MhREnfcPZNrs4XgqsCW4xMHgdEUZIJD/view)
+without changing their research configurations.
+
+Both working and tmp runtime storage are **volatile**. Durability comes from the
+canonical exports on Drive plus verified local copies. Those exports retain all
+committed forecasts/events and the latest accepted model/optimizer/RNG state;
+they do not promise every historical intermediate model state. If the runtime
+vanishes, restore the accepted publication chain and continue the first unfinished
+bounded batch. At worst an unpublished batch may need replay; completed published
+batches and Source models do not need retraining. No claim of zero possible loss
+inside a live/unpublished batch is made.
+
+Sprint3, full paired analyses and Final acceptance remain incomplete. Final has
+not been opened or executed. No autonomous approval, merge or issue closure.

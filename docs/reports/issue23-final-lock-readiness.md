@@ -162,3 +162,14 @@ of the independent review. Complete the frozen matrix and report seed
 sensitivity/negative transfer before interpreting or locking the study.
 Exact inputs, Source identities, scripts and paired-prefix evidence are linked
 in the durable recovery report. No configuration/seed selection was made.
+
+The first AMS1200/7d group is now complete across14 variants and seeds42/43/44,
+with identical90 scored origins. Adaptive MAE is12.799506/0.336414/12.799506 kWh;
+Seasonal Naive is0.089383 for all three. Saved active predictions remain near zero
+through all90 days for42/44, rather than only on one diagnostic input. The full
+[analysis bundle](https://drive.google.com/file/d/1VPRlng7dPVGzEYMR8XKDfLqpi5fbISUD/view)
+and figure in the durable recovery report are independently authenticated.
+This is one station/budget. Source, target initialization and controller RNG vary
+together, so the observation does not isolate a causal Source-quality effect.
+Keep all seeds and adverse results, finish the declared comparisons and request
+independent review before Final; no silent research-method change is authorized.
