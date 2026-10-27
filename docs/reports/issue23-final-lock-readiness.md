@@ -152,3 +152,13 @@ head, loss, or training duration. Complete the frozen Development comparisons,
 report seed sensitivity/negative transfer, and explicitly review this risk
 before Final approval. A proposed method change requires separate review and
 a new lock; checkpoint validity alone does not establish useful pretraining.
+
+A subsequent AMS25 prefix diagnostic authenticated every saved daily chain and
+confirmed identical90 scored origins for AMS1200/7d. Adaptive MAE is12.799506
+for seed42 and0.336414 for43; Fixed Retention is12.799506 and0.274458;
+Seasonal Naive is0.089383 for both. This is an incomplete one-entity prefix,
+not a balanced seed/city estimate, but the adverse observations must be part
+of the independent review. Complete the frozen matrix and report seed
+sensitivity/negative transfer before interpreting or locking the study.
+Exact inputs, Source identities, scripts and paired-prefix evidence are linked
+in the durable recovery report. No configuration/seed selection was made.

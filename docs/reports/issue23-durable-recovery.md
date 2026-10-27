@@ -799,3 +799,109 @@ archives, Sources, code, logs and all unpublished or failed partial work.
 JHB remains378/378, LOA25/378 and SPO13/378 accepted. Full Development,
 statistical comparisons, independent Final lock approval and Final remain
 outstanding. No peer approval, merge or Sprint3 completion is claimed.
+
+### All remaining city Sources verified; AMS25 paired diagnostic
+
+AMS now has25/378 accepted target cells. Both new ranges passed fresh Drive
+bytes/SHA, exact frozen bindings, complete independent daily/input/latest-state
+proof equality and all three Source CPU reloads. Latest
+[archive](https://drive.google.com/file/d/1aqyG5zgbrKhmK5vmUKuzKsvmEVAP3GTR/view),
+[receipt](https://drive.google.com/file/d/1yxKvmUrC-Pbevi1vs4aL8tgXQkL_zPlQ/view),
+[proof](https://drive.google.com/file/d/1DdnPozyh0oyLCVVwD3e7LcOAlsKdDNT0/view).
+A separate [read-only diagnostic](https://drive.google.com/file/d/1Dz8LGDyvuoG6P3am2jRw491yUPUz6hhj/view)
+rehashes all25 daily forecast/event commit chains and verifies the exact same
+90 scored origins. The diagnostic archive also passed fresh Drive bytes/SHA,
+CRC and both-member equality. It contains its rerunnable script and exact
+publication bindings; no fitting or Final records were used.
+
+The following are **partial Development observations for the first predeclared
+AMS entity1200,7-day budget**, not city/population estimates. Seed42 has all14
+variants, seed43 currently11; seed44 and the rest of the matrix remain required.
+Do not average this unequal prefix across seeds or select the favorable seed.
+
+| Method | Seed42 MAE, kWh | Seed43 MAE, kWh |
+| --- | ---: | ---: |
+| Adaptive | 12.799506 | 0.336414 |
+| Fixed Retention | 12.799506 | 0.274458 |
+| Full Fine-tuning | 12.799506 | 0.358287 |
+| Target-only | 0.844062 | 0.794008 |
+| Seasonal Naive | 0.089383 | 0.089383 |
+| Frozen Source | 12.799506 | 0.213617 |
+| Online Best | 12.799506 | 0.288696 |
+
+This prefix exposes seed sensitivity and a poor Source-initialized seed42 case.
+Adaptive also trails Fixed Retention and Seasonal Naive for seed43 here. The
+observed Source42/44 Softplus saturation may help explain poor transfer, but
+causality and the population-wide effect are not established. Complete the
+predeclared comparisons, retain all seeds and report negative results. This
+finding does not authorize silently changing architecture/loss/initialization,
+selecting checkpoints, dropping seeds or opening Final.
+
+MEL Source44 passed independent CPU verification after a fresh Drive download,
+completing its three fixed10-epoch,3,060-example Source models. Latest
+[archive](https://drive.google.com/file/d/1LJy2CrzDLVLCVkKW-vQVTJfqNVpWTZr1/view),
+[receipt](https://drive.google.com/file/d/18LP3615GZ_kIZuM6dOfgtWuKAFf_FliP/view),
+[proof](https://drive.google.com/file/d/1gNK6EaOZ-GDAbz1wgfjv29huJLvh4jBj/view).
+All three were restored into a pinned [new target replication kit](https://drive.google.com/file/d/1qhzYHXuRZuUsq5mBEHBrKS3jFMhyq6NH/view).
+Its first target15/7d/adaptive/seed42 passed90 issued/scored days and external
+verification: MAE27.663882754392425 kWh, RMSE45.01648552700619 kWh.
+[Archive](https://drive.google.com/file/d/1uy03jl_QbOJd-9cT3Kj-mChiG3R2VO8R/view),
+[receipt](https://drive.google.com/file/d/1zIz2raIF0xzRofq4j-g0H4jTpzABwHXk/view),
+[proof](https://drive.google.com/file/d/1tFiZ_8hKBJbnXvDoJPfXRgC7Dkz_4j3v/view).
+This is1/378 new replication targets; original cached59 are not mixed/adopted.
+Without paired baselines, this one value is not an effectiveness conclusion.
+
+SZH Sources43/44 both completed10 epochs on79,740 own-city Source examples
+and passed fresh Drive download, exact Source/input/population/config/seed
+binding and independent CPU/latent-scale checks. Latest Source44
+[archive](https://drive.google.com/file/d/1fX1rBJF3BD5m85Qgi9IssbBEJHBgkf4Q/view),
+[receipt](https://drive.google.com/file/d/1LTejvqtAgDHrRVDFeY-vdAqP27g-o3JA/view),
+[proof](https://drive.google.com/file/d/1EZjuEJkCTfUgXI2jsh5OVj4Realab8Fw/view).
+The [three-Source SZH target kit](https://drive.google.com/file/d/1UetucVF4vQhrv5Luh3OeU_9ateDGS2ry/view)
+was independently CPU restored locally and in cloud preparation. Both MEL and
+SZH reuse the clean pinned aa9 target checkout and its existing366-fixture/
+lint/format gate; these are not new366-test suites. All six CHARGED cities now
+have their own three accepted Source checkpoints (including the independently
+restored original SPO Sources), not pooled city/UrbanEV weights. Target matrices
+remain incomplete outside JHB; SZH remains a separate temporal/possible-overlap
+supplementary analysis and CHARGED upstream preprocessing limitations remain.
+
+Primary matched offsets132–143 also passed external verification. Accepted
+new-runtime recovery is356/742:212 proxy plus144 matched. Latest
+[archive](https://drive.google.com/file/d/1Ed0kRN1bgmGd7Wm9gp-RlbgXltG6wQXI/view),
+[receipt](https://drive.google.com/file/d/1_X_o5knuufv56PD8yniPxm-syfFMCS4C/view),
+[proof](https://drive.google.com/file/d/1gHp-lfAy8KZXbMZoIiFZXthcTlT-9LOz/view).
+Next144–155 was dispatched only after terminal success, the actual preceding
+published receipt and the no-live-GPU-child guard. It is not counted as accepted
+until independent external verification passes. No Final, merge, peer approval,
+full experimental matrix or Sprint3-completion claim.
+
+SZH first target4/7d/adaptive/seed42 subsequently passed independent external
+verification on90 issued/scored days: MAE18.16418929969041 kWh and
+RMSE23.541384442375847 kWh. [Archive](https://drive.google.com/file/d/1yhAfkSyaEOsoA7EVSBIWA6D1v-3VQq0w/view),
+[receipt](https://drive.google.com/file/d/176MKOjs9brj4NM2J-G4DAYYmuM1oVjFu/view),
+[proof](https://drive.google.com/file/d/1BJh0sOfZq7gogeOekSey-jR_2s7Ft1k_/view).
+This is1/378 cells, not a paired baseline or independent geographical-validation
+claim. All six CHARGED namespaces now have at least one actually executed,
+externally verified Development target. Their matrices remain separate.
+
+Matched144–155 passed actual fresh Drive and independent full-content checks,
+raising the accepted recovery prefix to368/742:212 proxy plus156 matched.
+[Archive](https://drive.google.com/file/d/1liFGw_VRkZ36UF_E6N2rbxyd-kdkmk5u/view),
+[receipt](https://drive.google.com/file/d/14Y3YKNYmQsCMXFxdf3bZtt382LlFmKuM/view),
+[proof](https://drive.google.com/file/d/1_NzISbQ-uJOPoRdYj7tyGE26LIQ75pNH/view).
+The next bounded matched156–167 is dispatched after actual prior publication
+and terminal-success guards. MEL replication1–12 also reached terminal success;
+its external publication gate is pending at this observation. No unverified
+batch is included in the accepted counters. Core research modules are unchanged;
+these updates only record new run/provenance/negative-result evidence.
+
+MEL replication1–12 passed fresh Drive and complete independent Source/daily/
+input/latest-state checks, bringing its new verified prefix to13/378.
+[Archive](https://drive.google.com/file/d/1U-8xQkh_1QUfHMyeWGpIw03VggdHK4KX/view),
+[receipt](https://drive.google.com/file/d/159x5vjm00OORpkJ-JFilYiBmqE3d1m8B/view),
+[proof](https://drive.google.com/file/d/1k6HJxHBQ98e98bAi0guQI02CfSpmZfZR/view).
+Current accepted city target prefixes are JHB378, LOA25, SPO13, AMS25,
+MEL13 (new replication) and SZH1, each against its separate378-cell plan.
+These are neither pooled data nor full-study effectiveness results. Continue
+from each actual published receipt; preserve all incomplete/failed work.

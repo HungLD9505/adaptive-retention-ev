@@ -1876,17 +1876,17 @@
   },
   "latest_durability_snapshot": {
     "date": "2026-10-27",
-    "primary_new_runtime_published": 344,
+    "primary_new_runtime_published": 368,
     "primary_new_runtime_required": 742,
     "proxy_published": 212,
     "proxy_required": 212,
-    "matched_published": 132,
+    "matched_published": 156,
     "matched_required": 530,
     "next_matched_range": [
-      132,
-      144
+      156,
+      168
     ],
-    "next_range_status": "Not dispatched; bounded AMS target range1-13 dispatched PID3995, acceptance pending",
+    "next_range_status": "Dispatched after actual published prior receipt and no-live-GPU-child guard; external verification pending",
     "loa_target_published": 25,
     "loa_target_required": 378,
     "matched_24_36": {
@@ -2085,7 +2085,7 @@
       "seed": 42,
       "source_code": "b4376dc88d62c55ae23af56f3c0f595c2bfe463f",
       "cohort_sha256": "fd66da1548b98df0cdf024417363d0e8f503432b1ae1947d841ed65b57da9329",
-      "scope": "First own-city AMS Source only; original fixed recipe/profile and seed42. Count134640 verified. Seeds43/44 and all378 target cells remain required; no Final or complete-city claim.",
+      "scope": "First own-city AMS Source, fixed recipe/profile and seed42. All3 AMS Sources now accepted; target matrix still incomplete. Historical intermediate observations remain in chronological report.",
       "last_observed_completed_epoch_checkpoints": 10,
       "checkpoint_sha256": "a368c3ebabeb9cb91180ff01ee41b271dbbdf888b610083834bbc75a5b2eda2d",
       "artifact": {
@@ -2136,19 +2136,20 @@
       "acceptance": "PASS fresh Drive download, exact bindings, complete independent Source/daily/input/latest-state verification"
     },
     "ams_source43": {
-      "status": "PID3715 polled live, actual epoch1 checkpoint and log observed; not completed or independently published",
+      "status": "Completed10 epochs and externally published/independently CPU verified; exact receipt in ams_source43_accepted",
       "seed": 43,
       "source_epochs": 10,
       "source_examples": 134640,
       "source_code": "b4376dc88d62c55ae23af56f3c0f595c2bfe463f",
       "prior_Source42_publication_barrier": "Actual Drive receipt c1250275d22f6e90e6d7c932d288f2fe6e0b4b00cbe15c6b6d0c6cbb0afe2fc7 checked before fitting",
-      "scope": "Second own-city AMS Source, fixed recipe/seed; no new tuning, target/Final or automatic next."
+      "scope": "Second own-city AMS Source, fixed recipe/seed; no new tuning, target/Final or automatic next.",
+      "initial_observation_status": "PID3715 polled live, actual epoch1 checkpoint and log observed; not completed or independently published"
     },
-    "ams_target_published": 1,
+    "ams_target_published": 25,
     "ams_target_required": 378,
     "ams_sources_published": 3,
-    "mel_replication_sources_published": 2,
-    "szh_sources_published": 1,
+    "mel_replication_sources_published": 3,
+    "szh_sources_published": 3,
     "matched_108_120": {
       "receipt": {
         "schema": "verified-kaggle-outbox-publication-v1",
@@ -2442,6 +2443,382 @@
       "cleanup_performed": false,
       "scope": "Last actual read-only scan; do not assume subsequent writes leave free space unchanged."
     },
-    "final_status": "Not run; independent immutable lock approval and full Development remain outstanding"
+    "final_status": "Not run; independent immutable lock approval and full Development remain outstanding",
+    "mel_replication_target_published": 13,
+    "mel_replication_target_required": 378,
+    "matched_132_144": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 132,
+        "end": 144,
+        "run_ids": [
+          "urbanev-SZH-1200-7d-frozen_source-seed43",
+          "urbanev-SZH-1200-7d-online_best-seed43",
+          "urbanev-SZH-1200-7d-without_source_initialization-seed43",
+          "urbanev-SZH-1200-7d-block7-seed43",
+          "urbanev-SZH-1200-7d-block28-seed43",
+          "urbanev-SZH-1200-7d-adaptive-seed43",
+          "urbanev-SZH-1200-7d-full_finetuning-seed43",
+          "urbanev-SZH-1200-7d-fixed_retention-seed43",
+          "urbanev-SZH-1200-7d-seasonal_naive-seed44",
+          "urbanev-SZH-1200-7d-target_only-seed44",
+          "urbanev-SZH-1200-7d-frozen_source-seed44",
+          "urbanev-SZH-1200-7d-online_best-seed44"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1Ed0kRN1bgmGd7Wm9gp-RlbgXltG6wQXI/view",
+          "bytes": 17726313,
+          "sha256": "da4b669c147fe36e3a81695bfbb5136016b6395827991cd5a036ee7a917d54a4"
+        },
+        "verification_sha256": "8bac2c329fd1da4712b138cf366e5b5e858103aa6927065def8fec61a7d97a13",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "1Ed0kRN1bgmGd7Wm9gp-RlbgXltG6wQXI",
+      "receipt_id": "1_X_o5knuufv56PD8yniPxm-syfFMCS4C",
+      "proof_id": "1gHp-lfAy8KZXbMZoIiFZXthcTlT-9LOz",
+      "receipt_sha256": "ed6bf4250aaad011addbb12e5018d62658240f588281f0162ebf1cc934c1852d",
+      "proof_sha256": "5ccf349e7e9e79f201c90d56671789b7f0c03b0666bc8ff36b9266485e252fb0"
+    },
+    "ams_target_1_13": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "7aafc9a5b18d38f0415d4b51f42fffe1e4e3ecb14a33aa947b799a127686443c",
+        "family": "charged-AMS",
+        "start": 1,
+        "end": 13,
+        "run_ids": [
+          "charged-AMS-1200-7d-full_finetuning-seed42",
+          "charged-AMS-1200-7d-fixed_retention-seed42",
+          "charged-AMS-1200-7d-source_error-seed42",
+          "charged-AMS-1200-7d-uncertainty-seed42",
+          "charged-AMS-1200-7d-drift-seed42",
+          "charged-AMS-1200-7d-parameter_retention-seed42",
+          "charged-AMS-1200-7d-seasonal_naive-seed42",
+          "charged-AMS-1200-7d-target_only-seed42",
+          "charged-AMS-1200-7d-frozen_source-seed42",
+          "charged-AMS-1200-7d-online_best-seed42",
+          "charged-AMS-1200-7d-without_source_initialization-seed42",
+          "charged-AMS-1200-7d-block7-seed42"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1FH2Bglcf86uvXiMmSQe6mnr31-qcC8Bc/view",
+          "bytes": 26440989,
+          "sha256": "6aefa2b3c26b202b5240ed275a26d30c457f793848fed789dfcf1bbfcc1c1477"
+        },
+        "verification_sha256": "45c21c655e6ccae0e31ad002891c93f7578a562bbfe556d3b2ce42c3b398c8eb",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1FH2Bglcf86uvXiMmSQe6mnr31-qcC8Bc",
+      "receipt_id": "1_KxmWjQPXXt1aCpIde1Xnu5SWTtOssIb",
+      "proof_id": "12MqgLtxTFfJmL3qEhhMlNy-TkMzlrGMc",
+      "receipt_sha256": "2242b5e6a4b45fffd7970181d05cc6c71009ce92a2f903865ada2b79d29148e1",
+      "proof_sha256": "14d5aa660dece40535152e21f5527f9be68b39137d940743bd2431dff29924e4"
+    },
+    "ams_target_13_25": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "7aafc9a5b18d38f0415d4b51f42fffe1e4e3ecb14a33aa947b799a127686443c",
+        "family": "charged-AMS",
+        "start": 13,
+        "end": 25,
+        "run_ids": [
+          "charged-AMS-1200-7d-block28-seed42",
+          "charged-AMS-1200-7d-adaptive-seed43",
+          "charged-AMS-1200-7d-full_finetuning-seed43",
+          "charged-AMS-1200-7d-fixed_retention-seed43",
+          "charged-AMS-1200-7d-source_error-seed43",
+          "charged-AMS-1200-7d-uncertainty-seed43",
+          "charged-AMS-1200-7d-drift-seed43",
+          "charged-AMS-1200-7d-parameter_retention-seed43",
+          "charged-AMS-1200-7d-seasonal_naive-seed43",
+          "charged-AMS-1200-7d-target_only-seed43",
+          "charged-AMS-1200-7d-frozen_source-seed43",
+          "charged-AMS-1200-7d-online_best-seed43"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1aqyG5zgbrKhmK5vmUKuzKsvmEVAP3GTR/view",
+          "bytes": 27103693,
+          "sha256": "2c419fb0810a4243a359cce8b2c7c95a9b99147940bcf0c9eb601cebaa8ba027"
+        },
+        "verification_sha256": "0852e2792a3411c42c6bf8a44c2d6de32938f71a06a6f0789f90fb37a9e96fd6",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1aqyG5zgbrKhmK5vmUKuzKsvmEVAP3GTR",
+      "receipt_id": "1yxKvmUrC-Pbevi1vs4aL8tgXQkL_zPlQ",
+      "proof_id": "1DdnPozyh0oyLCVVwD3e7LcOAlsKdDNT0",
+      "receipt_sha256": "3f84b3c47d721fa11cd26cc723547daeb57d8f37527d4d312d462501cd02b9b7",
+      "proof_sha256": "f4871cff9713619da06a92515716a8a90f2c6ad9d4372f0d743c6e4827e7c8fc"
+    },
+    "mel_source44_accepted": {
+      "receipt": {
+        "schema": "verified-city-source-publication-v1",
+        "namespace": "charged-MEL",
+        "seed": 44,
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1LJy2CrzDLVLCVkKW-vQVTJfqNVpWTZr1/view",
+          "bytes": 875098,
+          "sha256": "f9607c811882c8a4b39406213c6ebb71b45ce3bca371cf85587674076f6ff37d"
+        },
+        "source_checkpoint_sha256": "f0be6ac27d6d635ad4bb869ef6f32551985d8ea4a10c664ff637b6dbe9844de1",
+        "context_sha256": "e6f1225a669eda66e587911c899269865f7c4a8fa2d782669eefec04da12636e",
+        "cohort_sha256": "920c1264232dea1239ea6152effa2d0731e3701b7223b474660103c123d2568f",
+        "primary_sha256": "ecc8b1854128f84ab13070be4ab38d6179d7f15c331f8cf2caf72604576157b6",
+        "environment_profile_sha256": "0b18bd43de36915b70d00dbe7633dc707cfd9d85f8561dbdb1ea439ff916bffc",
+        "verification_sha256": "bf3957d23b5670c80dc529035519578df54574b5a531df81d27ee9e1fac434d1",
+        "operator_seconds": 4.088466958986828,
+        "scope": "Actual fresh anonymous Drive download, exact content restoration and independent CPU Source metadata/latent/input/count verification. No fitting, target/Final inference, full-city completion or effectiveness claim.",
+        "operation": "new_complete_MEL_replication_not_original_byte_recovery",
+        "replication_declaration_sha256": "3826e32c76258b16efe3bc4d8243d6ac95135e9a27a5023d0c304d031c74e55f"
+      },
+      "archive_id": "1LJy2CrzDLVLCVkKW-vQVTJfqNVpWTZr1",
+      "receipt_id": "18LP3615GZ_kIZuM6dOfgtWuKAFf_FliP",
+      "proof_id": "1gNK6EaOZ-GDAbz1wgfjv29huJLvh4jBj",
+      "receipt_sha256": "94dca8a70f29859a522a76d429d4ae6181171cbaceb90121f05b5a3af1196f54",
+      "proof_sha256": "d326bc750d5aafe032bf4999be5310c0304c4b3486591b7dddc27b952a9f3b77"
+    },
+    "szh_source43_accepted": {
+      "receipt": {
+        "schema": "verified-city-source-publication-v1",
+        "namespace": "charged-SZH",
+        "seed": 43,
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1LMyCNrU64kZ3Mmisr-ecMm1ZFI6BrRTn/view",
+          "bytes": 870748,
+          "sha256": "4c8b5c31682afc4ebb288058efc2bcca9516fb9ac63dbf3e8bff4aa62328be00"
+        },
+        "source_checkpoint_sha256": "6b3fde03bf169d81d252a62d3cd15323493e165a9fa92bbaa869a369d7efffee",
+        "context_sha256": "f0ad7622e68e5718ee889317b8cb4bcff3c8ebe2eda5dba4c49a7b3eb777f6f6",
+        "cohort_sha256": "465fa0c58f92bb8e824ea6384cf4d1df2eb641e2ae5dd5057dcc6903d9ebfd13",
+        "primary_sha256": "ecc8b1854128f84ab13070be4ab38d6179d7f15c331f8cf2caf72604576157b6",
+        "environment_profile_sha256": "0b18bd43de36915b70d00dbe7633dc707cfd9d85f8561dbdb1ea439ff916bffc",
+        "verification_sha256": "bc5fe997c8640a7e651873fb0e1402237af4be2c3f8ff7dc788e837852fe070c",
+        "operator_seconds": 4.723449332988821,
+        "scope": "Actual fresh anonymous Drive download, exact content restoration and independent CPU Source metadata/latent/input/count verification. No fitting, target/Final inference, full-city completion or effectiveness claim."
+      },
+      "archive_id": "1LMyCNrU64kZ3Mmisr-ecMm1ZFI6BrRTn",
+      "receipt_id": "1MLOtZg-gQZO_zEynb2lxGnmDRzsh_lWS",
+      "proof_id": "1q-_aGjJ90CC_AegD6iAu6uR7U3X0iLO-",
+      "receipt_sha256": "8d0a074f2102e474af2667608ce0224a363e271855328e27cd940d0399d6dda4",
+      "proof_sha256": "4b067338a9fabc213f27cdee3adc48ad470e5191967bb27ecfae144c314d1f40"
+    },
+    "szh_source44_accepted": {
+      "receipt": {
+        "schema": "verified-city-source-publication-v1",
+        "namespace": "charged-SZH",
+        "seed": 44,
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1fX1rBJF3BD5m85Qgi9IssbBEJHBgkf4Q/view",
+          "bytes": 868380,
+          "sha256": "5fcf0d622804891537bc23559378cbc250e738ce5bcf39f7dae1e685ae89ce2e"
+        },
+        "source_checkpoint_sha256": "6b7c8aec3f7f017628f298f766a53d49d16c1f6de174a7a897d080d7db5c0c4b",
+        "context_sha256": "f0ad7622e68e5718ee889317b8cb4bcff3c8ebe2eda5dba4c49a7b3eb777f6f6",
+        "cohort_sha256": "465fa0c58f92bb8e824ea6384cf4d1df2eb641e2ae5dd5057dcc6903d9ebfd13",
+        "primary_sha256": "ecc8b1854128f84ab13070be4ab38d6179d7f15c331f8cf2caf72604576157b6",
+        "environment_profile_sha256": "0b18bd43de36915b70d00dbe7633dc707cfd9d85f8561dbdb1ea439ff916bffc",
+        "verification_sha256": "14197d39b27656188805d04c76e9a2b0e5844eddd820b23f6f03a638a3594c0a",
+        "operator_seconds": 4.777485708007589,
+        "scope": "Actual fresh anonymous Drive download, exact content restoration and independent CPU Source metadata/latent/input/count verification. No fitting, target/Final inference, full-city completion or effectiveness claim."
+      },
+      "archive_id": "1fX1rBJF3BD5m85Qgi9IssbBEJHBgkf4Q",
+      "receipt_id": "1LTejvqtAgDHrRVDFeY-vdAqP27g-o3JA",
+      "proof_id": "1EZjuEJkCTfUgXI2jsh5OVj4Realab8Fw",
+      "receipt_sha256": "fd9f2e44e7c36aa9ba83050e1b4a6310fbfaaf058eed80f38e756ff2596e17e8",
+      "proof_sha256": "dce8ef575069c1b00c508fd7dba296975f7e1fa508adf6b073b867eaf8dda6dd"
+    },
+    "mel_replication_target_first": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "278754516a90fb484fdcdf7ef443f51513dc1cbc28605130ca5c8698de99d034",
+        "family": "charged-MEL",
+        "start": 0,
+        "end": 1,
+        "run_ids": [
+          "charged-MEL-15-7d-adaptive-seed42"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1uy03jl_QbOJd-9cT3Kj-mChiG3R2VO8R/view",
+          "bytes": 12737383,
+          "sha256": "fc5658d3752ae11845f575469169e8712d70365b570448b40f0c261d3f3fdd82"
+        },
+        "verification_sha256": "712909ba7f29a64888740d5d21a27d904513e5ee1dbbd0d4ac727e87b228c6aa",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1uy03jl_QbOJd-9cT3Kj-mChiG3R2VO8R",
+      "receipt_id": "1zIz2raIF0xzRofq4j-g0H4jTpzABwHXk",
+      "proof_id": "1tFiZ_8hKBJbnXvDoJPfXRgC7Dkz_4j3v",
+      "receipt_sha256": "94042be822f3197b978ddaf8e80b4208207c73454cd99c61c0b54cf228ec4a7b",
+      "proof_sha256": "bd4c1351939896f9675ed566a9a1c4169fa1f8d9a88bf62dc3ffb2fe41ae9d3b"
+    },
+    "ams_first25_diagnostic": {
+      "artifact_id": "1Dz8LGDyvuoG6P3am2jRw491yUPUz6hhj",
+      "bytes": 42038,
+      "sha256": "33b37d0805219aecf700ebb41989f3eb50730e4f87d4f436063b9a827560e95e",
+      "readback": "Actual fresh Drive bytes/SHA/CRC/all2 members equal local source PASS",
+      "scope": "25 saved daily chains rehashed; identical90 scored origins. One predeclared AMS1200/7d, seed42 complete14 variants and seed43 partial11; not an aggregate or superiority claim."
+    },
+    "mel_target_kit": {
+      "assembly": {
+        "status": "all3_published_Source_weights_independently_reloaded_and_frozen378_target_plan_prepared",
+        "code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "plan_sha256": "278754516a90fb484fdcdf7ef443f51513dc1cbc28605130ca5c8698de99d034",
+        "source_kit_sha256": "3acf475fffdec6f5ff9f19d191f7c90918385516e96baec31f2dee9a27968251",
+        "source_checkpoints": {
+          "42": "5eb1778e3a9df10699fd614cffb8b37d667e541db6608d3d417054c2c9770c4c",
+          "43": "11782c2f2cb773ec5c98745520f9e98dc899b510dd60fabf3bd2f25b2ba12bb0",
+          "44": "f0be6ac27d6d635ad4bb869ef6f32551985d8ea4a10c664ff637b6dbe9844de1"
+        },
+        "kit_sha256": "6ae28abb30226aff7393fe57d7f5d823c24e603bc1ff1ec286b26b663e87b147",
+        "kit_bytes": 17505901,
+        "scope": "CPU restoration/preparation only; no Source fitting, target or Final execution."
+      },
+      "archive_id": "1qhzYHXuRZuUsq5mBEHBrKS3jFMhyq6NH",
+      "cloud_cpu_preparation": "PASS with unchanged identified target code and existing366 fixture/lint/format gate; not366 new tests"
+    },
+    "szh_target_kit": {
+      "assembly": {
+        "status": "all3_published_Source_weights_independently_reloaded_and_frozen378_target_plan_prepared",
+        "code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "plan_sha256": "9975bd0b4a491c8984da5ee2cd03bb15e826db2a844bf97239921e5ce24a577a",
+        "source_kit_sha256": "1d7735385a72686301d3ec52d4169d83cce690945f5512adfa071c0921080643",
+        "source_checkpoints": {
+          "42": "c8da9be3701c65c3cf96edd5f979ff2457beaeaba7611459568d7b3e0e53352a",
+          "43": "6b3fde03bf169d81d252a62d3cd15323493e165a9fa92bbaa869a369d7efffee",
+          "44": "6b7c8aec3f7f017628f298f766a53d49d16c1f6de174a7a897d080d7db5c0c4b"
+        },
+        "kit_sha256": "2d124f37ea6bbb1551b3973d0c9fe46e15bd729792bb31ac53681332a743c06f",
+        "kit_bytes": 17488862,
+        "scope": "CPU restoration/preparation only; no Source fitting, target or Final execution."
+      },
+      "archive_id": "1UetucVF4vQhrv5Luh3OeU_9ateDGS2ry",
+      "cloud_cpu_preparation": "PASS with unchanged identified target code and existing366 fixture/lint/format gate; not366 new tests"
+    },
+    "szh_target_first": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "9975bd0b4a491c8984da5ee2cd03bb15e826db2a844bf97239921e5ce24a577a",
+        "family": "charged-SZH",
+        "start": 0,
+        "end": 1,
+        "run_ids": [
+          "charged-SZH-4-7d-adaptive-seed42"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1yhAfkSyaEOsoA7EVSBIWA6D1v-3VQq0w/view",
+          "bytes": 12628315,
+          "sha256": "0a24aa430ce8e95b2cb2c06cbf98d1e73801b16b3d0fc7a011043671340cfe34"
+        },
+        "verification_sha256": "4a1bfc7dea6e173747c883ecef56d7950fc2ca1507c2741f958622c08f7b00a7",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1yhAfkSyaEOsoA7EVSBIWA6D1v-3VQq0w",
+      "receipt_id": "176MKOjs9brj4NM2J-G4DAYYmuM1oVjFu",
+      "proof_id": "1BJh0sOfZq7gogeOekSey-jR_2s7Ft1k_",
+      "receipt_sha256": "4f4b8dd97d194043fbb28b07008a771e832787603a0235d7cbf840483fe45231",
+      "proof_sha256": "8875cb6fc4e1a68973c5beb6d69187c28dbe707b653a914c45d17314c5cfe22a"
+    },
+    "szh_target_published": 1,
+    "szh_target_required": 378,
+    "all_CHARGED_city_Source_sets": "All6 own-city sets,3 fixed seeds each, independently externally accepted; original SPO Sources restored without refitting",
+    "current_GPU_job": "Primary matched156-168 dispatched; inspect live process before any new dispatch. Published MEL13; no other GPU child should be live.",
+    "matched_144_156": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 144,
+        "end": 156,
+        "run_ids": [
+          "urbanev-SZH-1200-7d-without_source_initialization-seed44",
+          "urbanev-SZH-1200-7d-block7-seed44",
+          "urbanev-SZH-1200-7d-block28-seed44",
+          "urbanev-SZH-1200-7d-adaptive-seed44",
+          "urbanev-SZH-1200-7d-full_finetuning-seed44",
+          "urbanev-SZH-1200-7d-fixed_retention-seed44",
+          "urbanev-SZH-2447-7d-seasonal_naive-seed42",
+          "urbanev-SZH-2447-7d-target_only-seed42",
+          "urbanev-SZH-2447-7d-frozen_source-seed42",
+          "urbanev-SZH-2447-7d-online_best-seed42",
+          "urbanev-SZH-2447-7d-without_source_initialization-seed42",
+          "urbanev-SZH-2447-7d-block7-seed42"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1liFGw_VRkZ36UF_E6N2rbxyd-kdkmk5u/view",
+          "bytes": 18099718,
+          "sha256": "1a333d39ee51c3498a8321ca3138c5e61d98ab26627819016d978a87175e8771"
+        },
+        "verification_sha256": "ff9bbbbe40fdbac6fd80d62505c43ac01e310798a31aa2267de6f632f4c4909b",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "1liFGw_VRkZ36UF_E6N2rbxyd-kdkmk5u",
+      "receipt_id": "14Y3YKNYmQsCMXFxdf3bZtt382LlFmKuM",
+      "proof_id": "1_NzISbQ-uJOPoRdYj7tyGE26LIQ75pNH",
+      "receipt_sha256": "c37a79a7846d84092a17eecfec13a3b7a22ae68f7cd67cbbe9f6ca01a75836d2",
+      "proof_sha256": "ac32d21d6e84df87160352733631df4581db255f77050e81e5b6894387e3eaeb"
+    },
+    "mel_replication_target_1_13": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "278754516a90fb484fdcdf7ef443f51513dc1cbc28605130ca5c8698de99d034",
+        "family": "charged-MEL",
+        "start": 1,
+        "end": 13,
+        "run_ids": [
+          "charged-MEL-15-7d-full_finetuning-seed42",
+          "charged-MEL-15-7d-fixed_retention-seed42",
+          "charged-MEL-15-7d-source_error-seed42",
+          "charged-MEL-15-7d-uncertainty-seed42",
+          "charged-MEL-15-7d-drift-seed42",
+          "charged-MEL-15-7d-parameter_retention-seed42",
+          "charged-MEL-15-7d-seasonal_naive-seed42",
+          "charged-MEL-15-7d-target_only-seed42",
+          "charged-MEL-15-7d-frozen_source-seed42",
+          "charged-MEL-15-7d-online_best-seed42",
+          "charged-MEL-15-7d-without_source_initialization-seed42",
+          "charged-MEL-15-7d-block7-seed42"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1U-8xQkh_1QUfHMyeWGpIw03VggdHK4KX/view",
+          "bytes": 28292141,
+          "sha256": "818a90c9a544fe5854603ba6ea1a7c89ba54ea7f19482a22fd07f346f6b5aef2"
+        },
+        "verification_sha256": "84fb7b0fda7aa93330df272de6e49dc492b3699ed9981acb661fef94bce67ad3",
+        "target_code": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+        "scope": "Actual fresh Drive readback, complete frozen city/input/config/code/Source bindings, all daily/input/state proof equality and3 Source CPU reloads. No fitting, Final, complete-city or effectiveness claim."
+      },
+      "archive_id": "1U-8xQkh_1QUfHMyeWGpIw03VggdHK4KX",
+      "receipt_id": "159x5vjm00OORpkJ-JFilYiBmqE3d1m8B",
+      "proof_id": "1k6HJxHBQ98e98bAi0guQI02CfSpmZfZR",
+      "receipt_sha256": "f091a2fc25fe53b59f857f395164f9455093e526a241c2225867d0286225adbd",
+      "proof_sha256": "c22d9797ee762923179e1098ecef18cf8e757febadbe2be838f253ed0ca29d82"
+    }
   }
 }
