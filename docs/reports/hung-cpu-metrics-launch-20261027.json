@@ -1,0 +1,41 @@
+{
+  "schema": "hung-cpu-metrics-launch-v1",
+  "scope": "development_only",
+  "coordinator": {
+    "url": "https://www.kaggle.com/code/hungluongduc/hung-cpu-metrics-coordinator-00-20261027-v1?scriptVersionId=362663220",
+    "version_id": 362663220,
+    "gpu": false,
+    "status_observed": "RUNNING",
+    "owned_inventory_capability": "passed",
+    "source_sha256": "2c8b5300ab75a9149eb1a9f80796b4fbee22fbff70aa809aa43ccc1573a9457f"
+  },
+  "first_child": {
+    "url": "https://www.kaggle.com/code/hungluongduc/hung-cpu-metrics-shard0001-20261027-v1",
+    "version": 1,
+    "gpu": false,
+    "source_sha256": "67f61755ae871a865a9b15072b63e52be092dee557d2d79727b590f1180c26bb",
+    "status": "submitted; completion not yet observed"
+  },
+  "receivers": 27,
+  "jobs": 540,
+  "excluded_completed_trial": "shard_0008",
+  "local_shards_excluded": true,
+  "log_sha256": "a7d1e1cc1e29375fc0b5cd24195b370c74737eca9faf0f2f7049e030e71231df",
+  "validation": {
+    "wall_seconds": 217.708984,
+    "head": "311cd064b9f79780a1bc98ba7d7ad22942f30409",
+    "python_utf8": "1",
+    "exit_code": 0,
+    "command": "python -m unittest discover -s tests"
+  },
+  "offline_tests": {
+    "ran": 346,
+    "skipped": 1,
+    "exit_code": 0
+  },
+  "ruff_check": "passed",
+  "ruff_format_files": 129,
+  "diff_check": "passed",
+  "independent_peer_acceptance": "pending",
+  "final_lock": "absent"
+}
