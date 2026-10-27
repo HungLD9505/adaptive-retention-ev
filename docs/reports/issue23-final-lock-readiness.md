@@ -30,6 +30,12 @@ All21 current accepted input profiles and exact ID lists match the prior pinned
 inventory; no Final value records were decoded. It retains35 no-initial-trainable
 pairs. Immutable execution lock artifacts and independent approval remain pending.
 Missing scores remain null, with explicit coverage denominators.
+The [input producer](../../ev_inputs/loader.py) sets entity readiness from valid,
+available prefix energy needed to fit its scaler; absence of that prefix produces
+`undefined_scale`. Ready membership does not require future labels or select
+stations by future replay accuracy/coverage. The all-ready selection does not use
+future forecast counts, activity, zero fraction or errors.
+
 
 A full-population static-coordinate audit now flags7 entity-budget pairs with
 exact numeric coordinates shared with a prefix-trainable Source ID: UrbanEV7d

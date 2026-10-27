@@ -1643,3 +1643,73 @@ Fresh external Drive readback passed bytes/hash/ZIP-CRC/all9 manifest members.
 Issue23 now leads with this updated scope decision, preserving its history.
 No research code/protocol was changed; no artificial unit suite rerun was needed.
 No Final execution, merge, main promotion, runtime deletion or issue closure.
+
+### 1188 /28d /seed43 and complete-unit publication preparation
+
+Seed43 first12 PID30383 exited0 in57.096s. Five parts total17,577,021 bytes,
+catalog SHA `e125c5676b41a79cd84ab57af1c44a1680f628f54d0d6fb6f0fc4167e77df19f`.
+Fresh external download/SHA/CRC, safe restore, daily/input/latest-state and all3
+original Source CPU checks passed before last2 dispatch. Last2 plan SHA
+`b86873297e4c197cc7a9d696587b81375021eaf5a95ffe99a85e8d71448d9725`,
+22,434-byte kit SHA
+`2fd6b27d4e22c969dc420a2de77dbae581dc618d063318015ab19811fbff3a99`;
+PID36210 exited0 in22.013s. Its3 parts total11,755,056 bytes, catalog SHA
+`a2138dddecf894e92a5ec8d3dda886deb8cbdf7adc92bf7dfe03eed33df59ab5`,
+also passed full external transport and independent daily/input/state/Source
+verification. [Complete unit](issue23-colab-unit1188-seed43-acceptance.json) retains
+all14 variants,90 scheduled /59 issued /0 scored days and0 initial examples;
+all metrics stay null. Source-checkpoint-only/random/seasonal/frozen policies are
+recorded, not presented as successful supervised adaptation or zero forecast error.
+
+The [native-connector uploaded receipt](https://drive.google.com/file/d/1fiHAGiZaqcS62HgaQC_XHxj9t1A7dsgI/view)
+was freshly downloaded with SHA
+`ad80693dc93117da374f17a98b633631bc47c1cef530b4a3228b266fe8c79d6a`.
+[First12 artifacts](https://drive.google.com/drive/folders/1y3R9Yuz68ybnxk8SbgtkpnN6tajqQ8Pr)
+and [last2 artifacts](https://drive.google.com/drive/folders/1BTjL2hKWrQyH-qDZof3uSI9VPzkwd2jY)
+remain preserved. Combined child wall79.109s excludes setup/export/readback/idle.
+Both handles are terminal0. Ledger-v5 SHA
+`cfca85897353b1fc5b415617636a1b84ef5c5a3ef572f9d6a1bb80fce08af1f5`
+now records88/231 complete execution units,143 incomplete; primary49/69.
+Remaining migration2,002 cells comprises1,873 new missing plus129 declared repeats.
+Unscorable units do not become scored station observations.
+
+A native Drive upload path was tested with an actual pending independent proof
+ZIP, rather than dummy data: [file](https://drive.google.com/file/d/197WRIzFn2Bsw_8BQ3H-_H8dnAhzem4UP/view),
+3,226 bytes/SHA
+`a91bb55d1088d551c79b872ea83d7ea611f5089baa18f6b4b2b6cc7be93acc17`.
+Fresh external bytes/hash/CRC passed; the same mounted Colab directory observed
+the uploaded file and its expected SHA. No credential transfer, new account,
+permission expansion, fake activity or raw-data changes were required.
+
+To reduce repeated Source staging/export/idle overhead, the preparation helper
+now optionally emits one publication of the first1..4 **complete** pending units
+(`--whole-unit-count 1..4`,14..56 cells). Default12/2 output and its CLI key remain
+compatible. Every unit must contain all14 exact original configurations; prefixes
+cannot skip a missing/changed/complete unit, duplicate identity or cross into
+CHARGED/Final. All3 original Source hashes and clean byte-identical core identities
+remain mandatory. The original reference template binds historical Source/core
+identities; actual runtime is separately probed and recorded by the executor.
+
+This explicitly updates the earlier operational<=12 convention for declared
+complete-unit publications, not the scientific protocol. Daily transactions,
+per-completed-run mounted backups, no-future-label/target-isolation gates and
+external verification before the next batch remain. First56-cell dispatch is
+bounded by20min/1unit,120s without a completed run and30-unit reserve, with no
+automatic retry/next batch. Canonical export remains4 runs/part with an8MB size
+check. The prior81.116–131.246s14-method child timings are sizing observations,
+not guarantees or experiment-only bills.
+
+379 offline tests PASS; Ruff lint/format PASS (197 Python files). New tests cover
+mixed-seed complete prefix/config preservation,14/56 counts, invalid bounds,
+changed later units and legacy behaviour. A real56-reference dry plan passed the
+unchanged replay validator, all original Source hashes and56 actual Development
+role/scaler bindings without decoding windows/labels or fitting. No new scientific
+unit is credited merely from those fixtures/dry checks. The first prepared batch
+is1188/28d/seed44 and1251/28d/seeds42/43/44, following ledger order. Plan SHA
+`f622e4fa18a75d3358fbaf956db0d865350a7cd350039377d453ba30ec91b30f`;
+100,657-byte kit SHA
+`f16fa4681e9b5168108ea558f866c608cbd183b4d1fd81db6127e012ff48e3d5`.
+The kit was [uploaded natively](https://drive.google.com/file/d/1RNS5gU990WY1gDqSxaD4Cxcdm_dT2G6L/view)
+and freshly downloaded/hash/CRC checked. These are preparation facts, not56-run
+completion. Final membership remains the lead-selected full3,510 pairs, with
+independent immutable execution approval still pending.
