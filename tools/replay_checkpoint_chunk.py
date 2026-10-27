@@ -1,4 +1,4 @@
-"""Bounded Kaggle Development replay; local outbox is NOT a published Drive backup."""
+"""Bounded cloud Development replay; local outbox is NOT a published Drive backup."""
 
 import argparse
 import contextlib
@@ -19,6 +19,7 @@ from ev_models.checkpoint import digest, write_json
 from ev_models.run import environment
 from ev_runner.replay import Replay
 from ev_runner.run import execute, runtime_code
+from tools.cloud_outbox import CLOUD_ROOTS, cloud_working_root, crosses_mounted_storage
 from tools.comparison_matrix import CachedInputs
 from tools.durable_run_backup import RunBackup
 from tools.export_development import put_file, safe_name
@@ -177,17 +178,18 @@ def run(args: argparse.Namespace) -> None:
         raise ValueError("Cloud CUDA required; no local real-data fitting")
     code = runtime_code()
     target_environment = {**environment("cuda"), "deterministic_algorithms": True}
-    working = Path("/kaggle/working").resolve(strict=True)
+    working = cloud_working_root(getattr(args, "cloud_root", CLOUD_ROOTS[0])).resolve(strict=True)
     if (
         code["dirty"]
         or code["files"] != original["code"]["files"]
         or not args.output.resolve().is_relative_to(working)
         or args.output.resolve() == working
         or args.output.resolve().is_relative_to(args.inputs_root.resolve())
+        or crosses_mounted_storage(args.output, working)
         or plan.get("target_execution_environment") != target_environment
         or plan.get("required_numpy_version") != np.__version__
     ):
-        raise ValueError("Cloud CUDA, unchanged clean core code and a new Kaggle outbox required")
+        raise ValueError("Cloud CUDA, unchanged clean core/profile and a new cloud outbox required")
     inputs = {}
     for row in chunk:
         b = row["binding"]["input"]
@@ -343,6 +345,7 @@ def run(args: argparse.Namespace) -> None:
         "family_total": len(rows),
         "code": code,
         "environment": target_environment,
+        "cloud_root": str(working),
         "catalog_sha256": digest(args.output / "exports/catalog.json"),
         "previous_publication_sha256": args.previous_handoff_sha256,
         "scope": "Local verified outbox only. External transport/content/Drive-readback proof required before next chunk. No autonomous continuation, Final, or full-study claim.",
@@ -361,6 +364,7 @@ def run(args: argparse.Namespace) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--cloud-root", choices=CLOUD_ROOTS, default=CLOUD_ROOTS[0])
     for name in ("plan", "inputs-root", "output"):
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--plan-sha256", required=True)

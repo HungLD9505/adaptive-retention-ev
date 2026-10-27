@@ -235,3 +235,18 @@ been authorized by that question. Colab-only execution is a feasible platform
 choice but requires identified code/dependencies/input/Source restoration and
 within-unit runtime fairness; payment alone does not close the scientific or
 artifact/reproduction acceptance gates. No Final execution is authorized here.
+
+### Colab parallelism is an operational gate, not a Final lock
+
+The durable recovery report now links a whole-unit partition review. Continuing
+on the same recorded environment leaves1,947 Development cells; migrating all
+incomplete units requires2,100 cells including153 declared repeats to preserve
+all14 methods per dataset/city/entity/budget/seed comparison. Candidate two-/
+three-worker lanes are metadata assignments only, not promised GPU allocations
+or activated plans. Complete old units remain retained; Sources are not refit.
+The new `--cloud-root /content` path option preserves strict CUDA/environment/
+input/config/publication checks and does not authorize old Kaggle manifests on
+a different Colab profile. Actual GPU/dependencies/Source restore preflight,
+recorded worker isolation and same-unit environment fairness remain necessary.
+No Final-capable reader, approved cohort or independent lock is supplied by
+this portability patch. No new training or Final values were used for it.

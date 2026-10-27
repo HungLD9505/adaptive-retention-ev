@@ -1138,3 +1138,64 @@ completion-time guarantee and is not Final approval. No new training, Final
 value access, paid purchase or account switch occurred. Previous turn classification:
 progress from fresh resource evidence and rescued outputs; current turn adds
 actual publication acceptance and a reproducible resource-sizing artifact.
+
+## Colab scratch-path preparation and whole-unit parallel review
+
+A concrete portability gap was found in the existing Source, city-target and
+primary replay CLIs: their scratch output root was fixed to `/kaggle/working`.
+They now accept `--cloud-root /content` explicitly, retaining `/kaggle/working`
+as the default. The choice permits only those two roots, is recorded in new
+handoff metadata, and does not approve or rewrite a GPU/environment profile.
+Output admission rejects existing/data-overlapping paths, nested mounts and
+Colab's reserved `/content/drive` destination. Scratch is not a published Drive
+backup. Legacy transport schema names are retained for compatibility; actual
+runtime/profile and the recorded cloud root establish provenance.
+
+No model, loss, controller, runner, baseline, Source weights, dataset, budget,
+seed, clock or selection rule changed. The previous Kaggle producers remain
+pinned at their own recorded revisions; this patch was not deployed into a
+running experiment or used to create a Colab training result. An old Kaggle
+profile remains invalid on a different Colab environment. GPU allocation,
+clean dependency/profile recording, input/Source restoration and independent
+CPU preflight are still required before using a new environment-bound manifest.
+
+Verification: **373 local tests passed** in5.809s, including7 new root-admission,
+all-three-CLI parsing, mount/data preservation and CPU-fitting rejection tests.
+Ruff lint passed; all194 Python files passed format check; `tools.sources list`
+and `git diff --check` passed. Core `ev_models/ev_control/ev_runner/ev_baselines`
+remain byte-identical to1ac2ae0. No cloud GPU, fresh raw acquisition, new runtime
+resume or research effectiveness is claimed from these fixture checks.
+
+A separate metadata-only [whole-unit partition review](https://drive.google.com/file/d/12BhdklYVx18h7F5GP4wpuAkxOtlQOg9X/view)
+records exact original config/input/Source identities and accepted prefixes.
+Archive155,693 bytes, SHA-256
+`ce61d4246498a47cec2962df1728b6436723aa2835cec3455cdb6675a8cc2753`;
+actual fresh Drive bytes/hash/CRC/all7 manifest members passed. Variant names
+come from the frozen primary recipe; no error/activity/outcome rank was used.
+
+The current-environment queue remains1,947 missing cells. If all remaining
+incomplete units move to a new Colab profile, the safe scope is150 complete
+units ×14 variants =**2,100 cells**, including153 declared repeats of partial
+units. A unit is dataset/city/entity/budget/seed. Retain complete accepted old
+units; never stitch partial old/new methods into a completed same-runtime
+comparison. JHB is complete and does not enter this queue. Original metadata,
+artifacts and current Kaggle continuation plans remain unchanged.
+
+| Namespace | Current missing cells | Whole-unit cells if migrated | Declared repeats |
+|---|---:|---:|---:|
+| UrbanEV SZH |254|364|110|
+| CHARGED AMS |317|322|5|
+| CHARGED LOA |329|336|7|
+| CHARGED SPO |341|350|9|
+| CHARGED MEL |341|350|9|
+| CHARGED SZH |365|378|13|
+
+Hypothetical two-worker lanes contain1,050 cells each; three-worker lanes700.
+These are identity-sorted deterministic whole-unit assignments, not allocated
+GPUs, a guarantee of equal runtime, an active new experiment plan or Final
+approval. Every worker needs a separate new attempt/output root, actual profile
+and immutable bindings, no shared live optimizer/RNG, and external publication
+after at most12 runs. A14-method unit may span chunks on its assigned worker.
+Different hardware/profiles must not be silently pooled into comparable cost
+numbers. This is resource feasibility evidence under #23, not a competing sprint
+schedule or a silent replacement of the accepted742-cell recovery plan.

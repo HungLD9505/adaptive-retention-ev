@@ -20,6 +20,7 @@ from ev_runner.run import execute, runtime_code
 from tools.charged_development_cohort import CITIES
 from tools.charged_matched_development import backup_context, validate_cohort
 from tools.city_source_outbox import require_outbox, validate_environment
+from tools.cloud_outbox import CLOUD_ROOTS, cloud_working_root
 from tools.comparison_matrix import CachedInputs
 from tools.durable_run_backup import RunBackup, canonical
 from tools.export_development import safe_name
@@ -125,7 +126,8 @@ def run(args: argparse.Namespace) -> None:
     ):
         if digest(path) != checksum:
             raise ValueError("Changed declared city dependency")
-    require_outbox(args.output, args.inputs_root, Path("/kaggle/working"))
+    working = cloud_working_root(getattr(args, "cloud_root", CLOUD_ROOTS[0]))
+    require_outbox(args.output, args.inputs_root, working)
     if args.output.resolve().is_relative_to(
         args.sources_root.resolve()
     ) or args.sources_root.resolve().is_relative_to(args.output.resolve()):
@@ -323,6 +325,7 @@ def run(args: argparse.Namespace) -> None:
         "family_total": len(all_rows),
         "code": code,
         "environment": actual,
+        "cloud_root": str(working),
         "catalog_sha256": digest(args.output / "exports/catalog.json"),
         "previous_publication_sha256": args.previous_handoff_sha256,
         "scope": "Bounded city targets from three independently published own-city Sources. Local outbox only; complete external transport/Source/daily/state verification required before next. No Source fit, Final or city-completion claim.",
@@ -341,6 +344,7 @@ def run(args: argparse.Namespace) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--cloud-root", choices=CLOUD_ROOTS, default=CLOUD_ROOTS[0])
     for name in (
         "inputs-root",
         "cohort",

@@ -1,4 +1,4 @@
-"""One frozen CHARGED Source seed in a local Kaggle outbox; never target/Final fitting."""
+"""One frozen CHARGED Source seed in a cloud outbox; never target/Final fitting."""
 
 import argparse
 import contextlib
@@ -19,6 +19,7 @@ from ev_models.run import execute as train_source
 from ev_runner.run import runtime_code
 from tools.charged_development_cohort import CITIES
 from tools.charged_matched_development import backup_context, primary_recipe, validate_cohort
+from tools.cloud_outbox import CLOUD_ROOTS, cloud_working_root, crosses_mounted_storage
 from tools.comparison_matrix import CachedInputs
 from tools.durable_run_backup import RunBackup
 
@@ -34,8 +35,11 @@ def require_outbox(output: Path, inputs_root: Path, working: Path) -> None:
         or data.is_relative_to(target)
         or output.exists()
         or output.is_symlink()
+        or crosses_mounted_storage(output, working)
     ):
-        raise ValueError("New separate Kaggle local outbox required; no overwrite or fake mount")
+        raise ValueError(
+            "New separate cloud local outbox required; no overwrite or mounted storage"
+        )
 
 
 def validate_environment(actual: dict, profile: dict, numpy_version: str) -> None:
@@ -122,7 +126,8 @@ def run(args: argparse.Namespace) -> None:
     ):
         if digest(path) != pin:
             raise ValueError("Changed frozen Source dependency: " + path.name)
-    require_outbox(args.output, args.inputs_root, Path("/kaggle/working"))
+    working = cloud_working_root(getattr(args, "cloud_root", CLOUD_ROOTS[0]))
+    require_outbox(args.output, args.inputs_root, working)
     code = runtime_code()
     if code["dirty"]:
         raise ValueError("Clean committed code required")
@@ -185,6 +190,7 @@ def run(args: argparse.Namespace) -> None:
         "expected_source_examples": expected_examples,
         "code": code,
         "environment": actual,
+        "cloud_root": str(working),
         "training": config["training"],
         "scope": "One own-city Source only; local outbox is not Drive. No target/Final fitting or automatic next seed. Independent download/restore/Drive-readback acceptance required.",
     }
@@ -228,6 +234,7 @@ def run(args: argparse.Namespace) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--cloud-root", choices=CLOUD_ROOTS, default=CLOUD_ROOTS[0])
     for name in ("inputs-root", "cohort", "primary-analysis", "environment-profile", "output"):
         parser.add_argument("--" + name, type=Path, required=True)
     for name in ("cohort-sha256", "primary-sha256", "environment-sha256"):
