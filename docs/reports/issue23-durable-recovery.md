@@ -2054,3 +2054,19 @@ Ledger25 SHA `dc0172419598607570a001a16f86530f624acfd4dfd86e4845fde9016ed830f2` 
 [20 acceptance](issue23-colab-whole20-acceptance.json), SHA `9ccfa99d3a6f511a9f39a0e90ad00f88fda3303e847359eb61746e60741c5697`, [published receipt](https://drive.google.com/file/d/1vae4npjLhKs0jBqhn9gGsa80741CaK3U/view) and [proof](https://drive.google.com/file/d/1DaZsSvwWyLd5FUZSiS3U9-aBKUfxHnwv/view), proof SHA `ac613454fd5a90ac0b0fecce0a16c4e6d68d95b66e2b039c6d622693741c26b8`.
 
 All four uploaded artifacts passed fresh native exact-byte/SHA/CRC readback. A19 fit/publication took381.922/414.231seconds; B20 took405.887/434.456seconds. B20 external verification initially received an incorrectly shaped file-list argument; the CPU caller preserved the error and corrected metadata format before fresh verification. No fit was repeated. A21 and B22 then received disjoint MEL work after predecessor acceptance and separate A/B input staging. No Final execution or method change occurred.
+
+### Development checkpoint: 169 accepted units
+
+Ledger28 SHA `1ae3cebc51715f4134883cffa14fb06f0e94c4934f8341768aa60f9772a1f740` records169/231 accepted and62pending. Publications21,22 and24 each add four complete MEL units/56cells. All14 methods per unit share90 scored origins; fresh independent raw transport/CRC, input/daily, latest-state, own-city Source and coverage checks passed before root acceptance. A23 remains uncredited while running; no incomplete city analysis is presented as complete.
+
+| Publication | Acceptance | Native publication |
+|---|---|---|
+| A21 | [Record](issue23-colab-whole21-acceptance.json), SHA `5eae011c6b5196909e582d309dcef18d44a09cfae5807f1e8e01fe529d84bc2d` | [Receipt](https://drive.google.com/file/d/1VEY5UuaJcfnJu9fLNJM1SpNJ6qm9aQhV/view), [proof](https://drive.google.com/file/d/13Iqq2OWXw-OXxPy_0dGvA-rv0dihPugu/view) |
+| B22 corrected v2 | [Record](issue23-colab-whole22-acceptance-v2.json), SHA `ce5589fb8fd6ba84e5a76b0986371554d46164b04b04e34fb88badd652f2e426` | [Receipt](https://drive.google.com/file/d/1EMsXXiRKE9G4q0CfClt2GnJNJGa6m6nU/view), [proof](https://drive.google.com/file/d/1krLKm0fT9UqtsUUnTyKED5QwV5BjMT19/view) |
+| B24 | [Record](issue23-colab-whole24-acceptance.json), SHA `0f2903b030f9440725f5e8a26c2e27ba25e829175b9850f1ae8206e11d3114a7` | [Receipt](https://drive.google.com/file/d/1DltX77P0ZizbL7C5f6CL-d7pKDtW3Ywq/view), [proof](https://drive.google.com/file/d/1nAo3ChpCsPXpKqGBR6r7hncqFoBT3uF1/view) |
+
+All six uploaded artifacts passed fresh native exact-byte/SHA verification and proof ZIP CRC. A21 fit/publication took510.894/548.937seconds, B22 took409.142/437.969seconds, and B24 took400.001/428.706seconds. These are different workloads and runtime/thread policies, not matched hardware comparisons or provider billing measurements.
+
+Root initially entered incorrect B22 fit time406.094595125seconds manually. The authenticated exit records409.1415830470005seconds. The [original v1](issue23-colab-whole22-acceptance.json) and original ledger26 are preserved as superseded metadata evidence; v2 corrects only timing and traces the original. Counts, metrics, proof identities and accepted units are unchanged. Ledger26-corrected, then27 and28, carry the correction lineage. Later acceptors read timing programmatically from the authenticated current-batch exit and check its catalog identity.
+
+B26 proceeds to the frozen SPO reservation after CPU-only input authentication. The provider observation at11:38UTC showed82.72units, approximately6.37units/hour across two sessions, above the30unit reserve. This does not constitute a provider-enforced budget guard. Late partial-unit replacements remain required before city completion. Final remains unstarted and no method change was made.
