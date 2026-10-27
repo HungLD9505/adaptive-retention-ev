@@ -1,5 +1,41 @@
 # Issue23 — Final lock readiness (scope selected; lock pending)
 
+## Current lead decision — bounded same-ID scope, October 27, 2026
+
+The lead superseded the all-ready scope below with **30 UrbanEV stations and
+10 sites in each of six CHARGED cities**, using the same namespace/entity IDs
+across 7/14/28-day budgets, seeds42/43/44, all14 unique variants and90-day replay:
+90 namespace/entity IDs,270 pairs,11,340 cells. This is a resource choice, not a
+statistically established sample size. The all-ready config and historical
+evidence remain unchanged. Further expansion needs a separate decision.
+
+Before executing selection, the deterministic rule is declared in
+`tools/final_cohort.py`: intersect ready Final metadata across all three budgets
+within each namespace. Reserve one hash-minimum entity with zero initially
+trainable examples in any budget, when available; fill the remaining quota with
+hash-minimum entities positive in every budget. Rank SHA-256 of compact JSON
+`["issue23-bounded-final-same-ids-v1", [dataset,city], entity_id]`.
+Fail on insufficient quota; never replace IDs using Final values or coverage.
+This intentionally represents empty-prefix cases, with unequal stratum inclusion;
+unweighted results describe this bounded cohort, not a population estimator.
+No future activity, forecasts, label values, errors or coordinate exclusions enter
+selection. Static coordinate/Source overlap is audited after selection, without
+reselection. Metadata readiness depends on allowed prefix scaling, not future Y.
+
+The complete Development handoff now supersedes the historical incomplete queues
+below:231 units/3,234 cells and seven reports are externally verified. Lead
+scientific acceptance remains pending. Final execution is still prohibited until
+independent immutable lock approval, reviewed Final-capable interfaces and
+measured resource acceptance. Both Development GPUs are released; monitoring was
+deleted. CI billing is blocked, not passed. No purchase, merge or Final execution
+is authorized by the scope decision. UrbanEV remains primary; CHARGED reports
+remain city-wise supplementary and SZH separately qualified for overlap.
+
+---
+
+The following scope decision and preparation records are historical and are
+superseded by the bounded decision above; their fingerprints are preserved.
+
 ## Latest lead decision — October27,2026
 
 The lead explicitly selected **all3,510 ready Final entity-budget pairs** and
