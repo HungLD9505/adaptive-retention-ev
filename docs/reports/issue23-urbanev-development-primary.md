@@ -15,12 +15,22 @@ The predeclared budgets are 7/14/28 days and paired seeds are 42/43/44. Replay
 retains the unchanged 24→24 task and 90-day deployment calendar.
 
 Canonical replacement follows the accepted whole-unit ledger and input/config
-identities, not outcomes. It retains 16 original accepted units, 28 Kaggle units
+identities, not outcomes. It retains 16 previously accepted units, 28 Kaggle units
 and 25 Colab units. Each unit has identical input and execution-environment
 bindings across all 14 methods. Original and migrated environments differ across
 units: the recorded T4 runtimes include PyTorch 2.11.0 with CUDA 12.8 and 13.0
 builds. Platform, source/model/controller random seeds and nonrandom cohort
 membership therefore cannot be isolated as causal factors.
+
+
+“Previously accepted” describes admission history, not proof that every retained
+run contains original Kaggle producer bytes. The [focused provenance audit](issue23-proxy-replay-provenance.json)
+distinguishes 456 physically preserved original proxy runs from 648 declared
+replay invocations. The replay has its own environment, Git envelope, commit
+chain and measured costs. Agreement with recorded original metrics and state
+identities does not recover missing original bytes. This clarification leaves
+the canonical matrix, analysis, run CSV and selected report identities unchanged;
+the audited example is outside the canonical collection.
 
 Fresh canonical daily verification covers 966 runs and 178,710 hashed files. It
 binds saved forecasts, candidate/deployed errors, availability, commit chains,
