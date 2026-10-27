@@ -34,11 +34,12 @@ remain city-wise supplementary and SZH separately qualified for overlap.
 Concrete bounded membership is now in
 [`final-bounded-cohort-v1.json`](../../configs/issue23/final-bounded-cohort-v1.json).
 Its current lock candidate is
-[`final-execution-lock-candidate-v2.json`](../../configs/issue23/final-execution-lock-candidate-v2.json).
+[`final-execution-lock-candidate-v3.json`](../../configs/issue23/final-execution-lock-candidate-v3.json).
 The [bounded preparation handoff](issue23-final-bounded-preparation.md) records exact
 IDs, Source reuse, coordinate risks, synthetic E2E verification and remaining
-human/runtime gates. This candidate is deliberately incomplete (`runtime_profile`
-is null) and cannot authorize Final execution. The historical all-ready config
+human/runtime gates. Current v3 contains the observed synthetic T4 profile; historical v2 retains its
+null profile. Neither supplies human Development/capacity/lock acceptance or
+authorizes Final execution. The historical all-ready config
 and evidence were not overwritten.
 
 ---
