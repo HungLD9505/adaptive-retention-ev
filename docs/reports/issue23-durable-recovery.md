@@ -1942,3 +1942,53 @@ mutation regression, and Ruff lint/format200 files/diff checks passed. No resear
 core changed. [CI40477006930](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40477006930)
 at4f6ecf8 passed Ubuntu/Windows; the subsequent Source admission guard's new CI
 is not yet claimed. No Final, autonomous merge, main promotion or issue closure.
+
+### UrbanEV whole Development coverage complete; AMS migration started
+
+Batch05 PID80699 completed56/56 cells, returncode0,502.457423664s. All30
+canonical parts/89,360,785bytes, catalog SHA
+`5bd522c9c000e63def0dcaed2f19e668dd081dde8e525cd9e13a1695890b6d82`,
+passed fresh external bytes/SHA/CRC, safe restore, independent daily/input/state,
+all3 original Source CPU integrity loads and all14-method per-unit scored-origin
+checks. The four units each have90 scheduled,59 issued and52 scored days.
+[Acceptance](issue23-colab-whole05-acceptance.json), SHA
+`acf03d5d6b443bd27c7ea9adc6f79372b559ce205758a93f3d380021885733ab`;
+[canonical exports](https://drive.google.com/drive/folders/1nLNtjnmoM3Vx5m0kJ6cvD8aWgkhiJH7y),
+[receipt](https://drive.google.com/file/d/1KeMOE6A2JDBGeD99kTbVDV6uB99XwDeC/view),
+[proof](https://drive.google.com/file/d/12sk_p_S-0RZLH0TdNkBa6-RKTuiKP-zR/view).
+Proof SHA `b8819e87b29c4f28d8a155014012f84e9dcbc65b1e97d2deda298689fc2dc776`.
+Native receipt/proof readbacks matched all bytes/hash and proof ZIP CRC.
+Ledger-v11 SHA `fe065cad6e6b2ca4295373a3c9f9462a80198ce220f127ae0b861237cd93bb96`
+credits108/231 whole Development units,123 pending: UrbanEV69/69 complete,
+JHB27/27 complete, other CHARGED cities12 complete/123 pending. This is complete
+primary artifact coverage, not complete analysis or an effectiveness finding.
+
+The continuation chat's Development-only goal was actually created and its
+`active` state re-read. It stops at a complete Development handoff for human lead
+acceptance. No Final execution belongs to this goal. Full Final membership remains
+3,510 ready pairs/147,420cells under a separate later gate.
+
+Cloud city code is cleanb85c151, with unchanged18 research-core fingerprints.
+Its384 CPU fixture tests passed in26.143s. The preflight stopped because Ruff was
+absent; the failed log was preserved. One dependency repair installed the exact
+`ruff==0.17.0` pin, then lint/format200 files/source-list checks passed. An initial
+attempt to load the repair script hit mounted-Drive visibility lag before any
+repair code ran; the same small reviewed repair was then pasted directly. No
+scientific model or Source was fit by these checks. Source producer environments
+remain unchanged; the actual target profile is Python3.13.16/Torch2.11.0+cu130/
+NumPy2.3.3/T4. [CI40478046900](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40478046900)
+atb85c151 also passed Ubuntu/Windows.
+
+Batch06 is the strict first four pending AMS units:1359/7d/seed44 and1515/7d/
+seeds42/43/44. The exact own-city Source kit and original producer context passed
+metadata preparation and replay admission. Plan SHA
+`114e95e5d49e0c1672af45836d057069fa1ea7d9ccd2859c2d6136993fd37f42`;
+1,661,007-byte kit SHA
+`dd63961810ff1b4bc9aafd7cb81fd0595cc5f60a844e58c0ca86b61d216c5892`.
+Native kit/script readback passed. PID87008 was dispatched with56-cell/20min/
+1unit/120s deadman/30-unit reserve; no automatic next batch. Dispatch start UTC
+is recorded separately for compute+publication+external verification/analysis
+elapsed accounting; earlier input/bootstrap setup remains separate. No completion
+or representative-city E2E estimate is claimed before its external acceptance.
+Latest observed provider UI94.39units, approximately1.07/hour, one active session.
+No paid purchase, Final, self merge, main promotion or issue closure.
