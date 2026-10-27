@@ -1762,3 +1762,48 @@ This handoff adds actual evidence, not a new method. No Final execution, self me
 main promotion, runtime deletion or issue closure. Latest observed provider UI:
 97.07 units at approximately1.07/hour with one active T4 session; this is not a
 promise that the full147,420-cell Final scope fits available compute.
+
+### Second complete four-unit publication accepted; third dispatched
+
+PID46115 exited0 after56 cells in316.205s. The next16-part canonical publication,
+60,315,398bytes, catalog SHA
+`eff5b13b26a1a8951626566c8196f4314b47d89fe8b95214d1655b94eedc579d`,
+passed fresh external Drive bytes/SHA/ZIP-CRC, safe restore, independent daily/input,
+latest-state and all3 original Source CPU integrity checks. The56 rows match exact
+reference configs/input bindings, and all14 methods share the scored origins within
+each of the four declared units. No new research code, Source refit or seed choice.
+
+[Acceptance](issue23-colab-whole02-acceptance.json) covers1408/28d/seeds42/43/44
+(90 scheduled/59 issued/0 scored each, null metrics retained) and2005/28d/seed42
+(90 scheduled/90 issued/90 scored). The latter has18 available trainable prefix
+windows; this does not imply that Frozen Source or Seasonal Naive fits them.
+For that **single station/budget/seed**, Adaptive MAE4.883356kWh, Fixed4.778724,
+Full Fine-tuning4.840771, Target-only7.653882, Seasonal Naive8.843982. Adaptive
+is worse than Fixed here. This is not a three-seed aggregate or population result.
+The two remaining fixed seeds are next in unchanged ledger order.
+
+[Canonical parts](https://drive.google.com/drive/folders/1zOEpKf52eQF0r-sG7v-Hgg52Ok5j8Js2),
+[corrected acceptance receipt](https://drive.google.com/file/d/1yGdLfVMfP2Ncfej6xTYQYbs6gysPWktP/view),
+[independent proofs](https://drive.google.com/file/d/1hr0C8uBBjH0Z2-FmRfAW0odZ21wkNJu4/view).
+The corrected receipt SHA is
+`51ea318e6b6ba0152e9369ae56f424cd32639f0877a861e20d939f2f6f5502cd`;
+proof ZIP SHA `1a7d89deb8528d67b235a9c7413d91e1135d3436e4996727d2ebfddf314cc1ec`.
+The first receipt copied the preceding publication's folder hyperlink; this metadata
+error was corrected in a new version retaining the old receipt/hash and unchanged
+catalog, exact bindings, verification proofs and metrics. No rerun or expected-hash
+change was used. Current ledger-v8 preserves the correction and credits96/231 whole
+Development units (primary57/69),135 incomplete. Its predecessor-v7 has identical
+counts and selected prefix; the difference is only the added correction receipt pin.
+
+The third56-cell strict prefix2005/28d/seeds43/44 and2152/28d/seeds42/43 was
+prepared against ledger-v7 and dispatched as unique PID70969 after prior external
+acceptance. Same-handle inspection confirmed it live with7 completed rows at the
+observation, not complete/accepted. Plan SHA
+`38293c8f3d528adbb4e72f4b12a04163ea277255421c100efb86239d087f8c30`;
+262,006-byte kit SHA
+`9b8dd0a02aae5fbc3d2ada78f0dbe6bdeae1c9c01795b8c6512b3baa71643d33`.
+The same20min/1unit/120s deadman/30-unit-reserve limits apply, no automatic next
+batch/retry, no Final. Latest provider observation95.37units at approximately1.07/hour
+with one active T4 session. Provider balance includes allocated idle time; target
+child elapsed times are not a complete experiment bill. Evidence-only380f4c6 passed
+[Ubuntu/Windows CI40463594179](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40463594179).
