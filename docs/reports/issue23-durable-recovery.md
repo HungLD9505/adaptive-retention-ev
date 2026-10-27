@@ -1900,3 +1900,45 @@ this turn; source-list output is a catalog read, not fresh archive verification.
 The18 research-core file fingerprints are unchanged. Actual city Colab execution
 and full-source/target external acceptance remain pending; fixtures do not supply
 research effectiveness or the Final lock.
+
+### Fourth publication externally accepted; final primary prefix dispatched
+
+PID77006 completed56/56 cells, returncode0,470.500297536s. The two-runs-per-part
+export produced30 parts/89,282,421bytes, all below8MB. Fresh external Drive
+bytes/SHA/CRC, safe restore, independent daily/input/latest-state checks, three
+original Source CPU loads, exact reference configs and per-unit14-method scored
+origin equality passed. All four units have90 scheduled,59 issued and52 scored
+days. [Acceptance](issue23-colab-whole04-acceptance.json) SHA
+`88171762650ea5e53fc39a1e9ff406dd4aed8473f81200e6c027fcce184b7b83`.
+[Canonical exports](https://drive.google.com/drive/folders/1pbqD9DOQHTMSFDF7OpMrjz3oW3nF6JVD),
+[receipt](https://drive.google.com/file/d/1JG1GMTnPTmQP8itDvajUgcXr3ku73rJD/view),
+[proof](https://drive.google.com/file/d/1HYqAbP4SRkZvrNDrw-Biv_Vl3qggL3di/view).
+Catalog SHA `754d97074fcff0f5c9411c45ea8bbb2e5cf4e113b53c7073b8a2aafbf48051fb`;
+proof SHA `46f3196b76aeff7255cc45ab7d0d73b44695dd4a83274d7275694589ae72610e`.
+Native receipt/proof readbacks matched every byte, with proof ZIP CRC PASS.
+Ledger-v10 SHA `88c372cc105c7b22f7bbaa9535382f35675d3c33d2baa42c9d6d384d835f77af`
+now credits104/231 whole units,127 incomplete; primary65/69 complete.
+
+The final four pending primary units2633/28d/seeds42/43/44 and1153/14d/seed43
+were prepared in ledger order and dispatched as PID80699 after acceptance
+readback. Plan SHA `58380e139f4dd4eee5c33f11c8f2e7896c37093bbe444c0132eae81e3c3d7f6c`;
+224,858-byte kit SHA
+`dabfd1c3435a5af614dd6258e58897397ba8839ed6d4f4cd9e578ec550ac1354`.
+Native kit/script readback passed. Same56-cell/20min/1unit/120s deadman/30-unit
+reserve, no automatic next batch. Latest provider observation94.75units at
+approximately1.07/hour, one active T4 session. This dispatch is not yet accepted.
+
+Read-only admission additionally passed for all123 pending CHARGED units:
+AMS23, LOA24, SPO24, MEL25, SZH27, all14 original configs and own-city Sources.
+This is metadata readiness, not their execution or scientific acceptance. An
+unchanged accepted AMS input archive was copied into the mounted workspace;
+Colab verified253,455,529bytes/SHA/CRC/safe extraction and all3 exact input
+manifest hashes without training or decoding Final value records.
+
+Self-review tightened replay admission to compare each target's declared Source
+checkpoint with its planned seed before fitting; the existing backup/execute
+checks remain.384 offline tests passed again, including the cross-city Source
+mutation regression, and Ruff lint/format200 files/diff checks passed. No research
+core changed. [CI40477006930](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40477006930)
+at4f6ecf8 passed Ubuntu/Windows; the subsequent Source admission guard's new CI
+is not yet claimed. No Final, autonomous merge, main promotion or issue closure.

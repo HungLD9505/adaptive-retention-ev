@@ -25,6 +25,7 @@ class PrimaryRecoveryTests(unittest.TestCase):
             "history_days": 7,
             "entity_id": "fixture",
             "input_manifest_sha256": "manifest",
+            "source_checkpoint_sha256": sources["42"]["sha256"],
         }
         rows = [
             {
@@ -194,7 +195,7 @@ class PrimaryRecoveryTests(unittest.TestCase):
     def test_city_rejects_incomplete_mixed_or_changed_declaration(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
-            for mutation in ("hash", "missing", "mixed", "namespace", "status", "stage"):
+            for mutation in ("hash", "missing", "mixed", "namespace", "status", "stage", "source"):
                 path, plan, original, declaration = self.city_fixture(root)
                 if mutation == "hash":
                     plan["whole_unit_sha256"] = "changed"
@@ -206,8 +207,13 @@ class PrimaryRecoveryTests(unittest.TestCase):
                     plan["namespace"] = ["urbanev", "SZH"]
                 elif mutation == "status":
                     original["status"] = "technical_success"
-                else:
+                elif mutation == "stage":
                     original["runs"][0]["binding"]["input"]["stage"] = "source"
+                    declaration["rows"] = original["runs"]
+                else:
+                    original["runs"][0]["binding"]["input"]["source_checkpoint_sha256"] = (
+                        "other-city"
+                    )
                     declaration["rows"] = original["runs"]
                 (root / "whole-unit.json").write_text(json.dumps(declaration))
                 (root / "matrix.json").write_text(json.dumps(original))

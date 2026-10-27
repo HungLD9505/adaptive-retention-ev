@@ -123,6 +123,8 @@ def planned_rows(plan_path: Path, expected_sha: str, family: str) -> tuple[dict,
             or binding["history_days"] not in (7, 14, 28)
             or config["replay_days"] != 90
             or config["initial_training"]["seed"] not in (42, 43, 44)
+            or binding.get("source_checkpoint_sha256")
+            != plan["sources"][str(config["initial_training"]["seed"])]["sha256"]
             or row["code"]["dirty"]
             or row["code"]["files"] != original["code"]["files"]
         ):
