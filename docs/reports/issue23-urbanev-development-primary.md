@@ -167,3 +167,5 @@ access, cloud publication or Git/ledger mutation. Fixture tests and README-wide
 code checks were not rerun for this documentation/plot-only change. Numeric
 invariance, bundle member hashes/CRC and visual inspection passed; they do not
 replace peer review, scientific validity assessment or the separate Final gate.
+
+The [published standalone analysis bundle](https://drive.google.com/file/d/1CvtHNGVhz_ve6fcbo9uOMT1OF0amVnoN/view) is503773 bytes, SHA `f1adbeb00892cc17b4b6fdbbb818d425e7e2dee340a64d2bd2792aaa85dfc0ba`. Fresh native Drive download matched exact local bytes and passed ZIP CRC. The bundle includes the reporting-only numeric-invariance proof and inspected figure; full canonical raw outputs remain in their separately pinned publications.
