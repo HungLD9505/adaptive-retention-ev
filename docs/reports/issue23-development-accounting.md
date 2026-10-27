@@ -1,5 +1,7 @@
 # Development execution and retention accounting — ledger36 snapshot
 
+**Final selected scope:** [ledger48 handoff](issue23-development-handoff.md) supersedes the dated progress counts below: all 231 units / 3,234 cells have exact producer/archive mappings and seven cost/state proofs. [Final native accounting bundle](https://drive.google.com/file/d/1PAp2qxGUynXaRj1V4la7iBa0csxd4r9d/view), SHA `1a898d7687a49c58dde44d4c15bd4471bdad29aac3c902a54f014b41ad872bba`, passed fresh native byte/SHA/CRC/all15 manifest checks. Selected target spans21,881.035653seconds; bounded target history6,823records/40,130.601014seconds;21 Source trajectories2,230.167443seconds once. The ledger36 snapshot below remains preserved with its original scope and limits. Neither snapshot is a complete historical bill.
+
 Issue #23 / PR #52. This is an immutable accounting snapshot, not the current completion count or scientific acceptance. Later progress is in [durable recovery](issue23-durable-recovery.md).
 
 [Reproducible evidence bundle](https://drive.google.com/file/d/1qNMKi-wQHs2D4Qou9GROps1NXUz3Yt8M/view):526,955bytes, SHA `d98f45772d71ffc9d07577ae92eb898d8cb41cc7c331c83141f094b51d7e6616`. Fresh native exact-byte/SHA/ZIP-CRC and all13 manifest-member checks passed. The bundle includes the assessment, exact Source/selected-run identities, covering archive manifest, provenance comparisons, frozen receipt registry, reproduction commands and cost/state verification script. Large raw inputs/archives and the full inventory remain external, explicitly identified dependencies.
