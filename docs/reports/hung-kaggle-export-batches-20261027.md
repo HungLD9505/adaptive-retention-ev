@@ -9,12 +9,15 @@ and log-transfer work. `tools/hung_kaggle_export_batches.py` prepares seven disj
 shard. The original 20-job shard8 export is reused by its exact verified SHA.
 
 The allocation is `experiments/hung_sprint2/kaggle_export_batches_v1.json`, SHA
-`a97c78a1584db41deab1dc029b64904bdfd4db94c52aca3e7ba3f9ea4d9f3c85`.
+`05e0d8158f71fc07d58c49c30a165aadce0b333b2f7df0f09b069d0b2f510ed5`.
 Its canonical batch-list SHA is
 `5bf1235b00b69ae5693d67488bcdac50cde38f80c20012d3ad397ceb73a62667`.
 Every shard's expected job-set SHA was checked against the existing execution
 queue's pinned values. Model code, plan, partition, Source/Target identities,
 configuration, input data and historical runs are unchanged.
+This new manifest uses canonical LF bytes matching its Git blob. Its original
+local CRLF creation bytes were preserved separately; normalization changed no
+parsed value or allocation hash. No historical execution manifest was rewritten.
 
 Each producer mounts at most four immutable receiver version1 outputs, checks
 the receiver/helper/scorer and runtime-plan/partition pins, and rechecks saved
