@@ -54,6 +54,9 @@ def put_run(
     archive: zipfile.ZipFile, parent: Path, row: dict, state_proof: dict, expected_omitted: int
 ) -> int:
     """Recheck full daily chains/state contents; preserve intentional historical omissions."""
+    # Reports are committed as JSON; dataclass tuples become JSON arrays on disk.
+    # Compare the same representation without weakening any value/content checks.
+    row = json.loads(json.dumps(row, allow_nan=False))
     name = safe_name(row["run_id"])
     root = parent / name
     if root.is_symlink() or any(p.is_symlink() for p in root.rglob("*")):

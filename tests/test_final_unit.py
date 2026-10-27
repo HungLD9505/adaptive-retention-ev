@@ -52,6 +52,9 @@ class FinalUnitBoundaryTests(unittest.TestCase):
         try:
             run, _ = fixture.run_fixture("export-fixture")
             report = json.loads((run / "run.json").read_text())
+            # execute() returns dataclass tuples while run.json contains arrays.
+            report["method"] = {"proxy_thresholds": (0.1, 0.5), "proxy_order": (0, 1, 2)}
+            (run / "run.json").write_text(json.dumps(report))
             daily = verify_run(run, fixture.input_root, final_access=fixture.access)
             state = verify_state(run, report)
             path = fixture.root / "export.zip"
@@ -66,6 +69,16 @@ class FinalUnitBoundaryTests(unittest.TestCase):
             with zipfile.ZipFile(path) as archive:
                 self.assertIsNone(archive.testzip())
                 self.assertIn("study/export-fixture/initial-adaptation.json", archive.namelist())
+            changed = {**report, "method": {**report["method"], "proxy_order": (2, 1, 0)}}
+            with zipfile.ZipFile(fixture.root / "changed-report.zip", "x") as archive:
+                with self.assertRaisesRegex(ValueError, "Changed completed run report"):
+                    put_run(
+                        archive,
+                        fixture.root,
+                        changed,
+                        state,
+                        daily["historical_states_intentionally_omitted"],
+                    )
             (run / "initial-adaptation.json").write_text('[{"steps":999}]')
             with zipfile.ZipFile(fixture.root / "bad.zip", "x") as archive:
                 with self.assertRaisesRegex(ValueError, "initialization record"):
