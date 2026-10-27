@@ -270,6 +270,27 @@ def status(slug_name: str) -> str:
     return value
 
 
+def validate_submission(response, name: str) -> None:
+    """A rejected input can still create version 1; preserve its identity, never retry."""
+    evidence = {
+        "name": name,
+        "url": response.url,
+        "version": response.version_number,
+        "error": str(response.error),
+        "invalid_dataset_sources": list(response.invalid_dataset_sources or []),
+        "invalid_kernel_sources": list(response.invalid_kernel_sources or []),
+    }
+    print(json.dumps({"submission_response": evidence}), flush=True)
+    assert not response.error and response.version_number == 1, (
+        "Unexpected submission response; preserve claim/version and stop",
+        evidence,
+    )
+    assert not evidence["invalid_dataset_sources"] and not evidence["invalid_kernel_sources"], (
+        "Input rejected; version may exist without inputs. Inspect it; never resubmit this identity",
+        evidence,
+    )
+
+
 def submit(
     name: str,
     source: str,
@@ -296,8 +317,7 @@ def submit(
         request.machine_shape = "NvidiaTeslaT4"
     with build_kaggle_client() as client:
         response = client.kernels.kernels_api_client.save_kernel(request)
-    assert not response.error and response.version_number == 1, "Unexpected version; stop"
-    assert not response.invalid_dataset_sources and not response.invalid_kernel_sources
+    validate_submission(response, name)
     record = {
         "name": name,
         "url": response.url,

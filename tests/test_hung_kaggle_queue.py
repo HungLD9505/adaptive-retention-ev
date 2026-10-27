@@ -6,12 +6,45 @@ import tempfile
 import unittest
 import zipfile
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from tools import hung_kaggle_queue as queue
 
 
 class KaggleQueueTests(unittest.TestCase):
+    def test_rejected_sources_preserve_created_version_identity(self):
+        for field in ("invalid_dataset_sources", "invalid_kernel_sources"):
+            response = SimpleNamespace(
+                url="https://example.invalid/test-only",
+                version_number=1,
+                error="",
+                invalid_dataset_sources=[],
+                invalid_kernel_sources=[],
+            )
+            setattr(response, field, ["synthetic-owner/source/1"])
+            with self.subTest(field=field), self.assertRaises(AssertionError) as caught:
+                queue.validate_submission(response, "synthetic-job")
+            evidence = caught.exception.args[0][1]
+            self.assertEqual(evidence["version"], 1)
+            self.assertEqual(evidence[field], ["synthetic-owner/source/1"])
+            self.assertIn("never resubmit", caught.exception.args[0][0])
+
+    def test_submission_response_requires_clean_first_version(self):
+        for version, error in ((1, ""), (2, ""), (1, "rejected")):
+            response = SimpleNamespace(
+                url="https://example.invalid/test-only",
+                version_number=version,
+                error=error,
+                invalid_dataset_sources=[],
+                invalid_kernel_sources=[],
+            )
+            if version == 1 and not error:
+                queue.validate_submission(response, "synthetic-job")
+            else:
+                with self.assertRaises(AssertionError):
+                    queue.validate_submission(response, "synthetic-job")
+
     def fixture(self, root):
         folder = root / "shard_0002"
         folder.mkdir()
