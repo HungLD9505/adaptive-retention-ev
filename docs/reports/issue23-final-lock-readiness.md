@@ -1,4 +1,34 @@
-# Issue23 — Final lock readiness (not approved)
+# Issue23 — Final lock readiness (scope selected; lock pending)
+
+## Latest lead decision — October27,2026
+
+The lead explicitly selected **all3,510 ready Final entity-budget pairs** and
+accepted that additional compute/time may be required. At14 frozen variants and
+seeds42/43/44 this is147,420 target replay cells, preserving UrbanEV and all6
+separate CHARGED cities and7/14/28-day budgets. The66-pair proposal is historical
+and is **not the selected scope**. This decision supersedes earlier pending-scope
+statements below; historical observations remain unchanged.
+
+This is scope authorization only. Final execution remains blocked until the full
+code/config/input/Source/cohort/analysis identities are locked and independently
+approved, Final-capable execution/verification passes, Development is accepted,
+and actual compute/storage capacity is measured. No Final values were opened and
+no Final execution was initiated by this decision. Acceptance of additional
+compute/time is not a paid top-up authorization, a guaranteed100-unit budget or
+a new promised delivery date. Maintain the sole sprint schedule and report any
+delivery risk explicitly. Do not shrink scope, drop seeds/methods/cities or remove
+zero/missing-score cases in order to fit compute.
+
+The existing outcome-blind metadata inventory is SHA-256
+`8a6d71cb881c14e86cf3315d1561076e7273e218adba960f2fc633ddfb023b07`.
+It contains the3,510 IDs/budget assignments across21 accepted input manifests;
+its count is a metadata-ready population, not proof every Final day has a
+scorable label. Exact all-ready cohort and lock artifacts still require preparation
+and review. Missing scores remain null, with explicit coverage denominators.
+
+---
+
+The sections below retain the preparation history before this scope decision.
 
 Executed October27,2026 ICT. This handoff inventories the remaining lock gate;
 it is not a competing schedule, a chosen Final cohort or permission to evaluate.
