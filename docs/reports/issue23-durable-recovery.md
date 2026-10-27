@@ -2198,3 +2198,11 @@ Ledger45 SHA `1e69a0dc8348a4bbb43a328070daf370774676803ed455622cfecaea66fd30f7` 
 [A37 acceptance](issue23-colab-whole37-acceptance.json), SHA `ea3581f64875ff1f3b41616bf059049095345159a942aae69709ed33effc9be7`, [native receipt](https://drive.google.com/file/d/1n2E2B7AFb1wXRfsdWWzmUHGM5vvqyJbA/view) and [proof](https://drive.google.com/file/d/1DeO2SRCLdwcWUxLuNvMDBHPkV7AWoqkJ/view), proof SHA `bd48990d2068f5db12eda4052083fcd6339a3de8ec5752e0e7719142d7fd738c`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA is `0693202b16300c25517b5561380ccd3d151fad4fb7c7add2279efdf16ed57e8e`. Fit/publication/verification took538.235/578.820/73.588seconds.
 
 Only the predeclared single-unit replacements A39 AMS, A41 SPO and A43 SZH remain; A39 is running. Complete AMS/SPO/SZH canonical verification/analyses and final cost/history/storage reconciliation are still required. LOA/MEL complete reports are already published. B remains terminated; no Final, method change, merge or issue closure occurred.
+
+### AMS full-unit completion: 229 accepted units
+
+Ledger46 SHA `5257cd9b6f987017b03e4a820e276252c4e8ed094949e04a8783847fc07eac7e` records229/231 accepted and2pending. A39 adds the AMS7-day/entity1359/seed43 unit/14cells, completing AMS27/27. Every method shares90 scored origins. Fresh independent raw/input/daily/latest-state, all three own AMS Sources, profile/binding and coverage checks passed before root pinned-CLI acceptance.
+
+[A39 acceptance](issue23-colab-whole39-acceptance.json), SHA `c0638a99c9424591dce855777bf7917d98f6f873394c3afc9cb6935fc92122fe`, [native receipt](https://drive.google.com/file/d/1zpcKicRMyaJAAfrb6MsWin18b2soZhOX/view) and [proof](https://drive.google.com/file/d/1jIN1yEoK83HEdZeDPX9mZbtfgW7qfAks/view), proof SHA `31dfe11080f9e262ead882a160bc67cc5a1e9edb4b39b13054ce71a0df92f845`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA is `8569cde62b3519e06d741945a0d1bf21ad2dcd8a66c2b1ae2d80b9dd82e451b4`. Fit/publication/verification took146.471/168.382/26.444seconds.
+
+AMS complete canonical daily/latest/cost verification and frozen analysis are next; unit completion does not establish scientific effectiveness. A41 SPO is running, followed by final A43 SZH. No Final, changed method, merge or issue closure occurred.
