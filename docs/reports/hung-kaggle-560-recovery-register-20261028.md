@@ -9,3 +9,11 @@ The `saved_version`, `archive_bytes`, `archive_sha256` and ignored local archive
 The ledger verifier now has a **prepared**, optional `--recovery-manifest` route. For each downloaded archive, an ignored JSON manifest must provide `shard_id`, `planned_jobset_sha256`, positive `saved_version_id` and `readback_version_id`, `archive_path` under this worktree's ignored `.cache`, `archive_bytes` and `archive_sha256`. The verifier rejects non-Kaggle/duplicate shards and jobset mismatch before opening the archive; its existing per-job receipt/manifest/member checks then apply. The route requires `--out` naming a new CSV under `docs/reports`, preserving the 206- and 222-verified ledgers. This route has **not** verified any of the 560 missing jobs because no exact Kaggle archive bytes were retrieved here.
 
 The version IDs in that ignored manifest are caller-supplied identifiers; this local verifier does not query Kaggle to authenticate them. Before assigning remote-readback status, compare each ID and archive fingerprint against the saved provider receipt/log independently. A successful local row means local byte/receipt/manifest verification only.
+
+Once genuine archive files and version receipts are in place, create an ignored JSON file such as `.cache/recovered-shards-v3/manifest.json` with schema `hung-kaggle-archive-recovery-v1` and an `archives` array. Each entry needs the seven fields listed above; use the exact `planned_jobset_sha256` from the checklist and an archive path relative to the repository root. Then run:
+
+```sh
+python -X utf8 -m tools.hung_reconcile_782_snapshot_v2 --recovery-manifest .cache/recovered-shards-v3/manifest.json --out docs/reports/hung-development-782-job-ledger-20261028-v3.csv
+```
+
+The command fails on a missing or wrong-shard archive and never replaces either prior ledger. Do not create or publish the v3 CSV until at least one exact recovered archive has passed its receipt/member checks.

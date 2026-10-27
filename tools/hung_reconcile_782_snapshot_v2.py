@@ -136,6 +136,8 @@ if args.recovery_manifest is not None:
     recovery = json.loads(manifest_path.read_text(encoding="utf8"))
     if recovery.get("schema") != "hung-kaggle-archive-recovery-v1":
         raise SystemExit("Unexpected recovery manifest schema")
+    if not recovery.get("archives"):
+        raise SystemExit("Recovery manifest must contain at least one archive")
     seen_shards = {spec[0] for spec in archive_specs}
     for item in recovery["archives"]:
         sid = item["shard_id"]
