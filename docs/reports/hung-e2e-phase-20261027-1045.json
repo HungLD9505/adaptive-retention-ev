@@ -1,0 +1,104 @@
+{
+  "as_of_local": "2026-10-27T10:45:00+07:00",
+  "canonical_plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+  "cpu_log": {
+    "path": ".cache/kaggle-shard13-controller-v2-live.txt",
+    "sha256": "d64aa0cb3bc03f9098244f0ffd5fec9fa377f54b108de86110cf142108f1ddbd"
+  },
+  "cpu_metrics": {
+    "first_unprocessed_shard": 9,
+    "gpu": false,
+    "remaining_readers": 24,
+    "state": "RUNNING",
+    "version": 362690764
+  },
+  "files_changed": [
+    "docs/reports/hung-cpu-metrics-continuation-20261027.md",
+    "docs/reports/hung-development-hybrid-20261027-v3/paired.csv",
+    "docs/reports/hung-development-hybrid-20261027-v3/report.md",
+    "docs/reports/hung-development-hybrid-20261027-v3/summary.json",
+    "docs/reports/hung-shard0012-publication-recovery-20261027.md",
+    "docs/reports/hung-shard0013-bounded-recovery-20261027.md",
+    "docs/reports/hung-shard0013-claim-gate-20261027.md",
+    "experiments/hung_sprint2/kaggle_cpu_metrics_resume_v2.ipynb",
+    "experiments/hung_sprint2/kaggle_shard0012_reconcile_v1.ipynb",
+    "experiments/hung_sprint2/kaggle_shard0013_recovery_cpu_v1.ipynb",
+    "experiments/hung_sprint2/kaggle_shard0013_recovery_cpu_v2.ipynb",
+    "tests/test_hung_kaggle_queue.py",
+    "tests/test_hung_kaggle_recovery13.py",
+    "tools/hung_kaggle_queue.py",
+    "tools/hung_kaggle_recovery13.py"
+  ],
+  "gpu_log": {
+    "path": ".cache/kaggle-shard13-gpu-v1-live.txt",
+    "sha256": "f6040872e86684db275772600f9a37aab630c5f18d13a82c29216890162d2bd3"
+  },
+  "gpu_recovery": {
+    "available_gpu_seconds_at_submit": 66837.151876,
+    "carried_verified": [
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "controller": 362690145,
+    "initial_free_disk_bytes": 17988751360,
+    "peak_memory_and_terminal_runtime": "not yet available",
+    "required_gpu_seconds": 5863.0,
+    "shards_executed": [
+      13
+    ],
+    "source_sha256": "eb99772f04d1162a1d7a04c6a3b974f7a9e407f17789853cadf375fea5ab3a62",
+    "state": "RUNNING after28 parity checks",
+    "total_device_memory_bytes": 15636037632,
+    "version": 362690241
+  },
+  "metric_snapshot": {
+    "blocked_pairs": 132,
+    "kaggle_new": 80,
+    "local_new": 202,
+    "main_reused": 69,
+    "paired_cells": 155,
+    "result_sha256": "76b9de2548dc798a37f6cbd4df7e4dbcf8ca5396e69ebe8fc3c8d3d9106cbb93",
+    "runs": 351,
+    "scorable": 186,
+    "spec_sha256": "b99d6ce3f46eb4fbeb3fcbae61bae589664e6a30f894b234c488c6965313b0f0",
+    "zero_scored": 165
+  },
+  "model_code": "44b8532959d76fb20691881539f991ca44983727",
+  "new_jobs": {
+    "completed_snapshot": 362,
+    "local_remote_pending": 60,
+    "outside_complete_certification": 420,
+    "planned": 782,
+    "remote_readback_verified": 302
+  },
+  "review": "Independent acceptance pending; no merge/closure/Final",
+  "scope": "development_only",
+  "shard12_log": {
+    "path": ".cache/kaggle-shard12-reconcile-v2-log.txt",
+    "sha256": "2374032dce613873803bc4e98abf9834967710684ed70ad30b5ef1c527d3c2ef"
+  },
+  "shard12_readback": {
+    "bytes": 452751164,
+    "crc": "passed",
+    "seconds": 23.9,
+    "sha256": "d0f7f0335745843adbf16b5c05aafd7fb7a4505ba13c92ab649849677d9b92dc",
+    "state": "COMPLETE",
+    "version": 362686291
+  },
+  "test_receipt": {
+    "path": ".cache/provider-offline-tests-v21-exit.json",
+    "sha256": "d84593eefbd93e551876d64b716341ba09267713b33c38a740c3b206a67dfc84"
+  },
+  "validation": {
+    "diff_check": "PASS",
+    "exit_code": 0,
+    "ruff": "144 files PASS",
+    "skips": 1,
+    "source_head": "ad1497d90f70603607e8c9ec1c504a58ea4fc875",
+    "suite_seconds": 168.385,
+    "tests": 377
+  }
+}
