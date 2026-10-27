@@ -255,6 +255,7 @@ def status(slug_name: str) -> str:
 
     request = ApiGetKernelSessionStatusRequest()
     request.user_name, request.kernel_slug = OWNER, slug_name
+    request.version_label = "v1"
     with build_kaggle_client() as client:
         response = client.kernels.kernels_api_client.get_kernel_session_status(request)
     value = response.status.name

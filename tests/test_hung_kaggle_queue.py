@@ -2,17 +2,37 @@
 
 import hashlib
 import json
+import sys
 import tempfile
 import unittest
 import zipfile
 from pathlib import Path
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from tools import hung_kaggle_queue as queue
 
 
 class KaggleQueueTests(unittest.TestCase):
+    def test_status_uses_exact_first_version_not_latest(self):
+        request = SimpleNamespace()
+        api = MagicMock()
+        api.get_kernel_session_status.return_value = SimpleNamespace(
+            status=SimpleNamespace(name="COMPLETE")
+        )
+        client = MagicMock()
+        client.__enter__.return_value.kernels.kernels_api_client = api
+        modules = {
+            "kagglehub.clients": SimpleNamespace(build_kaggle_client=lambda: client),
+            "kagglesdk.kernels.types.kernels_api_service": SimpleNamespace(
+                ApiGetKernelSessionStatusRequest=lambda: request
+            ),
+        }
+        with patch.dict(sys.modules, modules):
+            self.assertEqual(queue.status("synthetic-job"), "COMPLETE")
+        self.assertEqual(request.version_label, "v1")
+        self.assertEqual(request.kernel_slug, "synthetic-job")
+
     def test_invalid_claim_names_fail_before_sdk_or_upload(self):
         for name in ("x" * 51, "short", "invalid/claim-name", "INVALID-claim"):
             with self.subTest(name=name), self.assertRaises(AssertionError):
