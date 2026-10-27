@@ -1807,3 +1807,66 @@ batch/retry, no Final. Latest provider observation95.37units at approximately1.0
 with one active T4 session. Provider balance includes allocated idle time; target
 child elapsed times are not a complete experiment bill. Evidence-only380f4c6 passed
 [Ubuntu/Windows CI40463594179](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40463594179).
+
+### Third complete four-unit publication accepted after bounded packaging repair
+
+The new chat reattached to the surviving Colab VM and inspected the exact
+`COLAB_WHOLE03_PROCESS` handle: PID70969, terminal returncode0,484.262362172s.
+No training was relaunched. CPU daily/input and latest-state verification passed.
+The first four-runs-per-part export stopped at the8MB transport guard: two parts
+were8,180,597 and8,226,592bytes. Those outputs remain preserved. One CPU-only
+packaging repair produced a new `exports-v2` using two runs per part; no model,
+configuration, Source, seed or forecast changed.
+
+All30 parts,92,934,355bytes, each below8MB, were freshly downloaded from
+[the actual batch03 export folder](https://drive.google.com/drive/folders/1_5NiZ-Ofc29DT7oMGpPdMmVP5eBV0Yv1).
+Catalog SHA `ce892f8278d245f8004e2d4b9bf3146d722e0dada39b26b24f2789664ba15280`.
+Bytes/SHA/ZIP-CRC, safe restore, independent daily/input/latest-state checks and
+CPU integrity loads of all3 original epoch10 Sources passed. Exact original
+configs/input/core bindings, actual common environment and identical scored
+origins within each14-method unit also passed.
+
+[Acceptance](issue23-colab-whole03-acceptance.json) covers2005/28d/seeds43/44
+(90 issued/90 scored each) and2152/28d/seeds42/43 (59 issued/52 scored each),
+all90 scheduled days. [Receipt](https://drive.google.com/file/d/1sumwuM3Uuv3KemDHps4feodWw914310x/view)
+SHA `517e57a0511b5d40734512c3c0da99b6069a4d80f0c028ff636249ad109f2d31`
+and [independent proofs](https://drive.google.com/file/d/1siS_bySa7qIVx0Gpo7M3wGxZEpHbf893/view)
+SHA `aece76f44fe79a77a1f946828ceeac2d5d2054d91babd972016cc92a607ff166`
+were uploaded natively and freshly read back byte-for-byte; proof ZIP CRC passed.
+Ledger-v9 SHA `2f605dfe12d705289556c0d0d4b2b159a7326f85fbd60bcb0d2ea62cd4af8c0a`
+credits100/231 whole Development units,131 incomplete, primary61/69 complete.
+Overlapping historical partial cells are replaced canonically, never added twice.
+
+The now complete2005/28d group has42 authenticated runs across all14 variants
+and fixed seeds42/43/44, identical90 scored origins and one actual environment.
+Mean seed MAE: Adaptive4.860253, Fixed4.811535, Full Fine-tuning4.788682,
+Online Best4.816429, Target-only7.636828, Seasonal Naive8.843982kWh.
+Adaptive is worse than Fixed/Full Fine-tuning/Online Best here. This is one
+Development entity-budget, not a population estimate or significance test;
+Source/model/controller RNG vary together. No favorable seed selection.
+
+Correction to the preceding prose: batch02's1408 units each issued58 days,
+not59, as the unchanged machine-readable acceptance correctly records. Their
+zero scored days and null metrics are unchanged. The receipt metadata correction
+and original bytes remain preserved.
+
+Latest observed provider UI:95.02 compute units, approximately1.07/hour, one
+active T4 session. This includes allocation idle time and is not a full Final
+capacity guarantee. Head55c3047 passed Ubuntu/Windows
+[CI40473675244](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40473675244).
+No new tests are claimed for this evidence-only update, no Final, self merge,
+main promotion or issue closure. The selected Final scope remains all3,510 ready
+entity-budget pairs/147,420cells, awaiting independent immutable lock approval.
+
+The [2005 three-seed case](issue23-urbanev2005-28d.md) now links the complete
+per-seed14-method CSV/JSON, inspected PNG/SVG, scripts and member manifest.
+Fresh authenticated Drive readback passed bytes/hash/CRC/all6 members.
+The next strict prefix2152/28d/seed44 and2472/28d/seeds42/43/44 was dispatched
+as PID77006 after batch03 receipt/proof readback. Plan SHA
+`61db35e20e8bd88c161f17fedab066ac15b47176569f694dce141ade569ff095`,
+213,712-byte kit SHA
+`0ca8a7451ef4e24786974eb20af1b3d7381b65a62b486c0b69a30d84629e437b`.
+Authenticated native kit/script readback matched exact bytes/hash/CRC after a
+direct anonymous response failed byte equality and was rejected. Same56-cell,
+20min/1unit/120s deadman/30-unit reserve; no automatic next batch. Dispatch is
+not accepted completion, and does not increase the100/231 accepted count.
