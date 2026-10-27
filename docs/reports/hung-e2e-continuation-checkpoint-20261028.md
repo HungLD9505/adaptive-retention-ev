@@ -10,7 +10,7 @@
 - Hybrid v4 metrics cover 371 physical runs (196 scorable, 175 zero-scored); authenticated batch00 covers 80 jobs. Batch01–06 terminal receipts and full paired Development analysis remain pending. At the latest direct UI observation, CPU reader21 and coordinator06 were still running with 0 B output. They are metrics/export tasks, not per-job ledger recovery.
 - PR #67 has six-city supplementary CHARGED Development proof (2,268 runs); the [18-row summary](hung-charged-supplementary-proof-summary-20261028.md) retains adverse AMS results. Remote executor attribution and scientific acceptance are open. SZH must remain separate because of possible UrbanEV entity overlap.
 - The [69-cell Block7 review table](hung-block7-manifest-pairs-20261028.csv) has 69 manifest-consistent pairs and **zero peer-accepted pairs**. Historical Source/Target file SHA identities differ. Checkpoint payload equality, forecast/label comparability and tolerance still require independent review; otherwise create 69 new replay IDs without overwriting historical runs.
-- Hung–Qyroven head/bootstrap/runner parity and Colab #39 numeric export/independent Drive readback remain open. No Hung-specific Final lock or Final run exists. #10's full Results, Discussion and Conclusion therefore remain pending.
+- Hung–Qyroven head/bootstrap/runner parity and Colab #39 numeric export/independent Drive readback remain open. The [head-shape review aid](hung-q-head-contract-review-20261028.md) specifies the competing executed forecast heads without choosing one. No Hung-specific Final lock or Final run exists. #10's full Results, Discussion and Conclusion therefore remain pending.
 
 ## Reproduction and validation
 
