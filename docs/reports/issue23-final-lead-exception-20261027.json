@@ -1,0 +1,37 @@
+{
+  "schema": "ev-explicit-lead-final-exception-v1",
+  "authorization": "Bounded Final training/inference/evaluation authorized; independent peer review explicitly waived for this run only",
+  "independent_peer_approval": false,
+  "human_instruction_verbatim": "hờ duyệt cl gì nữa, cần đéo gì th nào review, cứ làm đi chứ ?",
+  "originating_coordination_chat": "01a13446-0da0-7fd1-b984-e655242b5497",
+  "trusted_relay": "Direct human decision relayed with authorization to this execution chat; verified against current Issue23 top section",
+  "issue_url": "https://github.com/HungLD9505/adaptive-retention-ev/issues/23",
+  "issue_section": "## Lead-directed Final execution authorization and review exception — October 27, 2026\n\nThe human lead explicitly instructed proceeding with Final without waiting for another team member's review. This is an explicit one-time override of the independent pre-execution peer-review/approval requirement for the bounded Qyroven Final delivery. Record it as **lead authorization / peer-review exception**, never as an independent peer approval. The lead's instruction is: \"cần đéo gì th nào review, cứ làm đi chứ ?\" in the originating coordination chat.\n\nProceed with the approved bounded scope: 30 UrbanEV stations +10 sites in each of six CHARGED cities, same IDs across7/14/28 days, seeds42/43/44, all14unique variants, unchanged90-day replay (270pairs/810whole units/11,340cells). Freeze and persist the exact current code/config/cohort/Source/input/analysis/runtime identities and this authorization before any real Final values are opened. Execute only after technical integrity, runtime/dependency/storage restoration and resume checks pass. If a gate was implemented to require independent approval, make the smallest explicit, tested lead-exception path; do not forge a reviewer, mark an unapproved lock approved, or silently disable integrity checks. Preserve the original candidate and exception provenance.\n\nThis instruction authorizes Final execution and proceeding with the reported limitations; it does not authorize method/config tuning on Final, post-outcome cohort changes, new purchases/top-ups, account rotation, fabricated results, peer-approval claims, merging, main promotion or issue closure. Keep bounded dispatch, durable per-unit logs/checkpoints/forecast chains and external byte/hash readback, existing30-unit reserve, actual quota monitoring, adverse/null outcomes and exact Source reuse. If capacity proves insufficient, stop at a durable boundary and report the shortfall rather than silently shrinking scope or spending more.\n\nGitHub CI billing remains a disclosed blocker; local/CUDA tests must not be relabeled as passing Windows CI. Independent review remains absent and must be disclosed in the handoff. This execution authorization supersedes earlier instructions to wait for peer review/lead execution acceptance, not the scientific protocol or technical safety checks below.\n",
+  "issue_section_sha256": "132db4582bf2ca28764a9f5b3983745f0e1babeddd84e0af6290a39d2238c0d4",
+  "recorded_at_utc": "2026-10-27T15:05:15.350951+00:00",
+  "cohort_path": "configs/issue23/final-bounded-cohort-v1.json",
+  "cohort_sha256": "fc799a669dd381decd1921d70c2044b8f8d2424f524124e873cb22024be4f565",
+  "namespace_entity_ids": 90,
+  "entity_budget_pairs": 270,
+  "whole_units": 810,
+  "method_seed_cells": 11340,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "history_days": [
+    7,
+    14,
+    28
+  ],
+  "replay_days": 90,
+  "constraints": [
+    "No method/config/outcome-based selection changes",
+    "No real Source or Development refits by default",
+    "Preserve30-unit reserve; no purchases/account rotation",
+    "Exact immutable code/config/input/Source/cohort/analysis/runtime and meaningful technical preflight",
+    "Durable checkpoints/logs/forecast/event chains and fresh external hash readback",
+    "CI billing blocked, not passed; no merge/main promotion/issue closure"
+  ]
+}

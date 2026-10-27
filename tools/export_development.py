@@ -14,6 +14,7 @@ import torch
 from ev_evaluation.artifacts import authenticate_matrix
 from ev_models.checkpoint import digest, load_checkpoint, write_json
 from ev_runner.run import runtime_code
+from ev_runner.state import state_digest
 from tools.analyze_core_comparisons import saved_errors
 from tools.verify_latest_states import verify_state
 
@@ -68,6 +69,16 @@ def put_run(
         raise ValueError("Latest-state verification no longer matches actual contents")
     prefix = f"study/{name}/"
     allowed = {root / "binding.json", root / "run.json"}
+    if "final_authorization" in row["binding"]:
+        initial = root / "initial-adaptation.json"
+        logs = json.loads(initial.read_text())
+        if (
+            logs != row["initial_logs"]
+            or state_digest(logs) != row["binding"]["initial_adaptation_identity"]
+        ):
+            raise ValueError("Final initialization record differs from committed binding")
+        allowed.add(initial)
+        put_file(archive, prefix + initial.name, initial)
     omitted = 0
     for index, tick in enumerate(sorted(root.glob("tick-*"))):
         commit = json.loads((tick / "commit.json").read_text())

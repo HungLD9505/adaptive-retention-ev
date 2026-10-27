@@ -1,5 +1,21 @@
 # Issue23 — bounded Final preparation, October 27, 2026
 
+## Superseding lead authorization — October 27, 2026
+
+The lead explicitly authorized real bounded Final execution without waiting for
+peer review. The [tracked exception](issue23-final-lead-exception-20261027.json)
+contains the direct instruction, originating chat and authenticated Issue23 top
+section fingerprint. This supersedes earlier wait-for-review/lead-execution gates
+below for this one bounded E2E run; it is **not independent peer approval**.
+Technical integrity, exact frozen methods/cohort/inputs/Source/analysis/runtime,
+package/storage/resume checks, bounded dispatch, external readback and30-unit
+reserve remain mandatory. No purchase, tuning/reselection, merge/main promotion
+or issue closure is authorized. Historical candidates remain unchanged. Execution
+uses a new lock with explicit `authorization_policy.mode=explicit_lead_exception`;
+the ordinary peer-review path stays intact. No real Final values are opened until
+that tracked lock and technical preflight are complete.
+
+
 ## Decision and actual preparation
 
 The human lead selected30 UrbanEV stations and10sites in **each** of AMS/JHB/LOA/MEL/SPO/SZH, with the same selected namespace/entity IDs across7/14/28days, seeds42/43/44, all14unique variants and90-day replay. This is90 namespace/entity IDs,270pairs,810whole units and11,340cells. Author IDs do not establish90 physically independent locations. UrbanEV remains primary; CHARGED is city-wise supplementary and SZH remains a separate temporal/possible-overlap analysis. The old3,510pair/147,420cell config and evidence are preserved as historical; expansion requires another decision.

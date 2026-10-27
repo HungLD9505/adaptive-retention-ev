@@ -1,6 +1,7 @@
 """Fail-closed Final access after live independent review and lead acceptance."""
 
 import copy
+import hashlib
 import json
 import subprocess
 from pathlib import Path
@@ -33,15 +34,30 @@ class FinalAccess:
         self.sha256 = digest(lock_path)
         self.lock = json.loads(lock_path.read_text())
         self.review = review
+        self._pins = None
 
     def check(self) -> None:
         """Recheck lock and pinned files before opening target values."""
         if digest(self.lock_path) != self.sha256:
             raise ValueError("Final lock changed after approval")
+        pins = {}
         for name, sha in self.lock["files"].items():
             path = Path(name)
-            if path.is_absolute() or ".." in path.parts or digest(self.root / path) != sha:
+            if path.is_absolute() or ".." in path.parts:
                 raise ValueError(f"Final lock file changed or unsafe path: {name}")
+            value = (self.root / path).stat()
+            pins[name] = (
+                value.st_dev,
+                value.st_ino,
+                value.st_size,
+                value.st_mtime_ns,
+                value.st_ctime_ns,
+            )
+            if self._pins is None and digest(self.root / path) != sha:
+                raise ValueError(f"Final lock file changed: {name}")
+        if self._pins is not None and pins != self._pins:
+            raise ValueError("Immutable Final dependency changed during execution")
+        self._pins = pins
 
     def input_group(self, inputs: InputRun, entity: str) -> dict:
         self.check()
@@ -76,7 +92,58 @@ class FinalAccess:
             raise ValueError("Final config or reused Source differs from immutable lock")
 
     def provenance(self) -> dict:
+        if self.review.get("mode") == "explicit_lead_exception":
+            return {
+                "lock_sha256": self.sha256,
+                "execution_code_identity_sha256": hashlib.sha256(
+                    json.dumps(
+                        {n: s for n, s in self.lock["files"].items() if n.endswith(".py")},
+                        sort_keys=True,
+                    ).encode()
+                ).hexdigest(),
+                "authorization": self.review,
+                "independent_peer_approval": False,
+            }
         return {"lock_sha256": self.sha256, "reviewed_commit": self.commit, "review": self.review}
+
+
+def explicit_exception(root: Path, lock: dict) -> dict | None:
+    """Validate the tracked, scope-specific human exception; never invent a peer review."""
+    policy = lock.get("authorization_policy", {"mode": "independent_peer_review"})
+    if policy.get("mode") == "independent_peer_review":
+        return None
+    if policy.get("mode") != "explicit_lead_exception":
+        raise ValueError("Unknown Final authorization policy")
+    name = policy["record_path"]
+    path = Path(name)
+    if path.is_absolute() or ".." in path.parts or lock["files"].get(name) != digest(root / path):
+        raise ValueError("Missing or changed explicit lead exception record")
+    record = json.loads((root / path).read_text())
+    if (
+        record.get("schema") != "ev-explicit-lead-final-exception-v1"
+        or record.get("independent_peer_approval") is not False
+        or record.get("originating_coordination_chat") != "01a13446-0da0-7fd1-b984-e655242b5497"
+        or record.get("method_seed_cells") != 11340
+        or record.get("whole_units") != 810
+        or record.get("entity_budget_pairs") != 270
+        or record.get("namespace_entity_ids") != 90
+        or record.get("seeds") != [42, 43, 44]
+        or record.get("history_days") != [7, 14, 28]
+        or record.get("replay_days") != 90
+        or hashlib.sha256(record["issue_section"].encode()).hexdigest()
+        != record["issue_section_sha256"]
+        or "one-time override" not in record["issue_section"]
+        or record["cohort_path"] != lock["cohort_path"]
+        or record["cohort_sha256"] != lock["files"].get(record["cohort_path"])
+    ):
+        raise ValueError("Lead exception scope/provenance differs from frozen bounded lock")
+    return {
+        "mode": "explicit_lead_exception",
+        "record_path": name,
+        "record_sha256": digest(root / path),
+        "source_issue": record["issue_url"],
+        "independent_peer_approval": False,
+    }
 
 
 def authorize(lock_path: Path, root: Path) -> FinalAccess:
@@ -94,6 +161,22 @@ def authorize(lock_path: Path, root: Path) -> FinalAccess:
     lock = json.loads(tracked)
     if lock.get("schema") != "ev-final-execution-lock-v1" or lock.get("method_seed_cells") != 11340:
         raise ValueError("Unsupported Final execution lock")
+    exception = explicit_exception(root, lock)
+    if exception is not None:
+        record_name = exception["record_path"]
+        if (
+            subprocess.check_output(["git", "-C", str(root), "show", f"HEAD:{record_name}"])
+            != (root / record_name).read_bytes()
+        ):
+            raise ValueError("Lead exception must be tracked at execution HEAD")
+        if (
+            not isinstance(lock.get("runtime_profile"), dict)
+            or lock["runtime_profile"].get("device") != "cuda"
+        ):
+            raise ValueError("Measured CUDA runtime profile is not locked")
+        access = FinalAccess(root, lock_path, commit, exception)
+        access.check()
+        return access
     pr = json.loads(
         subprocess.check_output(["gh", "api", f"repos/{REPOSITORY}/pulls/52"], text=True)
     )
@@ -137,7 +220,28 @@ class FinalInputRun(InputRun):
     def __init__(self, root: Path, sha256: str, access: FinalAccess) -> None:
         access.check()
         self.final_access = access
+        self._verified_files = {}
         super().__init__(root, sha256)
+
+    def verify(self, name: str) -> None:
+        """Authenticate once, then reject ordinary file changes within this unit."""
+        if name not in {
+            "training.jsonl",
+            "entities.jsonl",
+            "forecasts.jsonl",
+            "labels.jsonl",
+            "schedule.jsonl",
+        }:
+            super().verify(name)
+        path = self.root / name
+        value = path.stat()
+        pin = (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns, value.st_ctime_ns)
+        if name in self._verified_files:
+            if self._verified_files[name] != pin:
+                raise ValueError("Immutable Final input file changed during execution")
+            return
+        super().verify(name)
+        self._verified_files[name] = pin
 
     def check_target(self, entity_id: str) -> None:
         self.final_access.input_group(self, entity_id)

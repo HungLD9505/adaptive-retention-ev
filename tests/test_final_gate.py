@@ -183,9 +183,11 @@ class FinalFixtureTests(unittest.TestCase):
             "input": self.inputs.binding("target", "001", "a" * 64),
             "config": self.config,
             "final_authorization": self.access.provenance(),
+            "initial_adaptation_identity": state_digest([]),
         }
         output = self.root / name
         store = Store(output, binding, resume_from=resume)
+        (output / "initial-adaptation.json").write_text("[]")
         runner = Runner(
             replay,
             initial,
@@ -218,7 +220,13 @@ class FinalFixtureTests(unittest.TestCase):
         write_json(
             output / "run.json",
             {
+                "run_id": output.name,
                 "binding": binding,
+                "initial_logs": [],
+                "ticks": store.count,
+                "final_branch_state_sha256": {
+                    str(k): state_digest(v.snapshot()) for k, v in runner.branches.items()
+                },
                 "candidate_levels": list(runner.levels),
                 "commit_chain": store.previous,
                 "issued_days": len(forecasts),
