@@ -1876,17 +1876,17 @@
   },
   "latest_durability_snapshot": {
     "date": "2026-10-27",
-    "primary_new_runtime_published": 368,
+    "primary_new_runtime_published": 380,
     "primary_new_runtime_required": 742,
     "proxy_published": 212,
     "proxy_required": 212,
-    "matched_published": 156,
+    "matched_published": 168,
     "matched_required": 530,
     "next_matched_range": [
-      156,
-      168
+      168,
+      180
     ],
-    "next_range_status": "Dispatched after actual published prior receipt and no-live-GPU-child guard; external verification pending",
+    "next_range_status": "Not dispatched; AMS25-37 running as PID4492",
     "loa_target_published": 25,
     "loa_target_required": 378,
     "matched_24_36": {
@@ -2743,7 +2743,7 @@
     "szh_target_published": 1,
     "szh_target_required": 378,
     "all_CHARGED_city_Source_sets": "All6 own-city sets,3 fixed seeds each, independently externally accepted; original SPO Sources restored without refitting",
-    "current_GPU_job": "Primary matched156-168 dispatched; inspect live process before any new dispatch. Published MEL13; no other GPU child should be live.",
+    "current_GPU_job": "AMS25-37 PID4492 polled live; accepted counter remains25 until independent external publication",
     "matched_144_156": {
       "receipt": {
         "schema": "verified-kaggle-outbox-publication-v1",
@@ -2819,6 +2819,48 @@
       "proof_id": "1k6HJxHBQ98e98bAi0guQI02CfSpmZfZR",
       "receipt_sha256": "f091a2fc25fe53b59f857f395164f9455093e526a241c2225867d0286225adbd",
       "proof_sha256": "c22d9797ee762923179e1098ecef18cf8e757febadbe2be838f253ed0ca29d82"
-    }
+    },
+    "matched_156_168": {
+      "receipt": {
+        "schema": "verified-kaggle-outbox-publication-v1",
+        "plan_sha256": "984226d37a815f331e754fb64eb511052cd2bf46d8527ca3ea055bdfd2062fc8",
+        "family": "matched",
+        "start": 156,
+        "end": 168,
+        "run_ids": [
+          "urbanev-SZH-2447-7d-block28-seed42",
+          "urbanev-SZH-2447-7d-adaptive-seed42",
+          "urbanev-SZH-2447-7d-full_finetuning-seed42",
+          "urbanev-SZH-2447-7d-fixed_retention-seed42",
+          "urbanev-SZH-2447-7d-seasonal_naive-seed43",
+          "urbanev-SZH-2447-7d-target_only-seed43",
+          "urbanev-SZH-2447-7d-frozen_source-seed43",
+          "urbanev-SZH-2447-7d-online_best-seed43",
+          "urbanev-SZH-2447-7d-without_source_initialization-seed43",
+          "urbanev-SZH-2447-7d-block7-seed43",
+          "urbanev-SZH-2447-7d-block28-seed43",
+          "urbanev-SZH-2447-7d-adaptive-seed43"
+        ],
+        "independent_content_verified": true,
+        "remote_readback_verified": true,
+        "artifact": {
+          "drive_url": "https://drive.google.com/file/d/1pf7C7sEKb5dO2ET4VHEXhvFi4M4KQalS/view",
+          "bytes": 18073235,
+          "sha256": "861e1ae7bafc5099a3b9c371d91073424c334f5c513206f8aaff31ab6d008539"
+        },
+        "verification_sha256": "f171533c7f2fee1432b9858cfbe5dbc1e9ef31f95620dfc593546805865f25fa",
+        "target_code": "a94bfaf04725df5a308aee34d2ac10dfbf6f4f51",
+        "scope": "Fresh actual anonymous Drive download; complete frozen IDs/config/input/code/environment, safe transport restore, daily/input/state proof equality, all3 original Source weights/latent CPU reload. No training, bundled-code execution, Final or next dispatch."
+      },
+      "archive_id": "1pf7C7sEKb5dO2ET4VHEXhvFi4M4KQalS",
+      "receipt_id": "1YX0YPMD0Ny89675eFr8yVi8K5WegJ7gs",
+      "proof_id": "1CqJBoGXulBbPlA5n40hZA09uOBK-VDmv",
+      "receipt_sha256": "b4673654272dfb61d24b37d14ad70d41715da2147fab73196f0e88e93528d252",
+      "proof_sha256": "0f407437394a7fecf948f5fffaf44a3179fab8e3055dbb1424f6acded47da3b2"
+    },
+    "next_ams_range": [
+      25,
+      37
+    ]
   }
 }

@@ -905,3 +905,16 @@ Current accepted city target prefixes are JHB378, LOA25, SPO13, AMS25,
 MEL13 (new replication) and SZH1, each against its separate378-cell plan.
 These are neither pooled data nor full-study effectiveness results. Continue
 from each actual published receipt; preserve all incomplete/failed work.
+
+Matched156–167 passed fresh Drive and complete independent Source/daily/input/
+latest-state equality, raising accepted new-runtime recovery to380/742:
+212 proxy plus168 matched. [Archive](https://drive.google.com/file/d/1pf7C7sEKb5dO2ET4VHEXhvFi4M4KQalS/view),
+[receipt](https://drive.google.com/file/d/1YX0YPMD0Ny89675eFr8yVi8K5WegJ7gs/view),
+[proof](https://drive.google.com/file/d/1CqJBoGXulBbPlA5n40hZA09uOBK-VDmv/view).
+Next primary168–179 has not been dispatched. AMS25–36 is now running as
+PID4492, actually polled live after all other GPU children stopped; the previous
+actual AMS13–24 publication receipt was downloaded and pinned by the launcher.
+Its accepted city counter remains25 until the external gate passes. Never
+restart it solely because browser observation times out. No Final/merge/full-
+completion claim. Only maintained handoff/evidence files changed in Git;
+research model/controller/runner/baseline bytes remain identical to1ac2ae0.
