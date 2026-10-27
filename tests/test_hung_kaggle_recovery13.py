@@ -24,6 +24,13 @@ class Recovery13Tests(unittest.TestCase):
         self.assertIn("assert passed", tail)
         self.assertIn("8*1024**3", tail)
         self.assertEqual(set(recovery.ARCHIVE_PINS), set(range(8, 13)))
+        for name in (
+            recovery.GPU_NAME + "-submit",
+            recovery.GPU_NAME + "-execute",
+            recovery.READBACK_NAME + "-submit",
+            recovery.CONTROLLER_CLAIM,
+        ):
+            self.assertLessEqual(len(name), 50)
         launcher = recovery.launcher(module, setup, parity)
         compile(launcher, "cpu", "exec")
         self.assertIn("assert available >= required", launcher)

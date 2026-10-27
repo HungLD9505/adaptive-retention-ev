@@ -13,6 +13,11 @@ from tools import hung_kaggle_queue as queue
 
 
 class KaggleQueueTests(unittest.TestCase):
+    def test_invalid_claim_names_fail_before_sdk_or_upload(self):
+        for name in ("x" * 51, "short", "invalid/claim-name", "INVALID-claim"):
+            with self.subTest(name=name), self.assertRaises(AssertionError):
+                queue.claim(name, {"fixture": True})
+
     def test_rejected_sources_preserve_created_version_identity(self):
         for field in ("invalid_dataset_sources", "invalid_kernel_sources"):
             response = SimpleNamespace(

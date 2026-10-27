@@ -331,6 +331,9 @@ def submit(
 
 def claim(name: str, record: dict) -> None:
     """Create-only private Dataset claim; 409 never becomes a new version."""
+    assert 6 <= len(name) <= 50 and all(
+        c in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in name
+    ), ("Dataset claim slug/title must contain 6–50 lowercase URL-safe characters", name)
     from kagglehub.clients import build_kaggle_client
     from kagglehub.gcs_upload import upload_files_and_directories
     from kagglesdk.blobs.types.blob_api_service import ApiBlobType
@@ -349,7 +352,7 @@ def claim(name: str, record: dict) -> None:
     request.files, request.directories, request.is_private = upload.files, upload.directories, True
     with build_kaggle_client() as client:
         result = client.datasets.dataset_api_client.create_dataset(request)
-    assert not result.error, "Claim failed; no submission/training retry"
+    assert not result.error, ("Claim failed; no submission/training retry", name, str(result.error))
 
 
 def module_prefix(module_source: str) -> str:

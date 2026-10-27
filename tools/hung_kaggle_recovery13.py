@@ -6,7 +6,8 @@ from tools.hung_kaggle_queue import gpu_source, module_prefix
 from tools.hung_kaggle_recovery import replace_once
 
 GPU_NAME = "hung-group03-shard13-recovery-20261027-v1"
-READBACK_NAME = "hung-group03-shard13-output-readback-20261027-v1"
+READBACK_NAME = "hung-g03-s13-readback-20261027-v1"
+CONTROLLER_CLAIM = "hung-g03-s13-controller-execute-20261027-v2"
 CARRIED = (8, 9, 10, 11, 12)
 ARCHIVE_PINS = {
     8: (74362442, "a49fc9c6c56b5e6cdcf54bb1af15d05cb511d017f3be3cb4abfb41f17dc151e8"),
@@ -81,7 +82,8 @@ print(json.dumps(proof), flush=True)
 assert status('hung-matched-group03-recovery-20261027-v2') == 'ERROR'
 assert status('hung-dev-readback-shard0012-20261027-v2') == 'ERROR'
 assert status('hung-shard0012-reconcile-cpu-20261027-v2') == 'COMPLETE'
-claim('hung-group03-shard13-recovery-controller-execute-20261027-v1', {{'only':'shard_0013'}})
+assert status('hung-shard0013-recovery-cpu-20261027-v1') == 'ERROR'
+claim({CONTROLLER_CLAIM!r}, {{'only':'shard_0013'}})
 from kagglehub.clients import build_kaggle_client
 from kagglesdk.kernels.types.kernels_api_service import ApiGetAcceleratorQuotaStatisticsRequest
 with build_kaggle_client() as client:
