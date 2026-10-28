@@ -1,0 +1,58 @@
+{
+  "scope": "synthetic_fixture_only",
+  "q_commit": "83b877e16e7e690d93bb1f7736ce1870ef08fadd",
+  "tool_sha256": "cc33cc993124681eac75134b574e69b539870f8e2a38cc94ac8f45f15912531a",
+  "q_code_sha256": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+  "q_controller_sha256": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+  "q_model_sha256": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+  "h_code_sha256": "38adc3c9952481e89c1417dfc677f3e9abb3bd3eda8accd2709bc547fdb52baa",
+  "fixture_sha256": "5fd17ab357007d295c973131a2835626a0f53b0e945f12bac6b6c8ba453ee092",
+  "torch_version": "2.8.0+cu126",
+  "device": "cpu",
+  "fixture": "two daily origins, same predictor arrays, first day complete at next tick, second incomplete; initial lambda 0.1, Bmin 2, delta 100",
+  "encoder_before_max_abs": 0.0,
+  "initial_forecast_max_abs": 0.2534717321395874,
+  "encoder_after_one_update_max_abs": 0.001999996602535248,
+  "q_events": [
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "skip_incomplete_labels",
+    "decision",
+    "fork"
+  ],
+  "h_events": [
+    "fork:0",
+    "forecast:day-0",
+    "score:day-0",
+    "update:day-0",
+    "forecast:day-1",
+    "unscored:day-1",
+    "decision:0:0.1",
+    "fork:1"
+  ],
+  "normalized_events": [
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "unscored",
+    "decision",
+    "fork"
+  ],
+  "q_decision": 0.1,
+  "h_decision": 0.1,
+  "q_label_accesses": [
+    [
+      "2022-12-01T00:00:00+08:00",
+      "2022-12-02T00:00:00+08:00"
+    ],
+    [
+      "2022-12-02T00:00:00+08:00",
+      "2022-12-03T00:00:00+08:00"
+    ]
+  ]
+}
