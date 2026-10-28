@@ -24,7 +24,7 @@ def write(path: Path, value: dict | str) -> None:
     )
 
 
-def fixture(root: Path, lock_sha: str = LOCK_SHA) -> dict:
+def fixture(root: Path, lock_sha: str = LOCK_SHA, selected_ids: set[str] | None = None) -> dict:
     output = root / "final-output"
     write(
         output / "final_lock_identity.json",
@@ -45,6 +45,8 @@ def fixture(root: Path, lock_sha: str = LOCK_SHA) -> dict:
         ("drift", ("drift_reference", "target_init", "replay")),
         ("seasonal", ("replay",)),
     ):
+        if selected_ids is not None and job not in selected_ids:
+            continue
         for stage in stages:
             stage_root = output / "stages" / job / stage
             write(
