@@ -480,10 +480,16 @@ class PlanGeneratorTests(unittest.TestCase):
         self.drift_patch = patch.object(
             generator, "drift_reference", return_value=(0.0, 1.0, "first-origin")
         )
+        self.capacity_patch = patch.object(
+            generator.dispatch,
+            "free_space",
+            return_value=generator.dispatch.MIN_FREE_BYTES + 1,
+        )
         self.code_patch.start()
         self.grid_patch.start()
         self.input_patch.start()
         self.drift_patch.start()
+        self.capacity_patch.start()
         self.proxy_select_patch = patch(
             "experiments.hung_sprint2.matched_proxy_provenance.proxy_select",
             return_value=self.proxy_verified,
@@ -493,6 +499,7 @@ class PlanGeneratorTests(unittest.TestCase):
         self.addCleanup(self.grid_patch.stop)
         self.addCleanup(self.input_patch.stop)
         self.addCleanup(self.drift_patch.stop)
+        self.addCleanup(self.capacity_patch.stop)
         self.addCleanup(self.proxy_select_patch.stop)
 
     @staticmethod

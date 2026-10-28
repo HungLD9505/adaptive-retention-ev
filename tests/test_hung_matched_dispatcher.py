@@ -114,14 +114,21 @@ class MatchedDispatcherTests(unittest.TestCase):
         self.ignore_patch = patch.object(
             dispatch.subprocess, "run", return_value=type("Result", (), {"returncode": 0})()
         )
+        # These fixtures exercise plan/receipt behavior, independent of host free space.
+        # The dedicated capacity test below overrides this with an insufficient value.
+        self.capacity_patch = patch.object(
+            dispatch, "free_space", return_value=dispatch.MIN_FREE_BYTES + 1
+        )
         self.code_patch.start()
         self.single_code_patch.start()
         self.load_patch.start()
         self.ignore_patch.start()
+        self.capacity_patch.start()
         self.addCleanup(self.code_patch.stop)
         self.addCleanup(self.single_code_patch.stop)
         self.addCleanup(self.load_patch.stop)
         self.addCleanup(self.ignore_patch.stop)
+        self.addCleanup(self.capacity_patch.stop)
 
     def save(self) -> None:
         self.plan_path.write_text(json.dumps(self.plan), encoding="utf-8")

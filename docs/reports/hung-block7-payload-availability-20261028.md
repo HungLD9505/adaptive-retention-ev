@@ -23,30 +23,34 @@ from zipfile import ZipFile
 import csv
 import hashlib
 
-table = Path('docs/reports/hung-block7-manifest-pairs-20261028.csv')
-with table.open(newline='', encoding='utf-8') as source:
+table = Path("docs/reports/hung-block7-manifest-pairs-20261028.csv")
+with table.open(newline="", encoding="utf-8") as source:
     rows = list(csv.DictReader(source))
-columns = ('historical_source_sha256', 'historical_target_sha256',
-           'main_source_sha256', 'main_target_sha256')
+columns = (
+    "historical_source_sha256",
+    "historical_target_sha256",
+    "main_source_sha256",
+    "main_target_sha256",
+)
 expected = {key: {row[key] for row in rows} for key in columns}
 found = {key: set() for key in columns}
-for path in Path('.').rglob('*.pt'):
-    if 'agent-worktrees' in path.parts:
+for path in Path(".").rglob("*.pt"):
+    if "agent-worktrees" in path.parts:
         continue
-    with path.open('rb') as source:
-        digest = hashlib.file_digest(source, 'sha256').hexdigest()
+    with path.open("rb") as source:
+        digest = hashlib.file_digest(source, "sha256").hexdigest()
     for key in columns:
         if digest in expected[key]:
             found[key].add(digest)
-for path in Path('.cache').rglob('*.zip'):
-    if 'agent-worktrees' in path.parts:
+for path in Path(".cache").rglob("*.zip"):
+    if "agent-worktrees" in path.parts:
         continue
     with ZipFile(path) as archive:
         for member in archive.infolist():
-            if not member.filename.endswith('.pt'):
+            if not member.filename.endswith(".pt"):
                 continue
             with archive.open(member) as source:
-                digest = hashlib.file_digest(source, 'sha256').hexdigest()
+                digest = hashlib.file_digest(source, "sha256").hexdigest()
             for key in columns[:2]:
                 if digest in expected[key]:
                     found[key].add(digest)
