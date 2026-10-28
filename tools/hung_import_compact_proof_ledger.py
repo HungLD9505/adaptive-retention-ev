@@ -56,6 +56,13 @@ def sha256_bytes(raw: bytes) -> str:
     return hashlib.sha256(raw).hexdigest()
 
 
+def git_lf_sha256(raw: bytes, label: str) -> str:
+    """Hash tracked text as stored in Git across LF and Windows CRLF checkouts."""
+    without_crlf = raw.replace(b"\r\n", b"")
+    require(b"\r" not in without_crlf, f"Bare carriage return in {label}")
+    return sha256_bytes(raw.replace(b"\r\n", b"\n"))
+
+
 def valid_sha(value: Any) -> bool:
     return isinstance(value, str) and re.fullmatch(r"[0-9a-f]{64}", value) is not None
 
@@ -326,16 +333,22 @@ def read_base_and_jobsets() -> tuple[
     list[dict[str, str]], dict[str, tuple[list[str], str]], dict[str, Any]
 ]:
     require(
-        sha256_bytes(LEDGER_V2.read_bytes()) == LEDGER_V2_SHA256, "Frozen v2 ledger SHA mismatch"
+        git_lf_sha256(LEDGER_V2.read_bytes(), "v2 ledger") == LEDGER_V2_SHA256,
+        "Frozen v2 ledger SHA mismatch",
     )
     require(
-        sha256_bytes(RECOVERY_REGISTER.read_bytes()) == RECOVERY_REGISTER_SHA256,
+        git_lf_sha256(RECOVERY_REGISTER.read_bytes(), "recovery register")
+        == RECOVERY_REGISTER_SHA256,
         "Frozen recovery register SHA mismatch",
     )
     require(
-        sha256_bytes(ALLOCATION.read_bytes()) == ALLOCATION_SHA256, "Frozen allocation SHA mismatch"
+        git_lf_sha256(ALLOCATION.read_bytes(), "allocation") == ALLOCATION_SHA256,
+        "Frozen allocation SHA mismatch",
     )
-    require(sha256_bytes(VERIFIER.read_bytes()) == VERIFIER_SHA256, "Verifier source SHA mismatch")
+    require(
+        git_lf_sha256(VERIFIER.read_bytes(), "verifier source") == VERIFIER_SHA256,
+        "Verifier source SHA mismatch",
+    )
     with LEDGER_V2.open(encoding="utf-8", newline="") as stream:
         base_rows = list(csv.DictReader(stream))
     require(len(base_rows) == 782, "Frozen ledger row count mismatch")

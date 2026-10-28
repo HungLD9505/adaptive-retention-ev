@@ -23,6 +23,16 @@ class CompactLedgerImportTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.cache = Path(self.temp.name)
 
+    def test_tracked_text_hash_accepts_crlf_and_rejects_bare_cr(self) -> None:
+        git_blob = b"header,field\nfirst,value\n"
+        expected = importer.sha256_bytes(git_blob)
+        self.assertEqual(importer.git_lf_sha256(git_blob, "fixture"), expected)
+        self.assertEqual(
+            importer.git_lf_sha256(git_blob.replace(b"\n", b"\r\n"), "fixture"), expected
+        )
+        with self.assertRaisesRegex(importer.ProofImportError, "Bare carriage return"):
+            importer.git_lf_sha256(b"header,field\rfirst,value\n", "fixture")
+
     def save(self, name: str, value: dict) -> tuple[str, int, str]:
         path = self.cache / name
         raw = (json.dumps(value, sort_keys=True, indent=2) + "\n").encode()
