@@ -26,7 +26,7 @@ LEDGER_V2_SHA256 = "1a2ad217184a38ae012de07c1bedf335712aa095c2b4e783495d42d2c94f
 RECOVERY_REGISTER_SHA256 = "9076d7eb550fd0701e60ab337a13efabd9f68e196de22a2785894d98705a51fc"
 ALLOCATION_SHA256 = "8214c5aa5abb7958d4832d2948d4c868b1a35b7d0f2196f3f6eaa64ecda31906"
 VERIFIER_SHA256 = "a7b6ebd0fbd69001e34b874fff0dba1c6d9ecc1e6dae682318a410074b537b90"
-REMOTE_STATUS = "VERIFIED_REMOTE_COMPACT_PROOF"
+REMOTE_STATUS = "PROVISIONAL_REMOTE_COMPACT_PROOF"
 EXTRA_FIELDS = (
     "stage_receipt_sha256",
     "proof_path",
@@ -35,7 +35,7 @@ EXTRA_FIELDS = (
     "proof_readback_path",
     "proof_readback_bytes",
     "proof_readback_sha256",
-    "claimed_training_version_id",
+    "claimed_archive_carrier_version_id",
     "claimed_archive_readback_version_id",
     "claimed_proof_version_id",
     "claimed_proof_readback_version_id",
@@ -192,7 +192,7 @@ def validate_entry(
     require(isinstance(sid, str) and sid in expected_jobsets, f"Unknown proof shard: {sid}")
     expected_ids, expected_jobset_sha = expected_jobsets[sid]
     for field in (
-        "training_version_id",
+        "archive_carrier_version_id",
         "archive_readback_version_id",
         "proof_version_id",
         "proof_readback_version_id",
@@ -225,6 +225,7 @@ def validate_entry(
     require(proof.get("schema") == "hung-kaggle-compact-shard-proof-v1", f"Proof schema: {sid}")
     require(proof.get("scope") == "development_only", f"Proof scope: {sid}")
     require(proof.get("shard_id") == sid, f"Proof shard mismatch: {sid}")
+    require(proof.get("verifier_sha256") == VERIFIER_SHA256, f"Verifier pin mismatch: {sid}")
     require(
         proof.get("parent_plan_sha256") == allocation["plan_sha256"]
         and proof.get("parent_partition_sha256") == allocation["partition_sha256"]
@@ -236,7 +237,7 @@ def validate_entry(
         ("provider_partition_sha256", "provider_partition_sha256"),
         ("archive_sha256", "archive_sha256"),
         ("archive_bytes", "archive_bytes"),
-        ("claimed_saved_version_id", "training_version_id"),
+        ("claimed_saved_version_id", "archive_carrier_version_id"),
         ("claimed_readback_version_id", "archive_readback_version_id"),
     ):
         require(proof.get(proof_field) == entry[manifest_field], f"{proof_field} mismatch: {sid}")
@@ -271,7 +272,7 @@ def validate_entry(
         "proof_readback_path": entry["proof_readback_path"],
         "proof_readback_bytes": str(entry["proof_readback_bytes"]),
         "proof_readback_sha256": entry["proof_readback_sha256"],
-        "claimed_training_version_id": str(entry["training_version_id"]),
+        "claimed_archive_carrier_version_id": str(entry["archive_carrier_version_id"]),
         "claimed_archive_readback_version_id": str(entry["archive_readback_version_id"]),
         "claimed_proof_version_id": str(entry["proof_version_id"]),
         "claimed_proof_readback_version_id": str(entry["proof_readback_version_id"]),
@@ -318,8 +319,9 @@ def merge_rows(
             result_by_id[jid]["job_receipt_path"] = f"receipts/{jid}/job.json"
             result_by_id[jid]["status"] = REMOTE_STATUS
             result_by_id[jid]["reason"] = (
-                "Saved CPU verifier checked remote archive SHA/CRC, receipts, manifests and members; "
-                "separate CPU readback checked compact proof bytes/SHA; local source/version claims remain"
+                "Saved verifier v1 proof and separate proof-byte readback imported; reviewer P1 "
+                "empty-stage false-accept risk requires verifier v2 recheck before acceptance; "
+                "provider source/version IDs remain claims"
             )
     for path, group_ids in readback_groups.items():
         require(
@@ -435,7 +437,7 @@ def main() -> None:
                 "verified_local_bytes": sum(
                     row["status"] == "VERIFIED_LOCAL_BYTES" for row in rows
                 ),
-                "verified_remote_compact_proof": sum(
+                "provisional_remote_compact_proof": sum(
                     row["status"] == REMOTE_STATUS for row in rows
                 ),
                 "pending": sum(row["status"] == "MISSING_REVIEWABLE_ARCHIVE" for row in rows),
