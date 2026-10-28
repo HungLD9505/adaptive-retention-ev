@@ -5,3 +5,4 @@
 *.xlsx binary
 *.parquet binary
 *.zip binary
+docs/reports/hung-development-switch-audit-20261028-v4/switch_audit_full.csv -text whitespace=cr-at-eol
