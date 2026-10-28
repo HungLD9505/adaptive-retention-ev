@@ -27,6 +27,7 @@ class Block7ReplayPreflightTests(unittest.TestCase):
             replay_id("../other")
 
     def test_payload_path_cannot_escape(self) -> None:
+        (ROOT / ".cache").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=ROOT / ".cache") as directory:
             root = Path(directory)
             self.assertEqual(safe_payload_path(root, "states/target.pt"), root / "states/target.pt")

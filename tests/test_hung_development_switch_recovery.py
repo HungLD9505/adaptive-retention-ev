@@ -15,6 +15,7 @@ from tools.hung_development_switch_recovery import decision_counts, local_trace
 
 class SwitchRecoveryTests(unittest.TestCase):
     def test_local_trace_binds_receipt_and_manifest_hashes(self) -> None:
+        (ROOT / ".cache").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=ROOT / ".cache") as directory:
             archive = Path(directory) / "artifacts.zip"
             job_id = "fixture_b7s7e1"
