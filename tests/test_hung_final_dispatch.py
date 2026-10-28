@@ -161,8 +161,11 @@ class FinalDispatchTests(unittest.TestCase):
             context = {
                 "output_root": root,
                 "lock_sha256": lock_sha,
-                "lock": {"resources": {"min_free_bytes": MIN_FREE_BYTES}},
+                "lock": {
+                    "resources": {"min_free_bytes": MIN_FREE_BYTES, "estimated_output_bytes": 1}
+                },
                 "coverage_status": "incomplete",
+                "input_runs_verified": True,
                 "jobs": [{"job_id": "a"}, {"job_id": "b"}],
                 "plan": [{"target_init": None}, {"target_init": None}],
             }
@@ -211,7 +214,15 @@ class FinalDispatchTests(unittest.TestCase):
             lock_path, lock_sha, output, jobset = _fixture(Path(directory))
             context = validate_lock(lock_path, lock_sha, check_code=False)
             with mock.patch("experiments.hung_sprint2.final_dispatch._free_bytes", return_value=1):
-                with self.assertRaisesRegex(ValueError, "reserve is below lock"):
+                with self.assertRaisesRegex(ValueError, "reserve plus locked output budget"):
+                    dispatch(context, run=True)
+            self.assertFalse(output.exists())
+            budget = context["lock"]["resources"]
+            with mock.patch(
+                "experiments.hung_sprint2.final_dispatch._free_bytes",
+                return_value=budget["min_free_bytes"] + budget["estimated_output_bytes"] - 1,
+            ):
+                with self.assertRaisesRegex(ValueError, "reserve plus locked output budget"):
                     dispatch(context, run=True)
             self.assertFalse(output.exists())
             with jobset.open("a", encoding="utf-8") as stream:

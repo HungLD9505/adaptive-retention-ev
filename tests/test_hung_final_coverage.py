@@ -76,3 +76,15 @@ class FinalCoverageTests(unittest.TestCase):
         }
         with self.assertRaisesRegex(ValueError, "Invalid deterministic seed aliases"):
             _coverage_status(coverage, jobs, plans)
+
+    def test_without_confidence_alias_requires_locked_zero_delta(self) -> None:
+        coverage, jobs, plans = _matrix()
+        coverage["variant_categories"]["target_only"] = ["ablation:without_confidence"]
+        for job, plan in zip(jobs, plans, strict=True):
+            if job["variant"] == "target_only":
+                job["method"] = "online_best_lambda"
+                plan["replay"]["delta"] = 0
+        self.assertEqual(_coverage_status(coverage, jobs, plans), "incomplete")
+        plans[-1]["replay"]["delta"] = 0.1
+        with self.assertRaisesRegex(ValueError, "confidence ablation alias"):
+            _coverage_status(coverage, jobs, plans)

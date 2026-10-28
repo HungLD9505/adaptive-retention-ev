@@ -213,7 +213,9 @@ def _plan_identity(
         require(init is None, "Unexpected Final Target initialization")
 
 
-def validate_lock(path: Path, expected_sha256: str, *, check_code: bool = True) -> dict:
+def validate_lock(
+    path: Path, expected_sha256: str, *, check_code: bool = True, verify_input_runs: bool = True
+) -> dict:
     """Authenticate all identities before opening any Final role artifact."""
     lock_path = _project_path(str(path))
     require(
@@ -265,7 +267,7 @@ def validate_lock(path: Path, expected_sha256: str, *, check_code: bool = True) 
         and type(resources["min_free_bytes"]) is int
         and resources["min_free_bytes"] >= MIN_FREE_BYTES
         and type(resources["estimated_output_bytes"]) is int
-        and resources["estimated_output_bytes"] >= 0
+        and resources["estimated_output_bytes"] > 0
         and isinstance(resources["estimated_gpu_seconds"], (int, float))
         and not isinstance(resources["estimated_gpu_seconds"], bool)
         and 0 <= resources["estimated_gpu_seconds"] < float("inf"),
@@ -319,6 +321,19 @@ def validate_lock(path: Path, expected_sha256: str, *, check_code: bool = True) 
         _valid_job(job)
         _plan_identity(job, planned_job, source_by_sha, lock["coverage"]["replay_origins"])
     coverage_status = _coverage_status(lock["coverage"], jobs, planned)
+    root = _project_path(lock["output_root"])
+    require(not root.is_relative_to(lock_path.parent), "Final output cannot contain the lock")
+    context = {
+        "lock": lock,
+        "lock_sha256": expected_sha256,
+        "jobs": jobs,
+        "plan": planned,
+        "output_root": root,
+        "coverage_status": coverage_status,
+        "input_runs_verified": verify_input_runs,
+    }
+    if not verify_input_runs:
+        return context
     authenticated_inputs = set()
     final_entities: dict[Path, dict[tuple[str, str, str], int]] = {}
     final_schedule: dict[Path, dict[tuple[str, str, str], list[dict]]] = {}
@@ -373,13 +388,4 @@ def validate_lock(path: Path, expected_sha256: str, *, check_code: bool = True) 
             ),
             "Final origin order is not consecutive daily",
         )
-    root = _project_path(lock["output_root"])
-    require(not root.is_relative_to(lock_path.parent), "Final output cannot contain the lock")
-    return {
-        "lock": lock,
-        "lock_sha256": expected_sha256,
-        "jobs": jobs,
-        "plan": planned,
-        "output_root": root,
-        "coverage_status": coverage_status,
-    }
+    return context

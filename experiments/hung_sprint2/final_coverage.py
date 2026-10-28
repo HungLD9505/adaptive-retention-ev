@@ -157,7 +157,10 @@ def _coverage_status(coverage: dict, jobs: list[dict], planned: list[dict]) -> s
             elif label == "main":
                 require(job["method"] == "confidence", "Final main method differs")
             elif label == "ablation:without_confidence":
-                require(job["method"] == "without_confidence", "Final confidence ablation differs")
+                require(
+                    job["method"] == "online_best_lambda" and plan["replay"].get("delta") == 0,
+                    "Final confidence ablation alias differs",
+                )
             elif label == "ablation:fixed_lambda":
                 require(job["method"] == "fixed_retention", "Final fixed-lambda alias differs")
             elif label == "ablation:parameter_retention":
