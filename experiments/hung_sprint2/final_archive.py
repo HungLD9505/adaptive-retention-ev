@@ -10,9 +10,12 @@ import zlib
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
-from experiments.hung_sprint2.dispatch_matched import require
-
 SCHEMA = "hung-final-local-archive-v1"
+
+
+def require(condition: bool, message: str) -> None:
+    if not condition:
+        raise ValueError(message)
 
 
 def _json_bytes(value: dict) -> bytes:

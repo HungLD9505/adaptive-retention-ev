@@ -24,11 +24,11 @@ def write(path: Path, value: dict | str) -> None:
     )
 
 
-def fixture(root: Path) -> dict:
+def fixture(root: Path, lock_sha: str = LOCK_SHA) -> dict:
     output = root / "final-output"
     write(
         output / "final_lock_identity.json",
-        {"schema": "hung-final-output-identity-v1", "lock_sha256": LOCK_SHA},
+        {"schema": "hung-final-output-identity-v1", "lock_sha256": lock_sha},
     )
     jobs = [
         {"job_id": "controller", "method": "confidence"},
@@ -51,7 +51,7 @@ def fixture(root: Path) -> dict:
                 stage_root / "run_manifest.json",
                 {
                     "status": "completed",
-                    "final_lock_sha256": LOCK_SHA,
+                    "final_lock_sha256": lock_sha,
                     "final_job_id": job,
                 },
             )
@@ -61,7 +61,7 @@ def fixture(root: Path) -> dict:
                 log,
                 {
                     "schema": "hung-final-stage-log-v1",
-                    "lock_sha256": LOCK_SHA,
+                    "lock_sha256": lock_sha,
                     "job_id": job,
                     "stage": stage,
                     "manifest_sha256": sha256_file(stage_root / "run_manifest.json"),
@@ -69,7 +69,7 @@ def fixture(root: Path) -> dict:
             )
             binding = {
                 "schema": "hung-final-stage-binding-v1",
-                "lock_sha256": LOCK_SHA,
+                "lock_sha256": lock_sha,
                 "job_id": job,
                 "stage": stage,
             }
@@ -80,7 +80,7 @@ def fixture(root: Path) -> dict:
     return {
         "input_runs_verified": True,
         "output_root": output,
-        "lock_sha256": LOCK_SHA,
+        "lock_sha256": lock_sha,
         "jobs": jobs,
         "plan": plan,
     }
