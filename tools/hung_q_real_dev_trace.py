@@ -406,7 +406,9 @@ def main() -> None:
             "Observed controller outcome cannot choose the architecture or Final settings",
         ],
     }
-    (output / "result.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
+    (output / "result.json").write_text(
+        json.dumps(result, indent=2), encoding="utf-8", newline="\n"
+    )
     print(
         json.dumps(
             {
