@@ -27,3 +27,5 @@ python tools/hung_block7_replay_preflight.py --payload .cache/kaggle-payload-v2/
 ```
 
 The output directory must be new. The earlier v1 directory is retained as the initial candidate snapshot; v2 adds an explicit portable-plan hash pin. The builder never calls a provider or dispatcher. See `summary.json` for the machine-readable result. Any later approved executable plan must receive its own version and review record.
+
+Offline guard tests: `python -m unittest tests.test_hung_block7_replay_preflight -v` passed 3/3 on 29 October after the fixture was moved to repository-local temporary storage. Ruff check/format and `git diff --check` passed. These tests validate the builder's fail-closed rules, not replay execution.
