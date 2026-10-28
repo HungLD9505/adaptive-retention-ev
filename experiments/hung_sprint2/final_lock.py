@@ -46,6 +46,7 @@ LOCK_FIELDS = {
     "code_commit",
     "authorization",
     "report1_contract",
+    "drift_reference",
     "input",
     "source_checkpoints",
     "jobset",
@@ -181,6 +182,14 @@ def _plan_identity(
         require(replay.get("selection_rule") == job["method"], "Final controller method differs")
     else:
         require(replay.get("method") == job["method"], "Final single method differs")
+    if job["method"] == "drift":
+        require(
+            "drift_reference_mean" in replay
+            and "drift_reference_scale" in replay
+            and replay["drift_reference_mean"] is None
+            and replay["drift_reference_scale"] is None,
+            "Final Drift numeric reference must be derived after lock",
+        )
     if job["source_checkpoint_sha256"] is not None:
         source = source_by_sha[job["source_checkpoint_sha256"]]
         require(_project_path(replay["source_checkpoint"]) == source, "Final Source path differs")
@@ -249,6 +258,16 @@ def validate_lock(
             for value in contract.values()
         ),
         "Missing Report 1 contract decisions",
+    )
+    drift = lock["drift_reference"]
+    require(
+        isinstance(drift, dict)
+        and set(drift) == {"schema", "rule", "scale_floor"}
+        and drift["schema"] == "hung-final-drift-reference-v1"
+        and drift["rule"] == "first_created_final_forecast_valid_load_population_sd"
+        and type(drift["scale_floor"]) in {int, float}
+        and drift["scale_floor"] == 0.1,
+        "Final Drift derivation rule is not locked",
     )
     if check_code:
         _code_unchanged(lock["code_commit"])

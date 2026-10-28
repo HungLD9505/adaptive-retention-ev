@@ -17,6 +17,7 @@ from experiments.hung_sprint2.dispatch_state import (
     stage_receipt,
     verify_receipt,
 )
+from experiments.hung_sprint2.final_drift import derive_drift_reference
 from experiments.hung_sprint2.final_lock import (
     CONTROLLER_METHODS,
     SINGLE_METHODS,
@@ -58,9 +59,9 @@ def _output_tree(root: Path, expected_ids: set[str]) -> None:
             "Unexpected Final output job",
         )
         expected_members = (
-            {"target_init", "replay"}
+            {"drift_reference", "target_init", "replay"}
             if category == "stages"
-            else {"target_init.json", "replay.json"}
+            else {"drift_reference.json", "target_init.json", "replay.json"}
         )
         for job_path in job_paths:
             require(
@@ -138,9 +139,30 @@ def _publish_stage(root: Path, job_id: str, stage: str, lock_sha: str, result: d
     atomic_create(receipt, stage_receipt(binding, output, log))
 
 
+def _locked_drift_reference(context: dict, job: dict) -> dict:
+    reference = derive_drift_reference(job, context["lock"]["drift_reference"])
+    root, lock_sha, job_id = context["output_root"], context["lock_sha256"], job["job_id"]
+    prior = _verified_stage(root, job_id, "drift_reference", lock_sha)
+    if prior is not None:
+        require(prior.get("drift_reference") == reference, "Final Drift reference changed")
+        return reference
+    output, _, _ = _stage_paths(root, job_id, "drift_reference")
+    output.mkdir(parents=True, exist_ok=False)
+    result = {
+        "status": "completed",
+        "final_lock_sha256": lock_sha,
+        "final_job_id": job_id,
+        "drift_reference": reference,
+    }
+    atomic_create(output / "run_manifest.json", result)
+    _publish_stage(root, job_id, "drift_reference", lock_sha, result)
+    return reference
+
+
 def _run_job(context: dict, job: dict, plan: dict) -> None:
     root, lock_sha = context["output_root"], context["lock_sha256"]
     job_id, method = job["job_id"], job["method"]
+    drift = _locked_drift_reference(context, job) if method == "drift" else None
     init = plan["target_init"]
     replay_present = _verified_stage(root, job_id, "replay", lock_sha)
     if replay_present is not None and init is not None:
@@ -168,6 +190,9 @@ def _run_job(context: dict, job: dict, plan: dict) -> None:
         require(checkpoint.is_file(), "Final initialization checkpoint is missing")
     replay_output, _, _ = _stage_paths(root, job_id, "replay")
     values = dict(plan["replay"])
+    if drift is not None:
+        values["drift_reference_mean"] = drift["mean"]
+        values["drift_reference_scale"] = drift["scale"]
     if method in CONTROLLER_METHODS:
         values["target_checkpoint"] = str(checkpoint)
     elif method == "target_only":
@@ -224,6 +249,7 @@ def dispatch(context: dict, *, run: bool, job_id: str | None = None) -> dict:
         # Authenticate every previously published stage before starting even
         # one missing job; a late corrupt receipt cannot hide behind order.
         for existing_job, existing_plan in zip(jobs, context["plan"], strict=True):
+            drift = _verified_stage(root, existing_job["job_id"], "drift_reference", lock_sha)
             initial = _verified_stage(root, existing_job["job_id"], "target_init", lock_sha)
             replay = _verified_stage(root, existing_job["job_id"], "replay", lock_sha)
             require(
@@ -231,6 +257,17 @@ def dispatch(context: dict, *, run: bool, job_id: str | None = None) -> dict:
                 and (replay is None or existing_plan["target_init"] is None or initial is not None),
                 "Final stage lineage is incomplete or unexpected",
             )
+            require(
+                (existing_job["method"] == "drift" or drift is None)
+                and (replay is None or existing_job["method"] != "drift" or drift is not None),
+                "Final Drift stage lineage is incomplete or unexpected",
+            )
+            if drift is not None:
+                require(
+                    drift.get("drift_reference")
+                    == derive_drift_reference(existing_job, context["lock"]["drift_reference"]),
+                    "Final Drift reference changed",
+                )
         for job, plan in selected:
             if run:
                 require(

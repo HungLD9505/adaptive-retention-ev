@@ -90,6 +90,11 @@ def _fixture(root: Path) -> tuple[Path, str, Path, Path]:
             "controller_rule": "declared synthetic controller",
             "causal_label_rule": "forecast before label",
         },
+        "drift_reference": {
+            "schema": "hung-final-drift-reference-v1",
+            "rule": "first_created_final_forecast_valid_load_population_sd",
+            "scale_floor": 0.1,
+        },
         "input": {
             "path": str(package),
             "bytes": package.stat().st_size,
@@ -166,7 +171,10 @@ class FinalDispatchTests(unittest.TestCase):
                 },
                 "coverage_status": "incomplete",
                 "input_runs_verified": True,
-                "jobs": [{"job_id": "a"}, {"job_id": "b"}],
+                "jobs": [
+                    {"job_id": "a", "method": "seasonal_naive"},
+                    {"job_id": "b", "method": "seasonal_naive"},
+                ],
                 "plan": [{"target_init": None}, {"target_init": None}],
             }
 
