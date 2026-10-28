@@ -80,7 +80,9 @@ def append_forecast(stream, output: Path, runner, index: int, day_id: str, save_
     )
 
 
-def verify_forecast_journal(output: Path, input_run: Path, binding: dict, code: dict) -> list[dict]:
+def verify_forecast_journal(
+    output: Path, input_run: Path, binding: dict, code: dict, role: str = "development"
+) -> list[dict]:
     """Verify every immutable forecast against its snapshot and accepted schedule."""
     journal = output / "forecasts.jsonl"
     raw = journal.read_bytes()
@@ -109,9 +111,9 @@ def verify_forecast_journal(output: Path, input_run: Path, binding: dict, code: 
         raise ValueError("Forecast journal start cursor differs")
     manifest = _load_run(input_run, binding["input_manifest_sha256"])
     identity = [binding[key] for key in ("dataset_id", "city_id", "entity_id")]
-    schedule = list(_target_rows(input_run / "schedule.jsonl", identity))
+    schedule = list(_target_rows(input_run / "schedule.jsonl", identity, role))
     forecasts = (
-        _target_forecasts(input_run / "forecasts.jsonl", identity)
+        _target_forecasts(input_run / "forecasts.jsonl", identity, role)
         if binding["method"] == "seasonal_naive"
         else None
     )
@@ -223,7 +225,9 @@ def verify_forecast_journal(output: Path, input_run: Path, binding: dict, code: 
     return records[1:]
 
 
-def verify_final_runner(records: list[dict], state: dict, input_run: Path, binding: dict) -> None:
+def verify_final_runner(
+    records: list[dict], state: dict, input_run: Path, binding: dict, role: str = "development"
+) -> None:
     """Bind a completed runner's exact predictions and scores to issued records."""
     cursor = state.get("next_index")
     if (
@@ -248,9 +252,9 @@ def verify_final_runner(records: list[dict], state: dict, input_run: Path, bindi
     identity = [binding[key] for key in ("dataset_id", "city_id", "entity_id")]
     labels = {
         row["origin"]: _label_record(row, identity, row["origin"])
-        for row in _target_rows(input_run / "labels.jsonl", identity)
+        for row in _target_rows(input_run / "labels.jsonl", identity, role)
     }
-    schedule = list(_target_rows(input_run / "schedule.jsonl", identity))
+    schedule = list(_target_rows(input_run / "schedule.jsonl", identity, role))
     if not 0 < cursor <= len(schedule):
         raise ValueError("Final runner cursor differs from Development schedule")
     cutoff = datetime.fromisoformat(schedule[cursor - 1]["origin"])

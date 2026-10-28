@@ -38,15 +38,21 @@ def _target_rows(path: Path, identity: list[str], role: str = "development") -> 
                 yield row
 
 
-def _target_forecasts(path: Path, identity: list[str]) -> Iterator[dict]:
-    prefix = '{"role": "development", "identity": ' + json.dumps(identity, ensure_ascii=False) + ","
+def _target_forecasts(path: Path, identity: list[str], role: str = "development") -> Iterator[dict]:
+    prefix = (
+        '{"role": '
+        + json.dumps(role)
+        + ', "identity": '
+        + json.dumps(identity, ensure_ascii=False)
+        + ","
+    )
     expected = {field.name for field in fields(ForecastInput)} | {"role"}
     with path.open(encoding="utf-8") as stream:
         for line in stream:
             if not line.startswith(prefix):
                 continue
             row = json.loads(line)
-            if set(row) != expected or row["role"] != "development" or row["identity"] != identity:
+            if set(row) != expected or row["role"] != role or row["identity"] != identity:
                 raise ValueError("Selected forecast schema/identity differs")
             yield row
 
@@ -92,6 +98,7 @@ def replay_target(
     event_sink: Callable[[int, str], None] | None = None,
     event_start_index: int = 0,
     forecast_sink: Callable[[int, str], None] | None = None,
+    role: str = "development",
 ) -> ReplaySummary:
     """Replay the accepted schedule; parse each label only after forecasting.
 
@@ -99,14 +106,20 @@ def replay_target(
     forecasts, or at the final horizon end. A label still unavailable then
     remains unscored. An undefined-scale target returns blocked coverage.
     """
+    if role not in {"development", "final"}:
+        raise ValueError("Replay role must be development or final")
     input_run = Path(input_run).resolve()
     manifest = _load_run(input_run, manifest_sha256)
     identity = [manifest["config"]["dataset_id"], manifest["config"]["city_id"], entity_id]
-    entities = list(_target_rows(input_run / "entities.jsonl", identity))
+    entities = [
+        row
+        for row in _target_rows(input_run / "entities.jsonl", identity, role)
+        if row.get("role") == role
+    ]
     if len(entities) != 1:
-        raise ValueError("Development target identity is not unique in input run")
+        raise ValueError(f"{role} target identity is not unique in input run")
     entity = entities[0]
-    schedule = list(_target_rows(input_run / "schedule.jsonl", identity))
+    schedule = list(_target_rows(input_run / "schedule.jsonl", identity, role))
     if not schedule:
         raise ValueError("Target has no requested replay origins")
     if max_origins is not None and (
@@ -133,8 +146,8 @@ def replay_target(
     if blocked:
         if blocked != len(schedule) or entity.get("initialization") != "blocked_undefined_scale":
             raise ValueError("Undefined-scale schedule/initialization mismatch")
-        if any(_target_rows(input_run / "labels.jsonl", identity)) or any(
-            _target_forecasts(input_run / "forecasts.jsonl", identity)
+        if any(_target_rows(input_run / "labels.jsonl", identity, role)) or any(
+            _target_forecasts(input_run / "forecasts.jsonl", identity, role)
         ):
             raise ValueError("Undefined-scale target has unexpected forecast/label records")
         if runner is not None:
@@ -180,8 +193,8 @@ def replay_target(
     if not set(runner.late_pending).issubset(prior_created):
         raise ValueError("Runner deferred labels differ from accepted schedule")
 
-    forecasts = _target_forecasts(input_run / "forecasts.jsonl", identity)
-    labels = _target_rows(input_run / "labels.jsonl", identity)
+    forecasts = _target_forecasts(input_run / "forecasts.jsonl", identity, role)
+    labels = _target_rows(input_run / "labels.jsonl", identity, role)
     late_records: dict[str, LabelRecord] = {}
     next_event_index = event_start_index
 

@@ -9,6 +9,7 @@ import platform
 import subprocess
 import time
 from dataclasses import asdict
+from datetime import datetime
 from pathlib import Path
 from zipfile import BadZipFile, ZipFile
 
@@ -354,6 +355,9 @@ def _source(args: argparse.Namespace) -> dict:
 
 def _target(args: argparse.Namespace) -> dict:
     started = time.perf_counter()
+    role = getattr(args, "role", "development")
+    if role not in {"development", "final"}:
+        raise ValueError("Target role must be development or final")
     _validate_limits(args)
     retention_kind = getattr(args, "retention_kind", "latent")
     if retention_kind not in {"latent", "parameter"}:
@@ -389,17 +393,26 @@ def _target(args: argparse.Namespace) -> dict:
     matches = [
         row
         for row in _records(target_run / "entities.jsonl")
-        if row["role"] == "development"
-        and row["identity"] == [*_identity(manifest), args.entity_id]
+        if row["role"] == role and row["identity"] == [*_identity(manifest), args.entity_id]
     ]
     if len(matches) != 1:
-        raise ValueError("Development target entity not found uniquely")
+        raise ValueError(f"{role} target entity not found uniquely")
     entity = matches[0]
     mode = entity["initialization"]
     if mode not in {"target_initial_adaptation", "source_checkpoint_only"}:
         raise ValueError(f"Target initialization is blocked: {mode}")
     scale_id = entity["scale"]["fit_sha256"]
-    examples, available = _examples(target_run, manifest, "development", args.entity_id)
+    examples, available = _examples(target_run, manifest, role, args.entity_id)
+    if role == "final":
+        deployment = datetime.fromisoformat(manifest["config"]["deployment"])
+        if any(
+            datetime.fromisoformat(row["forecast"]["origin"]) >= deployment
+            or datetime.fromisoformat(row["forecast"]["future_labels"][-1]) >= deployment
+            for row in examples
+        ):
+            raise ValueError("Final prefix training crosses deployment")
+        if args.steps != max(1, (available + args.batch_size - 1) // args.batch_size):
+            raise ValueError("Final target initialization must use one exact prefix pass")
     if "initial_trainable" in entity and entity["initial_trainable"] != available:
         raise ValueError("Target example count disagrees with entity inventory")
     if (mode == "source_checkpoint_only") != (len(examples) == 0):
@@ -457,7 +470,11 @@ def _target(args: argparse.Namespace) -> dict:
         initial_model_sha256=initial_model_sha256,
     )
     summary = {
-        "scope": "bounded_development_initialization; no online replay or effectiveness evidence",
+        "scope": (
+            "bounded_development_initialization; no online replay or effectiveness evidence"
+            if role == "development"
+            else "locked_final_prefix_initialization"
+        ),
         "status": "completed",
         "run_id": output.name,
         "input_binding": binding,
@@ -482,6 +499,9 @@ def _target(args: argparse.Namespace) -> dict:
         "code": code,
         "checkpoint_sha256": sha256_file(checkpoint),
     }
+    if role == "final":
+        summary["final_lock_sha256"] = args.final_lock_sha256
+        summary["final_job_id"] = args.final_job_id
     _write_run(output, summary)
     return summary
 
@@ -490,6 +510,14 @@ def _replay(args: argparse.Namespace) -> dict:
     from experiments.hung_sprint2.replay_inputs import replay_target
 
     started = time.perf_counter()
+    role = getattr(args, "role", "development")
+    if role not in {"development", "final"}:
+        raise ValueError("Replay role must be development or final")
+    replay_schema = (
+        "hung-sprint2-development-replay-v1"
+        if role == "development"
+        else "hung-sprint2-final-replay-v1"
+    )
     selection_rule = getattr(args, "selection_rule", "confidence")
     retention_kind = getattr(args, "retention_kind", "latent")
     if retention_kind not in {"latent", "parameter"}:
@@ -579,14 +607,13 @@ def _replay(args: argparse.Namespace) -> dict:
     entities = [
         row
         for row in _records(input_run / "entities.jsonl")
-        if row.get("role") == "development"
-        and row.get("identity") == [*_identity(manifest), args.entity_id]
+        if row.get("role") == role and row.get("identity") == [*_identity(manifest), args.entity_id]
     ]
     if len(entities) != 1 or entities[0].get("initialization") not in {
         "target_initial_adaptation",
         "source_checkpoint_only",
     }:
-        raise ValueError("Unique, trainable Development entity is required")
+        raise ValueError(f"Unique, trainable {role} entity is required")
     scale = entities[0]["scale"]
     target_binding = _binding(
         manifest,
@@ -605,6 +632,12 @@ def _replay(args: argparse.Namespace) -> dict:
         or target_record.get("input_binding") != target_binding
     ):
         raise ValueError("Target checkpoint run lineage mismatch")
+    if role == "final" and (
+        target_record.get("scope") != "locked_final_prefix_initialization"
+        or target_record.get("final_lock_sha256") != args.final_lock_sha256
+        or target_record.get("final_job_id") != args.final_job_id
+    ):
+        raise ValueError("Final target checkpoint lock/job lineage mismatch")
     if selection_rule in {"fixed_retention", "full_finetuning"}:
         expected_weight = controller.initial_level
         if (selection_rule == "full_finetuning") != (expected_weight == 0.0):
@@ -712,7 +745,7 @@ def _replay(args: argparse.Namespace) -> dict:
         ):
             raise ValueError("Previous replay event journal index range is invalid")
         if (
-            previous.get("schema") != "hung-sprint2-development-replay-v1"
+            previous.get("schema") != replay_schema
             or previous.get("status") != "completed"
             or previous.get("run_id") != args.resume_checkpoint.parent.name
             or previous.get("final_runner_checkpoint_sha256") != resume_sha
@@ -737,6 +770,13 @@ def _replay(args: argparse.Namespace) -> dict:
             or previous.get("config", {}).get("seed") != args.seed
             or previous.get("config", {}).get("device", "cpu") != device.type
             or previous.get("code", {}).get("executed_sources") != code["executed_sources"]
+            or (
+                role == "final"
+                and (
+                    previous.get("final_lock_sha256") != args.final_lock_sha256
+                    or previous.get("final_job_id") != args.final_job_id
+                )
+            )
             or previous_journal.get("file") != "events.jsonl"
             or sha256_file(journal_file) != previous_journal.get("sha256")
         ):
@@ -802,6 +842,7 @@ def _replay(args: argparse.Namespace) -> dict:
             max_origins=args.max_origins,
             event_sink=record_event,
             event_start_index=event_start_index,
+            role=role,
         )
     if journal_count != len(runner.events) - event_start_index:
         raise ValueError("Event journal does not cover the replayed runner events")
@@ -809,8 +850,12 @@ def _replay(args: argparse.Namespace) -> dict:
     final_checkpoint = output / "runner_checkpoint.pt"
     save_runner(final_checkpoint, runner)
     summary = {
-        "schema": "hung-sprint2-development-replay-v1",
-        "scope": "bounded_development_replay; fixture/Development evidence only; no Final evaluation",
+        "schema": replay_schema,
+        "scope": (
+            "bounded_development_replay; fixture/Development evidence only; no Final evaluation"
+            if role == "development"
+            else "locked_final_replay"
+        ),
         "status": "completed",
         "run_id": output.name,
         "input_binding": target_binding,
@@ -849,6 +894,9 @@ def _replay(args: argparse.Namespace) -> dict:
         "memory_usage": _process_memory(),
         "code": code,
     }
+    if role == "final":
+        summary["final_lock_sha256"] = args.final_lock_sha256
+        summary["final_job_id"] = args.final_job_id
     _write_run(output, summary)
     return summary
 

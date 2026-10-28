@@ -99,14 +99,20 @@ def _save_state(path: Path, state: dict) -> str:
     return sha256_file(path)
 
 
-def _development_entity(path: Path, manifest: dict, entity_id: str) -> dict:
+def _development_entity(
+    path: Path, manifest: dict, entity_id: str, role: str = "development"
+) -> dict:
     identity = [*_identity(manifest), entity_id]
-    matches = list(_target_rows(path / "entities.jsonl", identity))
+    matches = [
+        row
+        for row in _target_rows(path / "entities.jsonl", identity, role)
+        if row.get("role") == role
+    ]
     if len(matches) != 1 or matches[0].get("initialization") not in {
         "target_initial_adaptation",
         "source_checkpoint_only",
     }:
-        raise ValueError("Unique ready Development target is required")
+        raise ValueError(f"Unique ready {role} target is required")
     scale = matches[0].get("scale", {})
     if (
         not isinstance(scale.get("fit_sha256"), str)
@@ -117,21 +123,21 @@ def _development_entity(path: Path, manifest: dict, entity_id: str) -> dict:
     return matches[0]
 
 
-def _training_rows(path: Path, manifest: dict, entity_id: str, scale_id: str) -> list[dict]:
-    """Decode only Development training rows from the authenticated writer format."""
+def _training_rows(
+    path: Path, manifest: dict, entity_id: str, scale_id: str, role: str = "development"
+) -> list[dict]:
+    """Decode only selected-role training rows from the authenticated writer format."""
     selected = []
     deployment = datetime.fromisoformat(manifest["config"]["deployment"])
-    role_header = re.compile(r'^\s*\{\s*"role"\s*:\s*"development"\s*,')
+    role_header = re.compile(r'^\s*\{\s*"role"\s*:\s*"' + re.escape(role) + r'"\s*,')
     with (path / "training.jsonl").open(encoding="utf-8") as stream:
         for line in stream:
             if not role_header.match(line):
                 continue
             row = json.loads(line)
             forecast = row["forecast"]
-            if row["role"] != "development" or forecast["identity"][:2] != list(
-                _identity(manifest)
-            ):
-                raise ValueError("Development training identity differs")
+            if row["role"] != role or forecast["identity"][:2] != list(_identity(manifest)):
+                raise ValueError(f"{role} training identity differs")
             if forecast["identity"][2] != entity_id:
                 continue
             if (
@@ -151,9 +157,12 @@ def _training_rows(path: Path, manifest: dict, entity_id: str, scale_id: str) ->
 
 def _initialize_target_only(args: argparse.Namespace) -> dict:
     started = time.perf_counter()
+    role = getattr(args, "role", "development")
+    if role not in {"development", "final"}:
+        raise ValueError("Target-only role must be development or final")
     path = args.input_run.resolve()
     manifest = _load_run(path, args.manifest_sha256)
-    entity = _development_entity(path, manifest, args.entity_id)
+    entity = _development_entity(path, manifest, args.entity_id, role)
     if (
         args.seed < 0
         or args.batch_size < 1
@@ -161,7 +170,7 @@ def _initialize_target_only(args: argparse.Namespace) -> dict:
         or not 0 < args.learning_rate < float("inf")
     ):
         raise ValueError("Invalid Target-only initialization settings")
-    rows = _training_rows(path, manifest, args.entity_id, entity["scale"]["fit_sha256"])
+    rows = _training_rows(path, manifest, args.entity_id, entity["scale"]["fit_sha256"], role)
     if entity.get("initial_trainable", len(rows)) != len(rows):
         raise ValueError("Target-only prefix count differs from inventory")
     if (entity["initialization"] == "source_checkpoint_only") != (len(rows) == 0):
@@ -208,10 +217,18 @@ def _initialize_target_only(args: argparse.Namespace) -> dict:
         },
     )
     result = {
-        "schema": "hung-target-only-init-run-v1",
+        "schema": (
+            "hung-target-only-init-run-v1"
+            if role == "development"
+            else "hung-target-only-final-init-run-v1"
+        ),
         "status": "completed",
         "run_id": output.name,
-        "scope": "Development prefix initialization only; no replay/Final",
+        "scope": (
+            "Development prefix initialization only; no replay/Final"
+            if role == "development"
+            else "locked_final_prefix_initialization"
+        ),
         "method": "target_only",
         "binding": binding,
         "initial_checkpoint_sha256": initial_sha,
@@ -222,6 +239,9 @@ def _initialize_target_only(args: argparse.Namespace) -> dict:
         "device": _device_record(device),
         "code": _code_identity(),
     }
+    if role == "final":
+        result["final_lock_sha256"] = args.final_lock_sha256
+        result["final_job_id"] = args.final_job_id
     _write_json(output / "run_manifest.json", result)
     return result
 
@@ -259,7 +279,12 @@ def _load_initial(
         state = torch.load(path, map_location=device, weights_only=True)
         expected = state.get("binding", {})
         if (
-            record.get("schema") != "hung-target-only-init-run-v1"
+            record.get("schema")
+            != (
+                "hung-target-only-init-run-v1"
+                if getattr(args, "role", "development") == "development"
+                else "hung-target-only-final-init-run-v1"
+            )
             or record.get("method") != "target_only"
             or record.get("source_checkpoint_sha256") is not None
             or record.get("initial_checkpoint_sha256") != digest
@@ -274,6 +299,13 @@ def _load_initial(
             or expected.get("history_days") != manifest["config"]["history_days"]
             or record.get("code", {}).get("executed_sources")
             != _code_identity()["executed_sources"]
+            or (
+                getattr(args, "role", "development") == "final"
+                and (
+                    record.get("final_lock_sha256") != args.final_lock_sha256
+                    or record.get("final_job_id") != args.final_job_id
+                )
+            )
         ):
             raise ValueError("Target-only initial checkpoint lineage differs")
         model = ForecastGRU(ModelConfig(**state["architecture"])).to(device)
@@ -334,9 +366,17 @@ def _evaluate(runner: SingleBaselineRunner, replay) -> dict:
 
 def _replay(args: argparse.Namespace) -> dict:
     started = time.perf_counter()
+    role = getattr(args, "role", "development")
+    if role not in {"development", "final"}:
+        raise ValueError("Single-baseline role must be development or final")
+    replay_schema = (
+        "hung-single-baseline-replay-v1"
+        if role == "development"
+        else "hung-single-baseline-final-replay-v1"
+    )
     path = args.input_run.resolve()
     manifest = _load_run(path, args.manifest_sha256)
-    entity = _development_entity(path, manifest, args.entity_id)
+    entity = _development_entity(path, manifest, args.entity_id, role)
     if (
         args.method not in ("target_only", "frozen_source", "seasonal_naive")
         or args.block_days < 1
@@ -394,14 +434,14 @@ def _replay(args: argparse.Namespace) -> dict:
             else None
         )
         resume_sha = sha256_file(resume_path)
-        prior_forecasts = verify_forecast_journal(resume_path.parent, path, binding, code)
+        prior_forecasts = verify_forecast_journal(resume_path.parent, path, binding, code, role)
         if previous is None:
             if not prior_forecasts or resume_path.name != prior_forecasts[-1]["checkpoint"]:
                 raise ValueError("Interrupted resume must use latest issued forecast")
             if resume_sha != prior_forecasts[-1]["checkpoint_sha256"]:
                 raise ValueError("Interrupted forecast checkpoint hash differs")
         elif (
-            previous.get("schema") != "hung-single-baseline-replay-v1"
+            previous.get("schema") != replay_schema
             or previous.get("status") != "completed"
             or previous.get("final_runner_checkpoint_sha256") != resume_sha
             or previous.get("forecast_journal", {}).get("sha256")
@@ -412,11 +452,18 @@ def _replay(args: argparse.Namespace) -> dict:
             or previous.get("config", {}).get("block_days") != args.block_days
             or previous.get("config", {}).get("device") != device.type
             or previous.get("code", {}).get("executed_sources") != code["executed_sources"]
+            or (
+                role == "final"
+                and (
+                    previous.get("final_lock_sha256") != args.final_lock_sha256
+                    or previous.get("final_job_id") != args.final_job_id
+                )
+            )
         ):
             raise ValueError("Single-model resume lineage/config/code differs")
         state = torch.load(resume_path, map_location="cpu", weights_only=True)
         if previous is not None:
-            verify_final_runner(prior_forecasts, state, path, binding)
+            verify_final_runner(prior_forecasts, state, path, binding, role)
         runner = SingleBaselineRunner.from_state_dict(
             state, expected_binding=binding, device=device
         )
@@ -453,26 +500,32 @@ def _replay(args: argparse.Namespace) -> dict:
             forecast_sink=lambda index, day_id: append_forecast(
                 journal, output, runner, index, day_id, _save_state
             ),
+            role=role,
         )
-    journal_records = verify_forecast_journal(output, path, binding, code)
+    journal_records = verify_forecast_journal(output, path, binding, code, role)
     expected_new = sum(
         event.startswith(("forecast:", "skip:")) for event in runner.events[prior_event_count:]
     )
     if expected_new != len(journal_records) - len(prior_forecasts):
         raise ValueError("Forecast journal coverage differs")
     evaluation = _evaluate(runner, replay)
-    verify_final_runner(journal_records, runner.state_dict(), path, binding)
+    verify_final_runner(journal_records, runner.state_dict(), path, binding, role)
     checkpoint_sha = _save_state(output / "runner.pt", runner.state_dict())
     verify_final_runner(
         journal_records,
         torch.load(output / "runner.pt", map_location="cpu", weights_only=True),
         path,
         binding,
+        role,
     )
     summary = {
-        "schema": "hung-single-baseline-replay-v1",
+        "schema": replay_schema,
         "status": "completed",
-        "scope": "bounded Development single-policy replay; Seasonal Naive fallback is proposed, no Final evaluation",
+        "scope": (
+            "bounded Development single-policy replay; Seasonal Naive fallback is proposed, no Final evaluation"
+            if role == "development"
+            else "locked_final_single_policy_replay"
+        ),
         "run_id": output.name,
         "input_binding": binding,
         "initial_checkpoint_sha256": initial_sha,
@@ -512,6 +565,9 @@ def _replay(args: argparse.Namespace) -> dict:
         "memory_usage": _process_memory(),
         "code": code,
     }
+    if role == "final":
+        summary["final_lock_sha256"] = args.final_lock_sha256
+        summary["final_job_id"] = args.final_job_id
     _write_json(output / "run_manifest.json", summary)
     return summary
 
