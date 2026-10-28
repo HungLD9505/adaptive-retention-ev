@@ -306,7 +306,7 @@ def main() -> None:
     output.mkdir(parents=True)
     for name, rows in (("origin_labels.csv", origin_rows), ("cells.csv", cell_rows)):
         with (output / name).open("w", encoding="utf-8", newline="") as sink:
-            writer = csv.DictWriter(sink, fieldnames=list(rows[0]))
+            writer = csv.DictWriter(sink, fieldnames=list(rows[0]), lineterminator="\n")
             writer.writeheader()
             writer.writerows(rows)
     summary = {
@@ -333,7 +333,9 @@ def main() -> None:
             "An invalid/missing hourly bin prevents a 24-hour scored day under the frozen protocol; future data repair would need a new version, not retroactive filling.",
         ],
     }
-    (output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    (output / "summary.json").write_text(
+        json.dumps(summary, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
     print(
         json.dumps(
             {
