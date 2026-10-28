@@ -131,6 +131,43 @@ def _fixture(root: Path) -> tuple[Path, str, Path, Path]:
 
 
 class FinalDispatchTests(unittest.TestCase):
+    def test_all_prior_stages_are_checked_before_any_new_job(self) -> None:
+        (ROOT / ".cache").mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ROOT / ".cache") as directory:
+            root = Path(directory)
+            lock_sha = "b" * 64
+            (root / "final_lock_identity.json").write_text(
+                json.dumps({"schema": "hung-final-output-identity-v1", "lock_sha256": lock_sha}),
+                encoding="utf-8",
+            )
+            context = {
+                "output_root": root,
+                "lock_sha256": lock_sha,
+                "lock": {"resources": {"min_free_bytes": MIN_FREE_BYTES}},
+                "coverage_status": "incomplete",
+                "jobs": [{"job_id": "a"}, {"job_id": "b"}],
+                "plan": [{"target_init": None}, {"target_init": None}],
+            }
+
+            def prior_stage(_root: Path, job_id: str, stage: str, _sha: str) -> None:
+                if job_id == "b" and stage == "replay":
+                    raise ValueError("Corrupt later stage")
+
+            with (
+                mock.patch(
+                    "experiments.hung_sprint2.final_dispatch._free_bytes",
+                    return_value=2 * MIN_FREE_BYTES,
+                ),
+                mock.patch(
+                    "experiments.hung_sprint2.final_dispatch._verified_stage",
+                    side_effect=prior_stage,
+                ),
+                mock.patch("experiments.hung_sprint2.final_dispatch._run_job") as execute,
+            ):
+                with self.assertRaisesRegex(ValueError, "Corrupt later stage"):
+                    dispatch(context, run=True)
+                execute.assert_not_called()
+
     def test_synthetic_final_run_reverifies_and_rejects_changed_bytes(self) -> None:
         (ROOT / ".cache").mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=ROOT / ".cache") as directory:

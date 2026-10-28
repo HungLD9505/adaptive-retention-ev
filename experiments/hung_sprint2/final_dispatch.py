@@ -218,6 +218,16 @@ def dispatch(context: dict, *, run: bool, job_id: str | None = None) -> dict:
     _output_tree(root, {row["job_id"] for row in jobs})
     verified = 0
     with exclusive_lock(root):
+        # Authenticate every previously published stage before starting even
+        # one missing job; a late corrupt receipt cannot hide behind order.
+        for existing_job, existing_plan in zip(jobs, context["plan"], strict=True):
+            initial = _verified_stage(root, existing_job["job_id"], "target_init", lock_sha)
+            replay = _verified_stage(root, existing_job["job_id"], "replay", lock_sha)
+            require(
+                (existing_plan["target_init"] is not None or initial is None)
+                and (replay is None or existing_plan["target_init"] is None or initial is not None),
+                "Final stage lineage is incomplete or unexpected",
+            )
         for job, plan in selected:
             if run:
                 require(
