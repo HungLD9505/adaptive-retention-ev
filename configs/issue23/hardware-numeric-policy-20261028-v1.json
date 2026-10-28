@@ -1,0 +1,16 @@
+{
+  "schema": "ev-final-hardware-numeric-policy-v1",
+  "declared_epoch": 1793205053,
+  "declared_utc": "2026-10-28T16:30:53Z",
+  "dtype": "float32",
+  "atol": 0.00001,
+  "rtol": 0.0001,
+  "comparison": "Every finite element satisfies abs(candidate-reference)<=atol+rtol*abs(reference); identical shape and finite masks required",
+  "required_arrays": ["predictions", "loss", "trainable_gradients", "resumed_predictions"],
+  "required_structural_checks": ["shape", "gradient", "freeze", "checkpoint_resume"],
+  "reference": "Original Tesla T4 software/package profile on the same synthetic fixture and initial state",
+  "final_outcomes_used": false,
+  "bitwise_equality_claimed": false,
+  "failure_action": "Preserve evidence and reject this child profile; do not relax tolerance after observing results",
+  "limits": "Synthetic compatibility only; does not establish Final equivalence, effectiveness, or hardware speedup"
+}

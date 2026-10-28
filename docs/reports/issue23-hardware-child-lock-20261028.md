@@ -1,0 +1,13 @@
+# Issue23 hardware child lock metadata
+
+The frozen Final parent lock binds a Tesla T4 profile. An L4 or A100 must retain its actual hardware identity in a separate child lock. Rewriting the parent environment would misstate provenance. This change adds a metadata builder and a numeric policy declared before any new compatibility trial; it does not change scientific execution code or authorize dispatch.
+
+`python -m tools.hardware_execution_lock` requires the exact production parent bytes, a measured profile, explicit human hardware authorization, a predeclared policy, compatibility evidence and sorted eligible indices. Only `runtime_profile` and the new `hardware_extension` field may differ. All 140 original pins, the complete 810-unit order, inputs, Sources, methods, seeds and analysis configuration remain byte-identical metadata. The output uses exclusive creation. Existing locks, receipts and accepted results are untouched.
+
+Compatibility evidence must bind the original package inventory, scientific commit and all original file identities. It must report shape, gradient, freeze, checkpoint/resume and numeric checks on synthetic inputs, with raw artifact references, byte sizes and hashes. The builder validates linked metadata; it cannot establish that an evidence claim is true. Root must independently inspect the raw artifacts, use a clean tracked execution checkout, check an exclusive genuinely unstarted lease and deploy a child-aware full independent verifier. The existing T4 verifier remains unchanged. Metadata generation alone never permits allocation or execution.
+
+The historical complete L4 synthetic trial is structural evidence only. Its resolved package inventory differs from production, and it does not retain the arrays needed for the new numeric policy. It cannot satisfy this child gate retroactively. No new GPU trial or child lock has been produced by this implementation.
+
+Verification on the isolated branch from `dev`: 128 offline tests passed, including nine independent metadata tests; Ruff lint, Ruff format check, source catalog listing and diff checks passed. These fixtures exercise preservation and rejection of changed software, scientific identities, incomplete checks, invalid indices, invented peer approval and retrospective/nonfinite tolerances. They are not experimental GPU evidence. Raw archive verification, GPU compatibility, CI and peer approval are not claimed.
+
+Related issue: https://github.com/HungLD9505/adaptive-retention-ev/issues/23. Full 810-unit execution and scientific analysis remain incomplete. The human review exception and CI billing waiver do not constitute peer approval or passing CI. No merge, main promotion or issue closure is authorized.
