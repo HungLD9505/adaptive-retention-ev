@@ -201,6 +201,16 @@ class CompactLedgerImportTests(unittest.TestCase):
         with self.assertRaisesRegex(importer.ProofImportError, "Duplicate proof shard"):
             self.merge([entries[0], entries[0]])
 
+    def test_rejects_unpinned_historical_verifier(self) -> None:
+        entries = self.entries("shard_0001")
+        path = Path(entries[0]["proof_path"])
+        proof = json.loads(path.read_text(encoding="utf-8"))
+        proof["verifier_sha256"] = "0" * 64
+        _, size, digest = self.save(path.name, proof)
+        entries[0].update({"proof_bytes": size, "proof_sha256": digest})
+        with self.assertRaisesRegex(importer.ProofImportError, "Verifier pin mismatch"):
+            self.merge(entries)
+
     def test_create_only_writer_preserves_existing_snapshot(self) -> None:
         rows = self.merge(self.entries("shard_0001"))
         output = self.cache / "ledger.csv"

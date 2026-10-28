@@ -21,7 +21,6 @@ CACHE = ROOT / ".cache"
 LEDGER_V2 = REPORTS / "hung-development-782-job-ledger-20261028-v2.csv"
 RECOVERY_REGISTER = REPORTS / "hung-kaggle-560-recovery-register-20261028.csv"
 ALLOCATION = REPORTS / "evidence/hung-development-allocation-20261027-v1.json"
-VERIFIER = ROOT / "tools/hung_kaggle_compact_proof.py"
 LEDGER_V2_SHA256 = "1a2ad217184a38ae012de07c1bedf335712aa095c2b4e783495d42d2c94f1090"
 RECOVERY_REGISTER_SHA256 = "9076d7eb550fd0701e60ab337a13efabd9f68e196de22a2785894d98705a51fc"
 ALLOCATION_SHA256 = "8214c5aa5abb7958d4832d2948d4c868b1a35b7d0f2196f3f6eaa64ecda31906"
@@ -346,10 +345,6 @@ def read_base_and_jobsets() -> tuple[
     require(
         git_lf_sha256(ALLOCATION.read_bytes(), "allocation") == ALLOCATION_SHA256,
         "Frozen allocation SHA mismatch",
-    )
-    require(
-        git_lf_sha256(VERIFIER.read_bytes(), "verifier source") == VERIFIER_SHA256,
-        "Verifier source SHA mismatch",
     )
     with LEDGER_V2.open(encoding="utf-8", newline="") as stream:
         base_rows = list(csv.DictReader(stream))
