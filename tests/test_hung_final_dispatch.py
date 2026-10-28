@@ -111,9 +111,27 @@ def _fixture(root: Path) -> tuple[Path, str, Path, Path]:
             "seeds": [7, 11, 19],
             "variants": ["seasonal_naive"],
             "variant_categories": {"seasonal_naive": ["baseline:seasonal_naive"]},
+            "variant_seed_policy": {
+                "seasonal_naive": {
+                    "deterministic_representative_seed": 7,
+                    "alias_seeds": [11, 19],
+                }
+            },
             "replay_origins": 90,
-            "expected_jobs": 9,
-            "declared_shortfalls": ["Synthetic fixture contains one of nine selected cells"],
+            "expected_jobs": 3,
+            "missing_cells": [
+                {
+                    "dataset_id": "urbanev",
+                    "city_id": "SZH",
+                    "entity_id": "dev-1",
+                    "budget_days": budget,
+                    "seed": 7,
+                    "variant": "seasonal_naive",
+                    "reason": "Synthetic fixture has only budget seven",
+                }
+                for budget in (14, 28)
+            ],
+            "declared_shortfalls": ["Synthetic fixture contains one of three physical cells"],
         },
         "resources": {
             "provider": "local",

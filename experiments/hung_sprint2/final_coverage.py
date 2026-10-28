@@ -14,8 +14,10 @@ def _coverage_status(coverage: dict, jobs: list[dict], planned: list[dict]) -> s
             "seeds",
             "variants",
             "variant_categories",
+            "variant_seed_policy",
             "replay_origins",
             "expected_jobs",
+            "missing_cells",
             "declared_shortfalls",
         },
         "Final coverage fields differ",
@@ -46,6 +48,25 @@ def _coverage_status(coverage: dict, jobs: list[dict], planned: list[dict]) -> s
     require(coverage["replay_origins"] == 90, "Locked Final replay must retain 90 origins")
     categories = coverage["variant_categories"]
     require(set(categories) == set(variants), "Final variant category map differs")
+    policies = coverage["variant_seed_policy"]
+    require(
+        isinstance(policies, dict) and set(policies) == set(variants), "Final seed policy differs"
+    )
+    physical_seeds = {}
+    for variant, policy in policies.items():
+        if policy == "all_seeds":
+            physical_seeds[variant] = seeds
+            continue
+        require(
+            variant == "seasonal_naive"
+            and isinstance(policy, dict)
+            and set(policy) == {"deterministic_representative_seed", "alias_seeds"}
+            and policy["deterministic_representative_seed"] in seeds
+            and policy["alias_seeds"]
+            == [seed for seed in seeds if seed != policy["deterministic_representative_seed"]],
+            f"Invalid deterministic seed aliases for {variant}",
+        )
+        physical_seeds[variant] = [policy["deterministic_representative_seed"]]
     required_baselines = {
         "seasonal_naive",
         "target_only",
@@ -77,12 +98,16 @@ def _coverage_status(coverage: dict, jobs: list[dict], planned: list[dict]) -> s
             and set(labels) <= all_categories,
             f"Invalid Final category mapping for {variant}",
         )
+        if policies[variant] != "all_seeds":
+            require(
+                labels == ["baseline:seasonal_naive"], "Deterministic alias must be Seasonal Naive"
+            )
     expected = {
         (*entity, budget, seed, variant)
         for entity in entity_keys
         for budget in budgets
-        for seed in seeds
         for variant in variants
+        for seed in physical_seeds[variant]
     }
     actual = {
         (
@@ -102,6 +127,26 @@ def _coverage_status(coverage: dict, jobs: list[dict], planned: list[dict]) -> s
     require(
         coverage["expected_jobs"] == len(expected), "Final expected count differs from exact matrix"
     )
+    missing = expected - actual
+    missing_rows = coverage["missing_cells"]
+    require(isinstance(missing_rows, list), "Final missing-cell ledger differs")
+    recorded = []
+    for row in missing_rows:
+        require(
+            isinstance(row, dict)
+            and set(row)
+            == {"dataset_id", "city_id", "entity_id", "budget_days", "seed", "variant", "reason"}
+            and isinstance(row["reason"], str)
+            and row["reason"].strip(),
+            "Final missing-cell record is invalid",
+        )
+        recorded.append(
+            tuple(
+                row[key]
+                for key in ("dataset_id", "city_id", "entity_id", "budget_days", "seed", "variant")
+            )
+        )
+    require(recorded == sorted(missing), "Final missing-cell ledger does not match exact matrix")
     for job, plan in zip(jobs, planned, strict=True):
         labels = categories[job["variant"]]
         for label in labels:
@@ -145,7 +190,7 @@ def _coverage_status(coverage: dict, jobs: list[dict], planned: list[dict]) -> s
         "Final shortfall declarations are invalid",
     )
     incomplete = bool(
-        expected - actual or all_categories - labels_present or required_cities - cities_present
+        missing or all_categories - labels_present or required_cities - cities_present
     )
     require(not incomplete or bool(shortfalls), "Final coverage shortfall is undeclared")
     return "incomplete" if incomplete or shortfalls else "full"
