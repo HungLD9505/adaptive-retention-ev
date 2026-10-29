@@ -1,0 +1,104 @@
+{
+  "historical": {
+    "audit_better_switches": 26,
+    "evaluable_switches": 55
+  },
+  "main": {
+    "audit_better_switches": 19,
+    "by_budget": {
+      "14": {
+        "audit_better_switches": 6,
+        "evaluable_switches": 9,
+        "station_count": 2
+      },
+      "28": {
+        "audit_better_switches": 5,
+        "evaluable_switches": 8,
+        "station_count": 3
+      },
+      "7": {
+        "audit_better_switches": 8,
+        "evaluable_switches": 11,
+        "station_count": 2
+      }
+    },
+    "by_station": {
+      "1153": {
+        "audit_better_switches": 1,
+        "evaluable_switches": 3,
+        "mean_live_minus_audit_kwh": -0.03989442388216643,
+        "run_count": 3
+      },
+      "1165": {
+        "audit_better_switches": 3,
+        "evaluable_switches": 3,
+        "mean_live_minus_audit_kwh": 0.3058920705690973,
+        "run_count": 3
+      },
+      "1405": {
+        "audit_better_switches": 10,
+        "evaluable_switches": 12,
+        "mean_live_minus_audit_kwh": 0.5262649859405227,
+        "run_count": 6
+      },
+      "2005": {
+        "audit_better_switches": 2,
+        "evaluable_switches": 3,
+        "mean_live_minus_audit_kwh": 0.12492343628158172,
+        "run_count": 3
+      },
+      "2264": {
+        "audit_better_switches": 3,
+        "evaluable_switches": 5,
+        "mean_live_minus_audit_kwh": 0.06689531189777576,
+        "run_count": 3
+      },
+      "2472": {
+        "audit_better_switches": 0,
+        "evaluable_switches": 2,
+        "mean_live_minus_audit_kwh": -0.11278607735099877,
+        "run_count": 2
+      }
+    },
+    "evaluable_switches": 28,
+    "leave_one_station_out": {
+      "1153": {
+        "audit_better_switches": 18,
+        "evaluable_switches": 25,
+        "mean_live_minus_audit_kwh": 0.30866123026500764
+      },
+      "1165": {
+        "audit_better_switches": 16,
+        "evaluable_switches": 25,
+        "mean_live_minus_audit_kwh": 0.26716685093085596
+      },
+      "1405": {
+        "audit_better_switches": 9,
+        "evaluable_switches": 16,
+        "mean_live_minus_audit_kwh": 0.08010422835577619
+      },
+      "2005": {
+        "audit_better_switches": 17,
+        "evaluable_switches": 25,
+        "mean_live_minus_audit_kwh": 0.28888308704535787
+      },
+      "2264": {
+        "audit_better_switches": 16,
+        "evaluable_switches": 23,
+        "mean_live_minus_audit_kwh": 0.31575525762999185
+      },
+      "2472": {
+        "audit_better_switches": 19,
+        "evaluable_switches": 26,
+        "mean_live_minus_audit_kwh": 0.30086229383387264
+      }
+    },
+    "paired_scored_days": 352,
+    "run_count": 20,
+    "station_count": 6,
+    "station_equal_mean_live_minus_audit_kwh": 0.14521588390930204,
+    "switch_weighted_mean_live_minus_audit_kwh": 0.2713159816063818
+  },
+  "schema": "hung-block7-switch-sensitivity-v1",
+  "source_sha256": "0b863d2fce6d6f95b701ffd24a40999061d3158c405a482fe077b3dca9f0527b"
+}
