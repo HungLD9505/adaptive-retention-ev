@@ -19,6 +19,12 @@ def _load(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def require(condition: bool, message: str) -> None:
+    """Fail closed even when Python assertions are disabled."""
+    if not condition:
+        raise ValueError(message)
+
+
 def audit(
     scores_path: Path, wape_path: Path, receipt_path: Path, ledger_path: Path
 ) -> tuple[list[dict], list[dict], dict]:
@@ -28,38 +34,79 @@ def audit(
     receipt = _load(receipt_path)
     ledger = _load(ledger_path)
     raw_wape = wape_path.read_bytes()
-    assert len(raw_wape) == receipt["output_bytes"]
-    assert hashlib.sha256(raw_wape).hexdigest() == receipt["output_sha256"]
-    assert receipt["status"] == "FINAL_WAPE_DENOMINATORS_READ_FROM_CHECKPOINTS"
-    assert receipt["undefined_jobs"] == 0
+    require(len(raw_wape) == receipt["output_bytes"], "WAPE output byte count differs")
+    require(
+        hashlib.sha256(raw_wape).hexdigest() == receipt["output_sha256"],
+        "WAPE output SHA differs",
+    )
+    require(
+        receipt["status"] == "FINAL_WAPE_DENOMINATORS_READ_FROM_CHECKPOINTS",
+        "WAPE receipt is not terminal",
+    )
+    require(receipt["undefined_jobs"] == 0, "WAPE has undefined denominators")
     for field in ("archive_sha256", "lock_sha256", "source_kernel"):
-        assert scores[field] == wape[field] == receipt[field] == ledger[field], field
+        require(
+            scores[field] == wape[field] == receipt[field] == ledger[field],
+            f"WAPE source identity differs: {field}",
+        )
 
     score_by_id = {row["job_id"]: row for row in scores["jobs"]}
     wape_by_id = {row["job_id"]: row for row in wape["jobs"]}
-    assert len(score_by_id) == len(wape_by_id) == len(ledger["jobs"]) == receipt["jobs"] == 360
-    assert set(score_by_id) == set(wape_by_id) == set(ledger["jobs"])
+    require(
+        len(scores["jobs"])
+        == len(wape["jobs"])
+        == len(score_by_id)
+        == len(wape_by_id)
+        == len(ledger["jobs"])
+        == receipt["jobs"]
+        == 360,
+        "Final WAPE job count or uniqueness differs",
+    )
+    require(set(score_by_id) == set(wape_by_id) == set(ledger["jobs"]), "Final job IDs differ")
     run_rows: list[dict] = []
     station_seeds: dict[tuple, list[float]] = defaultdict(list)
     for job_id in sorted(score_by_id):
         score, row = score_by_id[job_id], wape_by_id[job_id]
         days = score["days"]
-        assert row["scored_days"] == score["coverage"]["scored"] == len(days)
-        assert row["label_total_kwh"] > 0 and math.isfinite(row["label_total_kwh"])
-        assert math.isclose(
-            row["absolute_error_kwh"],
-            sum(day["absolute"] for day in days.values()),
-            rel_tol=1e-9,
-            abs_tol=1e-6,
+        require(
+            row["scored_days"] == score["coverage"]["scored"] == len(days),
+            f"Scored-day count differs: {job_id}",
         )
-        assert math.isclose(
-            row["wape"], row["absolute_error_kwh"] / row["label_total_kwh"], rel_tol=1e-12
+        require(
+            row["label_total_kwh"] > 0 and math.isfinite(row["label_total_kwh"]),
+            f"WAPE denominator invalid: {job_id}",
         )
-        assert math.isclose(
-            row["absolute_error_kwh"],
-            score["metrics"]["mae_kwh"] * 24 * len(days),
-            rel_tol=1e-9,
-            abs_tol=1e-6,
+        require(
+            row["absolute_error_kwh"] >= 0
+            and math.isfinite(row["absolute_error_kwh"])
+            and all(
+                math.isfinite(day["absolute"]) and day["absolute"] >= 0 for day in days.values()
+            )
+            and math.isclose(
+                row["absolute_error_kwh"],
+                sum(day["absolute"] for day in days.values()),
+                rel_tol=1e-9,
+                abs_tol=1e-6,
+            ),
+            f"WAPE numerator differs: {job_id}",
+        )
+        require(
+            row["wape"] is not None
+            and math.isfinite(row["wape"])
+            and math.isclose(
+                row["wape"], row["absolute_error_kwh"] / row["label_total_kwh"], rel_tol=1e-12
+            ),
+            f"WAPE ratio differs: {job_id}",
+        )
+        require(
+            math.isfinite(score["metrics"]["mae_kwh"])
+            and math.isclose(
+                row["absolute_error_kwh"],
+                score["metrics"]["mae_kwh"] * 24 * len(days),
+                rel_tol=1e-9,
+                abs_tol=1e-6,
+            ),
+            f"WAPE/MAE identity differs: {job_id}",
         )
         run_rows.append(
             {
