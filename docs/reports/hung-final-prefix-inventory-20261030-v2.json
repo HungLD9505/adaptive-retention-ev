@@ -1,0 +1,50 @@
+{
+  "all_budget_qualifying_id_set_sha256": "c170ec8aeb0a9dea8f6a2431e3dcc695959af8e949c4f5a13092f7d7eff4f972",
+  "all_budget_qualifying_omitted_ids": 326,
+  "budgets": [
+    {
+      "budget_days": 7,
+      "final_ids_with_prefix_rows": 329,
+      "final_prefix_rows": 1974,
+      "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+      "invalid_or_late_prefix_rows": 0,
+      "metadata_count_mismatches": 0,
+      "omitted_ids_qualifying_input_inventory": 326,
+      "omitted_ids_with_prefix_rows": 326,
+      "training_member_bytes": 453615715,
+      "training_member_sha256": "ce230356f23fe05c7a68f5e8a35e3c1284375f02f537dece89558ad107ef388c"
+    },
+    {
+      "budget_days": 14,
+      "final_ids_with_prefix_rows": 329,
+      "final_prefix_rows": 4275,
+      "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+      "invalid_or_late_prefix_rows": 0,
+      "metadata_count_mismatches": 0,
+      "omitted_ids_qualifying_input_inventory": 326,
+      "omitted_ids_with_prefix_rows": 326,
+      "training_member_bytes": 481502337,
+      "training_member_sha256": "eadb4bb38d0e3dce1eded428ba4d806346cefc4e09840fa65814670edfd0999c"
+    },
+    {
+      "budget_days": 28,
+      "final_ids_with_prefix_rows": 333,
+      "final_prefix_rows": 8746,
+      "input_manifest_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+      "invalid_or_late_prefix_rows": 0,
+      "metadata_count_mismatches": 0,
+      "omitted_ids_qualifying_input_inventory": 330,
+      "omitted_ids_with_prefix_rows": 330,
+      "training_member_bytes": 535897754,
+      "training_member_sha256": "a58d76127ff3decf9d3f187d2666d98aeb76d4eee75163b9de9f9520e22a6ece"
+    }
+  ],
+  "disposition": "PREFIX_ROW_INVENTORY_VERIFIED_NOT_METHOD_EXECUTION_OR_EXTENSION_LOCK",
+  "gap_csv_sha256": "c4c7a067bb45c048c4ec2da58b321d72033e23e3a4467e5378069a6ce68bd681",
+  "input_zip_sha256": "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7",
+  "lock_sha256": "e5e8fe1cb5636e508b3edbcedbbd00a72d9d8230041bf383eeba3d1133883e5e",
+  "omitted_ids": 370,
+  "schema": "hung-final-prefix-inventory-v1",
+  "scope": "frozen pre-deployment Final-role training inventory; no model selection or held-out score",
+  "source_audit_sha256": "11b443ea1f0ad2f3b8394d75590aba4c55a7c1138256230707f941c4c6e0e0d6"
+}
