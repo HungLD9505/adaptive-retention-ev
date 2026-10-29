@@ -1,0 +1,95 @@
+{
+  "budgets": [
+    {
+      "all_final_status_counts": {
+        "created": 25978,
+        "skipped_all_missing_history": 4622,
+        "skipped_undefined_scale": 2970
+      },
+      "budget_days": 7,
+      "daily_origins_per_entity": 90,
+      "final_role_entities": 373,
+      "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+      "invalid_or_missing_entity_schedules": 0,
+      "omitted_status_counts_by_disposition": {
+        "POSITIVE_PREFIX_ALL_BUDGETS": {
+          "created": 24899,
+          "skipped_all_missing_history": 4441
+        },
+        "UNDEFINED_SCALE_ANY_BUDGET": {
+          "skipped_undefined_scale": 2970
+        },
+        "ZERO_PREFIX_ANY_BUDGET_READY": {
+          "created": 809,
+          "skipped_all_missing_history": 181
+        }
+      },
+      "schedule_member_bytes": 10030460,
+      "schedule_member_sha256": "311609cfb4ac4af0f892c0833b2f4f8796bd1de67731e0447090ef63c8fad61c"
+    },
+    {
+      "all_final_status_counts": {
+        "created": 26022,
+        "skipped_all_missing_history": 4668,
+        "skipped_undefined_scale": 2880
+      },
+      "budget_days": 14,
+      "daily_origins_per_entity": 90,
+      "final_role_entities": 373,
+      "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+      "invalid_or_missing_entity_schedules": 0,
+      "omitted_status_counts_by_disposition": {
+        "POSITIVE_PREFIX_ALL_BUDGETS": {
+          "created": 24899,
+          "skipped_all_missing_history": 4441
+        },
+        "UNDEFINED_SCALE_ANY_BUDGET": {
+          "created": 44,
+          "skipped_all_missing_history": 46,
+          "skipped_undefined_scale": 2880
+        },
+        "ZERO_PREFIX_ANY_BUDGET_READY": {
+          "created": 809,
+          "skipped_all_missing_history": 181
+        }
+      },
+      "schedule_member_bytes": 10092810,
+      "schedule_member_sha256": "eaa88e7e861eb5d70d42b1c0e114de5fff1a3b621a78d635613e278151de143e"
+    },
+    {
+      "all_final_status_counts": {
+        "created": 26146,
+        "skipped_all_missing_history": 4904,
+        "skipped_undefined_scale": 2520
+      },
+      "budget_days": 28,
+      "daily_origins_per_entity": 90,
+      "final_role_entities": 373,
+      "input_manifest_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+      "invalid_or_missing_entity_schedules": 0,
+      "omitted_status_counts_by_disposition": {
+        "POSITIVE_PREFIX_ALL_BUDGETS": {
+          "created": 24899,
+          "skipped_all_missing_history": 4441
+        },
+        "UNDEFINED_SCALE_ANY_BUDGET": {
+          "created": 168,
+          "skipped_all_missing_history": 282,
+          "skipped_undefined_scale": 2520
+        },
+        "ZERO_PREFIX_ANY_BUDGET_READY": {
+          "created": 809,
+          "skipped_all_missing_history": 181
+        }
+      },
+      "schedule_member_bytes": 10089570,
+      "schedule_member_sha256": "c467d2a79694e10cbce8798776eca5ef5041831532dd815517f795232dac54de"
+    }
+  ],
+  "decision": "SCHEDULE_COVERAGE_VERIFIED_NOT_METHOD_EXECUTION_OR_EXTENSION_LOCK",
+  "disposition_sha256": "e129bcc2601c8f7c4dd209dc302f3dd0d4c2c5c61a58863b5e5e28e227f4fd76",
+  "input_zip_sha256": "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7",
+  "lock_sha256": "e5e8fe1cb5636e508b3edbcedbbd00a72d9d8230041bf383eeba3d1133883e5e",
+  "schema": "hung-final-omitted-schedule-audit-v1",
+  "scope": "frozen Final-role schedule coverage; no held-out label or score read"
+}
