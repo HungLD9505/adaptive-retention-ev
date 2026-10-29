@@ -1,0 +1,32 @@
+{
+  "final_role_ids_per_budget": 373,
+  "input_manifest_sha256_by_budget": {
+    "14": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+    "28": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+    "7": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c"
+  },
+  "input_zip_sha256": "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7",
+  "jobset_sha256": "7d09583446d9437cec63956f1673c6d1927428ff80ba59a8a876b9391a7c68a2",
+  "lock_sha256": "e5e8fe1cb5636e508b3edbcedbbd00a72d9d8230041bf383eeba3d1133883e5e",
+  "locked_entity_ids": [
+    "2118",
+    "2534",
+    "2579"
+  ],
+  "omitted_final_role_ids": 370,
+  "ready_all_budgets": 337,
+  "schema": "hung-final-scope-gap-v1",
+  "scope": "frozen input Final-role identity accounting; no new evaluation authorization",
+  "status_patterns": {
+    "ready|ready|ready": 337,
+    "undefined_scale|ready|ready": 1,
+    "undefined_scale|undefined_scale|ready": 4,
+    "undefined_scale|undefined_scale|undefined_scale": 28
+  },
+  "undefined_scale_any_budget": 33,
+  "zero_initial_trainable_by_budget": {
+    "14": 44,
+    "28": 40,
+    "7": 44
+  }
+}
