@@ -9,16 +9,19 @@ from pathlib import Path
 from tools.hung_report_numeric_audit_v1 import audit
 
 ROOT = Path(__file__).resolve().parents[1]
-REPORT = ROOT / "docs/reports/hung-e2e-research-report-draft-20261029-v9.md"
+REPORT = ROOT / "docs/reports/hung-e2e-research-report-draft-20261029-v10.md"
+PREVIOUS_REPORT = ROOT / "docs/reports/hung-e2e-research-report-draft-20261029-v9.md"
 STATIONS = ROOT / "docs/reports/hung-final-analysis-20261029-v1/station_first.csv"
 WAPE = ROOT / "docs/reports/hung-final-wape-20261029-v1/wape_summary.json"
 
 
 class ReportNumericAuditTests(unittest.TestCase):
     def test_tracked_report_matches_published_tables(self) -> None:
-        result = audit(REPORT, STATIONS, WAPE)
-        self.assertEqual(result["checked_numeric_cells"], 90)
-        self.assertEqual(result["schema"], "hung-report-numeric-audit-v1")
+        for report in (PREVIOUS_REPORT, REPORT):
+            with self.subTest(report=report.name):
+                result = audit(report, STATIONS, WAPE)
+                self.assertEqual(result["checked_numeric_cells"], 90)
+                self.assertEqual(result["schema"], "hung-report-numeric-audit-v1")
 
     def test_changed_main_gain_is_rejected(self) -> None:
         original = REPORT.read_text(encoding="utf-8")
