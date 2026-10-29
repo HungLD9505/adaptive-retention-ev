@@ -1,0 +1,15 @@
+{
+  "jobs": 360,
+  "jobs_csv_sha256": "45ea49c707c3bd608936934f0273704a710050beefa0b06bff5528d8cd312454",
+  "jobset_sha256": "7d09583446d9437cec63956f1673c6d1927428ff80ba59a8a876b9391a7c68a2",
+  "local_archive_byte_verified_jobs": 0,
+  "lock_sha256": "e5e8fe1cb5636e508b3edbcedbbd00a72d9d8230041bf383eeba3d1133883e5e",
+  "metrics_receipt_sha256": "657264b1330d48b77f65ea032e3a69f351c6ba8f657a3ae432a3e1060b23bc65",
+  "null_jobs": 0,
+  "readback_receipt_sha256": "19936edd017e76254abd9481fd8b8637cbf2081df798bee56f15f1cc6b869b8f",
+  "remote_ledger_sha256": "0dca10975d5431ac199909ccb5bf69298040d6e4a21d3424bd15986a26cfa0a8",
+  "remote_verified_jobs": 360,
+  "schema": "hung-final-verification-ledger-v1",
+  "scored_jobs": 360,
+  "scores_sha256": "9e09ae4f72b13c03ed029deb338301753ae377c15cbbfa7414433c5538cba73a"
+}
