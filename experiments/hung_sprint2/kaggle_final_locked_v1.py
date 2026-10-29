@@ -188,7 +188,8 @@ def run_all(args: argparse.Namespace) -> dict:
         args.mount, args.manifest_sha256, args.dataset_version, args.wrapper_path
     )
     lock = _unique_json(root / "lock.json")
-    _quota_gate(args, lock["resources"], shutil.disk_usage(args.working).free)
+    initial_free = shutil.disk_usage(args.working).free
+    _quota_gate(args, lock["resources"], initial_free)
     checkout = args.working / f"hung-final-{manifest['lock_sha256'][:12]}"
     repo, lock_path = _checkout(root, manifest, checkout)
     os.chdir(repo)
@@ -200,17 +201,31 @@ def run_all(args: argparse.Namespace) -> dict:
     from experiments.hung_sprint2.final_transport import prepare_upload
 
     lock_sha = manifest["lock_sha256"]
-    materialize_locked_inputs(lock_path, lock_sha)
+    materialize_locked_inputs(lock_path, lock_sha, provider_initial_free_bytes=initial_free)
     context = validate_lock(lock_path, lock_sha)
     require(
         len(context["jobs"]) == context["lock"]["jobset"]["count"],
         "Final exact jobset count differs",
     )
     for job in context["jobs"]:
-        result = dispatch(context, run=True, job_id=job["job_id"])
+        result = dispatch(
+            context,
+            run=True,
+            job_id=job["job_id"],
+            provider_initial_free_bytes=initial_free,
+        )
         require(result["verified"] == 1, f"Final job did not verify: {job['job_id']}")
     complete = dispatch(context, run=False)
     require(complete["verified"] == len(context["jobs"]), "Final jobset remains partial")
+    raw_bytes = sum(
+        path.stat().st_size for path in context["output_root"].rglob("*") if path.is_file()
+    )
+    zip_upper_bytes = raw_bytes + max(16 * 1024**2, raw_bytes // 1000) + 1024 * len(context["jobs"])
+    require(
+        shutil.disk_usage(args.working).free
+        >= context["lock"]["resources"]["min_free_bytes"] + zip_upper_bytes,
+        "Final archive cannot fit while preserving the locked disk reserve",
+    )
     archive = args.working / "hung-final-artifacts" / "archive.zip"
     archived = create_archive(context, archive)
     packet = args.working / "hung-final-artifacts" / "transport-packet"

@@ -43,7 +43,11 @@ def _member_path(name: str) -> Path:
 
 
 def materialize_locked_inputs(
-    lock_path: Path, lock_sha256: str, *, check_code: bool = True
+    lock_path: Path,
+    lock_sha256: str,
+    *,
+    check_code: bool = True,
+    provider_initial_free_bytes: int | None = None,
 ) -> dict:
     """Authenticate the lock first, then create each pinned input byte exactly once."""
     context = validate_lock(lock_path, lock_sha256, check_code=check_code, verify_input_runs=False)
@@ -91,10 +95,18 @@ def materialize_locked_inputs(
             require(not receipt.exists(), "Final input extraction receipt already exists")
             total = sum(info.file_size for _, info in files)
             resources = context["lock"]["resources"]
+            current_free = shutil.disk_usage(
+                allowed_parent if allowed_parent.exists() else ROOT
+            ).free
+            initial_free = (
+                current_free if provider_initial_free_bytes is None else provider_initial_free_bytes
+            )
             require(
                 resources["estimated_output_bytes"] >= total
-                and shutil.disk_usage(allowed_parent if allowed_parent.exists() else ROOT).free
-                >= resources["min_free_bytes"] + resources["estimated_output_bytes"],
+                and type(initial_free) is int
+                and initial_free
+                >= resources["min_free_bytes"] + resources["estimated_output_bytes"]
+                and current_free >= resources["min_free_bytes"],
                 "Final input extraction lacks locked capacity",
             )
             require(source.testzip() is None, "Final ZIP CRC differs")

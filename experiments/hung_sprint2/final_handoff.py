@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -15,6 +16,7 @@ from experiments.hung_sprint2.kaggle_final_locked_v1 import SCHEMA, _relative, d
 
 WRAPPER = ROOT / "experiments" / "hung_sprint2" / "kaggle_final_locked_v1.py"
 WRAPPER_GIT_PATH = "experiments/hung_sprint2/kaggle_final_locked_v1.py"
+MIN_PACKET_FREE_BYTES = 1024**3
 
 
 def _source_at_commit(commit: str) -> bytes:
@@ -119,11 +121,9 @@ def prepare_handoff(
         and not packet.is_relative_to(context["output_root"]),
         "Final handoff packet must be a new ignored path outside output",
     )
-    total_bytes = sum(source.stat().st_size for source, _ in sources.values())
     require(
-        shutil.disk_usage(ROOT).free
-        >= context["lock"]["resources"]["min_free_bytes"] + total_bytes,
-        "Insufficient disk for create-only Final handoff copy",
+        shutil.disk_usage(ROOT).free >= MIN_PACKET_FREE_BYTES,
+        "Insufficient disk for create-only Final handoff bundle",
     )
     payload = packet / "payload"
     payload.mkdir(parents=True, exist_ok=False)
@@ -133,8 +133,9 @@ def prepare_handoff(
     for name, (source, target) in sources.items():
         destination = payload / name
         require(not destination.exists(), "Duplicate Final handoff package file")
-        with source.open("rb") as incoming, destination.open("xb") as outgoing:
-            shutil.copyfileobj(incoming, outgoing, 1024 * 1024)
+        # All inputs and this packet live under the same repository .cache volume.
+        # Hard links retain the original bytes without a second large local copy.
+        os.link(source, destination)
         identity = digest(destination)
         require(identity == digest(source), f"Final handoff copy changed: {name}")
         files[name] = {**identity, "target": target}

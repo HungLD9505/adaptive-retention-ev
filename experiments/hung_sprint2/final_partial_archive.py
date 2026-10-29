@@ -14,6 +14,7 @@ from experiments.hung_sprint2.final_archive import (
     readback_archive,
     require,
 )
+from experiments.hung_sprint2.final_lock import _project_path
 
 SCHEMA = "hung-final-partial-checkpoint-v1"
 
@@ -43,7 +44,7 @@ def _lock_pins(context: dict) -> tuple[str, str]:
     lock = context["lock"]
     jobset, plan = lock["jobset"], lock["execution_plan"]
     require(
-        Path(lock["output_root"]) == context["output_root"]
+        _project_path(lock["output_root"]) == context["output_root"]
         and jobset["count"] == len(context["jobs"])
         and all(
             isinstance(reference["sha256"], str) and len(reference["sha256"]) == 64

@@ -61,6 +61,23 @@ class PartialCheckpointTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "target must be absent"):
             restore_partial_checkpoint(self.context, self.package, self.context["output_root"])
 
+    def test_repo_relative_locked_output_root_creates_and_restores(self) -> None:
+        self.context["lock"]["output_root"] = (
+            self.context["output_root"].relative_to(ROOT).as_posix()
+        )
+        self.assertFalse(Path(self.context["lock"]["output_root"]).is_absolute())
+        created = create_partial_checkpoint(self.context, IDS, self.package)
+        self.assertEqual(created["completed_jobs"], 2)
+        prior = self.root / "prior-output"
+        self.context["output_root"].rename(prior)
+        restored = restore_partial_checkpoint(
+            self.context, self.package, self.context["output_root"]
+        )
+        self.assertEqual(restored["status"], "PARTIAL_CHECKPOINT_RESTORED_NOT_FINAL_RESULT")
+        self.assertTrue(
+            (prior / "stages" / "controller" / "replay" / "run_manifest.json").is_file()
+        )
+
     def test_unknown_full_and_partial_stage_sets_fail_closed(self) -> None:
         for ids, message in (
             (["unknown"], "Unknown"),

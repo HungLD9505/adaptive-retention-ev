@@ -78,11 +78,16 @@ class FinalHandoffTests(unittest.TestCase):
         result = self._prepare(lock_path, digest, packet)
         self.assertEqual(result["status"], "PREPARED_ONLY_PRIVATE_UPLOAD_PENDING")
         self.assertEqual(result["files"], 8)
+        self.assertTrue(
+            (packet / "payload" / "analysis.json").samefile(self.root / "analysis.json")
+        )
         inspect_handoff(packet, result["manifest_sha256"], VERSION, WRAPPER)
         with self.assertRaisesRegex(ValueError, "new ignored path"):
             self._prepare(lock_path, digest, packet)
-        with (packet / "payload" / "analysis.json").open("a", encoding="utf-8") as stream:
-            stream.write("changed")
+        original_analysis_sha = sha256_file(self.root / "analysis.json")
+        (packet / "payload" / "analysis.json").unlink()  # Disposable fixture hard link only.
+        (packet / "payload" / "analysis.json").write_text("changed", encoding="utf-8")
+        self.assertEqual(sha256_file(self.root / "analysis.json"), original_analysis_sha)
         with self.assertRaisesRegex(ValueError, "handoff bytes differ"):
             inspect_handoff(packet, result["manifest_sha256"], VERSION, WRAPPER)
 

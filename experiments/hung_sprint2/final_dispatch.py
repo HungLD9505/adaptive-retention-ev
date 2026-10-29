@@ -205,7 +205,13 @@ def _run_job(context: dict, job: dict, plan: dict) -> None:
     _publish_stage(root, job_id, "replay", lock_sha, result)
 
 
-def dispatch(context: dict, *, run: bool, job_id: str | None = None) -> dict:
+def dispatch(
+    context: dict,
+    *,
+    run: bool,
+    job_id: str | None = None,
+    provider_initial_free_bytes: int | None = None,
+) -> dict:
     require(context.get("input_runs_verified") is True, "Final input runs were not verified")
     root, lock_sha = context["output_root"], context["lock_sha256"]
     jobs = context["jobs"]
@@ -225,10 +231,22 @@ def dispatch(context: dict, *, run: bool, job_id: str | None = None) -> dict:
             "coverage_status": context["coverage_status"],
         }
     if run:
+        current_free = _free_bytes(root)
+        initial_free = (
+            current_free if provider_initial_free_bytes is None else provider_initial_free_bytes
+        )
+        prior_identity = (root / "final_lock_identity.json").is_file()
         require(
-            _free_bytes(root)
-            >= context["lock"]["resources"]["min_free_bytes"]
-            + context["lock"]["resources"]["estimated_output_bytes"],
+            (
+                prior_identity
+                or (
+                    type(initial_free) is int
+                    and initial_free
+                    >= context["lock"]["resources"]["min_free_bytes"]
+                    + context["lock"]["resources"]["estimated_output_bytes"]
+                )
+            )
+            and current_free >= context["lock"]["resources"]["min_free_bytes"],
             "Final output reserve plus locked output budget is unavailable",
         )
         root.mkdir(parents=True, exist_ok=True)

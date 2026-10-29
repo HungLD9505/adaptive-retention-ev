@@ -10,7 +10,7 @@ from zipfile import ZipFile
 
 from ev_inputs.hourly_reader import sha256_file
 from experiments.hung_sprint2.final_extract import materialize_locked_inputs
-from experiments.hung_sprint2.final_lock import ROOT, validate_lock
+from experiments.hung_sprint2.final_lock import MIN_FREE_BYTES, ROOT, validate_lock
 from tests.test_hung_final_dispatch import _fixture
 
 
@@ -76,3 +76,31 @@ class FinalExtractionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "input bytes differ"):
             self._materialize(lock_path, digest)
         self.assertFalse(input_run.exists())
+
+    def test_precheckout_capacity_witness_keeps_runtime_reserve(self) -> None:
+        lock_path, digest, input_run, _ = _archive_fixture(self.root)
+        with (
+            mock.patch(
+                "experiments.hung_sprint2.final_extract.shutil.disk_usage",
+                return_value=mock.Mock(free=MIN_FREE_BYTES + 1),
+            ),
+            mock.patch(
+                "experiments.hung_sprint2.final_extract._receipt_path",
+                return_value=self.root / "receipt.json",
+            ),
+        ):
+            with self.assertRaisesRegex(ValueError, "lacks locked capacity"):
+                materialize_locked_inputs(
+                    lock_path,
+                    digest,
+                    check_code=False,
+                    provider_initial_free_bytes=MIN_FREE_BYTES + 999_999,
+                )
+            self.assertFalse(input_run.exists())
+            result = materialize_locked_inputs(
+                lock_path,
+                digest,
+                check_code=False,
+                provider_initial_free_bytes=MIN_FREE_BYTES + 1_000_000,
+            )
+        self.assertTrue(result["input_runs_verified"])

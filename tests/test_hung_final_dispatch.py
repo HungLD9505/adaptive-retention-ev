@@ -237,3 +237,27 @@ class FinalDispatchTests(unittest.TestCase):
                 stream.write(" ")
             with self.assertRaisesRegex(ValueError, "Pinned file bytes differ"):
                 validate_lock(lock_path, lock_sha, check_code=False)
+
+    def test_precheckout_capacity_witness_does_not_repeat_full_budget(self) -> None:
+        (ROOT / ".cache").mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ROOT / ".cache") as directory:
+            lock_path, lock_sha, output, _ = _fixture(Path(directory))
+            context = validate_lock(lock_path, lock_sha, check_code=False)
+            with mock.patch(
+                "experiments.hung_sprint2.final_dispatch._free_bytes",
+                return_value=MIN_FREE_BYTES + 1,
+            ):
+                with self.assertRaisesRegex(ValueError, "reserve plus locked output budget"):
+                    dispatch(
+                        context, run=True, provider_initial_free_bytes=MIN_FREE_BYTES + 999_999
+                    )
+                self.assertFalse(output.exists())
+                self.assertEqual(
+                    dispatch(
+                        context,
+                        run=True,
+                        provider_initial_free_bytes=MIN_FREE_BYTES + 1_000_000,
+                    )["verified"],
+                    1,
+                )
+                self.assertEqual(dispatch(context, run=True)["verified"], 1)
