@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import csv
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -121,6 +123,26 @@ class GainAggregationAuditTests(unittest.TestCase):
         _write(self.paired, PAIR_FIELDS, rows)
         with self.assertRaisesRegex(ValueError, "jobset mismatch"):
             audit(self.paired, self.station_first)
+
+    def test_cli_writes_stable_lf_and_refuses_overwrite(self) -> None:
+        output = Path(self.temporary.name) / "audit.json"
+        command = [
+            sys.executable,
+            "-m",
+            "tools.hung_final_gain_aggregation_audit_v1",
+            "--paired",
+            str(self.paired),
+            "--station-first",
+            str(self.station_first),
+            "--output",
+            str(output),
+        ]
+        first = subprocess.run(command, capture_output=True, text=True, check=True)
+        self.assertIn('"budgets": 3', first.stdout)
+        self.assertNotIn(b"\r\n", output.read_bytes())
+        second = subprocess.run(command, capture_output=True, text=True, check=False)
+        self.assertNotEqual(second.returncode, 0)
+        self.assertIn("refusing to overwrite", second.stderr)
 
 
 if __name__ == "__main__":
