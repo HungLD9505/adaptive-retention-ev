@@ -1,0 +1,5004 @@
+{
+  "schema": "issue23-joint-evidence-synthesis-v1",
+  "as_of_date": "2026-10-30",
+  "scope": "Read-only synthesis of frozen analyses, no new training, no pooled experiment, no peer-approval claim",
+  "hung_review_head": "207255b9caf33c4221daab560bb60af6409d416f",
+  "primary_scientific_commit": "61c32328d9829a69037dca629f727b4863015122",
+  "primary_ledger_sha256": "1be8a84c6ce0097492ee9dd6e2a2f8e0eae3e745dc5f7b94a47e603aa6b85a02",
+  "primary_final": [
+    {
+      "namespace": "urbanev-SZH",
+      "budget_days": 7,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 8.101369307856476,
+          "macro_rmse_kwh": 11.797661822383533,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 8.039986091840161,
+          "macro_rmse_kwh": 11.708370139789094,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.06138321601631626,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 8.115181774091191,
+          "macro_rmse_kwh": 11.841550221639933,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.013812466234715085,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 8.239912717500168,
+          "macro_rmse_kwh": 12.095930534071638,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.1385434096436908,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 13.434081023851213,
+          "macro_rmse_kwh": 17.209174211453693,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -5.332711715994737,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 12.1372697901892,
+          "macro_rmse_kwh": 17.060239000598866,
+          "station_count": 29,
+          "ntr": 0.4827586206896552,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -4.035900482332723,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 8.585221693798388,
+          "macro_rmse_kwh": 12.411588380241012,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.48385238594191166,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 8.068582648968096,
+          "macro_rmse_kwh": 11.726957355471395,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.03278665888837916,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 8.133131604875903,
+          "macro_rmse_kwh": 11.927675885064911,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.03176229701942562,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 8.123675820847359,
+          "macro_rmse_kwh": 11.91688637916721,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.022306512990881395,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 8.139429951011348,
+          "macro_rmse_kwh": 11.926715508261077,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.038060643154870184,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 8.057477865339845,
+          "macro_rmse_kwh": 11.726856304026574,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.04389144251663213,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 8.237385974653641,
+          "macro_rmse_kwh": 12.09384863610509,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.13601666679716432,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 13.703052088014966,
+          "macro_rmse_kwh": 17.433239920614785,
+          "station_count": 29,
+          "ntr": 0.8620689655172413,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -5.601682780158489,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        }
+      },
+      "best_point_mae_method": "fixed_retention"
+    },
+    {
+      "namespace": "urbanev-SZH",
+      "budget_days": 14,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 8.051655280308392,
+          "macro_rmse_kwh": 11.820887613865352,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 7.975750983786747,
+          "macro_rmse_kwh": 11.617907179016218,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.07590429652164526,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 7.966789393815592,
+          "macro_rmse_kwh": 11.596475466249913,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.08486588649279928,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 8.146901441508804,
+          "macro_rmse_kwh": 11.9617022179922,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.09524616120041209,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 13.413218256881864,
+          "macro_rmse_kwh": 17.198707239193514,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -5.361562976573472,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 12.137269800953867,
+          "macro_rmse_kwh": 17.06023900465305,
+          "station_count": 29,
+          "ntr": 0.4827586206896552,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -4.085614520645474,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 8.56395301547977,
+          "macro_rmse_kwh": 12.367195916008072,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.5122977351713774,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 8.04509381848447,
+          "macro_rmse_kwh": 11.808539873997347,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.006561461823922683,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 8.058579556142856,
+          "macro_rmse_kwh": 11.814112814129759,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.006924275834463814,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 8.051743228408608,
+          "macro_rmse_kwh": 11.817939494710402,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -8.794810021662472e-05,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 8.080582642417001,
+          "macro_rmse_kwh": 11.851773180843907,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.02892736210860894,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 7.9810229999475135,
+          "macro_rmse_kwh": 11.600835890518868,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.07063228036087786,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 8.145541072377222,
+          "macro_rmse_kwh": 11.961861511394162,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.09388579206882991,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 13.666885042895803,
+          "macro_rmse_kwh": 17.380940605670535,
+          "station_count": 29,
+          "ntr": 0.8620689655172413,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -5.615229762587411,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        }
+      },
+      "best_point_mae_method": "online_best"
+    },
+    {
+      "namespace": "urbanev-SZH",
+      "budget_days": 28,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 8.001464231036735,
+          "macro_rmse_kwh": 11.710242840464442,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 7.915858941137677,
+          "macro_rmse_kwh": 11.507339776063546,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.08560528989905798,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 7.992440240809077,
+          "macro_rmse_kwh": 11.703453818521831,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.00902399022765813,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 8.06701358418014,
+          "macro_rmse_kwh": 11.834960809341268,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.06554935314340535,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 13.307871368770435,
+          "macro_rmse_kwh": 17.052211845909834,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -5.3064071377337,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 12.137269772948468,
+          "macro_rmse_kwh": 17.06023899499143,
+          "station_count": 29,
+          "ntr": 0.4827586206896552,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -4.135805541911733,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 8.542461021427906,
+          "macro_rmse_kwh": 12.344855110533265,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.5409967903911705,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 7.941271252020548,
+          "macro_rmse_kwh": 11.654495553134119,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.060192979016187594,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 7.964604980169434,
+          "macro_rmse_kwh": 11.665999205203413,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.03685925086730156,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 7.910902698012871,
+          "macro_rmse_kwh": 11.57619555777744,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.09056153302386491,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 7.98936640932292,
+          "macro_rmse_kwh": 11.72547357782073,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.012097821713815765,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 7.938785651669923,
+          "macro_rmse_kwh": 11.568709606937905,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.06267857936681301,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 8.06711529275304,
+          "macro_rmse_kwh": 11.835145245506794,
+          "station_count": 29,
+          "ntr": 0.0,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.06565106171630546,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 13.627344482100662,
+          "macro_rmse_kwh": 17.28697759376708,
+          "station_count": 29,
+          "ntr": 0.896551724137931,
+          "ntr_denominator": 29,
+          "adaptive_minus_method": {
+            "gap_kwh": -5.6258802510639265,
+            "interval": null,
+            "undefined_replicates": 40
+          }
+        }
+      },
+      "best_point_mae_method": "source_error"
+    },
+    {
+      "namespace": "charged-AMS",
+      "budget_days": 7,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 6.155903477772171,
+          "macro_rmse_kwh": 6.928529121469664,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 6.148281155064238,
+          "macro_rmse_kwh": 6.931454941082813,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.00762232270793224,
+            "interval": [
+              -0.0028349938438453678,
+              0.02184263081925525
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 6.152006344839453,
+          "macro_rmse_kwh": 6.928165509173273,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0038971329327178454,
+            "interval": [
+              -0.004416311413656432,
+              0.01668774117802046
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 6.180687361081532,
+          "macro_rmse_kwh": 6.9454150970186594,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.024783883309361068,
+            "interval": [
+              -0.04493710761569515,
+              -0.008444009604123202
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 2.562067580293877,
+          "macro_rmse_kwh": 3.5074014526420503,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 3.5938358974782934,
+            "interval": [
+              0.20699973362973761,
+              7.241544473466222
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 0.8533761651013299,
+          "macro_rmse_kwh": 2.140608247846915,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 5.302527312670841,
+            "interval": [
+              2.234458052250997,
+              8.61695077472573
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 6.1250030003395555,
+          "macro_rmse_kwh": 6.923930162581422,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.03090047743261492,
+            "interval": [
+              0.010421748153925832,
+              0.0585203034499522
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 6.150048396839754,
+          "macro_rmse_kwh": 6.925959359066208,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.005855080932416904,
+            "interval": [
+              -0.003358717096305034,
+              0.01967823578457816
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 6.155585102156142,
+          "macro_rmse_kwh": 6.928558257285554,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.00031837561602924446,
+            "interval": [
+              -0.006554115961540996,
+              0.009037652639337193
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 6.149091939145283,
+          "macro_rmse_kwh": 6.931844236737674,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.00681153862688786,
+            "interval": [
+              -0.0014209001769682262,
+              0.020043951945336688
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 6.176564107305949,
+          "macro_rmse_kwh": 6.943950890540775,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.02066062953377888,
+            "interval": [
+              -0.04058572460058703,
+              -0.005401147911712088
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 6.156360316279224,
+          "macro_rmse_kwh": 6.927802086632307,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.00045683850705395264,
+            "interval": [
+              -0.014518091607042634,
+              0.01480268679120547
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 6.181019522964525,
+          "macro_rmse_kwh": 6.94555260600556,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.02511604519235426,
+            "interval": [
+              -0.04528286125200701,
+              -0.00849309725354009
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 2.5398363525752985,
+          "macro_rmse_kwh": 3.5037195419855554,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 3.616067125196872,
+            "interval": [
+              0.3499932058212515,
+              7.213313058508243
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "seasonal_naive"
+    },
+    {
+      "namespace": "charged-AMS",
+      "budget_days": 14,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 6.151977966021024,
+          "macro_rmse_kwh": 6.929223068069341,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 6.148169591992657,
+          "macro_rmse_kwh": 6.930558089863326,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.003808374028366451,
+            "interval": [
+              -0.00733474679062807,
+              0.01754436216271446
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 6.155023357002319,
+          "macro_rmse_kwh": 6.927829294748723,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.0030453909812958816,
+            "interval": [
+              -0.013294546423045077,
+              0.003245423119832538
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 6.179390928259549,
+          "macro_rmse_kwh": 6.944355517079287,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.027412962238525414,
+            "interval": [
+              -0.04968213571071329,
+              -0.009866113988266822
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 2.6455729226056834,
+          "macro_rmse_kwh": 3.5301883591036107,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 3.5064050434153398,
+            "interval": [
+              0.10825977104070049,
+              7.182722449741494
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 0.8533761686632353,
+          "macro_rmse_kwh": 2.140608246160166,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 5.298601797357788,
+            "interval": [
+              2.234786285681879,
+              8.605126690558228
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 6.12499980828209,
+          "macro_rmse_kwh": 6.923931620580741,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.02697815773893332,
+            "interval": [
+              0.006962012683304508,
+              0.056682819637783245
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 6.156243987472724,
+          "macro_rmse_kwh": 6.932828161528464,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.004266021451700653,
+            "interval": [
+              -0.014985260626591225,
+              0.005715572422317534
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 6.164809196061584,
+          "macro_rmse_kwh": 6.935510596433141,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.012831230040560544,
+            "interval": [
+              -0.028988833954214515,
+              -0.002628468334576348
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 6.151759245495394,
+          "macro_rmse_kwh": 6.931974787484785,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0002187205256290568,
+            "interval": [
+              -0.005109964533057053,
+              0.005496657371332267
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 6.182962484505047,
+          "macro_rmse_kwh": 6.945560164092513,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.030984518484023775,
+            "interval": [
+              -0.05896935349058909,
+              -0.00857356190502341
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 6.147960208896648,
+          "macro_rmse_kwh": 6.930648938895382,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.004017757124375028,
+            "interval": [
+              -0.0013652824839017676,
+              0.014135654924716771
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 6.178970278334737,
+          "macro_rmse_kwh": 6.942560367429931,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.02699231231371331,
+            "interval": [
+              -0.04917972488975644,
+              -0.009688562813487222
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 2.367436022057077,
+          "macro_rmse_kwh": 3.3196632826451795,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 3.7845419439639465,
+            "interval": [
+              0.6579295765785037,
+              7.265706908479509
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "seasonal_naive"
+    },
+    {
+      "namespace": "charged-AMS",
+      "budget_days": 28,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 6.152892996395598,
+          "macro_rmse_kwh": 6.935392007101927,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 6.148167168695576,
+          "macro_rmse_kwh": 6.932135518507538,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.004725827700021438,
+            "interval": [
+              -0.00855124807339264,
+              0.023384061356403283
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 6.153548327993208,
+          "macro_rmse_kwh": 6.937280700669845,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.000655331597611383,
+            "interval": [
+              -0.00679719060559827,
+              0.004848359913311778
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 6.184144363103854,
+          "macro_rmse_kwh": 6.950317057136706,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.03125136670825672,
+            "interval": [
+              -0.06017514343798252,
+              -0.010690410638482126
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 2.553717491664546,
+          "macro_rmse_kwh": 3.4028948715591705,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 3.599175504731051,
+            "interval": [
+              0.32546956222296286,
+              7.239795218506864
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 0.8533761805520442,
+          "macro_rmse_kwh": 2.140608249337078,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 5.299516815843553,
+            "interval": [
+              2.2345188012915442,
+              8.608945502305014
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 6.1249935002957425,
+          "macro_rmse_kwh": 6.9239344680280075,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.027899496099854502,
+            "interval": [
+              0.004338920922348378,
+              0.06445063503166593
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 6.157796268085116,
+          "macro_rmse_kwh": 6.938215367165155,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.004903271689519152,
+            "interval": [
+              -0.015883594527017028,
+              0.003766561671581065
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 6.159991020954198,
+          "macro_rmse_kwh": 6.938204283890916,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.007098024558601629,
+            "interval": [
+              -0.017936116379066964,
+              -0.00046985047098851263
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 6.153877231926294,
+          "macro_rmse_kwh": 6.936567102865531,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.0009842355306967524,
+            "interval": [
+              -0.007263100784689167,
+              0.004444291538480681
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 6.17928267157135,
+          "macro_rmse_kwh": 6.946388207405681,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.02638967517575346,
+            "interval": [
+              -0.05021838359539165,
+              -0.009444814780875043
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 6.167854605064563,
+          "macro_rmse_kwh": 6.941291362178304,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.014961608668965655,
+            "interval": [
+              -0.0389971791076367,
+              -0.0004845648838797741
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 6.183881071358087,
+          "macro_rmse_kwh": 6.950158001477537,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.030988074962489183,
+            "interval": [
+              -0.059949088707508265,
+              -0.010533225462446474
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 2.4148814722980516,
+          "macro_rmse_kwh": 3.329892519730685,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 3.738011524097546,
+            "interval": [
+              0.59095146278924,
+              7.278471461333728
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "seasonal_naive"
+    },
+    {
+      "namespace": "charged-JHB",
+      "budget_days": 7,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 1.3685133589851195,
+          "macro_rmse_kwh": 2.0095877173589485,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 1.3205531638513823,
+          "macro_rmse_kwh": 1.9734182259502633,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.047960195133737026,
+            "interval": [
+              -0.05753222892547818,
+              0.17583543052363526
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 1.3155605882461974,
+          "macro_rmse_kwh": 1.9596021292423562,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0529527707389222,
+            "interval": [
+              -0.0029345258658221083,
+              0.1403726296795936
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 1.582942342277742,
+          "macro_rmse_kwh": 2.236241074247192,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.21442898329262244,
+            "interval": [
+              -0.4202758687420614,
+              -0.052597318092475476
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 2.8097558222542514,
+          "macro_rmse_kwh": 3.6660427212124707,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.4412424632691319,
+            "interval": [
+              -3.010917523165886,
+              -0.44032833448642394
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 2.8869903165270974,
+          "macro_rmse_kwh": 3.960321277235691,
+          "station_count": 10,
+          "ntr": 0.4,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.518476957541978,
+            "interval": [
+              -3.1961875048557857,
+              -0.41753185381655394
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 0.9622500781344661,
+          "macro_rmse_kwh": 1.7841140484854918,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.4062632808506534,
+            "interval": [
+              0.07671582639776692,
+              0.8919590811997089
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 1.2989746141712055,
+          "macro_rmse_kwh": 1.9390233512160708,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.06953874481391388,
+            "interval": [
+              0.0018476800603659173,
+              0.18320118673054303
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 1.3956022932405547,
+          "macro_rmse_kwh": 2.0338082424539916,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.02708893425543533,
+            "interval": [
+              -0.08548309931501952,
+              0.014289744976984353
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 1.337392186885379,
+          "macro_rmse_kwh": 1.9726569297938765,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.03112117209974028,
+            "interval": [
+              -0.04964833350792234,
+              0.12049522141098552
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 1.4184845830668606,
+          "macro_rmse_kwh": 2.0434495588207917,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.049971224081741226,
+            "interval": [
+              -0.11967799446037104,
+              -0.0009347754281567887
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 1.3394998966502645,
+          "macro_rmse_kwh": 1.9813281499175872,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.029013462334854828,
+            "interval": [
+              -0.04165239735521253,
+              0.14797889393264796
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 1.5899424011409211,
+          "macro_rmse_kwh": 2.2487143381401657,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.2214290421558016,
+            "interval": [
+              -0.43803057962227987,
+              -0.0499280904968316
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 2.8617712536518383,
+          "macro_rmse_kwh": 3.6984081006606724,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.4932578946667188,
+            "interval": [
+              -3.1725495468359792,
+              -0.4445601330480417
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "frozen_source"
+    },
+    {
+      "namespace": "charged-JHB",
+      "budget_days": 14,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 1.3604196969909585,
+          "macro_rmse_kwh": 1.9983717753464678,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 1.3227412832523588,
+          "macro_rmse_kwh": 1.9850659593671878,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.03767841373859974,
+            "interval": [
+              -0.07394380259641652,
+              0.15162466873121871
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 1.3535044516199521,
+          "macro_rmse_kwh": 1.983502855751455,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.006915245371006461,
+            "interval": [
+              -0.06872313324779807,
+              0.07755651437261411
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 1.5386125686733638,
+          "macro_rmse_kwh": 2.2042429801235444,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.17819287168240525,
+            "interval": [
+              -0.40866107525752743,
+              -0.015606287272298815
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 2.786506017971155,
+          "macro_rmse_kwh": 3.6262665611314575,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.4260863209801964,
+            "interval": [
+              -3.0175648575008696,
+              -0.38965520491866706
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 2.886990316443372,
+          "macro_rmse_kwh": 3.9603212707506494,
+          "station_count": 10,
+          "ntr": 0.4,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.5265706194524136,
+            "interval": [
+              -3.3126995444822303,
+              -0.3877888650074468
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 0.9645389640152892,
+          "macro_rmse_kwh": 1.7887054083468612,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.3958807329756694,
+            "interval": [
+              0.09240057058125524,
+              0.7767928374115256
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 1.3357985300291808,
+          "macro_rmse_kwh": 1.9747028350186595,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.024621166961777796,
+            "interval": [
+              -0.09975634018905759,
+              0.13736247979887506
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 1.3945395828041152,
+          "macro_rmse_kwh": 2.045292274007035,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.03411988581315663,
+            "interval": [
+              -0.12003550987414653,
+              0.0279530777447571
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 1.3677281995268649,
+          "macro_rmse_kwh": 2.018358637915345,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.007308502535906183,
+            "interval": [
+              -0.15955066802605278,
+              0.11292481613837596
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 1.442805250255116,
+          "macro_rmse_kwh": 2.0840328254925833,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.08238555326415758,
+            "interval": [
+              -0.2320532735672395,
+              0.009991880015512366
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 1.3931647588762102,
+          "macro_rmse_kwh": 2.0357185928409347,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.03274506188525146,
+            "interval": [
+              -0.1115696544490428,
+              0.029396491061059526
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 1.5389326873955307,
+          "macro_rmse_kwh": 2.204309610329392,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.1785129904045722,
+            "interval": [
+              -0.40832646638768666,
+              -0.015741852310897936
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 2.8167600906185783,
+          "macro_rmse_kwh": 3.651839437116626,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.4563403936276196,
+            "interval": [
+              -3.1529649272834726,
+              -0.4142494995538502
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "frozen_source"
+    },
+    {
+      "namespace": "charged-JHB",
+      "budget_days": 28,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 1.3560477986287438,
+          "macro_rmse_kwh": 1.999964406630033,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 1.291883018124986,
+          "macro_rmse_kwh": 1.946103204067801,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.06416478050375786,
+            "interval": [
+              -0.009462333809032423,
+              0.157942433725695
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 1.2957110416743158,
+          "macro_rmse_kwh": 1.9554494081882328,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.06033675695442793,
+            "interval": [
+              -0.0036726929375285053,
+              0.15091161497540087
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 1.5366029165475923,
+          "macro_rmse_kwh": 2.203494254406259,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.18055511791884848,
+            "interval": [
+              -0.36569025039263525,
+              -0.03747164582509878
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 2.6510024444346487,
+          "macro_rmse_kwh": 3.4447592001885927,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.294954645805905,
+            "interval": [
+              -2.7649182459270976,
+              -0.3759786849392538
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 2.8869903152749417,
+          "macro_rmse_kwh": 3.9603212695616876,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.5309425166461976,
+            "interval": [
+              -3.2152213366533906,
+              -0.4209528266787616
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 0.8670224585212327,
+          "macro_rmse_kwh": 1.6705577688458513,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.4890253401075111,
+            "interval": [
+              0.13462731775899903,
+              0.965386300957569
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 1.33698963093198,
+          "macro_rmse_kwh": 1.9888115827917197,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.01905816769676388,
+            "interval": [
+              -0.04949610356810115,
+              0.09149796648436698
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 1.3366040951405787,
+          "macro_rmse_kwh": 2.0055552822670064,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.01944370348816518,
+            "interval": [
+              -0.05093318734906876,
+              0.13713151001487564
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 1.3435995130051994,
+          "macro_rmse_kwh": 2.0052542974228413,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.012448285623544428,
+            "interval": [
+              -0.10110164801974872,
+              0.15574406847219094
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 1.4034253924714104,
+          "macro_rmse_kwh": 2.061169156959496,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.04737759384266658,
+            "interval": [
+              -0.14636883173155077,
+              0.03267015016499709
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 1.3119409031696054,
+          "macro_rmse_kwh": 1.9726141064145715,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.044106895459138463,
+            "interval": [
+              -0.05597270314124112,
+              0.15926341056014312
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 1.5352286956245667,
+          "macro_rmse_kwh": 2.2032629342037433,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.17918089699582285,
+            "interval": [
+              -0.3631858876194908,
+              -0.03715902514883634
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 2.664046029812976,
+          "macro_rmse_kwh": 3.457281288642466,
+          "station_count": 10,
+          "ntr": 0.5,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.3079982311842324,
+            "interval": [
+              -2.8478552469435634,
+              -0.38977977589272705
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "frozen_source"
+    },
+    {
+      "namespace": "charged-LOA",
+      "budget_days": 7,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 1.3272534180656752,
+          "macro_rmse_kwh": 1.9571426621717358,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 1.322025125138721,
+          "macro_rmse_kwh": 1.970883318242639,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.00522829292695444,
+            "interval": [
+              -0.04049293616963484,
+              0.055676579877306835
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 1.3275429819401308,
+          "macro_rmse_kwh": 1.9622897547358475,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.00028956387445560445,
+            "interval": [
+              -0.018174149478687195,
+              0.018655898181975744
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 1.3273908677424637,
+          "macro_rmse_kwh": 1.9516051564390415,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.00013744967678852197,
+            "interval": [
+              -0.03624658290816155,
+              0.03304356901528165
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 1.9061938681960473,
+          "macro_rmse_kwh": 2.6863801862635905,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.578940450130372,
+            "interval": [
+              -1.159605530531599,
+              -0.2021323711465013
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 1.5876710803566338,
+          "macro_rmse_kwh": 2.5618512451325093,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.2604176622909586,
+            "interval": [
+              -0.6386814192294209,
+              0.06817170399428395
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 1.3585014445604318,
+          "macro_rmse_kwh": 2.0925156784826564,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.031248026494756498,
+            "interval": [
+              -0.21559627573331708,
+              0.15591326903393754
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 1.323069206842654,
+          "macro_rmse_kwh": 1.9518454231591753,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.004184211223021319,
+            "interval": [
+              -0.0210880482066721,
+              0.049169916155869874
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 1.3268810085750973,
+          "macro_rmse_kwh": 1.9579236270388838,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.00037240949057809494,
+            "interval": [
+              -0.018128978874925105,
+              0.015308325989718635
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 1.3243771238526065,
+          "macro_rmse_kwh": 1.958171935301831,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0028762942130687104,
+            "interval": [
+              -0.018261028538952246,
+              0.02291292230576383
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 1.3271976928849356,
+          "macro_rmse_kwh": 1.959420674774387,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 5.572518073967163e-05,
+            "interval": [
+              -0.01799769725698037,
+              0.013865607806182201
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 1.3135300343667624,
+          "macro_rmse_kwh": 1.9461578687624168,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.013723383698912964,
+            "interval": [
+              -0.013479709481651482,
+              0.056331540844153684
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 1.3276039797766541,
+          "macro_rmse_kwh": 1.9518145139443093,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.0003505617109787757,
+            "interval": [
+              -0.03667970105743414,
+              0.03302824421704365
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 1.923761218814137,
+          "macro_rmse_kwh": 2.718738847541487,
+          "station_count": 10,
+          "ntr": 0.8,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.5965078007484618,
+            "interval": [
+              -1.194077765277275,
+              -0.21743569384766245
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "drift"
+    },
+    {
+      "namespace": "charged-LOA",
+      "budget_days": 14,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 1.3431404676849228,
+          "macro_rmse_kwh": 1.9688372750433831,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 1.3334037204909293,
+          "macro_rmse_kwh": 1.9759135983337721,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.009736747193993502,
+            "interval": [
+              -0.03936938382796871,
+              0.07061875496768065
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 1.3387899737348365,
+          "macro_rmse_kwh": 1.9753724828655912,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.004350493950086314,
+            "interval": [
+              -0.015002097359330184,
+              0.03222616875286601
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 1.3388549762843158,
+          "macro_rmse_kwh": 1.9763119178745863,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.004285491400606961,
+            "interval": [
+              -0.03690146443646871,
+              0.06154252492157224
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 2.0955946436595547,
+          "macro_rmse_kwh": 3.0134328636291987,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.7524541759746318,
+            "interval": [
+              -1.7388469493908416,
+              -0.2245128164154766
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 1.5876710678792467,
+          "macro_rmse_kwh": 2.5618512453772095,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.24453060019432385,
+            "interval": [
+              -0.6194753242985276,
+              0.09504144775882709
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 1.3784468656697062,
+          "macro_rmse_kwh": 2.1187949738615837,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.03530639798478349,
+            "interval": [
+              -0.2211047464863707,
+              0.16212104052271198
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 1.3418218448777706,
+          "macro_rmse_kwh": 1.9791502631794538,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0013186228071521615,
+            "interval": [
+              -0.027254247940144267,
+              0.045546652485289316
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 1.3521760827688603,
+          "macro_rmse_kwh": 1.9782798894353752,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.009035615083937541,
+            "interval": [
+              -0.06298405707301526,
+              0.014661955256826975
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 1.3271974690895727,
+          "macro_rmse_kwh": 1.9644529149819059,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.015942998595350227,
+            "interval": [
+              -0.008839086342402627,
+              0.06295378367356261
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 1.353262475776512,
+          "macro_rmse_kwh": 1.97981145814201,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.010122008091589198,
+            "interval": [
+              -0.058287277696051035,
+              0.012892123040440016
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 1.3529304662694768,
+          "macro_rmse_kwh": 1.9822530039232868,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.009789998584553962,
+            "interval": [
+              -0.04538887675502095,
+              0.013861941122393341
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 1.338875580734661,
+          "macro_rmse_kwh": 1.9762439725289447,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.004264886950261765,
+            "interval": [
+              -0.03659247158671253,
+              0.06143356539952302
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 2.099830048912071,
+          "macro_rmse_kwh": 3.0648246921289566,
+          "station_count": 10,
+          "ntr": 0.8,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.7566895812271484,
+            "interval": [
+              -1.7734326134410985,
+              -0.22508852380745248
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "source_error"
+    },
+    {
+      "namespace": "charged-LOA",
+      "budget_days": 28,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 1.3270914375846279,
+          "macro_rmse_kwh": 1.9504325457964045,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 1.3264985034661478,
+          "macro_rmse_kwh": 1.966468607889006,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0005929341184800068,
+            "interval": [
+              -0.044160116943126486,
+              0.05466860878628617
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 1.330212559971601,
+          "macro_rmse_kwh": 1.9545578052721666,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.0031211223869731376,
+            "interval": [
+              -0.03474203504626988,
+              0.01784695550494615
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 1.3349720981896904,
+          "macro_rmse_kwh": 1.9405026378503047,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.007880660605062728,
+            "interval": [
+              -0.04730604051477658,
+              0.02963431174595468
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 2.006994872318807,
+          "macro_rmse_kwh": 2.8507378269223476,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.6799034347341792,
+            "interval": [
+              -1.536195809991076,
+              -0.21000394341859532
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 1.5876710804627423,
+          "macro_rmse_kwh": 2.561851243120525,
+          "station_count": 10,
+          "ntr": 0.3,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.2605796428781145,
+            "interval": [
+              -0.6499926359158291,
+              0.07704202758904952
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 1.374793084995254,
+          "macro_rmse_kwh": 2.113269891405427,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.04770164741062641,
+            "interval": [
+              -0.22883390189390823,
+              0.14301455778798947
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 1.3383314284166365,
+          "macro_rmse_kwh": 1.96090525933215,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.01123999083200871,
+            "interval": [
+              -0.038378471458001676,
+              0.016735772648363973
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 1.3364213721206608,
+          "macro_rmse_kwh": 1.9569711259033915,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.00932993453603297,
+            "interval": [
+              -0.04396727630107898,
+              0.007012133535220584
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 1.3148721466384696,
+          "macro_rmse_kwh": 1.9446502372234833,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.012219290946158177,
+            "interval": [
+              -0.01372643486346835,
+              0.06628508308157674
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 1.3408688740408063,
+          "macro_rmse_kwh": 1.9611312290597755,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.013777436456178634,
+            "interval": [
+              -0.04810694938105493,
+              0.0026589229426484703
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 1.3159786322227198,
+          "macro_rmse_kwh": 1.9538519804156786,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.011112805361907997,
+            "interval": [
+              -0.021166160664471412,
+              0.06702614764259786
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 1.3348398921044762,
+          "macro_rmse_kwh": 1.9405465043901373,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.007748454519848445,
+            "interval": [
+              -0.04694097929671935,
+              0.02963783684605236
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 2.014432872042655,
+          "macro_rmse_kwh": 2.880111471975401,
+          "station_count": 10,
+          "ntr": 0.8,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.6873414344580274,
+            "interval": [
+              -1.553168655487829,
+              -0.21407696164300857
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "source_error"
+    },
+    {
+      "namespace": "charged-MEL",
+      "budget_days": 7,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 52.15415282366598,
+          "macro_rmse_kwh": 72.87878367471384,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 52.848216155226545,
+          "macro_rmse_kwh": 73.94924858925741,
+          "station_count": 10,
+          "ntr": 0.2,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.6940633315605618,
+            "interval": [
+              -2.88467739280941,
+              0.2009116277530259
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 52.12504702937381,
+          "macro_rmse_kwh": 72.78624408093779,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.02910579429216832,
+            "interval": [
+              -0.5544093299543029,
+              0.567361809929031
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 52.26747149422132,
+          "macro_rmse_kwh": 72.7927062900132,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.11331867055533841,
+            "interval": [
+              -0.8097778125900998,
+              0.6026001682910516
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 57.55266144033842,
+          "macro_rmse_kwh": 76.74804636177137,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -5.398508616672439,
+            "interval": [
+              -18.546203924372033,
+              -0.5558796665010007
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 67.79437349203319,
+          "macro_rmse_kwh": 95.23418692323096,
+          "station_count": 10,
+          "ntr": 0.8,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -15.640220668367206,
+            "interval": [
+              -42.47478678313469,
+              -1.9998093743861203
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 58.67487059641024,
+          "macro_rmse_kwh": 80.26710278615796,
+          "station_count": 10,
+          "ntr": 0.3,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -6.520717772744254,
+            "interval": [
+              -20.564680595308516,
+              -0.09576422080869867
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 52.3444298262108,
+          "macro_rmse_kwh": 73.03948725983832,
+          "station_count": 10,
+          "ntr": 0.2,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.19027700254482258,
+            "interval": [
+              -1.2439695517356133,
+              0.24812334362177915
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 52.01467143465778,
+          "macro_rmse_kwh": 72.77301587664978,
+          "station_count": 10,
+          "ntr": 0.2,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.1394813890081974,
+            "interval": [
+              -0.036787517056963204,
+              0.6230195660062388
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 52.049353166577966,
+          "macro_rmse_kwh": 72.82889536136067,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.10479965708801497,
+            "interval": [
+              -0.050538275688776876,
+              0.48587415924796123
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 52.034469790909185,
+          "macro_rmse_kwh": 72.81052517986225,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.11968303275679872,
+            "interval": [
+              -0.023399795527621812,
+              0.50699263171229
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 52.21187486300303,
+          "macro_rmse_kwh": 72.8192502392136,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.05772203933705042,
+            "interval": [
+              -0.6465422777025107,
+              0.3979367953141999
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 52.268229351472044,
+          "macro_rmse_kwh": 72.7937217543035,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.11407652780606548,
+            "interval": [
+              -0.8131933581619427,
+              0.5976213531114075
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 58.01352835507754,
+          "macro_rmse_kwh": 76.88064323151845,
+          "station_count": 10,
+          "ntr": 0.7,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -5.859375531411558,
+            "interval": [
+              -19.891469041100105,
+              -0.604853786952217
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "block28"
+    },
+    {
+      "namespace": "charged-MEL",
+      "budget_days": 14,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 53.083993021635784,
+          "macro_rmse_kwh": 74.64834347757369,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 54.36550625655452,
+          "macro_rmse_kwh": 76.07538408321423,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.281513234918741,
+            "interval": [
+              -6.045805181402749,
+              0.19161769960393607
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 53.36018592212309,
+          "macro_rmse_kwh": 75.07501570367877,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.2761929004873092,
+            "interval": [
+              -1.829771593357611,
+              0.4383632090545798
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 53.327238204851255,
+          "macro_rmse_kwh": 74.70319629495779,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.24324518321547847,
+            "interval": [
+              -2.5392950593396084,
+              1.3878056445065776
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 77.92222881109886,
+          "macro_rmse_kwh": 107.07724153917836,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -24.838235789463077,
+            "interval": [
+              -85.30573148828138,
+              -1.731546266278517
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 67.79437363737519,
+          "macro_rmse_kwh": 95.23418697966886,
+          "station_count": 10,
+          "ntr": 0.3,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -14.710380615739417,
+            "interval": [
+              -39.88090229513375,
+              -1.8523087490459251
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 60.18249968109839,
+          "macro_rmse_kwh": 84.26730949551053,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -7.098506659462611,
+            "interval": [
+              -20.35598532387097,
+              -0.12965840217500235
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 52.404015440263606,
+          "macro_rmse_kwh": 73.92238799540229,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.6799775813721732,
+            "interval": [
+              0.018195664759907314,
+              2.2524373219954312
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 52.68636395567941,
+          "macro_rmse_kwh": 74.29876890178626,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.3976290659563606,
+            "interval": [
+              -0.19978277209042927,
+              1.7000638143278985
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 52.715337917577834,
+          "macro_rmse_kwh": 74.36233483071875,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.36865510405794416,
+            "interval": [
+              -0.2570721734736726,
+              1.630584961810214
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 52.724851862082545,
+          "macro_rmse_kwh": 74.36172698240709,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.35914115955323306,
+            "interval": [
+              -0.24330973908820464,
+              1.633177475070271
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 53.081480481896165,
+          "macro_rmse_kwh": 74.7742096849138,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.002512539739612748,
+            "interval": [
+              -1.7258547032422398,
+              1.7446380351991801
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 53.32276184391155,
+          "macro_rmse_kwh": 74.6980544246205,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.23876882227577317,
+            "interval": [
+              -2.5372222039834513,
+              1.3867990483612351
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 80.8758940593667,
+          "macro_rmse_kwh": 110.1922053419525,
+          "station_count": 10,
+          "ntr": 0.8,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -27.791901037730916,
+            "interval": [
+              -94.09101410445494,
+              -1.9162322199760398
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "block7"
+    },
+    {
+      "namespace": "charged-MEL",
+      "budget_days": 28,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 53.08319069829313,
+          "macro_rmse_kwh": 74.72472616364276,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 54.242338965627646,
+          "macro_rmse_kwh": 75.8008462256551,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.1591482673345181,
+            "interval": [
+              -4.691345172517773,
+              0.14341160908281556
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 53.35920818681191,
+          "macro_rmse_kwh": 75.03119737396055,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.2760174885187792,
+            "interval": [
+              -2.3863743059856493,
+              0.7735429671746819
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 53.82492496000787,
+          "macro_rmse_kwh": 75.75985388852476,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.7417342617147428,
+            "interval": [
+              -4.567047096275539,
+              1.2071227693312152
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 72.44595889321361,
+          "macro_rmse_kwh": 97.95260153584762,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -19.362768194920488,
+            "interval": [
+              -64.16710442457729,
+              -1.7409837737538645
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 67.79437365561259,
+          "macro_rmse_kwh": 95.23418695717012,
+          "station_count": 10,
+          "ntr": 0.4,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -14.711182957319453,
+            "interval": [
+              -39.81611735087734,
+              -1.982201021388639
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 57.185438906818725,
+          "macro_rmse_kwh": 80.07721295379415,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -4.1022482085255945,
+            "interval": [
+              -11.751577440420544,
+              -0.20608840376835433
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 53.04473361073953,
+          "macro_rmse_kwh": 74.83266340800833,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0384570875535982,
+            "interval": [
+              -0.8728033046268328,
+              0.954517430525501
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 52.938144325668574,
+          "macro_rmse_kwh": 74.51955794942953,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.14504637262455794,
+            "interval": [
+              -0.13502341970585494,
+              0.7320471231464721
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 52.95599554745781,
+          "macro_rmse_kwh": 74.62246393026084,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.12719515083531854,
+            "interval": [
+              -0.16981350994540553,
+              0.7054541915774257
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 52.94460479917703,
+          "macro_rmse_kwh": 74.6127854077782,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.1385858991161003,
+            "interval": [
+              -0.16169276367974605,
+              0.7147168962157758
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 53.52353840944159,
+          "macro_rmse_kwh": 75.29406248744962,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.4403477111484643,
+            "interval": [
+              -1.6734030454076223,
+              0.12146522763834872
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 53.82588717858018,
+          "macro_rmse_kwh": 75.76194542029074,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.742696480287056,
+            "interval": [
+              -4.566621794081115,
+              1.2050689952349283
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 74.93571647861363,
+          "macro_rmse_kwh": 100.53260960022438,
+          "station_count": 10,
+          "ntr": 0.9,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -21.8525257803205,
+            "interval": [
+              -71.94544212454065,
+              -1.9035242217063633
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "block28"
+    },
+    {
+      "namespace": "charged-SPO",
+      "budget_days": 7,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 1.9702201600347453,
+          "macro_rmse_kwh": 2.7184601059499216,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 2.021738751701561,
+          "macro_rmse_kwh": 2.8172607703662056,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.05151859166681551,
+            "interval": [
+              -0.34574922164023536,
+              0.11049656628039654
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 1.9510496166560476,
+          "macro_rmse_kwh": 2.699441078188237,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.019170543378697887,
+            "interval": [
+              -0.04015484071780594,
+              0.11587749648849059
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 2.0220795156311437,
+          "macro_rmse_kwh": 2.7796127498331837,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.051859355596398364,
+            "interval": [
+              -0.1787803555348546,
+              0.020419754353252845
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 2.4465838930186745,
+          "macro_rmse_kwh": 3.224168381689904,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.47636373298392887,
+            "interval": [
+              -1.0258975969474413,
+              -0.09227115193518273
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 2.6804533518440707,
+          "macro_rmse_kwh": 3.716844532799793,
+          "station_count": 10,
+          "ntr": 0.4,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.7102331918093253,
+            "interval": [
+              -1.445140427225677,
+              -0.180958096082007
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 2.457594502416938,
+          "macro_rmse_kwh": 3.346156303705089,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.4873743423821928,
+            "interval": [
+              -2.032512534431048,
+              0.3638733595585315
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 1.9543111631811325,
+          "macro_rmse_kwh": 2.6991728674033806,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.015908996853612918,
+            "interval": [
+              -0.03299393459922107,
+              0.0844149115426407
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 1.9686567685787626,
+          "macro_rmse_kwh": 2.709487667418741,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0015633914559828996,
+            "interval": [
+              -0.04588978280516463,
+              0.06789595863910654
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 1.9904122005376843,
+          "macro_rmse_kwh": 2.727149676961238,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.02019204050293875,
+            "interval": [
+              -0.08809972090422057,
+              0.026951245251994545
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 1.983593873308378,
+          "macro_rmse_kwh": 2.727534700614938,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.013373713273632664,
+            "interval": [
+              -0.08133673211792794,
+              0.05528650428066635
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 2.0148676505015617,
+          "macro_rmse_kwh": 2.7684703604354874,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.04464749046681636,
+            "interval": [
+              -0.17434721267161704,
+              0.055333674363658644
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 2.022064402486939,
+          "macro_rmse_kwh": 2.7796062952017233,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.051844242452194024,
+            "interval": [
+              -0.17897383111563628,
+              0.02039692712484226
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 2.487051567155754,
+          "macro_rmse_kwh": 3.240904975415514,
+          "station_count": 10,
+          "ntr": 0.7,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.5168314071210085,
+            "interval": [
+              -1.1004504645429256,
+              -0.10712100475074732
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "online_best"
+    },
+    {
+      "namespace": "charged-SPO",
+      "budget_days": 14,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 1.9414245473774505,
+          "macro_rmse_kwh": 2.6888764447326525,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 1.9893239358939054,
+          "macro_rmse_kwh": 2.773731396657194,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.047899388516454915,
+            "interval": [
+              -0.2951742919593714,
+              0.10617030995295773
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 1.9315851060018685,
+          "macro_rmse_kwh": 2.6822384112337763,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.009839441375581999,
+            "interval": [
+              -0.04495778247335824,
+              0.09003428705919612
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 1.9853755191404752,
+          "macro_rmse_kwh": 2.771045668339913,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.04395097176302471,
+            "interval": [
+              -0.128111813670622,
+              0.011954136813963895
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 2.4683016058779024,
+          "macro_rmse_kwh": 3.1949114048900036,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.5268770585004519,
+            "interval": [
+              -1.0616773592752058,
+              -0.1445808716584435
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 2.6804533500639955,
+          "macro_rmse_kwh": 3.716844533933077,
+          "station_count": 10,
+          "ntr": 0.4,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.7390288026865452,
+            "interval": [
+              -1.4638441545151313,
+              -0.18913475311660197
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 2.403196652733821,
+          "macro_rmse_kwh": 3.2815645287602457,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.46177210535637075,
+            "interval": [
+              -2.0352713042188433,
+              0.39648186977028416
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 1.9340737431011703,
+          "macro_rmse_kwh": 2.673436666161024,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0073508042762801176,
+            "interval": [
+              -0.034846847398849204,
+              0.06237391584371976
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 1.947358564182747,
+          "macro_rmse_kwh": 2.6878336091036257,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.0059340168052967445,
+            "interval": [
+              -0.04431125659610659,
+              0.027672474402470455
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 1.9476860953591242,
+          "macro_rmse_kwh": 2.693089827884235,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.00626154798167363,
+            "interval": [
+              -0.040499929685594654,
+              0.019498107325370592
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 1.9411963279709237,
+          "macro_rmse_kwh": 2.689400150018729,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.00022821940652679995,
+            "interval": [
+              -0.024163311559207305,
+              0.03004164121865834
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 1.9994552589838632,
+          "macro_rmse_kwh": 2.762153409375528,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.05803071160641265,
+            "interval": [
+              -0.1841164414946668,
+              0.019647605118374257
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 1.9851375478520088,
+          "macro_rmse_kwh": 2.7707933244163887,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.04371300047455829,
+            "interval": [
+              -0.12723174658643185,
+              0.012185422085711285
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 2.524776170515361,
+          "macro_rmse_kwh": 3.228147559959041,
+          "station_count": 10,
+          "ntr": 0.8,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.5833516231379103,
+            "interval": [
+              -1.1602207221733583,
+              -0.16483278153203657
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "online_best"
+    },
+    {
+      "namespace": "charged-SPO",
+      "budget_days": 28,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 1.9679288860178332,
+          "macro_rmse_kwh": 2.734571688075512,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 2.0256065145648967,
+          "macro_rmse_kwh": 2.83562377560929,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.057677628547063584,
+            "interval": [
+              -0.28928899973402555,
+              0.07726617890142513
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 1.974777238160322,
+          "macro_rmse_kwh": 2.7332853881478725,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.006848352142488695,
+            "interval": [
+              -0.059151583535934554,
+              0.05771389407579954
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 2.0116386595395874,
+          "macro_rmse_kwh": 2.7712984096210374,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.04370977352175407,
+            "interval": [
+              -0.1584927041075536,
+              0.03181349699261308
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 2.5301500681576834,
+          "macro_rmse_kwh": 3.301994387238579,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.5622211821398502,
+            "interval": [
+              -1.222617550484099,
+              -0.14086741739216166
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 2.6804533469785894,
+          "macro_rmse_kwh": 3.716844532416463,
+          "station_count": 10,
+          "ntr": 0.3,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.7125244609607561,
+            "interval": [
+              -1.4377888837822828,
+              -0.1721122314108496
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 2.413586319235386,
+          "macro_rmse_kwh": 3.2910336943663365,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.445657433217553,
+            "interval": [
+              -2.0242937681859146,
+              0.43726498844444633
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 2.002681209800145,
+          "macro_rmse_kwh": 2.760750296060946,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.03475232378231185,
+            "interval": [
+              -0.09532937121878704,
+              0.017141317757614193
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 1.9813686739651986,
+          "macro_rmse_kwh": 2.7494997325782253,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.013439787947365367,
+            "interval": [
+              -0.05285526523524982,
+              0.018116592803990576
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 1.9936479627411423,
+          "macro_rmse_kwh": 2.743624242073192,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.025719076723308972,
+            "interval": [
+              -0.08759547157309824,
+              0.016899475328594628
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 1.9828974794959577,
+          "macro_rmse_kwh": 2.746699985297487,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.014968593478124351,
+            "interval": [
+              -0.06521451820384126,
+              0.02907237418635119
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 2.014058491324915,
+          "macro_rmse_kwh": 2.783293048583322,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.04612960530708184,
+            "interval": [
+              -0.18345970557730004,
+              0.052918113249061906
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 2.011285353924751,
+          "macro_rmse_kwh": 2.769742052971131,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.04335646790691759,
+            "interval": [
+              -0.1586840286092457,
+              0.03348021393049914
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 2.558965445149652,
+          "macro_rmse_kwh": 3.3289980709683795,
+          "station_count": 10,
+          "ntr": 0.7,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.5910365591318187,
+            "interval": [
+              -1.2634093221498959,
+              -0.15606627748194682
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "adaptive"
+    },
+    {
+      "namespace": "charged-SZH",
+      "budget_days": 7,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 90.63058300096135,
+          "macro_rmse_kwh": 125.07467758323764,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 91.82111259012014,
+          "macro_rmse_kwh": 126.22261386991077,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.1905295891587888,
+            "interval": [
+              -7.075060344923189,
+              3.3903433980104265
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 93.26701382565489,
+          "macro_rmse_kwh": 128.04641091730022,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -2.6364308246935404,
+            "interval": [
+              -12.279659687529485,
+              0.11806413571787278
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 88.84399931100444,
+          "macro_rmse_kwh": 121.83171183298263,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 1.7865836899569008,
+            "interval": [
+              -0.11260093564507004,
+              8.257769636157485
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 101.91418844768695,
+          "macro_rmse_kwh": 146.23449393006894,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -11.283605446725609,
+            "interval": [
+              -31.932534974244152,
+              -1.8876281534511932
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 85.60151304595287,
+          "macro_rmse_kwh": 133.64674344060774,
+          "station_count": 10,
+          "ntr": 0.2,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 5.029069955008479,
+            "interval": [
+              -16.023350969940047,
+              36.48804197707741
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 210.78215863544926,
+          "macro_rmse_kwh": 260.7247352943429,
+          "station_count": 10,
+          "ntr": 0.1,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -120.15157563448793,
+            "interval": [
+              -387.92825692301767,
+              0.33512360523434526
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 91.23379190248762,
+          "macro_rmse_kwh": 124.25786844311982,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.6032089015262735,
+            "interval": [
+              -4.7845692151693076,
+              2.375932603968817
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 89.95800963232637,
+          "macro_rmse_kwh": 122.34889320855568,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.672573368634974,
+            "interval": [
+              -1.6415886845307717,
+              5.515078188198779
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 90.14198735561399,
+          "macro_rmse_kwh": 123.05850937665765,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.4885956453473585,
+            "interval": [
+              -1.8153636572429472,
+              5.249288919383098
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 90.13499121758682,
+          "macro_rmse_kwh": 123.02699500292535,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.4955917833745339,
+            "interval": [
+              -1.7785751953494473,
+              5.266984753837979
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 91.96551352228295,
+          "macro_rmse_kwh": 126.31852704445572,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.3349305213215963,
+            "interval": [
+              -4.2215141581312485,
+              0.04070771577120168
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 88.77061538285734,
+          "macro_rmse_kwh": 121.77368729235434,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 1.8599676181040057,
+            "interval": [
+              -0.10336977554608005,
+              8.34513707298405
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 104.65411599117272,
+          "macro_rmse_kwh": 149.87860164370593,
+          "station_count": 10,
+          "ntr": 0.8,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -14.023532990211375,
+            "interval": [
+              -39.67026074856309,
+              -2.1433937138887096
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "seasonal_naive"
+    },
+    {
+      "namespace": "charged-SZH",
+      "budget_days": 14,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 89.32998819894641,
+          "macro_rmse_kwh": 123.21304370369963,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 90.84357211017446,
+          "macro_rmse_kwh": 125.04057490899196,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.513583911228049,
+            "interval": [
+              -7.3066392031982845,
+              2.1031962935373607
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 91.37220986662298,
+          "macro_rmse_kwh": 124.8222203363185,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -2.042221667676561,
+            "interval": [
+              -9.562042965466214,
+              0.4802044576556477
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 88.54268294849841,
+          "macro_rmse_kwh": 121.29734976238697,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.7873052504479964,
+            "interval": [
+              -0.8538284961131285,
+              4.508997477553894
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 101.51344756261919,
+          "macro_rmse_kwh": 145.9810464614052,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -12.183459363672776,
+            "interval": [
+              -36.314170685356835,
+              -1.9421514945673664
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 85.60151373543923,
+          "macro_rmse_kwh": 133.6467444486597,
+          "station_count": 10,
+          "ntr": 0.2,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 3.7284744635071934,
+            "interval": [
+              -18.18166224803545,
+              32.59622735129385
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 210.95068963551148,
+          "macro_rmse_kwh": 260.74263117198734,
+          "station_count": 10,
+          "ntr": 0.2,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -121.62070143656506,
+            "interval": [
+              -392.6472027416251,
+              0.2885994719341097
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 91.20747918522093,
+          "macro_rmse_kwh": 124.62347679534281,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.8774909862745215,
+            "interval": [
+              -7.509386631239931,
+              0.42364104917752815
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 89.29193719759863,
+          "macro_rmse_kwh": 121.44117876936414,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.038051001347788126,
+            "interval": [
+              -2.5690978247348784,
+              3.077494723397439
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 89.28894645295692,
+          "macro_rmse_kwh": 121.44822841951658,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.041041745989498016,
+            "interval": [
+              -2.573156759036382,
+              3.1095826221316085
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 89.28842037083366,
+          "macro_rmse_kwh": 121.44041898358527,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.04156782811275603,
+            "interval": [
+              -2.5633892346281986,
+              3.1033984322712915
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 89.99275917771003,
+          "macro_rmse_kwh": 123.51739448280298,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.6627709787636147,
+            "interval": [
+              -4.006480400492946,
+              2.44336513023156
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 88.54854733427702,
+          "macro_rmse_kwh": 121.36264224975032,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.7814408646693887,
+            "interval": [
+              -0.8677772857584393,
+              4.4610654952811934
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 103.70477440433002,
+          "macro_rmse_kwh": 148.59703451600475,
+          "station_count": 10,
+          "ntr": 1.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -14.37478620538361,
+            "interval": [
+              -42.49230888913673,
+              -2.0730399007210347
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "seasonal_naive"
+    },
+    {
+      "namespace": "charged-SZH",
+      "budget_days": 28,
+      "methods": {
+        "adaptive": {
+          "macro_mae_kwh": 89.33103312089017,
+          "macro_rmse_kwh": 122.87704524553122,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.0,
+            "interval": [
+              0.0,
+              0.0
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "fixed_retention": {
+          "macro_mae_kwh": 90.88534367017762,
+          "macro_rmse_kwh": 125.12862248371418,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -1.5543105492874578,
+            "interval": [
+              -7.401442785165665,
+              2.2175776817958814
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "online_best": {
+          "macro_mae_kwh": 91.74185979466682,
+          "macro_rmse_kwh": 125.48987336244637,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -2.4108266737766506,
+            "interval": [
+              -10.654709729539576,
+              0.06356140388980275
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "full_finetuning": {
+          "macro_mae_kwh": 88.10543598713635,
+          "macro_rmse_kwh": 120.63576008599146,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 1.2255971337538158,
+            "interval": [
+              -0.3446715851530763,
+              6.123933605229168
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "target_only": {
+          "macro_mae_kwh": 101.60669228317462,
+          "macro_rmse_kwh": 146.18216851156754,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -12.275659162284452,
+            "interval": [
+              -36.498772023234835,
+              -1.8915429035771139
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "seasonal_naive": {
+          "macro_mae_kwh": 85.6015133211933,
+          "macro_rmse_kwh": 133.64674359381075,
+          "station_count": 10,
+          "ntr": 0.2,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 3.7295197996968787,
+            "interval": [
+              -17.82917430775069,
+              33.052811659830894
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "frozen_source": {
+          "macro_mae_kwh": 211.08672747681328,
+          "macro_rmse_kwh": 260.6968977833922,
+          "station_count": 10,
+          "ntr": 0.2,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -121.75569435592313,
+            "interval": [
+              -393.1477195453242,
+              0.2681190740984472
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block7": {
+          "macro_mae_kwh": 91.34871833476315,
+          "macro_rmse_kwh": 124.86557839416906,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -2.0176852138729733,
+            "interval": [
+              -8.548211172010303,
+              0.9878837960117494
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "block28": {
+          "macro_mae_kwh": 88.7313521412573,
+          "macro_rmse_kwh": 120.41098972146939,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.5996809796328613,
+            "interval": [
+              -1.559267462460192,
+              4.8307978122476305
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "source_error": {
+          "macro_mae_kwh": 88.80620234346364,
+          "macro_rmse_kwh": 120.66384408711258,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.5248307774265285,
+            "interval": [
+              -1.695853529560082,
+              4.774772228854115
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "uncertainty": {
+          "macro_mae_kwh": 88.8161250883873,
+          "macro_rmse_kwh": 120.6778089642293,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 0.5149080325028702,
+            "interval": [
+              -1.7101133359296397,
+              4.774772228854115
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "drift": {
+          "macro_mae_kwh": 89.47627186588022,
+          "macro_rmse_kwh": 122.63552824326257,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -0.14523874499004819,
+            "interval": [
+              -3.0082592138654807,
+              4.021875532415689
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "parameter_retention": {
+          "macro_mae_kwh": 88.10781830512543,
+          "macro_rmse_kwh": 120.63891247393842,
+          "station_count": 10,
+          "ntr": 0.0,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": 1.2232148157647262,
+            "interval": [
+              -0.34558871260280905,
+              6.110860770768242
+            ],
+            "undefined_replicates": 0
+          }
+        },
+        "without_source_initialization": {
+          "macro_mae_kwh": 104.68604567592895,
+          "macro_rmse_kwh": 149.6434501831946,
+          "station_count": 10,
+          "ntr": 0.8,
+          "ntr_denominator": 10,
+          "adaptive_minus_method": {
+            "gap_kwh": -15.35501255503878,
+            "interval": [
+              -45.469876475691905,
+              -2.111020897372179
+            ],
+            "undefined_replicates": 0
+          }
+        }
+      },
+      "best_point_mae_method": "seasonal_naive"
+    }
+  ],
+  "primary_adaptive_comparison_inventory": {
+    "fixed_retention": {
+      "lower_point_mae": 9,
+      "higher_point_mae": 12,
+      "defined_intervals": 18,
+      "intervals_below_zero": 0,
+      "intervals_above_zero": 0,
+      "null_intervals": 3
+    },
+    "online_best": {
+      "lower_point_mae": 11,
+      "higher_point_mae": 10,
+      "defined_intervals": 18,
+      "intervals_below_zero": 0,
+      "intervals_above_zero": 0,
+      "null_intervals": 3
+    },
+    "full_finetuning": {
+      "lower_point_mae": 17,
+      "higher_point_mae": 4,
+      "defined_intervals": 18,
+      "intervals_below_zero": 6,
+      "intervals_above_zero": 0,
+      "null_intervals": 3
+    },
+    "target_only": {
+      "lower_point_mae": 18,
+      "higher_point_mae": 3,
+      "defined_intervals": 18,
+      "intervals_below_zero": 15,
+      "intervals_above_zero": 3,
+      "null_intervals": 3
+    },
+    "seasonal_naive": {
+      "lower_point_mae": 15,
+      "higher_point_mae": 6,
+      "defined_intervals": 18,
+      "intervals_below_zero": 9,
+      "intervals_above_zero": 3,
+      "null_intervals": 3
+    },
+    "without_source_initialization": {
+      "lower_point_mae": 18,
+      "higher_point_mae": 3,
+      "defined_intervals": 18,
+      "intervals_below_zero": 15,
+      "intervals_above_zero": 3,
+      "null_intervals": 3
+    }
+  },
+  "primary_adaptive_switch_inventory": [
+    {
+      "namespace": "urbanev-SZH",
+      "switches": 232,
+      "decision_opportunities": 1620,
+      "insufficient_evidence_boundaries": 315
+    },
+    {
+      "namespace": "charged-AMS",
+      "switches": 101,
+      "decision_opportunities": 540,
+      "insufficient_evidence_boundaries": 0
+    },
+    {
+      "namespace": "charged-JHB",
+      "switches": 89,
+      "decision_opportunities": 540,
+      "insufficient_evidence_boundaries": 0
+    },
+    {
+      "namespace": "charged-LOA",
+      "switches": 92,
+      "decision_opportunities": 540,
+      "insufficient_evidence_boundaries": 0
+    },
+    {
+      "namespace": "charged-MEL",
+      "switches": 75,
+      "decision_opportunities": 540,
+      "insufficient_evidence_boundaries": 0
+    },
+    {
+      "namespace": "charged-SPO",
+      "switches": 94,
+      "decision_opportunities": 540,
+      "insufficient_evidence_boundaries": 0
+    },
+    {
+      "namespace": "charged-SZH",
+      "switches": 86,
+      "decision_opportunities": 540,
+      "insufficient_evidence_boundaries": 0
+    }
+  ],
+  "hung_final": {
+    "7": {
+      "block28": {
+        "mae_kwh": 7.949083821111375,
+        "rmse_kwh": 11.166302412547747,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5058403650192923
+      },
+      "block7": {
+        "mae_kwh": 7.995862021667316,
+        "rmse_kwh": 11.261076762808448,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5129829815351381
+      },
+      "drift": {
+        "mae_kwh": 7.947955700191457,
+        "rmse_kwh": 11.230872636552238,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5066951611999831
+      },
+      "fixed_retention": {
+        "mae_kwh": 7.960705275098208,
+        "rmse_kwh": 11.24623642671073,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5071215664984998
+      },
+      "frozen_source": {
+        "mae_kwh": 8.299406809065479,
+        "rmse_kwh": 12.027959430449165,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5685473929320063
+      },
+      "full_finetuning": {
+        "mae_kwh": 8.00147131389811,
+        "rmse_kwh": 11.24562292086187,
+        "physical_rows": 9,
+        "equal_station_wape": 0.507169292117001
+      },
+      "main": {
+        "mae_kwh": 8.050527541870947,
+        "rmse_kwh": 11.3152539393659,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5155526818219239
+      },
+      "no_source": {
+        "mae_kwh": 13.883360092639244,
+        "rmse_kwh": 17.523534201919972,
+        "physical_rows": 9,
+        "equal_station_wape": 0.8760190353475874
+      },
+      "online_best_lambda": {
+        "mae_kwh": 7.9823788704714485,
+        "rmse_kwh": 11.26018347112358,
+        "physical_rows": 9,
+        "equal_station_wape": 0.51317889537453
+      },
+      "parameter_retention": {
+        "mae_kwh": 8.00148587305453,
+        "rmse_kwh": 11.241916004683047,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5071448233440499
+      },
+      "seasonal_naive": {
+        "mae_kwh": 11.145410148423693,
+        "rmse_kwh": 15.640069028177027,
+        "physical_rows": 3,
+        "equal_station_wape": 0.7437919019161972
+      },
+      "source_error": {
+        "mae_kwh": 7.9389026791049275,
+        "rmse_kwh": 11.215663472293171,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5049680708587403
+      },
+      "target_only": {
+        "mae_kwh": 13.590749541822587,
+        "rmse_kwh": 17.400566378506884,
+        "physical_rows": 9,
+        "equal_station_wape": 0.860638821903164
+      },
+      "uncertainty": {
+        "mae_kwh": 7.963310894593103,
+        "rmse_kwh": 11.19588230076239,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5059488280530153
+      }
+    },
+    "14": {
+      "block28": {
+        "mae_kwh": 7.935981537291093,
+        "rmse_kwh": 11.140226082205034,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5096977408431839
+      },
+      "block7": {
+        "mae_kwh": 7.998210030754879,
+        "rmse_kwh": 11.287405130788407,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5209953533605668
+      },
+      "drift": {
+        "mae_kwh": 7.935776398715066,
+        "rmse_kwh": 11.210757678789728,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5112841826449522
+      },
+      "fixed_retention": {
+        "mae_kwh": 7.952261650380847,
+        "rmse_kwh": 11.208025950244739,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5112399087076486
+      },
+      "frozen_source": {
+        "mae_kwh": 8.270781537923158,
+        "rmse_kwh": 11.95370185910353,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5625330722882286
+      },
+      "full_finetuning": {
+        "mae_kwh": 7.968748220894806,
+        "rmse_kwh": 11.1827079997005,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5062863669521517
+      },
+      "main": {
+        "mae_kwh": 8.04236010945902,
+        "rmse_kwh": 11.344851716233448,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5229268383277464
+      },
+      "no_source": {
+        "mae_kwh": 13.13644617350551,
+        "rmse_kwh": 16.763935774552298,
+        "physical_rows": 9,
+        "equal_station_wape": 0.8515637071116734
+      },
+      "online_best_lambda": {
+        "mae_kwh": 7.949414161713188,
+        "rmse_kwh": 11.23437289100116,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5151617199210949
+      },
+      "parameter_retention": {
+        "mae_kwh": 7.9697514455556755,
+        "rmse_kwh": 11.180309973413095,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5063608006800896
+      },
+      "seasonal_naive": {
+        "mae_kwh": 11.145410171441414,
+        "rmse_kwh": 15.640069069806101,
+        "physical_rows": 3,
+        "equal_station_wape": 0.7437919058586915
+      },
+      "source_error": {
+        "mae_kwh": 7.929163459904466,
+        "rmse_kwh": 11.202704188805537,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5099472124349554
+      },
+      "target_only": {
+        "mae_kwh": 13.042722283727196,
+        "rmse_kwh": 16.75262641708693,
+        "physical_rows": 9,
+        "equal_station_wape": 0.8433443432341251
+      },
+      "uncertainty": {
+        "mae_kwh": 7.960389168155961,
+        "rmse_kwh": 11.182370025705255,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5098838174592213
+      }
+    },
+    "28": {
+      "block28": {
+        "mae_kwh": 7.858464591737348,
+        "rmse_kwh": 11.079254830696527,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5101862587125646
+      },
+      "block7": {
+        "mae_kwh": 7.866705545728473,
+        "rmse_kwh": 11.142703512866426,
+        "physical_rows": 9,
+        "equal_station_wape": 0.51301032306027
+      },
+      "drift": {
+        "mae_kwh": 7.843518500341906,
+        "rmse_kwh": 11.110814883064226,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5052705265949862
+      },
+      "fixed_retention": {
+        "mae_kwh": 7.859890600953381,
+        "rmse_kwh": 11.129505501057338,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5073266011993708
+      },
+      "frozen_source": {
+        "mae_kwh": 8.322463408717246,
+        "rmse_kwh": 12.07004733578526,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5699929981164983
+      },
+      "full_finetuning": {
+        "mae_kwh": 7.806576459264265,
+        "rmse_kwh": 10.996515552331891,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5044482646192173
+      },
+      "main": {
+        "mae_kwh": 7.915618610545685,
+        "rmse_kwh": 11.20056356208691,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5142665815365468
+      },
+      "no_source": {
+        "mae_kwh": 12.420244381872415,
+        "rmse_kwh": 15.966293525046401,
+        "physical_rows": 9,
+        "equal_station_wape": 0.7761708036870943
+      },
+      "online_best_lambda": {
+        "mae_kwh": 7.88443753832335,
+        "rmse_kwh": 11.165765779845474,
+        "physical_rows": 9,
+        "equal_station_wape": 0.51313392483333
+      },
+      "parameter_retention": {
+        "mae_kwh": 7.824936851142148,
+        "rmse_kwh": 10.997001637995883,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5045416538271207
+      },
+      "seasonal_naive": {
+        "mae_kwh": 11.14541040385036,
+        "rmse_kwh": 15.640069295925272,
+        "physical_rows": 3,
+        "equal_station_wape": 0.7437919068379996
+      },
+      "source_error": {
+        "mae_kwh": 7.839641527258238,
+        "rmse_kwh": 11.093252521065637,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5046245128009846
+      },
+      "target_only": {
+        "mae_kwh": 12.401401685182059,
+        "rmse_kwh": 16.0114397843287,
+        "physical_rows": 9,
+        "equal_station_wape": 0.7864950307477625
+      },
+      "uncertainty": {
+        "mae_kwh": 7.869239464219007,
+        "rmse_kwh": 11.101007793340901,
+        "physical_rows": 9,
+        "equal_station_wape": 0.5102684031767751
+      }
+    }
+  },
+  "verification": {
+    "primary_manifest_entries_checked": 54,
+    "hung_table_hashes_checked": 7,
+    "primary_macro_mean_max_abs_error": 0.0,
+    "hung_primary_urbanev_id_overlap": [],
+    "primary_point_mae_best_adaptive_cells": 1,
+    "hung_final_rows_reaggregated": 360
+  },
+  "sources": [
+    {
+      "origin": "Qyroven local Final evidence",
+      "path": "runs/issue23-final-analysis-20261028-root-v1/full-final-handoff-artifact-manifest-v1.json",
+      "bytes": 19273,
+      "sha256": "3bf603066cfc0caf6064cab74ca6f4ade3d02b8aba29874c0b227ff1700fd0d2"
+    },
+    {
+      "origin": "Qyroven local Final evidence",
+      "path": "runs/issue23-final-analysis-20261028-root-v1/full-final-handoff-validation-v1.json",
+      "bytes": 944,
+      "sha256": "e6bd38ca37878ba4a527cc07c4abb168fa7f9576242bbf60c2483cacf2cf949c"
+    },
+    {
+      "origin": "Qyroven local Final evidence",
+      "path": "runs/issue23-final-execution-20261027-v1/progress-ledger-v813.json",
+      "bytes": 1377668,
+      "sha256": "1be8a84c6ce0097492ee9dd6e2a2f8e0eae3e745dc5f7b94a47e603aa6b85a02"
+    },
+    {
+      "origin": "Qyroven local Final evidence",
+      "path": "runs/issue23-final-analysis-20261028-root-v1/urbanev-SZH-analysis-v1/summary.json",
+      "bytes": 29460484,
+      "sha256": "5af526330c9358d77b9df73ac7a7cbd5eaa8a23fc933403d7f5ac7ca40b591d2"
+    },
+    {
+      "origin": "Qyroven local Final evidence",
+      "path": "runs/issue23-final-analysis-20261028-root-v1/charged-AMS-analysis-v1/summary.json",
+      "bytes": 10074124,
+      "sha256": "62100662b27b2e0f10dc0cd8f3f38dbfc09db9bb21ce56631f8b0cc1fe947a7d"
+    },
+    {
+      "origin": "Qyroven local Final evidence",
+      "path": "runs/issue23-final-analysis-20261028-root-v1/charged-JHB-analysis-v1/summary.json",
+      "bytes": 10059880,
+      "sha256": "5d04d1cb8054f91f543e1ec2a6673d9fa729bc99448dcd0351531641631fc61f"
+    },
+    {
+      "origin": "Qyroven local Final evidence",
+      "path": "runs/issue23-final-analysis-20261028-root-v1/charged-LOA-analysis-v1/summary.json",
+      "bytes": 10046369,
+      "sha256": "8c7f11a58958d61b01927a438f343a4d654a49f1d022b6c9a870e4f2500b8c3f"
+    },
+    {
+      "origin": "Qyroven local Final evidence",
+      "path": "runs/issue23-final-analysis-20261028-root-v1/charged-MEL-analysis-v1/summary.json",
+      "bytes": 10018247,
+      "sha256": "680d10015bd16000515ae2b2ee8333833091ec922e20c6d21128c226661fcb7b"
+    },
+    {
+      "origin": "Qyroven local Final evidence",
+      "path": "runs/issue23-final-analysis-20261028-root-v1/charged-SPO-analysis-v1/summary.json",
+      "bytes": 10054593,
+      "sha256": "02178ae9c099f2b2ff50207d7db7b672b1e9cee80125ba17f55a97c48a1b9f9c"
+    },
+    {
+      "origin": "Qyroven local Final evidence",
+      "path": "runs/issue23-final-analysis-20261028-root-v1/charged-SZH-analysis-v1/summary.json",
+      "bytes": 10015465,
+      "sha256": "5bd739405db748c579c1b91e9d5c4c317b6ea157e6f2eda85e641490ee0534da"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-final-analysis-20261029-v1/summary.json",
+      "bytes": 1071,
+      "sha256": "050eab1fd5d5976ae2ae5556c334c1f01d83aeb968f3eaad09b16ab585572176"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-final-analysis-20261029-v1/blocked.csv",
+      "bytes": 2,
+      "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-final-analysis-20261029-v1/paired.csv",
+      "bytes": 84177,
+      "sha256": "7ce9d01e61d5d13c4ebc61f9b22f160bf29d5a10818dc43f49f1167d670ceda6"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-final-analysis-20261029-v1/runs.csv",
+      "bytes": 104715,
+      "sha256": "2e26b3f99a11e7acc9de539dc08f07dbbb8dad9cbc6c53fb30ae71cba48d4491"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-final-analysis-20261029-v1/station_first.csv",
+      "bytes": 19724,
+      "sha256": "f01def5b1074cddf2bfda8fba98b9d7f5609dcea9510c3314ffe2645b0535c17"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-final-wape-20261029-v1/wape_summary.json",
+      "bytes": 6424,
+      "sha256": "b188d31bb5a0d433a70d224eaa0b8bf26904822defd862b1fe5cff05c2f0ee5b"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-final-wape-20261029-v1/wape_runs.csv",
+      "bytes": 51148,
+      "sha256": "59aa644c94e25f161e00d610246bfd2fe46fa05d5f11fa91ec6a016c61ff922b"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-final-wape-20261029-v1/wape_stations.csv",
+      "bytes": 6907,
+      "sha256": "74bf125b7075d6a80eefcb7abc1e443031e9e204b77ab0d99829f8dd20fa16ab"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v70.md",
+      "bytes": 11273,
+      "sha256": "ea002b59d7767aadd6ae37280f6e39862a0a0c4deb862f761cba28a6e6495c9b"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v47.md",
+      "bytes": 62927,
+      "sha256": "efc0b62cc7fb7f8648e96224f7af2e94251cbfe2be6e38efc812b1a65dd9ea63"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-block7-full-trace-audit-20261030-v2.md",
+      "bytes": 5524,
+      "sha256": "8bcf2d4ebe846635975aeb24943f691687029852a6e1a4d05cd285b2d5335dd2"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-q-head-embedding-audit-20261030-v1.md",
+      "bytes": 6125,
+      "sha256": "7f1941289045bdc2369cbb34c63091d2ff43b5fa65284d81938727c59bc7012a"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-q-controller-decision-sensitivity-20261030-v1.md",
+      "bytes": 4876,
+      "sha256": "145acb3c763316575404b8f658aefdf2c358453f3408c11743ee0395b9f94489"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-final-temporal-sensitivity-20261030-v1.md",
+      "bytes": 2962,
+      "sha256": "1ece78d16ec5c4ecd09420f8597ec51dd09bfd2e614427a85737ff17c618d0cf"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-final-main-adverse-station-audit-20261029-v1.md",
+      "bytes": 4618,
+      "sha256": "db30a1a1f9642b62d53e10aacf67243b03a412199133ddda787befdea1e454c2"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-final-gain-aggregation-audit-20261030-v1.md",
+      "bytes": 2859,
+      "sha256": "6e56efd8760b1a90ba3d29f276fee8c570524bd3ccc0c1c56ebde872ed4e97d0"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-block7-switch-effect-20261030-v1/README.md",
+      "bytes": 4303,
+      "sha256": "0f9f79b51fbcd4c53a4974cafeb65300f90702a7fdea4b17d2a0f99d204b85be"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-qyroven-results-comparison-20261030-v1.md",
+      "bytes": 11741,
+      "sha256": "2eb372e8879f289d773e454c6e59a134073d189f5ffeb8b95630ee9ef4f3f8b9"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "207255b9caf33c4221daab560bb60af6409d416f",
+      "path": "docs/reports/hung-e2e-validation-20261030-v16.md",
+      "bytes": 2321,
+      "sha256": "93cd851bcac1b421345ed5b052ee6fefd6e3329876f0a6ad19463d3345d918fe"
+    }
+  ],
+  "limitations": [
+    "Primary artifacts checked against manifest; no raw model artifact or archive reverification.",
+    "Hung tracked tables reaggregated and hash checked; provider archive/checkpoint and 604-test suite not rerun in this synthesis.",
+    "Exploratory bootstrap intervals are conditional and not multiplicity-corrected; budget cells reuse stations.",
+    "Distinct implementations, heads, seed sets, Source identities and target cohorts prevent head-to-head performance claims."
+  ]
+}
