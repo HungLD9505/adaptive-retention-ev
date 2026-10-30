@@ -2,7 +2,7 @@
   "schema": "issue23-joint-evidence-synthesis-v1",
   "as_of_date": "2026-10-30",
   "scope": "Read-only synthesis of frozen analyses, no new training, no pooled experiment, no peer-approval claim",
-  "hung_review_head": "207255b9caf33c4221daab560bb60af6409d416f",
+  "hung_review_head": "1b730c7f83d6d8dd57198219c2593004d0318f4e",
   "primary_scientific_commit": "61c32328d9829a69037dca629f727b4863015122",
   "primary_ledger_sha256": "1be8a84c6ce0097492ee9dd6e2a2f8e0eae3e745dc5f7b94a47e603aa6b85a02",
   "primary_final": [
@@ -4798,7 +4798,15 @@
     "primary_macro_mean_max_abs_error": 0.0,
     "hung_primary_urbanev_id_overlap": [],
     "primary_point_mae_best_adaptive_cells": 1,
-    "hung_final_rows_reaggregated": 360
+    "hung_final_rows_reaggregated": 360,
+    "latest_hung_delta": {
+      "from": "207255b9caf33c4221daab560bb60af6409d416f",
+      "to": "1b730c7f83d6d8dd57198219c2593004d0318f4e",
+      "changed_paths": [
+        "docs/reports/aip491-g10-integrated-status-20261030-v1.md"
+      ],
+      "numeric_tables_unchanged": true
+    }
   },
   "sources": [
     {
@@ -4993,12 +5001,21 @@
       "path": "docs/reports/hung-e2e-validation-20261030-v16.md",
       "bytes": 2321,
       "sha256": "93cd851bcac1b421345ed5b052ee6fefd6e3329876f0a6ad19463d3345d918fe"
+    },
+    {
+      "origin": "Hung Git object",
+      "commit": "1b730c7f83d6d8dd57198219c2593004d0318f4e",
+      "path": "docs/reports/aip491-g10-integrated-status-20261030-v1.md",
+      "bytes": 10037,
+      "sha256": "6f4cb3bd29462c9f6f6dcc175069b95e87fb9b23fbddaf0fb04ea370f84279cf"
     }
   ],
   "limitations": [
     "Primary artifacts checked against manifest; no raw model artifact or archive reverification.",
     "Hung tracked tables reaggregated and hash checked; provider archive/checkpoint and 604-test suite not rerun in this synthesis.",
     "Exploratory bootstrap intervals are conditional and not multiplicity-corrected; budget cells reuse stations.",
-    "Distinct implementations, heads, seed sets, Source identities and target cohorts prevent head-to-head performance claims."
-  ]
+    "Distinct implementations, heads, seed sets, Source identities and target cohorts prevent head-to-head performance claims.",
+    "New Hung integrated-status report discloses a failed fresh-clone run at 207255b: 2 failures, 18 errors, 1 skip. This synthesis did not rerun that suite or isolate the complete causes."
+  ],
+  "hung_numeric_source_head": "207255b9caf33c4221daab560bb60af6409d416f"
 }
