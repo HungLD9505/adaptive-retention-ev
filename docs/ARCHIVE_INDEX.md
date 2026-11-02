@@ -1,47 +1,14 @@
-# Historical work and remaining PR dispositions
+# Historical records
 
-## Historical document snapshots
+Current technical documentation starts at [docs/README.md](README.md).
+Original planning, integration, scheduling and cleanup records are retained under
+`archive/pre-technical-docs-20261102`, commit `c8a2afc007bb6e8f739dec219d43ae06f492139c`.
+[Browse the original records](https://github.com/HungLD9505/adaptive-retention-ev/tree/c8a2afc007bb6e8f739dec219d43ae06f492139c/docs).
 
-The current tree omits 564 intermediate report files. Their original bytes remain
-at tag `archive/pre-doc-curation-20261102`, commit
-`8cdab1bc096a9c116c7b7f911d548a7621dd81ac` ([browse the snapshot](https://github.com/HungLD9505/adaptive-retention-ev/tree/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports)).
-[The file/hash manifest](archive-manifest.json) records every archived path, why
-other files remain and which Markdown links were redirected. Recover any original
-file with `git show archive/pre-doc-curation-20261102:<path>`.
+The earlier document curation is indexed by [archive-manifest.json](archive-manifest.json).
+Original PR dispositions and source-head tags are available in the
+[historical PR index](https://github.com/HungLD9505/adaptive-retention-ev/blob/c8a2afc007bb6e8f739dec219d43ae06f492139c/docs/ARCHIVE_INDEX.md).
+Original adverse/null results and validation limitations retain their identities.
 
-Start with the [curated evidence index](reports/README.md) for current report scope.
-Archiving keeps original adverse/null evidence and attribution; it does not certify
-old proposals or rerun experiments.
-
-## PR dispositions
-
-The primary pipeline, Hùng supporting track and member studies are integrated on dev through #76. The following dispositions distinguish code promoted by this cleanup from historical alternatives. Closing a superseded PR does not certify all of its results or promote every file to the active tree.
-
-Every listed source head is retained by an SHA-pinned archive tag and its PR history. The original primary scientific source is retained by `evidence/primary-final-20261027-v2`; all 92 Git-tracked frozen file pins match that historical commit. Raw/input data and existing numerical evidence are unchanged.
-
-| PR | Disposition | Original source / archive tag | Reason |
-|---|---|---|---|
-| [#45](https://github.com/HungLD9505/adaptive-retention-ev/pull/45) | archive_legacy | [597be9641f](https://github.com/HungLD9505/adaptive-retention-ev/tree/597be9641f34bd15af52ea45cc6658e6fb865fff) / `archive/pr-45-20261102` | The predictor source is byte-identical to current dev; the standalone replay/notebook and Development reports are historical and superseded by the common baseline runner. |
-| [#53](https://github.com/HungLD9505/adaptive-retention-ev/pull/53) | already_preserved | [9ebefe5160](https://github.com/HungLD9505/adaptive-retention-ev/tree/9ebefe51608606aefd5365c05bd8e057698c2269) / `archive/pr-53-20261102` | Exact head is already an ancestor of dev through #76; retained as historical component documentation, not a current canonical report. |
-| [#54](https://github.com/HungLD9505/adaptive-retention-ev/pull/54) | archive_legacy | [4f3c23c73f](https://github.com/HungLD9505/adaptive-retention-ev/tree/4f3c23c73f473cb92d5af64e852b58364a1364c3) / `archive/pr-54-20261102` | Historical thesis draft is superseded by the exact v8 supervisor-report source now under report/. Original draft and CHARGED evidence remain in this tag. |
-| [#55](https://github.com/HungLD9505/adaptive-retention-ev/pull/55) | integrate | [c25497c2dd](https://github.com/HungLD9505/adaptive-retention-ev/tree/c25497c2dd92c50365bef26e01bdaccd2dbdc258) / `archive/pr-55-20261102` | The varying-day diagnostic and unchanged historical report are integrated in this reconciliation; no bootstrap-method change. |
-| [#56](https://github.com/HungLD9505/adaptive-retention-ev/pull/56) | already_preserved | [aa5a552014](https://github.com/HungLD9505/adaptive-retention-ev/tree/aa5a5520149d588821312c505d3cf45fba8af471) / `archive/pr-56-20261102` | Exact component head is already in dev through #76. |
-| [#57](https://github.com/HungLD9505/adaptive-retention-ev/pull/57) | already_preserved | [4bac232d64](https://github.com/HungLD9505/adaptive-retention-ev/tree/4bac232d64e5802d647e81c630e5993e9112a278) / `archive/pr-57-20261102` | Exact component head is already in dev through #76. |
-| [#58](https://github.com/HungLD9505/adaptive-retention-ev/pull/58) | already_preserved | [0b8a0a5ce8](https://github.com/HungLD9505/adaptive-retention-ev/tree/0b8a0a5ce88693ca962663ef343a32a353c6eaaf) / `archive/pr-58-20261102` | Exact component head is already in dev through #76. |
-| [#59](https://github.com/HungLD9505/adaptive-retention-ev/pull/59) | already_preserved | [44539449c7](https://github.com/HungLD9505/adaptive-retention-ev/tree/44539449c75d5a29e43953c84cd871d0e17d5a9f) / `archive/pr-59-20261102` | Exact component head is already in dev through #76. |
-| [#60](https://github.com/HungLD9505/adaptive-retention-ev/pull/60) | patch_equivalent | [d82a15b3d7](https://github.com/HungLD9505/adaptive-retention-ev/tree/d82a15b3d7833a80933682d2ef4298330ed70544) / `archive/pr-60-20261102` | Every reachable non-ancestor patch is equivalent in dev; current common Seasonal Naive implementation remains authoritative. |
-| [#61](https://github.com/HungLD9505/adaptive-retention-ev/pull/61) | patch_equivalent | [f9b8e27080](https://github.com/HungLD9505/adaptive-retention-ev/tree/f9b8e2708048b9ee79d3ac99ee115a4900dcd644) / `archive/pr-61-20261102` | Every reachable non-ancestor patch is equivalent in dev; current parameter-retention and block-size implementations remain authoritative. |
-| [#62](https://github.com/HungLD9505/adaptive-retention-ev/pull/62) | patch_equivalent | [e0e3f13724](https://github.com/HungLD9505/adaptive-retention-ev/tree/e0e3f13724d93b92764d5e36c260d6ee89db9940) / `archive/pr-62-20261102` | Every reachable non-ancestor patch is equivalent in dev; current bounded calibration implementation remains authoritative. |
-| [#63](https://github.com/HungLD9505/adaptive-retention-ev/pull/63) | integrate | [5b6b7531b9](https://github.com/HungLD9505/adaptive-retention-ev/tree/5b6b7531b9db7398307bef8d5f17244c7d0b8efd) / `archive/pr-63-20261102` | Cross-platform code-fingerprint path normalization is integrated with traversal/collision regression checks; immutable run bytes are not rewritten. |
-| [#64](https://github.com/HungLD9505/adaptive-retention-ev/pull/64) | newer_implementation | [c8f908f588](https://github.com/HungLD9505/adaptive-retention-ev/tree/c8f908f5882fce0bf47a0f2da61d942a13f58c54) / `archive/pr-64-20261102` | The random-target initialization feature and exact proposal are preserved by the newer #72 implementation, including latent/parameter identity and Final support. Old code is not reapplied over newer guards. |
-| [#65](https://github.com/HungLD9505/adaptive-retention-ev/pull/65) | archive_legacy | [b140fb2a87](https://github.com/HungLD9505/adaptive-retention-ev/tree/b140fb2a87a83cf45d25cddae9be4f6377e0a5a9) / `archive/pr-65-20261102` | Historical bundle-pinned Colab preflight is archived; it is not the canonical current execution path and its unique validator/notebook remain available in the tag. |
-| [#66](https://github.com/HungLD9505/adaptive-retention-ev/pull/66) | archive_legacy | [c269cfa181](https://github.com/HungLD9505/adaptive-retention-ev/tree/c269cfa181981224198f3d8535f8c87135e62620) / `archive/pr-66-20261102` | Historical integrated Development report/calibration readback packet is archived. Newer #72 evidence remains the current supporting-track entry point; no new remote verification is claimed. |
-| [#67](https://github.com/HungLD9505/adaptive-retention-ev/pull/67) | partial_integration | [c1c62fcb49](https://github.com/HungLD9505/adaptive-retention-ev/tree/c1c62fcb49bdedab42aeb913e8dc3c6821104a57) / `archive/pr-67-20261102` | Only e9e72d5/64b285a verifier and population-binding changes are integrated. Six historical CHARGED proof JSONs remain archived with unresolved physical lineage; they are not accepted or pooled. |
-| [#68](https://github.com/HungLD9505/adaptive-retention-ev/pull/68) | newer_implementation | [315113f738](https://github.com/HungLD9505/adaptive-retention-ev/tree/315113f73840e0f36d1930ae0373d6b61fe0e6f9) / `archive/pr-68-20261102` | Older matched_resume helper is superseded by current dispatch_state plus stage-completion/locking resume in dispatch_matched from #70/#72; old helper remains archived. |
-| [#71](https://github.com/HungLD9505/adaptive-retention-ev/pull/71) | archive_legacy | [78764b0721](https://github.com/HungLD9505/adaptive-retention-ev/tree/78764b072142e09bfe9615d14296a47c2a4a45d4) / `archive/pr-71-20261102` | October 27 prepared-only ledger/upload snapshot is archived; current #72 completed bounded execution records supersede its operational status. Pending historical readback is not relabeled passed. |
-| [#73](https://github.com/HungLD9505/adaptive-retention-ev/pull/73) | archive_legacy | [c3c46f2763](https://github.com/HungLD9505/adaptive-retention-ev/tree/c3c46f2763138734f9fd109d4c015c21ae92e6c8) / `archive/pr-73-20261102` | Completed-run receipt/backpressure proposal is archived, not activated. Its fixed reserve-30 policy was superseded by the explicit human budget amendment; no old guard is reintroduced. |
-| [#74](https://github.com/HungLD9505/adaptive-retention-ev/pull/74) | archive_legacy | [9a9d31a6e2](https://github.com/HungLD9505/adaptive-retention-ev/tree/9a9d31a6e20057df3acbf07c957811b2758f4b60) / `archive/pr-74-20261102` | Untested optional hardware-child-lock proposal is archived. No hardware trial, allocation, speedup or numerical equivalence is claimed or needed for the completed report. |
-
-Current report source: [report/](../report/README.md). See the [cleanup handoff](reports/remaining-pr-cleanup-20261102.md) for verification and lead-directed CI/review exceptions.
-
-Branch deletion must also check whether any open PR uses that branch as its base, in addition to checking active worktrees and head ancestry. The prior deletion of `codex/39-completion` auto-closed #53/#55; its original tip was restored, both PRs reopened, and #55 retargeted to dev. #53 has no diff against dev because its head is already preserved; it is explicitly superseded, not claimed newly reviewed. The temporary base can be deleted only after all dependent PRs have a recorded final disposition.
+Retrieve original bytes with `git show archive/pre-technical-docs-20261102:<path>`.
+Short compatibility pages in the current tree point to their original records.

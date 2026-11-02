@@ -1,4 +1,4 @@
-# Cyber independent study
+# Diagnostic confidence-controller study
 
 Original implementation: PR #48, head
 `31f8264ea0ed6c9c7958ce1f91c9f8f265e02af5`; historical report:

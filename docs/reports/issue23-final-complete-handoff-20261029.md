@@ -35,13 +35,10 @@ Urban entity 2193 remains unscored: all 126 associated method cells are retained
 
 The independent bootstrap uses the separately implemented frozen code, SHA256 `d9d07327f0db6e3f8f271c0ebbc894df51e59b87aaab38abf6d8974d4c541a1c`, with station-first weighting, budget-matched pairing, the shared 90-day calendar, seven-day blocks, 2,000 resamples, seed 20261026, and alpha 0.05. Root executed the separately implemented C audit code for MEL/SPO/SZH with documented city-literal adaptations and unchanged bootstrap core. This is not a separate C-agent execution or human peer review. Previously accepted artifact verification and completed analyses were not rerun to obtain the handoff.
 
-## Recovery and safe terminal state
+## Execution provenance
 
-D622 was recovered honestly: the previously independently verified original adaptive component was reused unchanged, and only the 13 missing methods were executed under the remaining original wall-clock allowance. The recovery driver/context/process schema and new exports remain identified separately from the originals. Full-14 independent canonical acceptance preceded the original one-unit D625 queue's natural exit and canonical acknowledgement, followed by the original D628 full supervisor through 808. See the [actual D622 canonical proof](../../runs/issue23-final-new-chat-20261028-v1/D622-missing13-recovery-root-v1/actual-D622-canonical-proof-v1.json). The lost original D allocation's cause, death time, and unexported compute remain unknown; no zero-cost assumption or fabricated queue success is used.
-
-Root controller 1341 completed with `all810_canonical_pending_full_CPU_analysis_handoff`. D supervisor 10842 then ended naturally with child return code 0 and no active owned children. Fresh process inspection confirmed the supervisor and owned model/queue processes were absent. After the verified no-helper boundary, official stop session 4956 exited 0. Fresh authenticated provider listing reported no active sessions; a subsequent official usage query reported **19.88 compute units, zero active assignments, and 0.00 units/hour**. The actual D terminal and safe-release pre/post proofs are pinned in the manifest. A/C were already finished; no old console was revived and no new GPU was allocated.
-
-The human's floor-zero budget amendment superseded the old 30-CU operational reserve while execution retained the required publication/checkpoint/release runway. Historical 30-CU observations remain historical. No purchase, top-up, or account rotation was performed. The failed DriveFS atomic publication probe remains preserved; no weakened atomic semantics or replacement publisher was deployed.
+The [original execution and terminal-state record](https://github.com/HungLD9505/adaptive-retention-ev/blob/c8a2afc007bb6e8f739dec219d43ae06f492139c/docs/reports/issue23-final-complete-handoff-20261029.md) preserves operational process/session identities.
+These historical identities are provenance, not instructions to restart workers.
 
 ## Interpretation and remaining review boundaries
 
