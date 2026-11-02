@@ -85,6 +85,43 @@ class ControllerTests(unittest.TestCase):
         self.assertEqual(first.valid_days, 10)
         self.assertIsNone(first.lower_bounds[1])
 
+    def test_varying_day_diagnostic_records_current_convention(self) -> None:
+        """Pin a review fixture where bootstrap conventions can change the decision.
+
+        This documents current behavior, not approval of this convention for Final.
+        The cross-implementation comparison and required peer decision are in the
+        accompanying #39 report.
+        """
+        days = [
+            complete(
+                day,
+                (
+                    2.0,
+                    1.8 + 0.3 * ((day % 5) - 2),
+                    1.75 + 0.3 * ((day % 7) - 3),
+                ),
+            )
+            for day in range(14)
+        ]
+        diagnostic = decide_block(
+            config(
+                levels=(0.0, 0.1, 0.2),
+                initial_level=0.0,
+                min_complete_days=5,
+                bootstrap_resamples=100,
+                seed=7,
+            ),
+            current_level=0.0,
+            block_id=0,
+            days=days,
+        )
+        self.assertEqual((diagnostic.valid_days, diagnostic.skipped_days), (14, 0))
+        self.assertEqual(diagnostic.reason, "switch")
+        self.assertEqual(diagnostic.selected_level, 0.1)
+        self.assertIsNone(diagnostic.lower_bounds[0])
+        self.assertAlmostEqual(diagnostic.lower_bounds[1], 0.007142857142857102)
+        self.assertAlmostEqual(diagnostic.lower_bounds[2], -0.07142857142857138)
+
     def test_rejects_invalid_config_and_score(self) -> None:
         with self.assertRaisesRegex(ValueError, "ordered"):
             config(levels=(0.0, 0.3, 0.1))
