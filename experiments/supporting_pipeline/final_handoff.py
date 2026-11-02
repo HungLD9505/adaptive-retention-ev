@@ -19,7 +19,7 @@ from experiments.supporting_pipeline.kaggle_final_locked_v1 import (
     require,
 )
 
-WRAPPER = ROOT / "experiments" / "hung_sprint2" / "kaggle_final_locked_v1.py"
+WRAPPER = ROOT / "experiments" / "supporting_pipeline" / "kaggle_final_locked_v1.py"
 WRAPPER_GIT_PATH = "experiments/supporting_pipeline/kaggle_final_locked_v1.py"
 MIN_PACKET_FREE_BYTES = 1024**3
 

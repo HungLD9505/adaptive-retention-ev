@@ -168,7 +168,7 @@ def _tensors(rows: list[dict]) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor
 
 def _code_identity() -> dict:
     source_paths = [
-        ROOT / "experiments" / "hung_sprint2" / name
+        ROOT / "experiments" / "supporting_pipeline" / name
         for name in (
             "model.py",
             "retention.py",

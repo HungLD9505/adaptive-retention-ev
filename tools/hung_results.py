@@ -446,7 +446,7 @@ def aggregate_results(catalog: dict, root: Path) -> dict:
 
 
 def main() -> None:
-    from experiments.supporting_pipeline.dispatch_state import atomic_create
+    from experiments.hung_sprint2.dispatch_state import atomic_create
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--catalog", type=Path, required=True)

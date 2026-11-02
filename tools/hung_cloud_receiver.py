@@ -22,7 +22,7 @@ def verification_command(plan: Path, partition: Path, shard_id: str, sha256) -> 
         sys.executable,
         "-u",
         "-m",
-        "experiments.supporting_pipeline.dispatch_matched",
+        "experiments.hung_sprint2.dispatch_matched",
         "--plan",
         str(plan),
         "--plan-sha256",
