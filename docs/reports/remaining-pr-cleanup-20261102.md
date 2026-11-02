@@ -59,3 +59,21 @@ companion verification JSON / ignored operational receipt. Historical external
 artifact checks remain unavailable; their assertions and original evidence are
 preserved. Main remains unchanged and scientific issues are not closed merely
 because a technical PR is superseded.
+
+## Completed checks
+
+A separate clean clone at `ecd5456` passed root discovery (888 tests, two CUDA
+skips), Duc (9) and Cyber (12): 909 discovered, **907 passed, two skipped**.
+Ruff lint/format (866 Python files) and catalog listing passed; checkout status stayed
+clean. All 17 report asset/source hashes survive Git checkout unchanged. No fresh
+LaTeX compile or external historical artifact verification was performed. Original
+report class/style and one manuscript line retain their original whitespace, so a
+full PR-range whitespace check is not claimed clean.
+
+The [verification record](remaining-pr-cleanup-verification-20261102-v1.json) lists
+exact commands/log hashes and which current files differ from historical frozen pins.
+The original 92 tracked pins are verified at the retained scientific source tag,
+not silently updated to the newer checkout. The [issue dispositions](issue-dispositions-20261102-v1.json)
+close five delivered implementation/report tasks and retain five genuine release,
+scientific-accounting or artifact-handoff gaps. Superseded PR closure is not an
+assertion that all scientific issues are complete.

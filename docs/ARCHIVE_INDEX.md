@@ -2,7 +2,7 @@
 
 The primary pipeline, Hùng supporting track and member studies are integrated on dev through #76. The following dispositions distinguish code promoted by this cleanup from historical alternatives. Closing a superseded PR does not certify all of its results or promote every file to the active tree.
 
-Every listed source head is retained by an immutable archive tag and its PR history. The original primary scientific source is retained by `evidence/primary-final-20261027-v2`; all 92 Git-tracked frozen file pins match that historical commit. Raw/input data and existing numerical evidence are unchanged.
+Every listed source head is retained by an SHA-pinned archive tag and its PR history. The original primary scientific source is retained by `evidence/primary-final-20261027-v2`; all 92 Git-tracked frozen file pins match that historical commit. Raw/input data and existing numerical evidence are unchanged.
 
 | PR | Disposition | Original source / archive tag | Reason |
 |---|---|---|---|
