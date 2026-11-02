@@ -1,0 +1,307 @@
+{
+  "system": {
+    "title": "01 / Research system",
+    "claims": [
+      {
+        "id": "inputs",
+        "label": "Prepared inputs",
+        "sources": [
+          {
+            "path": "ev_inputs/loader.py",
+            "line": 200,
+            "end_line": 217
+          }
+        ]
+      },
+      {
+        "id": "source",
+        "label": "Source GRU training",
+        "sources": [
+          {
+            "path": "ev_models/run.py",
+            "line": 279,
+            "end_line": 300
+          }
+        ]
+      },
+      {
+        "id": "adapt",
+        "label": "Initial target adaptation",
+        "sources": [
+          {
+            "path": "ev_runner/run.py",
+            "line": 125,
+            "end_line": 162
+          },
+          {
+            "path": "ev_runner/run.py",
+            "line": 167,
+            "end_line": 204
+          }
+        ]
+      },
+      {
+        "id": "analysis",
+        "label": "Verification + analysis",
+        "sources": [
+          {
+            "path": "ev_evaluation/artifacts.py",
+            "line": 10,
+            "end_line": 49
+          },
+          {
+            "path": "tools/final_unit.py",
+            "line": 159,
+            "end_line": 182
+          }
+        ]
+      },
+      {
+        "id": "store",
+        "label": "Immutable run artifacts",
+        "sources": [
+          {
+            "path": "ev_runner/store.py",
+            "line": 81,
+            "end_line": 110
+          }
+        ]
+      },
+      {
+        "id": "replay",
+        "label": "Causal target replay",
+        "sources": [
+          {
+            "path": "ev_runner/run.py",
+            "line": 258,
+            "end_line": 276
+          },
+          {
+            "path": "ev_runner/engine.py",
+            "line": 337,
+            "end_line": 407
+          }
+        ]
+      },
+      {
+        "id": "report",
+        "label": "Report + supplement",
+        "sources": [
+          {
+            "path": "report/README.md",
+            "line": 1,
+            "end_line": 28
+          }
+        ]
+      }
+    ]
+  },
+  "data-pipeline": {
+    "title": "02 / Data preparation and access",
+    "claims": [
+      {
+        "id": "urban",
+        "label": "UrbanEV",
+        "sources": [
+          {
+            "path": "docs/data/DATA_FLOW.md",
+            "line": 40,
+            "end_line": 58
+          }
+        ]
+      },
+      {
+        "id": "u-hour",
+        "label": "Hourly aggregation",
+        "sources": [
+          {
+            "path": "tools/urbanev_hourly.py",
+            "line": 89,
+            "end_line": 103
+          }
+        ]
+      },
+      {
+        "id": "prep",
+        "label": "Roles + prefix scaling",
+        "sources": [
+          {
+            "path": "ev_inputs/loader.py",
+            "line": 208,
+            "end_line": 217
+          },
+          {
+            "path": "ev_inputs/loader.py",
+            "line": 278,
+            "end_line": 309
+          }
+        ]
+      },
+      {
+        "id": "charged",
+        "label": "CHARGED",
+        "sources": [
+          {
+            "path": "docs/data/DATA_FLOW.md",
+            "line": 40,
+            "end_line": 54
+          }
+        ]
+      },
+      {
+        "id": "c-hour",
+        "label": "City adapter + QC",
+        "sources": [
+          {
+            "path": "tools/charged_hourly.py",
+            "line": 127,
+            "end_line": 179
+          }
+        ]
+      },
+      {
+        "id": "train",
+        "label": "training.jsonl",
+        "sources": [
+          {
+            "path": "ev_inputs/loader.py",
+            "line": 201,
+            "end_line": 217
+          },
+          {
+            "path": "ev_inputs/loader.py",
+            "line": 311,
+            "end_line": 325
+          }
+        ]
+      },
+      {
+        "id": "forecast",
+        "label": "forecasts.jsonl",
+        "sources": [
+          {
+            "path": "ev_inputs/loader.py",
+            "line": 291,
+            "end_line": 301
+          },
+          {
+            "path": "ev_inputs/loader.py",
+            "line": 201,
+            "end_line": 206
+          }
+        ]
+      },
+      {
+        "id": "labels",
+        "label": "labels.jsonl",
+        "sources": [
+          {
+            "path": "ev_inputs/loader.py",
+            "line": 303,
+            "end_line": 309
+          },
+          {
+            "path": "ev_inputs/loader.py",
+            "line": 201,
+            "end_line": 206
+          }
+        ]
+      }
+    ]
+  },
+  "adaptive-loop": {
+    "title": "03 / Adaptive replay: one forecast origin",
+    "claims": [
+      {
+        "id": "fork",
+        "label": "Candidate states",
+        "sources": [
+          {
+            "path": "ev_runner/engine.py",
+            "line": 315,
+            "end_line": 335
+          },
+          {
+            "path": "ev_runner/state.py",
+            "line": 61,
+            "end_line": 72
+          }
+        ]
+      },
+      {
+        "id": "predict",
+        "label": "24-hour forecasts",
+        "sources": [
+          {
+            "path": "ev_runner/engine.py",
+            "line": 343,
+            "end_line": 379
+          }
+        ]
+      },
+      {
+        "id": "persist",
+        "label": "Persist issued forecasts",
+        "sources": [
+          {
+            "path": "ev_runner/store.py",
+            "line": 81,
+            "end_line": 87
+          },
+          {
+            "path": "ev_runner/engine.py",
+            "line": 387,
+            "end_line": 398
+          }
+        ]
+      },
+      {
+        "id": "select",
+        "label": "Boundary selection",
+        "sources": [
+          {
+            "path": "ev_runner/engine.py",
+            "line": 258,
+            "end_line": 300
+          },
+          {
+            "path": "ev_control/confidence.py",
+            "line": 255,
+            "end_line": 278
+          }
+        ]
+      },
+      {
+        "id": "update",
+        "label": "Score, then update",
+        "sources": [
+          {
+            "path": "ev_runner/engine.py",
+            "line": 170,
+            "end_line": 219
+          }
+        ]
+      },
+      {
+        "id": "available",
+        "label": "Label availability",
+        "sources": [
+          {
+            "path": "ev_runner/engine.py",
+            "line": 170,
+            "end_line": 181
+          },
+          {
+            "path": "ev_runner/engine.py",
+            "line": 235,
+            "end_line": 242
+          }
+        ]
+      }
+    ]
+  },
+  "repository": {
+    "url": "https://github.com/HungLD9505/adaptive-retention-ev",
+    "revision": "8d3746d940d9757d63efbaf4f90373b46bc22b8c"
+  }
+}

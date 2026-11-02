@@ -26,3 +26,6 @@ handoff/
 docs/reports/hung-development-audit-20261028-v1/
 # Keep the preliminary switch audit locally; v4 is the pinned tracked report.
 docs/reports/hung-development-switch-audit-20261028-v3/
+# Local render previews and temporary builds; maintained diagrams live in docs/diagrams.
+output/
+tmp/

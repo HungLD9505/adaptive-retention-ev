@@ -5,6 +5,14 @@ GRU transfer learning and source-retention selection. This repository preserves
 implementations and evidence from all four team members. Work integrates into
 `dev`; promoting a snapshot to `main` requires a separate instruction.
 
+## System at a glance
+
+![Primary research system](docs/diagrams/system.svg)
+
+See the [data pipeline and Adaptive replay diagrams](docs/diagrams/README.md) for
+separated datasets, forecast/label access and retention-state transitions. These
+views describe the primary code; member studies keep their own settings.
+
 ## Read the report
 
 The canonical [report and supplement](report/README.md) contain the method,
