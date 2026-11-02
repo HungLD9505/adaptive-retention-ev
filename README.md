@@ -20,12 +20,12 @@ source-retention strategies under causal 24→24 forecasting.
 
 ![Primary research system](docs/diagrams/system.svg)
 
-The overview maps primary code responsibilities. For the two detailed views:
+The diagram shows how prepared inputs, model training, replay, verification and
+reporting connect. Detailed views:
 
 - [Data pipeline: UrbanEV/CHARGED preparation and separated labels](docs/data/DATA_FLOW.md).
 - [Adaptive mechanism: forecast, observe, update and select](docs/data/CONTROLLER_CONTRACT.md).
 
-Alternate implementations retain their own settings and evidence boundaries.
 
 ## Results and interpretation
 
@@ -44,9 +44,8 @@ Fixed. Read the [report](report/Adaptive_Retention_Report.pdf),
 [paired evidence and limitations](docs/reports/issue23-joint-evidence-synthesis-20261030.md)
 and [full-precision tables](report/full-results.csv).
 
-The separate bounded 360-job Final and the diagnostic studies use different
-settings. Their scores are not pooled with the primary evaluation or ranked by
-absolute MAE.
+Evaluation scope, coverage and comparisons are documented in the report and
+supplement. Results from experiments with different settings are reported separately.
 
 ## Reproduce and inspect
 
@@ -84,36 +83,36 @@ verify identities locally; historical checksums alone do not prove a fresh downl
 
 | Directory | Contents |
 |---|---|
-| `ev_inputs/` | Roles, scaling, windows and authenticated loading |
-| `ev_models/` | GRU, retention loss and training |
-| `ev_control/` | Evidence-based retention selection |
-| `ev_runner/` | Causal replay, label gates, updates and checkpoints |
-| `ev_baselines/` | Forecasting comparisons and ablation policies |
-| `ev_evaluation/` | Error metrics, uncertainty, costs and verification |
-| `tools/` | Data, experiment and verification command-line tools |
-| `configs/` | Versioned data and experiment settings |
-| `experiments/supporting_pipeline/` | Alternate end-to-end training, replay and evaluation pipeline |
-| `experiments/fixed_adaptation/` | Fixed-model target adaptation and retention diagnostics |
-| `experiments/confidence_controller/` | Diagnostic online retention controller |
-| `report/` | Report PDFs, LaTeX sources, vector figures and result tables |
-| `docs/` | Diagrams, contracts, curated evidence and archive navigation |
-| `tests/` | Offline fixtures and separate artifact verification |
+| `ev_inputs/` | Dataset-role assignment, feature encoding, scaling, time windows and input loading |
+| `ev_models/` | GRU architecture, forecast and retention losses, training and model checkpoints |
+| `ev_control/` | Paired-error bootstrap calculations and retention-selection rules |
+| `ev_runner/` | Forecast scheduling, label-availability checks, online updates, state persistence and resume |
+| `ev_baselines/` | Forecasting baselines and ablation policies |
+| `ev_evaluation/` | Error metrics, paired comparisons, uncertainty, cost accounting and artifact verification |
+| `experiments/` | Experiment-specific training, adaptation, replay and evaluation modules |
+| `tools/` | Command-line programs for data processing, experiment execution and verification |
+| `configs/` | Data-processing settings, experiment parameters and execution locks |
+| `data/` | Source catalog, download references and dataset release manifests; dataset files are excluded from Git |
+| `notebooks/` | Notebooks for inspecting inputs and invoking model, replay and evaluation workflows |
+| `tests/` | Offline fixtures, regression checks and separately invoked artifact checks |
+| `report/` | Report and supplement PDFs, LaTeX source, figures and numerical result tables |
+| `docs/` | Data definitions, algorithm contracts, diagrams, usage instructions and evidence references |
 
-## Scope and provenance
+For experiment entry points, see [experiments/README.md](experiments/README.md).
+For input/output contracts, see the [documentation index](docs/README.md).
 
-[RELEASE_SCOPE.md](RELEASE_SCOPE.md) states the exact inclusion scope and unresolved
-criteria. Full end-to-end compute accounting, expanded supporting reproduction,
-a verified CPU-adaptation artifact distribution link and corrected diagnostic-controller results
-remain incomplete. Fixtures for the [corrected diagnostic IO guards](
-experiments/confidence_controller/README.md) do not turn historical scores
-into corrected-code results. No further real-data training is planned for this release.
+## Reproducing the reported results
 
-The primary results belong to frozen source tag
-`evidence/primary-final-20261027-v2`, not a new run of the current verifier code.
-[Report 1](adaptive_retention_report_1.pdf) remains the method reference.
-The [evidence index](docs/reports/README.md) distinguishes retained results and
-validation dependencies from [historical reports](docs/ARCHIVE_INDEX.md).
+The reported primary results belong to source tag
+`evidence/primary-final-20261027-v2`. Use the identified source, data, configuration
+and artifact hashes when reproducing a recorded experiment. The current verifier
+checkout is not a replacement for that original execution environment.
 
-Follow [AGENTS.md](AGENTS.md) and the [workflow](docs/WORKFLOW.md) for changes.
-Work integrates through `dev`; updating `main` requires a separate instruction.
-`master` is retained as a backup.
+[Report 1](adaptive_retention_report_1.pdf) defines the method. The
+[evidence index](docs/reports/README.md) links results to their validation records;
+[RELEASE_SCOPE.md](RELEASE_SCOPE.md) states coverage and unresolved limitations,
+including incomplete full compute accounting and unverified diagnostic results.
+Offline fixtures establish software behavior, not forecasting superiority.
+
+See the [contribution workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md)
+for repository changes.
