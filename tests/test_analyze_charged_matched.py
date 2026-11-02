@@ -4,7 +4,7 @@ import copy
 import unittest
 
 from ev_evaluation.costs import comparison_costs
-from tools.analyze_charged_matched import validate_collection
+from tools.analyze_charged_matched import canonical_code_files, validate_collection
 from tools.charged_matched_development import method_configs, primary_recipe
 
 
@@ -108,6 +108,31 @@ class CityCollectionTests(unittest.TestCase):
         self.assertEqual(set(self.check(self.matrix)), {42, 43, 44})
         self.assertEqual(len(self.matrix["runs"]), 126)
         self.assertTrue(all(r["active_mae_kwh"] is None for r in self.matrix["runs"]))
+
+    def test_windows_matrix_and_runtime_match_posix_source_fingerprints(self):
+        matrix = copy.deepcopy(self.matrix)
+        windows_files = {key.replace("/", "\\"): value for key, value in self.files.items()}
+        matrix["code"]["files"] = windows_files
+        for row in matrix["runs"]:
+            row["code"] = {"dirty": False, "files": windows_files}
+        self.assertEqual(set(self.check(matrix)), {42, 43, 44})
+        self.assertEqual(canonical_code_files(windows_files), canonical_code_files(self.files))
+
+    def test_colliding_or_traversing_code_paths_fail(self):
+        for bad_files in (
+            {"ev_models/model.py": "same", "ev_models\\model.py": "same"},
+            {"ev_models\\..\\ev_runner\\run.py": "hash"},
+            {"C:\\ev_models\\model.py": "hash"},
+        ):
+            with self.subTest(files=bad_files), self.assertRaises(ValueError):
+                canonical_code_files(bad_files)
+        bad = copy.deepcopy(self.matrix)
+        bad["code"]["files"] = {
+            **self.files,
+            "ev_models\\model.py": self.files["ev_models/model.py"],
+        }
+        with self.assertRaisesRegex(ValueError, "Duplicate code file path"):
+            self.check(bad)
 
     def test_wrong_source_city_population_seed_training_or_code_fails(self):
         for field, value in (

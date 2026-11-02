@@ -1,0 +1,190 @@
+{
+  "base_dev": "493937d68d25daea27493fb0a655b591b42928a7",
+  "primary_frozen_source": {
+    "tag": "evidence/primary-final-20261027-v2",
+    "commit": "61c32328d9829a69037dca629f727b4863015122",
+    "tracked_pins_verified": 92
+  },
+  "prs": [
+    {
+      "pr": 45,
+      "branch": "feat/22-hung-baselines-stacked",
+      "head": "597be9641f34bd15af52ea45cc6658e6fb865fff",
+      "archive_tag": "archive/pr-45-20261102",
+      "action": "archive_legacy",
+      "reason": "The predictor source is byte-identical to current dev; the standalone replay/notebook and Development reports are historical and superseded by the common baseline runner.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/45"
+    },
+    {
+      "pr": 53,
+      "branch": "docs/39-report-consolidation",
+      "head": "9ebefe51608606aefd5365c05bd8e057698c2269",
+      "archive_tag": "archive/pr-53-20261102",
+      "action": "already_preserved",
+      "reason": "Exact head is already an ancestor of dev through #76; retained as historical component documentation, not a current canonical report.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/53"
+    },
+    {
+      "pr": 54,
+      "branch": "docs/10-thesis-report",
+      "head": "4f3c23c73f473cb92d5af64e852b58364a1364c3",
+      "archive_tag": "archive/pr-54-20261102",
+      "action": "archive_legacy",
+      "reason": "Historical thesis draft is superseded by the exact v8 supervisor-report source now under report/. Original draft and CHARGED evidence remain in this tag.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/54"
+    },
+    {
+      "pr": 55,
+      "branch": "chore/39-controller-comparison",
+      "head": "c25497c2dd92c50365bef26e01bdaccd2dbdc258",
+      "archive_tag": "archive/pr-55-20261102",
+      "action": "integrate",
+      "reason": "The varying-day diagnostic and unchanged historical report are integrated in this reconciliation; no bootstrap-method change.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/55"
+    },
+    {
+      "pr": 56,
+      "branch": "feat/22-hung-core-baselines",
+      "head": "aa5a5520149d588821312c505d3cf45fba8af471",
+      "archive_tag": "archive/pr-56-20261102",
+      "action": "already_preserved",
+      "reason": "Exact component head is already in dev through #76.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/56"
+    },
+    {
+      "pr": 57,
+      "branch": "feat/22-hung-fixed-finetuning",
+      "head": "4bac232d64e5802d647e81c630e5993e9112a278",
+      "archive_tag": "archive/pr-57-20261102",
+      "action": "already_preserved",
+      "reason": "Exact component head is already in dev through #76.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/57"
+    },
+    {
+      "pr": 58,
+      "branch": "feat/22-hung-target-frozen",
+      "head": "0b8a0a5ce88693ca962663ef343a32a353c6eaaf",
+      "archive_tag": "archive/pr-58-20261102",
+      "action": "already_preserved",
+      "reason": "Exact component head is already in dev through #76.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/58"
+    },
+    {
+      "pr": 59,
+      "branch": "feat/22-hung-proxy-baselines",
+      "head": "44539449c75d5a29e43953c84cd871d0e17d5a9f",
+      "archive_tag": "archive/pr-59-20261102",
+      "action": "already_preserved",
+      "reason": "Exact component head is already in dev through #76.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/59"
+    },
+    {
+      "pr": 60,
+      "branch": "feat/22-hung-seasonal-common",
+      "head": "d82a15b3d7833a80933682d2ef4298330ed70544",
+      "archive_tag": "archive/pr-60-20261102",
+      "action": "patch_equivalent",
+      "reason": "Every reachable non-ancestor patch is equivalent in dev; current common Seasonal Naive implementation remains authoritative.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/60"
+    },
+    {
+      "pr": 61,
+      "branch": "feat/22-hung-parameter-retention",
+      "head": "f9b8e2708048b9ee79d3ac99ee115a4900dcd644",
+      "archive_tag": "archive/pr-61-20261102",
+      "action": "patch_equivalent",
+      "reason": "Every reachable non-ancestor patch is equivalent in dev; current parameter-retention and block-size implementations remain authoritative.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/61"
+    },
+    {
+      "pr": 62,
+      "branch": "feat/23-hung-proxy-calibration",
+      "head": "e0e3f13724d93b92764d5e36c260d6ee89db9940",
+      "archive_tag": "archive/pr-62-20261102",
+      "action": "patch_equivalent",
+      "reason": "Every reachable non-ancestor patch is equivalent in dev; current bounded calibration implementation remains authoritative.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/62"
+    },
+    {
+      "pr": 63,
+      "branch": "fix/23-charged-analyzer-paths",
+      "head": "5b6b7531b9db7398307bef8d5f17244c7d0b8efd",
+      "archive_tag": "archive/pr-63-20261102",
+      "action": "integrate",
+      "reason": "Cross-platform code-fingerprint path normalization is integrated with traversal/collision regression checks; immutable run bytes are not rewritten.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/63"
+    },
+    {
+      "pr": 64,
+      "branch": "codex/22-hung-no-source-init",
+      "head": "c8f908f5882fce0bf47a0f2da61d942a13f58c54",
+      "archive_tag": "archive/pr-64-20261102",
+      "action": "newer_implementation",
+      "reason": "The random-target initialization feature and exact proposal are preserved by the newer #72 implementation, including latent/parameter identity and Final support. Old code is not reapplied over newer guards.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/64"
+    },
+    {
+      "pr": 65,
+      "branch": "codex/39-colab-drive-fix",
+      "head": "b140fb2a87a83cf45d25cddae9be4f6377e0a5a9",
+      "archive_tag": "archive/pr-65-20261102",
+      "action": "archive_legacy",
+      "reason": "Historical bundle-pinned Colab preflight is archived; it is not the canonical current execution path and its unique validator/notebook remain available in the tag.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/65"
+    },
+    {
+      "pr": 66,
+      "branch": "codex/22-hung-integrated-methods",
+      "head": "c269cfa181981224198f3d8535f8c87135e62620",
+      "archive_tag": "archive/pr-66-20261102",
+      "action": "archive_legacy",
+      "reason": "Historical integrated Development report/calibration readback packet is archived. Newer #72 evidence remains the current supporting-track entry point; no new remote verification is claimed.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/66"
+    },
+    {
+      "pr": 67,
+      "branch": "codex/23-verifier-completion-gates",
+      "head": "c1c62fcb49bdedab42aeb913e8dc3c6821104a57",
+      "archive_tag": "archive/pr-67-20261102",
+      "action": "partial_integration",
+      "reason": "Only e9e72d5/64b285a verifier and population-binding changes are integrated. Six historical CHARGED proof JSONs remain archived with unresolved physical lineage; they are not accepted or pooled.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/67"
+    },
+    {
+      "pr": 68,
+      "branch": "codex/22-hung-matched-dispatcher",
+      "head": "315113f73840e0f36d1930ae0373d6b61fe0e6f9",
+      "archive_tag": "archive/pr-68-20261102",
+      "action": "newer_implementation",
+      "reason": "Older matched_resume helper is superseded by current dispatch_state plus stage-completion/locking resume in dispatch_matched from #70/#72; old helper remains archived.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/68"
+    },
+    {
+      "pr": 71,
+      "branch": "docs/hung-e2e-execution-handoff-20261027",
+      "head": "78764b072142e09bfe9615d14296a47c2a4a45d4",
+      "archive_tag": "archive/pr-71-20261102",
+      "action": "archive_legacy",
+      "reason": "October 27 prepared-only ledger/upload snapshot is archived; current #72 completed bounded execution records supersede its operational status. Pending historical readback is not relabeled passed.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/71"
+    },
+    {
+      "pr": 73,
+      "branch": "fix/23-final-receipt-backpressure",
+      "head": "c3c46f2763138734f9fd109d4c015c21ae92e6c8",
+      "archive_tag": "archive/pr-73-20261102",
+      "action": "archive_legacy",
+      "reason": "Completed-run receipt/backpressure proposal is archived, not activated. Its fixed reserve-30 policy was superseded by the explicit human budget amendment; no old guard is reintroduced.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/73"
+    },
+    {
+      "pr": 74,
+      "branch": "chore/23-final-runtime-hardware",
+      "head": "9a9d31a6e20057df3acbf07c957811b2758f4b60",
+      "archive_tag": "archive/pr-74-20261102",
+      "action": "archive_legacy",
+      "reason": "Untested optional hardware-child-lock proposal is archived. No hardware trial, allocation, speedup or numerical equivalence is claimed or needed for the completed report.",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/74"
+    }
+  ]
+}

@@ -10,6 +10,7 @@ from pathlib import Path
 
 import torch
 
+from ev_evaluation.artifacts import authenticate_matrix
 from ev_models.checkpoint import digest, write_json
 from ev_runner.run import runtime_code
 from ev_runner.state import state_digest
@@ -63,7 +64,7 @@ def run(args: argparse.Namespace) -> None:
     if digest(args.selection) != profile["selection_sha256"]:
         raise ValueError("Changed identified Development cohort")
     cohort = json.loads(args.selection.read_text())
-    study = json.loads(args.source_study.read_text())
+    study = authenticate_matrix(args.source_study, args.source_verification)
     proof = json.loads(args.source_verification.read_text())
     if proof.get("status") != "verified" or proof.get("matrix_sha256") != digest(args.source_study):
         raise ValueError("Authenticated Source study required")

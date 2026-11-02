@@ -130,7 +130,7 @@ def run(args: argparse.Namespace) -> None:
         or verification.get("matrix_sha256") != args.controller_sha256
     ):
         raise ValueError("Independent controller verification required")
-    matrix = json.loads(args.controller_matrix.read_text())
+    matrix = authenticate_matrix(args.controller_matrix, args.controller_verification)
     if digest(args.selection) != matrix["selection_sha256"]:
         raise ValueError("Changed identified Development cohort")
     cohort = json.loads(args.selection.read_text())

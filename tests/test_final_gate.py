@@ -224,6 +224,7 @@ class FinalFixtureTests(unittest.TestCase):
                 "binding": binding,
                 "initial_logs": [],
                 "ticks": store.count,
+                "pending_days": len(runner.pending),
                 "final_branch_state_sha256": {
                     str(k): state_digest(v.snapshot()) for k, v in runner.branches.items()
                 },

@@ -1,0 +1,165 @@
+{
+  "code_checked_commit": "ecd54564f0b1617c46ffdf7f70a0017a9322f5ef",
+  "clean_clone": "/tmp/ev-cleanup-clean-20261102",
+  "clean_before_and_after": true,
+  "discovered_tests": 909,
+  "passed_tests": 907,
+  "cuda_skips": 2,
+  "external_artifact_tests_not_verified": 18,
+  "checks": [
+    {
+      "name": "root",
+      "exit_code": 0,
+      "command": [
+        "/tmp/ev-dev-integration-env/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "log": "/tmp/ev-cleanup-checks-20261102/root.log",
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 888 tests in 24.379s",
+        "",
+        "OK (skipped=2)",
+        "fixture: MISSING",
+        "fixture: PASS",
+        "fixture: CHECKSUM MISMATCH",
+        "structural_qc_failed: /private/var/folders/kj/t95mrgmd6bbd2f3wt6nn9k3h0000gn/T/tmpzqlt9bjs/processed/cli"
+      ],
+      "log_sha256": "b95614ee869dfcd030e0b0b5c92b57bd5ac1bb3c331fe03c6dda413a2aa23f8b"
+    },
+    {
+      "name": "duc",
+      "exit_code": 0,
+      "command": [
+        "/tmp/ev-dev-integration-env/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "experiments/member_studies/duc_retention",
+        "-v"
+      ],
+      "log": "/tmp/ev-cleanup-checks-20261102/duc.log",
+      "tail": [
+        "test_training_role_prefix_and_scaler_guards (test_study.StudyTests.test_training_role_prefix_and_scaler_guards) ... ok",
+        "test_unpinned_manifest_rejected (test_study.StudyTests.test_unpinned_manifest_rejected) ... ok",
+        "test_zero_retention_and_frozen_source (test_study.StudyTests.test_zero_retention_and_frozen_source) ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 9 tests in 0.459s",
+        "",
+        "OK"
+      ],
+      "log_sha256": "10d4d9d03518b272278347ad42c1512eb95fdd470d77befffc14b868c75963d2"
+    },
+    {
+      "name": "cyber",
+      "exit_code": 0,
+      "command": [
+        "/tmp/ev-dev-integration-env/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "experiments/member_studies/cyber_controller",
+        "-v"
+      ],
+      "log": "/tmp/ev-cleanup-checks-20261102/cyber.log",
+      "tail": [
+        "Forward pass must produce correct tensor shapes and non-negative forecasts. ... ok",
+        "test_latent_retention_loss_frozen_source (test_model.ModelTests.test_latent_retention_loss_frozen_source)",
+        "Latent retention loss must not compute gradients for source encoder. ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 12 tests in 0.041s",
+        "",
+        "OK"
+      ],
+      "log_sha256": "bd3e9bc7c571e7053cc1200d734a25db860fc053681e42286338ff1b4b6580e0"
+    },
+    {
+      "name": "lint",
+      "exit_code": 0,
+      "command": [
+        "/tmp/ev-dev-integration-env/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "log": "/tmp/ev-cleanup-checks-20261102/lint.log",
+      "tail": [
+        "All checks passed!"
+      ],
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "name": "format",
+      "exit_code": 0,
+      "command": [
+        "/tmp/ev-dev-integration-env/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "log": "/tmp/ev-cleanup-checks-20261102/format.log",
+      "tail": [
+        "866 files already formatted"
+      ],
+      "log_sha256": "d6fa8780d0b144bcc0175b307e31641191630fac85fe3b6b385ef9fd73e5fdf9"
+    },
+    {
+      "name": "catalog",
+      "exit_code": 0,
+      "command": [
+        "/tmp/ev-dev-integration-env/bin/python",
+        "-m",
+        "tools.sources",
+        "list"
+      ],
+      "log": "/tmp/ev-cleanup-checks-20261102/catalog.log",
+      "tail": [
+        "  https://drive.usercontent.google.com/download?id=1OEpo-XDocd33aK3MbgDt9S5bcqwiAFPQ&export=download&confirm=t",
+        "  -> data/raw/urbanev/official_2026_05_11/UrbanEVDataset.zip",
+        "urbanev-supplemental | optional | 6052188 bytes",
+        "  https://drive.usercontent.google.com/download?id=1ojGWoQ13w2o59DjEAuUk2-CPzG08NRIT&export=download&confirm=t",
+        "  -> data/raw/urbanev/official_2026_05_11/UrbanEVSupplemental.zip",
+        "charged-hourly | required | 268720500 bytes",
+        "  https://zenodo.org/api/records/15814263/files/Hourly.zip/content",
+        "  -> data/raw/charged/zenodo_15814263/Hourly.zip"
+      ],
+      "log_sha256": "7a248fbf44ed1660f5ab58818d569a987ac1eece1fc746400f224b9bcef47823"
+    }
+  ],
+  "report_hashes_matched": 17,
+  "report_compilation_in_this_cleanup": false,
+  "frozen_scientific_source": {
+    "tag": "evidence/primary-final-20261027-v2",
+    "commit": "61c32328d9829a69037dca629f727b4863015122",
+    "historical_tracked_pins_matched": 92
+  },
+  "current_files_changed_from_historical_pins": [
+    "ev_runner/run.py",
+    "ev_evaluation/artifacts.py",
+    "ev_evaluation/selection.py",
+    "tools/analyze_charged_matched.py",
+    "tools/controller_calibration.py",
+    "tools/fixed_retention_sweep.py",
+    "tools/matched_development.py",
+    "tools/proxy_calibration.py",
+    "tools/recover_controller.py",
+    "tools/verify_comparison.py"
+  ],
+  "source_identity_policy": "Current verification/metadata hardening is prospective. Original frozen outputs and expected hashes are not rewritten; historical reproduction uses the pinned original source.",
+  "ci": "Lead waiver: NOT RUN, not passed",
+  "peer_review": "Lead waiver; no independent approval claimed",
+  "whitespace_limit": "Full PR-range diff check flags copied original report manuscript/class/style whitespace. Their bytes are deliberately preserved and their source hashes match; this is not a clean full-range check.",
+  "main_promotion": false
+}

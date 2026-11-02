@@ -6,6 +6,15 @@ Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Fo
 
 **Research evidence as of 30 October 2026:** Qyroven's frozen Final has completed all 810 whole units / 11,340 method cells across seven namespaces, including analysis and output/bootstrap audits. Hùng has a separate bounded 360-job Final on three UrbanEV stations. The [joint evidence synthesis](docs/reports/issue23-joint-evidence-synthesis-20261030.md), [full-precision result tables and source hashes](docs/reports/issue23-joint-evidence-synthesis-20261030-v1.json), and [primary Final handoff](docs/reports/issue23-final-complete-handoff-20261029.md) distinguish the completed evidence from pending scientific review, integration, CI and scope decisions. The two implementations and cohorts must not be pooled or ranked by their absolute MAE. A consistent accuracy benefit of confidence-based selection over Fixed Retention or online best-lambda has not been established.
 
+## Report and historical work
+
+The [supervisor report source and supplement](report/README.md) are the canonical
+report artifacts. [Historical PR dispositions](docs/ARCHIVE_INDEX.md) explain which
+older drafts/proposals are archived and which correctness fixes were integrated.
+The frozen scientific source and result identities remain separate from later
+verifier hardening; current checkout bytes are not claimed identical to the frozen
+execution lock.
+
 ## Start here
 
 Read the [Master Research Flow — WHY → HOW → PROVE](docs/MASTER_RESEARCH_FLOW.md) to understand the problem, proposed method, and required evidence.
@@ -36,7 +45,7 @@ ablation aliases, proxy estimators and calibration limits. Its
 [execution handoff](docs/reports/issue22-qyroven.md) distinguishes real Development
 smoke from pending scientific validation and Final configuration approval.
 
-## Implementations in this integration candidate
+## Implementations
 
 - **Primary pipeline:** `ev_models/`, `ev_control/`, `ev_runner/`, `ev_baselines/` and
   `ev_evaluation/`; the contracts linked above describe its interfaces. The report's

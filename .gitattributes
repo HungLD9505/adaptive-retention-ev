@@ -14,3 +14,7 @@ docs/reports/hung-final-scope-gap-20261029-v1/*.csv -text -eol whitespace=cr-at-
 docs/reports/hung-final-scope-gap-20261029-v1/*.json -text -eol whitespace=cr-at-eol
 docs/reports/hung-block7-switch-effect-20261030-v1/*.csv -text -eol whitespace=cr-at-eol
 docs/reports/hung-block7-switch-effect-20261030-v1/*.json -text -eol whitespace=cr-at-eol
+
+# Preserve the exact published report CSV bytes (CRLF is part of their fingerprints).
+report/full-results.csv -text -eol whitespace=cr-at-eol
+report/switch-audits.csv -text -eol whitespace=cr-at-eol

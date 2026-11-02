@@ -13,6 +13,9 @@ if TYPE_CHECKING:
     from ev_runner.final_gate import FinalAccess, FinalInputRun
 
 
+from tools.comparison_completion import verify_complete_run
+
+
 def sha(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as stream:
@@ -30,7 +33,10 @@ class InputSnapshots:
     @staticmethod
     def pins(root: Path) -> dict:
         result = {}
-        for name in ("manifest.json", "entities.jsonl", "labels.jsonl"):
+        names = ["manifest.json", "entities.jsonl", "labels.jsonl"]
+        if (root / "schedule.jsonl").exists():
+            names.append("schedule.jsonl")
+        for name in names:
             s = (root / name).stat()
             result[name] = (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns)
         return result
@@ -51,7 +57,9 @@ class InputSnapshots:
             if manifest_sha != binding["input_manifest_sha256"]:
                 raise ValueError("Input manifest changed")
             manifest = json.loads(raw["manifest.json"])
-            for name in ("entities.jsonl", "labels.jsonl"):
+            for name in ("entities.jsonl", "labels.jsonl", "schedule.jsonl"):
+                if name not in raw:
+                    continue
                 if hashlib.sha256(raw[name]).hexdigest() != manifest["files"][name]["sha256"]:
                     raise ValueError("Input entity/label artifact changed")
             entities = [json.loads(line) for line in raw["entities.jsonl"].splitlines()]
@@ -77,6 +85,8 @@ class InputSnapshots:
             for line in io.BytesIO(source["raw"]["labels.jsonl"]):
                 if line.startswith(prefix):
                     row = json.loads(line)
+                    if row["origin"] in labels:
+                        raise ValueError("Duplicate identified target label day")
                     labels[row["origin"]] = row
             source["targets"][expected] = labels
         return summary, source["targets"][expected]
@@ -160,12 +170,15 @@ def verify_run(
             for line in stream:
                 if line.startswith(prefix):
                     row = json.loads(line)
+                    if row["origin"] in labels:
+                        raise ValueError("Duplicate identified target label day")
                     labels[row["origin"]] = row
     scale = summary["scale"]["energy_scale"]
     retention = report["binding"].get("config", {}).get("state_retention", "all")
     if retention not in {"all", "latest"}:
         raise ValueError("Unknown state-retention policy")
     previous, predictions, scores, file_count, omitted = "0" * 64, {}, [], 0, 0
+    scored_at, skipped_at, forecast_ticks = {}, {}, {}
     decisions, audits, audit_pairs, closed_audits = [], [], {}, set()
     audit_scores = 0
     ticks = sorted(root.glob("tick-*"))
@@ -229,9 +242,17 @@ def verify_run(
                         raise ValueError("Audit summary mean disagrees with recomputed paired gaps")
                     closed_audits.add(key)
                     audits.append(event)
+                if event["event"] == "skip_incomplete_labels":
+                    origin = event["origin"]
+                    if origin in skipped_at:
+                        raise ValueError("Duplicate incomplete-label skip")
+                    skipped_at[origin] = event["as_of"], index
                 if event["event"] != "score":
                     continue
                 origin = event["origin"]
+                if origin in scored_at:
+                    raise ValueError("Duplicate score event")
+                scored_at[origin] = event["as_of"], index
                 issued, checksum = predictions[origin]
                 if event["prediction_sha256"] != checksum:
                     raise ValueError("Score points at a different forecast")
@@ -294,12 +315,26 @@ def verify_run(
             if any(k.startswith("y_") for k in forecast["record"]):
                 raise ValueError("Predictor contains labels")
             predictions[origin] = forecast, sha(tick / "forecasts.json")
+            forecast_ticks[origin] = index
     if previous != report["commit_chain"] or len(scores) != report["scored_days"]:
         raise ValueError("Report count/chain differs")
     if decisions != report.get("decisions", []) or audits != report.get("audits", []):
         raise ValueError("Report decisions/audits differ from authenticated daily events")
     if len(predictions) != report["issued_days"] or len({s[0] for s in scores}) != len(scores):
         raise ValueError("Forecast count/unique score population differs")
+    origin_hashes = {
+        name: hashlib.sha256(
+            json.dumps(sorted(origins), separators=(",", ":")).encode()
+        ).hexdigest()
+        for name, origins in (
+            ("issued_origins_sha256", predictions),
+            ("scored_origins_sha256", (row[0] for row in scores)),
+        )
+    }
+    if report["binding"].get("schema") == "ev-prequential-run-v1":
+        for name, actual in origin_hashes.items():
+            if name in report and report[name] != actual:
+                raise ValueError(f"Reported {name} differs from committed daily origins")
     mae = sum(s[1] for s in scores) / len(scores) if scores else None
     rmse = math.sqrt(sum(s[2] for s in scores) / len(scores)) if scores else None
     for name, value in (("active_mae_kwh", mae), ("active_rmse_kwh", rmse)):
@@ -310,6 +345,20 @@ def verify_run(
             and not math.isclose(value, report[name], rel_tol=1e-9, abs_tol=1e-10)
         ):
             raise ValueError("Aggregate score differs")
+    completion = {}
+    if report["binding"].get("schema") == "ev-prequential-run-v1" or "scheduled_days" in report:
+        completion = verify_complete_run(
+            report,
+            input_root,
+            labels,
+            predictions,
+            forecast_ticks,
+            scored_at,
+            skipped_at,
+            len(ticks),
+            input_snapshots,
+            target_role="final" if final_access is not None else "development",
+        )
     if input_snapshots is not None:
         input_snapshots.check()
     return {
@@ -325,6 +374,8 @@ def verify_run(
         "decision_events_verified": len(decisions),
         "audit_summaries_verified": len(audits),
         "audit_forecast_scores_verified": audit_scores,
+        **origin_hashes,
+        **completion,
     }
 
 
@@ -350,6 +401,8 @@ def main() -> None:
         if Path(name).name != name:
             raise ValueError("Unsafe run identifier")
         local_report = json.loads((args.matrix.parent / name / "run.json").read_text())
+        if local_report.get("binding", {}).get("schema") != "ev-prequential-run-v1":
+            raise ValueError("Matrix run lacks a full identified replay binding")
         if any(run.get(key) != value for key, value in local_report.items()):
             raise ValueError("Run report differs from identified matrix entry")
         input_name = f"{binding['dataset_id']}-{binding['city_id']}-{binding['history_days']}d"

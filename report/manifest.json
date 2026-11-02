@@ -1,0 +1,96 @@
+{
+  "schema": "ev-report-source-v1",
+  "source_bundle_sha256": "6a76ce0cd03b7bde4c3f0c77d0dec373543b8afb007bc7f7152c7c6b636182a5",
+  "source_version": "v8, exported 31 October 2026",
+  "files": [
+    {
+      "path": "fig-all-methods-14-v8.pdf",
+      "sha256": "b26aba81071109261edc9589bdf201520788c6df0544ceab44fb57b9d987cf2b",
+      "bytes": 26792
+    },
+    {
+      "path": "fig-all-methods-28-v8.pdf",
+      "sha256": "ada3454a74ba5690809920df07baff0ad4dd6bcf1abbdce3eb40e79d95a3d8f4",
+      "bytes": 26777
+    },
+    {
+      "path": "fig-all-methods-7-v8.pdf",
+      "sha256": "9013b2730a71b5f54b84273e2ac269997750b531b6de1d6b0cd95b4351a96166",
+      "bytes": 26801
+    },
+    {
+      "path": "fig-comparisons-v8.pdf",
+      "sha256": "eeb12bc50e01bed99ea1365b98d0c268cc67cfd9c5390b9ef6aa0d1234bb3254",
+      "bytes": 24739
+    },
+    {
+      "path": "fig-intervals-v8.pdf",
+      "sha256": "51834eef5b711d2fe34a78a95b81910c06b6a8cd9b03befd7d08fa73c69c8211",
+      "bytes": 28040
+    },
+    {
+      "path": "fig-phase-switching-v8.pdf",
+      "sha256": "e357d8c390542ddd38a834dc8d28881bda72bb0028583b64d72e14c83256cf9d",
+      "bytes": 17603
+    },
+    {
+      "path": "fig-protocol-illustrated-v5.png",
+      "sha256": "d6ca8d0f70cfe23ef702d554a483b701c65c20b99684060c8b6cd35af904741c",
+      "bytes": 1882260
+    },
+    {
+      "path": "fig-station-gaps-heatmap-v8.pdf",
+      "sha256": "21e5b164648df6d71b67ae52810c86d65ddd505d180ed69142f2b9424a581af6",
+      "bytes": 21616
+    },
+    {
+      "path": "retention-manuscript-v8.tex",
+      "sha256": "59e00452e0e33709f86b893bf5854d01709173ab33751a84b7630895c99f8863",
+      "bytes": 49338
+    },
+    {
+      "path": "retention-references-v6.bib",
+      "sha256": "b41ad7508710cecf01afbfa56d11ff2c1092fa9cdf15e22f200441429d928461",
+      "bytes": 4704
+    },
+    {
+      "path": "retention-supplement-v8.tex",
+      "sha256": "7a219f68295be53649ac90c3d805bcf263c5073573deb777c316efb850cb988d",
+      "bytes": 5562
+    },
+    {
+      "path": "sn-jnl.cls",
+      "sha256": "36d0c3273a59d48dc6a9c7b080dfa1ec50dc10229d8751568d1f2e490ffa5ecc",
+      "bytes": 55857
+    },
+    {
+      "path": "sn-mathphys-num.bst",
+      "sha256": "b3a7c7fbcc1e7f9619de634fcea2f5bb7a245818a5942bc576e40ea001633332",
+      "bytes": 64164
+    },
+    {
+      "path": "dataset-label-check.json",
+      "sha256": "2f8eee60a91388df13f3d2a3938e7ccffd69aa6baae87c5324242140ec0bf85c",
+      "bytes": 578
+    },
+    {
+      "path": "verification.json",
+      "sha256": "ad95f14e322ded06cb05ac32798170877a3261bb8ad14ee392e2ecd348f13768",
+      "bytes": 673
+    },
+    {
+      "path": "full-results.csv",
+      "sha256": "94004c2f3a3cb9824f9034960673b3a2a6a1df8b6735b868a44adafb26e354a9",
+      "bytes": 38677
+    },
+    {
+      "path": "switch-audits.csv",
+      "sha256": "a00fb5648c6148a97146e0b82528a1d2c61a7f363a5f310d5b70a3bd59aa38a1",
+      "bytes": 1692
+    }
+  ],
+  "content_changes": "none; selected compile sources/assets and result CSVs copied byte-for-byte",
+  "prior_compiled_main_pages": 14,
+  "prior_compiled_supplement_pages": 6,
+  "fresh_compile_in_this_cleanup": false
+}
