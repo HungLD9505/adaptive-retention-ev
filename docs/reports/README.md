@@ -21,8 +21,12 @@ are preserved at tag `archive/pre-doc-curation-20261102`, commit
 Some old report versions remain because regression tests deliberately read them;
 their presence does not make them current conclusions or accepted Final results.
 
-Retained JSON/CSV bytes are unchanged. Relative Markdown links to archived files
-now point to the pinned original snapshot; only navigation was changed in those
-historical documents. Original Markdown bytes remain available in the archive tag.
-No unfavorable result, null outcome or known limitation was removed from the
-canonical report or relabeled as a success.
+Retained JSON/CSV bytes and the canonical report assets are unchanged.
+Current technical summaries identify implementation scope without assigning work
+to individuals. Historical scheduling, execution coordination and self-reported
+handoff text are available through compatibility links to
+`archive/pre-technical-docs-20261102`, commit
+`c8a2afc007bb6e8f739dec219d43ae06f492139c`.
+Original regression-test snapshots retain their bytes where tests require them;
+they are evidence fixtures rather than current task instructions. Unfavorable/null
+outcomes and validation limitations remain in the report and archived originals.
