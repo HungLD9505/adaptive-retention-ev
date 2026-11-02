@@ -36,6 +36,23 @@ ablation aliases, proxy estimators and calibration limits. Its
 [execution handoff](docs/reports/issue22-qyroven.md) distinguishes real Development
 smoke from pending scientific validation and Final configuration approval.
 
+## Implementations in this integration candidate
+
+- **Primary pipeline:** `ev_models/`, `ev_control/`, `ev_runner/`, `ev_baselines/` and
+  `ev_evaluation/`; the contracts linked above describe its interfaces. The report's
+  primary results belong to its pinned historical execution, not to an untested rerun
+  of this integration branch.
+- **Duc study:** `experiments/member_studies/duc_retention/` contains an isolated
+  fixed-model Development study with separate settings and historical dependencies.
+  It is not an online controller benchmark.
+- **Cyber study:** `experiments/member_studies/cyber_controller/` is preserved as
+  a historical independent implementation with [open correctness findings](
+  experiments/member_studies/cyber_controller/README.md). Its presence and passing
+  unit tests do not accept its replay as availability-correct evidence.
+- **Hung supporting track:** remains in separate PR #72 and its component PRs.
+  It is not yet imported by this first integration stage; no full-repository or
+  four-person integration completion is claimed.
+
 ## Environment setup
 
 Use **Python 3.12**. Do not copy virtual environments or compiled dependencies between machines.
@@ -46,6 +63,7 @@ macOS/Linux:
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
+python -m pip install -r requirements-model.txt
 ```
 
 Windows PowerShell:
@@ -54,6 +72,7 @@ Windows PowerShell:
 py -3.12 -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install -r requirements-dev.txt
+python -m pip install -r requirements-model.txt
 ```
 
 Run before opening a PR:

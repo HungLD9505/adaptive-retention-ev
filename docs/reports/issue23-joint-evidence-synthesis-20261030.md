@@ -2,6 +2,8 @@
 
 As of 30 October 2026. Related issues: [#23](https://github.com/HungLD9505/adaptive-retention-ev/issues/23) and [#10](https://github.com/HungLD9505/adaptive-retention-ev/issues/10). **Draft evidence synthesis for peer review.**
 
+Follow-up: [31 October retention analysis](issue23-retention-posthoc-20261031.md) examines station concentration, seed/phase/context sensitivity, Final old-policy audits, proxy relationships and update costs without new training. It qualifies the favorable MEL/SPO aggregate results and maps the evidence back to Report 1's research questions.
+
 Qyroven has completed the frozen 810-unit, 11,340-cell Final with seven separate namespace analyses and output/bootstrap audits. Hùng has completed a separate, bounded 360-job UrbanEV Final and supplied extensive Development, lineage and sensitivity evidence. Both tracks support reporting useful transfer in selected settings. Neither establishes a general accuracy advantage of the proposed confidence controller over fixed retention or online best-lambda. A full manuscript can be written now if it preserves that finding and the unresolved review boundaries.
 
 This synthesis does not approve either implementation, close an issue, merge code, expand a Final cohort or change a frozen method. Its verification is analysis-output hash and arithmetic reconciliation, distinct from remote checkpoint verification and independent scientific review.
