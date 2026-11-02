@@ -39,11 +39,11 @@ from ev_runner.engine import DAY, Runner  # noqa: E402
 from ev_runner.replay import Labels  # noqa: E402
 from ev_runner.state import Branch, rng_state, state_digest  # noqa: E402
 from ev_runner.store import Store  # noqa: E402
-from experiments.hung_sprint2.controller import ControllerConfig as HControllerConfig  # noqa: E402
-from experiments.hung_sprint2.model import ForecastGRU as HForecastGRU  # noqa: E402
-from experiments.hung_sprint2.model import ModelConfig as HModelConfig  # noqa: E402
-from experiments.hung_sprint2.retention import frozen_source_reference  # noqa: E402
-from experiments.hung_sprint2.runner import LabelArrival, Origin, PrequentialRunner  # noqa: E402
+from experiments.supporting_pipeline.controller import ControllerConfig as HControllerConfig  # noqa: E402
+from experiments.supporting_pipeline.model import ForecastGRU as HForecastGRU  # noqa: E402
+from experiments.supporting_pipeline.model import ModelConfig as HModelConfig  # noqa: E402
+from experiments.supporting_pipeline.retention import frozen_source_reference  # noqa: E402
+from experiments.supporting_pipeline.runner import LabelArrival, Origin, PrequentialRunner  # noqa: E402
 
 
 class CommonReplay:
@@ -191,7 +191,7 @@ def main():
         "q_code_sha256": digest(Q_ROOT / "ev_runner/engine.py"),
         "q_controller_sha256": digest(Q_ROOT / "ev_control/confidence.py"),
         "q_model_sha256": digest(Q_ROOT / "ev_models/model.py"),
-        "h_code_sha256": digest(ROOT / "experiments/hung_sprint2/runner.py"),
+        "h_code_sha256": digest(ROOT / "experiments/supporting_pipeline/runner.py"),
         "fixture_sha256": hashlib.sha256(
             json.dumps(fixture_payload, sort_keys=True, separators=(",", ":")).encode()
         ).hexdigest(),

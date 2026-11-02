@@ -11,9 +11,9 @@ from unittest.mock import patch
 import torch
 
 from ev_runner.replay import Labels
-from experiments.member_studies.cyber_controller.model import EVForecasterGRU
-from experiments.member_studies.cyber_controller.study_data import open_inputs
-from experiments.member_studies.cyber_controller.study_runner import run_target_replay_study
+from experiments.confidence_controller.model import EVForecasterGRU
+from experiments.confidence_controller.study_data import open_inputs
+from experiments.confidence_controller.study_runner import run_target_replay_study
 
 
 class CyberStudyIOTests(unittest.TestCase):
@@ -62,7 +62,7 @@ class CyberStudyIOTests(unittest.TestCase):
 
         self.replay.labels = labels
         with patch(
-            "experiments.member_studies.cyber_controller.study_runner.TargetCandidate.update_on_day",
+            "experiments.confidence_controller.study_runner.TargetCandidate.update_on_day",
             return_value=0.0,
         ) as update:
             result = self.run_study()
@@ -77,7 +77,7 @@ class CyberStudyIOTests(unittest.TestCase):
             "pending", None, clock + timedelta(hours=1)
         )
         with patch(
-            "experiments.member_studies.cyber_controller.study_runner.TargetCandidate.update_on_day"
+            "experiments.confidence_controller.study_runner.TargetCandidate.update_on_day"
         ) as update:
             with self.assertRaisesRegex(ValueError, "not yet available"):
                 self.run_study()
@@ -93,7 +93,7 @@ class CyberStudyIOTests(unittest.TestCase):
         self.path.write_bytes(b"immutable existing evidence")
         self.replay.inputs = object()
         with patch(
-            "experiments.member_studies.cyber_controller.study_runner.load_initial_target_samples"
+            "experiments.confidence_controller.study_runner.load_initial_target_samples"
         ) as initial:
             with self.assertRaises(FileExistsError):
                 self.run_study()

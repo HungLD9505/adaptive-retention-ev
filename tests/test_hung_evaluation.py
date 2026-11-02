@@ -6,14 +6,14 @@ import unittest
 
 import torch
 
-from experiments.hung_sprint2.evaluation import (
+from experiments.supporting_pipeline.evaluation import (
     ErrorTotals,
     aggregate_errors,
     complete_day_error_totals,
     coverage_from_replay,
     evaluate_replay,
 )
-from experiments.hung_sprint2.replay_inputs import ReplaySummary
+from experiments.supporting_pipeline.replay_inputs import ReplaySummary
 from tests.test_hung_runner import complete, origin, runner
 
 

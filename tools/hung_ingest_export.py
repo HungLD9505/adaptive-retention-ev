@@ -10,7 +10,7 @@ import json
 import zlib
 from pathlib import Path
 
-from experiments.hung_sprint2.dispatch_state import atomic_create
+from experiments.supporting_pipeline.dispatch_state import atomic_create
 from tools.hung_kaggle_export_batches import digest
 from tools.hung_portable_results import PLAN_SHA, merge_collections
 from tools.hung_results import file_sha, verified_file

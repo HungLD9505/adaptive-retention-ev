@@ -19,10 +19,10 @@ PREFIX_SHA = "e2474fb22a16e2d877a7ed43db760e1b96dbf0c9ad29446c08d34ce2dcc01cf2"
 SOURCE = ROOT / "docs/reports/hung-final-scope-source-audit-20261030-v4.json"
 SOURCE_SHA = "11b443ea1f0ad2f3b8394d75590aba4c55a7c1138256230707f941c4c6e0e0d6"
 CONTRACT_FILES = {
-    "experiments/hung_sprint2/cli.py": "3ac9bfd8997148f363dc793c7b92c31fd28bdc51a94ec0bc57a1c1f4ae578f1d",
-    "experiments/hung_sprint2/single_baseline_cli.py": "8f29bf141fc7d19aadbb8c75cd0667d11ddcf6de5d70ee72b8ac972e0965d1a8",
-    "experiments/hung_sprint2/replay_inputs.py": "5f609180d94382f1db48bfd3cc9d5b473f923c50894087d28c447e40092f3c03",
-    "experiments/hung_sprint2/dispatch_matched.py": "31fc6c384f5a84a6672b5b9acf798c4f950b15e6fd6996cce3f552f7581a7c97",
+    "experiments/supporting_pipeline/cli.py": "3ac9bfd8997148f363dc793c7b92c31fd28bdc51a94ec0bc57a1c1f4ae578f1d",
+    "experiments/supporting_pipeline/single_baseline_cli.py": "8f29bf141fc7d19aadbb8c75cd0667d11ddcf6de5d70ee72b8ac972e0965d1a8",
+    "experiments/supporting_pipeline/replay_inputs.py": "5f609180d94382f1db48bfd3cc9d5b473f923c50894087d28c447e40092f3c03",
+    "experiments/supporting_pipeline/dispatch_matched.py": "31fc6c384f5a84a6672b5b9acf798c4f950b15e6fd6996cce3f552f7581a7c97",
 }
 
 

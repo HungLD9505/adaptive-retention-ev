@@ -9,8 +9,8 @@ from pathlib import Path
 from unittest import mock
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.final_dispatch import dispatch
-from experiments.hung_sprint2.final_lock import MIN_FREE_BYTES, validate_lock
+from experiments.supporting_pipeline.final_dispatch import dispatch
+from experiments.supporting_pipeline.final_lock import MIN_FREE_BYTES, validate_lock
 from tests.test_hung_final_role_replay import final_fixture
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -184,14 +184,14 @@ class FinalDispatchTests(unittest.TestCase):
 
             with (
                 mock.patch(
-                    "experiments.hung_sprint2.final_dispatch._free_bytes",
+                    "experiments.supporting_pipeline.final_dispatch._free_bytes",
                     return_value=2 * MIN_FREE_BYTES,
                 ),
                 mock.patch(
-                    "experiments.hung_sprint2.final_dispatch._verified_stage",
+                    "experiments.supporting_pipeline.final_dispatch._verified_stage",
                     side_effect=prior_stage,
                 ),
-                mock.patch("experiments.hung_sprint2.final_dispatch._run_job") as execute,
+                mock.patch("experiments.supporting_pipeline.final_dispatch._run_job") as execute,
             ):
                 with self.assertRaisesRegex(ValueError, "Corrupt later stage"):
                     dispatch(context, run=True)
@@ -203,7 +203,7 @@ class FinalDispatchTests(unittest.TestCase):
             lock_path, lock_sha, output, _ = _fixture(Path(directory))
             context = validate_lock(lock_path, lock_sha, check_code=False)
             with mock.patch(
-                "experiments.hung_sprint2.final_dispatch._free_bytes",
+                "experiments.supporting_pipeline.final_dispatch._free_bytes",
                 return_value=2 * MIN_FREE_BYTES,
             ):
                 self.assertEqual(dispatch(context, run=True)["verified"], 1)
@@ -221,13 +221,15 @@ class FinalDispatchTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=ROOT / ".cache") as directory:
             lock_path, lock_sha, output, jobset = _fixture(Path(directory))
             context = validate_lock(lock_path, lock_sha, check_code=False)
-            with mock.patch("experiments.hung_sprint2.final_dispatch._free_bytes", return_value=1):
+            with mock.patch(
+                "experiments.supporting_pipeline.final_dispatch._free_bytes", return_value=1
+            ):
                 with self.assertRaisesRegex(ValueError, "reserve plus locked output budget"):
                     dispatch(context, run=True)
             self.assertFalse(output.exists())
             budget = context["lock"]["resources"]
             with mock.patch(
-                "experiments.hung_sprint2.final_dispatch._free_bytes",
+                "experiments.supporting_pipeline.final_dispatch._free_bytes",
                 return_value=budget["min_free_bytes"] + budget["estimated_output_bytes"] - 1,
             ):
                 with self.assertRaisesRegex(ValueError, "reserve plus locked output budget"):
@@ -244,7 +246,7 @@ class FinalDispatchTests(unittest.TestCase):
             lock_path, lock_sha, output, _ = _fixture(Path(directory))
             context = validate_lock(lock_path, lock_sha, check_code=False)
             with mock.patch(
-                "experiments.hung_sprint2.final_dispatch._free_bytes",
+                "experiments.supporting_pipeline.final_dispatch._free_bytes",
                 return_value=MIN_FREE_BYTES + 1,
             ):
                 with self.assertRaisesRegex(ValueError, "reserve plus locked output budget"):

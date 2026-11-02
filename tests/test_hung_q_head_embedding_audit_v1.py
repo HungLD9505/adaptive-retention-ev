@@ -7,7 +7,7 @@ import unittest
 import torch
 from torch import nn
 
-from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
+from experiments.supporting_pipeline.model import ForecastGRU, ModelConfig
 from tools.hung_q_head_embedding_audit_v1 import embed_hung_head
 
 

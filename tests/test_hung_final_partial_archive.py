@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from experiments.hung_sprint2.final_partial_archive import (
+from experiments.supporting_pipeline.final_partial_archive import (
     create_partial_checkpoint,
     restore_partial_checkpoint,
     verify_partial_checkpoint,

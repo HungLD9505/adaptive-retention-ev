@@ -9,9 +9,9 @@ from unittest import mock
 
 import torch
 
-from experiments.hung_sprint2.checkpoint import load_runner, save_runner
-from experiments.hung_sprint2.controller import Decision
-from experiments.hung_sprint2.runner import LabelArrival, PrequentialRunner
+from experiments.supporting_pipeline.checkpoint import load_runner, save_runner
+from experiments.supporting_pipeline.controller import Decision
+from experiments.supporting_pipeline.runner import LabelArrival, PrequentialRunner
 from tests.test_hung_runner import binding, complete, origin, runner
 
 
@@ -101,7 +101,7 @@ class ResumeTests(unittest.TestCase):
             replay.forecast(origin(day, skipped=True))
             replay.arrive(LabelArrival(f"day-{day}", False))
         forced = Decision(0.1, 0.3, 1, 13, (None, None, 1.0), 0.025, "switch")
-        with mock.patch("experiments.hung_sprint2.runner.decide_block", return_value=forced):
+        with mock.patch("experiments.supporting_pipeline.runner.decide_block", return_value=forced):
             replay.finish_block()
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "audit.pt"

@@ -14,13 +14,13 @@ from unittest.mock import patch
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.cli import ARTIFACTS, _binding, _load_run
-from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.runner import LabelArrival, Origin
-from experiments.hung_sprint2.single_baseline import SingleBaselineRunner
-from experiments.hung_sprint2.single_baseline_cli import _initialize_target_only, _replay
-from experiments.hung_sprint2.single_forecast_journal import verify_forecast_journal
-from experiments.hung_sprint2.training import save_checkpoint
+from experiments.supporting_pipeline.cli import ARTIFACTS, _binding, _load_run
+from experiments.supporting_pipeline.model import ForecastGRU, ModelConfig
+from experiments.supporting_pipeline.runner import LabelArrival, Origin
+from experiments.supporting_pipeline.single_baseline import SingleBaselineRunner
+from experiments.supporting_pipeline.single_baseline_cli import _initialize_target_only, _replay
+from experiments.supporting_pipeline.single_forecast_journal import verify_forecast_journal
+from experiments.supporting_pipeline.training import save_checkpoint
 from tests import test_hung_replay_cli as replay_fixture
 from tests.test_hung_replay_inputs import START, input_run
 
@@ -368,7 +368,7 @@ class SingleBaselineTests(unittest.TestCase):
                     args.source_input_run = run
                     args.source_manifest_sha256 = digest
                     args.source_checkpoint = source_checkpoint(root, run, digest)
-                from experiments.hung_sprint2 import replay_inputs
+                from experiments.supporting_pipeline import replay_inputs
 
                 observed = []
 
@@ -495,7 +495,7 @@ class SingleBaselineTests(unittest.TestCase):
                     args.source_input_run = run
                     args.source_manifest_sha256 = digest
                     args.source_checkpoint = source_checkpoint(root, run, digest)
-                from experiments.hung_sprint2 import replay_inputs
+                from experiments.supporting_pipeline import replay_inputs
 
                 call_count = 0
                 original = replay_inputs._label_record

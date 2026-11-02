@@ -11,10 +11,10 @@ from pathlib import Path
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.cli import ARTIFACTS, _binding, _replay, _target
-from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.replay_inputs import replay_target
-from experiments.hung_sprint2.training import save_checkpoint
+from experiments.supporting_pipeline.cli import ARTIFACTS, _binding, _replay, _target
+from experiments.supporting_pipeline.model import ForecastGRU, ModelConfig
+from experiments.supporting_pipeline.replay_inputs import replay_target
+from experiments.supporting_pipeline.training import save_checkpoint
 from tests.test_hung_replay_inputs import START, bound_runner, input_run
 
 ROOT = Path(__file__).resolve().parents[1]

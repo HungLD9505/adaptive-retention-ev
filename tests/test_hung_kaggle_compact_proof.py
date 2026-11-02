@@ -141,7 +141,7 @@ class CompactProofTests(unittest.TestCase):
                     "--method",
                     "target_only",
                 ]
-            module = "experiments.hung_sprint2.single_baseline_cli"
+            module = "experiments.supporting_pipeline.single_baseline_cli"
             log = (
                 encoded(
                     {

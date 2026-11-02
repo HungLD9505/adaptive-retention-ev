@@ -1,6 +1,6 @@
 # Explicit matched Development dispatcher
 
-`python -m experiments.hung_sprint2.dispatch_matched` accepts a JSON plan and
+`python -m experiments.supporting_pipeline.dispatch_matched` accepts a JSON plan and
 prints the allowlisted stage commands by default. It executes only with
 `--execute`. It does not choose a cohort, method, lambda, proxy mapping, or
 result. The plan must be reviewed and hashed before execution. The dispatcher
@@ -109,7 +109,7 @@ Prepare a complete partition without training:
 python -m tools.hung_e2e_gate shards --plan $plan --plan-sha256 $sha `
   --jobs-per-shard 20 --output .cache/shards-v1.json
 $shardsSha = (Get-FileHash .cache/shards-v1.json -Algorithm SHA256).Hash.ToLowerInvariant()
-python -m experiments.hung_sprint2.dispatch_matched --plan $plan --plan-sha256 $sha `
+python -m experiments.supporting_pipeline.dispatch_matched --plan $plan --plan-sha256 $sha `
   --shards .cache/shards-v1.json --shards-sha256 $shardsSha --shard-id shard_0000
 ```
 
@@ -141,10 +141,10 @@ $env:TEMP = (Resolve-Path .).Path
 $env:TMP = $env:TEMP
 $plan = '.cache/matched-plan-v1.json'
 $sha = (Get-FileHash $plan -Algorithm SHA256).Hash.ToLowerInvariant()
-python -m experiments.hung_sprint2.dispatch_matched --plan $plan --plan-sha256 $sha
+python -m experiments.supporting_pipeline.dispatch_matched --plan $plan --plan-sha256 $sha
 # Review every printed command, artifact identity, method and output root.
 # A separate explicit decision is required before GPU execution:
-python -m experiments.hung_sprint2.dispatch_matched --plan $plan --plan-sha256 $sha --execute
+python -m experiments.supporting_pipeline.dispatch_matched --plan $plan --plan-sha256 $sha --execute
 ```
 
 The dry-run performs no training and writes no outputs. The `--execute`

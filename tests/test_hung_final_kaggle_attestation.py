@@ -11,7 +11,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest import mock
 
-from experiments.hung_sprint2.final_archive import require
+from experiments.supporting_pipeline.final_archive import require
 from tools import hung_final_kaggle_attestation as att
 from tools.hung_final_lock_preflight import _attestation
 

@@ -26,13 +26,13 @@ EXPECTED = {
 
 
 def compare(root: Path) -> dict:
-    observed = {name: digest(root / "experiments/hung_sprint2" / name) for name in EXPECTED}
+    observed = {name: digest(root / "experiments/supporting_pipeline" / name) for name in EXPECTED}
     if observed != EXPECTED:
         raise ValueError("Foreign component bytes differ from the inspected pinned revision")
     sys.path.insert(0, str(root.resolve()))
-    hm = importlib.import_module("experiments.hung_sprint2.model")
-    hr = importlib.import_module("experiments.hung_sprint2.retention")
-    hc = importlib.import_module("experiments.hung_sprint2.controller")
+    hm = importlib.import_module("experiments.supporting_pipeline.model")
+    hr = importlib.import_module("experiments.supporting_pipeline.retention")
+    hc = importlib.import_module("experiments.supporting_pipeline.controller")
     torch.set_num_threads(1)
     torch.manual_seed(123)
     own = ForecastGRU(ModelConfig(64)).eval()

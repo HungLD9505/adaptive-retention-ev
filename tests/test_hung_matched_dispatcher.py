@@ -10,7 +10,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2 import dispatch_matched as dispatch
+from experiments.supporting_pipeline import dispatch_matched as dispatch
 
 
 class MatchedDispatcherTests(unittest.TestCase):
@@ -52,7 +52,9 @@ class MatchedDispatcherTests(unittest.TestCase):
             ),
             encoding="utf-8",
         )
-        self.config_path = dispatch.ROOT / "experiments/hung_sprint2/development_config_v1.json"
+        self.config_path = (
+            dispatch.ROOT / "experiments/supporting_pipeline/development_config_v1.json"
+        )
         self.plan_path = self.root / "plan.json"
         self.plan = {
             "schema": "hung-matched-development-dispatch-v1",
@@ -101,7 +103,9 @@ class MatchedDispatcherTests(unittest.TestCase):
         )
         self.single_code = {
             "commit": "test-commit",
-            "executed_sources": {"experiments/hung_sprint2/single_baseline_cli.py": "fixture-sha"},
+            "executed_sources": {
+                "experiments/supporting_pipeline/single_baseline_cli.py": "fixture-sha"
+            },
         }
         self.single_code_patch = patch.object(
             dispatch, "_single_code_identity", return_value=self.single_code
@@ -143,7 +147,7 @@ class MatchedDispatcherTests(unittest.TestCase):
         second = json.loads(printed.call_args_list[1].args[0])
         self.assertEqual(
             first["argv"][2:4],
-            ["experiments.hung_sprint2.single_baseline_cli", "replay-development"],
+            ["experiments.supporting_pipeline.single_baseline_cli", "replay-development"],
         )
         self.assertIn("runner.pt", second["argv"][second["argv"].index("--resume-checkpoint") + 1])
         self.assertFalse((self.root / "new-output").exists())
@@ -221,7 +225,7 @@ class MatchedDispatcherTests(unittest.TestCase):
         }
         stages = dispatch.build_stages(job, cell, config, self.root / "job")
         self.assertEqual([stage[0] for stage in stages], ["target", "replay-42", "replay-90"])
-        self.assertEqual(stages[0][1], "experiments.hung_sprint2.cli")
+        self.assertEqual(stages[0][1], "experiments.supporting_pipeline.cli")
         self.assertIn(
             "target_checkpoint.pt", stages[1][2][stages[1][2].index("--target-checkpoint") + 1]
         )
@@ -420,7 +424,9 @@ class MatchedDispatcherTests(unittest.TestCase):
             calls += 1
             return {
                 "commit": "test-commit",
-                "worktree_status": [] if calls < 4 else [" M experiments/hung_sprint2/model.py"],
+                "worktree_status": []
+                if calls < 4
+                else [" M experiments/supporting_pipeline/model.py"],
                 "executed_sources": {},
             }
 

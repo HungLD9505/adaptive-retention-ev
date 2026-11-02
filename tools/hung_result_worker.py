@@ -8,7 +8,7 @@ import time
 import zipfile
 from pathlib import Path
 
-from experiments.hung_sprint2.dispatch_state import atomic_create, exclusive_lock
+from experiments.supporting_pipeline.dispatch_state import atomic_create, exclusive_lock
 from tools.hung_result_report import publish_report
 from tools.hung_results import aggregate_results, build_catalog, file_sha, verified_file
 

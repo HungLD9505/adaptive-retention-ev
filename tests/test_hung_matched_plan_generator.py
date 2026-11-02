@@ -15,8 +15,8 @@ from unittest.mock import patch
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2 import generate_matched_plan as generator
-from experiments.hung_sprint2 import matched_lambda_provenance as lambda_provenance
+from experiments.supporting_pipeline import generate_matched_plan as generator
+from experiments.supporting_pipeline import matched_lambda_provenance as lambda_provenance
 
 
 class PlanGeneratorTests(unittest.TestCase):
@@ -30,7 +30,8 @@ class PlanGeneratorTests(unittest.TestCase):
         self.input_base.mkdir()
         base = json.loads(
             (
-                generator.dispatch.ROOT / "experiments/hung_sprint2/development_config_v1.json"
+                generator.dispatch.ROOT
+                / "experiments/supporting_pipeline/development_config_v1.json"
             ).read_text(encoding="utf-8")
         )
         self.proxy_profile_path = generator.dispatch.ROOT / "configs/hung-proxy-calibration-v1.json"
@@ -491,7 +492,7 @@ class PlanGeneratorTests(unittest.TestCase):
         self.drift_patch.start()
         self.capacity_patch.start()
         self.proxy_select_patch = patch(
-            "experiments.hung_sprint2.matched_proxy_provenance.proxy_select",
+            "experiments.supporting_pipeline.matched_proxy_provenance.proxy_select",
             return_value=self.proxy_verified,
         )
         self.proxy_select_patch.start()

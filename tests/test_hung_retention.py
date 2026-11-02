@@ -6,13 +6,13 @@ import unittest
 
 import torch
 
-from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.retention import (
+from experiments.supporting_pipeline.model import ForecastGRU, ModelConfig
+from experiments.supporting_pipeline.retention import (
     frozen_source_reference,
     retention_loss,
     source_latent_scale,
 )
-from experiments.hung_sprint2.training import initialize_target, target_step
+from experiments.supporting_pipeline.training import initialize_target, target_step
 
 
 class RetentionTests(unittest.TestCase):

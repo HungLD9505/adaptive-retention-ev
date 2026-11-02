@@ -24,7 +24,7 @@ class RecoveryTests(unittest.TestCase):
         )
         notebook = json.loads(
             (
-                root / "experiments/hung_sprint2/kaggle_development_cpu_coordinator_v2.ipynb"
+                root / "experiments/supporting_pipeline/kaggle_development_cpu_coordinator_v2.ipynb"
             ).read_text(encoding="utf-8")
         )
         outer = ast.parse("".join(notebook["cells"][1]["source"]))
