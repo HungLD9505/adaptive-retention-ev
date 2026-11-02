@@ -56,6 +56,9 @@ class FinalUnitBoundaryTests(unittest.TestCase):
             report["method"] = {"proxy_thresholds": (0.1, 0.5), "proxy_order": (0, 1, 2)}
             (run / "run.json").write_text(json.dumps(report))
             daily = verify_run(run, fixture.input_root, final_access=fixture.access)
+            self.assertEqual(daily["scheduled_days"], report["scheduled_days"])
+            self.assertEqual(daily["schedule_created_days"], report["issued_days"])
+            self.assertEqual(daily["complete_labels_scored"], report["scored_days"])
             state = verify_state(run, report)
             path = fixture.root / "export.zip"
             with zipfile.ZipFile(path, "x") as archive:

@@ -27,7 +27,7 @@ flowchart TB
 
 ## Cleanup after completion
 
-- After a PR merges, confirm its commits/work are preserved on the target branch, switch off the working branch, then delete it remotely and locally. Keep `main`, `dev`, and `master`. Do not delete unmerged work or a branch supporting an active PR.
+- After a PR merges, confirm its commits/work are preserved on the target branch, switch off the working branch, then delete it remotely and locally. Keep `main`, `dev`, and `master`. Do not delete unmerged work or a branch supporting an active PR. Check both the head and base branch of every open PR, not only its head; deleting a base can auto-close its dependent PRs. Preserve intentionally superseded unique work under an identified archive tag before removing its working branch.
 - Close the issue when all acceptance criteria are met, linking the merged PR/results. If it spans multiple PRs, keep it open until the remaining work is complete. Check closure manually for PRs targeting `dev`.
 - Merged PRs are already closed. Close abandoned or superseded PRs with a reason and replacement link where applicable; preserve their review history.
 - The person or agent completing the handoff performs this cleanup without another confirmation. This does not authorize an agent to merge a PR. GitHub automatic head-branch deletion is currently disabled (`delete_branch_on_merge=false`); enabling it requires repository admin access. Until then, perform the cleanup explicitly.

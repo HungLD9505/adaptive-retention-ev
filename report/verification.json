@@ -1,0 +1,18 @@
+{
+  "manuscript": {
+    "pages": 14,
+    "sha256": "8ea1aaf338876b1293b838e4561acdc119e13b8e203b5fa0e6106e582cfd11bb",
+    "compiler_errors": 0,
+    "compiler_warnings": 0,
+    "all_pages_rendered": true
+  },
+  "supplement": {
+    "pages": 6,
+    "sha256": "bd3bfbc68075ba05eee5404a0f19c178a0ad76c2c612cf5c3ae9f3d9865f008f",
+    "compiler_errors": 0,
+    "compiler_warnings": 0,
+    "all_pages_rendered": true
+  },
+  "seven_old_new_result_figure_pairs": "Extracted numeric text identical; dataset labels expanded only.",
+  "visual_review": "Both complete contact sheets and detailed primary/supplement result pages checked; full dataset labels readable without clipping."
+}
