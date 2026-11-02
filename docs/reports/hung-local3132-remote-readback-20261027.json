@@ -1,0 +1,41 @@
+{
+  "scope": "development_only",
+  "dataset_url": "https://www.kaggle.com/datasets/hungluongduc/hung-local3132-review-capsule-20261027-v1/versions/1",
+  "dataset_visibility": "Private",
+  "dataset_files": 3,
+  "cpu_readback_url": "https://www.kaggle.com/code/hungluongduc/hung-local3132-cpu-readback-20261027-v1?scriptVersionId=362667223",
+  "cpu_notebook_wall_seconds": 36.3,
+  "proof": {
+    "schema": "hung-independent-capsule-readback-v1",
+    "scope": "development_only",
+    "passed": true,
+    "capsule_sha256": "78449c917ebea4d719042c5849b095bf73f44a1f519cce1bbe86e0397df69675",
+    "main_runs": 69,
+    "new_local_jobs": 40,
+    "scored_runs": 59,
+    "crc": "passed",
+    "review": "Independent scientific acceptance still pending",
+    "elapsed_seconds": 19.143432641000004,
+    "python": "3.13.15",
+    "torch": "2.11.0+cpu",
+    "device": "cpu",
+    "helper_sha256": "78c4bd421ec0971023dca141ed8e81b22dbc97fe5c5855cd2511bfb30d1761be",
+    "purpose": "Independent private Dataset readback and saved Development forecast scoring; no training or Final"
+  },
+  "log_sha256": "e9e10a569507be611bb35b788165809bb084c096c5b44ed1926e7546eed574b8",
+  "archive_bytes": 237036596,
+  "newly_remote_verified_jobs": 40,
+  "main_anchors_reused_once": 69,
+  "progress_snapshot": {
+    "planned": 782,
+    "completed": 242,
+    "remote_readback": 242,
+    "outside_completed_certification": 540
+  },
+  "local_metric_snapshot": {
+    "runs": 211,
+    "scorable_runs": 112,
+    "zero_scored_runs": 99
+  },
+  "peer_acceptance": "pending; CPU execution is not independent scientific approval"
+}

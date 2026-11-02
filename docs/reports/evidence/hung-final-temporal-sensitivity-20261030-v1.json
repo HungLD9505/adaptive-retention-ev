@@ -1,0 +1,106 @@
+{
+  "ledger_sha256": "0dca10975d5431ac199909ccb5bf69298040d6e4a21d3424bd15986a26cfa0a8",
+  "lock_sha256": "e5e8fe1cb5636e508b3edbcedbbd00a72d9d8230041bf383eeba3d1133883e5e",
+  "results": [
+    {
+      "budget_days": 7,
+      "paired_mae_gain_kwh": 5.540221999951638,
+      "scored_days_by_station": {
+        "2118": 89,
+        "2534": 90,
+        "2579": 90
+      },
+      "seeds_per_station": 3,
+      "sensitivity_intervals": [
+        {
+          "block_days": 7,
+          "ci95_high_kwh": 13.191761364403186,
+          "ci95_low_kwh": 0.9953194092534507,
+          "draws": 5000,
+          "rng_seed": 20261737
+        },
+        {
+          "block_days": 14,
+          "ci95_high_kwh": 13.632210206083093,
+          "ci95_low_kwh": 0.9389073252813614,
+          "draws": 5000,
+          "rng_seed": 20261744
+        }
+      ],
+      "station_mae_gain_kwh": {
+        "2118": 1.0569380043252488,
+        "2534": 1.7014870764268162,
+        "2579": 13.86224091910285
+      },
+      "stations": 3
+    },
+    {
+      "budget_days": 14,
+      "paired_mae_gain_kwh": 5.000362174268176,
+      "scored_days_by_station": {
+        "2118": 89,
+        "2534": 90,
+        "2579": 90
+      },
+      "seeds_per_station": 3,
+      "sensitivity_intervals": [
+        {
+          "block_days": 7,
+          "ci95_high_kwh": 12.150548091172443,
+          "ci95_low_kwh": 0.8921905381913694,
+          "draws": 5000,
+          "rng_seed": 20262437
+        },
+        {
+          "block_days": 14,
+          "ci95_high_kwh": 11.998583226200743,
+          "ci95_low_kwh": 0.8383892163160945,
+          "draws": 5000,
+          "rng_seed": 20262444
+        }
+      ],
+      "station_mae_gain_kwh": {
+        "2118": 0.9810941910931423,
+        "2534": 1.5880563839562023,
+        "2579": 12.431935947755184
+      },
+      "stations": 3
+    },
+    {
+      "budget_days": 28,
+      "paired_mae_gain_kwh": 4.485783074636373,
+      "scored_days_by_station": {
+        "2118": 89,
+        "2534": 90,
+        "2579": 90
+      },
+      "seeds_per_station": 3,
+      "sensitivity_intervals": [
+        {
+          "block_days": 7,
+          "ci95_high_kwh": 11.033310619133454,
+          "ci95_low_kwh": 0.5919030853871334,
+          "draws": 5000,
+          "rng_seed": 20263837
+        },
+        {
+          "block_days": 14,
+          "ci95_high_kwh": 11.031933310219438,
+          "ci95_low_kwh": 0.5344822062583358,
+          "draws": 5000,
+          "rng_seed": 20263844
+        }
+      ],
+      "station_mae_gain_kwh": {
+        "2118": 0.5230614044656506,
+        "2534": 1.4899290790908748,
+        "2579": 11.444358740352595
+      },
+      "stations": 3
+    }
+  ],
+  "schema": "hung-final-temporal-sensitivity-v1",
+  "scope": "post hoc two-level station and temporal-block bootstrap; descriptive only",
+  "scores_sha256": "9e09ae4f72b13c03ed029deb338301753ae377c15cbbfa7414433c5538cba73a",
+  "station_table_sha256": "f01def5b1074cddf2bfda8fba98b9d7f5609dcea9510c3314ffe2645b0535c17"
+}

@@ -1,0 +1,373 @@
+# Issue23 — Final lock readiness (scope selected; lock pending)
+
+## Superseding lead authorization — October 27, 2026
+
+The lead explicitly authorized real bounded Final execution without waiting for
+peer review. The [tracked exception](issue23-final-lead-exception-20261027.json)
+contains the direct instruction, originating chat and authenticated Issue23 top
+section fingerprint. This supersedes earlier wait-for-review/lead-execution gates
+below for this one bounded E2E run; it is **not independent peer approval**.
+Technical integrity, exact frozen methods/cohort/inputs/Source/analysis/runtime,
+package/storage/resume checks, bounded dispatch, external readback and30-unit
+reserve remain mandatory. No purchase, tuning/reselection, merge/main promotion
+or issue closure is authorized. Historical candidates remain unchanged. Execution
+uses a new lock with explicit `authorization_policy.mode=explicit_lead_exception`;
+the ordinary peer-review path stays intact. No real Final values are opened until
+that tracked lock and technical preflight are complete.
+
+
+## Current lead decision — bounded same-ID scope, October 27, 2026
+
+The lead superseded the all-ready scope below with **30 UrbanEV stations and
+10 sites in each of six CHARGED cities**, using the same namespace/entity IDs
+across 7/14/28-day budgets, seeds42/43/44, all14 unique variants and90-day replay:
+90 namespace/entity IDs,270 pairs,11,340 cells. This is a resource choice, not a
+statistically established sample size. The all-ready config and historical
+evidence remain unchanged. Further expansion needs a separate decision.
+
+Before executing selection, the deterministic rule is declared in
+`tools/final_cohort.py`: intersect ready Final metadata across all three budgets
+within each namespace. Reserve one hash-minimum entity with zero initially
+trainable examples in any budget, when available; fill the remaining quota with
+hash-minimum entities positive in every budget. Rank SHA-256 of compact JSON
+`["issue23-bounded-final-same-ids-v1", [dataset,city], entity_id]`.
+Fail on insufficient quota; never replace IDs using Final values or coverage.
+This intentionally represents empty-prefix cases, with unequal stratum inclusion;
+unweighted results describe this bounded cohort, not a population estimator.
+No future activity, forecasts, label values, errors or coordinate exclusions enter
+selection. Static coordinate/Source overlap is audited after selection, without
+reselection. Metadata readiness depends on allowed prefix scaling, not future Y.
+
+The complete Development handoff now supersedes the historical incomplete queues
+below:231 units/3,234 cells and seven reports are externally verified. Lead
+scientific acceptance remains pending. Final execution is still prohibited until
+independent immutable lock approval, reviewed Final-capable interfaces and
+measured resource acceptance. Both Development GPUs are released; monitoring was
+deleted. CI billing is blocked, not passed. No purchase, merge or Final execution
+is authorized by the scope decision. UrbanEV remains primary; CHARGED reports
+remain city-wise supplementary and SZH separately qualified for overlap.
+
+Concrete bounded membership is now in
+[`final-bounded-cohort-v1.json`](../../configs/issue23/final-bounded-cohort-v1.json).
+Its current lock candidate is
+[`final-execution-lock-candidate-v3.json`](../../configs/issue23/final-execution-lock-candidate-v3.json).
+The [bounded preparation handoff](issue23-final-bounded-preparation.md) records exact
+IDs, Source reuse, coordinate risks, synthetic E2E verification and remaining
+human/runtime gates. Current v3 contains the observed synthetic T4 profile; historical v2 retains its
+null profile. Neither supplies human Development/capacity/lock acceptance or
+authorizes Final execution. The historical all-ready config
+and evidence were not overwritten.
+
+---
+
+The following scope decision and preparation records are historical and are
+superseded by the bounded decision above; their fingerprints are preserved.
+
+## Latest lead decision — October27,2026
+
+The lead explicitly selected **all3,510 ready Final entity-budget pairs** and
+accepted that additional compute/time may be required. At14 frozen variants and
+seeds42/43/44 this is147,420 target replay cells, preserving UrbanEV and all6
+separate CHARGED cities and7/14/28-day budgets. The66-pair proposal is historical
+and is **not the selected scope**. This decision supersedes earlier pending-scope
+statements below; historical observations remain unchanged.
+
+This is scope authorization only. Final execution remains blocked until the full
+code/config/input/Source/cohort/analysis identities are locked and independently
+approved, Final-capable execution/verification passes, Development is accepted,
+and actual compute/storage capacity is measured. No Final values were opened and
+no Final execution was initiated by this decision. Acceptance of additional
+compute/time is not a paid top-up authorization, a guaranteed100-unit budget or
+a new promised delivery date. Maintain the sole sprint schedule and report any
+delivery risk explicitly. Do not shrink scope, drop seeds/methods/cities or remove
+zero/missing-score cases in order to fit compute.
+
+The existing outcome-blind metadata inventory is SHA-256
+`8a6d71cb881c14e86cf3315d1561076e7273e218adba960f2fc633ddfb023b07`.
+It contains the3,510 IDs/budget assignments across21 accepted input manifests;
+its count is a metadata-ready population, not proof every Final day has a
+scorable label. The exact [all-ready cohort](../../configs/issue23/final-all-ready-cohort.json)
+is now prepared with SHA-256
+`88e9203c552cc4b4404f54c4be08e4fd5ab8a845cae8b0bc62805e18f6586734`.
+All21 current accepted input profiles and exact ID lists match the prior pinned
+inventory; no Final value records were decoded. It retains35 no-initial-trainable
+pairs. Immutable execution lock artifacts and independent approval remain pending.
+Missing scores remain null, with explicit coverage denominators.
+The [input producer](../../ev_inputs/loader.py) sets entity readiness from valid,
+available prefix energy needed to fit its scaler; absence of that prefix produces
+`undefined_scale`. Ready membership does not require future labels or select
+stations by future replay accuracy/coverage. The all-ready selection does not use
+future forecast counts, activity, zero fraction or errors.
+
+
+A full-population static-coordinate audit now flags7 entity-budget pairs with
+exact numeric coordinates shared with a prefix-trainable Source ID: UrbanEV7d
+1768→1769;14d1768→1769 and2155→2154;28d1132→1131,1768→1769,
+1790→1791 and2155→2154. All3,510 selected pairs remain unchanged. Equal
+coordinates indicate a physical-independence risk, not proof of identical traces
+or leakage; nonmatches do not establish geographic independence. No distance
+threshold, energy/activity column or outcome was used. This expands the historical
+66-pair audit below and is part of the required independent lock review.
+
+The [scope/audit evidence](issue23-final-scope-evidence.json) links the35,734-byte
+[reproducible metadata bundle](https://drive.google.com/file/d/1pNc_J41uKVFoSxBeWWWr1Am-i1IBQHSK/view),
+SHA-256 `783bcf8aec0845297aef868f0701aa1116bdd01d17b4cca7bacf857250da34e2`.
+Fresh Drive readback verified bytes/hash/ZIP-CRC and all9 manifest members.
+The scripts, prior inventory, exact cohort, metadata-file fingerprints and logs
+are included. The cohort configuration records experiment membership IDs only.
+
+
+---
+
+The sections below retain the preparation history before this scope decision.
+
+Executed October27,2026 ICT. This handoff inventories the remaining lock gate;
+it is not a competing schedule, a chosen Final cohort or permission to evaluate.
+Task tracking stays in #23 and the sole schedule stays in `SPRINT_PLAN.md`.
+
+## Frozen Development choices available for review
+
+The identified primary Development summary SHA-256 is
+`ecc8b1854128f84ab13070be4ab38d6179d7f15c331f8cf2caf72604576157b6`.
+It selects Source duration10 epochs; initial adaptation3 epochs; online1 epoch;
+batch64, learning rate0.001 and retention epsilon0.001. The controller uses
+levels0/0.1/1, starts at0.1,14-day blocks, Bmin7, delta0, alpha0.05, three-day
+bootstrap segments and2,000 draws. Seeds42/43/44 are paired replications, not
+winner candidates. Fixed Retention uses lambda1. The frozen proxy recipe indices
+are Source-error1, Uncertainty1, Drift3 and Parameter Retention2. Fourteen unique
+variants retain all required main/baseline/ablation categories through explicit
+Without Confidence→Online Best and Fixed lambda→Fixed Retention aliases.
+
+These are existing Development selections, not independently approved Final
+settings. Full configs, estimator mappings, analysis/context definitions, actual
+Source identities and all limitations must be reviewed together, not inferred
+from these abbreviated numbers. No new configuration search is authorized by
+this handoff. Current point estimates do not establish Adaptive superiority.
+
+## Metadata-only population inventory
+
+The actual accepted21 input manifests/entity summaries were authenticated using
+`InputRun`. No Final forecast, training or label JSONL records were decoded;
+training files were hashed as opaque bytes. The full ID/manifest/clock/Source-
+population inventory remains outside Git on
+[Drive](https://drive.google.com/file/d/1-imvDibNds7asZguLDvnEI7fQytHNu3W/view),
+SHA-256 `8a6d71cb881c14e86cf3315d1561076e7273e218adba960f2fc633ddfb023b07`.
+The independently rerunnable inventory script is retained with that local run.
+
+| Namespace | Ready Final IDs,7d | 14d | 28d |
+|---|---:|---:|---:|
+| UrbanEV SZH |340|341|345|
+| CHARGED AMS |478|478|478|
+| CHARGED JHB |13|13|13|
+| CHARGED LOA |41|41|41|
+| CHARGED MEL |15|15|15|
+| CHARGED SPO |10|10|10|
+| CHARGED SZH |271|271|271|
+
+There are3,510 ready entity-budget pairs, including35 with no initially trainable
+prefix samples. All-ready coverage at three seeds and14 unique variants would
+require147,420 target replays, plus the identified Source models and complete
+verification/storage/analysis. This is a population count, not a committed cohort,
+a runtime prediction or a reduced experimental design. Budgets can contain
+different IDs. No future activity/outcome was used to choose a favorable subset.
+Any bounded Final cohort requires an explicit outcome-blind declaration and review;
+it cannot be silently substituted to satisfy a compute deadline.
+
+## Gates still open
+
+- Complete/reverify the primary artifact recovery and six-city Development scope.
+  SPO/MEL raw-runtime access remains unresolved; their cached logs are not a
+  portable full handoff. Other city execution remains explicit in #23.
+- Preserve runtime fairness: after Colab termination, the authenticated new-runtime
+  plan retains16 complete old units (224 selected cells) and replays all14 methods
+  for53 incomplete units (742 cells:212 selected-proxy plus530 matched). This
+  includes documented repeats; it is not742 lost outputs. Choices/weights stay
+  frozen. Do not mix environments within paired station/budget/seed units. See the [exact replay/queue evidence](issue23-primary-recovery-plan-evidence.json).
+- Declare the actual Final cohort, source checkpoint identities, measured total
+  compute/storage envelope, complete configs and analysis/profile hashes.
+- Implement/review Final-capable execution and independent verification under a
+  fail-closed lock/approval gate. Existing Development-only readers/verifiers
+  must not be silently relabeled or bypassed. No Final execution was attempted.
+- Obtain independent immutable code/config/data/cohort/analysis approval before
+  opening Final for the locked algorithm. A hash or an author's prepared JSON
+  is not peer approval. Correctness changes after lock require reviewed relock
+  and affected reruns, not selection of favorable old/new results.
+- Verify complete outputs, independent reproduction and #10 report handoff before
+  declaring Sprint3 done. Negative/null findings are valid; missing required
+  evidence is not completion.
+
+## Outcome-blind cohort candidate for later review — not selected
+
+The all-ready147,420-cell inventory has no accepted compute envelope. A concrete
+bounded alternative can be prepared for review using the existing Development
+cohort rule applied to Final entity metadata: for each separate namespace and
+7/14/28-day budget, sort ready positive-prefix IDs by initial_trainable and an
+identity hash; partition rank positions into three equal-count bins; take the
+hash-minimum ID in each nonempty bin; add one hash-minimum no-initial-trainable
+ID when present. Hash payload is the JSON array
+`["final-three-prefix-rank-bins-plus-one-empty-proposal-v1", manifest_sha256,
+[dataset,city], budget, entity_id]` with compact separators. This exact rule is
+recorded before executing the candidate selection. It does not inspect any
+forecast/label records, energy values, post-deployment activity, missing-label
+counts, errors, zero fractions, or outcomes. Prefix counts/readiness/IDs only.
+All methods/ablations, three seeds, budgets and seven separate namespaces remain
+in the candidate; CHARGED SZH stays separately reported. Empty target prefixes
+retain their existing initialization policy. No city is silently removed.
+
+This is a proposal, not an amendment or permission to run Final. The actual IDs,
+manifest/Source-population identities and cell count will be exported for review.
+A small cohort weakens station-level inference and cannot be called a population
+validation. Its limitations must be accepted explicitly or a larger/all-ready
+cohort selected by the lead/reviewers. No Final evaluation may start merely
+because this candidate is feasible or its JSON has a checksum. Complete
+Development evidence, actual Source/config/code/analysis identities, Final-capable
+interfaces and independent lock approval remain required. This handoff does not
+change the sole sprint schedule or create a competing execution plan.
+
+The rule-predeclared metadata-only candidate was executed after commita825ff4.
+It contains66 entity-budget pairs and2,772 three-seed/fourteen-variant cells:
+UrbanEV4 IDs per budget (three positive-prefix and one empty-prefix); every
+CHARGED city3 per budget. All seven namespaces and three budgets are represented.
+The [candidate, script and log](https://drive.google.com/file/d/1EbuB8A2iB1ZMhTgHzgQC2cYjGFvZtKJU/view)
+ZIP is9,349 bytes, SHA-256
+`1fe4665d998e9e8d89275712512046c086f02aab98b5dc6bdf30f02ffca7cbb0`;
+actual fresh Drive readback, ZIP CRC and every manifest member hash passed.
+Candidate JSON SHA-256 is
+`b1202774d85f24540ade9d2f8024c9a63e9284a537eeef5a719a7a9041cb2703`.
+No Final value records were decoded. There is still no cohort selection or
+independent Final-lock approval; PR52 review submissions were empty at inspection.
+A three-positive-site sample per budget has limited station-level inference,
+and budget groups can have different IDs. The all-ready147,420-cell inventory
+remains an alternative; the candidate cannot silently replace it. No measured
+Final capacity or Source/config/code/analysis lock is claimed.
+
+### Static-coordinate review risk; candidate unchanged
+
+A metadata-only audit of the unchanged66-pair candidate uses only station/site
+identity and coordinate columns plus prefix-trainable Source IDs. Publisher
+aggregate activity columns are ignored. Exactly one candidate entity-budget pair
+shares numeric coordinates with a trainable Source: UrbanEV14-day Final ID2155
+and Source ID2154. No Source coordinate is missing in this audit. Equal coordinates
+do not prove identical stations, time series or leakage; nonmatches do not prove
+geographic independence. The candidate was not reselected or silently filtered.
+
+The [audit/script and unchanged candidate](https://drive.google.com/file/d/1-taZc84doswZeKHlag1ZmzzuZjXLNhJI/view)
+ZIP is12,971 bytes, SHA-256
+`2fb694edacded8e34b382bd0dc7b2aacbaee82f4bea9c542dc124448ecf26353`;
+fresh Drive download/CRC/all member hashes passed. No Final forecast/training/label
+JSONL values were decoded. Review must distinguish unseen author IDs from physical
+site independence before approving claims. A scope-choice question is pending
+with the lead; it does not authorize Final or amend the method. Development work
+continues independently.
+
+
+## AMS Source optimization risk identified before lock
+
+All three fixed AMS Source checkpoints are technically verified and retained.
+A one-input Development diagnostic observed near-zero outputs and Softplus
+derivatives for seeds42/44, but not43. Source normalized training MAE also
+varies materially across these seeds. See the durable recovery report and
+linked diagnostic proof for exact checkpoint/input/metric identities.
+This is not evidence for dropping seeds or silently changing initialization,
+head, loss, or training duration. Complete the frozen Development comparisons,
+report seed sensitivity/negative transfer, and explicitly review this risk
+before Final approval. A proposed method change requires separate review and
+a new lock; checkpoint validity alone does not establish useful pretraining.
+
+A subsequent AMS25 prefix diagnostic authenticated every saved daily chain and
+confirmed identical90 scored origins for AMS1200/7d. Adaptive MAE is12.799506
+for seed42 and0.336414 for43; Fixed Retention is12.799506 and0.274458;
+Seasonal Naive is0.089383 for both. This is an incomplete one-entity prefix,
+not a balanced seed/city estimate, but the adverse observations must be part
+of the independent review. Complete the frozen matrix and report seed
+sensitivity/negative transfer before interpreting or locking the study.
+Exact inputs, Source identities, scripts and paired-prefix evidence are linked
+in the durable recovery report. No configuration/seed selection was made.
+
+The first AMS1200/7d group is now complete across14 variants and seeds42/43/44,
+with identical90 scored origins. Adaptive MAE is12.799506/0.336414/12.799506 kWh;
+Seasonal Naive is0.089383 for all three. Saved active predictions remain near zero
+through all90 days for42/44, rather than only on one diagnostic input. The full
+[analysis bundle](https://drive.google.com/file/d/1VPRlng7dPVGzEYMR8XKDfLqpi5fbISUD/view)
+and figure in the durable recovery report are independently authenticated.
+This is one station/budget. Source, target initialization and controller RNG vary
+together, so the observation does not isolate a causal Source-quality effect.
+Keep all seeds and adverse results, finish the declared comparisons and request
+independent review before Final; no silent research-method change is authorized.
+
+## Clarification of the pending cohort decision
+
+The lead requested an explanation of the proposed scope; this is **not approval**
+of the66-pair candidate, a reduced Final scope or the immutable Final lock.
+Development execution continues independently. A decision requires review of
+actual candidate IDs, limitations, Source/code/config identities and measured
+compute/storage capacity before any Final values are opened.
+
+An entity-budget pair is one station/site with one initial-history budget. The
+same physical entity under7/14/28 days can contribute three pairs;66 pairs do
+not mean66 distinct physical locations. Each pair has14 unique method variants
+and3 fixed seeds, hence42 replay cells:66×42=2,772. The all-ready alternative
+is3,510×42=147,420 cells. The small candidate keeps all seven separate namespaces
+and budgets but has only three positive-prefix entities per namespace/budget,
+plus an empty-prefix UrbanEV case when available. This is a resource/coverage
+tradeoff, not permission to remove comparisons, select favorable stations or
+claim population-wide validation. No training-time estimate or quota guarantee
+is implied by either count.
+
+## Conditional resource scenarios — paid-compute review, not capacity acceptance
+
+A read-only review authenticates the existing full JHB matrix and its independent
+378-row daily proof, then checks9 complete entity-budget groups. Each group has
+all14 unique variants ×3 fixed seeds,90 issued/scored days per cell, and the
+recorded Tesla T4/torch2.11.0+cu128 environment. Its summed runner-reported elapsed
+time ranges4.399–5.233 minutes per42-cell entity-budget group. No models were
+fitted and no Final value records were decoded for this review.
+
+Applying budget-specific observed group rates to existing metadata yields:
+
+| Unapproved Final scope | Entity-budget pairs | Replay cells | Conditional serial runner-hour scenario |
+|---|---:|---:|---:|
+| Small candidate |66|2,772|4.86–5.40|
+| All-ready population |3,510|147,420|258.43–287.18|
+
+These are **illustrative workload scenarios from JHB**, not measured Colab
+throughput, confidence bounds, guaranteed completion times or a compute-unit/
+currency quote. Dataset/target, caching, backend and hardware differences can
+change costs outside these ranges. They exclude full data/setup, Source fitting,
+transport, independent verification, idle allocation, failures/retries, analysis,
+review and report writing. Existing21 accepted Source weights are intended for
+identified reuse only after lock approval; any required retraining adds cost.
+Parallel runtimes would require actual independent allocations and consume
+aggregate resources; no specific concurrency or linear speedup is promised.
+
+[Scripts, exact hashes, group timings and scenarios](https://drive.google.com/file/d/1UIS-RN89jPuFG542H8-KR4iVHKdz0ZI8/view)
+are preserved in10,488 bytes, SHA-256
+`f18c9946697b84dd22af28d097de610450091203eec3510a6d0ba71f9325f9b1`.
+Actual fresh Drive readback passed bytes/hash/CRC/all6 manifest members. An
+initial syntax-failing script/log is retained; it produced no estimate. The
+corrected read-only script passed identity, complete-cell and finite-time checks.
+The remaining Development queue is1,947 cells:254 primary runtime-fair recovery
+plus1,693 separate CHARGED targets after latest accepted primary488. That is a
+queue inventory, not a new study-total denominator or elapsed-time forecast.
+
+The lead asked whether paid Colab and parallel notebooks could complete E2E.
+No purchase, Final scope, concurrency entitlement or immutable lock approval has
+been authorized by that question. Colab-only execution is a feasible platform
+choice but requires identified code/dependencies/input/Source restoration and
+within-unit runtime fairness; payment alone does not close the scientific or
+artifact/reproduction acceptance gates. No Final execution is authorized here.
+
+### Colab parallelism is an operational gate, not a Final lock
+
+The durable recovery report now links a whole-unit partition review. Continuing
+on the same recorded environment leaves1,947 Development cells; migrating all
+incomplete units requires2,100 cells including153 declared repeats to preserve
+all14 methods per dataset/city/entity/budget/seed comparison. Candidate two-/
+three-worker lanes are metadata assignments only, not promised GPU allocations
+or activated plans. Complete old units remain retained; Sources are not refit.
+The new `--cloud-root /content` path option preserves strict CUDA/environment/
+input/config/publication checks and does not authorize old Kaggle manifests on
+a different Colab profile. Actual GPU/dependencies/Source restore preflight,
+recorded worker isolation and same-unit environment fairness remain necessary.
+No Final-capable reader, approved cohort or independent lock is supplied by
+this portability patch. No new training or Final values were used for it.

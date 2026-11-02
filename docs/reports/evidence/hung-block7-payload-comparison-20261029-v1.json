@@ -1,0 +1,1230 @@
+{
+  "comparisons": [
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [],
+      "different_top_level_fields": [
+        "code_sha"
+      ],
+      "historical_checkpoint_sha256": "9f946e5f5e85b9f6c6c75d14468fdffa0e12f9f4da86af9be545aa0e39ff9fc3",
+      "historical_run_id": null,
+      "main_checkpoint_sha256": "d0036b973c500ffcb4d453eca0ea9bf2e1372df746674a23d528da2e307c7f26",
+      "role": "source",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [],
+      "different_top_level_fields": [
+        "code_sha"
+      ],
+      "historical_checkpoint_sha256": "86c87fc9900395d7bc96c66619c9db7d34f0373c9f8b53fbb76d0014d6623cc2",
+      "historical_run_id": null,
+      "main_checkpoint_sha256": "0f364b823dbd165711c5bdf7dd38feadab93430f105d2a518bc3a10986a09274",
+      "role": "source",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [],
+      "different_top_level_fields": [
+        "code_sha"
+      ],
+      "historical_checkpoint_sha256": "573d4547bc94dbebafc61f7cea6efce80fabfefd97e7048f3762f4e1dbae9a95",
+      "historical_run_id": null,
+      "main_checkpoint_sha256": "8a3ead480325aa55ff4eb0279693f7a95bdb40f0268a3539a829b560be71cac1",
+      "role": "source",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [],
+      "different_top_level_fields": [
+        "code_sha"
+      ],
+      "historical_checkpoint_sha256": "6b03597621cc639defa7dcf44c07b597806447b0ef43c44854f34c261617458e",
+      "historical_run_id": null,
+      "main_checkpoint_sha256": "643f9e82ff785924bb5761001e9bfe40a52d9a08b5347e5d1fc4b6600bd4cb5a",
+      "role": "source",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [],
+      "different_top_level_fields": [
+        "code_sha"
+      ],
+      "historical_checkpoint_sha256": "26cc8bd4aefba3c2a966aa27accc6e13b7713c38a8aa6ed9364bd856fdcbbcda",
+      "historical_run_id": null,
+      "main_checkpoint_sha256": "b2fdaf4ae8cf7ff9915c54160eda87983e75567ec101b8ca3fe8392fe21514d4",
+      "role": "source",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [],
+      "different_top_level_fields": [
+        "code_sha"
+      ],
+      "historical_checkpoint_sha256": "1258de5dada7b219930cd2bd6e0db1c61bbb35d17672c0ac194ac90f559e3b0b",
+      "historical_run_id": null,
+      "main_checkpoint_sha256": "32c083fdc738369353799d161f73f1d0639ef0cac676d4927f711187d6a5e1c0",
+      "role": "source",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [],
+      "different_top_level_fields": [
+        "code_sha"
+      ],
+      "historical_checkpoint_sha256": "9c714d56d5df8e5b355457badb8a63838fd720dcced2de3f1d84ed4449d49ee6",
+      "historical_run_id": null,
+      "main_checkpoint_sha256": "0742a7804ab1fb37622a2aeac3326327d0ab7e3c25ff3de3be28270126979a5f",
+      "role": "source",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [],
+      "different_top_level_fields": [
+        "code_sha"
+      ],
+      "historical_checkpoint_sha256": "76f80283b51dd49f44620b626fa667ac1711a787471f5f218bceff7492afa483",
+      "historical_run_id": null,
+      "main_checkpoint_sha256": "907154054e18289d8e25b317708d5bf9afc9429882c700619c98677f784508a0",
+      "role": "source",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [],
+      "different_top_level_fields": [
+        "code_sha"
+      ],
+      "historical_checkpoint_sha256": "05c8c6f6316bfc7525adab48dd49cdea0784c2796d881e84dd53297b1bd40b76",
+      "historical_run_id": null,
+      "main_checkpoint_sha256": "97824c96cc74001751791d966187bdd9292ffc75942f41e385789c54c477e4bc",
+      "role": "source",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "aa508ba7dccd0277151f4c3d0774a383c6c4a7399ca56e49d9b4e12b82865f17",
+      "historical_run_id": "block7_b14s11e1025",
+      "main_checkpoint_sha256": "c62bf3c63da96c17e3a81a1d9e1e920a820d31627ee9d2a55ef50dc789514a7a",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "786271570eb740c69d9316b9a647582105d613c6489f3598bea7e3af340917a4",
+      "historical_run_id": "block7_b14s11e1153",
+      "main_checkpoint_sha256": "ec244e11a68b334200e80c2f2abf28a54f5dd834e81b2dc92d58c90cf032c5ff",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "8f33e442abcf134614807ba7b685567ef9ea0e08600be90594fb351bcad98713",
+      "historical_run_id": "block7_b14s11e1405",
+      "main_checkpoint_sha256": "68ba405261ff331b379c87a931f685f4ab2fec271f1c138814fb1d19ec669cc7",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "f4375619d274dcc7004463aa94551b11aa02e51d44a638da05e1ea652dacc18c",
+      "historical_run_id": "block7_b14s11e1693",
+      "main_checkpoint_sha256": "cb79d0c6d112803e06c045b2e5e32fbfb2ce5e26d02639e01110bbc3ff85339f",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "f5008b4c1cf0d06c4c468ea30a9ff67c8907fc918cbbf605e9706b9ef21afce9",
+      "historical_run_id": "block7_b14s11e1987",
+      "main_checkpoint_sha256": "9ef7abaac2c6b235652f25ec5fadf4b25ae2894fbce9cfd13d6afff1e47b6ae9",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "6762c5f0ff3a90588574905e5294d751dee61650be7086d4adae5e52eae59ac4",
+      "historical_run_id": "block7_b14s11e2152",
+      "main_checkpoint_sha256": "8649d61be42288ab8db16c559cf1b260fdc8ad315b4fd1502ebaa1ef862fe6b6",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "13482b468dc83d8a5146732d0615033ba7cf425b17f2dd41c9ec9f0682163555",
+      "historical_run_id": "block7_b14s11e2613",
+      "main_checkpoint_sha256": "3c2712b2afd603fee8e5024053fdbed20a5836787f1e39a40ea91e4c0bdbd99f",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "a28f2164d89d7d8c7d4afb62621b45cd6503158c8d00c01cdeb14393907e945f",
+      "historical_run_id": "block7_b14s11e2644",
+      "main_checkpoint_sha256": "9641cd5cbabb543025e23b721a4f6fb0c65be7bcc36fba158f259d133ff0bf3c",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "06cc060cbbae0c407c1deeb3ea5d871c23845a9a83bb64e78b10b1a7130d5a5f",
+      "historical_run_id": "block7_b14s19e1025",
+      "main_checkpoint_sha256": "d8db8e4bd2802d98a2773dfcfe2f59bfd71b09a43b056ead565d19211f90b56f",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "1563cdbb8dcc9943abb9374ebe675be6053bae904885252016f6130883ad62dc",
+      "historical_run_id": "block7_b14s19e1153",
+      "main_checkpoint_sha256": "b6a2a09f2ad952b44b8d558cf384f07e602e6e7855e9ea63c0eaf4c1783bf123",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "7660da61d4263d0e573ecb46abf0168133f52ce5c00a96767007a384f1705dfc",
+      "historical_run_id": "block7_b14s19e1405",
+      "main_checkpoint_sha256": "ab0d8b60a3596c8f8aea7f4e6752d84d7042671c3de25413f57fd1be7ee5158a",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "2ad7ec5f8c4778b048e13a12c18ab79ef9733600ed7e8b1f873bd59ad2a5b4f6",
+      "historical_run_id": "block7_b14s19e1693",
+      "main_checkpoint_sha256": "929de5e1bf5688042e7a40b75903a79f42fd5aab4a41f4d362c5b2aeb89a152f",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "f7a33a9da0c49e99d799a015c86226da26b2b05b4910c15e2a488234ce2725d0",
+      "historical_run_id": "block7_b14s19e1987",
+      "main_checkpoint_sha256": "35e2a02f87ab5d1f2511748eee960827e1102f04ec1910321b90abff0f51c7fd",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "e43fcf205c86426e2189ad9cbee4b01e86755d123ff0b5b32032625eda4f87e4",
+      "historical_run_id": "block7_b14s19e2152",
+      "main_checkpoint_sha256": "ae53af6aec20a288fd382906cde71d9cec9c55f2b2f840d4c6992a1f8686792b",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "2b898f88e7e9ed928a635d4f4b72d3ec9560ba77665654e9849a02ba63b54ba7",
+      "historical_run_id": "block7_b14s19e2613",
+      "main_checkpoint_sha256": "a828c8f4a628c579b00e7957b22f925008d60157def2110a925724df8ae2ed4e",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "67f6d35a3b33d5454115f3b37756b3104f4460f786e192c2e83443220684efca",
+      "historical_run_id": "block7_b14s19e2644",
+      "main_checkpoint_sha256": "e0a54a9457f14a7a8528876dd64422c0f5a21f890d9cdaa8548069c69419023f",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "d50c49ec6dda2307c37436b804e72b8846b0299901201d6fdfa2fd7172f9e888",
+      "historical_run_id": "block7_b14s7e1025",
+      "main_checkpoint_sha256": "b6f085c1f303702d79100e4ad08dee0ee4f72c17815767514d71d966868d927d",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "e1e99a3e707ed4636296f675bb0f2bdc956baabb0f82b55a7bb069a8d47b5b1b",
+      "historical_run_id": "block7_b14s7e1153",
+      "main_checkpoint_sha256": "58a4317e34c6d4b39a77d76d561007fde2a24c123802c85441a74216a3b62981",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "0d06de3f8009b7c3c4b6d82b2b75f23e06bf19d36cf16495810eafc78d2c6228",
+      "historical_run_id": "block7_b14s7e1405",
+      "main_checkpoint_sha256": "265316e8928a39e2c1893a7011d889ad366472882a30c9297cc421e19f1d5807",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "2b824ce608a1b932809f2787e29311e1a28f08a6584a50808799ee99e972ffbb",
+      "historical_run_id": "block7_b14s7e1693",
+      "main_checkpoint_sha256": "f5ad3b5c49b6c32076420196ea5edb9dfc9f5033fd10276346f15b4d9e2953e9",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "49a3188e4d6a0c157282baa24f1aad7ccccf3beb0130abbefeb645b0d7bcd388",
+      "historical_run_id": "block7_b14s7e1987",
+      "main_checkpoint_sha256": "7fd40a6d68be9663ab0c48f7dd251662b957a6adb0ccb1a55475c95ef47b5382",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "a78965938e082f10dd65bc35d9107495b93660638072836082cf54008dce4e2d",
+      "historical_run_id": "block7_b14s7e2152",
+      "main_checkpoint_sha256": "88a4ef4902b47077c56fd9c24cc04e492ae97bb5542d6862b59d3b9e669d65a8",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "17d095005d4ec6e424092c7c17e1e8671fc345875ad4e81da90e4df97da95957",
+      "historical_run_id": "block7_b14s7e2613",
+      "main_checkpoint_sha256": "a824611b4f7af2744ed5a217b478ab1ed134527ef14130ff45bffd087be0054b",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 14,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "c3c1d0a2807f1a0cd58428ed00d13b890a23fa3f60cb90388250a57bd46e8d78",
+      "historical_run_id": "block7_b14s7e2644",
+      "main_checkpoint_sha256": "ee7ea830243a01d281b583754e06f25880c8533e6225475edb073eb84c8a6dce",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "b2f09005f34c913d4d0eb0404e0244f7af6b6e3289c85123bd52fba811279c70",
+      "historical_run_id": "block7_b28s11e1165",
+      "main_checkpoint_sha256": "04e7bc1baeff0fe7179b3a754c1e4149c08ff82d48c8ca0248e57cdca7627a4e",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "963abe25f5700d08737e1c97b9be661415519a6b31352a3300978e653fa48aa7",
+      "historical_run_id": "block7_b28s11e1188",
+      "main_checkpoint_sha256": "8ed870aa70fd1bad6433a84551c5d4c13da6bae6409f30a1eb589092c68a042a",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "ddc94964c281ea00f93c91053ceab9f4211babe2bc0a698686b4aae6b080f290",
+      "historical_run_id": "block7_b28s11e1251",
+      "main_checkpoint_sha256": "4ee99b50ea6d2c518d55c4e6612344f556383a7ff9393106176b5dcf226de5cf",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "2138a1fd7c680f740f94d26fb90ce89c0c33ed7e4871b2f295a5b413435db80b",
+      "historical_run_id": "block7_b28s11e1408",
+      "main_checkpoint_sha256": "5e9983f54b86aa2e630c6f5d2212e36910159332cfb1518c1e73f0d6d51ea944",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "9bd94107130288761e49f021e4b568aaf5f7cefccd68a960e6f2d4dd7f4a0191",
+      "historical_run_id": "block7_b28s11e1987",
+      "main_checkpoint_sha256": "b939888e22d048add04ccea762c4bb92c52308d44871b11ab0a08ee41408bb10",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "3277330a73b67cad2a28a723e4a537d000fd08ae4b406239acca8b10a840c74c",
+      "historical_run_id": "block7_b28s11e2005",
+      "main_checkpoint_sha256": "41ad72a9c7d84b2901cabe9b4d8205daa87e0ba51ef2509fbac87949a69a077b",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "f28825da8bed6ff53d05bab6d0b195fcc472f23412cdcd17a956bfd46977bd80",
+      "historical_run_id": "block7_b28s11e2152",
+      "main_checkpoint_sha256": "5bf655e7b187f27277c9416f981f1486ee6059e04e434d3416d3c52d5eb7462e",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "638186503f4ab700dc5f46d0bac053a207706e60ce574db1407a3b6aceeb5016",
+      "historical_run_id": "block7_b28s11e2472",
+      "main_checkpoint_sha256": "eeb2721c6ebb7ca2f09ee9a83c868a5de51f77fdfed5db2fc0087660806ba14a",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "f5819093b6b521ae91374e83eb6aeea64f2ca1d1b050f32d50fa0edaee0e0c5a",
+      "historical_run_id": "block7_b28s11e2633",
+      "main_checkpoint_sha256": "b00c9a808a582f8efafd888d8f8c58c5452b08d551af1d1c5de3d7a18f9ccfab",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "fd056443b25ee5423c04ad84f6ff5d5354e37f578d22de69d11cac88b70265cb",
+      "historical_run_id": "block7_b28s19e1165",
+      "main_checkpoint_sha256": "3801785e0f27dd06704ca79bfb2fe18d173a1b6a5cec8a040fd2923a785c0eb6",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "ac751118328e950b8c120e49b95f15d8211890e7619511ed612e4c03ebbc5ceb",
+      "historical_run_id": "block7_b28s19e1188",
+      "main_checkpoint_sha256": "62bdb155d3546096c34569c93a3a317c30d8a76c7c368080676f9e2b061ff4cf",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "4401e1ebe84d77ea798e6e4bb919898d6957ab2c45db4e27b00252f2b0344af0",
+      "historical_run_id": "block7_b28s19e1251",
+      "main_checkpoint_sha256": "4fce6a4fae7a2517bfad12ea61ed71b9b9226a6bea855ba5d433c3b8acd94c5c",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "1bbdabb24c5326f65ce64053a2a4d3a6b620307e67835c1484c8f87bd610c2a8",
+      "historical_run_id": "block7_b28s19e1408",
+      "main_checkpoint_sha256": "98c6ef7adb51b6dba167a66568e7b4515fa168edac5f560d620a592b5362b1df",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "a62d0f19fcaf6b8253bb97284493d14810bd544adf1e1892d629936a92ced197",
+      "historical_run_id": "block7_b28s19e1987",
+      "main_checkpoint_sha256": "7623730198624458703bf4de8e5cac776327510919435c20a2f736f0afd7f070",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "bfe0bd6ea0b43b0aad8b2a0da7475a7653e45b71bbf1829a09036e3228cbff67",
+      "historical_run_id": "block7_b28s19e2005",
+      "main_checkpoint_sha256": "5349d7a70b9c317a576e3675b55d1acd0a27e919992183e7f1d31e269a84798d",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "224de91596414076fae5f820c4918dc5dca3e77a25e3892e716e37c9c73cd1b5",
+      "historical_run_id": "block7_b28s19e2152",
+      "main_checkpoint_sha256": "9905be97b8dac00703fa70787a6b7e63388d5c626781f843635ea79f1f27bdea",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "4c19606f514fabb9b1ef073bd51c20863dc1615156e5a39570fec0ccdf1389c3",
+      "historical_run_id": "block7_b28s19e2472",
+      "main_checkpoint_sha256": "2ae08e6d62603fe041e55eb86a0fa77381cb9adf8787bc1755a3fb9c5c6eeb0d",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "8f3feb3c87ae76828a0caf71223cc56772c3aa184afa9064bd62eb70cfaad8f6",
+      "historical_run_id": "block7_b28s19e2633",
+      "main_checkpoint_sha256": "37b133d15862d01dfca5c38e48ec6f69102a4bed981194789b2149eb22861855",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "da2bee07565d8662371d19963a99212dc2429b286f967ecdc8b824ea687aaed1",
+      "historical_run_id": "block7_b28s7e1165",
+      "main_checkpoint_sha256": "fec28821e4541d69d7bf927ce9aaa4fcc2bf3cffa56fdf90b6f5517c061a975e",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "d42b7aa430ea0ea5beac2fe0efed09eb1c437f55cc490e8fc81148feb9d1aca1",
+      "historical_run_id": "block7_b28s7e1188",
+      "main_checkpoint_sha256": "a3a9be9fa5c1e89f0fc53a52bb0c6a52a7d278cd12b33f73027325fcb04f2513",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "32563c6909376fe70794f2650a4f77323c80c55c1f2064be56366912e8b16a6d",
+      "historical_run_id": "block7_b28s7e1251",
+      "main_checkpoint_sha256": "61f3cefd67dd2449a9a26635769611cd49fa48bae077e6a869653a481144eba1",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "e9b88c786c3c99d66e55d457a3a2bf5b02fe3a99ae2c720b62787894761c7a15",
+      "historical_run_id": "block7_b28s7e1408",
+      "main_checkpoint_sha256": "6905a040b3c843657a4201a7e607b675d30234318f1bb997d942dc4963a2b6f2",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "caac8f2d647ff69f86ea43304c2539a24bbc4dd0fdbaa23a8ca10bf792909382",
+      "historical_run_id": "block7_b28s7e1987",
+      "main_checkpoint_sha256": "13c446ca39d54b48c6b0128a5c529f28b063462d6ee9593b2a937c49362528bd",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "c6f00ca1d2e376826501ae19f4f8279f13115b102e0214896a2cb6ebb9c974f4",
+      "historical_run_id": "block7_b28s7e2005",
+      "main_checkpoint_sha256": "41faeeef85a56862ade77fa2d37b849f6c5cc31249a12ffc958914de0e361df9",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "365972b196f1871e28a29b6e3477b2b10be52ec3ee8bef1d2c94013e89b00f6d",
+      "historical_run_id": "block7_b28s7e2152",
+      "main_checkpoint_sha256": "4bcbc941c38d9eca5d527dfc4a0eece2558d9f33a3c2ed801eab79eabbe7dfc8",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "ab93fb09dd852494b223c6df2f4b6814f8221d294421d68dfe75daa90dcf2c56",
+      "historical_run_id": "block7_b28s7e2472",
+      "main_checkpoint_sha256": "c2355bfd2939f102d2bae37490c62dabd43df7265fbf7ea6b5a9acfbe0bf316e",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 28,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "eca83628e04aa1822896a834285746a9c80440e8417234de70838a9e825297bd",
+      "historical_run_id": "block7_b28s7e2633",
+      "main_checkpoint_sha256": "ff0f29a073a6b1fc1cb91dd149a6939c36b2c0bde8d95c21403b9730f6abc4a4",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "2394e26497d49ff4ce5061bb8c5bd152dddf5754c65af80543aa33805bdc23de",
+      "historical_run_id": "block7_b7s11e1050",
+      "main_checkpoint_sha256": "7aae888c5cbfd117011897e38eeedb1a6b21ce23850d2250f6a524c91efdeaf9",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "4907ac3ef25977b24a02da58c7013150755a5a481b15c989b03bef538fee811f",
+      "historical_run_id": "block7_b7s11e1200",
+      "main_checkpoint_sha256": "58acb37ceb86eca8586947ad802a6ca48a7bf9134dec5c4150d3fd3616f1b751",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "09c467f9d1052bf15be5982fd62a52e2992bc4117014db5fb85c7ae716fbe7dc",
+      "historical_run_id": "block7_b7s11e1405",
+      "main_checkpoint_sha256": "0f09aefec75c9f2c8b1b7d18507a8227db0355f9e738339e217ada8b40bc9ef4",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "5035a096d2bf8a8364790f1dbdb2cc12a172e6f1ac2e5a7e569a307a611014eb",
+      "historical_run_id": "block7_b7s11e2264",
+      "main_checkpoint_sha256": "638c4c1c9feb774a7ebcfa349d0125c6ee2523e57cee1314557973cae0e5dddc",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "de7a524972c8590bc88b14ea0a7e6065a323c8dd91eac949f50a7012cd74635c",
+      "historical_run_id": "block7_b7s11e2447",
+      "main_checkpoint_sha256": "4c7bf2cc0ac5bafbd16ab326255a7fdfc9aacbafb0f1cba9322bf0b1cfa6e04f",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "9b7847d43e775dd53c482fb44c3b8874d44503972ab8dae495c771a147070b34",
+      "historical_run_id": "block7_b7s11e2452",
+      "main_checkpoint_sha256": "bbeb6074b62f68cf0aabbd25f2aec3b89205b30ab211f782b414c6d13de8c88b",
+      "role": "target",
+      "seed": 11,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "7310b366efd3086fc9b0e2713c5f236fe3e9f57bc27cadc9e22d7c5068708f2a",
+      "historical_run_id": "block7_b7s19e1050",
+      "main_checkpoint_sha256": "c35e7f3c6fffcf33e64b144c96eb9c03f8aa8d90e397710dcf069c47b23e6363",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "730d7082d28f6cdc63789ecb7a993838bb7cdd8a9bc4a4288eb2076fec05694e",
+      "historical_run_id": "block7_b7s19e1200",
+      "main_checkpoint_sha256": "257eb99140fd5555419cc84ff4bc56ad10319138388114243554ade9a5626a48",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "cfa653db0c9c254be63d76840509196c1fc571f7b81aa96d95f8cbd24a8fdbef",
+      "historical_run_id": "block7_b7s19e1405",
+      "main_checkpoint_sha256": "38bb2c63cef02edc22fc27ed5818e28be814c9dcb2e282e91df3134a7c343ecb",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "0d64e6e63e3b9c2462618310236547c68f954e4ac524ce8e094f4ac82e33b0ec",
+      "historical_run_id": "block7_b7s19e2264",
+      "main_checkpoint_sha256": "886635b09cd67576ec507e5318f7edeca943cd602d4914f0548b743a24b000bc",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "15ba2625aeb81ada35b6ce85d959d74c994344b58960d0ab6f15c8670bade4f4",
+      "historical_run_id": "block7_b7s19e2447",
+      "main_checkpoint_sha256": "217c45e539212f5d5707ab1ab30be1599a716873cd4d3adf4db869a69416b066",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "e66cbf32d28f70ad812137f428d2701dc1bc1e84ee89751a5d56ced0ee025641",
+      "historical_run_id": "block7_b7s19e2452",
+      "main_checkpoint_sha256": "46643d912b4d6c6c1b84a2c704fcac6422b1916ea76f31590eb6f2c08112751a",
+      "role": "target",
+      "seed": 19,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "5634325e4b17df939543f868c997991f63d3c649643264083fecf0e46e09c32a",
+      "historical_run_id": "block7_b7s7e1050",
+      "main_checkpoint_sha256": "df958dac0728c4544fd3b31a6d7467204905e2a1a2eebbd528687cdb598b1f0f",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "64a34d9225a562c4f3b3922559a1b9b1572308573cc2a3d43338bfd3eeb7b607",
+      "historical_run_id": "block7_b7s7e1200",
+      "main_checkpoint_sha256": "8dfc279a76ee1da81b42324ee433c41b4d14adaf15f8cc3d7f6e2516506ffb89",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "a94cb549e57946dc32ca5e1704cfaadb231ddd3ad57d37d160630fa41d4bf0f0",
+      "historical_run_id": "block7_b7s7e1405",
+      "main_checkpoint_sha256": "24652a720452e26ed70c74774f9735216dd8ba3a8f09daa8fdbe66bece0aaca5",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "4fd78aa261bf96df07c576194980d21589b808bc8424a3af19bbe67405b8b8e2",
+      "historical_run_id": "block7_b7s7e2264",
+      "main_checkpoint_sha256": "7be6458c2f2a1e0416f766eb8715a10473b5f86ef4bc33d9c7ec4afccf00e0e7",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "238bc5a664bade1f28339bb86950a8e122e266bea0e976fad9ee1caf7fa35fb3",
+      "historical_run_id": "block7_b7s7e2447",
+      "main_checkpoint_sha256": "e5560ce041f1be4b69ad698ab1bf001bcfff1fe58316403c16809b9bfa828b65",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    },
+    {
+      "budget_days": 7,
+      "different_input_binding_fields": [
+        "source_checkpoint_sha256"
+      ],
+      "different_top_level_fields": [
+        "code_sha",
+        "input_binding"
+      ],
+      "historical_checkpoint_sha256": "6c79e1148229cb085a06a67824ff76c1553d917acd6e9e4846395b4ae65bcb9a",
+      "historical_run_id": "block7_b7s7e2452",
+      "main_checkpoint_sha256": "36fcff5391f052d0c8030b03208b766f07dd8ac28d0fe1fc8b1513e87c3a0e4f",
+      "role": "target",
+      "seed": 7,
+      "state_fields_equal": true
+    }
+  ],
+  "pair_table_sha256": "e260de421d6c53ef3dffe5901f9e3478708b9e578791d3f370588a0a508699de",
+  "schema": "hung-block7-payload-comparison-v1",
+  "scope": "byte-pinned checkpoint state equality; not origin-level or peer acceptance",
+  "source_pairs_equal": 9,
+  "target_pairs_equal": 69
+}

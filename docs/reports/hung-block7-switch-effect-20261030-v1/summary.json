@@ -1,0 +1,20 @@
+{
+  "by_role": {
+    "historical": {
+      "audit_better_beyond_delta": 26,
+      "paired_evaluable": 55,
+      "paired_scored_days": 378,
+      "switches": 55
+    },
+    "main": {
+      "audit_better_beyond_delta": 19,
+      "paired_evaluable": 28,
+      "paired_scored_days": 352,
+      "switches": 32
+    }
+  },
+  "checkpoints_verified": 138,
+  "schema": "hung-block7-switch-effect-audit-v1",
+  "score_tolerance_kwh": 1e-05,
+  "terminal_import_sha256": "009fce2052b69bae7dde12d80b1d9e7cec28459d6f5531ce17ad76c489f535f5"
+}

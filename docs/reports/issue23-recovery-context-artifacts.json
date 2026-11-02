@@ -1,0 +1,78 @@
+{
+  "scope": "Original controller recovery evidence and outcome-blind Development prefix contexts; not a Final lock",
+  "controller_evidence_folder": "https://drive.google.com/drive/folders/13q28JpTRMCTu9TGaNgWsebujQ-pwdoUy",
+  "original_chunks_folder": "https://drive.google.com/drive/folders/1a3r0mXa0glxlYrDF_tjzXDjI2uXUZIJi",
+  "files": [
+    {
+      "name": "development-density-contexts-v1-20261026.json",
+      "drive_id": "1CKJzrTO24nCEDa_gnNB8Km1TpuNlhJ29",
+      "url": "https://drive.google.com/file/d/1CKJzrTO24nCEDa_gnNB8Km1TpuNlhJ29/view",
+      "bytes": 413893,
+      "sha256": "686c9adf4b56d834787f98dd47d80059e214b7d57192bc4e0778c02a13ef0393",
+      "readback": "byte-identical",
+      "access": "Anonymous link download verified; independent reproduction on another team machine not yet performed",
+      "anonymous_readback": "Exact size/SHA-256 verified using a fresh non-browser download without cookies or authentication"
+    },
+    {
+      "name": "matrix.json",
+      "drive_id": "1lT0ZJoa72WfiuAfctSd2FjsjXrCnS6Ls",
+      "url": "https://drive.google.com/file/d/1lT0ZJoa72WfiuAfctSd2FjsjXrCnS6Ls/view",
+      "bytes": 5398503,
+      "sha256": "a28df0ff1a2528a4ca4675599b9fa0091dbec7370d845db11697593eeba61fdc",
+      "readback": "byte-identical",
+      "access": "Anonymous link download verified; independent reproduction on another team machine not yet performed",
+      "anonymous_readback": "Exact size/SHA-256 verified using a fresh non-browser download without cookies or authentication"
+    },
+    {
+      "name": "selection.json",
+      "drive_id": "1DNSPz8qzUlAGfs6FtlNjrB_LylG-MTMK",
+      "url": "https://drive.google.com/file/d/1DNSPz8qzUlAGfs6FtlNjrB_LylG-MTMK/view",
+      "bytes": 5536,
+      "sha256": "d93f94ff47c9b18c8f0a052f27acb3949e13c95d9c33e2b425654e6ea9a5898d",
+      "readback": "byte-identical",
+      "access": "Anonymous link download verified; independent reproduction on another team machine not yet performed",
+      "anonymous_readback": "Exact size/SHA-256 verified using a fresh non-browser download without cookies or authentication"
+    },
+    {
+      "name": "verification.json",
+      "drive_id": "1khDAPzEIQCaY7dTwHy4ciI4RoYcWFVn4",
+      "url": "https://drive.google.com/file/d/1khDAPzEIQCaY7dTwHy4ciI4RoYcWFVn4/view",
+      "bytes": 105240,
+      "sha256": "80d2f8251e4f1cd170d0491b853c29afbcefcaf4e0d9e1691bbffc133f8b9786",
+      "readback": "byte-identical",
+      "access": "Anonymous link download verified; independent reproduction on another team machine not yet performed",
+      "anonymous_readback": "Exact size/SHA-256 verified using a fresh non-browser download without cookies or authentication"
+    },
+    {
+      "name": "latest-states-verified.json",
+      "drive_id": "15ioZshoXxsF2ahkZXzdE7kmOmaOPGXxJ",
+      "url": "https://drive.google.com/file/d/15ioZshoXxsF2ahkZXzdE7kmOmaOPGXxJ/view",
+      "bytes": 124673,
+      "sha256": "b15b17281d67be0676c8fbf71a0bd89b59aac064f9f668330993ba54aa9f51e1",
+      "readback": "byte-identical",
+      "access": "Anonymous link download verified; independent reproduction on another team machine not yet performed",
+      "anonymous_readback": "Exact size/SHA-256 verified using a fresh non-browser download without cookies or authentication"
+    },
+    {
+      "name": "download-registry.json",
+      "drive_id": "1yeuyBLJW4dht0X-TfdYL3wvkToVI5HP3",
+      "url": "https://drive.google.com/file/d/1yeuyBLJW4dht0X-TfdYL3wvkToVI5HP3/view",
+      "bytes": 6910,
+      "sha256": "6f7c9ee93b7a2c5c93af63b8734664eba1577ff875a35d268b12795963675070",
+      "readback": "byte-identical",
+      "access": "Anonymous link download verified; independent reproduction on another team machine not yet performed",
+      "anonymous_readback": "Exact size/SHA-256 verified using a fresh non-browser download without cookies or authentication"
+    },
+    {
+      "name": "issue23-analysis-extensions-5fa321f.bundle",
+      "drive_id": "1aj2SL0mRsz3gBcfUvEf59POs6PY4lfAc",
+      "url": "https://drive.google.com/file/d/1aj2SL0mRsz3gBcfUvEf59POs6PY4lfAc/view",
+      "bytes": 34831,
+      "sha256": "edc0d2679161139c145da928eb2c265f0543b68a2484cebf0d5d0e15745a24f0",
+      "readback": "byte-identical anonymous download",
+      "base_commit": "54131cbb8ce47f9d064b80f03956e8e62ec48346",
+      "target_commit": "5fa321fea2c9097d92d0d4fc4e6965ff05f059cf",
+      "access": "Anonymous link download verified"
+    }
+  ]
+}

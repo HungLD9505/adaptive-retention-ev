@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "scope": "Fresh authenticated Drive API checkpoint/result readback outside Colab; exact whole/resumed fields checked as Python integers, ZIP SHA/CRC passed. No VM deletion or scientific matrix completion.",
+  "archive_bytes": 1599548,
+  "archive_sha256": "e25f773369db5016b9b2fa92bae5818f2ebbe135397379ec86b345ff4af0d660",
+  "report_sha256": "64807c16ac1ba26119664d76763a46a58e7b64bb46d24c8c245c94e90e0a1ea0",
+  "drive_folder": "https://drive.google.com/drive/folders/1NJABKJIO8ewAxEdAhewXRYlo5O4zPaor",
+  "fields": [
+    "prediction_identity_sha256",
+    "final_branch_state_sha256",
+    "decisions"
+  ],
+  "whole_runner_seconds": 4.607642785999815,
+  "orchestration_seconds": 35.12794261499994,
+  "independent_daily_input_proof": {
+    "state_retention": "latest",
+    "historical_states_intentionally_omitted": 4,
+    "run_id": "partial",
+    "files_hashed": 11,
+    "issued": 5,
+    "scored": 4,
+    "mae_kwh": 5.317646480752507,
+    "rmse_kwh": 8.804911011170564,
+    "commit_chain": "40b4d47d4a3311588824f3ea3a2ef7e49cf809021e9894a295c6088bb466dca2",
+    "decision_events_verified": 0,
+    "audit_summaries_verified": 0,
+    "audit_forecast_scores_verified": 0
+  },
+  "independent_latest_state_proof": {
+    "run_id": "partial",
+    "latest_state_sha256": "acc1e8c2a1217d1e320fc9aca8390d53ff7a9fcbb98c3b81d9b648baa5c590c2",
+    "branches": {
+      "0.0": "d2e397edd81cbf3106c438aa9cfcaacc28bfeb8a6a6f58bacfd564edb5fa2abf",
+      "0.1": "c32bb6bb8053f46ae493863133ebb8db51cb2e5275b09f273240de73a230c847",
+      "1.0": "b5a5bff3ad75cdc3996d452c263cb636abfec32cd93b4e2dccbb2126f124a5fa"
+    }
+  }
+}

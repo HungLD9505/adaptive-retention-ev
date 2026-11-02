@@ -1,0 +1,60 @@
+{
+  "scope": "Pre-execution CHARGED supplementary Development identities only",
+  "run_id": "issue23-charged-cohort-20261026-v1",
+  "code": {
+    "commit": "b96d75f6bb08306cedf35496e50d86a7251f18e0",
+    "dirty": false,
+    "files": {
+      "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+      "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+      "ev_models/data.py": "b030861a59ef9d549db4f96404f43ac38525dcb61acbd7a02c77b5eea2380660",
+      "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+      "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+      "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+      "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+      "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+      "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+      "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+      "ev_runner/replay.py": "8ecae7246d6169d32b04fbd185b9be826b2968d062598dca2113cab2241f337b",
+      "ev_runner/run.py": "1cd7ef9732419d3c18399dff140cde4034a44914b0345f57232a85f0a574bff3",
+      "ev_runner/state.py": "8f922db2a539c08eca80a535cef67bfe38111bc1f43a4f8186c7e1a0c75f222a",
+      "ev_runner/store.py": "718c6813fb2a595e6309c755b0388f8a91bd414ed464b4b1e001dbfbacb10797",
+      "ev_baselines/__init__.py": "761479b2da6db28d81d2791501660a609ec9d0b271d2aabf1181150ddf3def48",
+      "ev_baselines/naive.py": "50a5842de61779e5b5494b988da8a1d61c8e40c7aeb647354b212812af00a5ef",
+      "ev_baselines/policies.py": "a9ba2e53843b6c93316506a41e001f090b3b361cc717c9929d3e6615e02fbcb0",
+      "ev_baselines/retention.py": "79e6b7338e6d02cf96318dfe014bdff3dcf9f48d86894b09169b4ba69cb526f4"
+    }
+  },
+  "python": "3.12.13",
+  "wall_seconds": 2.0213943749986356,
+  "reference_matrix_sha256": "0d465a48de9c1ecab91db3ac9561804d9a0d8f9ed78d8fdc6ac6b76e337af754",
+  "verification_sha256": "0ea487ece3068421bb50d9e0fc1298f6fbe8f220035af5535e907887f4699269",
+  "selection_rule": "three_prefix_count_rank_bins_hash_min_plus_one_empty_prefix_v1",
+  "cities": {
+    "AMS": {
+      "cohort_sha256": "fd66da1548b98df0cdf024417363d0e8f503432b1ae1947d841ed65b57da9329",
+      "entity_budget_combinations": 9
+    },
+    "JHB": {
+      "cohort_sha256": "52d1964207636b49362a12f450aaa4405fdf6f3c4542190100fe3aca6b49a59e",
+      "entity_budget_combinations": 9
+    },
+    "LOA": {
+      "cohort_sha256": "644e920cbe68713dbf7c600585a65ed7226d7309c97abf6cf17f9f1edd796331",
+      "entity_budget_combinations": 9
+    },
+    "MEL": {
+      "cohort_sha256": "920c1264232dea1239ea6152effa2d0731e3701b7223b474660103c123d2568f",
+      "entity_budget_combinations": 9
+    },
+    "SPO": {
+      "cohort_sha256": "14d7dd8b1c28d2eb11a61c1c8ef43b77fc2133e27a7926329d8de336e73ac014",
+      "entity_budget_combinations": 9
+    },
+    "SZH": {
+      "cohort_sha256": "465fa0c58f92bb8e824ea6384cf4d1df2eb641e2ae5dd5057dcc6903d9ebfd13",
+      "entity_budget_combinations": 9
+    }
+  },
+  "limits": "Prefix-count rank bins may tie; identity hashes break ties before outcomes. No full-release zero/activity filter, city pooling, UTC reinterpretation, implementation copying or Final selection."
+}

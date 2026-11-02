@@ -1,0 +1,259 @@
+{
+  "scope": "Authenticated metadata/file-byte capacity accounting for six predeclared CHARGED Development cohorts; no real-data local training or Final arrays decoded",
+  "created_at_utc": "2026-10-25T22:55:47.693366+00:00",
+  "code": {
+    "commit": "dcb99ef9a713e77717d8ef94e10e35db5887a7ef",
+    "dirty": false,
+    "files": {
+      "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+      "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+      "ev_models/data.py": "b030861a59ef9d549db4f96404f43ac38525dcb61acbd7a02c77b5eea2380660",
+      "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+      "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+      "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+      "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+      "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+      "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+      "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+      "ev_runner/replay.py": "8ecae7246d6169d32b04fbd185b9be826b2968d062598dca2113cab2241f337b",
+      "ev_runner/run.py": "1cd7ef9732419d3c18399dff140cde4034a44914b0345f57232a85f0a574bff3",
+      "ev_runner/state.py": "8f922db2a539c08eca80a535cef67bfe38111bc1f43a4f8186c7e1a0c75f222a",
+      "ev_runner/store.py": "718c6813fb2a595e6309c755b0388f8a91bd414ed464b4b1e001dbfbacb10797",
+      "ev_baselines/__init__.py": "761479b2da6db28d81d2791501660a609ec9d0b271d2aabf1181150ddf3def48",
+      "ev_baselines/naive.py": "50a5842de61779e5b5494b988da8a1d61c8e40c7aeb647354b212812af00a5ef",
+      "ev_baselines/policies.py": "a9ba2e53843b6c93316506a41e001f090b3b361cc717c9929d3e6615e02fbcb0",
+      "ev_baselines/retention.py": "79e6b7338e6d02cf96318dfe014bdff3dcf9f48d86894b09169b4ba69cb526f4"
+    }
+  },
+  "source_profile_sha256": "1be79afd6543bf7140c66e23562277f54115c39e458409b27cc9eb768bcd896f",
+  "release_sha256": "ca5c4ccb97e3b77c47d03ec6a1b644e0bb035107796eeab1e613f6ecc965e6f1",
+  "cities": [
+    {
+      "city": "JHB",
+      "cohort_sha256": "52d1964207636b49362a12f450aaa4405fdf6f3c4542190100fe3aca6b49a59e",
+      "source_population_sha256": "2d5fd56a9d0d23570dec6199465ebea628069207f96fee54c79370e9894762a4",
+      "source_metadata_entities": 26,
+      "expected_source_examples_per_epoch": 2340,
+      "conditional_source_epochs": 10,
+      "source_models": 3,
+      "expected_source_optimizer_steps": 1110,
+      "expected_source_example_visits": 70200,
+      "selected_entity_budget_combinations": 9,
+      "target_replays_14_methods": 378,
+      "target_replays_16_methods": 432,
+      "prepared_manifest_and_named_artifact_bytes": 93473254,
+      "download_zip_bytes": 6954564,
+      "download_zip_sha256": "9bbb66e4a5db1246b7c2863f3afb7f7a1d7d3b1687258a5a3b577286a8095983",
+      "input_manifests": [
+        {
+          "budget": 7,
+          "sha256": "f513a479f7503995a7a44a49970ad6142682068665b903a49ed3b7275a29fc99",
+          "named_artifact_bytes": 29915873
+        },
+        {
+          "budget": 14,
+          "sha256": "27bc5b4779a02213fd84dd2c87290b38b35616563f2281e37eed16e3afed98fb",
+          "named_artifact_bytes": 30834854
+        },
+        {
+          "budget": 28,
+          "sha256": "9ea9b37072195c0601b9a464bb19d48972aefd04267b54ed3b6f9553ab337adb",
+          "named_artifact_bytes": 32708341
+        }
+      ]
+    },
+    {
+      "city": "SPO",
+      "cohort_sha256": "14d7dd8b1c28d2eb11a61c1c8ef43b77fc2133e27a7926329d8de336e73ac014",
+      "source_population_sha256": "49f762797667fd7952cd766a61fe66ed20afebd6d893ca995eef9689875b4d1e",
+      "source_metadata_entities": 29,
+      "expected_source_examples_per_epoch": 2610,
+      "conditional_source_epochs": 10,
+      "source_models": 3,
+      "expected_source_optimizer_steps": 1230,
+      "expected_source_example_visits": 78300,
+      "selected_entity_budget_combinations": 9,
+      "target_replays_14_methods": 378,
+      "target_replays_16_methods": 432,
+      "prepared_manifest_and_named_artifact_bytes": 92181182,
+      "download_zip_bytes": 6456788,
+      "download_zip_sha256": "d6fd1410f180ebd408274a7cb92b54f92a4292af7030ac4aa55fb1f4f140eb7f",
+      "input_manifests": [
+        {
+          "budget": 7,
+          "sha256": "455fa7eeff650b14358a911197cd0fc11476c8a1563263716e1cfc4131b60702",
+          "named_artifact_bytes": 29639440
+        },
+        {
+          "budget": 14,
+          "sha256": "83b9f000e325ad4465a6263aadd862f4ac112d94e4940467da241c6747f63570",
+          "named_artifact_bytes": 30451142
+        },
+        {
+          "budget": 28,
+          "sha256": "ac84b0de5d75eb74f4d7dd2d26395ab70367195f0bd1a70443f71024a8fe4371",
+          "named_artifact_bytes": 32076417
+        }
+      ]
+    },
+    {
+      "city": "MEL",
+      "cohort_sha256": "920c1264232dea1239ea6152effa2d0731e3701b7223b474660103c123d2568f",
+      "source_population_sha256": "b06e8b7e62ab6ffa4a4185761c6f1d6c4fbbdd0ec42c7e89933440a1997dc6c6",
+      "source_metadata_entities": 34,
+      "expected_source_examples_per_epoch": 3060,
+      "conditional_source_epochs": 10,
+      "source_models": 3,
+      "expected_source_optimizer_steps": 1440,
+      "expected_source_example_visits": 91800,
+      "selected_entity_budget_combinations": 9,
+      "target_replays_14_methods": 378,
+      "target_replays_16_methods": 432,
+      "prepared_manifest_and_named_artifact_bytes": 124651873,
+      "download_zip_bytes": 8189214,
+      "download_zip_sha256": "39f979e67fca1ed9fdd095345bffbc9614e1c4d8a88dcfe0bf77745a8fca5bc5",
+      "input_manifests": [
+        {
+          "budget": 7,
+          "sha256": "e609732b5c35f5cdcd50b33cd4e4cc154049c42ecfd231af7e849d399359c93e",
+          "named_artifact_bytes": 39807328
+        },
+        {
+          "budget": 14,
+          "sha256": "d68bfc4fbbe3092be9edb26d90ffe643b526528ef64aed0a4ab8a4b56228f2de",
+          "named_artifact_bytes": 41138004
+        },
+        {
+          "budget": 28,
+          "sha256": "f9067fb49c092578cb5076ce15af6bff7617cc9f6e0b63da106fb89675e5ab6e",
+          "named_artifact_bytes": 43692352
+        }
+      ]
+    },
+    {
+      "city": "LOA",
+      "cohort_sha256": "644e920cbe68713dbf7c600585a65ed7226d7309c97abf6cf17f9f1edd796331",
+      "source_population_sha256": "51532d0be90e457363e53008b5b292ed8f1c3a8be387da54746a38821dc981f6",
+      "source_metadata_entities": 137,
+      "expected_source_examples_per_epoch": 12330,
+      "conditional_source_epochs": 10,
+      "source_models": 3,
+      "expected_source_optimizer_steps": 5790,
+      "expected_source_example_visits": 369900,
+      "selected_entity_budget_combinations": 9,
+      "target_replays_14_methods": 378,
+      "target_replays_16_methods": 432,
+      "prepared_manifest_and_named_artifact_bytes": 450985946,
+      "download_zip_bytes": 35546843,
+      "download_zip_sha256": "eca98b9b1be158e91379d98599c3b89a6fef3106c30f7cf05961369d8d44a13e",
+      "input_manifests": [
+        {
+          "budget": 7,
+          "sha256": "cb09d9d5c751b3bc1fcbad79ef548800c33e1506e6863f2600f88b167ac5e384",
+          "named_artifact_bytes": 144938150
+        },
+        {
+          "budget": 14,
+          "sha256": "de2b529b207a20378976e5fa84564c3b4ab5826ae1795047fb17dc6023e3b55c",
+          "named_artifact_bytes": 148920996
+        },
+        {
+          "budget": 28,
+          "sha256": "710c7ab60b9c9e57f58cd944bd422f373190baa3f2f313c01772bf09030fd8ea",
+          "named_artifact_bytes": 157112589
+        }
+      ]
+    },
+    {
+      "city": "SZH",
+      "cohort_sha256": "465fa0c58f92bb8e824ea6384cf4d1df2eb641e2ae5dd5057dcc6903d9ebfd13",
+      "source_population_sha256": "a9ca26f2c47ecdfddb6c7bbaba65439861135634b993b90005dc2e27a2c892c7",
+      "source_metadata_entities": 886,
+      "expected_source_examples_per_epoch": 79740,
+      "conditional_source_epochs": 10,
+      "source_models": 3,
+      "expected_source_optimizer_steps": 37380,
+      "expected_source_example_visits": 2392200,
+      "selected_entity_budget_combinations": 9,
+      "target_replays_14_methods": 378,
+      "target_replays_16_methods": 432,
+      "prepared_manifest_and_named_artifact_bytes": 2847248229,
+      "download_zip_bytes": 175078454,
+      "download_zip_sha256": "6319b70a017ccdb99985f941b5c2408ba0d2a68e13beaa22a4bd43d9b4d87107",
+      "input_manifests": [
+        {
+          "budget": 7,
+          "sha256": "37f94eb4887e34ee9bf96a66946ce908786e576ead5decfff3402229ab7c6f00",
+          "named_artifact_bytes": 916045476
+        },
+        {
+          "budget": 14,
+          "sha256": "82f962287c897d5ddade229da891e60829181ca2314380c5a8eb104c082a429f",
+          "named_artifact_bytes": 940819745
+        },
+        {
+          "budget": 28,
+          "sha256": "883c8564cb1dc28069319104d13888abca66497cb46361e8763c24bf117562c8",
+          "named_artifact_bytes": 990368761
+        }
+      ]
+    },
+    {
+      "city": "AMS",
+      "cohort_sha256": "fd66da1548b98df0cdf024417363d0e8f503432b1ae1947d841ed65b57da9329",
+      "source_population_sha256": "3427446906cdc0bc0a46064c9e70ed83bc878960c20983858782ad4c67ed8e86",
+      "source_metadata_entities": 1496,
+      "expected_source_examples_per_epoch": 134640,
+      "conditional_source_epochs": 10,
+      "source_models": 3,
+      "expected_source_optimizer_steps": 63120,
+      "expected_source_example_visits": 4039200,
+      "selected_entity_budget_combinations": 9,
+      "target_replays_14_methods": 378,
+      "target_replays_16_methods": 432,
+      "prepared_manifest_and_named_artifact_bytes": 4606223180,
+      "download_zip_bytes": 253455529,
+      "download_zip_sha256": "648ca4744582c53e1ccf4dede5e30ef34bbd65c4f55d2e57b20048fd5c274345",
+      "input_manifests": [
+        {
+          "budget": 7,
+          "sha256": "ced8bde958ca038228548a13e4990cd89b5a36cd25f9c34af3bb9f06e557e754",
+          "named_artifact_bytes": 1481714583
+        },
+        {
+          "budget": 14,
+          "sha256": "ad041d1ee3eb6f379abfc3fb2abae6939df1b29e802b121aef6db10863045b9a",
+          "named_artifact_bytes": 1522121862
+        },
+        {
+          "budget": 28,
+          "sha256": "9cdddef1c4ccd2568bf40dbab8209f8c8691d386fd0eea30ec5a39781aad51d7",
+          "named_artifact_bytes": 1602372760
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "source_models": 18,
+    "expected_source_examples_per_epoch": 234720,
+    "expected_source_optimizer_steps": 110070,
+    "expected_source_example_visits": 7041600,
+    "target_replays_14_methods": 2268,
+    "target_replays_16_methods": 2592,
+    "prepared_manifest_and_named_artifact_bytes": 8214763664,
+    "download_zip_bytes": 485681392
+  },
+  "formula": "Source once per city/seed, not once per budget or method. ceil(metadata Source initial_trainable /64) steps per epoch x10 epochs x3 seeds. Targets = declared entities per budget x3 seeds x14 (or16 if distinct mean-margin/bridge variants required).",
+  "limits": "Source counts are manifest-bound metadata expectations, not executed Source training. Epoch10 and method14 are conditional on the provisional primary recipe; runtime must bind the actual complete primary summary. Complete file sizes/hashes were checked for all18 input variants; no training/forecast/label value arrays were decoded. Named artifact bytes exclude archive framing and unrelated files; this is not an upper bound on peak RAM/disk or runtime. No all-Final cohort or capacity acceptance. Transfer/reverification/export intermediates and runtime other files require additional space.",
+  "artifact": {
+    "url": "https://drive.google.com/file/d/1EfmdY3hPcpZa4IIznC00fXMOwDgaoNZW/view",
+    "bytes": 11743,
+    "sha256": "b068c3e74af926c00a393d3f8f76d21443360d59d96f0442241a5655d0108458",
+    "anonymous_readback": "Exact bytes/hash matched; independent teammate reproduction pending"
+  },
+  "reference_ci": {
+    "commit": "dcb99ef9a713e77717d8ef94e10e35db5887a7ef",
+    "url": "https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40242225966",
+    "conclusion": "success; Ubuntu/Windows, 316 tests"
+  }
+}

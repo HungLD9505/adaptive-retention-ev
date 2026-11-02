@@ -1,0 +1,192 @@
+{
+  "schema": "verified-whole-colab-development-unit-v1",
+  "status": "verified_complete_unit",
+  "unit": [
+    "urbanev",
+    "SZH",
+    28,
+    "1188",
+    42
+  ],
+  "method_count": 14,
+  "scheduled_days": 90,
+  "issued_days_each": 59,
+  "scored_days_each": 0,
+  "initial_examples_each": 0,
+  "scientific_score_status": "unscorable_no_complete_future_label_days",
+  "score_policy": "Keep null MAE/RMSE and explicit coverage; not zero error, no effectiveness inference",
+  "scored_origins_identical_all_methods": true,
+  "scored_origins_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "scored_origins_hash_encoding": "json.dumps(list, sort_keys=True), default separators",
+  "exact_original_configs_and_input_bindings": true,
+  "same_actual_environment_all_methods": true,
+  "code_sha": "1ac2ae00c00cc0b7da67bf25d115b86d4d963f5a",
+  "partitions": [
+    {
+      "catalog_sha256": "38a79fb8ce1851bde6900682c97e459fa9b7381600b6a08250478a07235a4fba",
+      "targets": 12,
+      "daily_sha256": "02be072a3efba3174638c29ef6b5b135c9ef91f07517fa5ac4f90aedeab9de49",
+      "states_sha256": "3bc18e504fdd2623b6ad9887580245ba5becb847e8a03da73ed6f0635abf6dfa",
+      "source_proof_sha256": "ee50be332f1610544c507bd64809f89d53aff1587427d78f9f88d30aafa6bb67"
+    },
+    {
+      "catalog_sha256": "6c2480e591560efce33c637dbf033b812f80a1b39d8560150d2c8a9b17b6f3ef",
+      "targets": 2,
+      "daily_sha256": "18d6ac4bcb948c4561f85fa6afb71a9c234031de1dd2a906d01c4b3dff078b75",
+      "states_sha256": "d260dad3eb648b41c1b979b8b0af17a5bbcb37d8a764b116dd391bbdc131f8c1",
+      "source_proof_sha256": "ee50be332f1610544c507bd64809f89d53aff1587427d78f9f88d30aafa6bb67"
+    }
+  ],
+  "declared_old_partial_cells_repeated": 4,
+  "canonical_collection_rule": "Use this complete14-method unit instead of its old partial cells, preserve historical bytes; never double count overlapping attempts",
+  "scope": "One outcome-blind Development execution unit, zero scored origins; not population effectiveness or Final",
+  "runner_seconds_sum": 55.39525819499886,
+  "observed_child_wall_seconds_sum": 81.11624434199985,
+  "budget": "First12:1unit/20min; last2:.25unit/5min;120s deadman;30unit reserve; provider experiment bill not independently measured",
+  "drive_folders": [
+    "https://drive.google.com/drive/folders/1-MkUBfrvPY0WFtHAlLRe4lAp5FbFu-uO",
+    "https://drive.google.com/drive/folders/1HC2Quhh43b8O5y7CgZBw6RltBQSqhPbc"
+  ],
+  "methods": [
+    {
+      "variant": "adaptive",
+      "run_id": "urbanev-SZH-1188-28d-adaptive-seed42",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "source_checkpoint_only",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "block28",
+      "run_id": "urbanev-SZH-1188-28d-block28-seed42",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "source_checkpoint_only",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "block7",
+      "run_id": "urbanev-SZH-1188-28d-block7-seed42",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "source_checkpoint_only",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "drift",
+      "run_id": "urbanev-SZH-1188-28d-drift-seed42-recipe3",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "source_checkpoint_only",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "fixed_retention",
+      "run_id": "urbanev-SZH-1188-28d-fixed_retention-seed42",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "source_checkpoint_only",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "frozen_source",
+      "run_id": "urbanev-SZH-1188-28d-frozen_source-seed42",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "frozen_source_checkpoint",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "full_finetuning",
+      "run_id": "urbanev-SZH-1188-28d-full_finetuning-seed42",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "source_checkpoint_only",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "online_best",
+      "run_id": "urbanev-SZH-1188-28d-online_best-seed42",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "source_checkpoint_only",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "parameter_retention",
+      "run_id": "urbanev-SZH-1188-28d-parameter_retention-seed42-recipe2",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "source_checkpoint_only",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "seasonal_naive",
+      "run_id": "urbanev-SZH-1188-28d-seasonal_naive-seed42",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "seasonal_prefix_history",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "source_error",
+      "run_id": "urbanev-SZH-1188-28d-source_error-seed42-recipe1",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "source_checkpoint_only",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "target_only",
+      "run_id": "urbanev-SZH-1188-28d-target_only-seed42",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "random_checkpoint_only",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "uncertainty",
+      "run_id": "urbanev-SZH-1188-28d-uncertainty-seed42-recipe1",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "source_checkpoint_only",
+      "scored_days": 0,
+      "candidate_steps": 0
+    },
+    {
+      "variant": "without_source_initialization",
+      "run_id": "urbanev-SZH-1188-28d-without_source_initialization-seed42",
+      "mae_kwh": null,
+      "rmse_kwh": null,
+      "initial_examples": 0,
+      "initialization": "random_checkpoint_only",
+      "scored_days": 0,
+      "candidate_steps": 0
+    }
+  ]
+}

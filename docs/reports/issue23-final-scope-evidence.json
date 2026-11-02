@@ -1,0 +1,103 @@
+{
+  "scope": "Full lead-selected Final membership prepared from authenticated metadata; independent immutable execution approval pending",
+  "cohort_path": "configs/issue23/final-all-ready-cohort.json",
+  "cohort_sha256": "88e9203c552cc4b4404f54c4be08e4fd5ab8a845cae8b0bc62805e18f6586734",
+  "entity_budget_pairs": 3510,
+  "method_seed_cells": 147420,
+  "groups": 21,
+  "no_initial_trainable_pairs": 35,
+  "Final_values_decoded": false,
+  "Final_execution_authorized": false,
+  "coordinate_audit_sha256": "d66ebf19a0335d458c5f4433a41236aea2377c0820bed46a922910e0411dc7b3",
+  "coordinate_overlap_pairs": 7,
+  "coordinate_overlap_unique_Final_IDs": 4,
+  "matching_groups": [
+    {
+      "namespace": [
+        "urbanev",
+        "SZH"
+      ],
+      "history_days": 7,
+      "matches": [
+        {
+          "entity_id": "1768",
+          "coordinate_available": true,
+          "exact_coordinate_matches_with_trainable_source_ids": [
+            "1769"
+          ],
+          "exact_coordinate_matches_with_other_selected_final_ids": []
+        }
+      ]
+    },
+    {
+      "namespace": [
+        "urbanev",
+        "SZH"
+      ],
+      "history_days": 14,
+      "matches": [
+        {
+          "entity_id": "1768",
+          "coordinate_available": true,
+          "exact_coordinate_matches_with_trainable_source_ids": [
+            "1769"
+          ],
+          "exact_coordinate_matches_with_other_selected_final_ids": []
+        },
+        {
+          "entity_id": "2155",
+          "coordinate_available": true,
+          "exact_coordinate_matches_with_trainable_source_ids": [
+            "2154"
+          ],
+          "exact_coordinate_matches_with_other_selected_final_ids": []
+        }
+      ]
+    },
+    {
+      "namespace": [
+        "urbanev",
+        "SZH"
+      ],
+      "history_days": 28,
+      "matches": [
+        {
+          "entity_id": "1132",
+          "coordinate_available": true,
+          "exact_coordinate_matches_with_trainable_source_ids": [
+            "1131"
+          ],
+          "exact_coordinate_matches_with_other_selected_final_ids": []
+        },
+        {
+          "entity_id": "1768",
+          "coordinate_available": true,
+          "exact_coordinate_matches_with_trainable_source_ids": [
+            "1769"
+          ],
+          "exact_coordinate_matches_with_other_selected_final_ids": []
+        },
+        {
+          "entity_id": "1790",
+          "coordinate_available": true,
+          "exact_coordinate_matches_with_trainable_source_ids": [
+            "1791"
+          ],
+          "exact_coordinate_matches_with_other_selected_final_ids": []
+        },
+        {
+          "entity_id": "2155",
+          "coordinate_available": true,
+          "exact_coordinate_matches_with_trainable_source_ids": [
+            "2154"
+          ],
+          "exact_coordinate_matches_with_other_selected_final_ids": []
+        }
+      ]
+    }
+  ],
+  "limitations": "Exact numeric coordinate equality only; no distance threshold, inferred physical identity, energy/outcome/label inspection or cohort reselection. Source pool restricted to prefix-trainable Source IDs. Equal coordinates indicate a physical-independence risk, not proof of identical stations, traces or leakage. No matches does not establish geographic independence. All-ready scope selected by the lead; immutable Final execution lock remains unapproved.",
+  "artifact_url": "https://drive.google.com/file/d/1pNc_J41uKVFoSxBeWWWr1Am-i1IBQHSK/view",
+  "artifact_bytes": 35734,
+  "artifact_sha256": "783bcf8aec0845297aef868f0701aa1116bdd01d17b4cca7bacf857250da34e2"
+}

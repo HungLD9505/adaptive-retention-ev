@@ -1,0 +1,12 @@
+{
+  "seed": 320,
+  "source_count": 16,
+  "target_count": 4,
+  "source_epochs": 3,
+  "target_epochs": 5,
+  "batch_size": 32,
+  "learning_rate": 0.001,
+  "epsilon": 0.000001,
+  "lambdas": [0.0, 0.01, 0.1],
+  "budgets": [7, 14, 28]
+}

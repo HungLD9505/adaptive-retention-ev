@@ -1,0 +1,332 @@
+"""Independent collection completeness, fingerprint and aggregation fixtures."""
+
+import copy
+import json
+import tempfile
+import unittest
+from datetime import datetime, timedelta
+from pathlib import Path
+
+from ev_evaluation.metrics import DailyError
+from ev_models.checkpoint import digest
+from tools.analyze_matched import aggregate_cells, authenticate_matrix, select_collection
+from tools.controller_calibration import recipe_config as controller_config
+from tools.matched_development import comparison_config, variants
+from tools.proxy_calibration import METHODS
+from tools.proxy_calibration import recipe_config as proxy_config
+
+
+class CollectionTests(unittest.TestCase):
+    def setUp(self):
+        self.base = json.loads(Path("configs/issue23/source-epoch-study.json").read_text())[
+            "runner_config"
+        ]
+        self.cohort = {
+            "seeds": [42, 43, 44],
+            "budgets": {
+                str(b): {
+                    "entities": [{"entity_id": "fixture", "initial_trainable": 2}],
+                    "manifest_sha256": "manifest",
+                }
+                for b in (7, 14, 28)
+            },
+        }
+        self.files = {"fixture": "sha"}
+        cfg = json.loads(Path("configs/issue23/fixed-retention-study.json").read_text())
+        self.studies = {
+            name: {
+                "status": "technical_success",
+                "code": {"dirty": False, "files": self.files},
+                "runs": [],
+            }
+            for name in ("source", "fixed", "controller", "proxy", "matched")
+        }
+        self.studies["source"].update(
+            profile_sha256=cfg["source_profile_sha256"],
+            selection_sha256=cfg["selection_sha256"],
+            code={"commit": cfg["source_study_code"], "dirty": False, "files": self.files},
+            sources=[
+                {
+                    "seed": seed,
+                    "candidates": [
+                        {"epochs": e, "path": "fixture", "sha256": f"source-{seed}"}
+                        for e in (1, 3, 10)
+                    ],
+                }
+                for seed in self.cohort["seeds"]
+            ],
+        )
+        for b in (7, 14, 28):
+            for seed in (42, 43, 44):
+                config = copy.deepcopy(self.base)
+                config["development_entities"] = ["fixture"]
+                for name in ("initial_training", "online_training", "controller"):
+                    config[name]["seed"] = seed
+                binding = {
+                    "dataset_id": "urbanev",
+                    "city_id": "SZH",
+                    "history_days": b,
+                    "entity_id": "fixture",
+                    "input_manifest_sha256": "manifest",
+                    "source_checkpoint_sha256": f"source-{seed}",
+                }
+
+                def row(c, score):
+                    return {
+                        "run_id": f"{b}-{seed}-{c['method']['name']}-{score}",
+                        "method": copy.deepcopy(c["method"]),
+                        "binding": {
+                            "config": copy.deepcopy(c),
+                            "input": copy.deepcopy(binding),
+                            "environment": {"device": "fixture", "runtime": "same"},
+                        },
+                        "source_checkpoint_sha256": f"source-{seed}",
+                        "issued_days": 90,
+                        "scored_days": 80,
+                        "active_mae_kwh": float(score),
+                        "active_rmse_kwh": float(score),
+                        "commit_chain": "chain",
+                        "code": {"dirty": False, "files": self.files},
+                    }
+
+                for e in (1, 3, 10):
+                    c = copy.deepcopy(config)
+                    c["method"] = {"name": "full_finetuning"}
+                    self.studies["source"]["runs"].append(
+                        {**row(c, 1 if e == 10 else e + 2), "source_epochs": e}
+                    )
+                for weight, score in ((0.001, 4), (0.01, 3), (0.1, 2), (1.0, 1)):
+                    c = copy.deepcopy(config)
+                    c["method"] = {"name": "fixed_retention", "fixed_lambda": weight}
+                    self.studies["fixed"]["runs"].append({**row(c, score), "fixed_lambda": weight})
+                for recipe in range(4):
+                    c = controller_config(config, recipe, seed)
+                    self.studies["controller"]["runs"].append(
+                        {**row(c, 1 if recipe == 1 else recipe + 2), "recipe": recipe}
+                    )
+                chosen = controller_config(config, 1, seed)
+                for method in METHODS:
+                    for recipe in range(4):
+                        c = proxy_config(chosen, method, recipe)
+                        self.studies["proxy"]["runs"].append(
+                            {**row(c, recipe + 1), "recipe": recipe}
+                        )
+                for variant in variants(chosen):
+                    c = comparison_config(chosen, variant)
+                    self.studies["matched"]["runs"].append(
+                        {**row(c, 2), "comparison_variant": variant}
+                    )
+
+    def test_complete_collection_recomputes_choices_and_aliases(self):
+        cells, choices = select_collection(self.studies, self.cohort, self.files)
+        self.assertEqual(len(cells), 126)
+        self.assertEqual(choices["source_epochs"], 10)
+        self.assertEqual(choices["controller_recipe"], 1)
+        self.assertEqual(choices["fixed_lambda"], 1)
+        self.assertEqual(choices["aliases"]["without_confidence"], "online_best")
+        self.assertTrue(choices["fixed_baseline_in_controller_levels"])
+        self.assertEqual(len(choices["unique_method_names"]), 14)
+
+    def test_missing_cell_wrong_source_or_changed_training_fails(self):
+        for mode in ("missing", "source", "training", "environment"):
+            studies = copy.deepcopy(self.studies)
+            if mode == "missing":
+                studies["matched"]["runs"].pop()
+            elif mode == "environment":
+                studies["fixed"]["runs"][-1]["binding"]["environment"] = {
+                    "device": "fixture",
+                    "runtime": "different",
+                }
+            elif mode == "source":
+                studies["fixed"]["runs"][-1]["source_checkpoint_sha256"] = "wrong-source"
+            else:
+                studies["source"]["runs"][2]["binding"]["config"]["initial_training"][
+                    "learning_rate"
+                ] = 0.1
+            with self.assertRaises(ValueError):
+                select_collection(studies, self.cohort, self.files)
+
+    def test_migration_uses_only_new_environment_target_runs(self):
+        studies = copy.deepcopy(self.studies)
+        references = [r for r in studies["controller"]["runs"] if r["recipe"] == 1]
+        studies["matched"].update(replication_fixed_lambda=1.0, runs=[])
+        for ref in references:
+            base = ref["binding"]["config"]
+            for name in variants(base, include_core=True):
+                row = copy.deepcopy(ref)
+                row.update(comparison_variant=name, active_mae_kwh=2.0)
+                row["binding"]["config"] = comparison_config(base, name, fixed_lambda=1.0)
+                row["method"] = row["binding"]["config"]["method"]
+                row["binding"]["environment"] = {"device": "fixture", "runtime": "new"}
+                studies["matched"]["runs"].append(row)
+        for row in studies["proxy"]["runs"]:
+            row["binding"]["environment"] = {"device": "fixture", "runtime": "new"}
+        cells, _ = select_collection(studies, self.cohort, self.files)
+        self.assertEqual(len(cells), 126)
+        self.assertEqual({value[0] for value in cells.values()}, {"proxy", "matched"})
+        for key, value in cells.items():
+            self.assertEqual(value[1]["binding"]["environment"]["runtime"], "new")
+        studies["matched"]["runs"].pop()
+        with self.assertRaises(ValueError):
+            select_collection(studies, self.cohort, self.files)
+
+    def test_verifier_requires_exact_population_nulls_scores_and_hash(self):
+        matrix = {
+            "status": "technical_success",
+            "runs": [
+                {
+                    "run_id": "fixture",
+                    "issued_days": 2,
+                    "scored_days": 0,
+                    "commit_chain": "chain",
+                    "active_mae_kwh": None,
+                    "active_rmse_kwh": None,
+                }
+            ],
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            p = root / "matrix.json"
+            v = root / "verification.json"
+            p.write_text(json.dumps(matrix))
+            proof = {
+                "status": "verified",
+                "matrix_sha256": digest(p),
+                "runs": [
+                    {
+                        "run_id": "fixture",
+                        "issued": 2,
+                        "scored": 0,
+                        "commit_chain": "chain",
+                        "mae_kwh": None,
+                        "rmse_kwh": None,
+                    }
+                ],
+            }
+            v.write_text(json.dumps(proof))
+            self.assertEqual(authenticate_matrix(p, v), matrix)
+            for field, value in (("issued", 1), ("mae_kwh", 0), ("commit_chain", "other")):
+                bad = copy.deepcopy(proof)
+                bad["runs"][0][field] = value
+                v.write_text(json.dumps(bad))
+                with self.assertRaises(ValueError):
+                    authenticate_matrix(p, v)
+            duplicate = {"status": "technical_success", "runs": matrix["runs"] * 2}
+            p.write_text(json.dumps(duplicate))
+            proof["matrix_sha256"] = digest(p)
+            v.write_text(json.dumps(proof))
+            with self.assertRaises(ValueError):
+                authenticate_matrix(p, v)
+            proof["matrix_sha256"] = "different"
+            v.write_text(json.dumps(proof))
+            with self.assertRaises(ValueError):
+                authenticate_matrix(p, v)
+
+
+class AggregationTests(unittest.TestCase):
+    def setUp(self):
+        self.cohort = {
+            "seeds": [42, 43, 44],
+            "budgets": {
+                str(b): {
+                    "entities": [
+                        {"entity_id": "a", "initial_trainable": 2},
+                        {"entity_id": "missing", "initial_trainable": 0},
+                    ]
+                }
+                for b in (7, 14, 28)
+            },
+        }
+        self.cells = {}
+        origins = [datetime(2026, 10, 23), datetime(2026, 10, 24)]
+        for b in (7, 14, 28):
+            for entity in ("a", "missing"):
+                for seed in (42, 43, 44):
+                    for name in ("adaptive", "target_only"):
+                        value = 1 if name == "adaptive" else 0
+                        errors = (
+                            [DailyError(t, value, value**2) for t in origins]
+                            if entity == "a"
+                            else []
+                        )
+                        self.cells[b, entity, seed, name] = {
+                            "errors": errors,
+                            "issued": tuple(t.isoformat() for t in origins),
+                        }
+
+    def test_zero_target_baseline_and_null_units_are_explicit(self):
+        result = aggregate_cells(self.cells, self.cohort)
+        summary = result["station_first"]["7/adaptive"]
+        self.assertEqual(summary["macro_mae_kwh"], 1)
+        self.assertIsNone(summary["ntr"])
+        self.assertEqual(summary["zero_baseline_station_count"], 1)
+        self.assertEqual(result["unscored_entities_by_budget"]["7"], ["missing"])
+        self.assertIn("7/adaptive/initial_adaptation", result["initialization_strata"])
+        self.assertIn("7/adaptive/weekend", result["weekday_weekend"])
+
+    def test_same_count_different_origins_or_seed_missingness_fails(self):
+        for mode in ("issued", "scored", "missing_seed"):
+            cells = copy.deepcopy(self.cells)
+            row = cells[7, "a", 42, "adaptive"]
+            if mode == "issued":
+                row["issued"] = ("wrong", "other")
+            elif mode == "scored":
+                row["errors"] = [
+                    DailyError(e.origin + timedelta(days=7), e.mae, e.mse) for e in row["errors"]
+                ]
+            else:
+                for name in ("adaptive", "target_only"):
+                    cells[7, "a", 42, name]["errors"] = []
+            with self.assertRaises(ValueError):
+                aggregate_cells(cells, self.cohort)
+
+    def test_density_groups_and_fixed_calendar_phases_retain_unscored_targets(self):
+        density = {
+            ("urbanev", "SZH", b): {
+                "entities": {
+                    "a": {"group": "dense", "valid_hours": b * 24, "density": 1.0},
+                    "missing": {"group": "sparse", "valid_hours": 1, "density": 0.0},
+                },
+                "undefined_entities": [],
+            }
+            for b in (7, 14, 28)
+        }
+        start = datetime(2026, 10, 23)
+        cells = copy.deepcopy(self.cells)
+        for (b, entity, seed, method), row in cells.items():
+            if entity == "a":
+                value = 1 if method == "adaptive" else 0
+                row["errors"] = [
+                    DailyError(start + timedelta(days=d), value, value**2) for d in (0, 30, 60)
+                ]
+                row["issued"] = tuple(e.origin.isoformat() for e in row["errors"])
+        result = aggregate_cells(cells, self.cohort, density=density, deployment=start)
+        self.assertEqual(result["load_density"]["7/adaptive/dense"]["macro_mae_kwh"], 1)
+        self.assertIsNone(result["load_density"]["7/adaptive/sparse"])
+        self.assertEqual(result["density_coverage"]["7/missing"]["valid_hours"], 1)
+        self.assertEqual(result["unscored_entities_by_budget"]["7"], ["missing"])
+        for phase in ("days1-30", "days31-60", "days61-90"):
+            self.assertEqual(result["online_phases"][f"7/adaptive/{phase}"]["macro_mae_kwh"], 1)
+        density["urbanev", "SZH", 7]["entities"].pop("missing")
+        with self.assertRaises(ValueError):
+            aggregate_cells(cells, self.cohort, density=density, deployment=start)
+
+    def test_city_density_uses_explicit_namespace_not_primary_population(self):
+        density = {
+            ("charged", "JHB", b): {
+                "entities": {"a": {"group": "sparse", "valid_hours": 1, "density": 0.0}},
+                "undefined_entities": ["missing"],
+            }
+            for b in (7, 14, 28)
+        }
+        result = aggregate_cells(
+            self.cells, self.cohort, density=density, namespace=("charged", "JHB")
+        )
+        self.assertEqual(result["load_density"]["7/adaptive/sparse"]["macro_mae_kwh"], 1)
+        self.assertIsNone(result["load_density"]["7/adaptive/undefined"])
+        with self.assertRaises(KeyError):
+            aggregate_cells(self.cells, self.cohort, density=density)
+
+
+if __name__ == "__main__":
+    unittest.main()

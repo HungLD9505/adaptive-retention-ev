@@ -1,0 +1,35 @@
+{
+  "schema": "hung-sprint2-development-config-v1",
+  "status": "diagnostic proposal; team review pending",
+  "input_release": "DATA-v1-20261019",
+  "seeds": [7, 11, 19],
+  "source": {
+    "passes": 1,
+    "batch_size": 32,
+    "calendar_hidden": 8,
+    "learning_rate": 0.001,
+    "latent_scale": "population standard deviation of permitted Source training examples"
+  },
+  "target": {
+    "passes": 1,
+    "batch_size": 2,
+    "learning_rate": 0.001,
+    "retention_weight": 0.1,
+    "epsilon": 0.000001,
+    "source_checkpoint_only_steps": 0
+  },
+  "replay": {
+    "max_origins": 90,
+    "level_one": 0.1,
+    "level_two": 0.2,
+    "initial_level": 0.0,
+    "block_days": 14,
+    "min_complete_days": 5,
+    "delta": 0.0,
+    "alpha": 0.05,
+    "bootstrap_segment_days": 2,
+    "bootstrap_resamples": 100,
+    "challenger_rule": "bonferroni_two",
+    "missing_day_bootstrap_policy": "successive complete valid observations are adjacent"
+  }
+}

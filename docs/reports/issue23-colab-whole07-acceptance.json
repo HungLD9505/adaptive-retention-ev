@@ -1,0 +1,163 @@
+{
+  "schema": "verified-multiunit-colab-development-publication-v1",
+  "status": "verified_complete_units",
+  "units": [
+    {
+      "unit": [
+        "charged",
+        "AMS",
+        14,
+        "110",
+        42
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-AMS-110-14d-adaptive-seed42",
+          "mae_kwh": 86.31859643534285,
+          "rmse_kwh": 88.67122041227753,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-AMS-110-14d-block28-seed42",
+          "mae_kwh": 86.31859643564225,
+          "rmse_kwh": 88.67122041262878,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-AMS-110-14d-block7-seed42",
+          "mae_kwh": 86.3185964352555,
+          "rmse_kwh": 88.67122041216685,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-AMS-110-14d-drift-seed42",
+          "mae_kwh": 86.31859643761318,
+          "rmse_kwh": 88.67122041425608,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-AMS-110-14d-fixed_retention-seed42",
+          "mae_kwh": 86.3185964377898,
+          "rmse_kwh": 88.67122041440031,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-AMS-110-14d-frozen_source-seed42",
+          "mae_kwh": 86.318596444731,
+          "rmse_kwh": 88.67122042016703,
+          "initial_examples": 13,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-AMS-110-14d-full_finetuning-seed42",
+          "mae_kwh": 86.31859643778776,
+          "rmse_kwh": 88.67122041439828,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-AMS-110-14d-online_best-seed42",
+          "mae_kwh": 86.31859643534285,
+          "rmse_kwh": 88.67122041227753,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-AMS-110-14d-parameter_retention-seed42",
+          "mae_kwh": 86.31859643778778,
+          "rmse_kwh": 88.67122041439829,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-AMS-110-14d-seasonal_naive-seed42",
+          "mae_kwh": 5.466745389342647,
+          "rmse_kwh": 5.466745389343072,
+          "initial_examples": 13,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-AMS-110-14d-source_error-seed42",
+          "mae_kwh": 86.31859643554887,
+          "rmse_kwh": 88.67122041240113,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-AMS-110-14d-target_only-seed42",
+          "mae_kwh": 9.092251540420712,
+          "rmse_kwh": 12.67827424522443,
+          "initial_examples": 13,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-AMS-110-14d-uncertainty-seed42",
+          "mae_kwh": 86.31859643534285,
+          "rmse_kwh": 88.67122041227753,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-AMS-110-14d-without_source_initialization-seed42",
+          "mae_kwh": 8.476841522116171,
+          "rmse_kwh": 12.134046825408094,
+          "initial_examples": 13,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    }
+  ],
+  "method_cells": 14,
+  "publication_catalog_sha256": "787da708de0a86b37207f97703fbf20d70655117999c48c09cfda9095449e825",
+  "independent_receipt_sha256": "ad0556f4bd375ca764bcc392723e0ebee9becb7a145caec185ec9b88b26a30b2",
+  "independent_proof_sha256": "86e338a863462e606617e902957a397ec4b9bc6f9d4fda24074fc366ce805c94",
+  "profile_sha256": "cfc7ee7196e28b237e2beba45fe50c3553407e35431ad2c95ad98db7736cbb20",
+  "exact_original_configs_and_inputs": true,
+  "all_three_original_sources_verified": true,
+  "child_wall_seconds": 119.216197751,
+  "allowance": "20minutes/1unit;120second no-completed-run deadman;30unit reserve; no provider-bill attribution",
+  "drive_folder": "https://drive.google.com/drive/folders/1CNmLv6fVNxEJJBhRQWaX_Kw-f9ghjZkc",
+  "canonical_collection_rule": "Replace matching old partial cells with complete units; preserve old bytes; no double counting",
+  "score_policy": "Retain null metrics and missing coverage; completion is operational, not method effectiveness",
+  "scope": "Development only; not Final, population effectiveness or original-byte recovery"
+}

@@ -1,0 +1,410 @@
+{
+  "blocked_pair_reasons": {
+    "no_paired_scored_days": 748
+  },
+  "cost_schema_coverage": {
+    "legacy_without_split": 161,
+    "split_complete": 690
+  },
+  "counts": {
+    "runs": 851,
+    "scorable_runs": 444,
+    "zero_scored_runs": 407
+  },
+  "ledger_sha256": "bf1117c1d5fc0a902411cb6d850dca51e77802997c32880295ede20d8ac83004",
+  "limits": [
+    "No saved cause distinguishes not-yet-arrived from intrinsically absent labels for zero-scored forecasts.",
+    "Exact switch trace is available for 560 Kaggle jobs; other 291 run manifests are not inside this repository.",
+    "Final-stage seconds exclude upstream training, upload and readback; devices are not paired for speed.",
+    "Station bootstrap uses only 3\u20135 scorable stations per budget and is descriptive, not a population guarantee."
+  ],
+  "paired_groups": 72,
+  "schema": "hung-development-audit-v1",
+  "scope": "development_only",
+  "source_sha256": "82d9342c62baef0da9e6f70baf548fb9e97e653792305adbb0fb85c872a1173d",
+  "switch_by_method_budget": [
+    {
+      "audit_cost_complete_runs": 45,
+      "audit_inference_calls": 320,
+      "audit_update_steps": 308,
+      "budget_days": 7,
+      "decision_trace_runs": 45,
+      "decisions": 243,
+      "method": "confidence",
+      "runs": 45,
+      "switches": 24
+    },
+    {
+      "audit_cost_complete_runs": 72,
+      "audit_inference_calls": 395,
+      "audit_update_steps": 360,
+      "budget_days": 14,
+      "decision_trace_runs": 72,
+      "decisions": 360,
+      "method": "confidence",
+      "runs": 72,
+      "switches": 34
+    },
+    {
+      "audit_cost_complete_runs": 80,
+      "audit_inference_calls": 367,
+      "audit_update_steps": 328,
+      "budget_days": 28,
+      "decision_trace_runs": 80,
+      "decisions": 399,
+      "method": "confidence",
+      "runs": 80,
+      "switches": 33
+    },
+    {
+      "audit_cost_complete_runs": 18,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 7,
+      "decision_trace_runs": 18,
+      "decisions": 108,
+      "method": "fixed_retention",
+      "runs": 18,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 22,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 14,
+      "decision_trace_runs": 22,
+      "decisions": 132,
+      "method": "fixed_retention",
+      "runs": 22,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 27,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 28,
+      "decision_trace_runs": 27,
+      "decisions": 162,
+      "method": "fixed_retention",
+      "runs": 27,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 0,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 7,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "frozen_source",
+      "runs": 18,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 0,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 14,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "frozen_source",
+      "runs": 23,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 0,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 28,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "frozen_source",
+      "runs": 27,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 18,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 7,
+      "decision_trace_runs": 18,
+      "decisions": 108,
+      "method": "full_finetuning",
+      "runs": 18,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 24,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 14,
+      "decision_trace_runs": 24,
+      "decisions": 144,
+      "method": "full_finetuning",
+      "runs": 24,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 27,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 28,
+      "decision_trace_runs": 27,
+      "decisions": 162,
+      "method": "full_finetuning",
+      "runs": 27,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 18,
+      "audit_inference_calls": 254,
+      "audit_update_steps": 248,
+      "budget_days": 7,
+      "decision_trace_runs": 18,
+      "decisions": 108,
+      "method": "online_best_lambda",
+      "runs": 18,
+      "switches": 23
+    },
+    {
+      "audit_cost_complete_runs": 23,
+      "audit_inference_calls": 278,
+      "audit_update_steps": 258,
+      "budget_days": 14,
+      "decision_trace_runs": 23,
+      "decisions": 138,
+      "method": "online_best_lambda",
+      "runs": 23,
+      "switches": 26
+    },
+    {
+      "audit_cost_complete_runs": 27,
+      "audit_inference_calls": 428,
+      "audit_update_steps": 390,
+      "budget_days": 28,
+      "decision_trace_runs": 27,
+      "decisions": 162,
+      "method": "online_best_lambda",
+      "runs": 27,
+      "switches": 41
+    },
+    {
+      "audit_cost_complete_runs": 0,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 14,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "seasonal_naive",
+      "runs": 8,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 0,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 28,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "seasonal_naive",
+      "runs": 3,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 0,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 7,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "target_only",
+      "runs": 17,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 0,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 14,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "target_only",
+      "runs": 24,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 0,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 28,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "target_only",
+      "runs": 27,
+      "switches": 0
+    },
+    {
+      "audit_cost_complete_runs": 12,
+      "audit_inference_calls": 0,
+      "audit_update_steps": 0,
+      "budget_days": 14,
+      "decision_trace_runs": 12,
+      "decisions": 72,
+      "method": "uncertainty",
+      "runs": 12,
+      "switches": 0
+    }
+  ],
+  "switch_coverage": {
+    "all_physical_runs": 851,
+    "decision_trace_runs": 413,
+    "fixed_policy_without_decision_trace": 147,
+    "kaggle_manifests_checked": 560
+  },
+  "valid_paired_cells": 816,
+  "zero_scored_station_budget_cells": [
+    {
+      "budget_days": 7,
+      "created_forecasts_per_run": [
+        90
+      ],
+      "entity_id": "1050",
+      "requested_per_run": [
+        90
+      ],
+      "runs": 37,
+      "scored_days": 0,
+      "unscored_created_forecasts": 3330
+    },
+    {
+      "budget_days": 7,
+      "created_forecasts_per_run": [
+        59
+      ],
+      "entity_id": "1200",
+      "requested_per_run": [
+        90
+      ],
+      "runs": 37,
+      "scored_days": 0,
+      "unscored_created_forecasts": 2183
+    },
+    {
+      "budget_days": 7,
+      "created_forecasts_per_run": [
+        59
+      ],
+      "entity_id": "2447",
+      "requested_per_run": [
+        90
+      ],
+      "runs": 37,
+      "scored_days": 0,
+      "unscored_created_forecasts": 2183
+    },
+    {
+      "budget_days": 14,
+      "created_forecasts_per_run": [
+        43
+      ],
+      "entity_id": "1025",
+      "requested_per_run": [
+        90
+      ],
+      "runs": 37,
+      "scored_days": 0,
+      "unscored_created_forecasts": 1591
+    },
+    {
+      "budget_days": 14,
+      "created_forecasts_per_run": [
+        3
+      ],
+      "entity_id": "1987",
+      "requested_per_run": [
+        90
+      ],
+      "runs": 37,
+      "scored_days": 0,
+      "unscored_created_forecasts": 111
+    },
+    {
+      "budget_days": 14,
+      "created_forecasts_per_run": [
+        59
+      ],
+      "entity_id": "2613",
+      "requested_per_run": [
+        90
+      ],
+      "runs": 37,
+      "scored_days": 0,
+      "unscored_created_forecasts": 2183
+    },
+    {
+      "budget_days": 14,
+      "created_forecasts_per_run": [
+        59
+      ],
+      "entity_id": "2644",
+      "requested_per_run": [
+        90
+      ],
+      "runs": 37,
+      "scored_days": 0,
+      "unscored_created_forecasts": 2183
+    },
+    {
+      "budget_days": 28,
+      "created_forecasts_per_run": [
+        59
+      ],
+      "entity_id": "1188",
+      "requested_per_run": [
+        90
+      ],
+      "runs": 37,
+      "scored_days": 0,
+      "unscored_created_forecasts": 2183
+    },
+    {
+      "budget_days": 28,
+      "created_forecasts_per_run": [
+        58
+      ],
+      "entity_id": "1251",
+      "requested_per_run": [
+        90
+      ],
+      "runs": 37,
+      "scored_days": 0,
+      "unscored_created_forecasts": 2146
+    },
+    {
+      "budget_days": 28,
+      "created_forecasts_per_run": [
+        58
+      ],
+      "entity_id": "1408",
+      "requested_per_run": [
+        90
+      ],
+      "runs": 37,
+      "scored_days": 0,
+      "unscored_created_forecasts": 2146
+    },
+    {
+      "budget_days": 28,
+      "created_forecasts_per_run": [
+        3
+      ],
+      "entity_id": "1987",
+      "requested_per_run": [
+        90
+      ],
+      "runs": 37,
+      "scored_days": 0,
+      "unscored_created_forecasts": 111
+    }
+  ]
+}

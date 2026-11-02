@@ -1,0 +1,29 @@
+{
+  "changed_paths_between_commits": [
+    {
+      "path": "docs/reports/hung-integrated-development-20261026.md",
+      "status": "D"
+    }
+  ],
+  "executed_source_paths_checked": [
+    "experiments/hung_sprint2/baseline_selection.py",
+    "experiments/hung_sprint2/checkpoint.py",
+    "experiments/hung_sprint2/cli.py",
+    "experiments/hung_sprint2/controller.py",
+    "experiments/hung_sprint2/evaluation.py",
+    "experiments/hung_sprint2/model.py",
+    "experiments/hung_sprint2/proxy_selection.py",
+    "experiments/hung_sprint2/replay_inputs.py",
+    "experiments/hung_sprint2/retention.py",
+    "experiments/hung_sprint2/runner.py",
+    "experiments/hung_sprint2/training.py"
+  ],
+  "historical_code_commit": "a0edded8228e8a1b64b0aee18c2655d94a1c4144",
+  "main_code_commit": "969f3deca111e998b197fedd869e891c753a4417",
+  "manifest_pairs_checked": 69,
+  "only_documentation_differs": true,
+  "pairs_csv_sha256": "e260de421d6c53ef3dffe5901f9e3478708b9e578791d3f370588a0a508699de",
+  "runtime_and_config_pairs_checked": 69,
+  "schema": "hung-block7-code-lineage-v1",
+  "unique_git_source_blobs_sha256_checked": 22
+}

@@ -1,0 +1,211 @@
+{
+  "schema": "hung-local2930-readback-phase-v1",
+  "observed_at_utc": "2026-10-27T00:09:55.799523+00:00",
+  "scope": "development_only",
+  "capsule_receipt": {
+    "schema": "hung-review-capsule-receipt-v1",
+    "scope": "development_only",
+    "sha256": "4b01079aabad7ec74528fe56b199c0002e431efd69d2d94fd8a171e6fa2fe3c0",
+    "bytes": 213029158,
+    "crc": "passed",
+    "main_runs": 69,
+    "new_local_jobs": 40,
+    "parent_plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+    "spec": {
+      "plan": {
+        "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\dispatch-plan-v1\\plan.json",
+        "sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee"
+      },
+      "partition": {
+        "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\dispatch-plan-v1\\shards.json",
+        "sha256": "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f"
+      },
+      "ledger": {
+        "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-safe-resume-v1\\.cache\\g0-ledger-v2.json",
+        "sha256": "13723182071619b32567db39f6f53f1c2362dcdfeedaff8de1107cbafbc22463"
+      },
+      "scorer": {
+        "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\tools\\hung_results.py",
+        "sha256": "68fccbed056734d9b4842f7bda088880d7812d12417d64878d1aa018fc010456"
+      },
+      "local_shards": [
+        {
+          "id": "shard_0029",
+          "archive": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1\\shard_0029\\artifacts.zip",
+            "sha256": "77036b62c6174bbaceb38f27ca5119fa325d63daf508e2711ad15f3e41c43aee"
+          },
+          "receipt": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1\\shard_0029\\receipt.json",
+            "sha256": "ea35c3cc83274fd886a48da00853b2edfb770e4c58754d0f8eb88fbddefbbb04"
+          },
+          "verify_exit": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1\\shard_0029\\verify-exit.json",
+            "sha256": "20bfacb40fdcb3a6729a5fbf8275515f81d9829ea5243a7aea510726f0ea6687"
+          }
+        },
+        {
+          "id": "shard_0030",
+          "archive": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1\\shard_0030\\artifacts.zip",
+            "sha256": "479def89f1ca1cab3b0f74ad7a24319dfafdbe8219b7bffaf051a6b217bc6c9d"
+          },
+          "receipt": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1\\shard_0030\\receipt.json",
+            "sha256": "f423fd97dea8016adc9acc630b6307b38c880d7bc37271ad1965c15f241d9bda"
+          },
+          "verify_exit": {
+            "path": "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1\\shard_0030\\verify-exit.json",
+            "sha256": "20bfacb40fdcb3a6729a5fbf8275515f81d9829ea5243a7aea510726f0ea6687"
+          }
+        }
+      ]
+    }
+  },
+  "cpu_readback": {
+    "version": 362651054,
+    "url": "https://www.kaggle.com/code/hungluongduc/hung-local2930-cpu-readback-20261027-v1?scriptVersionId=362651054",
+    "whole_provider_seconds": 29.1,
+    "summary": {
+      "schema": "hung-independent-capsule-readback-v1",
+      "scope": "development_only",
+      "passed": true,
+      "capsule_sha256": "4b01079aabad7ec74528fe56b199c0002e431efd69d2d94fd8a171e6fa2fe3c0",
+      "main_runs": 69,
+      "new_local_jobs": 40,
+      "scored_runs": 55,
+      "crc": "passed",
+      "review": "Independent scientific acceptance still pending",
+      "elapsed_seconds": 15.518256038999994,
+      "python": "3.13.15",
+      "torch": "2.11.0+cpu",
+      "device": "cpu",
+      "helper_sha256": "78c4bd421ec0971023dca141ed8e81b22dbc97fe5c5855cd2511bfb30d1761be",
+      "purpose": "Independent private Dataset readback and saved Development forecast scoring; no training or Final",
+      "computed_runs_count": 109
+    },
+    "log": {
+      "path": ".cache\\review-capsule-local2930-v1\\kaggle-readback-log.txt",
+      "sha256": "f98427fdc82225c80a21ef33299f6524eace1ce042ef06cdafe34ec6419d8018",
+      "bytes": 1154
+    }
+  },
+  "capsule_dataset": "https://www.kaggle.com/datasets/hungluongduc/hung-local2930-review-capsule-20261027-v1/versions/1",
+  "pins": [
+    {
+      "path": ".cache\\review-capsule-local2930-v1\\spec.json",
+      "sha256": "8a831e0ab9c634bb6a63f633939a6c8f5db9eb14c4600bc16326fb68c1dd9c53",
+      "bytes": 2588
+    },
+    {
+      "path": ".cache\\review-capsule-local2930-v1\\local-readback.json",
+      "sha256": "f6382571e129f66ea4b09cb50b65f264ad24afe4d041c901132ef867c2531abc",
+      "bytes": 47752
+    },
+    {
+      "path": ".cache\\results-spec-v3.json",
+      "sha256": "5f632c13fc2f29ed8dc57e10e6c5f30af7239a08bfb9b2f4ee1d00fdb4f1b5c5",
+      "bytes": 2527
+    },
+    {
+      "path": ".cache\\results-catalog-v3.json",
+      "sha256": "a27aad9974739cdf052207252e938a2d3148ffe72ee23d462b7213beabbf6f49",
+      "bytes": 1327123
+    },
+    {
+      "path": ".cache\\results-observation-v6.json",
+      "sha256": "d962a18a677ebcbc4d8a992e38ac9b5a907012317ce0f0d9d0f63042458ee2ab",
+      "bytes": 1680299
+    }
+  ],
+  "local_result_counts": {
+    "runs": 171,
+    "scorable_runs": 89,
+    "zero_scored_runs": 82
+  },
+  "new_jobs": {
+    "planned": 782,
+    "completed": 182,
+    "remote_readback": 182,
+    "remaining_not_certified": 600
+  },
+  "issue10_handoff": "https://github.com/HungLD9505/adaptive-retention-ev/issues/10#issuecomment-6430360268",
+  "review": {
+    "peer_approval": "pending",
+    "issue39_provider_substitution": "pending",
+    "final_lock": "absent"
+  },
+  "report_worker_config": {
+    "path": ".cache\\result-worker-config-v1.json",
+    "sha256": "b2c7110c3a15fd490d9c76806cf0894ad5aaefa0e68c8305ac25f1359c3a2ec2",
+    "bytes": 1584
+  },
+  "validation": {
+    "full_suite": {
+      "clean_before": true,
+      "code_sha": "ae7d5cab57898048df70839685113f38548a7ea4",
+      "python_utf8": 1,
+      "exit_code": 0,
+      "wall_seconds": 224.3886132
+    },
+    "summary": "Ran 325 tests in 218.061s",
+    "result": "OK (skipped=1)",
+    "log": {
+      "path": ".cache\\provider-offline-tests-v11.log",
+      "sha256": "12ea7db5b69927dfecb51f2a174f248ca729e18000c93115b5e406ddf3f6023b",
+      "bytes": 51369
+    },
+    "ruff_check": "passed",
+    "ruff_format_files": 121,
+    "git_diff_check": "passed",
+    "ci": {
+      "head": "ae7d5cab57898048df70839685113f38548a7ea4",
+      "windows": "success",
+      "ubuntu": "success",
+      "run": "https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40424162247"
+    }
+  },
+  "report_worker": {
+    "process": {
+      "pid": 8124,
+      "command": [
+        "C:\\Users\\HP\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-u",
+        "-m",
+        "tools.hung_result_worker",
+        "--config",
+        "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\result-worker-config-v1.json",
+        "--config-sha256",
+        "b2c7110c3a15fd490d9c76806cf0894ad5aaefa0e68c8305ac25f1359c3a2ec2",
+        "--project-root",
+        "D:\\\u0110\u00f4\u0300 A\u0301n",
+        "--output",
+        "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-result-worker-v1",
+        "--watch"
+      ],
+      "created_at_utc": "2026-10-27T00:10:15.216827+00:00",
+      "scope": "CPU-only local receipt/result snapshots; no training, cloud publishing or Final"
+    },
+    "config": {
+      "path": ".cache\\result-worker-config-v1.json",
+      "sha256": "b2c7110c3a15fd490d9c76806cf0894ad5aaefa0e68c8305ac25f1359c3a2ec2",
+      "bytes": 1584
+    },
+    "snapshot_receipt": {
+      "path": ".cache\\local-result-worker-v1\\through-shard_0030\\receipt.json",
+      "sha256": "51832043fe62b6e242fcef9e941dce0f14a7fe4951de571e7b2cc7305a8a75b5",
+      "bytes": 4350
+    },
+    "log": {
+      "path": ".cache\\local-result-worker-v1.log",
+      "sha256": "ffa89b7cf05f1dd16015ade8234b21731b783a5801e4a9285795ca082fb97803",
+      "bytes": 431
+    },
+    "actual_counts": {
+      "runs": 171,
+      "scorable_runs": 89,
+      "zero_scored_runs": 82
+    },
+    "manual_comparison": "All171 run metrics, coverage, paired results and costs agree; only catalog provenance SHA differs because snapshots have their own collection/catalog identity. No byte-identity claim."
+  }
+}

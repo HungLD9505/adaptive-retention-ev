@@ -1,0 +1,11 @@
+{
+  "scope": "Read-only complete downloaded readiness archive verification; no local training",
+  "archive_sha256": "5a440bead2fe649df73e0304e528e243ddd1ed9149d10fc5baaa03cf14f94f17",
+  "catalog_sha256": "3be49394e3263928c1e1c2a8d5e25d3e808f87788135e41957b26de46c304658",
+  "zip_crc": "PASS",
+  "zip_members": 38833,
+  "main_run_final_states_cpu_loaded_and_content_rehashed": 138,
+  "source_checkpoints_cpu_loaded": 3,
+  "source_reference_bindings": "PASS",
+  "verified_at_role": "Development only"
+}

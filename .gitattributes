@@ -5,3 +5,12 @@
 *.xlsx binary
 *.parquet binary
 *.zip binary
+docs/reports/hung-development-switch-audit-20261028-v4/switch_audit_full.csv -text whitespace=cr-at-eol
+docs/reports/hung-final-analysis-20261029-v1/*.csv -text whitespace=cr-at-eol
+docs/reports/hung-final-analysis-20261029-v1/*.json -text whitespace=cr-at-eol
+docs/reports/hung-final-wape-20261029-v1/*.csv -text whitespace=cr-at-eol
+docs/reports/hung-final-wape-20261029-v1/*.json -text whitespace=cr-at-eol
+docs/reports/hung-final-scope-gap-20261029-v1/*.csv -text -eol whitespace=cr-at-eol
+docs/reports/hung-final-scope-gap-20261029-v1/*.json -text -eol whitespace=cr-at-eol
+docs/reports/hung-block7-switch-effect-20261030-v1/*.csv -text -eol whitespace=cr-at-eol
+docs/reports/hung-block7-switch-effect-20261030-v1/*.json -text -eol whitespace=cr-at-eol

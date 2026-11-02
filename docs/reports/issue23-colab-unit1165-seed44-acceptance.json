@@ -1,0 +1,173 @@
+{
+  "schema": "verified-whole-colab-development-unit-v1",
+  "status": "verified_complete_unit",
+  "unit": [
+    "urbanev",
+    "SZH",
+    28,
+    "1165",
+    44
+  ],
+  "method_count": 14,
+  "scheduled_days": 90,
+  "issued_days_each": 59,
+  "scored_days_each": 52,
+  "scored_origins_identical_all_methods": true,
+  "scored_origins_sha256": "639320bf6c3c3debd6894f1fe146f10bfad516195957bbda43e91ec78e13b39d",
+  "exact_original_configs_and_input_bindings": true,
+  "same_actual_environment_all_methods": true,
+  "code_sha": "1ac2ae00c00cc0b7da67bf25d115b86d4d963f5a",
+  "partitions": [
+    {
+      "catalog_sha256": "257e125ade3e5b5b7cb25fee3511deb9b026707b1e2345c76045d6fa6d75d329",
+      "targets": 12,
+      "daily_sha256": "6f1c023d6a7dc9a80312451b382b23e890c717c1b74838c11679db3e3e2daefb",
+      "states_sha256": "10ccf284cb58fe805977e4d7a0140bab30721a3804d1c4932f81973d5e0e3726"
+    },
+    {
+      "catalog_sha256": "0c76e7f6a95ec8015ac38afb7deb1ea4b4f6d2a523b11c4bb278ba4f5a62f204",
+      "targets": 2,
+      "daily_sha256": "7452b78334ffb48292199f652bbd0000f9c8907e9c43e6b2e669383472f696b3",
+      "states_sha256": "e97aa3f32434bc360e23f618128711a259ac0683ab4549fa1dd38cd17e37e426"
+    }
+  ],
+  "declared_old_partial_cells_repeated": 4,
+  "canonical_collection_rule": "Use this complete new14-method unit instead of its4 old partial-method cells for matched analysis; preserve all historical bytes and never sum overlapping attempts. Other completed units unchanged.",
+  "scope": "One outcome-blind Development unit only, not population effectiveness or Final",
+  "runner_seconds_sum": 102.89307783499862,
+  "observed_child_wall_seconds_sum": 131.24564290700073,
+  "budget": "First12 allowance1 unit/20min, last2 allowance.25unit/5min; provider bill not independently measured",
+  "drive_folders": [
+    "https://drive.google.com/drive/folders/1Z_tsIgLDSlaARS7cBynJT2sfQ0bpjl0V",
+    "https://drive.google.com/drive/folders/126MrFyu1Ro9bAvxDstg1g32W-Ru6T2AD"
+  ],
+  "methods": [
+    {
+      "variant": "adaptive",
+      "run_id": "urbanev-SZH-1165-28d-adaptive-seed44",
+      "mae_kwh": 10.43104758041383,
+      "rmse_kwh": 13.536997646418905,
+      "initial_examples": 27,
+      "initialization": "target_initial_adaptation",
+      "scored_days": 52
+    },
+    {
+      "variant": "block28",
+      "run_id": "urbanev-SZH-1165-28d-block28-seed44",
+      "mae_kwh": 10.43104758041383,
+      "rmse_kwh": 13.536997646418905,
+      "initial_examples": 27,
+      "initialization": "target_initial_adaptation",
+      "scored_days": 52
+    },
+    {
+      "variant": "block7",
+      "run_id": "urbanev-SZH-1165-28d-block7-seed44",
+      "mae_kwh": 10.363928144410105,
+      "rmse_kwh": 13.389757194128302,
+      "initial_examples": 27,
+      "initialization": "target_initial_adaptation",
+      "scored_days": 52
+    },
+    {
+      "variant": "drift",
+      "run_id": "urbanev-SZH-1165-28d-drift-seed44-recipe3",
+      "mae_kwh": 10.359811815881926,
+      "rmse_kwh": 13.402378116594234,
+      "initial_examples": 27,
+      "initialization": "target_initial_adaptation",
+      "scored_days": 52
+    },
+    {
+      "variant": "fixed_retention",
+      "run_id": "urbanev-SZH-1165-28d-fixed_retention-seed44",
+      "mae_kwh": 10.215975203966053,
+      "rmse_kwh": 13.284779342672133,
+      "initial_examples": 27,
+      "initialization": "target_initial_adaptation",
+      "scored_days": 52
+    },
+    {
+      "variant": "frozen_source",
+      "run_id": "urbanev-SZH-1165-28d-frozen_source-seed44",
+      "mae_kwh": 10.464659552929541,
+      "rmse_kwh": 14.276332323985274,
+      "initial_examples": 27,
+      "initialization": "frozen_source_checkpoint",
+      "scored_days": 52
+    },
+    {
+      "variant": "full_finetuning",
+      "run_id": "urbanev-SZH-1165-28d-full_finetuning-seed44",
+      "mae_kwh": 10.38383724645781,
+      "rmse_kwh": 13.547591214664994,
+      "initial_examples": 27,
+      "initialization": "target_initial_adaptation",
+      "scored_days": 52
+    },
+    {
+      "variant": "online_best",
+      "run_id": "urbanev-SZH-1165-28d-online_best-seed44",
+      "mae_kwh": 10.481335261536133,
+      "rmse_kwh": 13.560611585735185,
+      "initial_examples": 27,
+      "initialization": "target_initial_adaptation",
+      "scored_days": 52
+    },
+    {
+      "variant": "parameter_retention",
+      "run_id": "urbanev-SZH-1165-28d-parameter_retention-seed44-recipe2",
+      "mae_kwh": 10.371949958131232,
+      "rmse_kwh": 13.538324853176734,
+      "initial_examples": 27,
+      "initialization": "target_initial_adaptation",
+      "scored_days": 52
+    },
+    {
+      "variant": "seasonal_naive",
+      "run_id": "urbanev-SZH-1165-28d-seasonal_naive-seed44",
+      "mae_kwh": 19.20933505987477,
+      "rmse_kwh": 24.47780453778321,
+      "initial_examples": 27,
+      "initialization": "seasonal_prefix_history",
+      "scored_days": 52
+    },
+    {
+      "variant": "source_error",
+      "run_id": "urbanev-SZH-1165-28d-source_error-seed44-recipe1",
+      "mae_kwh": 10.43104758041383,
+      "rmse_kwh": 13.536997646418905,
+      "initial_examples": 27,
+      "initialization": "target_initial_adaptation",
+      "scored_days": 52
+    },
+    {
+      "variant": "target_only",
+      "run_id": "urbanev-SZH-1165-28d-target_only-seed44",
+      "mae_kwh": 14.876859271074999,
+      "rmse_kwh": 18.664250993442117,
+      "initial_examples": 27,
+      "initialization": "random_target_initial_adaptation",
+      "scored_days": 52
+    },
+    {
+      "variant": "uncertainty",
+      "run_id": "urbanev-SZH-1165-28d-uncertainty-seed44-recipe1",
+      "mae_kwh": 10.43104758041383,
+      "rmse_kwh": 13.536997646418905,
+      "initial_examples": 27,
+      "initialization": "target_initial_adaptation",
+      "scored_days": 52
+    },
+    {
+      "variant": "without_source_initialization",
+      "run_id": "urbanev-SZH-1165-28d-without_source_initialization-seed44",
+      "mae_kwh": 14.765770213101375,
+      "rmse_kwh": 18.62841880427301,
+      "initial_examples": 27,
+      "initialization": "random_target_initial_adaptation",
+      "scored_days": 52
+    }
+  ],
+  "scored_origins_hash_encoding": "json.dumps(list, sort_keys=True), default separators"
+}

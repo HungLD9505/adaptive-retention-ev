@@ -1,0 +1,607 @@
+{
+  "schema": "verified-multiunit-colab-development-publication-v1",
+  "status": "verified_complete_units",
+  "units": [
+    {
+      "unit": [
+        "charged",
+        "SZH",
+        7,
+        "242",
+        43
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-SZH-242-7d-adaptive-seed43",
+          "mae_kwh": 0.050894444950936764,
+          "rmse_kwh": 0.07246533424592153,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-SZH-242-7d-block28-seed43",
+          "mae_kwh": 0.05412351696027651,
+          "rmse_kwh": 0.07584280479157518,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-SZH-242-7d-block7-seed43",
+          "mae_kwh": 0.048875400221642155,
+          "rmse_kwh": 0.06715681660540937,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-SZH-242-7d-drift-seed43",
+          "mae_kwh": 0.0509859943440483,
+          "rmse_kwh": 0.07241776757630733,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-SZH-242-7d-fixed_retention-seed43",
+          "mae_kwh": 0.047827165794593327,
+          "rmse_kwh": 0.06844813715230084,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-SZH-242-7d-frozen_source-seed43",
+          "mae_kwh": 0.012135426474758137,
+          "rmse_kwh": 0.014245575843849266,
+          "initial_examples": 6,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-SZH-242-7d-full_finetuning-seed43",
+          "mae_kwh": 0.053617871026106094,
+          "rmse_kwh": 0.07578080015626254,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-SZH-242-7d-online_best-seed43",
+          "mae_kwh": 0.05719248967498174,
+          "rmse_kwh": 0.07883075942529039,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-SZH-242-7d-parameter_retention-seed43",
+          "mae_kwh": 0.05361873459438852,
+          "rmse_kwh": 0.07578156959956112,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-SZH-242-7d-seasonal_naive-seed43",
+          "mae_kwh": 0.0,
+          "rmse_kwh": 0.0,
+          "initial_examples": 6,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-SZH-242-7d-source_error-seed43",
+          "mae_kwh": 0.0509859943440483,
+          "rmse_kwh": 0.07241776757630733,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-SZH-242-7d-target_only-seed43",
+          "mae_kwh": 0.24306604744015659,
+          "rmse_kwh": 0.4040719775436813,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-SZH-242-7d-uncertainty-seed43",
+          "mae_kwh": 0.0509859943440483,
+          "rmse_kwh": 0.07241776757630733,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-SZH-242-7d-without_source_initialization-seed43",
+          "mae_kwh": 0.23589467906427608,
+          "rmse_kwh": 0.40490113075469353,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    },
+    {
+      "unit": [
+        "charged",
+        "SZH",
+        7,
+        "242",
+        44
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-SZH-242-7d-adaptive-seed44",
+          "mae_kwh": 0.04054936003629809,
+          "rmse_kwh": 0.052220076337720064,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-SZH-242-7d-block28-seed44",
+          "mae_kwh": 0.039467108748669245,
+          "rmse_kwh": 0.05137409395736464,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-SZH-242-7d-block7-seed44",
+          "mae_kwh": 0.03923695867444262,
+          "rmse_kwh": 0.0507830773149679,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-SZH-242-7d-drift-seed44",
+          "mae_kwh": 0.04094785950204105,
+          "rmse_kwh": 0.05336834686827571,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-SZH-242-7d-fixed_retention-seed44",
+          "mae_kwh": 0.04356830100310438,
+          "rmse_kwh": 0.05793028427957027,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-SZH-242-7d-frozen_source-seed44",
+          "mae_kwh": 0.015883708885514443,
+          "rmse_kwh": 0.01858888853500786,
+          "initial_examples": 6,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-SZH-242-7d-full_finetuning-seed44",
+          "mae_kwh": 0.042887032165387536,
+          "rmse_kwh": 0.05551089104870369,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-SZH-242-7d-online_best-seed44",
+          "mae_kwh": 0.037537905769307676,
+          "rmse_kwh": 0.05007874583605846,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-SZH-242-7d-parameter_retention-seed44",
+          "mae_kwh": 0.04443469548850884,
+          "rmse_kwh": 0.056580163040071435,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-SZH-242-7d-seasonal_naive-seed44",
+          "mae_kwh": 0.0,
+          "rmse_kwh": 0.0,
+          "initial_examples": 6,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-SZH-242-7d-source_error-seed44",
+          "mae_kwh": 0.04094785950204105,
+          "rmse_kwh": 0.05336834686827571,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-SZH-242-7d-target_only-seed44",
+          "mae_kwh": 0.2085209218371246,
+          "rmse_kwh": 0.34469036046557905,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-SZH-242-7d-uncertainty-seed44",
+          "mae_kwh": 0.04094785950204105,
+          "rmse_kwh": 0.05336834686827571,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-SZH-242-7d-without_source_initialization-seed44",
+          "mae_kwh": 0.21584064536210568,
+          "rmse_kwh": 0.349213547194984,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    },
+    {
+      "unit": [
+        "charged",
+        "SZH",
+        7,
+        "4",
+        43
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-SZH-4-7d-adaptive-seed43",
+          "mae_kwh": 18.100368958150153,
+          "rmse_kwh": 23.306426447958927,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-SZH-4-7d-block28-seed43",
+          "mae_kwh": 17.853165872257687,
+          "rmse_kwh": 23.910533821198822,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-SZH-4-7d-block7-seed43",
+          "mae_kwh": 18.18703603789736,
+          "rmse_kwh": 23.966824367369757,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-SZH-4-7d-drift-seed43",
+          "mae_kwh": 18.254458702514203,
+          "rmse_kwh": 23.78468350922719,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-SZH-4-7d-fixed_retention-seed43",
+          "mae_kwh": 17.69544629468367,
+          "rmse_kwh": 23.627138572298517,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-SZH-4-7d-frozen_source-seed43",
+          "mae_kwh": 21.876311620230243,
+          "rmse_kwh": 28.700375163734183,
+          "initial_examples": 6,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-SZH-4-7d-full_finetuning-seed43",
+          "mae_kwh": 17.927042910789705,
+          "rmse_kwh": 22.914982829450967,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-SZH-4-7d-online_best-seed43",
+          "mae_kwh": 18.012472999052697,
+          "rmse_kwh": 23.555726759360095,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-SZH-4-7d-parameter_retention-seed43",
+          "mae_kwh": 17.92702678388584,
+          "rmse_kwh": 22.914989198506596,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-SZH-4-7d-seasonal_naive-seed43",
+          "mae_kwh": 17.8563566250501,
+          "rmse_kwh": 25.63448021087477,
+          "initial_examples": 6,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-SZH-4-7d-source_error-seed43",
+          "mae_kwh": 17.99809749497129,
+          "rmse_kwh": 23.306341428479733,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-SZH-4-7d-target_only-seed43",
+          "mae_kwh": 19.224042104578423,
+          "rmse_kwh": 24.74304453741352,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-SZH-4-7d-uncertainty-seed43",
+          "mae_kwh": 17.99809749497129,
+          "rmse_kwh": 23.306341428479733,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-SZH-4-7d-without_source_initialization-seed43",
+          "mae_kwh": 19.129342807725322,
+          "rmse_kwh": 24.586403555197062,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    },
+    {
+      "unit": [
+        "charged",
+        "SZH",
+        7,
+        "4",
+        44
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-SZH-4-7d-adaptive-seed44",
+          "mae_kwh": 17.285946854984786,
+          "rmse_kwh": 22.856840105791164,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-SZH-4-7d-block28-seed44",
+          "mae_kwh": 17.285946854984786,
+          "rmse_kwh": 22.856840105791164,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-SZH-4-7d-block7-seed44",
+          "mae_kwh": 17.269707091431677,
+          "rmse_kwh": 22.81292274786622,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-SZH-4-7d-drift-seed44",
+          "mae_kwh": 17.350494749936473,
+          "rmse_kwh": 22.99780015317972,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-SZH-4-7d-fixed_retention-seed44",
+          "mae_kwh": 17.038985134659757,
+          "rmse_kwh": 22.71705441739695,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-SZH-4-7d-frozen_source-seed44",
+          "mae_kwh": 21.587264058072215,
+          "rmse_kwh": 28.941640658586344,
+          "initial_examples": 6,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-SZH-4-7d-full_finetuning-seed44",
+          "mae_kwh": 17.665510213761316,
+          "rmse_kwh": 22.870769936747635,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-SZH-4-7d-online_best-seed44",
+          "mae_kwh": 17.082259372787053,
+          "rmse_kwh": 22.498582570627146,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-SZH-4-7d-parameter_retention-seed44",
+          "mae_kwh": 17.665494841789542,
+          "rmse_kwh": 22.870760810901327,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-SZH-4-7d-seasonal_naive-seed44",
+          "mae_kwh": 17.8563566250501,
+          "rmse_kwh": 25.63448021087477,
+          "initial_examples": 6,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-SZH-4-7d-source_error-seed44",
+          "mae_kwh": 17.285946854984786,
+          "rmse_kwh": 22.856840105791164,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-SZH-4-7d-target_only-seed44",
+          "mae_kwh": 19.66394457976207,
+          "rmse_kwh": 25.37602887815252,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-SZH-4-7d-uncertainty-seed44",
+          "mae_kwh": 17.285946854984786,
+          "rmse_kwh": 22.856840105791164,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-SZH-4-7d-without_source_initialization-seed44",
+          "mae_kwh": 19.361144889098373,
+          "rmse_kwh": 25.03064778432219,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    }
+  ],
+  "method_cells": 56,
+  "publication_catalog_sha256": "aaa3a7228dee4a129eda651b018968b77b9654ef30a4c83267ccd22734720c97",
+  "independent_receipt_sha256": "80d479fb6b6cd9b63ebfd20b7d59809552560cfe579b9a5c5829f6bc9f44d9cc",
+  "independent_proof_sha256": "9d90ac83deeeef806ada8b6c3f76cc907e4409e17da7760fdf8cfcb5395bd84a",
+  "coverage_review_sha256": "baee96713461a31ca6a8ca7f73fcf1c118146db54d0e2d9e0affa459154cf9f3",
+  "profile_sha256": "da989d661add7673e1bf224c061775cf07944424de598a5903480217a2380f20",
+  "external_exit_sha256": "663c863c2b791ff0124feac81d0950c08beb4f985ce409dbda919ab4dd739521",
+  "reviewed_verifier_sha256": "88bbebd821796a02ce046942a17ac3a464ffe4fd4dce42861e5020fcfe5cc3ed",
+  "exact_original_configs_and_inputs": true,
+  "all_three_original_sources_verified": true,
+  "child_wall_seconds": 545.5603539930016,
+  "dispatch_to_publication_seconds": 590.0017108917236,
+  "operator_caps": {
+    "maximum_cells": 56,
+    "paired_units": 4,
+    "maximum_seconds": 1200,
+    "unit_allowance": 1,
+    "reserve_units": 30,
+    "deadman_seconds": 120,
+    "maximum_fit_seconds": 1200
+  },
+  "drive_folder": "https://drive.google.com/drive/folders/1o6R6y2wxqBx3yNiROe3lAs2zhGrHVgs4",
+  "canonical_collection_rule": "Replace old partial cells with complete units; preserve old bytes; no double counting",
+  "score_policy": "Retain null metrics and missing coverage; operational completion does not establish method effectiveness",
+  "scope": "Development only; no Final execution or effectiveness claim"
+}

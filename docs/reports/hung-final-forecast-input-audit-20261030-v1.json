@@ -1,0 +1,50 @@
+{
+  "budgets": [
+    {
+      "budget_days": 7,
+      "created_key_set_sha256": "f24f76b4d3d2767f398458927c452310025ebc490ae29ba2c9645d0b3dae74f9",
+      "duplicate_final_forecast_inputs": 0,
+      "final_created_and_forecast_inputs": 25978,
+      "forecast_member_bytes": 286070272,
+      "forecast_member_sha256": "0668ad08794d96f7b4f3c8b399f487bb8b0fd96a83ea695711db15f13fafeeb7",
+      "invalid_final_forecast_shapes_or_bindings": 0,
+      "manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+      "missing_or_extra_forecast_inputs": 0,
+      "omitted_forecast_inputs": 25708,
+      "schedule_member_sha256": "311609cfb4ac4af0f892c0833b2f4f8796bd1de67731e0447090ef63c8fad61c"
+    },
+    {
+      "budget_days": 14,
+      "created_key_set_sha256": "c8abb4f1de26c36e0791472d62b7514457eea6aa662d3088b979462aa041fa2f",
+      "duplicate_final_forecast_inputs": 0,
+      "final_created_and_forecast_inputs": 26022,
+      "forecast_member_bytes": 286596339,
+      "forecast_member_sha256": "d67ba54632b850bf183bc6f0df345f0de060a3907a11e27ef01c9b75edfcb6e8",
+      "invalid_final_forecast_shapes_or_bindings": 0,
+      "manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+      "missing_or_extra_forecast_inputs": 0,
+      "omitted_forecast_inputs": 25752,
+      "schedule_member_sha256": "eaa88e7e861eb5d70d42b1c0e114de5fff1a3b621a78d635613e278151de143e"
+    },
+    {
+      "budget_days": 28,
+      "created_key_set_sha256": "444f04e4698e22c0ef97175ce9d986cd03d720f31d5bce7fac884d0870c26400",
+      "duplicate_final_forecast_inputs": 0,
+      "final_created_and_forecast_inputs": 26146,
+      "forecast_member_bytes": 288498439,
+      "forecast_member_sha256": "c0a22b9d3849e0ec765fa74f58fd2adb6291357446b7c86f69595a043cd9386d",
+      "invalid_final_forecast_shapes_or_bindings": 0,
+      "manifest_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+      "missing_or_extra_forecast_inputs": 0,
+      "omitted_forecast_inputs": 25876,
+      "schedule_member_sha256": "c467d2a79694e10cbce8798776eca5ef5041831532dd815517f795232dac54de"
+    }
+  ],
+  "disposition": "FROZEN_FORECAST_INPUTS_VERIFIED_NOT_METHOD_EXECUTION_OR_EXTENSION_LOCK",
+  "disposition_sha256": "e129bcc2601c8f7c4dd209dc302f3dd0d4c2c5c61a58863b5e5e28e227f4fd76",
+  "input_zip_sha256": "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7",
+  "lock_sha256": "e5e8fe1cb5636e508b3edbcedbbd00a72d9d8230041bf383eeba3d1133883e5e",
+  "schedule_audit_sha256": "b4211712fc9c25d4343b076c29d1489a8d7d45db54a91011c9fe310daf9bed4e",
+  "schema": "hung-final-forecast-input-audit-v1",
+  "scope": "frozen Final-role created schedule to forecast-input bijection; no held-out labels or scores"
+}

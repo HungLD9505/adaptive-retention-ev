@@ -1,0 +1,90 @@
+{
+  "zip_crc": "PASS",
+  "zip_sha256": "83e8d5eb798b786b4ced08ee4556a01cf092d0b40de13200259f1d8c02e8ea8c",
+  "runs": [
+    {
+      "run_id": "urbanev-SZH-1001-7d-adaptive-seed42",
+      "files_hashed": 135,
+      "issued": 43,
+      "scored": 43,
+      "mae_kwh": 4.247060672706259,
+      "rmse_kwh": 5.923009845154002,
+      "commit_chain": "36af904c11c202ce1029a70f14d8834136b1c648c9eb613d3a228ebe9b97a58a",
+      "checkpoint_readable_cpu": true,
+      "state_keys": [
+        "active",
+        "block_start",
+        "next_at",
+        "branches",
+        "pending",
+        "scores",
+        "audit",
+        "audit_origin",
+        "audit_pairs",
+        "decisions",
+        "update_events",
+        "cost",
+        "steps",
+        "audit_steps",
+        "reference_sha",
+        "policy"
+      ]
+    },
+    {
+      "run_id": "urbanev-SZH-1001-7d-seasonal_naive-seed42",
+      "files_hashed": 135,
+      "issued": 43,
+      "scored": 43,
+      "mae_kwh": 6.218830798872359,
+      "rmse_kwh": 8.287024947801015,
+      "commit_chain": "48e50bd2461404fd02084c5d9ae6389511c4ce9f31ccd163a0a8e4164028d280",
+      "checkpoint_readable_cpu": true,
+      "state_keys": [
+        "active",
+        "block_start",
+        "next_at",
+        "branches",
+        "pending",
+        "scores",
+        "audit",
+        "audit_origin",
+        "audit_pairs",
+        "decisions",
+        "update_events",
+        "cost",
+        "steps",
+        "audit_steps",
+        "reference_sha",
+        "policy"
+      ]
+    },
+    {
+      "run_id": "urbanev-SZH-1001-7d-target_only-seed42",
+      "files_hashed": 135,
+      "issued": 43,
+      "scored": 43,
+      "mae_kwh": 5.808972091484529,
+      "rmse_kwh": 7.21088001488119,
+      "commit_chain": "fc77366d2404d63846454f1e28a824bac01af304c42dcbd871b3ddc95c238955",
+      "checkpoint_readable_cpu": true,
+      "state_keys": [
+        "active",
+        "block_start",
+        "next_at",
+        "branches",
+        "pending",
+        "scores",
+        "audit",
+        "audit_origin",
+        "audit_pairs",
+        "decisions",
+        "update_events",
+        "cost",
+        "steps",
+        "audit_steps",
+        "reference_sha",
+        "policy"
+      ]
+    }
+  ]
+}

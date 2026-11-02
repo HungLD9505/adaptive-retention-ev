@@ -1,0 +1,36 @@
+{
+  "scope": "Fixed Retention Development grid only; no Final lock",
+  "training_status": "complete",
+  "code": "6e3aa21719c5b140875e9ba5bbce14c6fd42bfa9",
+  "files": [
+    {
+      "name": "qyroven-issue23-fixed-retention-20261026-v1.zip",
+      "bytes": 176917243,
+      "sha256": "0396287fd48dbf6803d02d97e0f6c15a346dbb7a7e657cd8caa9d6349c12d620",
+      "url": "https://drive.google.com/file/d/1p89BrvUwJVRxYqk3tfXbzNaiMbmIf_2a/view?usp=drivesdk"
+    },
+    {
+      "name": "qyroven-issue23-fixed-retention-20261026-v1-matrix.json",
+      "bytes": 5486457,
+      "sha256": "b2506d39f6f5526b5e9f3ca0a58b28bc545c30d35f0469e696e31a2b5f970194",
+      "url": "https://drive.google.com/file/d/1d3OFnaVnZDaP2RoHNHmLg7YeZ0WlIul7/view?usp=drivesdk"
+    },
+    {
+      "name": "qyroven-issue23-fixed-retention-20261026-v1-selection.json",
+      "bytes": 5315,
+      "sha256": "b3cdefd64b10fa186a39d9b6e9d6ed2c325f1966eddb1d74e7b46f025495ce20",
+      "url": "https://drive.google.com/file/d/1VIl7njlH3fLCad6dZ7iSJMWLEIp2Gj_x/view?usp=drivesdk"
+    },
+    {
+      "name": "qyroven-issue23-fixed-retention-20261026-v1-verification.json",
+      "bytes": 107935,
+      "sha256": "2b2652c0c6c16a75b942d739fe2b93295d0b3769f50adb09cea51c7086f7b0ce",
+      "url": "https://drive.google.com/file/d/1DWgoHzShNclNEDNfI6aLiyCm014jGUYE/view?usp=drivesdk"
+    }
+  ],
+  "catalog": {
+    "url": "https://drive.google.com/file/d/1I3eojZm6dJXxMxLNLCgB46hBVqZr39tC/view?usp=drivesdk",
+    "sha256": "85eea455356fd473dd978901a0e95eb0d209824b53bd483c59c982d11c56bcdf"
+  },
+  "folder": "https://drive.google.com/drive/folders/1AWX7ztnjzHqsn_yiEWSURxzKokxtWbnc"
+}

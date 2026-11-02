@@ -1,0 +1,659 @@
+{
+  "scope": "Complete Kaggle calibration metadata and downloaded daily-proof authentication; daily files and all latest checkpoints not yet independently restored off-runtime",
+  "verification_code": "4361d5004500e50f5dd7a78cd166690d32070430",
+  "training_code": "54131cbb8ce47f9d064b80f03956e8e62ec48346",
+  "matrix_sha256": "dc690a85b48057cbf375c0f660c5fd77d550193b0a432994c9a245259077b501",
+  "proof_sha256": "e0b081369727cac568435f0636f1329d3d127e4c622d3b0baf426c88060e3b1a",
+  "runs": 1104,
+  "files_hashed_on_kaggle": 204240,
+  "historical_states_intentionally_omitted": 100464,
+  "null_metric_cells": 528,
+  "methods": {
+    "source_error": 276,
+    "uncertainty": 276,
+    "drift": 276,
+    "parameter_retention": 276
+  },
+  "config_population_selection_checks": "Exact recomputation passed; four finite recipes per method, three seeds and all declared entity-budget combinations retained",
+  "controller_recipe": 1,
+  "controller_matrix_sha256": "63018faee904312cd780724b6fbf6f2c97269afc1d1ceb2d5af4629feecbd7d6",
+  "controller_proof_sha256": "e184e3bf5a6bbb38350c6c30ffb8d4e012433cfdaffcbc59876213fd915ef92c",
+  "matrix_inner_loop_wall_seconds": 6894.114019539,
+  "selection": {
+    "source_error": {
+      "provisional_recipe": 1,
+      "candidates": {
+        "0": {
+          "selection_score": 5.165507255928858,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.12273904635337,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.526969466936826,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.84681325449638,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        },
+        "1": {
+          "selection_score": 5.157221343060682,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.09788130774884,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.526969466936826,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.84681325449638,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        },
+        "2": {
+          "selection_score": 5.165832557212318,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.124246195220778,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.526438221919795,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.84681325449638,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        },
+        "3": {
+          "selection_score": 5.1663944319612725,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.125297771006069,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.5270722703813675,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.84681325449638,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "uncertainty": {
+      "provisional_recipe": 1,
+      "candidates": {
+        "0": {
+          "selection_score": 5.164984349329763,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.120450948153106,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.527688845339801,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.84681325449638,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        },
+        "1": {
+          "selection_score": 5.163882445791305,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.120450948153106,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.524383134724431,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.84681325449638,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        },
+        "2": {
+          "selection_score": 5.169008273681894,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.131363168740637,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.507634973003035,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.868026679302011,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        },
+        "3": {
+          "selection_score": 5.184561537286146,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.149291132185752,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.539206888292827,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.865186591379859,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "drift": {
+      "provisional_recipe": 3,
+      "candidates": {
+        "0": {
+          "selection_score": 5.167328872735552,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.133120718204745,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.528256101041277,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.840609798960633,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        },
+        "1": {
+          "selection_score": 5.181612529763037,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.1401369862246415,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.524177010007744,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.880523593056727,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        },
+        "2": {
+          "selection_score": 5.182723752831813,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.14760240526784,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.5375661813309875,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.863002671896613,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        },
+        "3": {
+          "selection_score": 5.166360506218818,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.100597756223186,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.508642021066025,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.889841741367241,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "parameter_retention": {
+      "provisional_recipe": 2,
+      "candidates": {
+        "0": {
+          "selection_score": 5.1903777847500585,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.144953000889622,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.527040106734627,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.899140246625927,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        },
+        "1": {
+          "selection_score": 5.190380010664192,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.144950210076276,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.527040682485997,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.899149139430303,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        },
+        "2": {
+          "selection_score": 5.190117543542404,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.144971882425054,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.526255042143996,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.899125706058164,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        },
+        "3": {
+          "selection_score": 5.190668073581244,
+          "budgets": {
+            "14": {
+              "mae_kwh": 5.144637860896107,
+              "scored_ids": 4,
+              "unscored_ids": [
+                "1987",
+                "2644",
+                "2613",
+                "1025"
+              ]
+            },
+            "28": {
+              "mae_kwh": 5.527434675761956,
+              "scored_ids": 5,
+              "unscored_ids": [
+                "1987",
+                "1188",
+                "1408",
+                "1251"
+              ]
+            },
+            "7": {
+              "mae_kwh": 4.89993168408567,
+              "scored_ids": 3,
+              "unscored_ids": [
+                "1050",
+                "1200",
+                "2447"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "limits": [
+    "Conditional finite Development selection, not an unbiased method ranking or Final lock",
+    "Fresh matched Kaggle references/comparators still running",
+    "3/4/5 scored IDs by 7/14/28-day budget; unscored cells preserved",
+    "Archive contains metadata/proofs only, not all forecasts/events/checkpoints",
+    "No local training or Final outcomes used"
+  ],
+  "transport": {
+    "calibration": {
+      "url": "https://drive.google.com/file/d/159MLuJqqhqAuutBnsx3kGZohmtZMKbjb/view",
+      "bytes": 2600664,
+      "sha256": "61f19ffe17c6f8339e5dc8ae20a9883b897d3f7b7626d201cab8f3eec755b8fc",
+      "anonymous_readback": "Exact bytes/SHA-256, ZIP CRC and every manifest member passed",
+      "scope": "Evidence transport, not a complete training checkpoint/archive"
+    },
+    "verifier_parity": {
+      "url": "https://drive.google.com/file/d/1gzbvt98A8Mttl5UT0OPExFIxS31SsC8B/view",
+      "bytes": 37576,
+      "sha256": "efa89744fb0c35c2d8e921f9d9ed7a8f7843793ae15ff4d008e9913e09f2995a",
+      "anonymous_readback": "Exact bytes/SHA-256, ZIP CRC and every manifest member passed",
+      "scope": "Evidence transport, not a complete training checkpoint/archive"
+    }
+  },
+  "controller_lineage_resolution": {
+    "local_sha256": "a28df0ff1a2528a4ca4675599b9fa0091dbec7370d845db11697593eeba61fdc",
+    "kaggle_sha256": "63018faee904312cd780724b6fbf6f2c97269afc1d1ceb2d5af4629feecbd7d6",
+    "original_runs_identical": true,
+    "differences": [
+      [
+        "/reconstruction/code/commit",
+        "10ada9b79d1d126335f203f0d3ffedb75b0a0b89",
+        "54131cbb8ce47f9d064b80f03956e8e62ec48346"
+      ],
+      [
+        "/reconstruction/wall_seconds",
+        11.442676708000363,
+        33.4971972620001
+      ],
+      [
+        "/sources/42/path",
+        "/Users/quyenmanh/Developer/TFL-EV/runs/issue23-controller-recovery-20261026-v1/restored/source-seed42/epoch-10.pt",
+        "/kaggle/working/qyroven-issue23-recovery-20261026-v1/controller-recovered/source-seed42/epoch-10.pt"
+      ],
+      [
+        "/sources/43/path",
+        "/Users/quyenmanh/Developer/TFL-EV/runs/issue23-controller-recovery-20261026-v1/restored/source-seed43/epoch-10.pt",
+        "/kaggle/working/qyroven-issue23-recovery-20261026-v1/controller-recovered/source-seed43/epoch-10.pt"
+      ],
+      [
+        "/sources/44/path",
+        "/Users/quyenmanh/Developer/TFL-EV/runs/issue23-controller-recovery-20261026-v1/restored/source-seed44/epoch-10.pt",
+        "/kaggle/working/qyroven-issue23-recovery-20261026-v1/controller-recovered/source-seed44/epoch-10.pt"
+      ]
+    ]
+  },
+  "snapshot_verifier_observation": {
+    "code": "4361d5004500e50f5dd7a78cd166690d32070430",
+    "runs": 276,
+    "daily_files": 51060,
+    "audit_scores": 752,
+    "streaming_wall_seconds": 31.96099266699457,
+    "snapshot_wall_seconds": 7.629204624987324,
+    "maximum_resident_set_size_bytes": {
+      "streaming": 55787520,
+      "snapshot": 427966464
+    },
+    "raw_snapshot_bytes": 352794828,
+    "all_run_proofs_identical": true,
+    "streaming_proof_byte_identical_to_previous": true,
+    "limits": "Single sequential local CPU observation, streaming first; OS cache and load confound timing. No universal speedup, training or GPU resume claim."
+  }
+}

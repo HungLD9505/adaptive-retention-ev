@@ -1,0 +1,104 @@
+{
+  "schema": "hung-durable-queue-v2-evidence",
+  "model_code_sha": "44b8532959d76fb20691881539f991ca44983727",
+  "orchestration_commit": "307b8c4",
+  "coordinator_url": "https://www.kaggle.com/code/hungluongduc/hung-development-cpu-coordinator-20261027-v2?scriptVersionId=362634406",
+  "coordinator_state": "running CPU; waits for group02; future GPU groups not yet observed",
+  "old_coordinator_state": "CANCEL_ACKNOWLEDGED; old group03 not found in owner-facing UI; API403 not retried",
+  "integration": {
+    "shard_id": "shard_0001",
+    "status": "VERIFIED",
+    "dataset": "hungluongduc/hung-dev-shard0001-44b8532-20261027-v2/versions/1",
+    "artifact_sha256": "29e3db51106402942959f80762e4c27995ad4ec9f2253fd96cc8a4681d3b2dcd",
+    "artifact_bytes": 65931034,
+    "upload_seconds": 7.032829770999797,
+    "upload_and_readback_wall_seconds": 45.60819982199973,
+    "cpu_readback": {
+      "name": "hung-dev-readback-shard0001-20261027-v2",
+      "url": "https://www.kaggle.com/code/hungluongduc/hung-dev-readback-shard0001-20261027-v2",
+      "version": 1,
+      "gpu": false,
+      "source_sha256": "f3f4ae355b23333f5f758a75b98caf9cb503980b0b96832a2b2cde861540342a"
+    },
+    "peer_acceptance": "pending"
+  },
+  "independent_cpu_readback": {
+    "passed": true,
+    "records": [
+      {
+        "shard": "shard_0001",
+        "sha256": "29e3db51106402942959f80762e4c27995ad4ec9f2253fd96cc8a4681d3b2dcd",
+        "bytes": 65931034,
+        "crc": "passed"
+      }
+    ],
+    "seconds": 2.1685819280000374,
+    "scope": "Independent CPU readback of private Dataset; no training/Final"
+  },
+  "integration_log_sha256": "b59fca2e62fedc93581b3703030e0e5dd9fc289ade282a935cf19e54561ee1df",
+  "readback_log_sha256": "e254aa7576167e661c02690d73f97d2567f8f212f1607b03b6d1034673615c90",
+  "shard0002": {
+    "shard_id": "shard_0002",
+    "exit_code": 0,
+    "wall_seconds": 1409.504643018,
+    "ended_at_utc": "2026-10-26T21:41:04.182805+00:00",
+    "plan_sha256": "70dff1c41380aa781062470b6986829e470e320a1cd0522ac49c63956ea6d12d",
+    "shards_sha256": "7d99e722c6e27b7257a709182a0827b63c4a1599cfe14f3472e9e4a914cf8ad1",
+    "job_ids": [
+      "block28_b14s7e1987",
+      "block28_b14s7e2152",
+      "block28_b14s7e2613",
+      "block28_b14s7e2644",
+      "block28_b28s11e1165",
+      "block28_b28s11e1188",
+      "block28_b28s11e1251",
+      "block28_b28s11e1408",
+      "block28_b28s11e1987",
+      "block28_b28s11e2005",
+      "block28_b28s11e2152",
+      "block28_b28s11e2472",
+      "block28_b28s11e2633",
+      "block28_b28s19e1165",
+      "block28_b28s19e1188",
+      "block28_b28s19e1251",
+      "block28_b28s19e1408",
+      "block28_b28s19e1987",
+      "block28_b28s19e2005",
+      "block28_b28s19e2152"
+    ],
+    "local_verify_exit_code": 0,
+    "artifact_bytes": 61939216,
+    "artifact_sha256": "409c523b421397fecc22bc953a13b2642aa49cf1f0f443c9e88f1d11af4ca908",
+    "crc": "passed",
+    "remote_readback": "pending",
+    "peer_acceptance": "pending"
+  },
+  "shard0002_log_sha256": "2308339e37a48bbe94967b6b81936455f0fa938c92042b0706a9e9f1a203be5a",
+  "new_completed_receipt_verified_at_execution_sites": 82,
+  "new_remote_readback_jobs": 26,
+  "kaggle_group02_remaining_jobs": 20,
+  "local_queue_remaining_jobs": 180,
+  "kaggle_future_jobs": 500,
+  "metrics_snapshot": {
+    "runs": 111,
+    "historical_main": 69,
+    "new_local": 42,
+    "scorable": 60,
+    "zero_scored": 51,
+    "catalog_sha256": "2d4b3aa5284552a0b82955ab5e05cdc2832f96a06a24145a1d0a7f3c2dd67da8",
+    "result_sha256": "56e9370abafbc1e155c7f2f9e06ad5848025c157f5018a0afe88d58b7bd4010d"
+  },
+  "tests": {
+    "ran": 305,
+    "skipped": 1,
+    "test_seconds": 208.997,
+    "terminal": {
+      "exit_code": 0,
+      "wall_seconds": 214.8701586
+    },
+    "log_sha256": "1298d43aa1cd6a33c4c3b10888613a33d0cce5d7a435f3789021e25f4bfe19a5"
+  },
+  "independent_scientific_review": "pending",
+  "final": "not run; no independent immutable lock",
+  "issue39": "open; provider-substitution acceptance pending"
+}

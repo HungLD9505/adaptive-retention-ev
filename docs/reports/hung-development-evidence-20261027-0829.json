@@ -1,0 +1,134 @@
+{
+  "scope": "development_only",
+  "actual_local_shard0032": {
+    "artifact_bytes": 61250538,
+    "artifact_sha256": "3253d7928a9a31314cf04706a14d468050b1539b990d1020f39ea3c8570e076f",
+    "crc": "passed",
+    "job_ids": [
+      "source_error_b28s7e2472",
+      "source_error_b28s7e2633",
+      "source_error_b7s11e1050",
+      "source_error_b7s11e1200",
+      "source_error_b7s11e1405",
+      "source_error_b7s11e2264",
+      "source_error_b7s11e2447",
+      "source_error_b7s11e2452",
+      "source_error_b7s19e1050",
+      "source_error_b7s19e1200",
+      "source_error_b7s19e1405",
+      "source_error_b7s19e2264",
+      "source_error_b7s19e2447",
+      "source_error_b7s19e2452",
+      "source_error_b7s7e1050",
+      "source_error_b7s7e1200",
+      "source_error_b7s7e1405",
+      "source_error_b7s7e2264",
+      "source_error_b7s7e2447",
+      "source_error_b7s7e2452"
+    ],
+    "partition_sha256": "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f",
+    "peer_acceptance": "pending",
+    "plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+    "remote_readback": "pending; archive is on persistent local SSD",
+    "shard_id": "shard_0032",
+    "wall_seconds": 2786.117017800003
+  },
+  "local_snapshot": {
+    "counts": {
+      "runs": 211,
+      "scorable_runs": 112,
+      "zero_scored_runs": 99
+    },
+    "receipt_sha256": "4ae5d901b970d92f665cc9ece7c843e84f2fd189f486df12bb6fc432149f1467",
+    "readback_verified": true
+  },
+  "kaggle_cpu_reader": {
+    "version_id": 362663336,
+    "url": "https://www.kaggle.com/code/hungluongduc/hung-cpu-metrics-shard0001-20261027-v1?scriptVersionId=362663336",
+    "notebook_wall_seconds": 673.9,
+    "proof": {
+      "schema": "hung-cloud-cpu-receiver-v1",
+      "scope": "development_only",
+      "passed": true,
+      "executed": false,
+      "shard_id": "shard_0001",
+      "jobs": 20,
+      "counts": {
+        "runs": 20,
+        "scorable_runs": 11,
+        "zero_scored_runs": 9
+      },
+      "artifact_sha256": "29e3db51106402942959f80762e4c27995ad4ec9f2253fd96cc8a4681d3b2dcd",
+      "artifact_bytes": 65931034,
+      "original_receipt_sha256": "503d23094d5647290c45cc823db7089fb0e9a147a4453577076678e0b2e4cf95",
+      "model_code_commit": "44b8532959d76fb20691881539f991ca44983727",
+      "plan_sha256": "80a1666cf2083594c9a2bc0b0a4dc3e30118eda43d07187cd5b6d8b51f90e0bb",
+      "partition_sha256": "e2c6cb6f15a7473c6cdfd7912fefa838d63a770cf352dff93c2cccc3ae86a15c",
+      "scorer_sha256": "68fccbed056734d9b4842f7bda088880d7812d12417d64878d1aa018fc010456",
+      "verification": {
+        "exit_code": 0,
+        "command": [
+          "/usr/bin/python3",
+          "-u",
+          "-m",
+          "experiments.hung_sprint2.dispatch_matched",
+          "--plan",
+          "/kaggle/working/hung-matched-shard0001-v1/repo/.cache/provider/plan.json",
+          "--plan-sha256",
+          "80a1666cf2083594c9a2bc0b0a4dc3e30118eda43d07187cd5b6d8b51f90e0bb",
+          "--shards",
+          "/kaggle/working/hung-matched-shard0001-v1/repo/.cache/provider/shards.json",
+          "--shards-sha256",
+          "e2c6cb6f15a7473c6cdfd7912fefa838d63a770cf352dff93c2cccc3ae86a15c",
+          "--shard-id",
+          "shard_0001",
+          "--resume",
+          "--verify-only"
+        ],
+        "wall_seconds": 583.6710764249999,
+        "executed": false,
+        "purpose": "Official --verify-only; no training fallback",
+        "log_sha256": "765d08d7aa4e42c7ce8317f18d0adc10052544819e16f6c04d88b53dba77ee34"
+      },
+      "elapsed_seconds": 588.386940869,
+      "results_sha256": "623ebcc9636d9862cc4c83a6f431cd21740805a20676fcc9c7839d17fa51dc72",
+      "catalog_sha256": "4788fe0d6304ce62c049251ed76f1700807dc530058165dc8978f918a504ec69",
+      "peer_acceptance": "pending; technical restore/readback is not independent scientific review",
+      "receiver_sha256": "5cfd98dd7c4a64f672a12fce2d5a65454f069d5a2c6a099d3a3d7c7d9fb48571",
+      "transport_helper_sha256": "cadcd80d671d3b49a317312f125735362ffba3068247f1714a0ae56c6be83424",
+      "derivation": {
+        "code_commit": "44b8532959d76fb20691881539f991ca44983727",
+        "parent_plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+        "parent_shards_sha256": "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f",
+        "provider_plan_sha256": "80a1666cf2083594c9a2bc0b0a4dc3e30118eda43d07187cd5b6d8b51f90e0bb",
+        "provider_shards_sha256": "e2c6cb6f15a7473c6cdfd7912fefa838d63a770cf352dff93c2cccc3ae86a15c",
+        "transport_sha256": "23a6d420523d990d07ff07d814ed642a851925283a102a3ae806f3b666e1d6f4"
+      },
+      "device": "cpu",
+      "torch": "2.11.0+cpu"
+    },
+    "log_sha256": "02ccbdb14d22e60841527bfd273f5e4398628a34a5172caf034a95e7e9735ee3"
+  },
+  "progress": {
+    "planned": 782,
+    "completed": 242,
+    "remote_readback": 202,
+    "local_remote_pending": 40,
+    "outside_completed_certification": 540
+  },
+  "portable_reconciliation": {
+    "local191_parity": "PASS",
+    "kaggle_export": "prepared only; draft editor remains loading, no version submitted"
+  },
+  "offline_tests": {
+    "command": "python -m unittest discover -s tests",
+    "wall_seconds": 226.4110883,
+    "exit_code": 0,
+    "python_utf8": "1",
+    "head": "a26180c3f33898b24c21fe7ca2a931e855fec1f6"
+  },
+  "offline_test_count": 357,
+  "offline_test_skips": 1,
+  "peer_acceptance": "pending",
+  "final_lock": "absent"
+}

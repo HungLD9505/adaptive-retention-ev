@@ -1,0 +1,178 @@
+{
+  "scope": "bounded fixture comparison only; no real training or Final access",
+  "qyroven_commit": "83b877e16e7e690d93bb1f7736ce1870ef08fadd",
+  "hung_historical_commit": "e85a53cd02deaa3a3440df8c6922eb679773801b",
+  "hung_current_commit": "c1c83a0e342536ea660b7b48eb66882f4459b959",
+  "results": {
+    "historical_cpu_components": {
+      "scope": "CPU fixture/component comparison only; no performance or full-run equivalence",
+      "hung_revision": "b1f9edaa7f5c28e081159e90bedd58765afeb1a1",
+      "hung_files_sha256": {
+        "model.py": "c8303d1c9e83ee4bdaf6f5ce6c3e520dc22ce95d51c442375ea8fa3e9879ef76",
+        "retention.py": "a4aa9c67d5f0262de9bb81089f2788295fba93cc4a25948e5409b48b849a03f6",
+        "controller.py": "42ebc1c308569e41ca404c34af1c96daff509db3f6bf4544c6b95a4cbb158c2f"
+      },
+      "torch": "2.8.0+cu126",
+      "encoder_max_abs_difference": 0.0,
+      "total_model_parameters": {
+        "qyroven": 52376,
+        "hung": 41696
+      },
+      "head_equivalence": "Different topologies; cannot assert full forecast/checkpoint equivalence",
+      "retention_expected": 2.5089153428333866,
+      "retention_actual": [
+        2.5089153428333866,
+        2.5089153428333866
+      ],
+      "target_gradient_exact_match": true,
+      "source_gradient": "None in both",
+      "controller_constant_cases": [
+        {
+          "case": "insufficient",
+          "selected_lambda": 0.0,
+          "result": "PASS"
+        },
+        {
+          "case": "equal",
+          "selected_lambda": 0.0,
+          "result": "PASS"
+        },
+        {
+          "case": "strong_challenger",
+          "selected_lambda": 0.2,
+          "result": "PASS"
+        },
+        {
+          "case": "equal_challenger_lcb_nearest",
+          "selected_lambda": 0.1,
+          "result": "PASS"
+        }
+      ],
+      "bootstrap_equivalence": "Not established: quantile convention and RNG derivation differ"
+    },
+    "historical_cpu_varying_day": {
+      "scope": "synthetic CPU controller fixture; no Development or Final data",
+      "qyroven_controller_sha256": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+      "hung_controller_sha256": "42ebc1c308569e41ca404c34af1c96daff509db3f6bf4544c6b95a4cbb158c2f",
+      "fixture": {
+        "days": 14,
+        "levels": [
+          0.0,
+          0.1,
+          0.2
+        ],
+        "active": 0.0,
+        "bmin": 5,
+        "delta": 0.0,
+        "alpha": 0.05,
+        "segment": 2,
+        "resamples": 100,
+        "seed": 7,
+        "day_losses_formula": "(2.0, 1.8+0.3*((i%5)-2), 1.75+0.3*((i%7)-3))"
+      },
+      "qyroven": {
+        "selected": 0.0,
+        "comparisons": [
+          {
+            "challenger": 0.1,
+            "lcb": -0.025535714285714307
+          },
+          {
+            "challenger": 0.2,
+            "lcb": -0.061249999999999964
+          }
+        ]
+      },
+      "hung": {
+        "selected": 0.1,
+        "lower_bounds": [
+          null,
+          0.007142857142857102,
+          -0.07142857142857138
+        ]
+      }
+    },
+    "historical_cuda_components": {
+      "scope": "synthetic CUDA component fixture only; no training or Development data",
+      "seed": 123,
+      "qyroven_model_sha256": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+      "hung_model_sha256": "c8303d1c9e83ee4bdaf6f5ce6c3e520dc22ce95d51c442375ea8fa3e9879ef76",
+      "hung_retention_sha256": "a4aa9c67d5f0262de9bb81089f2788295fba93cc4a25948e5409b48b849a03f6",
+      "device": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+      "torch": "2.8.0+cu126",
+      "cuda": "12.6",
+      "encoder_max_abs_difference": 0.0,
+      "retention_losses": [
+        2.508915342833387,
+        2.508915342833387
+      ],
+      "target_gradients_exact": true,
+      "source_gradients": "None for both",
+      "peak_allocated_bytes": 752640,
+      "peak_reserved_bytes": 2097152,
+      "elapsed_seconds": 0.7842142000154126
+    },
+    "current_cpu_varying_day": {
+      "scope": "synthetic CPU controller fixture; no Development or Final data",
+      "qyroven_controller_sha256": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+      "hung_controller_sha256": "b97f49e6895d132b5d535a05d1941dc64893f0706537d82c810ca569ced94876",
+      "fixture": {
+        "days": 14,
+        "levels": [
+          0.0,
+          0.1,
+          0.2
+        ],
+        "active": 0.0,
+        "bmin": 5,
+        "delta": 0.0,
+        "alpha": 0.05,
+        "segment": 2,
+        "resamples": 100,
+        "seed": 7,
+        "day_losses_formula": "(2.0, 1.8+0.3*((i%5)-2), 1.75+0.3*((i%7)-3))"
+      },
+      "qyroven": {
+        "selected": 0.0,
+        "comparisons": [
+          {
+            "challenger": 0.1,
+            "lcb": -0.025535714285714307
+          },
+          {
+            "challenger": 0.2,
+            "lcb": -0.061249999999999964
+          }
+        ]
+      },
+      "hung": {
+        "selected": 0.1,
+        "lower_bounds": [
+          null,
+          0.007142857142857102,
+          -0.07142857142857138
+        ]
+      }
+    },
+    "current_cuda_components": {
+      "scope": "synthetic CUDA component fixture only; no training or Development data",
+      "seed": 123,
+      "qyroven_model_sha256": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+      "hung_model_sha256": "c8303d1c9e83ee4bdaf6f5ce6c3e520dc22ce95d51c442375ea8fa3e9879ef76",
+      "hung_retention_sha256": "b5f5be226c3c4a4d777c391bda9c441e58e888696ade25e86465e883ceb9eced",
+      "device": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+      "torch": "2.8.0+cu126",
+      "cuda": "12.6",
+      "encoder_max_abs_difference": 0.0,
+      "retention_losses": [
+        2.508915342833387,
+        2.508915342833387
+      ],
+      "target_gradients_exact": true,
+      "source_gradients": "None for both",
+      "peak_allocated_bytes": 752640,
+      "peak_reserved_bytes": 2097152,
+      "elapsed_seconds": 0.29601379999076016
+    }
+  }
+}

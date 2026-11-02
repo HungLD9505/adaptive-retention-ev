@@ -1,0 +1,46 @@
+{
+  "scope": "CPU fixture/component comparison only; no performance or full-run equivalence",
+  "hung_revision": "b1f9edaa7f5c28e081159e90bedd58765afeb1a1",
+  "hung_files_sha256": {
+    "model.py": "c8303d1c9e83ee4bdaf6f5ce6c3e520dc22ce95d51c442375ea8fa3e9879ef76",
+    "retention.py": "a4aa9c67d5f0262de9bb81089f2788295fba93cc4a25948e5409b48b849a03f6",
+    "controller.py": "42ebc1c308569e41ca404c34af1c96daff509db3f6bf4544c6b95a4cbb158c2f"
+  },
+  "torch": "2.11.0",
+  "encoder_max_abs_difference": 0.0,
+  "total_model_parameters": {
+    "qyroven": 52376,
+    "hung": 41696
+  },
+  "head_equivalence": "Different topologies; cannot assert full forecast/checkpoint equivalence",
+  "retention_expected": 2.5089153428333866,
+  "retention_actual": [
+    2.5089153428333866,
+    2.5089153428333866
+  ],
+  "target_gradient_exact_match": true,
+  "source_gradient": "None in both",
+  "controller_constant_cases": [
+    {
+      "case": "insufficient",
+      "selected_lambda": 0.0,
+      "result": "PASS"
+    },
+    {
+      "case": "equal",
+      "selected_lambda": 0.0,
+      "result": "PASS"
+    },
+    {
+      "case": "strong_challenger",
+      "selected_lambda": 0.2,
+      "result": "PASS"
+    },
+    {
+      "case": "equal_challenger_lcb_nearest",
+      "selected_lambda": 0.1,
+      "result": "PASS"
+    }
+  ],
+  "bootstrap_equivalence": "Not established: quantile convention and RNG derivation differ"
+}

@@ -1,0 +1,36 @@
+{
+  "classification": "SAME_ID_AND_INPUT_DIFFERENT_RECORDED_TRAJECTORY",
+  "input_manifest_sha256": "cb09d9d5c751b3bc1fcbad79ef548800c33e1506e6863f2600f88b167ac5e384",
+  "interpretation_limit": "The matching run ID and input do not make the metrics interchangeable; the PR67 physical archive/code/Source state remain unbound.",
+  "mae_difference_pr52_minus_pr67_kwh": 0.12354398477408601,
+  "pr52": {
+    "code_commit": "aa9f91cdc828e0d48c693a26b306208ec41de640",
+    "commit": "377723f5d55a91cde6229807300429365c764117",
+    "commit_chain": "cf9d73b380af2ae0afe1c4f3d43331955ad5632981d84c6887becc06faaff972",
+    "independent_proof_zip_sha256": "3f2ba5eb36af82751304586395c3b8bd47b2dd9eb04bacf9931c8bb47e0a93f9",
+    "issued": 90,
+    "mae_kwh": 1.2677443789939085,
+    "matrix_sha256": "f1ea041e6eee3eae3bf9a35ae0dcc985163ad006bcb55f6a195aaee081969bb8",
+    "physical_archive_bound": true,
+    "physical_archive_bytes": 12584285,
+    "physical_archive_sha256": "cc24309d24cd473838b0ce3073d8aec328b6a104f563a6c0771bf5f2887073b5",
+    "plan_sha256": "c52031d0f33f19db14667b0059959eea772913ceca26b48fab454d6ddef66815",
+    "rmse_kwh": 1.6112256974509376,
+    "scored": 90,
+    "source_checkpoint_sha256": "ca703dc98859cefc8ac9145a97970c0b0c2f083eb07fcc39d56fd417d3d1b419"
+  },
+  "pr67": {
+    "commit": "c1c62fcb49bdedab42aeb913e8dc3c6821104a57",
+    "commit_chain": "0076f67bff82557e74b42cf4a8fc97c6511e0edcacbaa3fb5e1e686d8843bcd2",
+    "issued": 90,
+    "mae_kwh": 1.1442003942198224,
+    "matrix_sha256": "a9cc73055694711e1471c0485bd178a5d0872f700f469319dd8e465b9bbc85ec",
+    "physical_archive_bound": false,
+    "proof_sha256": "cb454462ccd10710d83086e119629674d4d9f730782659749219637032961ee5",
+    "rmse_kwh": 1.6620191815006125,
+    "scored": 90
+  },
+  "rmse_difference_pr52_minus_pr67_kwh": -0.050793484049674875,
+  "run_id": "charged-LOA-201-7d-adaptive-seed42",
+  "schema": "hung-charged-loa-physical-audit-v1"
+}

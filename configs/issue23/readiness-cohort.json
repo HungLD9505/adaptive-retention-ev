@@ -1,0 +1,132 @@
+{
+  "scope": "Shared UrbanEV Development identities for implementation readiness; own diagnostic config, no Final or winner comparison",
+  "namespace": "urbanev-SZH",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "days": 90,
+  "methods": [
+    "adaptive",
+    "target_only"
+  ],
+  "state_retention": "latest",
+  "selection_provenance": {
+    "repository": "HungLD9505/adaptive-retention-ev",
+    "commit": "b1f9edaa7f5c28e081159e90bedd58765afeb1a1",
+    "path": "docs/reports/hung-development-selection-20261025-v2.json",
+    "download_sha256": "273858dfb2bf949c297ecd209a5127a22966cb31703f7b2deefcf17323e13c91",
+    "rule": "initial_trainable unique-count tertiles, then SHA-256(manifest SHA, identity); empty groups stay empty",
+    "reuse": "Identity metadata only; no implementation, weights or run results copied"
+  },
+  "budgets": {
+    "14": {
+      "manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+      "entities": [
+        {
+          "entity_id": "1405",
+          "initial_trainable": 4
+        },
+        {
+          "entity_id": "1987",
+          "initial_trainable": 1
+        },
+        {
+          "entity_id": "2152",
+          "initial_trainable": 12
+        },
+        {
+          "entity_id": "1153",
+          "initial_trainable": 13
+        },
+        {
+          "entity_id": "1693",
+          "initial_trainable": 13
+        },
+        {
+          "entity_id": "2644",
+          "initial_trainable": 0
+        },
+        {
+          "entity_id": "2613",
+          "initial_trainable": 0
+        },
+        {
+          "entity_id": "1025",
+          "initial_trainable": 0
+        }
+      ]
+    },
+    "28": {
+      "manifest_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+      "entities": [
+        {
+          "entity_id": "1987",
+          "initial_trainable": 13
+        },
+        {
+          "entity_id": "2152",
+          "initial_trainable": 13
+        },
+        {
+          "entity_id": "2005",
+          "initial_trainable": 18
+        },
+        {
+          "entity_id": "2472",
+          "initial_trainable": 18
+        },
+        {
+          "entity_id": "1165",
+          "initial_trainable": 27
+        },
+        {
+          "entity_id": "2633",
+          "initial_trainable": 27
+        },
+        {
+          "entity_id": "1188",
+          "initial_trainable": 0
+        },
+        {
+          "entity_id": "1408",
+          "initial_trainable": 0
+        },
+        {
+          "entity_id": "1251",
+          "initial_trainable": 0
+        }
+      ]
+    },
+    "7": {
+      "manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+      "entities": [
+        {
+          "entity_id": "1405",
+          "initial_trainable": 4
+        },
+        {
+          "entity_id": "2264",
+          "initial_trainable": 6
+        },
+        {
+          "entity_id": "2452",
+          "initial_trainable": 6
+        },
+        {
+          "entity_id": "1050",
+          "initial_trainable": 0
+        },
+        {
+          "entity_id": "1200",
+          "initial_trainable": 0
+        },
+        {
+          "entity_id": "2447",
+          "initial_trainable": 0
+        }
+      ]
+    }
+  }
+}
