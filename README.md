@@ -36,9 +36,9 @@ namespaces and three seeds. Null outcomes remain explicit.
 | Adaptive vs Fixed retention | 9 / 21 |
 
 The 21 cells are dataset-group/history aggregates, not independent replications or
-significance counts. Source initialization is useful in many evaluated settings;
-a consistent advantage from adaptive retention over fixed retention is not
-established. Read the [report](report/Adaptive_Retention_Report.pdf),
+significance counts. The source-based Adaptive pipeline has lower error than Target-only in many
+evaluated settings; its retention-selection mechanism does not consistently beat
+Fixed. Read the [report](report/Adaptive_Retention_Report.pdf),
 [paired evidence and limitations](docs/reports/issue23-joint-evidence-synthesis-20261030.md)
 and [full-precision tables](report/full-results.csv).
 
