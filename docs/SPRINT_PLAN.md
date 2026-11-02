@@ -1,5 +1,10 @@
 # 21-day research execution plan
 
+> Historical schedule and acceptance requirements. Current report-release scope and
+> explicit unfulfilled criteria are recorded in [RELEASE_SCOPE.md](../RELEASE_SCOPE.md)
+> and the [2 November readiness handoff](reports/main-readiness-20261102.md).
+> The original schedule below is preserved; elapsed dates do not establish completion.
+
 **Project:** Adaptive Retention EV — `HungLD9505/adaptive-retention-ev`  
 **Execution window:** October 16–November 5, 2026 (21 calendar days)  
 **Final delivery gate:** November 6, 2026, Asia/Ho_Chi_Minh (UTC+7)  

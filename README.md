@@ -1,116 +1,113 @@
-# Adaptive Retention — Research Foundation
+# Adaptive Retention for EV Charging Demand Forecasting
 
-Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. Work follows **Issue → working branch → PR → `dev`**. Updating `main` requires a separate instruction.
+Research code and report for low-history, 24→24 EV charging demand forecasting with
+GRU transfer learning and source-retention selection. This repository preserves
+implementations and evidence from all four team members. Work integrates into
+`dev`; promoting a snapshot to `main` requires a separate instruction.
 
-**Integration snapshot:** this source tree combines the data/input foundation, the primary GRU/controller/runner/baseline/evaluation implementation and isolated member studies for `dev`. The lead-directed integration scope, local checks and remaining scientific limits are recorded below. The shared data snapshot includes raw, hourly and prepared 7/14/28-day inputs. See the [integrated verification and acceptance record](docs/reports/data-integration.md) for checks, scope and the lead-directed review exception. The [integration handoff](docs/reports/dev-integration-final-20261102.md) records the preserved heads, local verification and outstanding review limits. Large data stays on Drive/outside Git.
+## Read the report
 
-**Research evidence as of 30 October 2026:** Qyroven's frozen Final has completed all 810 whole units / 11,340 method cells across seven namespaces, including analysis and output/bootstrap audits. Hùng has a separate bounded 360-job Final on three UrbanEV stations. The [joint evidence synthesis](docs/reports/issue23-joint-evidence-synthesis-20261030.md), [full-precision result tables and source hashes](docs/reports/issue23-joint-evidence-synthesis-20261030-v1.json), and [primary Final handoff](docs/reports/issue23-final-complete-handoff-20261029.md) distinguish the completed evidence from pending scientific review, integration, CI and scope decisions. The two implementations and cohorts must not be pooled or ranked by their absolute MAE. A consistent accuracy benefit of confidence-based selection over Fixed Retention or online best-lambda has not been established.
+The canonical [report and supplement](report/README.md) contain the method,
+experimental design, results, limitations and detailed comparisons. Their source
+and figures are byte-pinned in `report/manifest.json`.
 
-## Report and historical work
+The primary frozen execution covers 810 units / 11,340 method cells across seven
+namespaces and 7/14/28-day initial histories. Null outcomes are retained. Adaptive
+has lower mean MAE than Target-only in 18/21 group/history aggregates and than
+Fixed in 9/21. These are descriptive aggregate counts, not independent replications
+or proof of consistent superiority. See the [Final handoff](
+docs/reports/issue23-final-complete-handoff-20261029.md) and
+[joint evidence synthesis](docs/reports/issue23-joint-evidence-synthesis-20261030.md).
 
-The [supervisor report source and supplement](report/README.md) are the canonical
-report artifacts. [Historical PR dispositions](docs/ARCHIVE_INDEX.md) explain which
-older drafts/proposals are archived and which correctness fixes were integrated.
-The frozen scientific source and result identities remain separate from later
-verifier hardening; current checkout bytes are not claimed identical to the frozen
-execution lock.
+Hùng's separate bounded 360-job Final and the other member studies use different
+settings. Do not pool their scores or rank implementations by absolute MAE.
 
-## Start here
+## Release scope and provenance
 
-Read the [Master Research Flow — WHY → HOW → PROVE](docs/MASTER_RESEARCH_FLOW.md) to understand the problem, proposed method, and required evidence.
+[RELEASE_SCOPE.md](RELEASE_SCOPE.md) identifies what belongs in the main candidate,
+which evidence is incomplete and which extensions are not planned. The
+[readiness handoff](docs/reports/main-readiness-20261102.md) records checks and the
+remaining release decision. [Archived PR dispositions](docs/ARCHIVE_INDEX.md)
+explain superseded branches; dated historical reports are evidence of their own
+snapshots, not current execution instructions.
 
-Download the shared [DATA-v1-20261019 snapshot](docs/data/DATA_DOWNLOADS.md) for the exact raw/hourly/input files, Google Drive links and SHA-256 verification.
+Original primary scientific source is retained under
+`evidence/primary-final-20261027-v2`. Later verifier and metadata hardening does not
+rewrite old outputs. The current checkout is not byte-identical to the original
+execution lock. Report 1 remains the [method reference](adaptive_retention_report_1.pdf).
 
-Start with [From the two datasets to model inputs](docs/data/DATA_FLOW.md) for the complete raw → hourly → training/prediction-input flow and a guide to the actual local folders.
+Full end-to-end compute accounting, expanded supporting experiments, a verified
+Đức bundle distribution link and corrected-code Cyber real-data results remain
+incomplete. No additional real-data training is planned for this release. Closing
+these extensions as **not planned** does not certify their acceptance criteria.
 
-For file-by-file dataset explanations, read the [UrbanEV reference](docs/data/URBANEV.md) and [CHARGED / AMS reference](docs/data/CHARGED.md).
+## Code map
 
-The [input policy](docs/data/INPUT_ACCEPTANCE.md) defines masks, coverage gates, per-target initialization and checkpoint input binding. The [input handoff](docs/reports/input-handoff.md) records actual counts; the [integration report](docs/reports/data-integration.md) records final combined verification. Earlier fixture/trial reports retain their original snapshot status and do not supersede that acceptance record.
+| Location | Responsibility |
+|---|---|
+| `ev_inputs/` | Prepared data contracts, scaling, windows and authenticated loading |
+| `ev_models/` | Primary GRU model, retention loss and training helpers |
+| `ev_control/` | Confidence-based retention selection |
+| `ev_runner/` | Prequential forecasts, label availability, updates and checkpoints |
+| `ev_baselines/`, `ev_evaluation/` | Comparisons, metrics and audit artifacts |
+| `tools/`, `configs/` | Data/experiment CLIs, verifiers and versioned configurations |
+| `experiments/hung_sprint2/`, `tools/hung_*` | Separate supporting implementation |
+| `experiments/member_studies/` | Isolated Đức and Cyber implementations |
+| `report/` | Canonical report source, figures, tables and manifest |
+| `docs/data/`, `docs/reports/` | Contracts, data instructions and dated handoffs |
+| `tests/`, `tests/artifact/` | Offline fixtures and separately invoked artifact checks |
 
-1. Read the [team workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md).
-2. Read the [data sources and download/verification instructions](data/README.md).
-3. Review the [foundation handoff report](docs/FOUNDATION_REPORT.md).
-4. Use [Report 1](adaptive_retention_report_1.pdf) as the unchanged method reference.
+Cyber's [corrected IO guards](experiments/member_studies/cyber_controller/README.md)
+are fixture-tested; historical scores are not outputs of that corrected version.
+Member settings/dependencies remain separate from the primary environment.
 
-The [confidence-controller contract](docs/data/CONTROLLER_CONTRACT.md) describes the
-independent #20 helper, bootstrap profile, availability gates and #21 integration
-boundary. Its example configuration is not a Final lock.
+## Install and verify offline
 
-The [prequential-runner contract](docs/data/PREQUENTIAL_RUNNER.md) documents #21
-candidate state, causal event order, isolated audit and daily resume. Its
-[handoff](docs/reports/issue21-qyroven.md) records the actual Development smoke scope.
-
-The [baseline contract](docs/data/BASELINE_CONTRACT.md) defines the nine comparisons,
-ablation aliases, proxy estimators and calibration limits. Its
-[execution handoff](docs/reports/issue22-qyroven.md) distinguishes real Development
-smoke from pending scientific validation and Final configuration approval.
-
-## Implementations
-
-- **Primary pipeline:** `ev_models/`, `ev_control/`, `ev_runner/`, `ev_baselines/` and
-  `ev_evaluation/`; the contracts linked above describe its interfaces. The report's
-  primary results belong to its pinned historical execution, not to an untested rerun
-  of this integration branch.
-- **Duc study:** `experiments/member_studies/duc_retention/` contains an isolated
-  fixed-model Development study with separate settings and historical dependencies.
-  It is not an online controller benchmark.
-- **Cyber study:** `experiments/member_studies/cyber_controller/` is preserved as
-  a separate implementation with [corrected input and replay guards](
-  experiments/member_studies/cyber_controller/README.md). Historical scores were not
-  rerun and are not outputs of the corrected IO version.
-- **Hung supporting track:** `experiments/hung_sprint2/` and the `tools/hung_*`
-  utilities preserve #72 as a separate implementation. Historical Development and
-  bounded three-station Final results remain distinct from primary results.
-  See the [integration scope and limitations](docs/reports/dev-integration-final-20261102.md).
-
-## Environment setup
-
-Use **Python 3.12**. Do not copy virtual environments or compiled dependencies between machines.
-
-macOS/Linux:
+Use **Python 3.12**. Create a local environment; do not copy environments or compiled
+packages between machines.
 
 ```sh
 python3.12 -m venv .venv
+# macOS/Linux:
 source .venv/bin/activate
-python -m pip install -r requirements-dev.txt
-python -m pip install -r requirements-model.txt
-```
-
-Windows PowerShell:
-
-```powershell
-py -3.12 -m venv .venv
-.venv\Scripts\Activate.ps1
-python -m pip install -r requirements-dev.txt
-python -m pip install -r requirements-model.txt
-```
-
-Run the offline checks below. Historical artifact checks are separate; see
-[external artifact verification](tests/artifact/README.md). No GPU or dataset download
-is required for these offline commands.
-
-Run before opening a PR:
-
-```sh
+# Windows PowerShell instead: .venv\Scripts\Activate.ps1
+python -m pip install -r requirements-dev.txt -r requirements-model.txt
 python -m tools.sources list
+python -m tools.check_release
 python -m unittest discover -s tests -v
+python -m unittest discover -s experiments/member_studies/duc_retention -v
+python -m unittest discover -s experiments/member_studies/cyber_controller -v
 python -m ruff check .
 python -m ruff format --check .
 git diff --check
 ```
 
-Tests use temporary fixtures and require no raw datasets, GPU, credentials, or dataset downloads. The data/input pipelines use the standard library; Ruff is the only development dependency. For #19 model tests, also install `python -m pip install -r requirements-model.txt`. The model requirements pin PyTorch/NumPy; actual training records the complete resolved environment.
+These checks require a full Git checkout with retained tags/history, but no raw
+data download, GPU or credentials. Some provenance tests require a clean tracked
+checkout. CUDA checks skip when unavailable. The release checker uses only the
+standard library; model tests also need the pinned PyTorch/NumPy requirements.
 
-## Structure
+The [18 external-artifact tests](tests/artifact/README.md) are invoked separately
+and require the original artifacts. Passing offline fixtures does not verify
+those artifacts, reproduce training, compile the report or prove effectiveness.
+Paid CI waiting and non-author review were waived by the lead for this integration;
+local checks are not reported as remote CI success or independent approval.
 
-```text
-data/sources.json        Original raw-source URLs and fingerprints
-data/releases/          Shared Drive snapshot links, sizes and SHA-256
-tools/                 Raw verification and hourly/input CLIs
-ev_inputs/             Feature, split/scaler, window and loader helpers
-tests/                 Independent offline fixtures
-docs/data/             Dataset references, flow, contracts and downloads
-docs/reports/          Actual run evidence and integration acceptance
-docs/WORKFLOW.md       Issue → branch → PR → dev; main needs explicit instruction
-.github/               CI, CODEOWNERS and issue/PR templates
-```
+## Data and execution contracts
+
+Start with the [data flow](docs/data/DATA_FLOW.md), [source catalog instructions](
+data/README.md) and [shared snapshot downloads](docs/data/DATA_DOWNLOADS.md).
+Raw archives, processed/input data, checkpoints, environments and large runs stay
+outside Git. Preserve their original bytes and verify recorded identities locally.
+Historical hashes alone do not prove a fresh acquisition.
+
+Before using an experiment CLI, read its configuration and the relevant
+[input acceptance](docs/data/INPUT_ACCEPTANCE.md),
+[controller](docs/data/CONTROLLER_CONTRACT.md),
+[runner](docs/data/PREQUENTIAL_RUNNER.md) and
+[baseline](docs/data/BASELINE_CONTRACT.md) contracts. Never fill missing target
+labels or expose future labels before availability. New executions require new
+output locations and recorded code, config, source/input and runtime identities.
+
+Follow [AGENTS.md](AGENTS.md) and the [team workflow](docs/WORKFLOW.md) for changes.
+`master` is a retained backup. Archived proposals are not enabled runtime policies.
