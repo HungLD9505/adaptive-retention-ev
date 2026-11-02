@@ -54,8 +54,14 @@ pins. Fixture-only temporary-file tests no longer require a pre-existing cache f
 
 ## Verification and limits
 
-Final local and clean-checkout verification is recorded in the companion JSON after
-execution. External-artifact tests have not passed here: their required real artifacts
+A separate clean clone of code commit `88b3b9c` passed root discovery (880 tests,
+2 CUDA skips), Duc fixtures (9) and Cyber fixtures (12): **901 discovered, 899
+passed, 2 skipped**. Root discovery includes the seven new IO regressions. Ruff lint
+and format (861 Python files), catalog listing and guarded CLI help passed. Git status
+was clean before and after verification. All 92 tracked primary Final pins still
+match. All nine named imported PR heads are preserved as exact ancestors, including
+GitHub-mapped original commits from all four accounts. The [companion JSON](dev-integration-final-20261102-v1.json)
+records commands, log hashes, runtime, author heads and exceptions. External-artifact tests have not passed here: their required real artifacts
 were not restored. No raw archive edits, new real-data training, Final replay, billing
 changes or main promotion are part of this integration. Original local outputs and
 uncommitted reports were backed up and preserved during stage one.

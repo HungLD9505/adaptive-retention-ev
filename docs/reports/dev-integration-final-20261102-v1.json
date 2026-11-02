@@ -1,0 +1,215 @@
+{
+  "scope": "Primary pipeline plus separate Hung supporting implementation and Duc/Cyber studies; no main promotion or new real-data training.",
+  "code_checked_commit": "88b3b9c2f180dce84bed765d9f6531246a749962",
+  "base_dev": "7a57e9e8954eb8fcdc0809b1d7f02f6c32753a0c",
+  "preserved_pr_heads": {
+    "47": "f91527b21ebe378995d2f4efd5706cca16f98af4",
+    "49": "6135a0014c092a385e88c46f77dd781de303cef1",
+    "50": "bf941645dec316c252e0916a7be62d8fcd9b008c",
+    "51": "0f3245be914557b4cb38584250011ff0b817da3f",
+    "52": "377723f5d55a91cde6229807300429365c764117",
+    "48": "31f8264ea0ed6c9c7958ce1f91c9f8f265e02af5",
+    "69": "6b45c00f1188286fa0c94fcdcc1a08439f38510c",
+    "72": "1b730c7f83d6d8dd57198219c2593004d0318f4e",
+    "75": "f0fdd760fca9fc75e36c89de1fa5815e281ae322"
+  },
+  "clean_checkout": {
+    "path": "/tmp/ev-integration-clean-20261102",
+    "before_and_after_status": "clean",
+    "tests_discovered": 901,
+    "tests_passed": 899,
+    "tests_skipped": 2,
+    "excluded_external_artifact_tests": 18,
+    "checks": [
+      {
+        "name": "offline-root",
+        "command": [
+          "/tmp/ev-dev-integration-env/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit_code": 0,
+        "log": "/tmp/ev-dev-integration-checks-20261102/clean/offline-root.log",
+        "tail": [
+          "",
+          "----------------------------------------------------------------------",
+          "Ran 880 tests in 26.219s",
+          "",
+          "OK (skipped=2)",
+          "fixture: MISSING",
+          "fixture: PASS",
+          "fixture: CHECKSUM MISMATCH",
+          "structural_qc_failed: /private/var/folders/kj/t95mrgmd6bbd2f3wt6nn9k3h0000gn/T/tmp38_ve5xv/processed/cli"
+        ],
+        "log_sha256": "0366641970ab9105a504ed494cbdd28b86b4f39cc21e04396cf7fdb119f7be53"
+      },
+      {
+        "name": "duc",
+        "command": [
+          "/tmp/ev-dev-integration-env/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "experiments/member_studies/duc_retention",
+          "-v"
+        ],
+        "exit_code": 0,
+        "log": "/tmp/ev-dev-integration-checks-20261102/clean/duc.log",
+        "tail": [
+          "test_source_container_id_is_not_training_content (test_study.StudyTests.test_source_container_id_is_not_training_content) ... ok",
+          "test_training_role_prefix_and_scaler_guards (test_study.StudyTests.test_training_role_prefix_and_scaler_guards) ... ok",
+          "test_unpinned_manifest_rejected (test_study.StudyTests.test_unpinned_manifest_rejected) ... ok",
+          "test_zero_retention_and_frozen_source (test_study.StudyTests.test_zero_retention_and_frozen_source) ... ok",
+          "",
+          "----------------------------------------------------------------------",
+          "Ran 9 tests in 0.598s",
+          "",
+          "OK"
+        ],
+        "log_sha256": "321721bfe7cf3d77cdae17651162888bdff8d900ac7c38b6b7f034e9a1ee44b4"
+      },
+      {
+        "name": "cyber",
+        "command": [
+          "/tmp/ev-dev-integration-env/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "experiments/member_studies/cyber_controller",
+          "-v"
+        ],
+        "exit_code": 0,
+        "log": "/tmp/ev-dev-integration-checks-20261102/clean/cyber.log",
+        "tail": [
+          "test_forward_shapes_and_nonnegativity (test_model.ModelTests.test_forward_shapes_and_nonnegativity)",
+          "Forward pass must produce correct tensor shapes and non-negative forecasts. ... ok",
+          "test_latent_retention_loss_frozen_source (test_model.ModelTests.test_latent_retention_loss_frozen_source)",
+          "Latent retention loss must not compute gradients for source encoder. ... ok",
+          "",
+          "----------------------------------------------------------------------",
+          "Ran 12 tests in 0.079s",
+          "",
+          "OK"
+        ],
+        "log_sha256": "1f578754cb82f7e99faf341fd1a29f94d3d9ecd59512fc8d8d43ab3b549e03e9"
+      },
+      {
+        "name": "lint",
+        "command": [
+          "/tmp/ev-dev-integration-env/bin/python",
+          "-m",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit_code": 0,
+        "log": "/tmp/ev-dev-integration-checks-20261102/clean/lint.log",
+        "tail": [
+          "All checks passed!"
+        ],
+        "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+      },
+      {
+        "name": "format",
+        "command": [
+          "/tmp/ev-dev-integration-env/bin/python",
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "exit_code": 0,
+        "log": "/tmp/ev-dev-integration-checks-20261102/clean/format.log",
+        "tail": [
+          "861 files already formatted"
+        ],
+        "log_sha256": "5d7cb8c711fa6aff8bad5779ed6da64c9cf8b99ae00a5f9559d7491172dce1dc"
+      },
+      {
+        "name": "catalog",
+        "command": [
+          "/tmp/ev-dev-integration-env/bin/python",
+          "-m",
+          "tools.sources",
+          "list"
+        ],
+        "exit_code": 0,
+        "log": "/tmp/ev-dev-integration-checks-20261102/clean/catalog.log",
+        "tail": [
+          "urbanev-main | required | 647305188 bytes",
+          "  https://drive.usercontent.google.com/download?id=1OEpo-XDocd33aK3MbgDt9S5bcqwiAFPQ&export=download&confirm=t",
+          "  -> data/raw/urbanev/official_2026_05_11/UrbanEVDataset.zip",
+          "urbanev-supplemental | optional | 6052188 bytes",
+          "  https://drive.usercontent.google.com/download?id=1ojGWoQ13w2o59DjEAuUk2-CPzG08NRIT&export=download&confirm=t",
+          "  -> data/raw/urbanev/official_2026_05_11/UrbanEVSupplemental.zip",
+          "charged-hourly | required | 268720500 bytes",
+          "  https://zenodo.org/api/records/15814263/files/Hourly.zip/content",
+          "  -> data/raw/charged/zenodo_15814263/Hourly.zip"
+        ],
+        "log_sha256": "7a248fbf44ed1660f5ab58818d569a987ac1eece1fc746400f224b9bcef47823"
+      },
+      {
+        "name": "cli-help",
+        "command": [
+          "/tmp/ev-dev-integration-env/bin/python",
+          "-m",
+          "experiments.member_studies.cyber_controller.study_runner",
+          "--help"
+        ],
+        "exit_code": 0,
+        "log": "/tmp/ev-dev-integration-checks-20261102/clean/cli-help.log",
+        "tail": [
+          "  --source-epochs SOURCE_EPOCHS",
+          "  --days DAYS",
+          "  --block-size BLOCK_SIZE",
+          "  --b-min B_MIN",
+          "  --delta DELTA",
+          "  --lambda-low LAMBDA_LOW",
+          "  --lambda-high LAMBDA_HIGH",
+          "  --initial-lambda INITIAL_LAMBDA",
+          "  --seed SEED"
+        ],
+        "log_sha256": "2d68b0b73e604971fd3b3b5fb341ec9ba7f545e2785e2cfbfbd3d369743d6f97"
+      }
+    ]
+  },
+  "lead_exceptions": {
+    "date": "2026-11-02",
+    "ci": "Lead explicitly waived waiting for paid GitHub CI. NOT RUN, not passed.",
+    "peer_review": "Lead explicitly instructed proceeding without other reviewers, acting as advisor. No independent approval claimed.",
+    "scope": "This dev integration; no blanket change to future repository rules and no main promotion."
+  },
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.11.0",
+    "numpy": "2.3.3",
+    "ruff": "0.17.0",
+    "platform": "macOS 26.5.2 arm64 CPU"
+  },
+  "primary_frozen_tracked_pins": {
+    "matched": 92,
+    "checked": 92,
+    "lock_sha256": "9c65169cced1506a450fdd7b8a57a69d5a720cac7acaa0dcd1c8ccfd1723ce42",
+    "external_paths_not_restored": 48
+  },
+  "attribution": {
+    "Qyroven": "377723f5d55a91cde6229807300429365c764117",
+    "HungLD9505": "1b730c7f83d6d8dd57198219c2593004d0318f4e",
+    "huuduc32": "6b45c00f1188286fa0c94fcdcc1a08439f38510c",
+    "hung00cyber": "31f8264ea0ed6c9c7958ce1f91c9f8f265e02af5"
+  },
+  "limits": [
+    "18 historical artifact-dependent tests moved with AST-identical assertions; not a successful external-artifact audit",
+    "Cyber guarded IO version has fixture validation only, not new training scores",
+    "Historical runtime differences and scientific evidence disputes remain explicit",
+    "Inherited generated SVG whitespace remains unchanged; full PR-range diff check is not clean",
+    "Unique side branches remain preserved; not all original branches are merged or deleted"
+  ]
+}
