@@ -8,10 +8,10 @@ replication, calibrated future-switch safety, or a curated public dataset releas
 |---|---|
 | `ev_inputs`, `ev_models`, `ev_control`, `ev_runner`, `ev_baselines`, `ev_evaluation` | Primary 24→24 pipeline and analysis; original results belong to the frozen source, not later verifier revisions |
 | `tools` and `configs` | Identified data/replay/verification utilities and frozen configs; historical operation tools are not instructions to resume production |
-| `report` | Exact delivered report/supplement source, figures and result tables; no new compile or numerical result is claimed |
+| `report` | Exact delivered report/supplement PDFs and source, figures and result tables; no new compile or numerical result is claimed |
 | `experiments/member_studies` | Attributable isolated studies with their actual validation boundaries; not primary Final evidence |
 | `experiments/hung_sprint2` | Separately identified supporting implementation and bounded three-station evidence; no pooled scores or full cross-city equivalence |
-| `docs/data`, selected entry points and historical `docs/reports` | Contracts, provenance, negative/null outcomes and dated records; start from current README, not an arbitrary older status file |
+| `docs/data`, selected entry points and curated `docs/reports` | Contracts, final provenance, negative/null outcomes and verification dependencies; intermediate drafts are retained in the archive tag |
 | Offline tests and explicit external-artifact tests | Keep fixture checks distinct from checks that require original trained artifacts |
 
 Do not include raw archives, processed/input datasets, environments, checkpoints,

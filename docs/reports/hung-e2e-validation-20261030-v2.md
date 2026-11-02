@@ -1,9 +1,0 @@
-# Exact-head local validation and CI diagnosis — 30 October 2026
-
-This create-only record supersedes [v1](hung-e2e-validation-20261030-v1.md) for code head `ae2cec92c9d4b2ec07bc8e743d9acadb47fdfe42`. The clean repository tree was tested after the Block7 trace audit commit and before this documentation addendum. The ignored local test log `.cache/hung-test-run-20261030-v5.log` has SHA-256 `2efa2958391ee90505c8e2832be2537a7cbc9e05a7a8cf4dd5e232054e2509eb`.
-
-Python 3.13 with UTF-8 mode and repository-local temporary files: full `unittest` discovery **548 tests, zero failures, zero errors, one skip**. The five new Block7 focused regressions passed. Also passed: Ruff `check .` and `format --check .` (562 Python files), `python -m tools.sources list`, repeat create-only import and numeric/event audits, the 90-cell Final report numeric audit, all 110 local links in the then-current v27 report/v50 gate/Block7 audit, five report-linked JSON SHA checks, and `git diff --check`. The audit commands reproduced 414/414 pre-resume file checks, 138/138 terminal checkpoint checks, 6,210 matching ordered live event days, and 13,932 recomputed candidate MAEs.
-
-The exact-head [Actions run 40934141846](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40934141846) marked Ubuntu and Windows checks failed **before either test job started**. Both check-run annotations state that recent account payments failed or the spending limit needs to be increased. Classification: `CI_NOT_EXECUTED — ACCOUNT_BILLING_OR_SPENDING_LIMIT`; this is neither a CI test failure nor a CI pass. The document-only commit containing this addendum will require its own exact-head CI observation.
-
-These checks validate repository code, artifact transformation and report arithmetic; they are not independent scientific acceptance of historical Block7 fairness, Hùng–Quyền parity, CHARGED lineage or Colab #39.

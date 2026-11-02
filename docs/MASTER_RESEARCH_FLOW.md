@@ -179,7 +179,7 @@ Possible proposals include mismatch, behavioral drift, missing-data scenarios, a
 | RQ2: Does the confidence controller outperform fixed retention, online best-λ, and proxies? | Fair baselines, ablation, uncertainty, and practical improvement magnitudes. |
 | RQ3: How stable is it across stations, history budgets, and contexts, and what does it cost? | Distributions by station/budget/context, multiple seeds, runtime/memory/update cost. |
 
-The defense follows context → difficulty → hypothesis → comparison → evidence → limitations. If confidence provides no benefit or overhead is excessive, narrow claims accordingly. Good results do not prove novelty; no forecasting findings support conclusions yet.
+The defense follows context → difficulty → hypothesis → comparison → evidence → limitations. If confidence provides no benefit or overhead is excessive, narrow claims accordingly. Good results do not prove novelty. The executed findings are now recorded in the [report](../report/README.md); they do not establish consistent Adaptive superiority.
 
 ## 5. Implementation status
 
@@ -190,16 +190,16 @@ The defense follows context → difficulty → hypothesis → comparison → evi
 | Raw acquisition | Both required archives downloaded and verified locally; provider files extracted | [Acquisition report](reports/data-acquisition.md); data remains outside Git |
 | UrbanEV hourly processing / QC | Implemented; full-station technical evidence and integrated reproduction, with provisional time/arrival semantics retained | [Hourly handoff](reports/urbanev-hourly.md), [contract](data/HOURLY_CONTRACT.md) |
 | CHARGED audit / model inputs | Six-city audit/adapter and v2 input pipeline implemented; bounded use, coverage and source-only strata retained | [Integrated verification](reports/data-integration.md), [input policy](data/INPUT_ACCEPTANCE.md), [shared downloads](data/DATA_DOWNLOADS.md) |
-| Model/loss, runner/controller, baselines, experiments | Planned; not implemented | Follow Report 1; verify each implementation with its own evidence |
+| Model/loss, runner/controller, baselines, experiments | Integrated; primary bounded Final and separate supporting/member evidence available | [Integration handoff](reports/dev-integration-final-20261102.md), [Final handoff](reports/issue23-final-complete-handoff-20261029.md), [release scope](../RELEASE_SCOPE.md) |
 | Reproduction / strict online / external independence | Integrated reproduction checks recorded; strict-online causality and physical-location independence remain unverified | [Integration scope and limits](reports/data-integration.md); no claim that CI resolves upstream/time/overlap limitations |
 
 Foundation handoff: [FOUNDATION_REPORT](FOUNDATION_REPORT.md). Its local results belong to the foundation implementation snapshot; check each PR's corresponding CI run separately.
 
-## 6. Decisions and verification still needed
+## 6. Executed protocol and remaining verification limits
 
 - **Literature:** systematic novelty checking and boundaries with adaptive regularization, online selection, and related methods. Do not infer paper limitations from the team's comparison table.
-- **Model/development:** exact model/loss specification, training/update schedule, latent scale, λlow/λhigh/initial level, Bmin, δ, alpha, bootstrap block length, multiple challengers, and tie-breaking. Follow requirements already fixed by Report 1; initial settings are not proven optimal.
-- **Runner/evaluation:** forecast-before-label storage, boundary ordering, checkpoint/optimizer/RNG handling; NTR definition, proxy estimators/calibration, seed list, tuning/cost budgets, and audit branch before final evaluation.
+- **Model/development:** executed settings and selections are versioned in `configs/issue23/` and the original Final lock. They are not proven optimal; do not retune them using Final outcomes. New method changes need a separate experiment.
+- **Runner/evaluation:** implemented contracts and offline checks cover forecast-before-label storage, availability, boundary ordering and state handling. Actual findings belong to the frozen execution; incomplete end-to-end cost accounting and unverified external artifacts remain limits in the release scope.
 - **Data claims:** insufficient evidence about timestamps/bin/timezone/DST, actual label arrival, upstream masks, and Shenzhen overlap. CHARGED is not currently established as independent external validation of UrbanEV.
 - **Reproduction:** acquire the catalog's raw archives and verify checksums; build new processing/inputs with reports. Record source identities, config, runtime, code version, and run IDs.
 

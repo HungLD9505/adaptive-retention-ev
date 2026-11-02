@@ -13,7 +13,7 @@ The [851-row trace table](switch_audit_full.csv) (SHA-256 `88e0e10be97766306a790
 | Historical Main anchors | 69 | Repository-local review capsule SHA-256 `2493e0c1f440f6b5ead7c81facb3901623c4a58252ca7fa656cf9bdb1e32953d` and its saved receipt matched. Each capsule manifest member CRC/SHA matches the capsule's internal ledger, direct repository-local copy, [69-cell pair table](../hung-block7-manifest-pairs-20261028.csv) and merged source. | 69 | 0 |
 | **Total** | **851** | Distinct physical IDs; no Block7 historical alias added. | **690** | **161** |
 
-The 69 Main manifests are preserved in the [review capsule](../hung-review-capsule-readback-20261027.md), which had an independent provider CPU SHA/CRC readback. They do **not** have individual job receipts in that capsule. The table therefore records `CAPSULE_LEDGER_MANIFEST_NO_JOB_RECEIPT`, not the local-job receipt level. The Kaggle rows inherit their v2 proof; this recovery pass did not rehash those 560 archives. These distinctions prevent 851 manifest reads from being mistaken for 851 identical per-job proof paths.
+The 69 Main manifests are preserved in the [review capsule](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/hung-review-capsule-readback-20261027.md), which had an independent provider CPU SHA/CRC readback. They do **not** have individual job receipts in that capsule. The table therefore records `CAPSULE_LEDGER_MANIFEST_NO_JOB_RECEIPT`, not the local-job receipt level. The Kaggle rows inherit their v2 proof; this recovery pass did not rehash those 560 archives. These distinctions prevent 851 manifest reads from being mistaken for 851 identical per-job proof paths.
 
 ## Observed switches
 

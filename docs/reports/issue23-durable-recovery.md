@@ -108,7 +108,7 @@ latest-state proofs match the previously verified original; no training, inferen
 or Final labels were used. The first trial on legacy JHB stopped because its
 standalone target stdout was not retained; no empty log was fabricated. JHB's
 verified committed forecasts/events/states and aggregate logs remain unchanged.
-See [exact evidence, code/proof downloads and scopes](issue23-durable-recovery-evidence.json).
+See [exact evidence, code/proof downloads and scopes](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-durable-recovery-evidence.json).
 
 Implementation4f174bd passed GitHub Actions40350149501; documentation/template
 commitde587d8 passed40354758097. The maintained notebook template has been
@@ -215,7 +215,7 @@ MEL had already been launched earlier, but its old job and full SPO raw outputs
 remain inaccessible and are not overwritten/replaced. No new city training was
 claimed at that observation. Each new city receives its own input, three Sources,
 cohort, backups and canonical handoff. See the
-[exact code, queue and verification evidence](issue23-durable-recovery-evidence.json).
+[exact code, queue and verification evidence](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-durable-recovery-evidence.json).
 
 The maintained notebook pin was refreshed tod5f6157 and its exact shared bundle
 size/SHA. All cells remain unexecuted; per-cell syntax and combined Pyflakes/error
@@ -967,7 +967,7 @@ the training environment and research implementation were unchanged.
 | Target-only |0.844062|0.794008|0.685789|
 | Seasonal Naive |0.089383|0.089383|0.089383|
 
-![AMS1200,7-day history: three fixed seeds and six displayed comparisons; logarithmic MAE axis](figures/ams-first-three-seeds-20261027.svg)
+![AMS1200,7-day history: three fixed seeds and six displayed comparisons; logarithmic MAE axis](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/figures/ams-first-three-seeds-20261027.svg)
 
 Across all90×24 issued Adaptive predictions, seed42 ranges from
 2.2545e-10 to3.1230e-8 kWh; seed44 from3.1881e-10 to6.7671e-9 kWh.
@@ -1211,14 +1211,14 @@ Read-only local inventory found 67 publication-verification records, including
 overlapping/historical collections. This is not 67 independent experiment batches.
 Fresh local SHA/ZIP-CRC rechecks of the already downloaded primary276–288,
 primary288–300 and SPO37–49 wrappers passed; see the
-[bounded byte audit](issue23-resume-gate-local-artifact-audit.json).
+[bounded byte audit](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-resume-gate-local-artifact-audit.json).
 Externally published primary prefix remains500/742 (212 proxy+288 matched);
 the next12 have local independent verification and raw Drive bytes but their proof
 publication still needs completing. Do not silently promote them to full handoff.
 SPO's accepted reconstructed prefix is49/378, not its older37 snapshot.
 AMS61–73 cloud completion is not counted without external publication acceptance.
 
-The [current Hung component recheck](implementation-comparison-readiness.md#october-27-current-head-recheck)
+The [current Hung component recheck](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/implementation-comparison-readiness.md#october-27-current-head-recheck)
 pins PR #72 at30fe7d and retains head/bootstrap/profile differences. Encoders agree
 under shared encoder weights and latent loss/gradients match exactly on bounded
 CPU fixtures. Full model/controller/runner parity and a fair metric leaderboard
@@ -1236,8 +1236,8 @@ this fixture does not cover a switching audit, missing/delayed labels, epoch-bou
 Source resume or real-data migration. Existing evidence for those paths retains
 its original environment and scope.
 
-[Exact cloud result](issue23-colab-resume-gate.json) and
-[independent Drive API readback](issue23-colab-resume-readback.json) authenticate
+[Exact cloud result](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-resume-gate.json) and
+[independent Drive API readback](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-resume-readback.json) authenticate
 the1,340,486-byte checkpoint archive SHA
 `4848e73f1e4d97b68bd6b20db1be8fee429e4a41d067a9f7d065ea7238c6ed80`.
 The external CPU integrity check verified three committed ticks, their hash chain
@@ -1286,8 +1286,8 @@ then resumes. Prediction identity, final candidate model/Adam/RNG states and
 decisions agree exactly. Whole issued/scored14 days; orchestration35.128s and
 whole runner4.608s exclude input download/runtime setup. No VM deletion was used.
 
-[Exact real-data gate](issue23-colab-real-resume-gate.json) and
-[external verification](issue23-colab-real-resume-readback.json) retain original
+[Exact real-data gate](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-real-resume-gate.json) and
+[external verification](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-real-resume-readback.json) retain original
 JSON integers. Fresh authenticated Drive download outside Colab verified the
 1,599,548-byte partial ZIP SHA
 `e25f773369db5016b9b2fa92bae5818f2ebbe135397379ec86b345ff4af0d660`
@@ -1339,7 +1339,7 @@ seed identities. No downloaded Git bundle was executed. The Drive connector did
 not return a usable raw code.bundle URI; ordinary direct Drive downloads with
 unchanged expected hashes completed the transport without changing permissions.
 
-[Partition receipt](issue23-colab-unit1165-first12-receipt.json),
+[Partition receipt](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-unit1165-first12-receipt.json),
 [raw parts and independent proofs](https://drive.google.com/drive/folders/1YN4rJ6dKG6Oh01gF-a_3wvTs7B8XWe84).
 Original operator receipt SHA
 `a9dd550e95d50aaefc111299d6954a702ad4504bda5df592634efd7109583717`
@@ -1366,7 +1366,7 @@ Fresh off-Colab downloads passed all part sizes/SHA/ZIP-CRC and safe restore of5
 files. Independent daily/input verification reproduced2 runs/370 hashes and
 independent CPU verification authenticated both latest states.
 
-[Complete unit acceptance](issue23-colab-unit1165-acceptance.json) now proves all14
+[Complete unit acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-unit1165-acceptance.json) now proves all14
 unique frozen variants, exact original configs/input bindings, the same actual
 environment/code and identical52 scored origins across all methods. Each method
 scheduled90 days and issued59 forecasts; missing-history/label gates explain the
@@ -1472,7 +1472,7 @@ checked against catalog SHA
 `9d26ba62c5c24a259562aa0e717926dec73355190b21ba4e8cb6f6f938506c7c`,
 and safely restored (571 files). Independent daily/input verification checked2
 runs/370 hashes and latest-state verification checked both states.
-[Joint acceptance](issue23-colab-unit1165-seed43-acceptance.json) verifies all14
+[Joint acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-unit1165-seed43-acceptance.json) verifies all14
 methods, identical52 scored origins,90 scheduled/59 issued days, exact frozen
 configs/input bindings and the same actual Colab code/environment. Its SHA is
 `ce446202be583011afcc672c398b82eab4f1b290d01dae670e62507805b1f0c0`;
@@ -1533,7 +1533,7 @@ file hashes and14 latest states. All14 preserve90 scheduled days,59 issued
 forecasts and identical52 scored origins. Exact configs/input bindings and the
 actual Colab code/environment match across methods. Sum child wall is131.246s,
 excluding setup/transfer/verification/idle and therefore not a billing estimate.
-[Joint acceptance](issue23-colab-unit1165-seed44-acceptance.json) SHA
+[Joint acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-unit1165-seed44-acceptance.json) SHA
 `bb6cd79b14b6e7a8db1c725bacc24ada2c13135346e17a5334e6fb7d5f6fdc4d`
 was saved to [Drive](https://drive.google.com/file/d/1Oz3jlBagvUVWFjZAL2O9bTZVX2tiOpEK/view)
 and freshly downloaded with that hash. Both handles are terminal0; no next unit
@@ -1548,7 +1548,7 @@ Remaining migration is2,030 cells:1,893 new missing plus137 declared repeats.
 The next outcome-blind identity isUrbanEV1188/28d/seed42. JHB and other already
 complete units are preserved. No count is a thesis-completion percentage.
 
-The [complete1165/28d three-seed case study](issue23-urbanev1165-28d.md) now contains
+The [complete1165/28d three-seed case study](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-urbanev1165-28d.md) now contains
 all42 method/seed replays, actual same52 scored origins, a14-method numeric table,
 CSV/JSON, PNG/SVG, pinned sources/code/profile/partition proofs and reproducible
 script/environment. Adaptive mean seed MAE10.265471kWh exceeds Fixed10.155355
@@ -1599,7 +1599,7 @@ Last2 plan SHA `ca42c2cfae2b30255e546b347e2a6ebdad193cb4d5f2e4a1e960fdb63dd63c73
 PID26998 exited0 in21.011s. Its3 parts (11,749,961 bytes), catalog SHA
 `6c2480e591560efce33c637dbf033b812f80a1b39d8560150d2c8a9b17b6f3ef`,
 passed fresh external transport/restore/daily/input/latest-state and Source checks.
-[Joint acceptance](issue23-colab-unit1188-seed42-acceptance.json) verifies all14
+[Joint acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-unit1188-seed42-acceptance.json) verifies all14
 frozen methods on the same actual code/environment and exact original bindings.
 It records90 scheduled days,59 issued forecasts,0 scored days and0 initial
 examples for every method. MAE/RMSE remain null, not zero. Source-checkpoint-only,
@@ -1635,7 +1635,7 @@ The full static-coordinate audit flags7 pairs /4 distinct Final IDs with exact
 coordinates shared with prefix-trainable Source IDs. All3,510 pairs remain kept;
 coordinate equality is a physical-independence risk rather than proof of shared
 traces/leakage. Exact IDs, metadata fingerprints, scripts/logs and limitations
-are in the [scope evidence](issue23-final-scope-evidence.json) and
+are in the [scope evidence](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-final-scope-evidence.json) and
 [metadata-only bundle](https://drive.google.com/file/d/1pNc_J41uKVFoSxBeWWWr1Am-i1IBQHSK/view)
 (35,734 bytes, SHA
 `783bcf8aec0845297aef868f0701aa1116bdd01d17b4cca7bacf857250da34e2`).
@@ -1656,7 +1656,7 @@ original Source CPU checks passed before last2 dispatch. Last2 plan SHA
 PID36210 exited0 in22.013s. Its3 parts total11,755,056 bytes, catalog SHA
 `a2138dddecf894e92a5ec8d3dda886deb8cbdf7adc92bf7dfe03eed33df59ab5`,
 also passed full external transport and independent daily/input/state/Source
-verification. [Complete unit](issue23-colab-unit1188-seed43-acceptance.json) retains
+verification. [Complete unit](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-unit1188-seed43-acceptance.json) retains
 all14 variants,90 scheduled /59 issued /0 scored days and0 initial examples;
 all metrics stay null. Source-checkpoint-only/random/seasonal/frozen policies are
 recorded, not presented as successful supervised adaptation or zero forecast error.
@@ -1732,7 +1732,7 @@ check additionally enforces all14 variants, unique run IDs, exact reference
 configs, same environment and identical scored origins **within each unit**.
 It does not incorrectly require different stations to share scoring coverage.
 
-[Acceptance](issue23-colab-whole01-acceptance.json), SHA
+[Acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole01-acceptance.json), SHA
 `2c2ee464657f2c0d462d25115fc473d76d336bce5e49299a0d437df9d53e24ba`,
 covers1188/28d/seed44 and1251/28d/seeds42/43/44. Each has90 scheduled,59 issued
 and0 scored days. Their MAE/RMSE stay null; completion is operational, not
@@ -1773,7 +1773,7 @@ latest-state and all3 original Source CPU integrity checks. The56 rows match exa
 reference configs/input bindings, and all14 methods share the scored origins within
 each of the four declared units. No new research code, Source refit or seed choice.
 
-[Acceptance](issue23-colab-whole02-acceptance.json) covers1408/28d/seeds42/43/44
+[Acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole02-acceptance.json) covers1408/28d/seeds42/43/44
 (90 scheduled/59 issued/0 scored each, null metrics retained) and2005/28d/seed42
 (90 scheduled/90 issued/90 scored). The latter has18 available trainable prefix
 windows; this does not imply that Frozen Source or Seasonal Naive fits them.
@@ -1826,7 +1826,7 @@ CPU integrity loads of all3 original epoch10 Sources passed. Exact original
 configs/input/core bindings, actual common environment and identical scored
 origins within each14-method unit also passed.
 
-[Acceptance](issue23-colab-whole03-acceptance.json) covers2005/28d/seeds43/44
+[Acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole03-acceptance.json) covers2005/28d/seeds43/44
 (90 issued/90 scored each) and2152/28d/seeds42/43 (59 issued/52 scored each),
 all90 scheduled days. [Receipt](https://drive.google.com/file/d/1sumwuM3Uuv3KemDHps4feodWw914310x/view)
 SHA `517e57a0511b5d40734512c3c0da99b6069a4d80f0c028ff636249ad109f2d31`
@@ -1858,7 +1858,7 @@ No new tests are claimed for this evidence-only update, no Final, self merge,
 main promotion or issue closure. The selected Final scope remains all3,510 ready
 entity-budget pairs/147,420cells, awaiting independent immutable lock approval.
 
-The [2005 three-seed case](issue23-urbanev2005-28d.md) now links the complete
+The [2005 three-seed case](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-urbanev2005-28d.md) now links the complete
 per-seed14-method CSV/JSON, inspected PNG/SVG, scripts and member manifest.
 Fresh authenticated Drive readback passed bytes/hash/CRC/all6 members.
 The next strict prefix2152/28d/seed44 and2472/28d/seeds42/43/44 was dispatched
@@ -1908,7 +1908,7 @@ export produced30 parts/89,282,421bytes, all below8MB. Fresh external Drive
 bytes/SHA/CRC, safe restore, independent daily/input/latest-state checks, three
 original Source CPU loads, exact reference configs and per-unit14-method scored
 origin equality passed. All four units have90 scheduled,59 issued and52 scored
-days. [Acceptance](issue23-colab-whole04-acceptance.json) SHA
+days. [Acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole04-acceptance.json) SHA
 `88171762650ea5e53fc39a1e9ff406dd4aed8473f81200e6c027fcce184b7b83`.
 [Canonical exports](https://drive.google.com/drive/folders/1pbqD9DOQHTMSFDF7OpMrjz3oW3nF6JVD),
 [receipt](https://drive.google.com/file/d/1JG1GMTnPTmQP8itDvajUgcXr3ku73rJD/view),
@@ -1951,7 +1951,7 @@ canonical parts/89,360,785bytes, catalog SHA
 passed fresh external bytes/SHA/CRC, safe restore, independent daily/input/state,
 all3 original Source CPU integrity loads and all14-method per-unit scored-origin
 checks. The four units each have90 scheduled,59 issued and52 scored days.
-[Acceptance](issue23-colab-whole05-acceptance.json), SHA
+[Acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole05-acceptance.json), SHA
 `acf03d5d6b443bd27c7ea9adc6f79372b559ce205758a93f3d380021885733ab`;
 [canonical exports](https://drive.google.com/drive/folders/1nLNtjnmoM3Vx5m0kJ6cvD8aWgkhiJH7y),
 [receipt](https://drive.google.com/file/d/1KeMOE6A2JDBGeD99kTbVDV6uB99XwDeC/view),
@@ -1995,13 +1995,13 @@ No paid purchase, Final, self merge, main promotion or issue closure.
 
 ### AMS A06 accepted and disjoint multiworker dispatch
 
-A06's four complete AMS7-day units (1359seed44 and1515seeds42/43/44) passed fresh external raw transport, CRC, independent daily/latest-state, all three original Source, exact configuration/input and within-unit coverage checks. Each method has90 identical scored origins per unit. Acceptance SHA `a0819acf3905f7363f203ae09277d38a80f67a2c9794aea8afed12036fde238f` is in [the acceptance record](issue23-colab-whole06-acceptance.json). Independent proof SHA `c41bf56bd29debf7df56f47334089770e53453c2a4d9d35fb4c72a0ed21c4258`; both uploaded artifacts passed fresh native exact-byte readback and ZIP CRC. [Published acceptance](https://drive.google.com/file/d/1CX3RvNfXLMQ-ZkbR9zu203-Tjha-nNAQ/view), [proof](https://drive.google.com/file/d/1wgB8ebBVou_I94IpOb4ooUkgqLqD2U4q/view), [canonical export](https://drive.google.com/drive/folders/1cCny1JDU8uHUD_WXTstiU7B9TXRgJi2N). Catalog SHA `1abc8f9640f9855473871196061b573ea17879b2ec60ac3e3f66c374493881e0`; child wall578.541seconds is not full end-to-end time.
+A06's four complete AMS7-day units (1359seed44 and1515seeds42/43/44) passed fresh external raw transport, CRC, independent daily/latest-state, all three original Source, exact configuration/input and within-unit coverage checks. Each method has90 identical scored origins per unit. Acceptance SHA `a0819acf3905f7363f203ae09277d38a80f67a2c9794aea8afed12036fde238f` is in [the acceptance record](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole06-acceptance.json). Independent proof SHA `c41bf56bd29debf7df56f47334089770e53453c2a4d9d35fb4c72a0ed21c4258`; both uploaded artifacts passed fresh native exact-byte readback and ZIP CRC. [Published acceptance](https://drive.google.com/file/d/1CX3RvNfXLMQ-ZkbR9zu203-Tjha-nNAQ/view), [proof](https://drive.google.com/file/d/1wgB8ebBVou_I94IpOb4ooUkgqLqD2U4q/view), [canonical export](https://drive.google.com/drive/folders/1cCny1JDU8uHUD_WXTstiU7B9TXRgJi2N). Catalog SHA `1abc8f9640f9855473871196061b573ea17879b2ec60ac3e3f66c374493881e0`; child wall578.541seconds is not full end-to-end time.
 
-The new ledger v12 SHA `8244646c4227417830ae5d7c9b9b3c3ea2d72c0288040fce882af900d4e1b3ef` has112/231 accepted and119pending. UrbanEV remains69/69 complete; CHARGED cities remain separate. [Multiworker controls](issue23-multiworker-controls.md) document actual guards, manual billing/release gaps, failed staging, publication repair and disjoint B07/C08/A09 reservations. No claim is made that a Goal alone prevents idle provider charges.
+The new ledger v12 SHA `8244646c4227417830ae5d7c9b9b3c3ea2d72c0288040fce882af900d4e1b3ef` has112/231 accepted and119pending. UrbanEV remains69/69 complete; CHARGED cities remain separate. [Multiworker controls](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-multiworker-controls.md) document actual guards, manual billing/release gaps, failed staging, publication repair and disjoint B07/C08/A09 reservations. No claim is made that a Goal alone prevents idle provider charges.
 
-The [complete UrbanEV primary Development analysis](issue23-urbanev-development-primary.md) covers966cells. Observed Adaptive MAE exceeds Fixed retention by0.0339/0.0418/0.0246kWh at7/14/28days; corresponding exploratory paired intervals crosszero.462null cells remain explicit. This does not establish superiority or population effectiveness. Final values/execution remain untouched.
+The [complete UrbanEV primary Development analysis](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-urbanev-development-primary.md) covers966cells. Observed Adaptive MAE exceeds Fixed retention by0.0339/0.0418/0.0246kWh at7/14/28days; corresponding exploratory paired intervals crosszero.462null cells remain explicit. This does not establish superiority or population effectiveness. Final values/execution remain untouched.
 
-B07's single AMS14-day/entity110/seed42 unit also passed external raw verification and common90-origin coverage. Acceptance SHA `407f8df06befa093585f9275049f3a700c896333e5a77b5d5344cf100e400fe3` is in [the B07 acceptance record](issue23-colab-whole07-acceptance.json); proof SHA `86e338a863462e606617e902957a397ec4b9bc6f9d4fda24074fc366ce805c94`. [Published acceptance](https://drive.google.com/file/d/1eBK6AfOkvF6UoVd0oJLdFV_BsmpKyQjG/view) and [proof](https://drive.google.com/file/d/1it9SyYSMWesDGUZCSn785sEED9nNqq3N/view) passed fresh native exact-byte/CRC readback. Ledger13 SHA `76b87d5b24fb52c15db6dc5e9171945b46d5d511ec9c6953fbd611204838a21e` records113/231 accepted,118pending. This is a dated progress checkpoint; later ledgers supersede counts.
+B07's single AMS14-day/entity110/seed42 unit also passed external raw verification and common90-origin coverage. Acceptance SHA `407f8df06befa093585f9275049f3a700c896333e5a77b5d5344cf100e400fe3` is in [the B07 acceptance record](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole07-acceptance.json); proof SHA `86e338a863462e606617e902957a397ec4b9bc6f9d4fda24074fc366ce805c94`. [Published acceptance](https://drive.google.com/file/d/1eBK6AfOkvF6UoVd0oJLdFV_BsmpKyQjG/view) and [proof](https://drive.google.com/file/d/1it9SyYSMWesDGUZCSn785sEED9nNqq3N/view) passed fresh native exact-byte/CRC readback. Ledger13 SHA `76b87d5b24fb52c15db6dc5e9171945b46d5d511ec9c6953fbd611204838a21e` records113/231 accepted,118pending. This is a dated progress checkpoint; later ledgers supersede counts.
 
 A defensible global remaining-time estimate is not yet available: the new scorable timing sample covers only five AMS units. AMS-rate arithmetic for118pending units gives3.91–4.74 single-worker fit-hours or2.14 ideal parallel fit-hours, excluding setup/publication/verification/analysis. Observed dispatch-through-local-acceptance spans imply substantially longer conditional scenarios (12.95–20.64 single-workflow hours or7.96 ideal parallel hours), plus untimed city analysis/review. These are scenarios rather than cross-city bounds. Local acceptance filesystem times are observations, not authoritative remote acceptance timestamps; workloads, null coverage, archive sizes and hardware/thread policies differ. New inline publication is being measured separately; no matched A100/T4 performance claim is supported. Scratch estimate v2 SHA `55a2cef0134a54397300623164c3558323cee89f5191909a2d9dda7a6118d133` preserves formulas and provenance.
 
@@ -2009,11 +2009,11 @@ A defensible global remaining-time estimate is not yet available: the new scorab
 
 A09 and B10 each completed four disjoint AMS units and passed fresh external transport, CRC, restore, daily, latest-state, original Source and common-origin coverage checks. Every method in each of the eight units has90 identical scored origins. A09 used the existing T4 runtime:540.427seconds fit and581.186seconds dispatch through mounted publication. B10 used the actual A100 runtime:424.247seconds fit and454.659seconds through publication. Different units and operational thread policies prevent a matched hardware-speed claim. Inline publication reduced the observed non-fit publication span; full external acceptance and analysis remain additional work.
 
-[A09 acceptance](issue23-colab-whole09-acceptance.json), SHA `a326753e64c36eb71be46e4ef741136e90b7d98d42428c7923547cbad8396b22`, [published receipt](https://drive.google.com/file/d/147VdkoKQma0axRjF3cQR5yibT9QBhUxa/view) and [proof](https://drive.google.com/file/d/1gbSG8IUcVxWtWVI3NBWmNElX-FktXrNf/view), proof SHA `d3298f2fcf239fd72b2cf0b765c63f4648093de2ef227d213f2cb1c60074687c`.
+[A09 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole09-acceptance.json), SHA `a326753e64c36eb71be46e4ef741136e90b7d98d42428c7923547cbad8396b22`, [published receipt](https://drive.google.com/file/d/147VdkoKQma0axRjF3cQR5yibT9QBhUxa/view) and [proof](https://drive.google.com/file/d/1gbSG8IUcVxWtWVI3NBWmNElX-FktXrNf/view), proof SHA `d3298f2fcf239fd72b2cf0b765c63f4648093de2ef227d213f2cb1c60074687c`.
 
-[B10 acceptance](issue23-colab-whole10-acceptance.json), SHA `bb623f306c2baa2f6d7c2d50857dbd16d20e31c78eb129bfb82f8619e2693f85`, [published receipt](https://drive.google.com/file/d/1r8G5j9E20l5OGxxWeRNF2EQeXTQpAaSt/view) and [proof](https://drive.google.com/file/d/1MueQfaYtenBVSoTNUWZ4HhofjineSbVR/view), proof SHA `14bebcda956cc8c350f27fedf3308c3d5e314bcc9f01a15728316e6c7a844d6f`. Worker C performed the independent B10 raw verification on CPU; root separately checked coverage and alone advanced the ledger. All four uploaded artifacts passed fresh native exact-byte readback and ZIP CRC.
+[B10 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole10-acceptance.json), SHA `bb623f306c2baa2f6d7c2d50857dbd16d20e31c78eb129bfb82f8619e2693f85`, [published receipt](https://drive.google.com/file/d/1r8G5j9E20l5OGxxWeRNF2EQeXTQpAaSt/view) and [proof](https://drive.google.com/file/d/1MueQfaYtenBVSoTNUWZ4HhofjineSbVR/view), proof SHA `14bebcda956cc8c350f27fedf3308c3d5e314bcc9f01a15728316e6c7a844d6f`. Worker C performed the independent B10 raw verification on CPU; root separately checked coverage and alone advanced the ledger. All four uploaded artifacts passed fresh native exact-byte readback and ZIP CRC.
 
-C08 never fitted on its failed-mount VM. Its exact original plan/declaration/reference were reassigned exclusively to healthy A as A08R, which completed14cells in142.468seconds fit and163.546seconds through publication. External verification and90-common-origin coverage passed. [A08R acceptance](issue23-colab-whole08R-acceptance.json), SHA `abcc55af01414e9289562d614e3410994bf791b4147b9f1f5fbeacf3b9596ca7`, records that one unit without duplicate credit. Ledger16 SHA `0804f02bfb0b8886263ee952845b98ea9f76cf71869c6bfdb66f705943d8ea7c` has122/231 accepted and109pending. Disjoint reservations can finish out of order; acceptance removes only the exact declared remaining identities and preserves every other pending unit, instead of discarding an uncompleted prefix.
+C08 never fitted on its failed-mount VM. Its exact original plan/declaration/reference were reassigned exclusively to healthy A as A08R, which completed14cells in142.468seconds fit and163.546seconds through publication. External verification and90-common-origin coverage passed. [A08R acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole08R-acceptance.json), SHA `abcc55af01414e9289562d614e3410994bf791b4147b9f1f5fbeacf3b9596ca7`, records that one unit without duplicate credit. Ledger16 SHA `0804f02bfb0b8886263ee952845b98ea9f76cf71869c6bfdb66f705943d8ea7c` has122/231 accepted and109pending. Disjoint reservations can finish out of order; acceptance removes only the exact declared remaining identities and preserves every other pending unit, instead of discarding an uncompleted prefix.
 
 At the10:24UTC provider observation,90.69compute units remained and the two allocated sessions consumed approximately6.37units/hour in aggregate. This is an observation, not a live billing guard. Original LOA processed inputs were copied into new staging and authenticated by exact archive/manifest/artifact hashes and CRC in4.130seconds on B's idle CPU; no Final values were decoded. Queued LOA batches use original LOA Sources and independent namespace checks. The later pending AMS unit remains in its original queue position; no city-completion assumption changes the frozen order.
 
@@ -2035,23 +2035,23 @@ All uploaded receipts/proofs above passed fresh native exact-byte readback and Z
 
 A17 and B18 then received disjoint LOA work after predecessor external acceptance. The last observed provider balance was87.51units at10:55:21UTC, aggregate approximately6.37units/hour for two sessions, with30units reserved. All remaining finite queue assets are prepared and independently checked offline, including city boundaries and five late partial-unit replacements; runtime success is not inferred from those checks. Unit/reserve billing controls remain coordinator policy, and blocking dispatch staging precedes the isolated operator watchdog.
 
-The [JHB Development report](issue23-jhb-development.md) independently reviews27complete units/378cells and all three original Source CPU loads, retaining adverse results and exploratory interval limits. The maintained UrbanEV and JHB reports do not establish effectiveness, novelty, peer approval or a Final lock. Final values/execution remain untouched.
+The [JHB Development report](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-jhb-development.md) independently reviews27complete units/378cells and all three original Source CPU loads, retaining adverse results and exploratory interval limits. The maintained UrbanEV and JHB reports do not establish effectiveness, novelty, peer approval or a Final lock. Final values/execution remain untouched.
 
 ### Development checkpoint: 150 accepted units
 
 Ledger23 SHA `85f2187a1f8fde0d1c0de17b1b65e276aec5980ceaf5e42f7d76ea552c57784f` records150/231 accepted and81pending. A17 and B18 each added four complete LOA units; all14 methods per unit share90 scored origins. A17 fit/publication took522.058/561.499seconds; B18 took408.998/438.034seconds. Independent transport/input/daily/latest-state/originalSource/config/coverage proofs passed before root acceptance.
 
-[A17 acceptance](issue23-colab-whole17-acceptance.json), SHA `55b51331c8684ea8180fc9741f7a23978897376f3f39a74dae9f65874096b4db`, [published receipt](https://drive.google.com/file/d/1t9XtE8jJAQdg6m-wk5gbA_8zTQ1WB-YH/view) and [proof](https://drive.google.com/file/d/1p1HE84ALMUWqazQO91IBHr8auWtN4qCw/view), proof SHA `208b98fe0877c2bf63d9e2dc6e44ddaa50166f96681bc2daea4052794f4c341f`.
+[A17 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole17-acceptance.json), SHA `55b51331c8684ea8180fc9741f7a23978897376f3f39a74dae9f65874096b4db`, [published receipt](https://drive.google.com/file/d/1t9XtE8jJAQdg6m-wk5gbA_8zTQ1WB-YH/view) and [proof](https://drive.google.com/file/d/1p1HE84ALMUWqazQO91IBHr8auWtN4qCw/view), proof SHA `208b98fe0877c2bf63d9e2dc6e44ddaa50166f96681bc2daea4052794f4c341f`.
 
-[B18 acceptance](issue23-colab-whole18-acceptance.json), SHA `0dfac613424cbda803e4f019ac52e1adda33e96c040feedcd47c0c8208f2e849`, [published receipt](https://drive.google.com/file/d/14eVyMhpxep23TKBFTO-iHQra4wAjTnbk/view) and [proof](https://drive.google.com/file/d/1F91v1NwEaFOKlTO1IsSY8QF1-7zkRsiG/view), proof SHA `2a4b6cf840b541495170817df2e8a15812f0273b454ce0526a969ede03bf124c`. The native readback record pins the exact proof bytes; all four uploaded artifacts passed exact-byte/SHA/CRC verification. These are dated counts, not claims that the full matrix is complete. A19 retains its three-unit/42-cell boundary; B20 moves to MEL with original MEL Sources and separately authenticated inputs. No Final execution or method change.
+[B18 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole18-acceptance.json), SHA `0dfac613424cbda803e4f019ac52e1adda33e96c040feedcd47c0c8208f2e849`, [published receipt](https://drive.google.com/file/d/14eVyMhpxep23TKBFTO-iHQra4wAjTnbk/view) and [proof](https://drive.google.com/file/d/1F91v1NwEaFOKlTO1IsSY8QF1-7zkRsiG/view), proof SHA `2a4b6cf840b541495170817df2e8a15812f0273b454ce0526a969ede03bf124c`. The native readback record pins the exact proof bytes; all four uploaded artifacts passed exact-byte/SHA/CRC verification. These are dated counts, not claims that the full matrix is complete. A19 retains its three-unit/42-cell boundary; B20 moves to MEL with original MEL Sources and separately authenticated inputs. No Final execution or method change.
 
 ### Development checkpoint: 157 accepted units
 
 Ledger25 SHA `dc0172419598607570a001a16f86530f624acfd4dfd86e4845fde9016ed830f2` records157/231 accepted and74pending. A19 contains exactly three LOA units/42cells; B20 contains four MEL units/56cells with original MEL Sources. Every method per unit has90 common scored origins. Independent transport/CRC, inputs/daily, latest-state, original Source and coverage checks passed.
 
-[19 acceptance](issue23-colab-whole19-acceptance.json), SHA `d8aab794d294752ee7b247acc60ccf29e4fa9e540b6fc740d47853bbf462bd44`, [published receipt](https://drive.google.com/file/d/1yewW0lGxQp90COB34aSMWrK7EzE2lCWk/view) and [proof](https://drive.google.com/file/d/1_4h7pWIIXyqjf2dM0IrPTzhgJhRkacSD/view), proof SHA `0e40d9342083fad740f2e5a00b96176d22e3b17dfb0efb3f9c80ed5d8a525f65`.
+[19 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole19-acceptance.json), SHA `d8aab794d294752ee7b247acc60ccf29e4fa9e540b6fc740d47853bbf462bd44`, [published receipt](https://drive.google.com/file/d/1yewW0lGxQp90COB34aSMWrK7EzE2lCWk/view) and [proof](https://drive.google.com/file/d/1_4h7pWIIXyqjf2dM0IrPTzhgJhRkacSD/view), proof SHA `0e40d9342083fad740f2e5a00b96176d22e3b17dfb0efb3f9c80ed5d8a525f65`.
 
-[20 acceptance](issue23-colab-whole20-acceptance.json), SHA `9ccfa99d3a6f511a9f39a0e90ad00f88fda3303e847359eb61746e60741c5697`, [published receipt](https://drive.google.com/file/d/1vae4npjLhKs0jBqhn9gGsa80741CaK3U/view) and [proof](https://drive.google.com/file/d/1DaZsSvwWyLd5FUZSiS3U9-aBKUfxHnwv/view), proof SHA `ac613454fd5a90ac0b0fecce0a16c4e6d68d95b66e2b039c6d622693741c26b8`.
+[20 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole20-acceptance.json), SHA `9ccfa99d3a6f511a9f39a0e90ad00f88fda3303e847359eb61746e60741c5697`, [published receipt](https://drive.google.com/file/d/1vae4npjLhKs0jBqhn9gGsa80741CaK3U/view) and [proof](https://drive.google.com/file/d/1DaZsSvwWyLd5FUZSiS3U9-aBKUfxHnwv/view), proof SHA `ac613454fd5a90ac0b0fecce0a16c4e6d68d95b66e2b039c6d622693741c26b8`.
 
 All four uploaded artifacts passed fresh native exact-byte/SHA/CRC readback. A19 fit/publication took381.922/414.231seconds; B20 took405.887/434.456seconds. B20 external verification initially received an incorrectly shaped file-list argument; the CPU caller preserved the error and corrected metadata format before fresh verification. No fit was repeated. A21 and B22 then received disjoint MEL work after predecessor acceptance and separate A/B input staging. No Final execution or method change occurred.
 
@@ -2061,13 +2061,13 @@ Ledger28 SHA `1ae3cebc51715f4134883cffa14fb06f0e94c4934f8341768aa60f9772a1f740` 
 
 | Publication | Acceptance | Native publication |
 |---|---|---|
-| A21 | [Record](issue23-colab-whole21-acceptance.json), SHA `5eae011c6b5196909e582d309dcef18d44a09cfae5807f1e8e01fe529d84bc2d` | [Receipt](https://drive.google.com/file/d/1VEY5UuaJcfnJu9fLNJM1SpNJ6qm9aQhV/view), [proof](https://drive.google.com/file/d/13Iqq2OWXw-OXxPy_0dGvA-rv0dihPugu/view) |
-| B22 corrected v2 | [Record](issue23-colab-whole22-acceptance-v2.json), SHA `ce5589fb8fd6ba84e5a76b0986371554d46164b04b04e34fb88badd652f2e426` | [Receipt](https://drive.google.com/file/d/1EMsXXiRKE9G4q0CfClt2GnJNJGa6m6nU/view), [proof](https://drive.google.com/file/d/1krLKm0fT9UqtsUUnTyKED5QwV5BjMT19/view) |
-| B24 | [Record](issue23-colab-whole24-acceptance.json), SHA `0f2903b030f9440725f5e8a26c2e27ba25e829175b9850f1ae8206e11d3114a7` | [Receipt](https://drive.google.com/file/d/1DltX77P0ZizbL7C5f6CL-d7pKDtW3Ywq/view), [proof](https://drive.google.com/file/d/1nAo3ChpCsPXpKqGBR6r7hncqFoBT3uF1/view) |
+| A21 | [Record](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole21-acceptance.json), SHA `5eae011c6b5196909e582d309dcef18d44a09cfae5807f1e8e01fe529d84bc2d` | [Receipt](https://drive.google.com/file/d/1VEY5UuaJcfnJu9fLNJM1SpNJ6qm9aQhV/view), [proof](https://drive.google.com/file/d/13Iqq2OWXw-OXxPy_0dGvA-rv0dihPugu/view) |
+| B22 corrected v2 | [Record](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole22-acceptance-v2.json), SHA `ce5589fb8fd6ba84e5a76b0986371554d46164b04b04e34fb88badd652f2e426` | [Receipt](https://drive.google.com/file/d/1EMsXXiRKE9G4q0CfClt2GnJNJGa6m6nU/view), [proof](https://drive.google.com/file/d/1krLKm0fT9UqtsUUnTyKED5QwV5BjMT19/view) |
+| B24 | [Record](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole24-acceptance.json), SHA `0f2903b030f9440725f5e8a26c2e27ba25e829175b9850f1ae8206e11d3114a7` | [Receipt](https://drive.google.com/file/d/1DltX77P0ZizbL7C5f6CL-d7pKDtW3Ywq/view), [proof](https://drive.google.com/file/d/1nAo3ChpCsPXpKqGBR6r7hncqFoBT3uF1/view) |
 
 All six uploaded artifacts passed fresh native exact-byte/SHA verification and proof ZIP CRC. A21 fit/publication took510.894/548.937seconds, B22 took409.142/437.969seconds, and B24 took400.001/428.706seconds. These are different workloads and runtime/thread policies, not matched hardware comparisons or provider billing measurements.
 
-Root initially entered incorrect B22 fit time406.094595125seconds manually. The authenticated exit records409.1415830470005seconds. The [original v1](issue23-colab-whole22-acceptance.json) and original ledger26 are preserved as superseded metadata evidence; v2 corrects only timing and traces the original. Counts, metrics, proof identities and accepted units are unchanged. Ledger26-corrected, then27 and28, carry the correction lineage. Later acceptors read timing programmatically from the authenticated current-batch exit and check its catalog identity.
+Root initially entered incorrect B22 fit time406.094595125seconds manually. The authenticated exit records409.1415830470005seconds. The [original v1](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole22-acceptance.json) and original ledger26 are preserved as superseded metadata evidence; v2 corrects only timing and traces the original. Counts, metrics, proof identities and accepted units are unchanged. Ledger26-corrected, then27 and28, carry the correction lineage. Later acceptors read timing programmatically from the authenticated current-batch exit and check its catalog identity.
 
 B26 proceeds to the frozen SPO reservation after CPU-only input authentication. The provider observation at11:38UTC showed82.72units, approximately6.37units/hour across two sessions, above the30unit reserve. This does not constitute a provider-enforced budget guard. Late partial-unit replacements remain required before city completion. Final remains unstarted and no method change was made.
 
@@ -2075,9 +2075,9 @@ B26 proceeds to the frozen SPO reservation after CPU-only input authentication. 
 
 Ledger30 SHA `163545cb56b71ca0f182c6b8d6bff27cc5c46aab5739797a369efd0ff0abbd87` records177/231 accepted and54pending. A23 adds four MEL units and B26 adds four SPO units. All14 methods in each unit share90 scored origins. Independent fresh raw transport/CRC, input/daily, latest-state, original Source and coverage checks passed; root alone advanced the ledger.
 
-[A23 acceptance](issue23-colab-whole23-acceptance.json), SHA `c0652c3f716ef467637fc0a0f76498996f3ae144191eebc1212b70d9675c09d3`, [published receipt](https://drive.google.com/file/d/1Qs_rERxM0zV6qFRTnv-GJqoD5KV5Jz-2/view) and [proof](https://drive.google.com/file/d/1yeBI3em44DftwL6WWBlOJMlkvYX5jf56/view), proof SHA `6138ccf216413fb5b7687c50da33f090029ef46d13a8218e7fdaed75561be325`.
+[A23 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole23-acceptance.json), SHA `c0652c3f716ef467637fc0a0f76498996f3ae144191eebc1212b70d9675c09d3`, [published receipt](https://drive.google.com/file/d/1Qs_rERxM0zV6qFRTnv-GJqoD5KV5Jz-2/view) and [proof](https://drive.google.com/file/d/1yeBI3em44DftwL6WWBlOJMlkvYX5jf56/view), proof SHA `6138ccf216413fb5b7687c50da33f090029ef46d13a8218e7fdaed75561be325`.
 
-[B26 acceptance](issue23-colab-whole26-acceptance.json), SHA `e10cffb00924e4a8b7a6e646b3323bd6bc0ef741e30ccd6dfed9c056a59014fb`, [published receipt](https://drive.google.com/file/d/1pgp0SJKo3VCclWFUF-3dI9Imbw579_rH/view) and [proof](https://drive.google.com/file/d/1ku948Wn0SmSyr8YTkxFs0W20l22Og7WS/view), proof SHA `392513b25929023e8d92729dd0d81d87d03b338e171a268848b97a4cd7a14905`.
+[B26 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole26-acceptance.json), SHA `e10cffb00924e4a8b7a6e646b3323bd6bc0ef741e30ccd6dfed9c056a59014fb`, [published receipt](https://drive.google.com/file/d/1pgp0SJKo3VCclWFUF-3dI9Imbw579_rH/view) and [proof](https://drive.google.com/file/d/1ku948Wn0SmSyr8YTkxFs0W20l22Og7WS/view), proof SHA `392513b25929023e8d92729dd0d81d87d03b338e171a268848b97a4cd7a14905`.
 
 All four uploads passed fresh native exact-byte/SHA/CRC readback. A23 fit/publication took515.715/554.723seconds, with58.528seconds external verification; B26 took409.148/437.910seconds, with97.449seconds external verification. These are operational observations across different units, hardware and thread policies.
 
@@ -2093,9 +2093,9 @@ The [operational review bundle](https://drive.google.com/file/d/1IhTHJ0R9HlXwqBt
 
 Ledger32 SHA `cd0603a79a67fa6149118c223382474b640d5f24b384c3b91c6810d05f4e21e3` records185/231 accepted and46pending. A25 adds four MEL units (ledger31 reached181accepted); B28 adds four SPO units. Every14-method unit has90 common scored origins and passed independent fresh raw/input/daily/latest-state/own-city Source/runtime/coverage verification plus root's pinned acceptance CLI checks.
 
-[A25 acceptance](issue23-colab-whole25-acceptance.json), SHA `e4bc531730c9b5535f8a97cbc0400ebd14bce0bb2d14192c07fb6c34c91819b2`, [published receipt](https://drive.google.com/file/d/1j1JXyMAO9wEHZ2TsTCSRCXzo86nlU-D1/view) and [proof](https://drive.google.com/file/d/1a5OXZGREHGld4AgNrSsw7p4YtHDE8Wcu/view), proof SHA `8c75fd799317d2819409b846c8fdf72eb5674b924217c3f22ac72109f3e53f3d`.
+[A25 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole25-acceptance.json), SHA `e4bc531730c9b5535f8a97cbc0400ebd14bce0bb2d14192c07fb6c34c91819b2`, [published receipt](https://drive.google.com/file/d/1j1JXyMAO9wEHZ2TsTCSRCXzo86nlU-D1/view) and [proof](https://drive.google.com/file/d/1a5OXZGREHGld4AgNrSsw7p4YtHDE8Wcu/view), proof SHA `8c75fd799317d2819409b846c8fdf72eb5674b924217c3f22ac72109f3e53f3d`.
 
-[B28 acceptance](issue23-colab-whole28-acceptance.json), SHA `00571e3576a166709f2350b2caef531990ee91e8212f3a2f476ef3c13b56be8a`, [published receipt](https://drive.google.com/file/d/14CeG6bIx_schfVnorbsk7G1ek5F_i-kb/view) and [proof](https://drive.google.com/file/d/1a9_sex-LfNLipR8LL1h5NCHR2GTbuTzP/view), proof SHA `12bd9142ea0bd1feafefa2391eb42979a4552dc7dddef2c1f9184cefaad97941`.
+[B28 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole28-acceptance.json), SHA `00571e3576a166709f2350b2caef531990ee91e8212f3a2f476ef3c13b56be8a`, [published receipt](https://drive.google.com/file/d/14CeG6bIx_schfVnorbsk7G1ek5F_i-kb/view) and [proof](https://drive.google.com/file/d/1a9_sex-LfNLipR8LL1h5NCHR2GTbuTzP/view), proof SHA `12bd9142ea0bd1feafefa2391eb42979a4552dc7dddef2c1f9184cefaad97941`.
 
 All four uploads passed fresh native exact-byte/SHA/ZIP-CRC readback. Root performed A25 publication/readback; a separate publication-only agent performed B28 after explicit root acceptance, without raw re-verification or ledger/Git/fitting writes. Its readback receipt SHA is `879a293442d2dbef02905a890767f3ee3c51fc9b0f86f7087e24b2e541141f65`. A25 fit/publication/verification took529.160/568.436/60.470seconds; B28 took405.018/434.129/76.520seconds. These are operational observations, not isolated billing or hardware-speed comparisons.
 
@@ -2105,9 +2105,9 @@ Actual accepted counts are UrbanEV69/69, JHB27/27, AMS26/27, LOA26/27, MEL26/27,
 
 Ledger34 SHA `7168cfccee4f168ef7aab2a24373b9107d634c0474ec0ed578635ff5d1a1761f` records193/231 accepted and38pending. A27 and B30 each add four SPO units/56cells. All14 methods in every unit share90 observed scored origins. Fresh independent raw transport/CRC, daily/input, latest-state, all three own-SPO Source CPU, profile/binding and coverage checks passed before root's pinned CLI acceptance.
 
-[A27 acceptance](issue23-colab-whole27-acceptance.json), SHA `a3d8565543ae5059766b02e1d3ed20c17751009d970ec5b070cfc3336c4ce696`, [native receipt](https://drive.google.com/file/d/1Y53SGwD889Cj8fWCNgIhDyeM2oFWLXvt/view) and [proof](https://drive.google.com/file/d/1iwAiyzJf1rbpJydRvymtR2pFMeiy-zwK/view), proof SHA `e6ef6078bc34e652c8f279f7bb8f082935d9a7ee1b1cde6b5c97872c4a1a1fb3`.
+[A27 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole27-acceptance.json), SHA `a3d8565543ae5059766b02e1d3ed20c17751009d970ec5b070cfc3336c4ce696`, [native receipt](https://drive.google.com/file/d/1Y53SGwD889Cj8fWCNgIhDyeM2oFWLXvt/view) and [proof](https://drive.google.com/file/d/1iwAiyzJf1rbpJydRvymtR2pFMeiy-zwK/view), proof SHA `e6ef6078bc34e652c8f279f7bb8f082935d9a7ee1b1cde6b5c97872c4a1a1fb3`.
 
-[B30 acceptance](issue23-colab-whole30-acceptance.json), SHA `dd954e4bb514270df31b5513709db4835a2982195a68d02608dc8b48b2d736b2`, [native receipt](https://drive.google.com/file/d/10s27xh498IWtVZp3cRTiwwbggViQc4rX/view) and [proof](https://drive.google.com/file/d/16aGUcmrwI_mKPwD3BVGD9CD71UrvIijj/view), proof SHA `22e054be3ac28361704eea73f376e5484a4387075fa17523dc441f5bd2a6cefa`.
+[B30 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole30-acceptance.json), SHA `dd954e4bb514270df31b5513709db4835a2982195a68d02608dc8b48b2d736b2`, [native receipt](https://drive.google.com/file/d/10s27xh498IWtVZp3cRTiwwbggViQc4rX/view) and [proof](https://drive.google.com/file/d/16aGUcmrwI_mKPwD3BVGD9CD71UrvIijj/view), proof SHA `22e054be3ac28361704eea73f376e5484a4387075fa17523dc441f5bd2a6cefa`.
 
 The publication-only agent uploaded the four exact root-accepted artifacts and passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHAs are `6a9457db37277bd06d8e10e1fad4fca657afcd23b379fe43f3a9fba3a64bf6c4` and `45051ccfbffbff9bd5d3775155daf564c8fae26ead34bd6701e8223b1a6bc891`. No duplicated publication, fitting, raw re-verification or agent ledger/Git write occurred. A27 fit/publication/verification took526.286/564.908/54.375seconds; B30 took399.917/428.286/72.993seconds. These are workload observations, not controlled speed or billing comparisons.
 
@@ -2117,9 +2117,9 @@ SPO now has19/27 accepted units. A29 continues SPO on the existing T4; B32 start
 
 Ledger36 SHA `85268cf05344a1400ea23829eb653c9dcb59e545adc42ef6e0fb9dd407a11292` records201/231 accepted and30pending. A29 adds four SPO units (ledger35 reached197accepted); B32 adds the first four SZH units. Every14-method unit has90 common observed scored origins. Independent fresh raw/input/daily/latest-state, all three original own-city Sources, actual profile/binding and coverage checks passed before root's pinned CLI acceptance.
 
-[A29 acceptance](issue23-colab-whole29-acceptance.json), SHA `5466e0fe00401ec21a74524d08891602a226843ec184208fd547e5c57dce028b`, [native receipt](https://drive.google.com/file/d/1Y1N-b7i8uXZVpu7YouRa4lMmDA-sWRLf/view) and [proof](https://drive.google.com/file/d/16Zam-UrC4zKDmqpy17ZP4IGXTbG6dEIl/view), proof SHA `d3a5afe183408d22997a8a924b6e25e078a79e0cba6f617d30894ed414ca22cd`.
+[A29 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole29-acceptance.json), SHA `5466e0fe00401ec21a74524d08891602a226843ec184208fd547e5c57dce028b`, [native receipt](https://drive.google.com/file/d/1Y1N-b7i8uXZVpu7YouRa4lMmDA-sWRLf/view) and [proof](https://drive.google.com/file/d/16Zam-UrC4zKDmqpy17ZP4IGXTbG6dEIl/view), proof SHA `d3a5afe183408d22997a8a924b6e25e078a79e0cba6f617d30894ed414ca22cd`.
 
-[B32 acceptance](issue23-colab-whole32-acceptance.json), SHA `5759f0b5bb9985a8ab14cd29d52ada8b560d8b3449940afe4b4136f564ce35d6`, [native receipt](https://drive.google.com/file/d/1M2dcn3VvJ_yplChcp1QXtLwKCa2KNlsK/view) and [proof](https://drive.google.com/file/d/1dROT7Rfq6PMQsuJ2R_cST5HJj-d3FNaC/view), proof SHA `04a4513b60955d48ca11361ac5b7b93534b5fa90b6925b62b6f8ef3f50db333a`.
+[B32 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole32-acceptance.json), SHA `5759f0b5bb9985a8ab14cd29d52ada8b560d8b3449940afe4b4136f564ce35d6`, [native receipt](https://drive.google.com/file/d/1M2dcn3VvJ_yplChcp1QXtLwKCa2KNlsK/view) and [proof](https://drive.google.com/file/d/1dROT7Rfq6PMQsuJ2R_cST5HJj-d3FNaC/view), proof SHA `04a4513b60955d48ca11361ac5b7b93534b5fa90b6925b62b6f8ef3f50db333a`.
 
 All four exact root-accepted uploads passed fresh native byte/SHA/ZIP-CRC readback by the publication-only agent. Its readback receipt SHAs are `7b8b22db3276522cb16708d9adce3939d0b7e106237dd4427fdce493b8204e17` and `13693f900afa0523199b5c98596a8fd32cd08bf181a64598eea283ccb91c0cd1`. A29 fit/publication/verification took526.072/565.305/61.544seconds; B32 took407.959/436.626/59.445seconds. These are actual workload observations, not matched hardware-speed or provider-bill evidence.
 
@@ -2129,9 +2129,9 @@ A31 continues the exact three-unit/42-cell SPO boundary (PID134726); B34 continu
 
 Ledger38 SHA `c124579e5c44896805024811dcd798f8f4b88447a4c2a1cc4ce6744f46a16cf7` records208/231 accepted and23pending. A31 adds exactly three SPO units/42cells (ledger37 reached204accepted); B34 adds four SZH units/56cells. Every14-method unit shares90 observed scored origins. Fresh independent raw/CRC, daily/input, latest-state, original own-city Source CPU, profile/binding and coverage checks passed before root's pinned CLI acceptance. Boundary size is derived from the declaration rather than assumed56.
 
-[A31 acceptance](issue23-colab-whole31-acceptance.json), SHA `d561298972fe0224a2d96cdf06b27c3fa647e48bda3f86e2a405d1286bfa740c`, [native receipt](https://drive.google.com/file/d/1cgjzxCPU7lXnzZYqMo0HoUBhRDCnSIXk/view) and [proof](https://drive.google.com/file/d/1qB-0R7PWpJUWl0uH4TJp8tggjY9xrj7v/view), proof SHA `98f0ea9666d2583a648a06dd4d5fe11840062fa41a771f2d3d172da35d1602db`.
+[A31 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole31-acceptance.json), SHA `d561298972fe0224a2d96cdf06b27c3fa647e48bda3f86e2a405d1286bfa740c`, [native receipt](https://drive.google.com/file/d/1cgjzxCPU7lXnzZYqMo0HoUBhRDCnSIXk/view) and [proof](https://drive.google.com/file/d/1qB-0R7PWpJUWl0uH4TJp8tggjY9xrj7v/view), proof SHA `98f0ea9666d2583a648a06dd4d5fe11840062fa41a771f2d3d172da35d1602db`.
 
-[B34 acceptance](issue23-colab-whole34-acceptance.json), SHA `b747b22b82bbd100a62d52b3d4fdfe8e372bdd09c5f256f0cdd1075d96ef46b2`, [native receipt](https://drive.google.com/file/d/1YL60-cKr93_rY7chVGRAA4W7_aDN9hO5/view) and [proof](https://drive.google.com/file/d/1ynKMp5vvMQmjsg2md_b09u1O49IYKpJa/view), proof SHA `f9d8ec808f8e8e6decd284908606d72df8ae91539452b3e617c629acd9716349`.
+[B34 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole34-acceptance.json), SHA `b747b22b82bbd100a62d52b3d4fdfe8e372bdd09c5f256f0cdd1075d96ef46b2`, [native receipt](https://drive.google.com/file/d/1YL60-cKr93_rY7chVGRAA4W7_aDN9hO5/view) and [proof](https://drive.google.com/file/d/1ynKMp5vvMQmjsg2md_b09u1O49IYKpJa/view), proof SHA `f9d8ec808f8e8e6decd284908606d72df8ae91539452b3e617c629acd9716349`.
 
 All four uploads passed fresh native exact-byte/SHA/ZIP-CRC readback by the publication-only agent. Its receipt SHAs are `5606a78a03f21b9c25a4cd6e298a1e40695e4f856b706d01e2fc5c5000551e5f` and `290492d43f809b8cc391f8ed93d56c1d7baa752bbb95589ac37677fed1cacd39`. A31 fit/publication/verification took389.018/422.059/44.836seconds for42cells; B34 took417.147/446.057/56.560seconds for56cells. Different batch sizes/workloads prevent pooling them as matched timing observations.
 
@@ -2139,7 +2139,7 @@ SPO now has26/27 accepted and SZH8/27. A33 runs SZH on T4 after its own hash-pin
 
 ### Reporting clarification: admission history and original bytes
 
-A focused [proxy provenance audit](issue23-proxy-replay-provenance.json), SHA `5e531b856dc483176ef0e7b3997bf17e3926ff89e405678b4b4c7c71706338f8`, distinguishes the frozen original1,104-run metadata from the648-run declared Colab replay. The648 replay rows have different Git/binding envelopes, costs, elapsed times and commit chains; recorded MAE/RMSE, optimizer-step, prediction-identity and final-branch-state fields agree with the original metadata. For the audited example, input/config/Source checkpoint and all18 core-file identities match despite the different environment/Git envelope. This is not proof that missing original producer bytes were recovered. The456 physically preserved originals retain their own provenance; replay costs are separate historical executions.
+A focused [proxy provenance audit](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-proxy-replay-provenance.json), SHA `5e531b856dc483176ef0e7b3997bf17e3926ff89e405678b4b4c7c71706338f8`, distinguishes the frozen original1,104-run metadata from the648-run declared Colab replay. The648 replay rows have different Git/binding envelopes, costs, elapsed times and commit chains; recorded MAE/RMSE, optimizer-step, prediction-identity and final-branch-state fields agree with the original metadata. For the audited example, input/config/Source checkpoint and all18 core-file identities match despite the different environment/Git envelope. This is not proof that missing original producer bytes were recovered. The456 physically preserved originals retain their own provenance; replay costs are separate historical executions.
 
 The maintained matched-collection report already distinguishes these scopes. The UrbanEV report's phrase “16 original accepted units” was ambiguous: that category denotes previous acceptance, not a universal original-Kaggle-byte guarantee. It is now “16 previously accepted units,” with explicit provenance limits. The audited example is not canonical; canonical matrix/analysis/CSV identities and ledger36-selected CHARGED report byte hashes remain unchanged. No metric, cohort, tuning, method or canonical selection changed. Original Source checkpoints/producer reports retain their distinct authenticated identities.
 
@@ -2159,15 +2159,15 @@ B40 runs the single late LOA unit after B38 acceptance; A35 continues SZH. No in
 
 ### Recorded cost, storage and matched-invocation scope
 
-The [ledger36 accounting handoff](issue23-development-accounting.md) and [native evidence bundle](https://drive.google.com/file/d/1qNMKi-wQHs2D4Qou9GROps1NXUz3Yt8M/view) preserve a201-unit snapshot with2,814 selected targets,18,580.997recorded process seconds,6,501 distinct bounded history records/37,560.105seconds, and21 Source trajectories/2,230.167seconds charged once. Component timers, family-driver spans, parallel elapsed time, Source reuse and package/extracted storage overlap: they are not an exact wall-clock, GPU-time or provider-bill total. All selected targets have covering archive mappings. The526,955byte bundle SHA `d98f45772d71ffc9d07577ae92eb898d8cb41cc7c331c83141f094b51d7e6616` passed fresh native exact-byte/SHA/CRC/all13 manifest-file checks. This bounded snapshot is not a claim that later cells or complete historical costs have been reconciled.
+The [ledger36 accounting handoff](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-development-accounting.md) and [native evidence bundle](https://drive.google.com/file/d/1qNMKi-wQHs2D4Qou9GROps1NXUz3Yt8M/view) preserve a201-unit snapshot with2,814 selected targets,18,580.997recorded process seconds,6,501 distinct bounded history records/37,560.105seconds, and21 Source trajectories/2,230.167seconds charged once. Component timers, family-driver spans, parallel elapsed time, Source reuse and package/extracted storage overlap: they are not an exact wall-clock, GPU-time or provider-bill total. All selected targets have covering archive mappings. The526,955byte bundle SHA `d98f45772d71ffc9d07577ae92eb898d8cb41cc7c331c83141f094b51d7e6616` passed fresh native exact-byte/SHA/CRC/all13 manifest-file checks. This bounded snapshot is not a claim that later cells or complete historical costs have been reconciled.
 
-The [matched provenance proof](issue23-matched-replay-provenance.json), SHA `55516b38742bee64be23a757ce1aec197470a159899d3cd12a75f56ed025dc31`, distinguishes original690-run metadata from451 physically restored reports belonging to a later invocation. All451 differ in producer code/binding/cost/elapsed/commit-chain; the dated451-preserved/239-pending boundary describes that replay's continuation, not a universal original-byte recovery count. The1,338 original-metadata tier in the bounded history comprises648 proxy plus690 matched records without matching original producer bytes in that registry. It does not prove global physical loss. Both histories and current canonical selections remain preserved; no metric or method was changed.
+The [matched provenance proof](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-matched-replay-provenance.json), SHA `55516b38742bee64be23a757ce1aec197470a159899d3cd12a75f56ed025dc31`, distinguishes original690-run metadata from451 physically restored reports belonging to a later invocation. All451 differ in producer code/binding/cost/elapsed/commit-chain; the dated451-preserved/239-pending boundary describes that replay's continuation, not a universal original-byte recovery count. The1,338 original-metadata tier in the bounded history comprises648 proxy plus690 matched records without matching original producer bytes in that registry. It does not prove global physical loss. Both histories and current canonical selections remain preserved; no metric or method was changed.
 
 ### LOA full-unit completion: 219 accepted units
 
 Ledger42 SHA `9db282d6cb2940eb9b33838553d4605665f5c71dffcec07154a5ab04d54347bb` records219/231 accepted and12pending. B40 adds one LOA unit/14cells with90 common scored origins, completing LOA27/27 units/378cells. Fresh independent raw/input/daily/latest-state, all three original LOA Sources, profile/binding and coverage checks passed before root acceptance.
 
-[B40 acceptance](issue23-colab-whole40-acceptance.json), SHA `165807af850b2e1424f7626cb8bddaa3772b8ceb8b8c98f8cdb63459fe8e6d22`, [native receipt](https://drive.google.com/file/d/121OK-E4nXBz1L8-OGfLBD2Xy9GJwMAXG/view) and [proof](https://drive.google.com/file/d/1COuRueBa1NF4PNNbbRaiHfAztGh2G9hm/view), proof SHA `bc70706542bd69e2f91e36e438ddb0a5489d622d8cda068352b6dbb76d3fb32e`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA is `04567568546851e7a9af0ebcffbe0807981dedaae1c235670ae1d894afc9219d`. Fit/publication/verification took103.199/117.139/18.272seconds.
+[B40 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole40-acceptance.json), SHA `165807af850b2e1424f7626cb8bddaa3772b8ceb8b8c98f8cdb63459fe8e6d22`, [native receipt](https://drive.google.com/file/d/121OK-E4nXBz1L8-OGfLBD2Xy9GJwMAXG/view) and [proof](https://drive.google.com/file/d/1COuRueBa1NF4PNNbbRaiHfAztGh2G9hm/view), proof SHA `bc70706542bd69e2f91e36e438ddb0a5489d622d8cda068352b6dbb76d3fb32e`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA is `04567568546851e7a9af0ebcffbe0807981dedaae1c235670ae1d894afc9219d`. Fit/publication/verification took103.199/117.139/18.272seconds.
 
 Whole-unit completion is not full city-analysis acceptance. LOA next requires canonical reconciliation, fresh daily/latest-state/cost-state-event checks and unchanged frozen analysis on a clean committed checkout. B42 follows with the final MEL unit; A35 continues SZH. No Final execution or method change occurred.
 
@@ -2175,9 +2175,9 @@ Whole-unit completion is not full city-analysis acceptance. LOA next requires ca
 
 Ledger44 SHA `a2c10c334badd75cae923aebf4adb42120de7a31ced1c95cd134a2513215d7db` records224/231 accepted and7pending. A35 adds four SZH units (ledger43 reached223); B42 adds one MEL unit/14cells, completing MEL27/27. Every method per unit has90 common scored origins, with fresh independent raw/input/daily/latest-state/own-city Source/profile/coverage checks and root pinned-CLI acceptance.
 
-[A35 acceptance](issue23-colab-whole35-acceptance.json), SHA `fb3e192f8cfb9601ecb435bdcaea4a8adf630cf600ec91677a3e43ef8b068cf0`, [native receipt](https://drive.google.com/file/d/1sKt5TyWUxsjiKVgPDU4yTx_K8mWPhKSb/view) and [proof](https://drive.google.com/file/d/1mC2uSBVLuESrrmFF8TjXsC-ySb8VzXZe/view), proof SHA `96afa3d6ba4e11ca98e73322420b5fea147da1d6121b12f79ebfcc7a741397f3`.
+[A35 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole35-acceptance.json), SHA `fb3e192f8cfb9601ecb435bdcaea4a8adf630cf600ec91677a3e43ef8b068cf0`, [native receipt](https://drive.google.com/file/d/1sKt5TyWUxsjiKVgPDU4yTx_K8mWPhKSb/view) and [proof](https://drive.google.com/file/d/1mC2uSBVLuESrrmFF8TjXsC-ySb8VzXZe/view), proof SHA `96afa3d6ba4e11ca98e73322420b5fea147da1d6121b12f79ebfcc7a741397f3`.
 
-[B42 acceptance](issue23-colab-whole42-acceptance.json), SHA `a751b7f4e4304e366459a952a4253181c85248b88d2db837da538a69cf12d9e6`, [native receipt](https://drive.google.com/file/d/1flyC8OrQGO_3n5XIH2QRyT7djFLE7YOf/view) and [proof](https://drive.google.com/file/d/1_SY6jMWLowU2ekedFfE-ob1n8VbUR7RO/view), proof SHA `576adfe86fee3c50040f67ce55bebbfc4b6bf916027c0c77e0a2622b67496312`.
+[B42 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole42-acceptance.json), SHA `a751b7f4e4304e366459a952a4253181c85248b88d2db837da538a69cf12d9e6`, [native receipt](https://drive.google.com/file/d/1flyC8OrQGO_3n5XIH2QRyT7djFLE7YOf/view) and [proof](https://drive.google.com/file/d/1_SY6jMWLowU2ekedFfE-ob1n8VbUR7RO/view), proof SHA `576adfe86fee3c50040f67ce55bebbfc4b6bf916027c0c77e0a2622b67496312`.
 
 All four uploads passed fresh native exact-byte/SHA/ZIP-CRC checks; readback receipt SHAs are `c3fba264cb1a7c59e90114d6ca3c3214ca99963392921f23d73d11e21424f707` and `236c31705f54185db087a931b535e11d97ff6e572ddc3d293fcf3486ab2fb327`. A35 fit/publication/verification took537.109/576.872/59.485seconds; B42 took105.209/118.952/20.173seconds for14cells.
 
@@ -2187,7 +2187,7 @@ The LOA27/27 canonical assembly and fresh378-run daily/latest-state/cost-state-e
 
 ### Complete LOA and MEL canonical Development analyses
 
-[LOA report](issue23-loa-development.md) and [MEL report](issue23-mel-development.md) each cover27/27units/378cells, zero nulls, fresh378-run daily/latest-state and saved-cost/event checks, unchanged frozen choices and inspected descriptive figures. LOA reporting preserves47,235 numeric values and identical CSV bytes; MEL preserves47,320. Both bundles map every selected report to accepted receipts and covering raw parts, with external dependencies and overfetch explicit. Native byte/SHA/CRC/all34 manifest-file checks passed for each.
+[LOA report](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-loa-development.md) and [MEL report](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-mel-development.md) each cover27/27units/378cells, zero nulls, fresh378-run daily/latest-state and saved-cost/event checks, unchanged frozen choices and inspected descriptive figures. LOA reporting preserves47,235 numeric values and identical CSV bytes; MEL preserves47,320. Both bundles map every selected report to accepted receipts and covering raw parts, with external dependencies and overfetch explicit. Native byte/SHA/CRC/all34 manifest-file checks passed for each.
 
 LOA Adaptive MAE is1.2372/2.3160/2.8183kWh versus Fixed1.2105/2.2981/2.6453 at7/14/28days. MEL Adaptive is18.9005/24.4968/10.3758 versus Fixed19.0492/26.7359/10.4397. All Adaptive-minus-Fixed exploratory intervals in both cities cross0; point differences do not establish superiority or equivalence. Nonrandom three-station cohorts, budget-specific populations, calibration and mixed hardware remain explicit. Neither report starts Final or supplies human scientific approval.
 
@@ -2195,7 +2195,7 @@ LOA Adaptive MAE is1.2372/2.3160/2.8183kWh versus Fixed1.2105/2.2981/2.6453 at7/
 
 Ledger45 SHA `1e69a0dc8348a4bbb43a328070daf370774676803ed455622cfecaea66fd30f7` records228/231 accepted and3pending. A37 adds four SZH units/56cells with90 common scored origins per14-method unit. Fresh independent raw/input/daily/latest-state/own-city Source/profile/coverage checks and root's pinned CLI acceptance passed.
 
-[A37 acceptance](issue23-colab-whole37-acceptance.json), SHA `ea3581f64875ff1f3b41616bf059049095345159a942aae69709ed33effc9be7`, [native receipt](https://drive.google.com/file/d/1n2E2B7AFb1wXRfsdWWzmUHGM5vvqyJbA/view) and [proof](https://drive.google.com/file/d/1DeO2SRCLdwcWUxLuNvMDBHPkV7AWoqkJ/view), proof SHA `bd48990d2068f5db12eda4052083fcd6339a3de8ec5752e0e7719142d7fd738c`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA is `0693202b16300c25517b5561380ccd3d151fad4fb7c7add2279efdf16ed57e8e`. Fit/publication/verification took538.235/578.820/73.588seconds.
+[A37 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole37-acceptance.json), SHA `ea3581f64875ff1f3b41616bf059049095345159a942aae69709ed33effc9be7`, [native receipt](https://drive.google.com/file/d/1n2E2B7AFb1wXRfsdWWzmUHGM5vvqyJbA/view) and [proof](https://drive.google.com/file/d/1DeO2SRCLdwcWUxLuNvMDBHPkV7AWoqkJ/view), proof SHA `bd48990d2068f5db12eda4052083fcd6339a3de8ec5752e0e7719142d7fd738c`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA is `0693202b16300c25517b5561380ccd3d151fad4fb7c7add2279efdf16ed57e8e`. Fit/publication/verification took538.235/578.820/73.588seconds.
 
 Only the predeclared single-unit replacements A39 AMS, A41 SPO and A43 SZH remain; A39 is running. Complete AMS/SPO/SZH canonical verification/analyses and final cost/history/storage reconciliation are still required. LOA/MEL complete reports are already published. B remains terminated; no Final, method change, merge or issue closure occurred.
 
@@ -2203,7 +2203,7 @@ Only the predeclared single-unit replacements A39 AMS, A41 SPO and A43 SZH remai
 
 Ledger46 SHA `5257cd9b6f987017b03e4a820e276252c4e8ed094949e04a8783847fc07eac7e` records229/231 accepted and2pending. A39 adds the AMS7-day/entity1359/seed43 unit/14cells, completing AMS27/27. Every method shares90 scored origins. Fresh independent raw/input/daily/latest-state, all three own AMS Sources, profile/binding and coverage checks passed before root pinned-CLI acceptance.
 
-[A39 acceptance](issue23-colab-whole39-acceptance.json), SHA `c0638a99c9424591dce855777bf7917d98f6f873394c3afc9cb6935fc92122fe`, [native receipt](https://drive.google.com/file/d/1zpcKicRMyaJAAfrb6MsWin18b2soZhOX/view) and [proof](https://drive.google.com/file/d/1jIN1yEoK83HEdZeDPX9mZbtfgW7qfAks/view), proof SHA `31dfe11080f9e262ead882a160bc67cc5a1e9edb4b39b13054ce71a0df92f845`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA is `8569cde62b3519e06d741945a0d1bf21ad2dcd8a66c2b1ae2d80b9dd82e451b4`. Fit/publication/verification took146.471/168.382/26.444seconds.
+[A39 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole39-acceptance.json), SHA `c0638a99c9424591dce855777bf7917d98f6f873394c3afc9cb6935fc92122fe`, [native receipt](https://drive.google.com/file/d/1zpcKicRMyaJAAfrb6MsWin18b2soZhOX/view) and [proof](https://drive.google.com/file/d/1jIN1yEoK83HEdZeDPX9mZbtfgW7qfAks/view), proof SHA `31dfe11080f9e262ead882a160bc67cc5a1e9edb4b39b13054ce71a0df92f845`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA is `8569cde62b3519e06d741945a0d1bf21ad2dcd8a66c2b1ae2d80b9dd82e451b4`. Fit/publication/verification took146.471/168.382/26.444seconds.
 
 AMS complete canonical daily/latest/cost verification and frozen analysis are next; unit completion does not establish scientific effectiveness. A41 SPO is running, followed by final A43 SZH. No Final, changed method, merge or issue closure occurred.
 
@@ -2211,7 +2211,7 @@ AMS complete canonical daily/latest/cost verification and frozen analysis are ne
 
 Ledger47 SHA `2a4b5fadaf2403d5cae8637765a5a961fad3d017c5e1253f3460a7304817ca86` records230/231 accepted and one pending. A41 adds SPO7-day/entity11/seed42, completing SPO27/27 units/378cells. Its14methods share90 scored origins. Fresh independent raw/input/daily/latest-state/own-SPO Source/profile/coverage checks and root pinned-CLI acceptance passed.
 
-[A41 acceptance](issue23-colab-whole41-acceptance.json), SHA `0653e0866e39d5ce1bc41f73249e207980391d7872a3cb9f976fd11f55588b4b`, [native receipt](https://drive.google.com/file/d/1UQA5SBbUdlX6dCcls3CrEmmtycCoIynH/view) and [proof](https://drive.google.com/file/d/1_aqam9Yu_eYrZkHYSLeK3eN65abVdh8A/view), proof SHA `2d2ed5a601cdf929050a6afa1f5e05a1d2f3379055cf20c61bcb990eb65f12bf`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA `f076c1e3465a9e1723a4835d35ff414aabdd051e00a9bdfcf7576cacea5db7c5`; fit/publication/verification133.481/154.237/24.997seconds.
+[A41 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole41-acceptance.json), SHA `0653e0866e39d5ce1bc41f73249e207980391d7872a3cb9f976fd11f55588b4b`, [native receipt](https://drive.google.com/file/d/1UQA5SBbUdlX6dCcls3CrEmmtycCoIynH/view) and [proof](https://drive.google.com/file/d/1_aqam9Yu_eYrZkHYSLeK3eN65abVdh8A/view), proof SHA `2d2ed5a601cdf929050a6afa1f5e05a1d2f3379055cf20c61bcb990eb65f12bf`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA `f076c1e3465a9e1723a4835d35ff414aabdd051e00a9bdfcf7576cacea5db7c5`; fit/publication/verification133.481/154.237/24.997seconds.
 
 AMS complete378-cell daily/latest-state/cost and frozen analysis passed; report/bundle review continues with all adverse seed outcomes retained. Root deferred the A41 maintained copy during its clean-checkout workflow, then copied exact bytes after completion. SPO canonical analysis is next. Final A43 SZH is running; no Final, method change, merge or issue closure occurred.
 
@@ -2219,11 +2219,11 @@ AMS complete378-cell daily/latest-state/cost and frozen analysis passed; report/
 
 Ledger48 SHA `4a606c5265036468d4d7a8c5c3d089b70c5ecb1f0c5fe5d0c28c5904ec47dae8` records231/231 units/3,234cells, with zero remaining queued cells. Historical selected migrations remain recorded. Final A43 adds SZH7-day/entity4/seed42,14methods with90 common scored origins, after fresh independent raw/input/daily/latest-state/own-SZH Source/profile/coverage checks and root pinned-CLI acceptance.
 
-[A43 acceptance](issue23-colab-whole43-acceptance.json), SHA `a1850f460b4169e880b3285534bd2c9e99ee261a8fe531cd0e485f933ef18917`, [native receipt](https://drive.google.com/file/d/1xFT2Drv1kN_Hul1pY9hdBlqsHMxJm6ZL/view) and [proof](https://drive.google.com/file/d/1ECvi2lbEVzamK7TRjXkKJOrbzOYI08s_/view), proof SHA `b854f6d18f4e2d88fce0e6ac311e8136fe127d389bbfcca3b1500027cc7b8446`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA `9431d323b66f34bb7fd2087bfde033f6d6837dbd5e793d3a5e8bad2569e26125`; fit/publication/verification141.475/162.626/25.969seconds. Every authorized publication-only-agent batch27–43 passed,34distinct files, without duplicates.
+[A43 acceptance](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-colab-whole43-acceptance.json), SHA `a1850f460b4169e880b3285534bd2c9e99ee261a8fe531cd0e485f933ef18917`, [native receipt](https://drive.google.com/file/d/1xFT2Drv1kN_Hul1pY9hdBlqsHMxJm6ZL/view) and [proof](https://drive.google.com/file/d/1ECvi2lbEVzamK7TRjXkKJOrbzOYI08s_/view), proof SHA `b854f6d18f4e2d88fce0e6ac311e8136fe127d389bbfcca3b1500027cc7b8446`, passed fresh native exact-byte/SHA/ZIP-CRC readback. Readback receipt SHA `9431d323b66f34bb7fd2087bfde033f6d6837dbd5e793d3a5e8bad2569e26125`; fit/publication/verification141.475/162.626/25.969seconds. Every authorized publication-only-agent batch27–43 passed,34distinct files, without duplicates.
 
 After final needed T4 outputs passed external verification, root terminated only the remaining A session. Provider UI showed “No active sessions,”0sessions/approximately0units-hour,73.88units displayed. B had already been terminated. Notebook code and authenticated artifacts remain; no GPU is held for CPU reporting.
 
-The [complete Development handoff](issue23-development-handoff.md), [evidence index](issue23-development-evidence.json), [AMS report](issue23-ams-development.md), [SPO report](issue23-spo-development.md) and [SZH report](issue23-szh-development.md) now join the existing UrbanEV/JHB/LOA/MEL reports. All3,234selected reports join seven canonical cost/state proofs and exact raw-part mappings; byte-identical frozen-list reconciliation passed. Each new city received fresh378-run daily/latest/cost verification and unchanged frozen analysis. AMS retains adverse seeds; SPO retains three zero-error Seasonal Naive cells; SZH retains its temporal/UrbanEV-overlap limits. All analysis bundles and final accounting passed native byte/SHA/CRC/member readback.
+The [complete Development handoff](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-development-handoff.md), [evidence index](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-development-evidence.json), [AMS report](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-ams-development.md), [SPO report](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-spo-development.md) and [SZH report](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-szh-development.md) now join the existing UrbanEV/JHB/LOA/MEL reports. All3,234selected reports join seven canonical cost/state proofs and exact raw-part mappings; byte-identical frozen-list reconciliation passed. Each new city received fresh378-run daily/latest/cost verification and unchanged frozen analysis. AMS retains adverse seeds; SPO retains three zero-error Seasonal Naive cells; SZH retains its temporal/UrbanEV-overlap limits. All analysis bundles and final accounting passed native byte/SHA/CRC/member readback.
 
 Operational Development evidence is complete and submitted for human technical/scientific/capacity acceptance. This is not author approval, proven novelty/effectiveness, Final lock, Final execution or completion of the broader Final issue. No merge/main promotion/issue closure occurred. Historical snapshots above retain their dated scopes, including corrected metadata/invocation provenance.
 

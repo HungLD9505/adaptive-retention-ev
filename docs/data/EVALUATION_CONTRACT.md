@@ -45,7 +45,7 @@ accepted context/switch analysis definitions remain pending.
 
 The full-method technical smoke has main seed42 only. Source ensemble42/43/44 does
 not satisfy the three-comparison-seed requirement. The additional
-[UrbanEV readiness run](../reports/issue23-readiness.md) has three actual comparison
+[UrbanEV readiness run](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-readiness.md) has three actual comparison
 seeds for Adaptive and Target-only on a shared-identity cohort, but does not replicate
 the entire required baseline/ablation matrix. Full Development calibration/cohorts,
 training convergence choices, comparable finite tuning budgets, exact mandatory
@@ -150,5 +150,5 @@ The selected-collection analysis also implements fixed calendar days 1–30,
 31–60 and 61–90 and descriptive same-block proxy/candidate performance
 relationships. Their explicit profile identities, availability checks, pairing,
 undefined-correlation handling and cost boundaries are documented in the
-[Development analysis extension handoff](../reports/issue23-analysis-extensions.md).
+[Development analysis extension handoff](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue23-analysis-extensions.md).
 These are post-hoc Development proposals, not independent Final analysis approval.

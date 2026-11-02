@@ -174,7 +174,7 @@ The matrix therefore matches a **direct geodesic coordinate-distance calculation
 
 The matrix is symmetric and its diagonal is zero. All 316 off-diagonal zero cells correspond to identical published coordinate pairs. Do not merge station IDs solely because their coordinates or distances match.
 
-Details and input hashes are recorded in the [verification evidence](../reports/urbanev-verification.json).
+Details and input hashes are recorded in the [verification evidence](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/urbanev-verification.json).
 
 ## 6. charge_5min/<station_id>.csv
 
@@ -301,7 +301,7 @@ The archive was inspected in temporary research storage and its catalog size/SHA
 | Exact duration/volume reconstruction | Original charger histories and generator code unavailable in inspected sources. |
 | Full quality audit of all 1682 station series | Not completed by this document. |
 
-See the [verification evidence](../reports/urbanev-verification.json) for scope, source versions, hashes, and numeric outcomes. This reference does not claim that data processing, model inputs, models, or experiments have been implemented.
+See the [verification evidence](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/urbanev-verification.json) for scope, source versions, hashes, and numeric outcomes. This reference does not claim that data processing, model inputs, models, or experiments have been implemented.
 
 [access]: https://github.com/IntelligentSystemsLab/UrbanEV#data-access
 [dryad]: https://datadryad.org/dataset/doi:10.5061/dryad.np5hqc04z

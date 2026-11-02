@@ -2,7 +2,7 @@
 
 ## Scope and status
 
-Implemented on `feat/16-urbanev-hourly`: `tools.urbanev` (source verification, run orchestration and evidence) and `tools.urbanev_hourly` (station-level aggregation/QC). [Contract and reproduction command](../data/HOURLY_CONTRACT.md). [Machine-readable evidence](urbanev-hourly-issue16.json).
+Implemented on `feat/16-urbanev-hourly`: `tools.urbanev` (source verification, run orchestration and evidence) and `tools.urbanev_hourly` (station-level aggregation/QC). [Contract and reproduction command](../data/HOURLY_CONTRACT.md). [Machine-readable evidence](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/urbanev-hourly-issue16.json).
 
 This is a technical handoff for peer review, **not completed model-input processing or approved research data**. The original Report 1 and catalog are unchanged. No raw input was overwritten, imputed or deleted. The issue remains open pending contract/time-assumption review and acceptance.
 

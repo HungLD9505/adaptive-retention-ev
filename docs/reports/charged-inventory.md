@@ -34,7 +34,7 @@ The manifest records config/scope, source identity, script hash, Git commit, Pyt
 - Run: `issue17-inventory-v2-20261017`; UTC start `2026-10-17T16:02:21.596256+00:00`; runtime **52.19 s**, Python 3.12.14.
 - Executed code: `cce2556e5f9e1699567aab04e7c00517d7996163`; script SHA-256 `a9b828f6c8ba75ed21ed5582f7b931a56206f5c6160dfb228528f1938baa481f`.
 - Archive: **268,720,500 bytes**; freshly verified SHA-256 `1ec9c9513b64f3f492fe73261bf08a5955c268dfb876ef0fe283d05cc5a02fab` and publisher MD5 `099a592653ca74fa1f1051e9c23d6456`.
-- Full local manifest SHA-256: `bb270e18cfebc892f232e7d7510c3e7cb7c6ce760950e5fdae2a0a204ab1008a`. A [compact evidence snapshot](charged-inventory-evidence.json) preserves run metadata, file fingerprints, shapes and counts; long site-ID lists and per-site counts remain in the full local manifest.
+- Full local manifest SHA-256: `bb270e18cfebc892f232e7d7510c3e7cb7c6ce760950e5fdae2a0a204ab1008a`. A [compact evidence snapshot](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/charged-inventory-evidence.json) preserves run metadata, file fingerprints, shapes and counts; long site-ID lists and per-site counts remain in the full local manifest.
 
 ## City overview
 
