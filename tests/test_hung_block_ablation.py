@@ -6,7 +6,7 @@ import json
 import unittest
 from pathlib import Path
 
-from experiments.hung_sprint2.run_development import verification_split_limit
+from experiments.supporting_pipeline.run_development import verification_split_limit
 
 
 class BlockAblationTests(unittest.TestCase):

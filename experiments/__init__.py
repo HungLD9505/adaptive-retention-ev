@@ -1,1 +1,1 @@
-"""Isolated research implementations pending integration review."""
+"""Separate research implementations with explicit method and evidence boundaries."""

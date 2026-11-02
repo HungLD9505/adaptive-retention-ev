@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 import torch
 
-from experiments.hung_sprint2 import dispatch_matched as dispatch
+from experiments.supporting_pipeline import dispatch_matched as dispatch
 from tools.hung_e2e_gate import charged_evidence, equal_state
 
 

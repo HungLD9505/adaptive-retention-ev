@@ -16,8 +16,8 @@ from zipfile import ZipFile
 
 import torch
 
-from experiments.hung_sprint2.model import ForecastGRU as HForecastGRU
-from experiments.hung_sprint2.model import ModelConfig as HModelConfig
+from experiments.supporting_pipeline.model import ForecastGRU as HForecastGRU
+from experiments.supporting_pipeline.model import ModelConfig as HModelConfig
 
 ROOT = Path(__file__).resolve().parents[1]
 Q_MODEL_SHA = "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4"
@@ -200,7 +200,7 @@ def embed_hung_head(hung: HForecastGRU, qyroven: torch.nn.Module) -> None:
 
 
 def audit(qyroven_root: Path, input_zip: Path, target_checkpoint: Path) -> dict:
-    if sha256_file(ROOT / "experiments/hung_sprint2/model.py") != H_MODEL_SHA:
+    if sha256_file(ROOT / "experiments/supporting_pipeline/model.py") != H_MODEL_SHA:
         raise ValueError("Hùng model code differs")
     if sha256_file(qyroven_root / "ev_models/model.py") != Q_MODEL_SHA:
         raise ValueError("Qyroven model code differs")
@@ -222,7 +222,7 @@ def audit(qyroven_root: Path, input_zip: Path, target_checkpoint: Path) -> dict:
         or state["training_step"] < 0
         or run_manifest["checkpoint_sha256"] != TARGET_SHA
         or run_manifest["input_binding"] != binding
-        or run_manifest["code"]["executed_sources"]["experiments/hung_sprint2/model.py"]
+        or run_manifest["code"]["executed_sources"]["experiments/supporting_pipeline/model.py"]
         != H_MODEL_SHA
         or run_manifest["steps"] != state["training_step"]
         or run_manifest["status"] != "completed"

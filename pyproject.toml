@@ -4,12 +4,12 @@ line-length = 100
 # These are exact source snapshots of immutable saved Kaggle notebook versions.
 # Reformatting them would break the Git-to-provider source correspondence.
 extend-exclude = [
-    "experiments/hung_sprint2/kaggle_compact_proof_shard0001_v1.ipynb",
-    "experiments/hung_sprint2/kaggle_compact_proof_shard0001_v2.ipynb",
-    "experiments/hung_sprint2/kaggle_compact_proof_shard0001_v3.ipynb",
-    "experiments/hung_sprint2/kaggle_compact_proof_shard0001_readback_v1.ipynb",
-    "experiments/hung_sprint2/kaggle_compact_proof_group02_v1.ipynb",
-    "experiments/hung_sprint2/kaggle_compact_proof_group02_readback_v1.ipynb",
+    "experiments/supporting_pipeline/kaggle_compact_proof_shard0001_v1.ipynb",
+    "experiments/supporting_pipeline/kaggle_compact_proof_shard0001_v2.ipynb",
+    "experiments/supporting_pipeline/kaggle_compact_proof_shard0001_v3.ipynb",
+    "experiments/supporting_pipeline/kaggle_compact_proof_shard0001_readback_v1.ipynb",
+    "experiments/supporting_pipeline/kaggle_compact_proof_group02_v1.ipynb",
+    "experiments/supporting_pipeline/kaggle_compact_proof_group02_readback_v1.ipynb",
 ]
 
 [tool.ruff.lint]

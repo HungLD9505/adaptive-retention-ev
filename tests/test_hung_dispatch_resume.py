@@ -11,8 +11,8 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2 import dispatch_matched as dispatch
-from experiments.hung_sprint2.dispatch_state import (
+from experiments.supporting_pipeline import dispatch_matched as dispatch
+from experiments.supporting_pipeline.dispatch_state import (
     atomic_create,
     exclusive_lock,
     make_shards,
@@ -162,7 +162,7 @@ class ResumeTests(unittest.TestCase):
                 "-u",
                 "-c",
                 "import sys,time; from pathlib import Path; "
-                "from experiments.hung_sprint2.dispatch_state import exclusive_lock; "
+                "from experiments.supporting_pipeline.dispatch_state import exclusive_lock; "
                 "lock=exclusive_lock(Path(sys.argv[1])); lock.__enter__(); "
                 "print('locked', flush=True); time.sleep(30)",
                 str(self.root),

@@ -8,13 +8,16 @@ from argparse import Namespace
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from experiments.hung_sprint2.kaggle_final_locked_v1 import (
+from experiments.supporting_pipeline.kaggle_final_locked_v1 import (
     _quota_gate,
     inspect_handoff,
     run_all,
 )
 
-SOURCE = Path(__file__).resolve().parents[1] / "experiments/hung_sprint2/kaggle_final_locked_v1.py"
+SOURCE = (
+    Path(__file__).resolve().parents[1]
+    / "experiments/supporting_pipeline/kaggle_final_locked_v1.py"
+)
 
 
 def _sha(path: Path) -> str:

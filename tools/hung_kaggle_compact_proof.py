@@ -122,9 +122,9 @@ def verify_argv(binding: dict, job: dict, cell: dict, stage: str, root: str) -> 
     args = binding.get("args")
     require(isinstance(args, list) and all(isinstance(x, str) for x in args), "Invalid argv")
     expected_module = (
-        "experiments.hung_sprint2.single_baseline_cli"
+        "experiments.supporting_pipeline.single_baseline_cli"
         if job["method"] in {"seasonal_naive", "target_only", "frozen_source"}
-        else "experiments.hung_sprint2.cli"
+        else "experiments.supporting_pipeline.cli"
     )
     require(binding.get("module") == expected_module, f"Stage module mismatch: {stage}")
     expected_command = (

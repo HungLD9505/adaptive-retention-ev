@@ -15,9 +15,9 @@ from pathlib import Path
 
 import torch
 
-from experiments.hung_sprint2.controller import ControllerConfig as HungConfig
-from experiments.hung_sprint2.controller import DailyScore as HungDay
-from experiments.hung_sprint2.controller import decide_block as hung_decide
+from experiments.supporting_pipeline.controller import ControllerConfig as HungConfig
+from experiments.supporting_pipeline.controller import DailyScore as HungDay
+from experiments.supporting_pipeline.controller import decide_block as hung_decide
 
 ROOT = Path(__file__).resolve().parents[1]
 TERMINAL = ROOT / ".cache/block7-terminal-checkpoint-import-v1"
@@ -27,7 +27,7 @@ NUMERIC = ROOT / "docs/reports/hung-block7-terminal-numeric-audit-20261030-v3.js
 NUMERIC_SHA = "f9d4ff3da1a0185ad82af8bf9de5c07923d9798f119e45269e1fd67abf7f9a4b"
 PAIRS = ROOT / "docs/reports/hung-block7-manifest-pairs-20261028.csv"
 PAIRS_SHA = "e260de421d6c53ef3dffe5901f9e3478708b9e578791d3f370588a0a508699de"
-HUNG_CONTROLLER = ROOT / "experiments/hung_sprint2/controller.py"
+HUNG_CONTROLLER = ROOT / "experiments/supporting_pipeline/controller.py"
 HUNG_SHA = "b97f49e6895d132b5d535a05d1941dc64893f0706537d82c810ca569ced94876"
 Q_ROOT = ROOT / ".cache/parity-q-20261027-v1"
 Q_CONTROLLER = Q_ROOT / "ev_control/confidence.py"

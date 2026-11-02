@@ -9,8 +9,8 @@ from pathlib import Path
 from zipfile import ZipFile
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.dispatch_state import stage_receipt
-from experiments.hung_sprint2.final_archive import create_archive, readback_archive
+from experiments.supporting_pipeline.dispatch_state import stage_receipt
+from experiments.supporting_pipeline.final_archive import create_archive, readback_archive
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCK_SHA = "a" * 64

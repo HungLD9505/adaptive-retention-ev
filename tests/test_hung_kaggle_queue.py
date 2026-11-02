@@ -163,7 +163,7 @@ class KaggleQueueTests(unittest.TestCase):
     def test_generated_sources_compile_and_bound_groups(self):
         module = Path(queue.__file__).read_text()
         notebook = json.loads(
-            Path("experiments/hung_sprint2/kaggle_matched_group02.ipynb").read_text()
+            Path("experiments/supporting_pipeline/kaggle_matched_group02.ipynb").read_text()
         )
         setup, parity = ("".join(notebook["cells"][i]["source"]) for i in (1, 3))
         for index in range(1, len(queue.GROUPS)):

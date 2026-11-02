@@ -9,8 +9,8 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.final_archive import create_archive
-from experiments.hung_sprint2.final_transport import (
+from experiments.supporting_pipeline.final_archive import create_archive
+from experiments.supporting_pipeline.final_transport import (
     cpu_kernel_spec,
     prepare_upload,
     upload_once,

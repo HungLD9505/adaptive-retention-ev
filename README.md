@@ -63,8 +63,8 @@ python -m pip install -r requirements-dev.txt -r requirements-model.txt
 python -m tools.sources list
 python -m tools.check_release
 python -m unittest discover -s tests -v
-python -m unittest discover -s experiments/member_studies/duc_retention -v
-python -m unittest discover -s experiments/member_studies/cyber_controller -v
+python -m unittest discover -s experiments/fixed_adaptation -v
+python -m unittest discover -s experiments/confidence_controller -v
 python -m ruff check .
 python -m ruff format --check .
 git diff --check
@@ -82,16 +82,19 @@ verify identities locally; historical checksums alone do not prove a fresh downl
 
 ## Repository map
 
-| Location | Responsibility |
+| Directory | Contents |
 |---|---|
 | `ev_inputs/` | Roles, scaling, windows and authenticated loading |
 | `ev_models/` | GRU, retention loss and training |
 | `ev_control/` | Evidence-based retention selection |
 | `ev_runner/` | Causal replay, label gates, updates and checkpoints |
-| `ev_baselines/`, `ev_evaluation/` | Comparisons, metrics and verification |
-| `tools/`, `configs/` | Data/experiment utilities and versioned configurations |
-| `experiments/hung_sprint2/` | Alternate end-to-end training, replay and evaluation pipeline |
-| `experiments/member_studies/` | Fixed-adaptation and confidence-controller diagnostic implementations |
+| `ev_baselines/` | Forecasting comparisons and ablation policies |
+| `ev_evaluation/` | Error metrics, uncertainty, costs and verification |
+| `tools/` | Data, experiment and verification command-line tools |
+| `configs/` | Versioned data and experiment settings |
+| `experiments/supporting_pipeline/` | Alternate end-to-end training, replay and evaluation pipeline |
+| `experiments/fixed_adaptation/` | Fixed-model target adaptation and retention diagnostics |
+| `experiments/confidence_controller/` | Diagnostic online retention controller |
 | `report/` | Report PDFs, LaTeX sources, vector figures and result tables |
 | `docs/` | Diagrams, contracts, curated evidence and archive navigation |
 | `tests/` | Offline fixtures and separate artifact verification |
@@ -102,7 +105,7 @@ verify identities locally; historical checksums alone do not prove a fresh downl
 criteria. Full end-to-end compute accounting, expanded supporting reproduction,
 a verified CPU-adaptation artifact distribution link and corrected diagnostic-controller results
 remain incomplete. Fixtures for the [corrected diagnostic IO guards](
-experiments/member_studies/cyber_controller/README.md) do not turn historical scores
+experiments/confidence_controller/README.md) do not turn historical scores
 into corrected-code results. No further real-data training is planned for this release.
 
 The primary results belong to frozen source tag

@@ -8,8 +8,8 @@ from pathlib import Path
 from unittest import mock
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.final_handoff import WRAPPER, prepare_handoff
-from experiments.hung_sprint2.kaggle_final_locked_v1 import inspect_handoff
+from experiments.supporting_pipeline.final_handoff import WRAPPER, prepare_handoff
+from experiments.supporting_pipeline.kaggle_final_locked_v1 import inspect_handoff
 from tests.test_hung_final_dispatch import _fixture
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -60,11 +60,11 @@ class FinalHandoffTests(unittest.TestCase):
     def _prepare(self, lock_path: Path, digest: str, packet: Path) -> dict:
         with (
             mock.patch(
-                "experiments.hung_sprint2.final_handoff._source_at_commit",
+                "experiments.supporting_pipeline.final_handoff._source_at_commit",
                 return_value=WRAPPER.read_bytes(),
             ),
             mock.patch(
-                "experiments.hung_sprint2.final_handoff.shutil.disk_usage",
+                "experiments.supporting_pipeline.final_handoff.shutil.disk_usage",
                 return_value=mock.Mock(free=100 * 1024**3),
             ),
         ):

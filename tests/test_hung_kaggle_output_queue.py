@@ -17,14 +17,14 @@ from tools import hung_kaggle_queue as queue
 class OutputQueueTests(unittest.TestCase):
     def test_packaged_programs_match_immutable_manifest(self):
         notebook = json.loads(
-            Path("experiments/hung_sprint2/kaggle_output_dispatch_cpu_v1.ipynb").read_text(
+            Path("experiments/supporting_pipeline/kaggle_output_dispatch_cpu_v1.ipynb").read_text(
                 encoding="utf-8"
             )
         )
         manifest = json.loads(
-            Path("experiments/hung_sprint2/kaggle_output_dispatch_manifest_v1.json").read_text(
-                encoding="utf-8"
-            )
+            Path(
+                "experiments/supporting_pipeline/kaggle_output_dispatch_manifest_v1.json"
+            ).read_text(encoding="utf-8")
         )
         outer = ast.parse("".join(notebook["cells"][0]["source"]))
         program = next(
@@ -125,7 +125,9 @@ class OutputQueueTests(unittest.TestCase):
         qtext = queue.compose_module_source(
             Path(queue.__file__).read_text(encoding="utf-8"), "pass"
         )
-        n = json.loads(Path("experiments/hung_sprint2/kaggle_matched_group02.ipynb").read_text())
+        n = json.loads(
+            Path("experiments/supporting_pipeline/kaggle_matched_group02.ipynb").read_text()
+        )
         setup, parity = ("".join(n["cells"][i]["source"]) for i in (1, 3))
         bundle = output.bundle_sources(
             qtext,

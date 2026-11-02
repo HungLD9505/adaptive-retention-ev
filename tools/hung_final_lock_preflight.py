@@ -11,9 +11,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Callable
 
-from experiments.hung_sprint2.dispatch_state import atomic_create
-from experiments.hung_sprint2.final_archive import require
-from experiments.hung_sprint2.final_lock import MIN_FREE_BYTES, validate_lock
+from experiments.supporting_pipeline.dispatch_state import atomic_create
+from experiments.supporting_pipeline.final_archive import require
+from experiments.supporting_pipeline.final_lock import MIN_FREE_BYTES, validate_lock
 
 INPUT_ZIP_SHA = "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7"
 RESOURCE_SCENARIOS_SHA = "d5eee62c42b8b21d82fe40324cb077576ca8d6725fb939caa73b75e8ab45be5c"
@@ -158,7 +158,7 @@ def _candidate(
         "Final Drift must use the locked post-input derivation",
     )
     for group, prefix in (
-        ("executed_hung_code_sha256", "experiments/hung_sprint2"),
+        ("executed_hung_code_sha256", "experiments/supporting_pipeline"),
         ("development_analysis_code_sha256", ""),
         ("prepared_final_durability_code_sha256", ""),
     ):

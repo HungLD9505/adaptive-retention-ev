@@ -3,7 +3,7 @@
 import unittest
 from copy import deepcopy
 
-from experiments.hung_sprint2.final_coverage import _coverage_status
+from experiments.supporting_pipeline.final_coverage import _coverage_status
 
 
 def _matrix() -> tuple[dict, list[dict], list[dict]]:
