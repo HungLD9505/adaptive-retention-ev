@@ -4,6 +4,8 @@ line-length = 100
 # These are exact source snapshots of immutable saved Kaggle notebook versions.
 # Reformatting them would break the Git-to-provider source correspondence.
 extend-exclude = [
+    "experiments/supporting_pipeline/notebooks/01_model_transfer.ipynb",
+    "experiments/supporting_pipeline/notebooks/02_controller_runner.ipynb",
     "experiments/supporting_pipeline/kaggle_compact_proof_shard0001_v1.ipynb",
     "experiments/supporting_pipeline/kaggle_compact_proof_shard0001_v2.ipynb",
     "experiments/supporting_pipeline/kaggle_compact_proof_shard0001_v3.ipynb",

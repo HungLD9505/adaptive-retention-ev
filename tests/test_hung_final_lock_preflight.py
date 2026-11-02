@@ -56,6 +56,13 @@ class FinalLockPreflightTests(unittest.TestCase):
         self.spec["authority"]["candidate_execution_plan_sha256"] = _pin(
             self.candidate / "candidate_execution_plan.json"
         )["sha256"]
+        # Build a NEW synthetic lock profile for the renamed checkout. The recorded
+        # historical analysis spec stays byte-identical and retains its old paths.
+        for group in ("development_analysis_code_sha256", "prepared_final_durability_code_sha256"):
+            self.spec[group] = {
+                name.replace("experiments/hung_sprint2/", "experiments/supporting_pipeline/"): value
+                for name, value in self.spec[group].items()
+            }
         for group, prefix in (
             ("executed_hung_code_sha256", "experiments/supporting_pipeline"),
             ("development_analysis_code_sha256", ""),
