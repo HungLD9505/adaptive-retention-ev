@@ -1,0 +1,4 @@
+# Independent study dependencies for cyber_controller
+# System environment: Python 3.12.10, Windows x86_64, NVIDIA GeForce RTX 3050 Laptop GPU / CPU
+torch>=2.2.0
+numpy>=1.26.0
