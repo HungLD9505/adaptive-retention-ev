@@ -121,4 +121,4 @@ require CUDA. No Final performance, dataset exclusion or configuration selection
 performed by a technical smoke. #22 stays open until all methods have real evidence,
 proxy/variant review and the required Development validation are accepted.
 
-Related-paper feasibility is recorded in [the primary-source assessment](../reports/related-method-feasibility.md); no custom proxy is labeled as an external-method reproduction.
+Related-paper feasibility is recorded in [the primary-source assessment](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/related-method-feasibility.md); no custom proxy is labeled as an external-method reproduction.

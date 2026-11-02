@@ -18,7 +18,7 @@
 Starting snapshot: `dev` at `0479da382df0cb198cddd07e42d435bccec484ae`, inspected October 17. October 16 remains day 1 of the requested schedule, not a retroactive claim of completion.
 
 - The required UrbanEV and CHARGED archives were acquired and verified locally; [acquisition evidence](reports/data-acquisition.md) does not mean every developer has local copies.
-- Dataset references and scoped verification exist. UrbanEV station energy is derived; CHARGED Hourly was already processed/imputed/aggregated by its provider. The [AMS evidence](reports/charged-ams-verification.json) does not certify other cities or causal suitability.
+- Dataset references and scoped verification exist. UrbanEV station energy is derived; CHARGED Hourly was already processed/imputed/aggregated by its provider. The [AMS evidence](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/charged-ams-verification.json) does not certify other cities or causal suitability.
 - UrbanEV hourly processing, project model inputs, models, controller, runner and experiments remain unimplemented at this snapshot.
 - GitHub branch protection is not established; follow the documented PR/review rules manually. Passing CI is not peer approval or research evidence.
 

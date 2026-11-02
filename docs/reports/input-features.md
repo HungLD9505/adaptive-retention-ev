@@ -73,6 +73,6 @@ python -m ruff format --check .
 git diff --check
 ```
 
-All local checks passed. The [fixture evidence snapshot](input-features-evidence.json) records actual test count/results/runtime, Python/platform, executed code commit, contract pin and module/test-file hashes. Local run: `runs/input-features/issue18-features-v1-20261019.json`; no official data input artifact is claimed. Ubuntu/Windows CI is tracked on the PR. No new dependencies were added.
+All local checks passed. The [fixture evidence snapshot](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/input-features-evidence.json) records actual test count/results/runtime, Python/platform, executed code commit, contract pin and module/test-file hashes. Local run: `runs/input-features/issue18-features-v1-20261019.json`; no official data input artifact is claimed. Ubuntu/Windows CI is tracked on the PR. No new dependencies were added.
 
 Review this small helper API and pin reconciliation before later split/scaler work. In particular, the caller-supplied scale and availability flags are not substitutes for the future permitted-prefix/chronology implementation. #16/#17/#30 remain independent review/integration dependencies; #18 stays open. No merge is authorized.

@@ -1,5 +1,0 @@
-# GitHub Actions observation for station-sensitivity head
-
-The [PR #72 Actions run 40945690948](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/40945690948) targets commit `0958191f6474e1930ff00c445055b01958cc2ac3`, which contains the station-sensitivity code and [clean-tree local validation v5](hung-e2e-validation-20261030-v5.md). The Ubuntu 24.04 check `123700320215` and Windows latest check `123700320568` each reached a GitHub `failure` conclusion with one annotation. Both annotations say the job was **not started** because recent account payments failed or the spending limit needs to be increased. No OS test step ran in that Actions attempt.
-
-Classification: **`CI_NOT_EXECUTED — ACCOUNT_BILLING_OR_SPENDING_LIMIT`**. The 560-test local pass is independent evidence of local software behavior, not a GitHub Actions pass. This is an observation of the named commit; a subsequent documentation-only commit has its own Actions identity and must be read at that exact head before classifying its CI status. No test, workflow or billing setting was changed in response to this observation.

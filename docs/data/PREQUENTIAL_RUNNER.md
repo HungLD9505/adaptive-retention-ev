@@ -127,6 +127,6 @@ Python process startup, unit checks and packaging. Do not call it full wall time
 full-matrix cost remains conditional on #22/#23's method/cohort/seed/ablation grid and
 separate baseline/source/tuning measurements; the smoke projection is not that lock.
 
-See the [actual handoff report](../reports/issue21-qyroven.md) for execution evidence,
+See the [actual handoff report](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue21-qyroven.md) for execution evidence,
 checks, artifact hashes and outstanding acceptance. Pending dependency PRs must be
 reviewed/integrated before the runner PR; no independent CI result authorizes a merge.

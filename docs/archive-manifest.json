@@ -1,0 +1,4190 @@
+{
+  "schema": "ev-document-archive-v1",
+  "archive_tag": "archive/pre-doc-curation-20261102",
+  "archive_commit": "8cdab1bc096a9c116c7b7f911d548a7621dd81ac",
+  "restore": "git show archive/pre-doc-curation-20261102:<path>",
+  "policy": "Remove superseded drafts, operational notes and unreferenced intermediate reports from the current tree. Retain final outcomes, limitations and file dependencies of maintained code/config/tests. Original bytes remain in the remote tag.",
+  "archived_files": [
+    {
+      "path": "docs/reports/acquisition_20261015_1633.json",
+      "sha256": "885b9267ed0bd83c95201d9d0e069c6421cf96c1858ffc1efd9e38693c5a0752",
+      "bytes": 11578
+    },
+    {
+      "path": "docs/reports/aip491-g10-integrated-status-20261030-v1.md",
+      "sha256": "6f4cb3bd29462c9f6f6dcc175069b95e87fb9b23fbddaf0fb04ea370f84279cf",
+      "bytes": 10037
+    },
+    {
+      "path": "docs/reports/charged-ams-verification.json",
+      "sha256": "9090ac645d16c7fb26c1abbb55b805657df4dcfa20d4bf16c303aa5b2edb45d8",
+      "bytes": 3450
+    },
+    {
+      "path": "docs/reports/charged-hourly-evidence.json",
+      "sha256": "8b4a8c20d5a5a1e9c7565ca4284b1699f0e75dd3fe57d455d4f933602861492f",
+      "bytes": 20219
+    },
+    {
+      "path": "docs/reports/charged-inventory-evidence.json",
+      "sha256": "aa179b76af5314e0c802260225690a8ea720b333a3144f6d7a70d04f0ffed8c3",
+      "bytes": 93724
+    },
+    {
+      "path": "docs/reports/charged-preprocessing-evidence.json",
+      "sha256": "a2ca2c6cf2d76c9cdf7196a248f14f35283047ffc05b5c87139d3abf7924498b",
+      "bytes": 9351
+    },
+    {
+      "path": "docs/reports/charged-suitability-evidence.json",
+      "sha256": "89ef568bc95f209151e712eb6940cdcaf3db1a4966db01c5f0a351f431980e3f",
+      "bytes": 6940
+    },
+    {
+      "path": "docs/reports/data-integration-evidence.json",
+      "sha256": "baae5d2b3cef32527e2a532a27c2d65243a3bf501bf797d2c788b67dd073b620",
+      "bytes": 35492
+    },
+    {
+      "path": "docs/reports/dev-integration-stage1-20261102-v1.json",
+      "sha256": "ad0cfc10ab5ea238d8cce9b56a836c947861e2ef9feba85a05d5039f2c26b0e6",
+      "bytes": 3911
+    },
+    {
+      "path": "docs/reports/dev-integration-stage1-20261102.md",
+      "sha256": "468119b9a16a5166c954a402cd3f33d231ed33649ee87e2d4c79028dad943458",
+      "bytes": 4979
+    },
+    {
+      "path": "docs/reports/figures/ams-first-three-seeds-20261027.svg",
+      "sha256": "fab705cbf41f2795fcbf215fd69c96e750e2ab99aac2fae03f15a99950f0b7cc",
+      "bytes": 20341
+    },
+    {
+      "path": "docs/reports/figures/issue23-urbanev1165-28d-seeds.png",
+      "sha256": "a45ab44b3b35b016d0b88ce87d6e97c44b42f94bbd476d99b2c442607cf61c01",
+      "bytes": 113703
+    },
+    {
+      "path": "docs/reports/hung-22-baseline-adapter-tranche.md",
+      "sha256": "283f0eadf7ffd414ba4c073b3a2c68de9751c2e273d2a59600c33f7439a07ecf",
+      "bytes": 3992
+    },
+    {
+      "path": "docs/reports/hung-22-fixed-finetuning-tranche.md",
+      "sha256": "88b1e1c3b5502ef32516d1e77d26e22817309c04490cd69bd57ecc0f007a73c7",
+      "bytes": 5010
+    },
+    {
+      "path": "docs/reports/hung-22-no-source-initialization-tranche.md",
+      "sha256": "436dd6c6e949152e19ddbaaca9c400a17eb0dfa98eb4068812fc8d8e9549b766",
+      "bytes": 3154
+    },
+    {
+      "path": "docs/reports/hung-22-parameter-retention-tranche.md",
+      "sha256": "584cb690e4d573695542e1fd128b660372b26b041d36326b127336db29cf9e1e",
+      "bytes": 3675
+    },
+    {
+      "path": "docs/reports/hung-22-proxy-baselines.md",
+      "sha256": "fd0270cebe95fff595a3b6c80f546efdddda02a431e20a55578ac9b0c9cf3a8e",
+      "bytes": 2772
+    },
+    {
+      "path": "docs/reports/hung-22-seasonal-common.md",
+      "sha256": "789f6d951a2b738255c5306c869e15a20fb30e06b27ba590663a63c94b777bb1",
+      "bytes": 3413
+    },
+    {
+      "path": "docs/reports/hung-22-target-frozen-tranche.md",
+      "sha256": "ecb358f2f5661dc5ed4988683882a405cd12d899fa52de6de673ebb1ce3ca82c",
+      "bytes": 5836
+    },
+    {
+      "path": "docs/reports/hung-23-proxy-calibration-plan.md",
+      "sha256": "63516c59daa02a23acc5956c510da779dc7c2504bf3ef85357b06d76fc85ca72",
+      "bytes": 6204
+    },
+    {
+      "path": "docs/reports/hung-39-assessment-handoff.md",
+      "sha256": "b066c2664778d81196d39ee584eacd31fa7015b5dfe923a615b689c87f24dcba",
+      "bytes": 14791
+    },
+    {
+      "path": "docs/reports/hung-39-cloud-mounted-readback-20261026.md",
+      "sha256": "5de7437ef852195c6d0bf73a5bd36e22a9b5cf38f4cf4f2b6a08d66db9ec9f6e",
+      "bytes": 3432
+    },
+    {
+      "path": "docs/reports/hung-39-completion-20261025.md",
+      "sha256": "400fed6974ef49ec1de808f4f53fc7f7d95d6793e3679ed2e61a7687dda418d9",
+      "bytes": 9009
+    },
+    {
+      "path": "docs/reports/hung-39-controller-variance-20261026.md",
+      "sha256": "d45dae46d3db3636c8943766149da9c5ad22faa7054ed9ef2ca3d05b4c743079",
+      "bytes": 5978
+    },
+    {
+      "path": "docs/reports/hung-39-executed-output-handoff-20261025.md",
+      "sha256": "141862d1921b85c8b67a82765999ab0553a430e3684439bb61c732dfd16a755b",
+      "bytes": 8870
+    },
+    {
+      "path": "docs/reports/hung-39-experiments-results.md",
+      "sha256": "585f3860ba81880b87813e74f048c7d7d3e7e664743de6b366d56d1c4f5473b3",
+      "bytes": 10676
+    },
+    {
+      "path": "docs/reports/hung-39-final-report-evidence-20261025.md",
+      "sha256": "f263d665a97282ffc069a0d16b3147fcfef4a0373fd663eff640d398f0f82a8b",
+      "bytes": 14074
+    },
+    {
+      "path": "docs/reports/hung-39-freeze-20261025.json",
+      "sha256": "990e5925a9e36c2c24b34b7a62795e8e051c9ddc61478c12aadaea4051985ff4",
+      "bytes": 9603
+    },
+    {
+      "path": "docs/reports/hung-39-kaggle-transition-20261025.md",
+      "sha256": "76496fe3158e0a9b241797d414ff51e3f74f1a9e8460c1a36b1ee3641d846832",
+      "bytes": 4984
+    },
+    {
+      "path": "docs/reports/hung-39-kaggle-verification-20261025.md",
+      "sha256": "2b664ac72aafda0014941f8b30f45021679b3a7cae512ea572bb8a77b5baf4c8",
+      "bytes": 6028
+    },
+    {
+      "path": "docs/reports/hung-39-local-verification-20261025.md",
+      "sha256": "e9ccb56bba0ad2a1c7ac6fcb6eb6b4b1810978be10a817b6d3e463d75cc45742",
+      "bytes": 4646
+    },
+    {
+      "path": "docs/reports/hung-39-method-implementation.md",
+      "sha256": "f10defd5d0471308742af64c717cfc712225b14515432e1c90bc78463c98bf95",
+      "bytes": 8910
+    },
+    {
+      "path": "docs/reports/hung-39-notebook-validation-20261025-masterplan.md",
+      "sha256": "ea65add85391db037c714efc94c9ccc20219cba3fa4f66e9dd14de32ebc4ac39",
+      "bytes": 8453
+    },
+    {
+      "path": "docs/reports/hung-39-phase-a-model-transfer-20261025-masterplan.md",
+      "sha256": "f0892567532c74c73efbe6e0df752744982220a9c9e89ad4381885f1dc470b7d",
+      "bytes": 9727
+    },
+    {
+      "path": "docs/reports/hung-39-phase-b-controller-20261025-masterplan.md",
+      "sha256": "caba9aaf61756fde5503e65dccb88766f41bf737917a5dfd8fd888e02f2d3a8e",
+      "bytes": 6384
+    },
+    {
+      "path": "docs/reports/hung-39-phase-c-runner-20261025-masterplan.md",
+      "sha256": "1be5bd8b6ff52688a68c2adcc34d9ffb5d1a23785b1e592918fd65d9f9e3fe0f",
+      "bytes": 7846
+    },
+    {
+      "path": "docs/reports/hung-39-phase-e-handoff-20261025-masterplan.md",
+      "sha256": "9b679216ee905d12964e8891b436ae8dc0a66c8c676116276f0452fdfa7b2bc0",
+      "bytes": 10448
+    },
+    {
+      "path": "docs/reports/hung-39-phase0-environment-20261025-masterplan.md",
+      "sha256": "a4fdb7d9b5e85cfd9a5f06456d57adc16c515728a542a5347eeb4841f9665596",
+      "bytes": 6732
+    },
+    {
+      "path": "docs/reports/hung-39-platform-readiness-20261025T2325.md",
+      "sha256": "f2ff9b8750e5c4ea228180d882df260bade74c176a77603235b9bf5403326696",
+      "bytes": 5393
+    },
+    {
+      "path": "docs/reports/hung-39-postfreeze-validation-20261026.md",
+      "sha256": "9ecb6489f5384f338402614f6d30817577044b54d3a61d547a73f6a306589d87",
+      "bytes": 2596
+    },
+    {
+      "path": "docs/reports/hung-39-python312-notebook-readback-20261026.md",
+      "sha256": "bbfec1d65bea2a5808c9032c4750ed07b4d2050a4e4c561d8a176d713128cab7",
+      "bytes": 3758
+    },
+    {
+      "path": "docs/reports/hung-39-raw-archive-readback-20261026.md",
+      "sha256": "a8d2820556c3ff2be31a83d93b582f0cb64511e747cd45ddabf8a89722ebd941",
+      "bytes": 2742
+    },
+    {
+      "path": "docs/reports/hung-39-raw-archive-upload-20261026.md",
+      "sha256": "acbfb335232e843758593b83190eddabc62955e2b2cc48613425de1d5fcedad1",
+      "bytes": 2495
+    },
+    {
+      "path": "docs/reports/hung-39-representative-local-20261025-all-69-cells.csv",
+      "sha256": "906409876ac03dff1699c1c4a16a69b879bbb75b56193acccb23a2c4a91c0c3a",
+      "bytes": 16034
+    },
+    {
+      "path": "docs/reports/hung-39-representative-local-20261025-evidence.json",
+      "sha256": "ad10cc8ab94b3c2e3c2b35b359489263b77e238f404ceac7bb739956c302362b",
+      "bytes": 164008
+    },
+    {
+      "path": "docs/reports/hung-39-representative-local-20261025.md",
+      "sha256": "8673c458ab6fd1ffa55944342ed057d0108ca305d73dff08d2d38b9e4ca4268e",
+      "bytes": 7674
+    },
+    {
+      "path": "docs/reports/hung-39-reproducibility-handoff.md",
+      "sha256": "bf4897de4ab537a2deca2ef0f18e06c05e3e2423157c63be04b2a866b19677e9",
+      "bytes": 13307
+    },
+    {
+      "path": "docs/reports/hung-block7-code-lineage-20261030-v1.json",
+      "sha256": "0261c01b41f5c9db5f2ab8ab5f5683c4db2e776593fb53a0da98667eb1c44826",
+      "bytes": 1122
+    },
+    {
+      "path": "docs/reports/hung-block7-code-lineage-20261030-v1.md",
+      "sha256": "e42567c29fc42b8a1fabae7e59b977177f5621a73d022855b459d9cc6683279e",
+      "bytes": 3242
+    },
+    {
+      "path": "docs/reports/hung-block7-fairness-20261027-v1.md",
+      "sha256": "22918dea31432269e1ab8e7d6db303929d4e6e83c48f0d9a5d9baa02f4395970",
+      "bytes": 6544
+    },
+    {
+      "path": "docs/reports/hung-block7-full-trace-audit-20261030-v1.md",
+      "sha256": "b21fc87834affb5dc6b553ab046df03c58bfe6c9df15f43b39ff4eae28d67ef3",
+      "bytes": 4859
+    },
+    {
+      "path": "docs/reports/hung-block7-full-trace-audit-20261030-v2.md",
+      "sha256": "8bcf2d4ebe846635975aeb24943f691687029852a6e1a4d05cd285b2d5335dd2",
+      "bytes": 5524
+    },
+    {
+      "path": "docs/reports/hung-block7-historical-checkpoint-import-20261029-v1.md",
+      "sha256": "bc555b7680836880f996bdd8fc5ae417bddb9dfa324a12bc1fffa604ee363574",
+      "bytes": 3108
+    },
+    {
+      "path": "docs/reports/hung-block7-input-eligibility-20261030-v1.md",
+      "sha256": "e285b16c5c6fda2b0594490aa9758b6b29a26159e0b637362a54547ca9611712",
+      "bytes": 2490
+    },
+    {
+      "path": "docs/reports/hung-block7-journal-audit-20261030-v1.md",
+      "sha256": "1f73165a9b9e2e30f598ce5c3a7809dd428763314d85827178ce7ea082bd4265",
+      "bytes": 2324
+    },
+    {
+      "path": "docs/reports/hung-block7-journal-manifest-binding-20261030-v1.md",
+      "sha256": "cc8521a231b9c89d693b72260c310aedc1c76028362118a77b6abf556722557d",
+      "bytes": 1385
+    },
+    {
+      "path": "docs/reports/hung-block7-journal-request-20261030-v1.md",
+      "sha256": "2b44e03738369df236c19881fa5bc54414655565d26ad05ed9bd6dde6f1e803a",
+      "bytes": 1907
+    },
+    {
+      "path": "docs/reports/hung-block7-manifest-metric-audit-20261030-v1.md",
+      "sha256": "e522d302257b7ef41f757bb48c700b83ec9b23d467b1acc1a1b90ddd1d3130f3",
+      "bytes": 2514
+    },
+    {
+      "path": "docs/reports/hung-block7-manifest-pairs-20261028.md",
+      "sha256": "80f6c310c2f835096a29a069eaeb29960deed1c7d0a4d5febd07fc5faf8cf395",
+      "bytes": 2846
+    },
+    {
+      "path": "docs/reports/hung-block7-origin-eligibility-20261028.md",
+      "sha256": "fcf74d2e11d0d5f8dd49b5852ace5f3232cbf9a1371ae01b3898b502230b5ea8",
+      "bytes": 4638
+    },
+    {
+      "path": "docs/reports/hung-block7-payload-availability-20261028.md",
+      "sha256": "45e00ca75ee1ab695a8d0f134e5edb36d0339ee133898ca38761bcb7d2c11a07",
+      "bytes": 4408
+    },
+    {
+      "path": "docs/reports/hung-block7-payload-comparison-20261029-v1.md",
+      "sha256": "1f00ad8702f3fc89fae1c2bb3860adcbfbfa35d2da27323d64ea5877ff036234",
+      "bytes": 2511
+    },
+    {
+      "path": "docs/reports/hung-block7-replay-contingency-20261029-v1/candidate_jobs.csv",
+      "sha256": "05d660c72962d51ec3e8c22a57cd015977ceb333f23b1408f891d343f785d802",
+      "bytes": 46935
+    },
+    {
+      "path": "docs/reports/hung-block7-replay-contingency-20261029-v1/summary.json",
+      "sha256": "c8b6e310385cc5f12d4eb35dde8d736f5ad6cc325f10dfb2bb9637a8b11f496e",
+      "bytes": 940
+    },
+    {
+      "path": "docs/reports/hung-block7-replay-contingency-20261029-v2/README.md",
+      "sha256": "087f1ff2668342955a8e94b489b8b67764925c2861439bbd781f711fd684788a",
+      "bytes": 5485
+    },
+    {
+      "path": "docs/reports/hung-block7-replay-contingency-20261029-v2/candidate_jobs.csv",
+      "sha256": "05d660c72962d51ec3e8c22a57cd015977ceb333f23b1408f891d343f785d802",
+      "bytes": 46935
+    },
+    {
+      "path": "docs/reports/hung-block7-replay-contingency-20261029-v2/summary.json",
+      "sha256": "db0a902403b719489bed018ee2e6e0bfa42493677f0bd4e6b631642326da2c9a",
+      "bytes": 1041
+    },
+    {
+      "path": "docs/reports/hung-block7-shared-event-order-20261030-v1.md",
+      "sha256": "7605baaaef03fc9ddb060df5d84a16da49d85a2c7501b8e32a8cdaef5d0b9cc1",
+      "bytes": 1871
+    },
+    {
+      "path": "docs/reports/hung-block7-switch-sensitivity-20261030-v1.json",
+      "sha256": "03f5bbd231d78e5f6e2936b1eb376074f39df73d2429eefb3cc5092658e1c548",
+      "bytes": 2930
+    },
+    {
+      "path": "docs/reports/hung-block7-switch-sensitivity-20261030-v1.md",
+      "sha256": "c596a2b515a3551ffbbf7bfc95904fe1f1b9a97af94ca002faf7ca9108565855",
+      "bytes": 2786
+    },
+    {
+      "path": "docs/reports/hung-charged-lineage-audit-20261028-v1.md",
+      "sha256": "1f1298e229c7c5fb877750107bea4275d696b4dac022cc6eb08768fd6d5b89a7",
+      "bytes": 4928
+    },
+    {
+      "path": "docs/reports/hung-charged-loa-physical-audit-20261029-v1.json",
+      "sha256": "b14422f643a0fb0033370bcd88c86384c99d0f774cfd0ad20b06d295bd60758b",
+      "bytes": 1924
+    },
+    {
+      "path": "docs/reports/hung-charged-loa-physical-audit-20261029-v1.md",
+      "sha256": "3378c8ad151fdf98fe04f9a1cf77e691a23419c9cef821624c404e9ac65a33ec",
+      "bytes": 4984
+    },
+    {
+      "path": "docs/reports/hung-charged-pr52-receipt-binding-20261029-v1.csv",
+      "sha256": "e7a6bc12cc5db4950e00b13c63a55e8e8e0c88fe0c4cc8eb16d2ef63ad46415a",
+      "bytes": 77020
+    },
+    {
+      "path": "docs/reports/hung-charged-pr52-receipt-binding-20261029-v1.md",
+      "sha256": "3e9c05ab5055569644cdc3f39286fcc57b128cae0c1219cd53367bfc2c4409c2",
+      "bytes": 3284
+    },
+    {
+      "path": "docs/reports/hung-charged-pr67-pr52-run-id-overlap-20261028.csv",
+      "sha256": "dba3deaf5ed3412b9d221b61dbc8771079b07cb99aeb184bfadb43f337093530",
+      "bytes": 51061
+    },
+    {
+      "path": "docs/reports/hung-charged-supplementary-proof-summary-20261028.md",
+      "sha256": "08b93e4ea3b4eb7211bb5b9098f4a3bce72b4d2f81a7a102b0625d5218b756c6",
+      "bytes": 3501
+    },
+    {
+      "path": "docs/reports/hung-colab-development-multiseed-20261023.md",
+      "sha256": "75351b5ecfff333dba05290548e5dd576dce166f73acc17740ff7c689156948c",
+      "bytes": 5772
+    },
+    {
+      "path": "docs/reports/hung-colab39-36-replay-metrics-20261028.csv",
+      "sha256": "1654f5366596bcd5dd693e8a2db669de3eac6a8bd299db046819197140a5418e",
+      "bytes": 10332
+    },
+    {
+      "path": "docs/reports/hung-colab39-cpu-readback-attempt-20261028.md",
+      "sha256": "859c384348e1de1259f9e2055f76fccf3548e7157229e0355ae33ca84bc0beb7",
+      "bytes": 4912
+    },
+    {
+      "path": "docs/reports/hung-colab39-drive-access-20261029-v1.md",
+      "sha256": "98309546dce196727ffe069e844dee14dfb95a6d5101c6fd86bd97ce64e6c8f7",
+      "bytes": 1934
+    },
+    {
+      "path": "docs/reports/hung-colab39-drive-access-20261029-v2.md",
+      "sha256": "a200ef35a5cf601e2578918e0782716230bff257b8b4cadbcdd92c3e2007b395",
+      "bytes": 1596
+    },
+    {
+      "path": "docs/reports/hung-colab39-peer-readback-20261029-v1.md",
+      "sha256": "7ae81101bf2138e8963b7bb84e603bbd88375b151040bbe90adddba47c56ce85",
+      "bytes": 1894
+    },
+    {
+      "path": "docs/reports/hung-colab39-saved-notebook-proof-20261028.md",
+      "sha256": "a36252c36bf703f9d7a53b7b8b00c415c3140bf872840be600a2a10f29711d2a",
+      "bytes": 3430
+    },
+    {
+      "path": "docs/reports/hung-compact-proof-ledger-import-20261028.md",
+      "sha256": "99f63d1e202ff9be44396dbeefeb7913cbf703acf1d5d1ce0b08c178e65b71b3",
+      "bytes": 4327
+    },
+    {
+      "path": "docs/reports/hung-cpu-capacity-recovery-20261027.json",
+      "sha256": "fd837bc323fbd1a483d57cda84878469daeee17e0512bab12b0e83b3475df269",
+      "bytes": 4062
+    },
+    {
+      "path": "docs/reports/hung-cpu-capacity-recovery-20261027.md",
+      "sha256": "64b7309dca11d54fe09e03fd0f246c5ebe39f20cc4eba08bb1a35bb449074ecf",
+      "bytes": 6832
+    },
+    {
+      "path": "docs/reports/hung-cpu-export-pilot-20261027.json",
+      "sha256": "9ac8bc017d0521289da6b963374074b2f49ba45908f1b4775acc8fca33412c56",
+      "bytes": 9015
+    },
+    {
+      "path": "docs/reports/hung-cpu-export-pilot-20261027.md",
+      "sha256": "8447db307f1de21f1cfc06ba36e65ef3dd9ab48f5432906190b95686ea621475",
+      "bytes": 4957
+    },
+    {
+      "path": "docs/reports/hung-cpu-export-readback-00-02-20261028.md",
+      "sha256": "8ad0549f1bb67d0092a815f17190636496c70b205d8de709da53b05171972fed",
+      "bytes": 4346
+    },
+    {
+      "path": "docs/reports/hung-cpu-export-readback-03-20261028.md",
+      "sha256": "fdbcb307f5f44d6de60105e64e1d00b548fdef44e3d09b704aabf9b1a6863b92",
+      "bytes": 3139
+    },
+    {
+      "path": "docs/reports/hung-cpu-export-readback-04-20261028.md",
+      "sha256": "92d38d20de7019d6284dd400615381c6ff832d9bc2c9bc6ace8deee956bd7d36",
+      "bytes": 2507
+    },
+    {
+      "path": "docs/reports/hung-cpu-export-readback-05-20261028.md",
+      "sha256": "aa639041fcd07431f5600418c1b27e246aec4630929ae4f08a4247f6323d4661",
+      "bytes": 1653
+    },
+    {
+      "path": "docs/reports/hung-cpu-export-readback-06-20261028.md",
+      "sha256": "41afa12ef369fd197502fbf8a895fa1eb65729143abe2d896783829939dd1a27",
+      "bytes": 2842
+    },
+    {
+      "path": "docs/reports/hung-cpu-export-resume01-20261028.md",
+      "sha256": "92a00491f1d5133cee9eaad00c69cd54c4d39c8adf53614fd2219b076b1ce1ef",
+      "bytes": 4275
+    },
+    {
+      "path": "docs/reports/hung-cpu-metrics-continuation-20261027.md",
+      "sha256": "08daeefa6d5da6bcfd31c109a7460ec1614a596279ec173492c6dc49bc573592",
+      "bytes": 2576
+    },
+    {
+      "path": "docs/reports/hung-cpu-metrics-launch-20261027.json",
+      "sha256": "3a0eda9eb6252a5d5740e145b9a5301c38828d04980625cef16c3a660c33e37e",
+      "bytes": 1369
+    },
+    {
+      "path": "docs/reports/hung-cpu-restoration-checkpoint-20261027.md",
+      "sha256": "b63ff0c6ef726d1fb29595d919c1f14a55a90bedcfe60b88e22a40b06d158702",
+      "bytes": 3799
+    },
+    {
+      "path": "docs/reports/hung-development-782-job-ledger-20261028-v4.csv",
+      "sha256": "095b24adbef2fba28c430ce72d3f6c2f1d575e4e45a2f17efde7c629602c6826",
+      "bytes": 610351
+    },
+    {
+      "path": "docs/reports/hung-development-782-ledger-audit-20261028-v2.md",
+      "sha256": "6170930b4027bda5b6a46b620e8baba22852388c07e2f1ac37b50b493ecfc06a",
+      "bytes": 3011
+    },
+    {
+      "path": "docs/reports/hung-development-782-ledger-audit-20261028.md",
+      "sha256": "614c9eff3a72aa5d894366bdfe5ef95a32da30e4bb046bae9e5116e6a89ca0f2",
+      "bytes": 4681
+    },
+    {
+      "path": "docs/reports/hung-development-allocation-20261027.md",
+      "sha256": "c82813d6667b594cbaab7c589306bd50bfd7d7bd6d9a6263f6253a04d79120bd",
+      "bytes": 3367
+    },
+    {
+      "path": "docs/reports/hung-development-context-proxy-20261029-v1/README.md",
+      "sha256": "3afc0a14eb04ee9548ca9e1c9634d2817f42ace31711330ec66d0d3db230ad69",
+      "bytes": 659
+    },
+    {
+      "path": "docs/reports/hung-development-context-proxy-20261029-v1/context_error.csv",
+      "sha256": "016aeda5ce9ebd55b06b57a749a55d6efa4e116b944ddf986ee1677b1f5dddbf",
+      "bytes": 96402
+    },
+    {
+      "path": "docs/reports/hung-development-context-proxy-20261029-v1/proxy_decisions.csv",
+      "sha256": "d69e66be048ed967784544b7e6a7d327fb21aa280c5f2968574e98d9ef4253fe",
+      "bytes": 506281
+    },
+    {
+      "path": "docs/reports/hung-development-context-proxy-20261029-v1/summary.json",
+      "sha256": "924206d989a32adf647077d67084b51d57d5d2fa27a006bd282fccc2b80e45fd",
+      "bytes": 444
+    },
+    {
+      "path": "docs/reports/hung-development-context-proxy-20261029-v2/context_error.csv",
+      "sha256": "016aeda5ce9ebd55b06b57a749a55d6efa4e116b944ddf986ee1677b1f5dddbf",
+      "bytes": 96402
+    },
+    {
+      "path": "docs/reports/hung-development-context-proxy-20261029-v2/proxy_decisions.csv",
+      "sha256": "d69e66be048ed967784544b7e6a7d327fb21aa280c5f2968574e98d9ef4253fe",
+      "bytes": 506281
+    },
+    {
+      "path": "docs/reports/hung-development-context-proxy-20261029-v2/report.md",
+      "sha256": "a2ff69858aa4413500cfc5f16321994e7fcd9a89ee14a1cb14893490d4670533",
+      "bytes": 5680
+    },
+    {
+      "path": "docs/reports/hung-development-context-proxy-20261029-v2/summary.json",
+      "sha256": "924206d989a32adf647077d67084b51d57d5d2fa27a006bd282fccc2b80e45fd",
+      "bytes": 444
+    },
+    {
+      "path": "docs/reports/hung-development-coverage-20261027.md",
+      "sha256": "02f59b18230bd4d5be09752b0708a411a211e64ab2e7b06e5baf43877e99b016",
+      "bytes": 5004
+    },
+    {
+      "path": "docs/reports/hung-development-diagnostic-20261023.md",
+      "sha256": "71cbaf242b61157747d84f53545a82af44441e197cb0fa374893db7554e8d013",
+      "bytes": 6768
+    },
+    {
+      "path": "docs/reports/hung-development-evidence-20261027-0829.json",
+      "sha256": "eaca43a403b2f98b8e29ddc453a3d61dd304f922f1a7735c738449f45bc24db3",
+      "bytes": 5434
+    },
+    {
+      "path": "docs/reports/hung-development-group03-metrics-v2-20261027.md",
+      "sha256": "ebff3beb045b3272c87f2b7bb4f2c89649d4f8b3b96707585b52a05ffc7dc6bb",
+      "bytes": 4273
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261027-v1/paired.csv",
+      "sha256": "719cffc924c2664bcf3a63096f64a6d1784073d052fe53bd3e27464d8e08ed61",
+      "bytes": 2840
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261027-v1/report.md",
+      "sha256": "edba68d289ab660b5779133e8e8bed3f01f9444061083136e3913360f0fda23a",
+      "bytes": 3741
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261027-v1/summary.json",
+      "sha256": "b8571073bbc2d5d690a55369dd319caada4f79abf23b88258c6d20418130060e",
+      "bytes": 74383
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261027-v2/paired.csv",
+      "sha256": "67b71c360830e4bba91e1b9f52b1cff901ea6254af8ac1147cd292d732963c8b",
+      "bytes": 3586
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261027-v2/report.md",
+      "sha256": "1303562d87b0c4f3f402c0b495ded8fa732c5d98979860b83f700ee9adee08ee",
+      "bytes": 4262
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261027-v2/summary.json",
+      "sha256": "249d69560c49e828e1ae6280542faf24273ec7177e900c3b78d9d6c1a8cfd3d2",
+      "bytes": 98970
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261027-v3/paired.csv",
+      "sha256": "a9b1d8655bebb688c7bafa81f6993353e953959e535aa26204d3670a618ec098",
+      "bytes": 3723
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261027-v3/report.md",
+      "sha256": "b38a472e279237218b50596602553657bff7bb13dade27d8b1c14c374b4a99a3",
+      "bytes": 4353
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261027-v3/summary.json",
+      "sha256": "40a91de2e98a672388c4cf2a5e60acca39cb535c4beca8dc1433423b0c1cba5f",
+      "bytes": 110156
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261027-v4/paired.csv",
+      "sha256": "15e3eae011853af9b8fd3c39455ba27e1ba80a87c43a8a64f5bc604905df152a",
+      "bytes": 4035
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261027-v4/report.md",
+      "sha256": "96d4c1fd024488287c8954b39ef4bdf6119e617f52eac6bd62db60ba64e9fb5d",
+      "bytes": 4536
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261027-v4/summary.json",
+      "sha256": "385781c0ae2022d9336e12346c92bc061fc58da7b4266d02024f35a0b166e619",
+      "bytes": 116682
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261028-v5/paired.csv",
+      "sha256": "bb4e8cf4db3f8a528f6069f297042031c24eca69b3cf142983b6bb1f9c13627b",
+      "bytes": 5280
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261028-v5/report.md",
+      "sha256": "b0d204c6f68b9b48d1ffd7c536def798a93deb9faf6ef12d9134fbdb27afe5b7",
+      "bytes": 6080
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261028-v5/summary.json",
+      "sha256": "f8b8e28b1365119a2f57adffb1e1e760ad25351da27c2a17368941f255837738",
+      "bytes": 165528
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261028-v6/paired.csv",
+      "sha256": "dbe34ee767cd74fe09c8a2261f1c687180cf814aa96ae13709960c70a59bca2f",
+      "bytes": 6034
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261028-v6/report.md",
+      "sha256": "d27c807b0a087b8daa211e2bafa2ae513b642686c421b194527687d0f9f43b53",
+      "bytes": 6426
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261028-v6/summary.json",
+      "sha256": "d9d2c3145337f16037379f00e2bdc12ec3a2119e1bb01bb8f8df7671aa1224fa",
+      "bytes": 190323
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261028-v7/paired.csv",
+      "sha256": "eaa9f9ed00b635944396713d781235244b71a78cbf786929ac1e2d0e9c06b437",
+      "bytes": 11652
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261028-v7/report.md",
+      "sha256": "9a9028fa1ca97833a1aed2eaa494434e5b61f8af98ca09d119d097d3c2aee1f4",
+      "bytes": 9390
+    },
+    {
+      "path": "docs/reports/hung-development-hybrid-20261028-v7/summary.json",
+      "sha256": "db73b0c8568cb49a25030a3476d6d3943ac90c7d69fbbe1644ce308a6c9bad99",
+      "bytes": 276944
+    },
+    {
+      "path": "docs/reports/hung-development-legacy-cost-recovery-20261029.md",
+      "sha256": "b3728af1798a2fa94af0f1f212a1553ebad0f3f26e0a0dcdfbccbc5f090b91bf",
+      "bytes": 3005
+    },
+    {
+      "path": "docs/reports/hung-development-main-context-20261029-v1/main_context_error.csv",
+      "sha256": "836f401108745dc28d57ff4a4999bffa9d51dde8b91aa02a78df2b113f11ea6b",
+      "bytes": 8494
+    },
+    {
+      "path": "docs/reports/hung-development-main-context-20261029-v1/main_job_bindings.csv",
+      "sha256": "bb7a9f2c5865b8aab807e4323a7fa2276793d90d89808ebadca925d498ce928b",
+      "bytes": 27321
+    },
+    {
+      "path": "docs/reports/hung-development-main-context-20261029-v1/summary.json",
+      "sha256": "3340e54e6d2bdc75b1c5d0515ec95b5c6a6b701a09cd16a0bd94e2f99ca52e4e",
+      "bytes": 486
+    },
+    {
+      "path": "docs/reports/hung-development-matrix-crosscheck-20261029-v1.md",
+      "sha256": "799506104d4a5d0e7a0a19d6feaf0a644fb782c51e68b4e47c12a3d1e5b926f3",
+      "bytes": 3708
+    },
+    {
+      "path": "docs/reports/hung-development-metrics-assessment-20261028.md",
+      "sha256": "af695b203c4c75a009d901e9cad541a5fb8fb903d191c313e01d2d147cdb95d0",
+      "bytes": 6565
+    },
+    {
+      "path": "docs/reports/hung-development-metrics-storage-gate-20261027.md",
+      "sha256": "d04a66a86285047434213dab4e59cff3e33fb663e85381f4e4b667273bdb5f3e",
+      "bytes": 6305
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027-v2/paired.csv",
+      "sha256": "b7c24a115b2f9c48c2ef45871a6e3698a262a3cd03314008f8599e2d828c6d2c",
+      "bytes": 1929
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027-v2/report.md",
+      "sha256": "a0db37faed95360f961259ef61e4d78c8ca3b611adcd2548f13d5ea17b0be710",
+      "bytes": 3278
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027-v2/summary.json",
+      "sha256": "7ad7c0552a8179b6740482e53c66349a371b375c6774972860df2a6471afd9f5",
+      "bytes": 38022
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027-v3/paired.csv",
+      "sha256": "6e96798653b0b1746108b2a97079210fd3962e7b83cd599336640d89afec563e",
+      "bytes": 2366
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027-v3/report.md",
+      "sha256": "d635517b31e4ee9f8c9b4b6a313e7e68ed9a16bb4bd8df1516728b43bf2013b8",
+      "bytes": 3612
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027-v3/summary.json",
+      "sha256": "053ec944922dd1fce55b2420917b66d07771b290d7d078c73d9fd2b1800dee1f",
+      "bytes": 56264
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027-v4/paired.csv",
+      "sha256": "650aa562af597acf54b86c0d65e53dd2886793657bdbbb1cf3dfc24549e2f54f",
+      "bytes": 2363
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027-v4/report.md",
+      "sha256": "14a1e70052692eed59a589851ecb7f969cfbeba3a0107756e9b3ba58c448d56d",
+      "bytes": 3611
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027-v4/summary.json",
+      "sha256": "90cd0b7904e3bcaf83fcc7a79bf4c95c37b23fa299c6eb83da3b9bb90aaec05f",
+      "bytes": 61696
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027-v5/paired.csv",
+      "sha256": "459dfc86b265a4dffab85ec682a543b67928f53575df04b10421835bbd07f3c0",
+      "bytes": 2690
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027-v5/report.md",
+      "sha256": "a1848da36c59a0e868be0c083a4f57e363a17cdb8c8a098978a5bbaa9ad798e1",
+      "bytes": 3808
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027-v5/summary.json",
+      "sha256": "818de09c138a13701e79b53a3212eb34e12d1db633f350a64379d0d131f09eb2",
+      "bytes": 68355
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027/paired.csv",
+      "sha256": "f5e802ac1d11037a976008a1c409e693d4a541a2fd0ee76c6017569316ac794c",
+      "bytes": 1811
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027/report.md",
+      "sha256": "bdeb50e0cfdae8cbba4ebf833e4c651b06abf6ef3e67c5e1c2b7d33360409bb6",
+      "bytes": 3029
+    },
+    {
+      "path": "docs/reports/hung-development-partial-20261027/summary.json",
+      "sha256": "9e63c687ef2f1bdd8e2b449944d45610ad3295922c4d57cf589bf1b266ea7d0d",
+      "bytes": 36947
+    },
+    {
+      "path": "docs/reports/hung-development-proof-ledger-v4-20261028.md",
+      "sha256": "12c6bf3fcd5f1cddc54621341abbfc70d58a53c9771b4bdf3e13f1353450f2a3",
+      "bytes": 4529
+    },
+    {
+      "path": "docs/reports/hung-development-queue-start-20261027.md",
+      "sha256": "42b30acd818687b2c85ed886718c0ff4ab14f438a3b6d696730a030f374327c6",
+      "bytes": 2574
+    },
+    {
+      "path": "docs/reports/hung-development-seed-stability-20261029-v1/report.md",
+      "sha256": "8e57faacb186ee05e65730d71f0cea67ff482c2a505c35b16fdf4d789e355f23",
+      "bytes": 4827
+    },
+    {
+      "path": "docs/reports/hung-development-seed-stability-20261029-v1/seed_gains.csv",
+      "sha256": "1157fb0dd1d43989ec2255219866e2bab7b7edee00d4bfd8a5d28cc4ba8a4001",
+      "bytes": 15473
+    },
+    {
+      "path": "docs/reports/hung-development-seed-stability-20261029-v1/seed_stability.csv",
+      "sha256": "a409276df1b32f80973d6d5551d808774269e8bdcd653633b4d1cd3cf5ccda4c",
+      "bytes": 13177
+    },
+    {
+      "path": "docs/reports/hung-development-seed-stability-20261029-v1/summary.json",
+      "sha256": "6ac21a99e2ef02baefaf1062d51d4950c98c1fbe1ba5882124ee0cbd08a17d6d",
+      "bytes": 440
+    },
+    {
+      "path": "docs/reports/hung-device-benchmark-20261025.json",
+      "sha256": "67d422f38f8af58797ac8a91fabad946afb08e579820ec788ecca8426c280393",
+      "bytes": 748
+    },
+    {
+      "path": "docs/reports/hung-durable-queue-v2-20261027.md",
+      "sha256": "e7c7810f6420e656f348822cdced8eb6f3f38a50fb4b2c39d9710335ec55447e",
+      "bytes": 3402
+    },
+    {
+      "path": "docs/reports/hung-e2e-ci-observation-20261030-v1.md",
+      "sha256": "cacda18ed16f0a433c1de056cd61a8e32e8651b5eb851ef635acb8fc26858e01",
+      "bytes": 1116
+    },
+    {
+      "path": "docs/reports/hung-e2e-continuation-checkpoint-20261028.md",
+      "sha256": "9fa6dc656a7c9af9bde2b165163e1af946ae7ec049af79389b4df5f94930042d",
+      "bytes": 5412
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v10.md",
+      "sha256": "3191024dab04c3e26ec484e3a0cc43d840e621a41aed9d137927131990c369ef",
+      "bytes": 1639
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v11.md",
+      "sha256": "8b15c688fb92b320af7212d63276478216577903f948ab00627c817a739abfe2",
+      "bytes": 1080
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v12.md",
+      "sha256": "6207ed0c6a2763d32d2ed14fb7431556cb9893c1dca772889b966c707b43a7d9",
+      "bytes": 1139
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v13.md",
+      "sha256": "3792f662a26114ae533f35a807becaabf4c3fe9dad9a590db9e9d24db84cd649",
+      "bytes": 1038
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v14.md",
+      "sha256": "77353a519f917da0afeed4acfa760e14a659b031e85c129aa7a39b26be659932",
+      "bytes": 1031
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v15.md",
+      "sha256": "60a73c4ea629f86b60c2351a163ece7b1e1f62e134a4aa29b2a0f705f82e5a7b",
+      "bytes": 1318
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v16.md",
+      "sha256": "39c8de2e1c8f9984c6079ae802f62b8bcba5550a8418e283ccea8f05e7a54c31",
+      "bytes": 3152
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v17.md",
+      "sha256": "79255d3039187fb6469f5f37e81d43e6008293ddba8a47247f45e014fc01655d",
+      "bytes": 4517
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v18.md",
+      "sha256": "df2a2662218c77e5dd81c6c4a56d8f034061add983d91e82769443ecbd216eb0",
+      "bytes": 4409
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v2.md",
+      "sha256": "bfe4655c544de32c277775aa42ec247f0eb159d0b5719447346c25922c3437c9",
+      "bytes": 7589
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v3.md",
+      "sha256": "89ff70963a5a83de12e08ffc135edbe3857b43cea6c9e925cec3d09d33d9691c",
+      "bytes": 2479
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v4.md",
+      "sha256": "1e50b8c25309f52beca6a5d7baf2015c5abe40209414bea1d917e99bdb47dd52",
+      "bytes": 3840
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v5.md",
+      "sha256": "74274f4a0623a5a2db3b143302fe717953d0f29d7630b5bd85eeb1635d6cdaf6",
+      "bytes": 4633
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v6.md",
+      "sha256": "f3bd8777a8e90ff4cc2a0dd5cc31776e0b47c0c260fefce74c302936bc1adbd3",
+      "bytes": 5684
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v7.md",
+      "sha256": "32731ca7fe4c48cd25d492fec26b307d52d588be71079fbed49a5b2292aaf611",
+      "bytes": 6261
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v8.md",
+      "sha256": "a00a2b66065ffd7afcd7252b51086e7f98260cdb2c9b28388a6ef12e26104fda",
+      "bytes": 2629
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261028-v9.md",
+      "sha256": "82853fd55f3b9aeda518b358b2606b037775ec8066c5120b6c3b63548229f363",
+      "bytes": 1435
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v19.md",
+      "sha256": "9a122fe3ea28b3213d73d00685177f7e467cf4561a25d0fca6f5bd67a0cf9e58",
+      "bytes": 5162
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v20.md",
+      "sha256": "ed89091d24bf87dde79db0ae69954ef6fb94b6c509bb9d4eaf23e5fd63097a02",
+      "bytes": 6246
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v21.md",
+      "sha256": "53a1a79ecda8d29ac43461818f6577402d912a13921cc67e5fc9d9269866320b",
+      "bytes": 2510
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v22.md",
+      "sha256": "4f724322769038d560e1e4e8ffeadaf5b590578a9a9ccd1db290f7c02c042e86",
+      "bytes": 3073
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v23.md",
+      "sha256": "fff5f45c8e083212692f92ff24d86927654d38f7991bc62cabf204c0a0fd5992",
+      "bytes": 2010
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v24.md",
+      "sha256": "36edc06c1cb3de597a26b765b9418a02faff1f7f2c4852e26018d6772d6a634b",
+      "bytes": 1723
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v25.md",
+      "sha256": "839da1d80be5be5634f0752c9fbfb68c88511b228812a26e0bddbc4e1406a6bc",
+      "bytes": 1722
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v26.md",
+      "sha256": "9df5cea1b96eaa9f8ef937b0414287e1bda1ce9933ffa2abc13c37a054794af7",
+      "bytes": 3375
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v27.md",
+      "sha256": "38150d613a722028c92e34219694f89a22b8dab75826c7a8d37427a07f9554b6",
+      "bytes": 3480
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v28.md",
+      "sha256": "691c0402daab5087a5b5e2071084d5eba0a5b9170c0cc11166814b9f7ee0b54f",
+      "bytes": 3693
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v29.md",
+      "sha256": "c6d1273a687c83c5dc2024916b562d48ef580c3816a24dce677908eb1d786521",
+      "bytes": 3943
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v30.md",
+      "sha256": "9dba39abdac470e6409451e577d6d17568726028cf1113549cd431e81d263056",
+      "bytes": 4195
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v31.md",
+      "sha256": "015f2a06ffb82279d8b39d48ef6f049171836575fedafee94517f769042543b6",
+      "bytes": 4285
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v32.md",
+      "sha256": "ac10a67553b26d36ffcc4b9ba3b102e56bee8fed129b101ce69d50df586caa02",
+      "bytes": 4587
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v33.md",
+      "sha256": "45d58d92f4171f7a3a54b9c9803a608714807dd7caa5acbaef26b96df342d009",
+      "bytes": 4852
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v34.md",
+      "sha256": "ad9d2781a50640f0da7fbf10db7e0858ec16b8a6457a2e70281a2166ed30aebb",
+      "bytes": 4995
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v35.md",
+      "sha256": "8270e60b18ad609ebf188a40e3c9d1d0797a874c8ab37e3a15b912b6e9a03867",
+      "bytes": 5138
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v36.md",
+      "sha256": "72be681661362c60d7f144f64a0d05c45fc8d558205fcdf44fbce42dfb5c5bf3",
+      "bytes": 5464
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v37.md",
+      "sha256": "c3267742e9c9ad8bcf0e63b8b2ff9f65a7accd6b54b37409d338d031a6a6f928",
+      "bytes": 5768
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v38.md",
+      "sha256": "265812a586d597e0bc661a5011363b2545ff35c688d1e84106534fc69df61477",
+      "bytes": 5884
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v39.md",
+      "sha256": "4752aea112c6821238a663026d5e70e9e4f9b080675590599deb3a2092c7fc0e",
+      "bytes": 6327
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v40.md",
+      "sha256": "a407860c7eb6984af4dc942e82ba9cbbf347bf5fe6037726270cf8588a292590",
+      "bytes": 6360
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v41.md",
+      "sha256": "9e8baedbec70328b343db7796611fe68bf1d24a40bfcfafb0468cc77660cc402",
+      "bytes": 6670
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261029-v42.md",
+      "sha256": "94f8352dee4c49dc1c1b07d244d6717911c90c1cbab9c1f18d07c6619c2f9e69",
+      "bytes": 6592
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v43.md",
+      "sha256": "190b5a323b00d4d58fcee017b2da50a0acdffb2418b23899c2e567fc918146d7",
+      "bytes": 6851
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v44.md",
+      "sha256": "a188d2b3bd9685a85f953cb3db7a8b54f9bb665e3cf528c95f3f17f251a0f9b2",
+      "bytes": 7100
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v45.md",
+      "sha256": "c34ee4537fe783e46db11b311fced0d53d5d5c61ec6b5329a3b1146e40ac98dc",
+      "bytes": 7447
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v46.md",
+      "sha256": "54fbbb33dfcc36166084970d4d7526028643a9dac6e0fab2932a8ce7f6a0c674",
+      "bytes": 7613
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v47.md",
+      "sha256": "5f19c5a7ec81caa9ce33c4871d34308ea6672b29ce3cb7e934dd2bdd92dbda7a",
+      "bytes": 7670
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v48.md",
+      "sha256": "1f44f44245c4b0d2e1fd4bc1d1f8edd0056b613c76d67984053d61e1dea9f89d",
+      "bytes": 8009
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v49.md",
+      "sha256": "90403443032216af0aedff9e6330acbaba6860a78112bf42471830e9ae1ead44",
+      "bytes": 8227
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v50.md",
+      "sha256": "1e83af5bcdf4dcc608ceb3bb98bb38d9a49b0f5997ba4c9760b4db9849639258",
+      "bytes": 7167
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v51.md",
+      "sha256": "6f9421b6cc9e12caae55e84646968e50fee3d7e1f5693f59076b33fa76a49bc7",
+      "bytes": 7196
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v52.md",
+      "sha256": "d1b4cb68f326e1ea8892a0482e57eed58c532bb6f7625ab07636b754ae3dc784",
+      "bytes": 7376
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v53.md",
+      "sha256": "9a38bb29e0c6f14e837e1fca1ebc54cae4a25174c163dff069a82f1ec6cfb388",
+      "bytes": 7723
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v54.md",
+      "sha256": "deb43fee2eeadbf106b1b4e15b7c247f17d27a2c9478a651ce07c0b95b2b3007",
+      "bytes": 7691
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v55.md",
+      "sha256": "03ea1488d8861d286aeb839eef392b0f46ea950647ba9ab5c7ceb7f000737984",
+      "bytes": 8119
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v56.md",
+      "sha256": "86f9fb541c2e251a73c465269bfe2c5229dc86de1746f6f99ccb29eb9bab4685",
+      "bytes": 8118
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v57.md",
+      "sha256": "eead2e6dd71ff0e574da0a3766945e6fb974baf4e9411d7ba7f6c927e9c7eff6",
+      "bytes": 8340
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v58.md",
+      "sha256": "86e66bd2d4709686e57ac388a4803a2ea2281fe09bad336b118025424198c839",
+      "bytes": 8432
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v59.md",
+      "sha256": "d701f2fbad95f3d7759ba1ef664a6606407b1ad3886d83a23dddb49bc809868e",
+      "bytes": 8424
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v60.md",
+      "sha256": "2bd75332485f21a40a1811846b322502161e8f599b955fa3ed2cd7299b397116",
+      "bytes": 8342
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v61.md",
+      "sha256": "514c6e27d587c284c642685316ffd2f7142b9889dbaf17cd90f132d74a211509",
+      "bytes": 8436
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v62.md",
+      "sha256": "66c3dcdb2fd5fb8ae526094d0476ba83ac85b62ab5812926cfdc01a4633d8134",
+      "bytes": 8808
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v63.md",
+      "sha256": "d6a1e6162aad7960cc817281dc27cc97d8ff34aa03dca7a503fb6bf96e70516b",
+      "bytes": 9108
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v64.md",
+      "sha256": "33311a44713d2f09fbe7f397153992cff3953c3f29f3b5c8330dc50e6e73ce2f",
+      "bytes": 9440
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v65.md",
+      "sha256": "d9d6672fa006f4b45d9bb3132658b1b62866085adb1b54d46d5c82bae457bcb6",
+      "bytes": 9704
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v66.md",
+      "sha256": "19b2a3eb7032cbd43f14f840ec964ea3d53e2e3c0f576640f89a37117596a245",
+      "bytes": 10175
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v67.md",
+      "sha256": "dffc45eaeb93f8cd7668f96c9791cd9132c6a4d0197e392f5107a8b31c022c30",
+      "bytes": 10178
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v68.md",
+      "sha256": "54d183c6cdd6e5500eeb114a2f64e57f399f017307531fe7b9397f666098dd7f",
+      "bytes": 10300
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v69.md",
+      "sha256": "caa38a22e66a9577f7c658477a01b819955a4fc4138bb59f1f7bf1f8854d0eb6",
+      "bytes": 11028
+    },
+    {
+      "path": "docs/reports/hung-e2e-phase-20261027-1045.json",
+      "sha256": "879fb4842b935ddcb910c721891fe58f826e5e97b09306cb7734748f70047567",
+      "bytes": 3607
+    },
+    {
+      "path": "docs/reports/hung-e2e-phase-20261027-1045.md",
+      "sha256": "cc195f22ff7efa4c8cf992711fe5dc879a4a76cedf9ce4d2cbb91386c829489b",
+      "bytes": 6299
+    },
+    {
+      "path": "docs/reports/hung-e2e-reference-audit-20261030-v1.md",
+      "sha256": "fe9ac27c78ac2059e5e10eee836fc72f6a33844528df1b87f94767cf6626f5ae",
+      "bytes": 4607
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261028-v2.md",
+      "sha256": "c4bbeae8076c7269cfe0bbf0a51a3c5695d5cd70bf3d029005edcf9d4a8b4d7f",
+      "bytes": 8302
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261028-v3.md",
+      "sha256": "7a8fbf0937a513557857c1005903c134436d49fa2553be9f0ed4387fdf50c85a",
+      "bytes": 9286
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261028.md",
+      "sha256": "6cc3e05293cb90a37a6b18741bd8c8746640e7a6a851c8f448b5f8f90f1a0cf6",
+      "bytes": 14007
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v10.md",
+      "sha256": "2cebfc8422351a0a1826b3889dfe34cba664577351812bd46cf564d51c0ca583",
+      "bytes": 41781
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v11.md",
+      "sha256": "9bd239f0ebae94bcff9e5c118b18cd1e4e1dbf1e8bebec4cc1592336bd816996",
+      "bytes": 42054
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v12.md",
+      "sha256": "057b8ad54bb4dd11ed68e04814b80de7f2965ad6441b3e0472d12c0e3ae80cdf",
+      "bytes": 42919
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v13.md",
+      "sha256": "0a67b6b017d9b1ea8011a5612c3d53dd245a529937769cc007b7126631efad38",
+      "bytes": 43195
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v16.md",
+      "sha256": "70f0482128add005079e7efc96a409fb186ebf521126e98a9785a7b224905598",
+      "bytes": 44646
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v17.md",
+      "sha256": "1eabc92b04cfd4ce0b57a99f0d566a295050199b8822d68a3673df7c7ecc1162",
+      "bytes": 44714
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v18.md",
+      "sha256": "fd89e917455fcd57269f786af4ebe6186b55423a03578baaa9bbeb39dff6e8f3",
+      "bytes": 45779
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v19.md",
+      "sha256": "4ad0aeb4dbb1429aaf89e425bc26dcd2d86f885b84efc4101c1c79c06cb20709",
+      "bytes": 46000
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v4.md",
+      "sha256": "de26149ffb86bb3703cca59339b25fa36b21fefc99bfd1682fb38f5b9a8cc566",
+      "bytes": 10467
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v5.md",
+      "sha256": "caa16095975eb17230753cf9dbcb98383de4f73b3d71b1a4f0b049c90b56939c",
+      "bytes": 11805
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v6.md",
+      "sha256": "8572f9b37a2e57e42d8a8394d603c10d0b8a45f4345e915fe5153a507a10ab3e",
+      "bytes": 12011
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v7.md",
+      "sha256": "6d6974f5da49700d4a541c9bd11d9b2e510eed1e24fd6a2d67be50eed8f09c9c",
+      "bytes": 15457
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v8.md",
+      "sha256": "3529cdc2555b3a2cfdbff486a2a291cf7bfbd4888e555e75edb72ad4cfbe87db",
+      "bytes": 15977
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v9.md",
+      "sha256": "b28c1485b7d1bc44dc376a390c614e80faed5a2d02281fff94884b1439fedfed",
+      "bytes": 40840
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v20.md",
+      "sha256": "c2b73e7bb833a1dcf81f60012296401f77937b794453990081f3f3f5a6b8d7b9",
+      "bytes": 46493
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v21.md",
+      "sha256": "3e8c74ff8c7a0af5ba193fdf8ab9fbb006d45f968b91c276c4b035df21ba8917",
+      "bytes": 47006
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v22.md",
+      "sha256": "8d9effe1c5ad954bdc38b7ed49936643c559f5b8c8c2a22129e212242d070eea",
+      "bytes": 47581
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v23.md",
+      "sha256": "3b7ff580278b10b7e9d5d43f80813b5fb8eea4679caca9ab035c2a8f21f8810a",
+      "bytes": 48268
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v24.md",
+      "sha256": "9b2b456857d8f26105c31fef82b4b95221a04a584e8e7bb30835c811c4fa1104",
+      "bytes": 48194
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v25.md",
+      "sha256": "4a0d8abe0b93d127400f63071929d06d483d9fc97d951f6d527041ba3c73e9a5",
+      "bytes": 48378
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v26.md",
+      "sha256": "310c9497e47960e2676da2a60a07cc5ba2e464ae1b2003e93f497922a3421dab",
+      "bytes": 48602
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v27.md",
+      "sha256": "783b79f70e4bd53d3b04a0bd6b921b064aa82efa59bb4e9ceceda8c3b4af1020",
+      "bytes": 48506
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v28.md",
+      "sha256": "0ea305559a71e23134cc9c0c00c47b75c04b4383be4d4ccda62d92ee5dde7f1f",
+      "bytes": 48499
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v29.md",
+      "sha256": "d81f403b8fcff11da72ce5b7891c9935f4ffd9dfa176a2d6540363e7a84f799c",
+      "bytes": 48519
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v30.md",
+      "sha256": "b6216e423377be83cf1bc1176fe9fbf321e68ac227c5a09329c4146d93dc3f27",
+      "bytes": 48886
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v31.md",
+      "sha256": "98ca9689b2e0a981d6529b8fc303e2825501a3d9c8a1f0caa070049337ffd1a6",
+      "bytes": 48874
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v32.md",
+      "sha256": "c2d11fc7c37b0b14ff5ad28cd7618db3dc498792107f5a0fa293756b61c2b43d",
+      "bytes": 50249
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v33.md",
+      "sha256": "7204cc6ab1378c3c6131f7e29828b495f3a4bf7c8204c4442be2096da47e3664",
+      "bytes": 50305
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v34.md",
+      "sha256": "71f51f8ab054ade8449d6eb47c86fc120d55bf0664e6ee6e34176011f6ee1672",
+      "bytes": 51006
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v35.md",
+      "sha256": "eb9f0cb1e3d47822839b2bc5093a6b34089b9d365ea0a5db53a67e8ba0cc04c6",
+      "bytes": 51036
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v36.md",
+      "sha256": "b86e36c206d6211073e8fcd24234515871aa0202b2e1c200dda1b815e8b2cf49",
+      "bytes": 51184
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v37.md",
+      "sha256": "2ced844847029ba86b6a7b20b546e633a1cd27f8e78c10e7be90358e641ddcc9",
+      "bytes": 52109
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v38.md",
+      "sha256": "fabb7eea960eac59b70a17e96316ff94a7b479b0a6d4db5f8e42414e08c0e9e8",
+      "bytes": 54597
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v39.md",
+      "sha256": "c117f489785f7c4d0cffb2d533419f26ac590312ed52ec716862d74ad1c81e63",
+      "bytes": 56132
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v40.md",
+      "sha256": "a1c160eff25f23bf3643bb88f645d44fa73f001d4d952234e9c1fb6c469c7c53",
+      "bytes": 56917
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v41.md",
+      "sha256": "d277641725edd555746b440d6400ec18f7ad201c4e259e8d40d36f4e5421e2da",
+      "bytes": 57468
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v42.md",
+      "sha256": "8b24a23b4375bd7679494b8c6c5d3f518cdd592fc0e24abfd01d7e314c4ca8e9",
+      "bytes": 57931
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v43.md",
+      "sha256": "15781cbfe2c815d3b96883270109013abeee2858ddbca0ee66c09a1a4aec0877",
+      "bytes": 59330
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v44.md",
+      "sha256": "771e6ecbdd4778cbbdb3b2f6fdf07538472d5149cb0599e240d54f37028e8744",
+      "bytes": 59553
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v45.md",
+      "sha256": "911978bc2a85152a7c900f61042218a0ad6c3b458e9dc8dae0acbf9130558026",
+      "bytes": 60569
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v46.md",
+      "sha256": "384337c3797155813f89e147256d48bbc591145622c137f139d713cb18950db9",
+      "bytes": 62142
+    },
+    {
+      "path": "docs/reports/hung-e2e-review-gates-20261028.md",
+      "sha256": "31d4c2779d403061e555cdefa503ba03fca6a76a843a843393f69dbb820addb7",
+      "bytes": 5393
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v1.md",
+      "sha256": "d20aab3b3373afc041e56594628af4b36a4ac7099f6122410eb15919353cec90",
+      "bytes": 1645
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v10.md",
+      "sha256": "2ca81858ccab29f29d5c001a5b864d1c88059bae96a62d08d034a0353e46aabd",
+      "bytes": 2292
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v11.md",
+      "sha256": "8d00be3c75474355f1ebe6c14cf4859d5af822d358657b6d28bea1b50b3a1bf8",
+      "bytes": 2301
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v12.md",
+      "sha256": "a80461beb1719c1faed45a4923f343c290107a13d693c035a4a00e36710b041f",
+      "bytes": 2776
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v13.md",
+      "sha256": "84640ead43a06302ee6885e6b7e9db57d04ed4c94eba3d15eb8b0cd42980dd0c",
+      "bytes": 2181
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v14.md",
+      "sha256": "6633b3fa52b19109a5f0e8af97133ad93f53e93d032137979337c670a6ebb2db",
+      "bytes": 2234
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v15.md",
+      "sha256": "c5eb542a42249192d06463ab69ef9af29148ef3cc320696338e422f7c8f631b4",
+      "bytes": 2616
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v16.md",
+      "sha256": "93cd851bcac1b421345ed5b052ee6fefd6e3329876f0a6ad19463d3345d918fe",
+      "bytes": 2321
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v2.md",
+      "sha256": "cbc59412a4f481938c7252e729702d44e2220c85296c925884b1b3e338bdc8d1",
+      "bytes": 1909
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v3.md",
+      "sha256": "e6a98d0a7f1a92c2bce173c1e3497af92fb9008f94d7e885837929cc362a397e",
+      "bytes": 1361
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v4.md",
+      "sha256": "e43e9b282b1305b12be045abd2e0fe14a1e44251abff1e293ecba77b405321f6",
+      "bytes": 2418
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v5.md",
+      "sha256": "ced0524c17ab53305d413e1234e6e7aa8dc608882da8a8c750ae60587828152f",
+      "bytes": 2062
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v6.md",
+      "sha256": "b74f1603cc488be721d9710f6775970c12806dd0f3e9f148dec57c1e7c0b4e03",
+      "bytes": 2229
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v7.md",
+      "sha256": "f428a31e846460a9e5ecd1ed15195fbfb6f0e96c7858e0809c84a4fdcca4e3c6",
+      "bytes": 2194
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v8.md",
+      "sha256": "e15e1fe7e8490130cd8d83b64dc1ea2e98548120090fbc9e8429a0ce3c0512d9",
+      "bytes": 3187
+    },
+    {
+      "path": "docs/reports/hung-e2e-validation-20261030-v9.md",
+      "sha256": "d7b4124dd5842c8258239fb7185ad97423add84704ef0efbe9f120a17dcdc123",
+      "bytes": 2636
+    },
+    {
+      "path": "docs/reports/hung-experiment-interface.md",
+      "sha256": "f5ce1aca132b22c586ecde024d672c5a66e9e0fce018d883e9bb879160ddfc82",
+      "bytes": 7213
+    },
+    {
+      "path": "docs/reports/hung-export-ingestion-20261027.md",
+      "sha256": "4ad0b9b50e536dea5b10b631037b978441ed26d2b00970f91c86459dd8b29163",
+      "bytes": 2168
+    },
+    {
+      "path": "docs/reports/hung-final-cost-missingness-20261030-v1.md",
+      "sha256": "c57b871779359c2bc799dc2dc15c2d29f2ab79e7afe47841df932b1af31b9a9f",
+      "bytes": 2691
+    },
+    {
+      "path": "docs/reports/hung-final-coverage-symmetry-20261030-v1.json",
+      "sha256": "6831ce58e0e679f8a91c85e4b25617db28fd72915a9cc70afc38fbf7b524e9e8",
+      "bytes": 3424
+    },
+    {
+      "path": "docs/reports/hung-final-coverage-symmetry-20261030-v1.md",
+      "sha256": "66b453344063e84ac1cfabb4a63bedc99ff6f82894214978f9851ef43c57d83f",
+      "bytes": 3049
+    },
+    {
+      "path": "docs/reports/hung-final-direct-kaggle-readback-20261029-v1.md",
+      "sha256": "3d18f8b6b021d0eb120b92d8fdf1aefcae494e82d997f6de89fcee780c9f3f93",
+      "bytes": 4070
+    },
+    {
+      "path": "docs/reports/hung-final-drift-preflight-20261029-v1.md",
+      "sha256": "27f92749f9f4a5da2a64a9dc8f8974514440e56890e18125d20857bd3f76e28b",
+      "bytes": 1771
+    },
+    {
+      "path": "docs/reports/hung-final-forecast-input-audit-20261030-v1.json",
+      "sha256": "e363e2cb58b5ce17753638818b1f670f683845ec9d73e0dbb2c3e7d2d361aee1",
+      "bytes": 2746
+    },
+    {
+      "path": "docs/reports/hung-final-forecast-input-audit-20261030-v1.md",
+      "sha256": "41f3efdc69d63bf4d2b33da824c3a888115a9168c2ee4e16a849ebfdb9a21832",
+      "bytes": 2653
+    },
+    {
+      "path": "docs/reports/hung-final-gain-aggregation-audit-20261030-v1.json",
+      "sha256": "ce1c1e883c01c42526129b89a9650a4b7604ce10448b663ae94495122d91583c",
+      "bytes": 3258
+    },
+    {
+      "path": "docs/reports/hung-final-gain-aggregation-audit-20261030-v1.md",
+      "sha256": "6e56efd8760b1a90ba3d29f276fee8c570524bd3ccc0c1c56ebde872ed4e97d0",
+      "bytes": 2859
+    },
+    {
+      "path": "docs/reports/hung-final-gpu-launch-20261029-v1.md",
+      "sha256": "f2e23acee30b67bbc2cf05af19d4f50db4faa2752d98f18f8f1d4a126480f1b4",
+      "bytes": 3735
+    },
+    {
+      "path": "docs/reports/hung-final-input-readback-20261029-v1.md",
+      "sha256": "9d8fc492291abccfab441aba1ef0f6178591fb21604fd6a482694e6317488c5f",
+      "bytes": 3529
+    },
+    {
+      "path": "docs/reports/hung-final-kaggle-handoff-builder-20261029-v1.md",
+      "sha256": "fe26c78bce11c37b2be46b10d79d8a17a1f51947f2408050746a6caf65f58e50",
+      "bytes": 3090
+    },
+    {
+      "path": "docs/reports/hung-final-kaggle-source-preflight-20261029-v1.md",
+      "sha256": "f0fe635a2a12cf7c172f488a7a12a678dd0ec23ae85f04d649704a535b9498ad",
+      "bytes": 3205
+    },
+    {
+      "path": "docs/reports/hung-final-kaggle-transport-preflight-20261029-v1.md",
+      "sha256": "52ddbd1737cdf35530cc15d9041c32ecb6460cafeb0e310bd2c4eec29cfe587b",
+      "bytes": 3269
+    },
+    {
+      "path": "docs/reports/hung-final-local-archive-preflight-20261029-v1.md",
+      "sha256": "b5f314cdc251de634bf6e2ebdd18b1626c66766c822088a757297d8f4c4d9953",
+      "bytes": 2812
+    },
+    {
+      "path": "docs/reports/hung-final-lock-generator-preflight-20261029-v1.md",
+      "sha256": "ac66ef050701b102542d3eebbdf3cf958c4626a173b3b0f598146ae9a56cdde6",
+      "bytes": 3717
+    },
+    {
+      "path": "docs/reports/hung-final-lock-review-candidate-20261028.md",
+      "sha256": "f06c55dd76d43fb8173b11a31b936d5e2e8a0ce7de6c2c4930a011b79a8f3a1f",
+      "bytes": 4492
+    },
+    {
+      "path": "docs/reports/hung-final-main-adverse-station-audit-20261029-v1.md",
+      "sha256": "db30a1a1f9642b62d53e10aacf67243b03a412199133ddda787befdea1e454c2",
+      "bytes": 4618
+    },
+    {
+      "path": "docs/reports/hung-final-metrics-reproduction-20261030-v1.md",
+      "sha256": "907c667e4d39f4acb461d7aefa54c0741397e1632d2abf5a3b1ab988c0ab5b23",
+      "bytes": 4363
+    },
+    {
+      "path": "docs/reports/hung-final-null-label-input-20261030-v1.json",
+      "sha256": "98f0b1f1c94118802a6ad2473a69545bcb26f626abe20299e6e0c35cd0d7599b",
+      "bytes": 2230
+    },
+    {
+      "path": "docs/reports/hung-final-null-label-input-20261030-v1.md",
+      "sha256": "8b4f287860d78997acf96ab580143ec08ed33fbb41a14a166f69e78cb0f1e47d",
+      "bytes": 2468
+    },
+    {
+      "path": "docs/reports/hung-final-omitted-disposition-20261030-v1.md",
+      "sha256": "86633425b53c8e62da6b6fd4bb21a0a765d19d3a29a9d67d746fc4531f965cc8",
+      "bytes": 3405
+    },
+    {
+      "path": "docs/reports/hung-final-omitted-schedule-audit-20261030-v1.md",
+      "sha256": "5aeceeb93909627f561df1444c2e74042277bda5dff2ec7f7f166b7be2a1e10f",
+      "bytes": 2986
+    },
+    {
+      "path": "docs/reports/hung-final-partial-checkpoint-preflight-20261029-v1.md",
+      "sha256": "558919696e2138b58d8191c68e896881c95003b1684c93496500e2e743b71e58",
+      "bytes": 2695
+    },
+    {
+      "path": "docs/reports/hung-final-prefix-inventory-20261030-v1.md",
+      "sha256": "45caae55c43ea9ec27259886dc61eca647a177552d37928e5363f365938e7705",
+      "bytes": 3087
+    },
+    {
+      "path": "docs/reports/hung-final-runner-preflight-20261029-v1.md",
+      "sha256": "d181a9612e038fb3ce3581c2d7aa9b1374498d8e2159de18819a24f18d54c270",
+      "bytes": 5234
+    },
+    {
+      "path": "docs/reports/hung-final-runner-preflight-20261029-v2.md",
+      "sha256": "992f50d6bb3d5fd74fe0c4bd9e20279a936f715bfa918c2b6a7b4035016bf349",
+      "bytes": 2640
+    },
+    {
+      "path": "docs/reports/hung-final-runtime-preflight-20261028.md",
+      "sha256": "3549854bca5f2ff0a8730067e6de7fd778ea1a99c5d8bd5a6429af1b97533410",
+      "bytes": 5325
+    },
+    {
+      "path": "docs/reports/hung-final-scope-feasibility-20261030-v1.md",
+      "sha256": "d29527bbf755a57ffea93bb75da237443dc9574ef97ceb0c4c432b7829a91bae",
+      "bytes": 4724
+    },
+    {
+      "path": "docs/reports/hung-final-scope-source-audit-20261030-v1.json",
+      "sha256": "ba948929e99e81e72742dac53e2f2a894f6e383561a917435f9a92262ea1f9aa",
+      "bytes": 3076
+    },
+    {
+      "path": "docs/reports/hung-final-scope-source-audit-20261030-v1.md",
+      "sha256": "23f1c1ee50e51f3e2996d686ef93966f5fcff93a021f177cc3a4cb75cff41817",
+      "bytes": 3134
+    },
+    {
+      "path": "docs/reports/hung-final-scope-source-audit-20261030-v2.json",
+      "sha256": "4570150203d98628147ad66182838bafbab3ff211833e8b0ffe7838290041e4c",
+      "bytes": 3212
+    },
+    {
+      "path": "docs/reports/hung-final-scope-source-audit-20261030-v2.md",
+      "sha256": "164ca50351d57ffa24a76d458bbf629bba97fc0cf62b3463fbbe76d345396db8",
+      "bytes": 3327
+    },
+    {
+      "path": "docs/reports/hung-final-scope-training-strata-20261029-v1.md",
+      "sha256": "5927f5cae12a7a3e886d20f710593be479b6dc036750e3c27571e16d61df303e",
+      "bytes": 4042
+    },
+    {
+      "path": "docs/reports/hung-final-station-sensitivity-20261029-v1.md",
+      "sha256": "71e16a412a0a7f80cdb06686df0faeea442e396bbe587cb07bc016a1075dd014",
+      "bytes": 3354
+    },
+    {
+      "path": "docs/reports/hung-final-temporal-sensitivity-20261030-v1.md",
+      "sha256": "1ece78d16ec5c4ecd09420f8597ec51dd09bfd2e614427a85737ff17c618d0cf",
+      "bytes": 2962
+    },
+    {
+      "path": "docs/reports/hung-final-verification-ledger-20261029-v1/README.md",
+      "sha256": "47839374360b663f1d7c1479fcbe1afe4f07728937dc130a6bf5d1dc5a8dbeba",
+      "bytes": 3937
+    },
+    {
+      "path": "docs/reports/hung-final-verification-ledger-20261029-v1/jobs.csv",
+      "sha256": "45ea49c707c3bd608936934f0273704a710050beefa0b06bff5528d8cd312454",
+      "bytes": 313640
+    },
+    {
+      "path": "docs/reports/hung-final-verification-ledger-20261029-v1/remote-job-artifact-map.json",
+      "sha256": "0dca10975d5431ac199909ccb5bf69298040d6e4a21d3424bd15986a26cfa0a8",
+      "bytes": 725277
+    },
+    {
+      "path": "docs/reports/hung-final-verification-ledger-20261029-v1/summary.json",
+      "sha256": "50c5196970092528363e7226c5f955b1ca9d19e8b0c6d9a8fc0b02eaa5a2bc7b",
+      "bytes": 814
+    },
+    {
+      "path": "docs/reports/hung-hybrid-input-config-pins-20261027.json",
+      "sha256": "f0cd85ebacdd531585e824b24657a9f116fc0bf5b4bc632f6cd97c3d1a940568",
+      "bytes": 135129
+    },
+    {
+      "path": "docs/reports/hung-hybrid-reconciliation-20261027.json",
+      "sha256": "3ad77cdcbe182cb3642aa3472aa75f6562fd8484c994a49a894aefaf36c51f6c",
+      "bytes": 3091
+    },
+    {
+      "path": "docs/reports/hung-hybrid-reconciliation-20261027.md",
+      "sha256": "520484b74a33037ea142670b543f5d1e018a6c7ee4012dda24b88810fe2b6e68",
+      "bytes": 5021
+    },
+    {
+      "path": "docs/reports/hung-hybrid-v2-provenance-20261027.json",
+      "sha256": "7ea3e102d7ba8388224d3f84ee4a4e39ba50ffca789cf4d35ff5be57bb4394a9",
+      "bytes": 198792
+    },
+    {
+      "path": "docs/reports/hung-hybrid-v4-provenance-20261027.json",
+      "sha256": "33ab99da8ad8d3f7f55b23db0a42b1d39b7afdb593c14c8cfa19480c01fed343",
+      "bytes": 264549
+    },
+    {
+      "path": "docs/reports/hung-hybrid371-coverage-costs-20261027.md",
+      "sha256": "15f62bf62448f8204750fbac63a57ee0fb348ca77de5689c74881568081d371a",
+      "bytes": 4931
+    },
+    {
+      "path": "docs/reports/hung-kaggle-560-recovery-register-20261028.md",
+      "sha256": "ee78a3c0867dda9c349acf388d20e6ad8a3590a9a99ef97498373aaba582854e",
+      "bytes": 3588
+    },
+    {
+      "path": "docs/reports/hung-kaggle-active-work-20261028.md",
+      "sha256": "5395f04a076686607bf6c3a480bfb410767094ac3f42ad4f7a0670d7ae53bf8f",
+      "bytes": 3624
+    },
+    {
+      "path": "docs/reports/hung-kaggle-cli-proof-readback-preparation-20261028.md",
+      "sha256": "2c218241a72ce32c05a7df23732e1b18f3b3e2dfabc2b728655ad6ff8776a490",
+      "bytes": 2054
+    },
+    {
+      "path": "docs/reports/hung-kaggle-compact-per-job-proof-preparation-20261028.md",
+      "sha256": "d920105773dd563457d7f90651d5abd910fbf13711ba3add19fa529c805cf3db",
+      "bytes": 4772
+    },
+    {
+      "path": "docs/reports/hung-kaggle-compact-proof-group02-20261028.md",
+      "sha256": "2e0580c5521f9c81577245cf3f7cec28c2b1b83e13926ae77f7d732c1a3c1cc4",
+      "bytes": 4737
+    },
+    {
+      "path": "docs/reports/hung-kaggle-compact-proof-group03-20261028.md",
+      "sha256": "69d7a294cde05033c998b9bdb3a3b392ac58578e0da32e7065eb09dc06b1bff5",
+      "bytes": 4269
+    },
+    {
+      "path": "docs/reports/hung-kaggle-compact-proof-shard0001-20261028.md",
+      "sha256": "3264baa334387425eef0e53c41c178bb1e5139d6ebe7b1729bd2a0ebeea9373c",
+      "bytes": 4586
+    },
+    {
+      "path": "docs/reports/hung-kaggle-compact-proof-transport-20261028.md",
+      "sha256": "c8a638f52a3bd08241f89e7bce9765553d5d2fb1a8aa6673fd2c1cb692390317",
+      "bytes": 2190
+    },
+    {
+      "path": "docs/reports/hung-kaggle-compact-stageplan-handoff-20261028.md",
+      "sha256": "7c691dd405ed53d0f5b117f8d05d52558586a35cc5d4789184e6dd8eee5c152b",
+      "bytes": 1960
+    },
+    {
+      "path": "docs/reports/hung-kaggle-compact-stageplan-review-20261028.md",
+      "sha256": "fa4494c092f9075e09022c9a4004d09d13e8a4cccff95344aba9c0064deecf04",
+      "bytes": 3572
+    },
+    {
+      "path": "docs/reports/hung-kaggle-cpu-restore-20261027.json",
+      "sha256": "f8c4d1acce33efe5579b0842c4d0532c4886bbaae74020a2db80f083cc9f51c2",
+      "bytes": 3614
+    },
+    {
+      "path": "docs/reports/hung-kaggle-cpu-restore-20261027.md",
+      "sha256": "65cc60c3ec2183df4b9e54f020cd7a1be1474a57abebbdaf6aab62cd52f7e723",
+      "bytes": 3753
+    },
+    {
+      "path": "docs/reports/hung-kaggle-export-batches-20261027.md",
+      "sha256": "e5afc32256d4df36e8f286c84ad7f2a61ffb1bdfc90e2637b8e7d56754d6eb7c",
+      "bytes": 3250
+    },
+    {
+      "path": "docs/reports/hung-kaggle-local-stageplan-complete-20261028.md",
+      "sha256": "f02652cd245c40eb48933dbd334af973bd04ad567dc15db44891a050ee9e2a7d",
+      "bytes": 5769
+    },
+    {
+      "path": "docs/reports/hung-kaggle-local-stageplan-group02-20261028.md",
+      "sha256": "66c6ff1819a8ead6ac763bc8c2ebef92151cc01c4039c9820b44e4182801f087",
+      "bytes": 2752
+    },
+    {
+      "path": "docs/reports/hung-kaggle-local-stageplan-group03-20261028.md",
+      "sha256": "52b9dbb7803f552ae1aacb907e817d93f8492b09e17d0f4f7bf31035c291b256",
+      "bytes": 3077
+    },
+    {
+      "path": "docs/reports/hung-kaggle-local-stageplan-group04-20261028.md",
+      "sha256": "51fe3c7f74bdcdb630cba285e8821b1ba5234942dd2f980b7635ff5f0ca15618",
+      "bytes": 3297
+    },
+    {
+      "path": "docs/reports/hung-kaggle-local-stageplan-group05-20261028.md",
+      "sha256": "5cf27cc8fa02c27dbeeb78ea90ccb13acc8963d5439ba091f75c4107301dd496",
+      "bytes": 3287
+    },
+    {
+      "path": "docs/reports/hung-kaggle-local-stageplan-group06-20261028.md",
+      "sha256": "ea4dc11a3c5ba94180d5c6d384912c501b010289ddc4b1fa7d1efdf90bb407d3",
+      "bytes": 2560
+    },
+    {
+      "path": "docs/reports/hung-kaggle-queue-20261027.md",
+      "sha256": "d858ac9f75680982fce2b74fe23384f870bcb738ef2b3a7b3446e5ffc626b363",
+      "bytes": 3890
+    },
+    {
+      "path": "docs/reports/hung-kaggle-readback-group02-20261027.md",
+      "sha256": "3294439a6c34978dd806072399c8cb61e6b6d8e88092e6bbe2a8f6a9f6dbbe27",
+      "bytes": 2576
+    },
+    {
+      "path": "docs/reports/hung-kaggle-shard0001-20261027.md",
+      "sha256": "7d6316d8760c23675aaaf8d913b62f392fad7431df6d518adb1ac482765a64ca",
+      "bytes": 4943
+    },
+    {
+      "path": "docs/reports/hung-kaggle-shard0001-local-readback-20261028.md",
+      "sha256": "742632d13aa82a241e7fb9e0867bd4b715d4076f93ff5728d1718993777826f2",
+      "bytes": 2703
+    },
+    {
+      "path": "docs/reports/hung-kaggle-stageplan-pilot-20261028.md",
+      "sha256": "618c15bd7d31db3313f26ffe3e5a9890699aa282b6af3eebafe1259e538eccca",
+      "bytes": 1868
+    },
+    {
+      "path": "docs/reports/hung-kaggle-stageplan-readback-blocker-20261028-v2.md",
+      "sha256": "a2efd33f8fd7cb0523e0c685bfce9c80368bf88fe23700298076aa0ce4ce6ce5",
+      "bytes": 1816
+    },
+    {
+      "path": "docs/reports/hung-kaggle-stageplan-readback-preparation-20261028.md",
+      "sha256": "dca4f08f90e31a8e2fdbdb629686300e6edf37acf308a498567486721425bf2f",
+      "bytes": 1496
+    },
+    {
+      "path": "docs/reports/hung-local-archive-metrics-validation-20261028.md",
+      "sha256": "01942d4382309008629d0187b65a73bc88fac3efb1ebbbb03275dcec413525f0",
+      "bytes": 3241
+    },
+    {
+      "path": "docs/reports/hung-local-complete-output-dispatch-20261027.json",
+      "sha256": "6984af2a82a3646fcbdbae5169daa46cd451d758005b9896a2c4fc60c3aaf829",
+      "bytes": 2894
+    },
+    {
+      "path": "docs/reports/hung-local-complete-output-dispatch-20261027.md",
+      "sha256": "c243fd036ec19f109a8bf34ad759f3cf41ddb024d81a8c1d7898a638a41c8f76",
+      "bytes": 7451
+    },
+    {
+      "path": "docs/reports/hung-local-shard0039-20261027.md",
+      "sha256": "b4408462a9f848472ceac25a4892acb410b1932b00d669ad181ab57d301b005d",
+      "bytes": 1690
+    },
+    {
+      "path": "docs/reports/hung-local2930-readback-reporter-20261027.md",
+      "sha256": "94192d73c1e4e16736f1f960a005b0d17f96ff7193cab7d848556a3927220805",
+      "bytes": 6361
+    },
+    {
+      "path": "docs/reports/hung-local3132-remote-readback-20261027.json",
+      "sha256": "3504c9c68d8895b0ee2990ceef04b71aa018302e6d3fe60f7b98ec29323f95ad",
+      "bytes": 1586
+    },
+    {
+      "path": "docs/reports/hung-manuscript-numeric-audit-20261029-v1.md",
+      "sha256": "392e22b1a749f317ef67b01a032f42a053ebfe34288daf5ab31b77a2efc28dc7",
+      "bytes": 1991
+    },
+    {
+      "path": "docs/reports/hung-output-dispatcher-20261027.md",
+      "sha256": "f3dc5bd45dc5bc69cadbb18e4de86175dcae51c20d353b9393b397e5a638b02e",
+      "bytes": 6563
+    },
+    {
+      "path": "docs/reports/hung-parity-contract-decision-packet-20261029-v1.md",
+      "sha256": "ed5dd0d7bae41e340ae811988d96423fa98814ad5ac145ad2273be0b8a2f1ed1",
+      "bytes": 7764
+    },
+    {
+      "path": "docs/reports/hung-portable-local-parity-20261027.json",
+      "sha256": "79a4a0055f2a935c24a5880df6e2a5a2be4f1b14f6c4d56062f3ea87eab6519f",
+      "bytes": 773
+    },
+    {
+      "path": "docs/reports/hung-portable-results-20261027.md",
+      "sha256": "44ad691549a9608ebd78010830dcc100631636c3899a7e3f9715bb2e9cd11046",
+      "bytes": 2656
+    },
+    {
+      "path": "docs/reports/hung-provider-499-recovery-20261027.md",
+      "sha256": "82f209ae7e1e8842026886d23fd11d0b7deb59fffb5ff6f356491df93b21d931",
+      "bytes": 7129
+    },
+    {
+      "path": "docs/reports/hung-provider-execution-20261027.md",
+      "sha256": "a536c834ff2cd133fa0090bab027e7ff196178fb273cab8c402c13a6130f1de2",
+      "bytes": 7193
+    },
+    {
+      "path": "docs/reports/hung-provider-phase-detailed-results-20261028.md",
+      "sha256": "61d5147238a53076093a8999287b31fd7699bf76d0233a6210aaacbad1548b68",
+      "bytes": 20759
+    },
+    {
+      "path": "docs/reports/hung-provider-phase-results-20261028.md",
+      "sha256": "b62b4b59745c6b2d4ca0910189d538f61ece4e071566af9e90f1b0ebe8cd7981",
+      "bytes": 14433
+    },
+    {
+      "path": "docs/reports/hung-provider-readback-20261027.md",
+      "sha256": "29ad21debed503336da8577cf9af1876bfeb20067cdd0c82bed75d8b7f2edb1c",
+      "bytes": 2491
+    },
+    {
+      "path": "docs/reports/hung-q-common-trace-20261028-v1.md",
+      "sha256": "8ad420d0c0d6ff9655f3bf2bd28f539e3282e2883e102c4658f4f081f7fbc8c4",
+      "bytes": 4896
+    },
+    {
+      "path": "docs/reports/hung-q-controller-decision-sensitivity-20261030-v1.md",
+      "sha256": "145acb3c763316575404b8f658aefdf2c358453f3408c11743ee0395b9f94489",
+      "bytes": 4876
+    },
+    {
+      "path": "docs/reports/hung-q-head-contract-review-20261028.md",
+      "sha256": "cacef7b4c8d54b5f830da4026d5a5115f3516e54257338b959b88cdb79f6c266",
+      "bytes": 2167
+    },
+    {
+      "path": "docs/reports/hung-q-head-embedding-audit-20261030-v1.md",
+      "sha256": "7f1941289045bdc2369cbb34c63091d2ff43b5fa65284d81938727c59bc7012a",
+      "bytes": 6125
+    },
+    {
+      "path": "docs/reports/hung-q-parity-20261027-v1.md",
+      "sha256": "db7e2c9308d8f11e4aea8b2238c9c9b81cddcd5a96f37b4683aa5c33bc1cb137",
+      "bytes": 7257
+    },
+    {
+      "path": "docs/reports/hung-q-real-development-input-trace-20261028-v1.md",
+      "sha256": "dcdb0c0f9e831978dfabd0efc78c0c5962edc0c233065f5b25f37a52c9d83056",
+      "bytes": 6011
+    },
+    {
+      "path": "docs/reports/hung-qyroven-results-comparison-20261030-v1.md",
+      "sha256": "2eb372e8879f289d773e454c6e59a134073d189f5ffeb8b95630ee9ef4f3f8b9",
+      "bytes": 11741
+    },
+    {
+      "path": "docs/reports/hung-review-capsule-readback-20261027.md",
+      "sha256": "2fa3f2b5038480c533d872847bcbd6def4216fd7cc601489b33d5d3add830a32",
+      "bytes": 4668
+    },
+    {
+      "path": "docs/reports/hung-review-disposition-snapshot-20261028-v1.md",
+      "sha256": "5bdf6c7baf1823433692479e8f49f4f7f09a7327f9066c2f53b000f207bb69a6",
+      "bytes": 4759
+    },
+    {
+      "path": "docs/reports/hung-scientific-gates-review-dossier-20261028-v2.md",
+      "sha256": "bfdb3c5832ebfbe89dc541465bc71719917fe3aea4eb59464a17ec34d7d9b14b",
+      "bytes": 9079
+    },
+    {
+      "path": "docs/reports/hung-shard0012-publication-recovery-20261027.md",
+      "sha256": "1e81ae365643d27831cbca8bde68437d8a2814d3a92325680e7e1b9b1cfa06d7",
+      "bytes": 3822
+    },
+    {
+      "path": "docs/reports/hung-shard0013-bounded-recovery-20261027.md",
+      "sha256": "378b58cc886f829791eaa6605b36a5f0a2197e3e0c9a8be0113a9c855f8ebb29",
+      "bytes": 4159
+    },
+    {
+      "path": "docs/reports/hung-shard0013-claim-gate-20261027.md",
+      "sha256": "35148b66732eeb507f7f9e525168e3df0a003d697da345dedd4cfa6d4bc67134",
+      "bytes": 2299
+    },
+    {
+      "path": "docs/reports/hung-sprint2.md",
+      "sha256": "1c97bb607e41232fb7da43df1dd75a6573cd222eb0a6b8cfdc3cb4dd06d9cf23",
+      "bytes": 34365
+    },
+    {
+      "path": "docs/reports/hung-zero-score-label-audit-20261028-v1/cells.csv",
+      "sha256": "17d59139ba768b3f5211e77bc4590f690800d77c39c37a3fd56f60db58a7926f",
+      "bytes": 1778
+    },
+    {
+      "path": "docs/reports/hung-zero-score-label-audit-20261028-v1/origin_labels.csv",
+      "sha256": "129ade6cfab6bc433459dae5bcd204404c3a5ce01bac33b16846f568fe7e3e8f",
+      "bytes": 107892
+    },
+    {
+      "path": "docs/reports/hung-zero-score-label-audit-20261028-v1/report.md",
+      "sha256": "448045c52898533e81e28be1ebb7b06fc1cd867b41737cc4563824381b6bb7a0",
+      "bytes": 5523
+    },
+    {
+      "path": "docs/reports/hung-zero-score-label-audit-20261028-v1/summary.json",
+      "sha256": "692d36c039af7b830f0a46735db0c4100d54ae895863bb97edac38e5d97d86c6",
+      "bytes": 2953
+    },
+    {
+      "path": "docs/reports/images/issue23-calibration-complete-colab.png",
+      "sha256": "7d96de612ed3db4e2c9a51316f64240bbc4c506583a1b7aefd2360802e569370",
+      "bytes": 127026
+    },
+    {
+      "path": "docs/reports/images/issue23-core-colab.png",
+      "sha256": "85ed1e0d0128fb0be6e16ee06c64c65fe07486ed388eff8b564accd97275af23",
+      "bytes": 141625
+    },
+    {
+      "path": "docs/reports/images/issue23-readiness-colab.png",
+      "sha256": "cdb859cc52eb59ab2338d2c6c5015400742c5ff20d7f7afabbc82726b32ecfc0",
+      "bytes": 118497
+    },
+    {
+      "path": "docs/reports/images/issue23-source-duration-colab.png",
+      "sha256": "8b43a104ea4865295a7ec7f6f39f21be49f61ea44fad17ec6fb9c4afb8a96f33",
+      "bytes": 157932
+    },
+    {
+      "path": "docs/reports/images/issue23-source-training-curves.png",
+      "sha256": "d48682eaaef2bd59f04cb0e0c717308f011a97459df18f15be4b8dbe60ad1c71",
+      "bytes": 51033
+    },
+    {
+      "path": "docs/reports/implementation-comparison-readiness.md",
+      "sha256": "a884e7ec672735e46968027d882de384c4f377e12e21bb3ad186eb6ffb65b767",
+      "bytes": 10114
+    },
+    {
+      "path": "docs/reports/implementation-component-evidence.json",
+      "sha256": "37ae50ecd75afe2e019d81b71b3ad2a2fd90c22bedd7f3f8d61bd6a6355b923e",
+      "bytes": 1403
+    },
+    {
+      "path": "docs/reports/input-features-evidence.json",
+      "sha256": "18485f57de3b47fccb224e291001891a55199f10aac80414c3e94a9163ed9bc6",
+      "bytes": 1093
+    },
+    {
+      "path": "docs/reports/input-loader-evidence.json",
+      "sha256": "b8669a200b9a0c66a9baae2f78a991c796f76e41e9f04e332c9d7275a8b10ff7",
+      "bytes": 4291
+    },
+    {
+      "path": "docs/reports/input-loader-real-evidence.json",
+      "sha256": "c43f4deaaa9a8f7bd3453860aec4c8b13f4765b725c622badaa4acf049c7ae6d",
+      "bytes": 46134
+    },
+    {
+      "path": "docs/reports/input-reader-boundary.md",
+      "sha256": "5c3aa7a32fcfa92b3f34a8473e238452b141de95b45a47fd458cf03101b9a5d7",
+      "bytes": 4714
+    },
+    {
+      "path": "docs/reports/input-split-scaler-evidence.json",
+      "sha256": "134f22d96f540046768a087ec76f21914751db30f23f3476d0dc84d9633cb4cc",
+      "bytes": 1177
+    },
+    {
+      "path": "docs/reports/input-windows-evidence.json",
+      "sha256": "0da1c47ad0d98834e05b7c8c1fbc2342f239606e407658f8fe099b1f431f9b19",
+      "bytes": 1659
+    },
+    {
+      "path": "docs/reports/issue19-qyroven-evidence.json",
+      "sha256": "45bfe49d51be75dcdd4259455ddeaca572111be26a3ad6c4c0e2efae53f7440e",
+      "bytes": 87794
+    },
+    {
+      "path": "docs/reports/issue19-qyroven.md",
+      "sha256": "da9441792c06a046e7d8e0481641387cae9ad056bb9b49172a4ba70eebc60f00",
+      "bytes": 7888
+    },
+    {
+      "path": "docs/reports/issue20-qyroven-evidence.json",
+      "sha256": "3324b2f4c60a53ffddfb0d1eb51a96a169a95ed8c90df577a1ef6d5b92fb03f9",
+      "bytes": 10576
+    },
+    {
+      "path": "docs/reports/issue20-qyroven.md",
+      "sha256": "1d4cd510bb397c2c18f0c96bb3669c55ca6c40e34636a3ae2204c1e44f756c9c",
+      "bytes": 5101
+    },
+    {
+      "path": "docs/reports/issue21-qyroven-evidence.json",
+      "sha256": "c797e2b73c7ea641d465f78911ca9eee31f794f9f96cff59276be1c6885692f8",
+      "bytes": 62997
+    },
+    {
+      "path": "docs/reports/issue21-qyroven.md",
+      "sha256": "dbddd1d1636104433390afcba6f355ab02fd8fbc95d5adb39da900ff42a16357",
+      "bytes": 8470
+    },
+    {
+      "path": "docs/reports/issue22-artifacts.json",
+      "sha256": "097eff081eceffac53775e3721236a00028c9f616b895f55daab40b87f80600a",
+      "bytes": 7820
+    },
+    {
+      "path": "docs/reports/issue22-execution-evidence.json",
+      "sha256": "f96d24969023ab60c462b6f1e8e20694d54f64be6542c4a6044e934e30aa0169",
+      "bytes": 6698
+    },
+    {
+      "path": "docs/reports/issue22-qyroven.md",
+      "sha256": "c878f9aec06b855197f324a17fae509ddafe5a2244f9f72096c091341da1464c",
+      "bytes": 11900
+    },
+    {
+      "path": "docs/reports/issue22-spotcheck-evidence.json",
+      "sha256": "99ae11c49b2f211ed23af9985896b7a6523baa4375dcff09ca269cab0b61d7d9",
+      "bytes": 2207
+    },
+    {
+      "path": "docs/reports/issue23-ams-development.md",
+      "sha256": "1f6b23ac14e83567e0743f17ef1580a5076647ba6980f1055893ce84de9f4e07",
+      "bytes": 12135
+    },
+    {
+      "path": "docs/reports/issue23-analysis-extensions.md",
+      "sha256": "0c771eb82ac21ed0ecfc22267e2ccc72c861e125ba26e11532f988e7f87639f6",
+      "bytes": 15684
+    },
+    {
+      "path": "docs/reports/issue23-capacity-estimate.json",
+      "sha256": "2e40d4f6dd7e08a5587c01335f5d2b285d48ca1c7ed236df8386bf2d6c4ae5c5",
+      "bytes": 105431
+    },
+    {
+      "path": "docs/reports/issue23-charged-capacity.json",
+      "sha256": "1639cc99232295a46417b1b8ba282df363d78e500aa14931633f196229c6664e",
+      "bytes": 12276
+    },
+    {
+      "path": "docs/reports/issue23-charged-cohort-inventory.json",
+      "sha256": "211337cd751246c0e8fb6bfb8ee202c5d91a33f48b8f8e95f15ac292d8680d32",
+      "bytes": 3474
+    },
+    {
+      "path": "docs/reports/issue23-charged-development-cohort.md",
+      "sha256": "784521dc13e7845a48e82f52e9aa2c21d0fed7da6df86530025f4a7c839fe55c",
+      "bytes": 4709
+    },
+    {
+      "path": "docs/reports/issue23-charged-matched-development.md",
+      "sha256": "326694ac3211dfd61dad8e6c167ce06320a6de862ef5d1b002b1ee9f20577421",
+      "bytes": 20681
+    },
+    {
+      "path": "docs/reports/issue23-colab-real-resume-gate.json",
+      "sha256": "64807c16ac1ba26119664d76763a46a58e7b64bb46d24c8c245c94e90e0a1ea0",
+      "bytes": 24385
+    },
+    {
+      "path": "docs/reports/issue23-colab-real-resume-readback.json",
+      "sha256": "9e7653e2ef7239163ecb04093d6e62cb881ff826ad7d2030e9a4a2ab96392246",
+      "bytes": 1626
+    },
+    {
+      "path": "docs/reports/issue23-colab-resume-gate.json",
+      "sha256": "93425f70026dbbd51ee698fffbf7140cec4c5a39ed8ee7fab62846aa2c13bd5e",
+      "bytes": 9510
+    },
+    {
+      "path": "docs/reports/issue23-colab-resume-readback.json",
+      "sha256": "a3e7e4d3bb19968b892f05b52b804465423a741f3604d02b6b57c7a314750ef6",
+      "bytes": 812
+    },
+    {
+      "path": "docs/reports/issue23-colab-unit1165-acceptance.json",
+      "sha256": "071d8f8b4d5c6c337bfc2b210b273426bf8a400d5b5907be770acfe5567b22ef",
+      "bytes": 6072
+    },
+    {
+      "path": "docs/reports/issue23-colab-unit1165-first12-receipt.json",
+      "sha256": "cf6967730142271badc34d442e89a3f2f165b8cf4ac4877947a92ac4da2e1e68",
+      "bytes": 2650
+    },
+    {
+      "path": "docs/reports/issue23-colab-unit1165-seed43-acceptance.json",
+      "sha256": "ce446202be583011afcc672c398b82eab4f1b290d01dae670e62507805b1f0c0",
+      "bytes": 6164
+    },
+    {
+      "path": "docs/reports/issue23-colab-unit1165-seed44-acceptance.json",
+      "sha256": "bb6cd79b14b6e7a8db1c725bacc24ada2c13135346e17a5334e6fb7d5f6fdc4d",
+      "bytes": 6162
+    },
+    {
+      "path": "docs/reports/issue23-colab-unit1188-seed42-acceptance.json",
+      "sha256": "98223f56dc13f3dcfc7b8b247bab95c19850c31b60e030cf3e2b644e35ec7a9a",
+      "bytes": 6473
+    },
+    {
+      "path": "docs/reports/issue23-colab-unit1188-seed43-acceptance.json",
+      "sha256": "ad80693dc93117da374f17a98b633631bc47c1cef530b4a3228b266fe8c79d6a",
+      "bytes": 6473
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole01-acceptance.json",
+      "sha256": "2c2ee464657f2c0d462d25115fc473d76d336bce5e49299a0d437df9d53e24ba",
+      "bytes": 19852
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole02-acceptance.json",
+      "sha256": "51ea318e6b6ba0152e9369ae56f424cd32639f0877a861e20d939f2f6f5502cd",
+      "bytes": 20579
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole03-acceptance.json",
+      "sha256": "517e57a0511b5d40734512c3c0da99b6069a4d80f0c028ff636249ad109f2d31",
+      "bytes": 21587
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole04-acceptance.json",
+      "sha256": "88171762650ea5e53fc39a1e9ff406dd4aed8473f81200e6c027fcce184b7b83",
+      "bytes": 21582
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole05-acceptance.json",
+      "sha256": "acf03d5d6b443bd27c7ea9adc6f79372b559ce205758a93f3d380021885733ab",
+      "bytes": 21625
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole06-acceptance.json",
+      "sha256": "a0819acf3905f7363f203ae09277d38a80f67a2c9794aea8afed12036fde238f",
+      "bytes": 21510
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole07-acceptance.json",
+      "sha256": "407f8df06befa093585f9275049f3a700c896333e5a77b5d5344cf100e400fe3",
+      "bytes": 6255
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole08R-acceptance.json",
+      "sha256": "abcc55af01414e9289562d614e3410994bf791b4147b9f1f5fbeacf3b9596ca7",
+      "bytes": 6271
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole09-acceptance.json",
+      "sha256": "a326753e64c36eb71be46e4ef741136e90b7d98d42428c7923547cbad8396b22",
+      "bytes": 21485
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole10-acceptance.json",
+      "sha256": "bb623f306c2baa2f6d7c2d50857dbd16d20e31c78eb129bfb82f8619e2693f85",
+      "bytes": 21532
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole11-acceptance.json",
+      "sha256": "9b5c36517522497e981c1f71e6a005e978d8df6978788cb1ddf832d5b21c19c4",
+      "bytes": 21673
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole12-acceptance.json",
+      "sha256": "67654168dedbb6e4eb69454baf1d7727675d73a0cf8b72d3ec20b91cb137971d",
+      "bytes": 21543
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole14-acceptance.json",
+      "sha256": "13fea1476274efa643a91d159d283fb72c56aade7758e55d0d711d55df8a6265",
+      "bytes": 21368
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole15-acceptance.json",
+      "sha256": "c29b02285c0f42af943c6e950b04dce0d7f4acd40aaaa5a2c915d8de3a994534",
+      "bytes": 21420
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole16-acceptance.json",
+      "sha256": "7a868bf9aab57247eb13a82177960a24da82f257fb1d2fc93e4f68e755b2959d",
+      "bytes": 21447
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole17-acceptance.json",
+      "sha256": "55b51331c8684ea8180fc9741f7a23978897376f3f39a74dae9f65874096b4db",
+      "bytes": 21432
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole18-acceptance.json",
+      "sha256": "0dfac613424cbda803e4f019ac52e1adda33e96c040feedcd47c0c8208f2e849",
+      "bytes": 21275
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole19-acceptance.json",
+      "sha256": "d8aab794d294752ee7b247acc60ccf29e4fa9e540b6fc740d47853bbf462bd44",
+      "bytes": 16360
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole20-acceptance.json",
+      "sha256": "9ccfa99d3a6f511a9f39a0e90ad00f88fda3303e847359eb61746e60741c5697",
+      "bytes": 21213
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole21-acceptance.json",
+      "sha256": "5eae011c6b5196909e582d309dcef18d44a09cfae5807f1e8e01fe529d84bc2d",
+      "bytes": 21324
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole22-acceptance-v2.json",
+      "sha256": "ce5589fb8fd6ba84e5a76b0986371554d46164b04b04e34fb88badd652f2e426",
+      "bytes": 21624
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole22-acceptance.json",
+      "sha256": "679ac46acd373f82b40b9c8e409f4e1aa02b3d3f80fd22c69a15a9ce9684ed65",
+      "bytes": 21354
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole23-acceptance.json",
+      "sha256": "c0652c3f716ef467637fc0a0f76498996f3ae144191eebc1212b70d9675c09d3",
+      "bytes": 21346
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole24-acceptance.json",
+      "sha256": "0f2903b030f9440725f5e8a26c2e27ba25e829175b9850f1ae8206e11d3114a7",
+      "bytes": 21347
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole25-acceptance.json",
+      "sha256": "e4bc531730c9b5535f8a97cbc0400ebd14bce0bb2d14192c07fb6c34c91819b2",
+      "bytes": 21825
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole26-acceptance.json",
+      "sha256": "e10cffb00924e4a8b7a6e646b3323bd6bc0ef741e30ccd6dfed9c056a59014fb",
+      "bytes": 21713
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole27-acceptance.json",
+      "sha256": "a3d8565543ae5059766b02e1d3ed20c17751009d970ec5b070cfc3336c4ce696",
+      "bytes": 21815
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole28-acceptance.json",
+      "sha256": "00571e3576a166709f2350b2caef531990ee91e8212f3a2f476ef3c13b56be8a",
+      "bytes": 21883
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole29-acceptance.json",
+      "sha256": "5466e0fe00401ec21a74524d08891602a226843ec184208fd547e5c57dce028b",
+      "bytes": 21864
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole30-acceptance.json",
+      "sha256": "dd954e4bb514270df31b5513709db4835a2982195a68d02608dc8b48b2d736b2",
+      "bytes": 21850
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole31-acceptance.json",
+      "sha256": "d561298972fe0224a2d96cdf06b27c3fa647e48bda3f86e2a405d1286bfa740c",
+      "bytes": 16852
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole32-acceptance.json",
+      "sha256": "5759f0b5bb9985a8ab14cd29d52ada8b560d8b3449940afe4b4136f564ce35d6",
+      "bytes": 21961
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole33-acceptance.json",
+      "sha256": "75aefcb5cc5e99ccdcb396c8eb43ce88c2e6ca8327c296d601b2dc6a83396000",
+      "bytes": 21741
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole34-acceptance.json",
+      "sha256": "b747b22b82bbd100a62d52b3d4fdfe8e372bdd09c5f256f0cdd1075d96ef46b2",
+      "bytes": 21875
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole35-acceptance.json",
+      "sha256": "fb3e192f8cfb9601ecb435bdcaea4a8adf630cf600ec91677a3e43ef8b068cf0",
+      "bytes": 21779
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole36-acceptance.json",
+      "sha256": "403dd426f70fe1b2b0b327222315315bf34a0282b4e4f1f05382c4650c905ceb",
+      "bytes": 21779
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole37-acceptance.json",
+      "sha256": "ea3581f64875ff1f3b41616bf059049095345159a942aae69709ed33effc9be7",
+      "bytes": 21873
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole38-acceptance.json",
+      "sha256": "1301d6b6c66ea8676254be947cb4083e5fc9151b25d5654ef28b4f2dcda6d07d",
+      "bytes": 11743
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole39-acceptance.json",
+      "sha256": "c0638a99c9424591dce855777bf7917d98f6f873394c3afc9cb6935fc92122fe",
+      "bytes": 6754
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole40-acceptance.json",
+      "sha256": "165807af850b2e1424f7626cb8bddaa3772b8ceb8b8c98f8cdb63459fe8e6d22",
+      "bytes": 6676
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole41-acceptance.json",
+      "sha256": "0653e0866e39d5ce1bc41f73249e207980391d7872a3cb9f976fd11f55588b4b",
+      "bytes": 6674
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole42-acceptance.json",
+      "sha256": "a751b7f4e4304e366459a952a4253181c85248b88d2db837da538a69cf12d9e6",
+      "bytes": 6651
+    },
+    {
+      "path": "docs/reports/issue23-colab-whole43-acceptance.json",
+      "sha256": "a1850f460b4169e880b3285534bd2c9e99ee261a8fe531cd0e485f933ef18917",
+      "bytes": 6642
+    },
+    {
+      "path": "docs/reports/issue23-controller-calibration.md",
+      "sha256": "73fea77d1acce9a30b2cdcb5b8327fccbdcda7362697fee76a3c28dc4a36732b",
+      "bytes": 6632
+    },
+    {
+      "path": "docs/reports/issue23-controller-recovery-downloads.json",
+      "sha256": "6f7c9ee93b7a2c5c93af63b8734664eba1577ff875a35d268b12795963675070",
+      "bytes": 6910
+    },
+    {
+      "path": "docs/reports/issue23-controller-selection.json",
+      "sha256": "d93f94ff47c9b18c8f0a052f27acb3949e13c95d9c33e2b425654e6ea9a5898d",
+      "bytes": 5536
+    },
+    {
+      "path": "docs/reports/issue23-controller-verification.json",
+      "sha256": "80d2f8251e4f1cd170d0491b853c29afbcefcaf4e0d9e1691bbffc133f8b9786",
+      "bytes": 105240
+    },
+    {
+      "path": "docs/reports/issue23-core-artifacts.json",
+      "sha256": "bfe307ce1ef140b90924e7c449af8e332e4e7453f8aa80936f659bb19984445e",
+      "bytes": 2700
+    },
+    {
+      "path": "docs/reports/issue23-core-comparators.md",
+      "sha256": "9577941d0f27db9dce30c2c04b5ecdebe871c24cbfafc7ad7cd3834202a822d0",
+      "bytes": 11162
+    },
+    {
+      "path": "docs/reports/issue23-core-download-verification.json",
+      "sha256": "4337c46d7c7cfbcf3b1d9b692d0229d30ee5850ecf73b90a52da52fa628ccf40",
+      "bytes": 582
+    },
+    {
+      "path": "docs/reports/issue23-core-runs.csv",
+      "sha256": "98e1e5a79cff9363edd7b15500e6a654bf267eec85af6d663fc9da355c799ac7",
+      "bytes": 44586
+    },
+    {
+      "path": "docs/reports/issue23-core-summary.json",
+      "sha256": "1b7d8708b5f70af6dd92b1cf96b49d5d363c39656668a0ebe4cadaa8b6701486",
+      "bytes": 134765
+    },
+    {
+      "path": "docs/reports/issue23-current-hung-comparison.json",
+      "sha256": "eaa713e16cd773be7430718835b66a5e549129c4c8bb417916b7565010ebc948",
+      "bytes": 1277
+    },
+    {
+      "path": "docs/reports/issue23-density-contexts.json",
+      "sha256": "7faecd040600da77561f0769506ddf6abd3c880754a658139b87238f15b04739",
+      "bytes": 13702
+    },
+    {
+      "path": "docs/reports/issue23-density-contexts.md",
+      "sha256": "c5f62d6b2d5e18480246c35955ebd115d4621b030d17c21298a45a56e5b1c102",
+      "bytes": 3662
+    },
+    {
+      "path": "docs/reports/issue23-development-accounting.md",
+      "sha256": "422a2c743d40ab707cb66898e6b0ea101141894b72da401daf1257edb53b7b5d",
+      "bytes": 9317
+    },
+    {
+      "path": "docs/reports/issue23-development-evidence.json",
+      "sha256": "a3732f7e23e887fe971c064302c190c74ba83a59d365d0f7c6db91db1f89ec87",
+      "bytes": 4716
+    },
+    {
+      "path": "docs/reports/issue23-development-export.md",
+      "sha256": "3701ad19f87dc168bbc093af59524f5d9cfdb378562554b6320480431f6d2675",
+      "bytes": 13295
+    },
+    {
+      "path": "docs/reports/issue23-development-handoff.md",
+      "sha256": "c1821ebcbf5a0a663d58bdf1cbf7aca803f683d3b3ed30a55d868e9bb01135a9",
+      "bytes": 10876
+    },
+    {
+      "path": "docs/reports/issue23-durable-recovery-evidence.json",
+      "sha256": "64bf5162a06507225b09af832a2474ee01dab25d6bc11748dd23d65dd470f5bf",
+      "bytes": 8806
+    },
+    {
+      "path": "docs/reports/issue23-export-roundtrip.json",
+      "sha256": "d0d4b4bd76fc5c9da8285df66fad48ecd690b64eb44d1c5aa7181244d60a311a",
+      "bytes": 1335
+    },
+    {
+      "path": "docs/reports/issue23-final-bounded-evidence.json",
+      "sha256": "b562227e6af4d68de25c583a17c80cadc64ca6e6d798db45a82c2fd7d1e0e1b3",
+      "bytes": 5543
+    },
+    {
+      "path": "docs/reports/issue23-final-bounded-preparation.md",
+      "sha256": "7144b3f89e43ab4b9eaf4b097a65eccf5a30b555c430cf067a3e990c84eec55d",
+      "bytes": 17399
+    },
+    {
+      "path": "docs/reports/issue23-final-execution-incident-20261027.md",
+      "sha256": "a6f713222edf489256a88a0f00919071f9bbd3a9165221f0e907fb34a20a8c06",
+      "bytes": 6179
+    },
+    {
+      "path": "docs/reports/issue23-final-lock-readiness.md",
+      "sha256": "51a22b637c76d044bb67b5344a26e26097ca4b69e83fbb3bdc97623a1b70eeb1",
+      "bytes": 23510
+    },
+    {
+      "path": "docs/reports/issue23-final-scope-evidence.json",
+      "sha256": "f22b42db317aa39a3d1eb00dc29c3a76fda6f6f17673c7d37129c1be4cd46787",
+      "bytes": 3570
+    },
+    {
+      "path": "docs/reports/issue23-final-stop-checkpoint-20261028.json",
+      "sha256": "5fefb1060fade0505f193637ed8d36e78ca4a0dd3158c768b8287eac4479695b",
+      "bytes": 5370
+    },
+    {
+      "path": "docs/reports/issue23-fixed-retention-artifacts.json",
+      "sha256": "2a387c62154a20741c7b674a84d27d9de48991fcfb80f269c3ba988c6250c776",
+      "bytes": 1632
+    },
+    {
+      "path": "docs/reports/issue23-fixed-retention-download-verification.json",
+      "sha256": "b4b97d882cfd0c399666f0bb599590ca2d1cda55400e8089eba2fc65c5136414",
+      "bytes": 496
+    },
+    {
+      "path": "docs/reports/issue23-fixed-retention-selection.json",
+      "sha256": "b3cdefd64b10fa186a39d9b6e9d6ed2c325f1966eddb1d74e7b46f025495ce20",
+      "bytes": 5315
+    },
+    {
+      "path": "docs/reports/issue23-fixed-retention.md",
+      "sha256": "3a4ffeb8c7a5ffb6d397fb2c33c8f8bddea3f5e924fa8f6ca6e7221ef69f83cf",
+      "bytes": 7628
+    },
+    {
+      "path": "docs/reports/issue23-jhb-development.md",
+      "sha256": "70d30b1eed1c16157bc038fe118c152138e3b5d60d60345038e7ab1f950c20be",
+      "bytes": 10969
+    },
+    {
+      "path": "docs/reports/issue23-jhb-recovery-evidence.json",
+      "sha256": "768473fef203f872112bc33bf7c4debbbf480e1151640cfffd8c7bf687def49e",
+      "bytes": 3259
+    },
+    {
+      "path": "docs/reports/issue23-kaggle-first-checkpoint.json",
+      "sha256": "880b1dc8daea373b007b4a30045eb79951c5091b548fbc2d09d2164872ad0457",
+      "bytes": 4431
+    },
+    {
+      "path": "docs/reports/issue23-kaggle-partial-progress.json",
+      "sha256": "35afa0325981f7bd4ccfde9012ce586817d7407d020a52e90a4c7e84ece33537",
+      "bytes": 2559
+    },
+    {
+      "path": "docs/reports/issue23-loa-development.md",
+      "sha256": "cc5b9d81ceecab2cfb3f8a7a61fff7a5345dc335527e09fa67aaa433e967e27f",
+      "bytes": 10842
+    },
+    {
+      "path": "docs/reports/issue23-matched-collection.md",
+      "sha256": "a7326798e358640ccf114ac8979a61ff4fe45fcf7649b8cb1ba7a7203e136134",
+      "bytes": 43372
+    },
+    {
+      "path": "docs/reports/issue23-matched-development.md",
+      "sha256": "5b844227ef4b6dc58c723c9117386232772f9f5118fccba63e87fa34c1e77b04",
+      "bytes": 7823
+    },
+    {
+      "path": "docs/reports/issue23-matched-evidence.json",
+      "sha256": "35ccb4f606860a4a6022a23ca03abb5a9c31819d898843c88d0ddae1d3f35d70",
+      "bytes": 12579
+    },
+    {
+      "path": "docs/reports/issue23-matched-replay-provenance.json",
+      "sha256": "55516b38742bee64be23a757ce1aec197470a159899d3cd12a75f56ed025dc31",
+      "bytes": 141358
+    },
+    {
+      "path": "docs/reports/issue23-mel-development.md",
+      "sha256": "9805c13ba3c2517b6dff42d6d0c0c883e70f97672f9da8dfde0cb645774030b1",
+      "bytes": 10690
+    },
+    {
+      "path": "docs/reports/issue23-multiworker-controls.md",
+      "sha256": "053010ec6e989d695e06f288ffda5934b0de9dfefaa7b215b0ccce919cd103c9",
+      "bytes": 6146
+    },
+    {
+      "path": "docs/reports/issue23-preserved-partial-evidence.json",
+      "sha256": "b4562e95742295b04952500d825d6917c2afc97a83dea79dc635e6ef3c13c7f4",
+      "bytes": 14387
+    },
+    {
+      "path": "docs/reports/issue23-proxy-calibration-evidence.json",
+      "sha256": "1958d1115323c8964f259ddb6bec8ee0e96615e6d1ad5abb415caf89775eb6a9",
+      "bytes": 18263
+    },
+    {
+      "path": "docs/reports/issue23-proxy-calibration.md",
+      "sha256": "d12837fc3ba5b1b5bb4ed14c5d1d994e47909dc4b49d31c1d18ed9de1591e424",
+      "bytes": 8928
+    },
+    {
+      "path": "docs/reports/issue23-proxy-replay-provenance.json",
+      "sha256": "5e531b856dc483176ef0e7b3997bf17e3926ff89e405678b4b4c7c71706338f8",
+      "bytes": 8733
+    },
+    {
+      "path": "docs/reports/issue23-qyroven.md",
+      "sha256": "515045fda7f8d690db927da90083233449d53cfe471f1d4776db75bc009548b7",
+      "bytes": 10890
+    },
+    {
+      "path": "docs/reports/issue23-reader-gpu-artifacts.json",
+      "sha256": "3b73945c4e39bfe557495cb459988900b0efa4d214deb5b17231162d7607a899",
+      "bytes": 715
+    },
+    {
+      "path": "docs/reports/issue23-reader-gpu-download-verification.json",
+      "sha256": "ca248866c69bb33839e9f7decbbe2326a8312cc66b2cb5844d9d3965e577cc18",
+      "bytes": 583
+    },
+    {
+      "path": "docs/reports/issue23-reader-gpu-parity.json",
+      "sha256": "aff84d4609286a84e14e24ba83d79e8a4fe93f51fcbe25a11ee33a5a68d57762",
+      "bytes": 889
+    },
+    {
+      "path": "docs/reports/issue23-reader-parity.json",
+      "sha256": "43440dfc306cb248f972ef0277f8589b0359058cab695d78c8380d58b9f28cac",
+      "bytes": 6272
+    },
+    {
+      "path": "docs/reports/issue23-readiness-artifacts.json",
+      "sha256": "24879b8fe28f0542f45dfdd68ebfc43cc3ac8f23fdd63c520a785e2b9ef05661",
+      "bytes": 3768
+    },
+    {
+      "path": "docs/reports/issue23-readiness-download-verification.json",
+      "sha256": "2cd60dd9c01b488259023ca6dad867865a55ad4cade7200b2676fa6258d4d888",
+      "bytes": 501
+    },
+    {
+      "path": "docs/reports/issue23-readiness-pairs.csv",
+      "sha256": "7671313c32f1630389ae5f3c4e84b07522fdbb8ba2202732c49b51391ba8ffd5",
+      "bytes": 9125
+    },
+    {
+      "path": "docs/reports/issue23-readiness-summary.json",
+      "sha256": "b5c89801195a5ab3b4679826570e7d515394d9f773c72a0673e774ca82d610ca",
+      "bytes": 41950
+    },
+    {
+      "path": "docs/reports/issue23-readiness.md",
+      "sha256": "8951bd2945ece0ca254248301e82ea6839cf653ea98b73a754a8cecd7ce2f6bb",
+      "bytes": 5980
+    },
+    {
+      "path": "docs/reports/issue23-recovery-context-artifacts.json",
+      "sha256": "c1eb4ca4067ece0ca904f375f4624f9b6f60e03f63cc9cd73e5890046abe57f6",
+      "bytes": 4418
+    },
+    {
+      "path": "docs/reports/issue23-resume-gate-local-artifact-audit.json",
+      "sha256": "84d8630243d8653b0f92d2aa8c925999968cfd09218c2e93edc11d55f010802b",
+      "bytes": 1778
+    },
+    {
+      "path": "docs/reports/issue23-runtime-recovery.md",
+      "sha256": "911b7b359e6df602b651f380841d822c00c5c4e42a530a220044f7eb3b742c45",
+      "bytes": 11712
+    },
+    {
+      "path": "docs/reports/issue23-source-duration-artifacts.json",
+      "sha256": "c0e440d2801a07537b6acfe94557a03612e27c927bf697881f957ab77f206fb7",
+      "bytes": 2503
+    },
+    {
+      "path": "docs/reports/issue23-source-duration-download-verification.json",
+      "sha256": "727bf6e29f1fd6024182bedef8d344ef9ad58d4d05e7f9ff2ae3bc2b67e8df28",
+      "bytes": 1712
+    },
+    {
+      "path": "docs/reports/issue23-source-duration-parity.json",
+      "sha256": "c86095cee325918967d4db03960f16987f541811a295d3bec761bd4de65004c4",
+      "bytes": 25965
+    },
+    {
+      "path": "docs/reports/issue23-source-duration-selection.json",
+      "sha256": "23ad6ed585192e8802d37534ecad199e71879f889b509821b2b74822f479c561",
+      "bytes": 4072
+    },
+    {
+      "path": "docs/reports/issue23-source-duration.md",
+      "sha256": "44467df45ded06be6e18120736217feb72e4c8e3553ab0dc20dd9a1e95e5f5b6",
+      "bytes": 9127
+    },
+    {
+      "path": "docs/reports/issue23-spo-development.md",
+      "sha256": "41e11a7aeb6412604affd78baf93e5b4212c2dd779c49f2bfa7b7f70e63420d3",
+      "bytes": 11356
+    },
+    {
+      "path": "docs/reports/issue23-spo-recovery-evidence.json",
+      "sha256": "e8c473679690f29d88e828a854c8a5b5b5f79d3c23de02a577def07eafa9b6e7",
+      "bytes": 4697
+    },
+    {
+      "path": "docs/reports/issue23-switch-audit-evidence.json",
+      "sha256": "2ab21af5dd09fed3ac4e9325b0bdd4cbaa113515c7122f714474d63ed0546c0a",
+      "bytes": 6525
+    },
+    {
+      "path": "docs/reports/issue23-szh-development.md",
+      "sha256": "b710c2f27e3b2c33e02b40842e3e1131d6fa0cd498297f806e195cbf94ebad28",
+      "bytes": 11243
+    },
+    {
+      "path": "docs/reports/issue23-urbanev-development-primary.md",
+      "sha256": "fbe41486ce625a1046c55d1b2b2a577b473a01169ce257f6829de11275e67ba1",
+      "bytes": 11617
+    },
+    {
+      "path": "docs/reports/issue23-urbanev1165-28d.md",
+      "sha256": "a7678205117490ead28aab186786afeeac3e51080ca4121b96e902e11db01308",
+      "bytes": 5170
+    },
+    {
+      "path": "docs/reports/issue23-urbanev2005-28d.md",
+      "sha256": "f0aa53416fba0505604b67292abc99821a5618f50141c252d35cf4ca0cfd1c17",
+      "bytes": 1644
+    },
+    {
+      "path": "docs/reports/related-method-feasibility.md",
+      "sha256": "5b8f92ea36a181afd9e8918a6f0e88c74f0377cc01a051e5fb7e62b4b8287a98",
+      "bytes": 3394
+    },
+    {
+      "path": "docs/reports/repo-integration-audit-20261102-v1.json",
+      "sha256": "87aaa8e880de2733fd6d2584b7428aa655b461c0615ac94667e2c23df5f72292",
+      "bytes": 492377
+    },
+    {
+      "path": "docs/reports/repo-integration-audit-20261102.md",
+      "sha256": "cc040bcb59147023b380764f0b230eebfbaa9b2a1482f3b9e7fcaa9b3ee208bf",
+      "bytes": 29819
+    },
+    {
+      "path": "docs/reports/urbanev-hourly-issue16.json",
+      "sha256": "35be0887f571955237e7076dfeb140afbb2fefd69d080f9f5013f23bea3c8a55",
+      "bytes": 13765
+    },
+    {
+      "path": "docs/reports/urbanev-rule-comparison.json",
+      "sha256": "9958ad5f00756e044cd1a9821d421b06a302ca42cde77cb7ca52a9c7a8e93c62",
+      "bytes": 6975
+    },
+    {
+      "path": "docs/reports/urbanev-verification.json",
+      "sha256": "e37be770882a31c9a1d162c200af58651c61971f7bf6cb4f5ce400d7d6aaca9f",
+      "bytes": 8017
+    }
+  ],
+  "kept_files": [
+    {
+      "path": "docs/reports/charged-hourly.md",
+      "original_sha256": "d4027b21dda1c3a8f923be136795ada5d0548b3063f8c62c3f5026252e94a54a",
+      "reasons": [
+        "docs/data/DATA_FLOW.md"
+      ]
+    },
+    {
+      "path": "docs/reports/charged-inventory.md",
+      "original_sha256": "c5ac3128ec39054b0f723727241c58032fd8e994c1382e314d9e5b70509ddcb1",
+      "reasons": [
+        "docs/data/DATA_FLOW.md"
+      ]
+    },
+    {
+      "path": "docs/reports/charged-preprocessing.md",
+      "original_sha256": "cd8a5d4bbc0b457b5a2d63b4e47cc977554efec1444f78ba5cd673e4c710adb9",
+      "reasons": [
+        "docs/data/DATA_FLOW.md"
+      ]
+    },
+    {
+      "path": "docs/reports/charged-suitability.md",
+      "original_sha256": "2d0e2780310b2ab98f69145f24abb1b581d54e237587077e61c6118d96671d7f",
+      "reasons": [
+        "docs/data/DATA_FLOW.md"
+      ]
+    },
+    {
+      "path": "docs/reports/data-acquisition.md",
+      "original_sha256": "46d28091b46f5ef91da6a18d101c554019a5b3d3ff5f05e387f4b0690a6ef56f",
+      "reasons": [
+        "data/README.md"
+      ]
+    },
+    {
+      "path": "docs/reports/data-integration.md",
+      "original_sha256": "8c502b4ccc3060112b450f6c4d80776640d83143589f8903075d18f36a0d931d",
+      "reasons": [
+        "data/README.md"
+      ]
+    },
+    {
+      "path": "docs/reports/dev-integration-final-20261102-v1.json",
+      "original_sha256": "37debc80d449094a28ee05ea6d141a7a3e6cd27b8965d0b37ac7168f14ec2293",
+      "reasons": [
+        "final evidence / explicit limitations / disposition",
+        "tools/check_release.py"
+      ]
+    },
+    {
+      "path": "docs/reports/dev-integration-final-20261102.md",
+      "original_sha256": "c769cd89351b4ab40d27bc7034bd193d3faa63c48cd8493c1a758fa46c87542b",
+      "reasons": [
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-block7-input-eligibility-20261030-v1.json",
+      "original_sha256": "0cf719bcb91adb330aabb3cf9ad5d89f32995d0c63c1a88bc254fcee83b0f4c5",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_block7_input_eligibility_audit.py"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-block7-manifest-metric-audit-20261030-v1.json",
+      "original_sha256": "14ece92a6674ff8413607ee61422b3e07d878f3275eacc58582fed3f6e10daf7",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_block7_manifest_metric_audit.py"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-block7-payload-comparison-20261029-v1.json",
+      "original_sha256": "80b8c754a80b127d7d11a96a8776d58dd7fa5406c5e4d63fd848d374c51db009",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_block7_payload_compare_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-ledger-import-manifest-20261028-v1.json",
+      "original_sha256": "3b26d8241b9c639ea8bd1d0e7502cff55745c65aadc18c0b15eec79e864aee58",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/group02-readback.json",
+      "original_sha256": "f2e1778a4d7053d7bd680063e7718025e0bb9a97aceef6bec64d2f16ad43a4de",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/group03-readback.json",
+      "original_sha256": "c2480caca4165f92fc59acc84c8bae256c969d9ffc5f0eb126fc8e8c8176d351",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/shard_0001-compact-proof.json",
+      "original_sha256": "75862528c5d56a27fd5c164c616faf69bcff5c7b23451e09c20ffcdae2cd87e6",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/shard_0001-readback.json",
+      "original_sha256": "9d63f54ceb12d649a3819a92025fe3c6c40677b73588c259ddbc45b17828147f",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/shard_0002-compact-proof.json",
+      "original_sha256": "735a225b2c6253b3357c325ae09735110fe39956c17e0dbbec037e064218a99b",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/shard_0003-compact-proof.json",
+      "original_sha256": "e23351b9593f1703a075e9fb2ddc935d35f52c43469dbd1b3c59db32fab7e5d8",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/shard_0008-compact-proof.json",
+      "original_sha256": "460ee5c8703ca6a35f7d4e1a06e038d93b5d8eecd5c3f8df7ad583ac0fcfbd38",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/shard_0009-compact-proof.json",
+      "original_sha256": "509f30f21455a65579a7a2d8e0083143747989495295d36d5f3272ca45f23f51",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/shard_0010-compact-proof.json",
+      "original_sha256": "6f03412c5386dd65d7c99bf8e7d67e2d9fa3a85b82454749146c48bf725b3a3f",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/shard_0011-compact-proof.json",
+      "original_sha256": "632d6531c2d53644a9a1ab7209f04c2067b9e0e6b76973cf3268b9bb0204309e",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/shard_0012-compact-proof.json",
+      "original_sha256": "dcea62992dd8c65824739b69571727ad68db33a97d7022c8fde55c08c747ba9b",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/shard_0013-compact-proof.json",
+      "original_sha256": "b43feb6603fd6f09f5202411da643c8fa306b7ae4c999edef3cce5e624b01a36",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-compact-proof-transport-363114949/transport-manifest.json",
+      "original_sha256": "e064c1be8be04554953d227403ea241324b33e5fa236a87b2a57d0d28b80c2aa",
+      "reasons": [
+        "experiments/hung_sprint2/final_transport.py",
+        "required evidence bundle",
+        "tests/test_hung_final_transport.py"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-cpu-shard0010-readback-20261027.json",
+      "original_sha256": "36aea0b9366a6f543c77d4c3fc6b1a72da25da6872f168c991366b35a7eea47e",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-development-allocation-20261027-v1.json",
+      "original_sha256": "8214c5aa5abb7958d4832d2948d4c868b1a35b7d0f2196f3f6eaa64ecda31906",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_import_compact_proof_ledger.py",
+        "tools/hung_kaggle_recovery_register.py",
+        "tools/hung_reconcile_782_snapshot.py",
+        "tools/hung_reconcile_782_snapshot_v2.py"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-development-coverage-20261027.json",
+      "original_sha256": "ab90009893993df0264a53b4549c44a0e3e728d08c8662ebf3222429297605de",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_block7_manifest_pairs.py"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-development-group03-metrics-v2-20261027.json",
+      "original_sha256": "cef040671bceb3fd4bc8dab7819419708dba98df12c582616eb82a3975fd0814",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-development-local-pilot-20261027.json",
+      "original_sha256": "c7737f708b72dfc2accddd054790779baa615dd3613a4222545789359abc2740",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_reconcile_782_snapshot.py",
+        "tools/hung_reconcile_782_snapshot_v2.py"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-development-queue-start-20261027.json",
+      "original_sha256": "126d50b93cb9d7672e19fd4ab84739e756d62889b3275533b24540d14f0a999e",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-durable-queue-v2-20261027.json",
+      "original_sha256": "d802559dc761a4d6d723b370aa763c2a5a475622fc7d2aa0f0a2bbe05fe3f899",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-final-temporal-sensitivity-20261030-v1.json",
+      "original_sha256": "00c1765334c5fafc37232c55d246afcd3de1aca0073658e832826d70b28966c0",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_final_temporal_sensitivity_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-hybrid371-coverage-20261027.json",
+      "original_sha256": "742ec443981ed9100e5e2ea0737db0eac301e8ffcdc4afefae3ecfaf70952851",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-hybrid371-observed-costs-20261027.json",
+      "original_sha256": "2ce9ce931c5a1cc441122a2540ed7748171f5844c1060984f947c2f573196e37",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-kaggle-readback-group02-20261027.json",
+      "original_sha256": "5bbf2d7bb017d018a1985fd363a3d26898c0dc1f03ad1801239a0e747de88258",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-kaggle-shard0001-20261027.json",
+      "original_sha256": "a6f78d581cb2ed8cc1ac564ff582713f427561f77c0f6a7ebbbfaabf71fd9b98",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-local-shard0039-20261027.json",
+      "original_sha256": "52d36a11217801e00f7a3992a90fc476cd92680080fb9f9cfa7964e3a3abdde3",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_reconcile_782_snapshot_v2.py"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-local-stageplan-ledger-manifest-20261028-v1.json",
+      "original_sha256": "ed45140e42ad0d72c23171bece9bc678069622aaaa733acf24e4565a96bc0b6c",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-local2930-readback-reporter-20261027.json",
+      "original_sha256": "6fed4ccc946898185ce25900622d49c5eb6ac3a9b17126e65b91557f713dab92",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-provider-499-recovery-20261027.json",
+      "original_sha256": "2d083dad18223c02da86021afd8efb68a857387b27c2d25493952f64f05c5039",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-provider-readback-20261027.json",
+      "original_sha256": "3c14f73d1efde00dd5f956ad92b5ab0f3a8da2056b62917669d73cb8e8b26915",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-q-common-trace-20261028-v1.json",
+      "original_sha256": "d7e55b1b3a9f21742f3b0c47cf47e5920a4b5d7929ced10f09d68c1f67ed7443",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-q-controller-decision-sensitivity-20261030-v1.json",
+      "original_sha256": "04f28827cc1782e61e2c4a36a8df38293fc5ba88fe4378d93fe9a41873f883e4",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-q-head-embedding-audit-20261030-v1.json",
+      "original_sha256": "cc6b6ac84085b59a3e8fd03c0236f55ca5d1e903f9b5ffecc9e4d12f9c4a069e",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-q-head-embedding-audit-20261030-v2.json",
+      "original_sha256": "cc6b6ac84085b59a3e8fd03c0236f55ca5d1e903f9b5ffecc9e4d12f9c4a069e",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-q-head-embedding-audit-20261030-v3.json",
+      "original_sha256": "04d92287c53eceabf884a71ccd812af4effb47e57c8416359d1055ffb514ff94",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-q-head-embedding-audit-20261030-v4.json",
+      "original_sha256": "a6efceb25a48a3bd2045d64e1ff34285d974c145a306361d4abf7a0bd36068be",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-q-parity-20261027-v1.json",
+      "original_sha256": "92d9f69d28ad4026d0d3fce9afafb44b01a1e0a20800e16572f0f60f423fa9cd",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-q-real-development-input-trace-20261028-v1.json",
+      "original_sha256": "941680d16bb28c8caa076940c044750601d2161c175d5b8a6cbae00df36c9d30",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-q-real-development-input-trace-20261028-v2.json",
+      "original_sha256": "dc5e2625e022c468255000d749f8145c69ebc86a65d2eec9248cf51ff07383d1",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-q-real-development-input-trace-20261028-v3.json",
+      "original_sha256": "78351693fd21d8ded23be4b13c73a3b39653d873589be665fc0cbe37049b212c",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-review-capsule-readback-20261027.json",
+      "original_sha256": "a8abdbe6fb23df04cab334ce35300b90f7ea53fae40255ddac0cc060932caa28",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/evidence/hung-shard0013-output-receipt-20261027.json",
+      "original_sha256": "139fb7971640f6de44931695cbe61bd16975b5c0ef1f7e48a8a503b75e90197b",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/external-artifact-test-inventory-20261102.json",
+      "original_sha256": "456dc014be44ac71bebe365429d2986e14667f76d4334664e34e76206f96dedb",
+      "reasons": [
+        "tests/artifact/README.md"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-full-event-order-20261030-v1.json",
+      "original_sha256": "568d2b98bbf78e6a010a516aebb77174b6f65c69d29372c62572cf57562f44c9",
+      "reasons": [
+        "tools/hung_block7_full_event_order_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-historical-checkpoint-request-20261029-v1.csv",
+      "original_sha256": "4518230acfff6a1adba73f4a0733b7289155e306dcc6d8922a6217bafcf82cd1",
+      "reasons": [
+        "tools/hung_block7_historical_import.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-journal-audit-20261030-v1.json",
+      "original_sha256": "c2922ce02fa44df409e12eda8dff99bdaf8264038408e88ca1fe5e220e85d208",
+      "reasons": [
+        "tools/hung_block7_journal_audit_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-journal-manifest-binding-20261030-v1.json",
+      "original_sha256": "9fa2380683fd014e1cbffc7c8468d370c66cccb461a9cd19a104a5a9ae71eea1",
+      "reasons": [
+        "tools/hung_block7_journal_manifest_bind_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-journal-request-20261030-v1.csv",
+      "original_sha256": "38295dade44c779b381cd7b54fe7983699c688754e597d88ede50c1e1127fc02",
+      "reasons": [
+        "tools/hung_block7_journal_stage.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-manifest-pairs-20261028.csv",
+      "original_sha256": "3c4f17cf913d3c78727ced637b8fca084f1e44a85fdc4dff4d470813d760a6d2",
+      "reasons": [
+        "tools/hung_block7_code_lineage_v1.py",
+        "tools/hung_block7_full_event_order_v1.py",
+        "tools/hung_block7_historical_import.py",
+        "tools/hung_block7_journal_audit_v1.py",
+        "tools/hung_block7_manifest_pairs.py",
+        "tools/hung_block7_payload_compare_v1.py",
+        "tools/hung_block7_prefix_numeric_audit_v1.py",
+        "tools/hung_block7_shared_event_order_v1.py",
+        "tools/hung_block7_terminal_numeric_audit_v1.py",
+        "tools/hung_block7_terminal_numeric_audit_v2.py",
+        "tools/hung_block7_terminal_numeric_audit_v3.py",
+        "tools/hung_q_controller_decision_sensitivity_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-origin-eligibility-20261028-v3.csv",
+      "original_sha256": "2a025850fa4e363db173833ea6aa4b9a40b4bccc1dd0e545715984505e283955",
+      "reasons": [
+        "tools/hung_block7_origin_events.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-prefix-import-20261030-v1.json",
+      "original_sha256": "3c46a43aa8c806f697796778a5e145ca9a0951ce83c8cec967f25fe8de0b75f4",
+      "reasons": [
+        "tools/hung_block7_full_event_order_v1.py",
+        "tools/hung_block7_prefix_import_v1.py",
+        "tools/hung_block7_prefix_numeric_audit_v1.py",
+        "tools/hung_block7_terminal_numeric_audit_v1.py",
+        "tools/hung_block7_terminal_numeric_audit_v2.py",
+        "tools/hung_block7_terminal_numeric_audit_v3.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-prefix-numeric-audit-20261030-v1.json",
+      "original_sha256": "9ecce5903d201ce8abe3ada9fb6857380688b60b7ed4a9506e84697d29dbf273",
+      "reasons": [
+        "tools/hung_block7_prefix_numeric_audit_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-shared-event-order-20261030-v1.json",
+      "original_sha256": "3ed2d544f6cc82bb8fec5ff2850432965b52bc8319a827ce8f0acd4f9917b079",
+      "reasons": [
+        "tools/hung_block7_shared_event_order_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-switch-effect-20261030-v1/README.md",
+      "original_sha256": "0f9f79b51fbcd4c53a4974cafeb65300f90702a7fdea4b17d2a0f99d204b85be",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-switch-effect-20261030-v1/summary.json",
+      "original_sha256": "73021d8ee768aab1ad4f354b1ebc6b9ee861271f8bb84a1f79ef033ab4f5bc03",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-switch-effect-20261030-v1/switches.csv",
+      "original_sha256": "0b863d2fce6d6f95b701ffd24a40999061d3158c405a482fe077b3dca9f0527b",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_block7_switch_sensitivity_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-terminal-checkpoint-import-20261030-v1.json",
+      "original_sha256": "009fce2052b69bae7dde12d80b1d9e7cec28459d6f5531ce17ad76c489f535f5",
+      "reasons": [
+        "tools/hung_block7_switch_effect_audit_v1.py",
+        "tools/hung_block7_terminal_checkpoint_import_v1.py",
+        "tools/hung_block7_terminal_numeric_audit_v1.py",
+        "tools/hung_block7_terminal_numeric_audit_v2.py",
+        "tools/hung_block7_terminal_numeric_audit_v3.py",
+        "tools/hung_q_controller_decision_sensitivity_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-terminal-numeric-audit-20261030-v1.json",
+      "original_sha256": "f1f5ddde115bb3f91f57e3fb0494b1940ea6ba726907f81bc09caed66cf301e4",
+      "reasons": [
+        "tools/hung_block7_terminal_numeric_audit_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-terminal-numeric-audit-20261030-v2.json",
+      "original_sha256": "423f56225fe2de06aae30da59389a245f5804b89f05caeb87c5901aa7f7f4ab8",
+      "reasons": [
+        "tools/hung_block7_terminal_numeric_audit_v2.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-block7-terminal-numeric-audit-20261030-v3.json",
+      "original_sha256": "f9d4ff3da1a0185ad82af8bf9de5c07923d9798f119e45269e1fd67abf7f9a4b",
+      "reasons": [
+        "tools/hung_block7_terminal_numeric_audit_v3.py",
+        "tools/hung_q_controller_decision_sensitivity_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-colab39-163-file-map-20261028.csv",
+      "original_sha256": "b3e59701a2f52d22b69d7f5b1b04b9903dbec19ffbc41b2367b83bb63b372ca9",
+      "reasons": [
+        "tools/hung_colab39_peer_readback.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-782-job-ledger-20261028-v2.csv",
+      "original_sha256": "1a2ad217184a38ae012de07c1bedf335712aa095c2b4e783495d42d2c94f1090",
+      "reasons": [
+        "tools/hung_import_compact_proof_ledger.py",
+        "tools/hung_reconcile_782_snapshot_v2.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-782-job-ledger-20261028-v5.csv",
+      "original_sha256": "bf1117c1d5fc0a902411cb6d850dca51e77802997c32880295ede20d8ac83004",
+      "reasons": [
+        "tools/hung_development_context_proxy.py",
+        "tools/hung_final_resource_preflight.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-782-job-ledger-20261028.csv",
+      "original_sha256": "6ea0cd73356ebe5a1b022cb240763f907fb3c444bb3be5ec58c13a5044cdb3bd",
+      "reasons": [
+        "tools/hung_reconcile_782_snapshot.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-audit-20261028-v2/blocked_pairs.csv",
+      "original_sha256": "b21e91041b6733839c9c8ff39273b9714c8c7965e80579c519aef68b88cb4372",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-audit-20261028-v2/cost_by_method_device.csv",
+      "original_sha256": "e620911661b8140a6929402ad924278a71003c1a4c0801af2ebf184ade7e55d2",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_development_audit.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-audit-20261028-v2/paired_uncertainty.csv",
+      "original_sha256": "038fde0d37ef64fd083cbc85ba6690c95d32b704f9c1ac4412250571b6d7174c",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-audit-20261028-v2/report.md",
+      "original_sha256": "217e537db9f36f0d0e85eddf8951d5afd185cfcf0cdd76e2232a8d20a932de3c",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-audit-20261028-v2/summary.json",
+      "original_sha256": "5baa40ba9e268d021ce7e5f6fcc7218bc902d1595250f679c9305908f3601c3a",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-audit-20261028-v2/switch_audit_kaggle.csv",
+      "original_sha256": "7da8dc1047b8fd27d1aa0593510e435cbcacf7f820f689486b694a1bfc6c6100",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_development_audit.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-audit-20261028-v2/zero_scored.csv",
+      "original_sha256": "c74358ca8dad40ff8ce43c1dd4bd6873296144edfa8749cc25a662ce28d7bc62",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-selection-20261025-v2.json",
+      "original_sha256": "273858dfb2bf949c297ecd209a5127a22966cb31703f7b2deefcf17323e13c91",
+      "reasons": [
+        "configs/issue23/readiness-cohort.json",
+        "experiments/hung_sprint2/colab_39_verification.ipynb",
+        "experiments/hung_sprint2/kaggle_39_verification.ipynb",
+        "experiments/hung_sprint2/notebooks/01_model_transfer.ipynb",
+        "experiments/hung_sprint2/notebooks/02_controller_runner.ipynb",
+        "experiments/hung_sprint2/notebooks/03_development_execution.ipynb",
+        "experiments/hung_sprint2/notebooks/04_results_reproducibility.ipynb"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-switch-audit-20261028-v4/report.md",
+      "original_sha256": "ff586c5da68d506b1d199239e7e9e3812f2220695db07d84e58506b6a4f61a8d",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-switch-audit-20261028-v4/summary.json",
+      "original_sha256": "4f22e0da2f352909a898799ad5c1886bf227ebdf76cda2d3df57aaf037d5fbae",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-development-switch-audit-20261028-v4/switch_audit_full.csv",
+      "original_sha256": "88e0e10be97766306a790fd959e4de03f039c13cb797a7cb5a9fb0816be876b8",
+      "reasons": [
+        ".gitattributes",
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v70.md",
+      "original_sha256": "ea002b59d7767aadd6ae37280f6e39862a0a0c4deb862f761cba28a6e6495c9b",
+      "reasons": [
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v14.md",
+      "original_sha256": "6b320230f4a22b426f003fdac71f4920e8d21a53582b37949e5fddc25f17c1d4",
+      "reasons": [
+        "tests/test_hung_report_numeric_audit_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v15.md",
+      "original_sha256": "dd0422f42f99c17244dc36f9ab6ebeecebbd2c4340bb300c63be2007e0ef3be0",
+      "reasons": [
+        "tests/test_hung_report_numeric_audit_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v47.md",
+      "original_sha256": "efc0b62cc7fb7f8648e96224f7af2e94251cbfe2be6e38efc812b1a65dd9ea63",
+      "reasons": [
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-analysis-20261029-v1/README.md",
+      "original_sha256": "646a8a9278b5f204cba332bb61201a341ad14ee383ea54e77b1a8e371b52c85f",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-analysis-20261029-v1/blocked.csv",
+      "original_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-analysis-20261029-v1/event_summary.json",
+      "original_sha256": "a300d4cf17c9c45ea305675832f149e8f3e52e1754ba91d698c94a83b34762ce",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-analysis-20261029-v1/job_events.csv",
+      "original_sha256": "ff1648153823140e3a0ebe4ef237f80f7d82184fe6b1e799ace819d2b867036f",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-analysis-20261029-v1/paired.csv",
+      "original_sha256": "7ce9d01e61d5d13c4ebc61f9b22f160bf29d5a10818dc43f49f1167d670ceda6",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-analysis-20261029-v1/runs.csv",
+      "original_sha256": "2e26b3f99a11e7acc9de539dc08f07dbbb8dad9cbc6c53fb30ae71cba48d4491",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-analysis-20261029-v1/station_first.csv",
+      "original_sha256": "f01def5b1074cddf2bfda8fba98b9d7f5609dcea9510c3314ffe2645b0535c17",
+      "reasons": [
+        "required evidence bundle",
+        "tests/test_hung_report_numeric_audit_v1.py",
+        "tools/hung_final_temporal_sensitivity_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-analysis-20261029-v1/summary.json",
+      "original_sha256": "050eab1fd5d5976ae2ae5556c334c1f01d83aeb968f3eaad09b16ab585572176",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-analysis-20261029-v1/variant_events.csv",
+      "original_sha256": "19ae7995cd0fbf28006dcbc1143d64eeb0e2f90906a3d215678bb3cb6270ef05",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-candidate-jobset-20261029-v1/README.md",
+      "original_sha256": "abaaf4faa25b5bbceae6c47c320481e76071237910f5d3e0af54bcd7738ec55c",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-candidate-jobset-20261029-v1/candidate_coverage.json",
+      "original_sha256": "66166360f5213068c1df8d63693a548d3364ec0a887dfbcf50b395a960972492",
+      "reasons": [
+        "required evidence bundle",
+        "tests/test_hung_final_candidate_jobset.py",
+        "tests/test_hung_final_lock_preflight.py",
+        "tools/hung_final_candidate_jobset.py",
+        "tools/hung_final_lock_preflight.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-candidate-jobset-20261029-v1/candidate_execution_plan.json",
+      "original_sha256": "429fdca711382161c45b338521897f945b70471f9b7b72b1fba7ef78e4cba0cb",
+      "reasons": [
+        "required evidence bundle",
+        "tests/test_hung_final_candidate_jobset.py",
+        "tests/test_hung_final_lock_preflight.py",
+        "tools/hung_final_candidate_jobset.py",
+        "tools/hung_final_lock_preflight.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-candidate-jobset-20261029-v1/candidate_jobset.json",
+      "original_sha256": "7d09583446d9437cec63956f1673c6d1927428ff80ba59a8a876b9391a7c68a2",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_final_scope_source_audit_v1.py",
+        "tools/hung_final_scope_source_audit_v2.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-candidate-jobset-20261029-v1/missing_stage_args.json",
+      "original_sha256": "c983cce79481aac508c535dc68a365ee0c17a9116823bbaf3a7027998b9cdc49",
+      "reasons": [
+        "required evidence bundle",
+        "tests/test_hung_final_candidate_jobset.py",
+        "tools/hung_final_candidate_jobset.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-candidate-jobset-20261029-v1/source_config_bindings.json",
+      "original_sha256": "0ec6d8bda1dbc0f129e6e49bedf547bec1082eab1762518962e605e4f9163690",
+      "reasons": [
+        "required evidence bundle",
+        "tests/test_hung_final_lock_preflight.py",
+        "tools/hung_final_candidate_jobset.py",
+        "tools/hung_final_lock_preflight.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-execution-contract-candidate-20261029-v1/README.md",
+      "original_sha256": "c77e7c40c11748c5ebf3c59e468cef633ec72667e7db312c4afd9091ca6520b3",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-execution-contract-candidate-20261029-v1/analysis_spec.json",
+      "original_sha256": "05c0d16ae03c92968f6c69b26f0695aa2bd1604a271c815aae2c1b2531749fa4",
+      "reasons": [
+        "required evidence bundle",
+        "tests/test_hung_final_lock_preflight.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-metadata-preflight-20261029-v1/README.md",
+      "original_sha256": "5288756ed228d673848f18c4665894fe7bd8884bf98b1fcab0eb5ff52274fcfa",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-metadata-preflight-20261029-v1/development_source_candidates.csv",
+      "original_sha256": "05035160f3fef3cf58ebdb9f70deec0475ddd8e0d1f2dd55ee6ec6c87b29302f",
+      "reasons": [
+        "required evidence bundle",
+        "tests/test_hung_final_lock_preflight.py",
+        "tools/hung_final_candidate_jobset.py",
+        "tools/hung_final_metadata_preflight.py",
+        "tools/hung_final_scope_source_audit_v1.py",
+        "tools/hung_final_scope_source_audit_v2.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-metadata-preflight-20261029-v1/summary.json",
+      "original_sha256": "76add4875ae2120e33646a49d2aea1f4efdc2173c13a9318d63ea935ad2899b2",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-metadata-preflight-20261029-v1/urban_final_entity_metadata.csv",
+      "original_sha256": "512cd9f036832bb5502deb5bed3cda3df5cd1ef0e98023ba97724e8d531a10b7",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_final_candidate_jobset.py",
+        "tools/hung_final_metadata_preflight.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-omitted-disposition-20261030-v1.json",
+      "original_sha256": "e129bcc2601c8f7c4dd209dc302f3dd0d4c2c5c61a58863b5e5e28e227f4fd76",
+      "reasons": [
+        "tools/hung_final_forecast_input_audit_v1.py",
+        "tools/hung_final_omitted_schedule_audit_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-omitted-schedule-audit-20261030-v1.json",
+      "original_sha256": "b4211712fc9c25d4343b076c29d1489a8d7d45db54a91011c9fe310daf9bed4e",
+      "reasons": [
+        "tools/hung_final_forecast_input_audit_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-prefix-inventory-20261030-v2.json",
+      "original_sha256": "e2474fb22a16e2d877a7ed43db760e1b96dbf0c9ad29446c08d34ce2dcc01cf2",
+      "reasons": [
+        "tools/hung_final_omitted_disposition_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-resource-preflight-20261029-v2/README.md",
+      "original_sha256": "01b158ba44ca306f6f8daf8dd7eecb8f875eff870e04150039470a5f6ebbc1f9",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-resource-preflight-20261029-v2/candidate_scenarios.csv",
+      "original_sha256": "d5eee62c42b8b21d82fe40324cb077576ca8d6725fb939caa73b75e8ab45be5c",
+      "reasons": [
+        "required evidence bundle",
+        "tests/test_hung_final_lock_preflight.py",
+        "tools/hung_final_resource_preflight.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-resource-preflight-20261029-v2/measured_development_jobs.csv",
+      "original_sha256": "5580706d2b2e006261492a1c711844d16a8456e6d26ff3e76900c89a62d817dc",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_final_resource_preflight.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-resource-preflight-20261029-v2/summary.json",
+      "original_sha256": "49943d70dda67e6ba070a6c338f92159f0d1593bc3cd349f8e763b082765b838",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-scope-gap-20261029-v1/README.md",
+      "original_sha256": "959c08002c53a89467d59b03b081a0c2cd962694070fcedb7ead882e0ac75ce7",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-scope-gap-20261029-v1/scope_gap.csv",
+      "original_sha256": "c4c7a067bb45c048c4ec2da58b321d72033e23e3a4467e5378069a6ce68bd681",
+      "reasons": [
+        "required evidence bundle",
+        "tools/hung_final_omitted_disposition_v1.py",
+        "tools/hung_final_prefix_inventory_v1.py",
+        "tools/hung_final_scope_source_audit_v1.py",
+        "tools/hung_final_scope_source_audit_v2.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-scope-gap-20261029-v1/summary.json",
+      "original_sha256": "b5f4b1cd64c713ba98af8f01d7a5851d81135ef2c21b6dc666a2ced80f879053",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-scope-source-audit-20261030-v4.json",
+      "original_sha256": "11b443ea1f0ad2f3b8394d75590aba4c55a7c1138256230707f941c4c6e0e0d6",
+      "reasons": [
+        "tools/hung_final_omitted_disposition_v1.py",
+        "tools/hung_final_prefix_inventory_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-wape-20261029-v1/README.md",
+      "original_sha256": "53214ad01d33d5191d7dd97722d4619faa228c7347e6a6e6f1b15c172beb9847",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-wape-20261029-v1/wape_runs.csv",
+      "original_sha256": "59aa644c94e25f161e00d610246bfd2fe46fa05d5f11fa91ec6a016c61ff922b",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-wape-20261029-v1/wape_stations.csv",
+      "original_sha256": "74bf125b7075d6a80eefcb7abc1e443031e9e204b77ab0d99829f8dd20fa16ab",
+      "reasons": [
+        "required evidence bundle"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-final-wape-20261029-v1/wape_summary.json",
+      "original_sha256": "b188d31bb5a0d433a70d224eaa0b8bf26904822defd862b1fe5cff05c2f0ee5b",
+      "reasons": [
+        "required evidence bundle",
+        "tests/test_hung_report_numeric_audit_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-integrated-development-20261026.md",
+      "original_sha256": "5c7de821bb3a5191e7926bd9b1791596a79870e1eafd93c590e7d402a6c4c19c",
+      "reasons": [
+        "tests/artifact/test_hung_block7_code_lineage_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/hung-kaggle-560-recovery-register-20261028.csv",
+      "original_sha256": "9076d7eb550fd0701e60ab337a13efabd9f68e196de22a2785894d98705a51fc",
+      "reasons": [
+        "tools/hung_import_compact_proof_ledger.py",
+        "tools/hung_kaggle_recovery_register.py"
+      ]
+    },
+    {
+      "path": "docs/reports/input-features.md",
+      "original_sha256": "2f65db1810c573a0072756e65cac1457b7318337f71e0404981f6c65718fdfb2",
+      "reasons": [
+        "docs/data/DATA_FLOW.md"
+      ]
+    },
+    {
+      "path": "docs/reports/input-handoff-evidence.json",
+      "original_sha256": "c1f90f3549de3a48f3c77a615244e8ac09c1c4a97861cfcba098343eb01a0cfb",
+      "reasons": [
+        "docs/data/DATA_DOWNLOADS.md"
+      ]
+    },
+    {
+      "path": "docs/reports/input-handoff.md",
+      "original_sha256": "371c6c0a1ccb32d93f97a96d2ffd175fb3dc109a8557cb64cb400c85cd7fe946",
+      "reasons": [
+        "docs/data/DATA_FLOW.md"
+      ]
+    },
+    {
+      "path": "docs/reports/input-loader-real.md",
+      "original_sha256": "54324316fb32e30abd631758ad3627fff3c282001d5113c6a287c9cf08793da6",
+      "reasons": [
+        "docs/data/DATA_FLOW.md"
+      ]
+    },
+    {
+      "path": "docs/reports/input-loader.md",
+      "original_sha256": "27c339ca30de169bf2379979e0ffb0bf85fe4f3e3d361e8d0dce8e721ceb96c0",
+      "reasons": [
+        "docs/data/DATA_FLOW.md"
+      ]
+    },
+    {
+      "path": "docs/reports/input-split-scaler.md",
+      "original_sha256": "ced4be2c0eb775288f1428fd0761ab0b65bcc570836f6e06d83b2e5629bfd687",
+      "reasons": [
+        "docs/data/DATA_FLOW.md"
+      ]
+    },
+    {
+      "path": "docs/reports/input-windows.md",
+      "original_sha256": "a4b96f61c5647eb64c3fa639cc1721c1572355d5716bb7233bf0cfd6ac1b7234",
+      "reasons": [
+        "docs/data/DATA_FLOW.md"
+      ]
+    },
+    {
+      "path": "docs/reports/issue-dispositions-20261102-v1.json",
+      "original_sha256": "0a21e34f08d83ece48c4d5b51db174f5adadf0b6b53637923468619b14df4661",
+      "reasons": [
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/issue23-durable-recovery.md",
+      "original_sha256": "ccea54e355b4b82f5177c480fa756e57596a676de4868e5d32123ccdcf806a7b",
+      "reasons": [
+        "notebooks/issue23_durable_city.ipynb"
+      ]
+    },
+    {
+      "path": "docs/reports/issue23-final-complete-handoff-20261029.md",
+      "original_sha256": "a4d9ff7a66e606f5a3ce9dccfe3a70393d7febdbfd69285186423516f25aff2a",
+      "reasons": [
+        "README.md",
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/issue23-final-lead-exception-20261027.json",
+      "original_sha256": "6cf67a4abb8df1cf4c92c305480f5eabdd2ed8c59d2f7d89125eee68be77e28d",
+      "reasons": [
+        "configs/issue23/final-execution-lock-20261027-v1.json",
+        "configs/issue23/final-execution-lock-20261027-v2.json"
+      ]
+    },
+    {
+      "path": "docs/reports/issue23-joint-evidence-synthesis-20261030-v1.json",
+      "original_sha256": "652faafda50a7344ce9f7ae1bb61bffeb8d161972f8c940a91281900f9fd4f18",
+      "reasons": [
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/issue23-joint-evidence-synthesis-20261030.md",
+      "original_sha256": "906ce149de088aff5c530d5b619f200bffc74cab98eb282773ad9288c7bb4d68",
+      "reasons": [
+        "README.md",
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/issue23-manuscript-report1-review-20261031.md",
+      "original_sha256": "e94976512ee70d5d72987a780c98f707d5321dd9a7dcde2e1097d3107579d7bc",
+      "reasons": [
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/issue23-primary-recovery-plan-evidence.json",
+      "original_sha256": "c52031d0f33f19db14667b0059959eea772913ceca26b48fab454d6ddef66815",
+      "reasons": [
+        "tools/hung_charged_loa_physical_audit_v1.py"
+      ]
+    },
+    {
+      "path": "docs/reports/issue23-retention-posthoc-20261031-v1.json",
+      "original_sha256": "a5d6c78b2cf63978ab6ac8b8f72a2aab486f0b08ca8275f35766b33ab09774bf",
+      "reasons": [
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/issue23-retention-posthoc-20261031.md",
+      "original_sha256": "fcda67fcf6f72c1f7264357670fae6ebb02041ee34a624e7c7aed9747baf6984",
+      "reasons": [
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/main-readiness-20261102-v1.json",
+      "original_sha256": "1a308612daedce5105693e428effb31ca98dd526851b233cb8b9cbf6a21178b2",
+      "reasons": [
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/main-readiness-20261102.md",
+      "original_sha256": "0eb28a95db91745cf911d701771099e0e499a7221ea40e3b8de200aae2cf9dbf",
+      "reasons": [
+        "README.md",
+        "final evidence / explicit limitations / disposition",
+        "tools/check_release.py"
+      ]
+    },
+    {
+      "path": "docs/reports/member-cyber-controller.md",
+      "original_sha256": "31122e70c463ba1a9e9c3bb8c6f77f5077b79e9cc84bd832f59abccc33c5a1eb",
+      "reasons": [
+        "experiments/member_studies/cyber_controller/README.md",
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/member-duc-retention.md",
+      "original_sha256": "71b2e5746ea3d7f9a141bc81048fa625a8d4fe7ba0c00e8a5bd7503761a37cd5",
+      "reasons": [
+        "experiments/member_studies/duc_retention/README.md",
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/remaining-pr-cleanup-20261102.md",
+      "original_sha256": "b6a3b48e608507cb4d509c0c19606774eefd0076c4b040dae7917ec85464b32b",
+      "reasons": [
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/remaining-pr-cleanup-verification-20261102-v1.json",
+      "original_sha256": "24ccc8d888e4edec8a3f2a75be15ed14f4ca8df7f368251c140957db8775b99d",
+      "reasons": [
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/remaining-pr-dispositions-20261102-v1.json",
+      "original_sha256": "914020f2077a6da2af0e5a9258f34848cef102207782b078df3c415942ad6120",
+      "reasons": [
+        "final evidence / explicit limitations / disposition"
+      ]
+    },
+    {
+      "path": "docs/reports/urbanev-hourly.md",
+      "original_sha256": "984e3334d9ea9b7d95c12be4964c734e89e997ead018986f9fc678a9cbf0c2c9",
+      "reasons": [
+        "docs/data/DATA_FLOW.md"
+      ]
+    },
+    {
+      "path": "docs/reports/urbanev-rule-comparison.md",
+      "original_sha256": "d79f805380f453ecff250e07458f5eb3701843d36dd03fa3ff1f63383eea873f",
+      "reasons": [
+        "docs/data/DATA_FLOW.md"
+      ]
+    }
+  ],
+  "navigation_rewrites": [
+    {
+      "path": "README.md",
+      "before_sha256": "21fe5867d77ea291f02d8b0dc8d8b9dd4545f81243e01ea7e220963310958a32",
+      "after_sha256": "67e763328727ea98693b706be297d500998f9679474e8210a6d8cac57f59bac9",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "RELEASE_SCOPE.md",
+      "before_sha256": "9825c0e84b2656a8f34271e4c2dc9c7f95bf5289ffcce3390888c99fbf89bced",
+      "after_sha256": "f4833caf289f1e1646251bf84a307c1baec9620442f6a277e04e4646561f3c61",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/ARCHIVE_INDEX.md",
+      "before_sha256": "ba0c89c780dd9bd5e0ffcabefefbc2051feac01f384fb17135f4c71ca414cda8",
+      "after_sha256": "a345152dff39bf6bf18640ccd38fc6a824a4b050342d03decad6a434b5e112c0",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/SPRINT_PLAN.md",
+      "before_sha256": "b8656c8e568271a426076ece61d05b06e4941711705bb38e5444c911d3890709",
+      "after_sha256": "9dc84f215aad919fab7519172ea76936322b6bdb9ba7abddc4c1e1244c2447ad",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/data/BASELINE_CONTRACT.md",
+      "before_sha256": "48706ef153b9135e02b0539f189b12687f329d46d7a0f890fd4292f1bacffb08",
+      "after_sha256": "fe38bb15e12edb8395ffd5feabc9dbf9917977d6afb0552c72e213236e778b7b",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/data/CHARGED.md",
+      "before_sha256": "89b177f16ca73cf5c1d7985d2c288e908ab0c2518071c82f4b0f31e907065b9d",
+      "after_sha256": "b8cc16a363a2a71a445477e44aa218446109681c7ec995efe770c7fd425af31a",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/data/CONTROLLER_CONTRACT.md",
+      "before_sha256": "f6557d0995003fbfe18bc71c483743b8bb229956a13390d99159de3766f52759",
+      "after_sha256": "2deee000babc3c8ffedadc080eef0fa132e0842ad378a7f4f70522c876fedbd4",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/data/EVALUATION_CONTRACT.md",
+      "before_sha256": "9f04c614eb4c63d616b299e2814c5b16555949c96183bd402b0524abfc6cf264",
+      "after_sha256": "a15f9599e061c75e39cc23d9fcef4327458d832600ffdfa9aac466f7ab0567eb",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/data/PREQUENTIAL_RUNNER.md",
+      "before_sha256": "809eb44ec38ae9c4fed608beba7da6e60bd79a584c5dd113f2422674c9aa31a7",
+      "after_sha256": "7ca5d9a1349981367f93c211b78950037c241211c03efb29d7b8e08d8e5d4a98",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/data/URBANEV.md",
+      "before_sha256": "e088995ec9041fb58ba9fd38111ad16adacfb1275802eb82f51c770022e375f2",
+      "after_sha256": "281f6486f2bdf71b97f5d81ecfd35ac28df6d4489f8dcffe602af16bdf797126",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/charged-hourly.md",
+      "before_sha256": "d4027b21dda1c3a8f923be136795ada5d0548b3063f8c62c3f5026252e94a54a",
+      "after_sha256": "9e467d05022619f9939ae21b39691ecb4ba5650e61b254cbcaa8ad1ffe602715",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/charged-inventory.md",
+      "before_sha256": "c5ac3128ec39054b0f723727241c58032fd8e994c1382e314d9e5b70509ddcb1",
+      "after_sha256": "c31ce59fe00a95227340677fa58c11cba0ba6e470422d98eb1241db048f5f94a",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/charged-preprocessing.md",
+      "before_sha256": "cd8a5d4bbc0b457b5a2d63b4e47cc977554efec1444f78ba5cd673e4c710adb9",
+      "after_sha256": "d3968b68886ad6c7ce6337f445c54e45b45d17a15d04edb151ab23c08c73de03",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/charged-suitability.md",
+      "before_sha256": "2d0e2780310b2ab98f69145f24abb1b581d54e237587077e61c6118d96671d7f",
+      "after_sha256": "74546eb649932e9cb0d62fe77822b8a2c9bef84251cbdc8687984dc0b3c5dc54",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/data-acquisition.md",
+      "before_sha256": "46d28091b46f5ef91da6a18d101c554019a5b3d3ff5f05e387f4b0690a6ef56f",
+      "after_sha256": "b61c0015bfa9c26d649ad771a0a17bdca2ce47af434191bc3c2381b4357847dd",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/data-integration.md",
+      "before_sha256": "8c502b4ccc3060112b450f6c4d80776640d83143589f8903075d18f36a0d931d",
+      "after_sha256": "665ada2fffc8c4e30951c3460eaf661ef0439835e9589843d6e303f694a4c95a",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/hung-block7-switch-effect-20261030-v1/README.md",
+      "before_sha256": "0f9f79b51fbcd4c53a4974cafeb65300f90702a7fdea4b17d2a0f99d204b85be",
+      "after_sha256": "b318b576f778d1a470a17f3df8ebda084699172d35224e7a631f669f25c4e85d",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/hung-development-switch-audit-20261028-v4/report.md",
+      "before_sha256": "ff586c5da68d506b1d199239e7e9e3812f2220695db07d84e58506b6a4f61a8d",
+      "after_sha256": "5652a3970f072d3264325ffd58cb434074fa4db32e344c4d2faa90b76f518716",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/hung-e2e-gate-register-20261030-v70.md",
+      "before_sha256": "ea002b59d7767aadd6ae37280f6e39862a0a0c4deb862f761cba28a6e6495c9b",
+      "after_sha256": "9e53d1d284943d3472a8050fc4a124e7611d868aa3d3f693ce512475115aff37",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v14.md",
+      "before_sha256": "6b320230f4a22b426f003fdac71f4920e8d21a53582b37949e5fddc25f17c1d4",
+      "after_sha256": "c61b6965ae37a3f213c0c5356536c6bc54a1d59f7d9047db64c2dc27934948ae",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261029-v15.md",
+      "before_sha256": "dd0422f42f99c17244dc36f9ab6ebeecebbd2c4340bb300c63be2007e0ef3be0",
+      "after_sha256": "8e9a6a638e4116221ba7f32ffb55e0642317d5748a4fda34c1a9d727329b8c4b",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/hung-e2e-research-report-draft-20261030-v47.md",
+      "before_sha256": "efc0b62cc7fb7f8648e96224f7af2e94251cbfe2be6e38efc812b1a65dd9ea63",
+      "after_sha256": "7daef2d89b8bf153188a1428c0b90004e42f3be74ea174222cb1286f397c0b64",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/hung-final-analysis-20261029-v1/README.md",
+      "before_sha256": "646a8a9278b5f204cba332bb61201a341ad14ee383ea54e77b1a8e371b52c85f",
+      "after_sha256": "9c6cd7dd9eb91b63fae9a3f2f160ba9acb22e39e7d38a8456dd814dc542a23cb",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/hung-final-execution-contract-candidate-20261029-v1/README.md",
+      "before_sha256": "c77e7c40c11748c5ebf3c59e468cef633ec72667e7db312c4afd9091ca6520b3",
+      "after_sha256": "14281abe159ed231d1127bd4b90c6e81c864c266271b70ae17479a9882ab3ae7",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/input-features.md",
+      "before_sha256": "2f65db1810c573a0072756e65cac1457b7318337f71e0404981f6c65718fdfb2",
+      "after_sha256": "dbffdb1d52adbf3ab0a8457048bdf08eb7555ab4b43dbb01e9f9aaa3dbc1223e",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/input-loader-real.md",
+      "before_sha256": "54324316fb32e30abd631758ad3627fff3c282001d5113c6a287c9cf08793da6",
+      "after_sha256": "ce25211fb6c48ba6204b468638ad2fe2e68b937ebe73b23cc5fb36fb9e7f4319",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/issue23-durable-recovery.md",
+      "before_sha256": "ccea54e355b4b82f5177c480fa756e57596a676de4868e5d32123ccdcf806a7b",
+      "after_sha256": "64bb96ee7a3ba4e04fc2336db85a4a849da933e233b2d0d0aa9f1d1a98c6a900",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/urbanev-hourly.md",
+      "before_sha256": "984e3334d9ea9b7d95c12be4964c734e89e997ead018986f9fc678a9cbf0c2c9",
+      "after_sha256": "81b21962c87a264b9b73aa843fb15cf575999d0d479923382eba782215b30b38",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "docs/reports/urbanev-rule-comparison.md",
+      "before_sha256": "d79f805380f453ecff250e07458f5eb3701843d36dd03fa3ff1f63383eea873f",
+      "after_sha256": "867e6287b6226ce99ad38650bbc5378b55475bbe6fa1448daa76ee79153818cc",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    },
+    {
+      "path": "report/README.md",
+      "before_sha256": "d17f36bb6a7ae4f019c80855bbc50e451f9a461ad90c2e1dc60bb013b8c4849f",
+      "after_sha256": "28086550c492d5d74385c0579041d9d283b7565deafd8057f9c84cd7587934e8",
+      "scope": "maintained entry point or navigation-only historical link redirect"
+    }
+  ]
+}

@@ -117,7 +117,7 @@ All-zero fit prefixes are legitimate zeros under the file contract, not undefine
 - Budgets were checked to preserve the same roles/source sample counts. Review aggregate counts do not reselect entities using future results.
 - Existing fixture suite: **67 PASS** locally; Ruff lint/format and diff checks PASS. Routine CI continues to use fixtures only.
 - Workbook QA: all four sheets rendered/visually inspected, no formula error matches, totals edit/recalculate/restore tested; native XLSX read-back confirms all 21 summary totals, all 17,886 detail rows, string IDs/numeric counts, five filter tables and frozen identity/header panes. Excel/Numbers UI was not opened. It is a fixed review snapshot; rerun loader/audit to refresh imported counts.
-- Small committed evidence: [input-loader-real-evidence.json](input-loader-real-evidence.json). Large runs, per-entity JSONL and the formatted workbook remain local/ignored.
+- Small committed evidence: [input-loader-real-evidence.json](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/input-loader-real-evidence.json). Large runs, per-entity JSONL and the formatted workbook remain local/ignored.
 
 Local review files:
 

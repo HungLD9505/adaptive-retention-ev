@@ -1,9 +1,0 @@
-# Kaggle compact stage-plan proof handoff — 28 October 2026, 16:33 ICT
-
-The [stage-plan correction](hung-kaggle-compact-stageplan-review-20261028.md) is committed at `94fcbbd` on PR #72. Local integration checks passed 19 focused tests, Ruff lint/format for seven relevant files and `git diff --check`. This is a code checkpoint, not a successful remote proof.
-
-The first saved CPU pilot of schema v2, `hungluongduc/hung-compact-proof-shard0001-stageplan-20261028-v2` version `363118896`, failed in 16 seconds with `KeyError: 'value'` before archive verification. Its saved output remains unchanged and contributes zero accepted rows. The corrected verifier loads exact raw config JSON from the pinned payload ZIP and checks each against both parent and relocated plan config SHA pins. The new [v3 notebook source](../../experiments/hung_sprint2/kaggle_compact_proof_shard0001_stageplan_v3.ipynb) embeds verifier SHA-256 `412c5d3c2802f6c9ba072cef2efc80e9b6ea71bc0776f3468d6a638e573e77e5` and writes a distinct v3 output path.
-
-The [Kaggle v3 draft](https://www.kaggle.com/code/hungluongduc/hung-compact-proof-shard0001-stageplan-20261028-v3/edit) was created and named, but its editor remained at `Loading Editor` after one bounded refresh. **No v3 notebook source was imported, saved, executed or read back.** Resume from this draft when the editor becomes available: import the committed v3 source, attach the two pinned private datasets, confirm CPU accelerator `None`, save exactly one new version, then inspect its terminal output and run an independent proof-byte readback. Do not resubmit completed training or retry the failed v2 version.
-
-The 180 earlier v1 proof rows remain `PROVISIONAL_REMOTE_COMPACT_PROOF`; the other 380 Kaggle jobs still lack proof bytes. The [v4 782-row ledger](hung-development-proof-ledger-v4-20261028.md) is the current conservative state. No 560-job acceptance or Hung Final lock is inferred from the local verifier fix.

@@ -141,4 +141,4 @@ python -m tools.controller_smoke \
 The output directory must be new. The CLI writes `evidence.json` with run ID,
 code SHA, dirty-tree status, config/module hashes, environment, runtime and six
 synthetic decisions. It never accesses datasets, checkpoints or Final labels.
-See the [handoff report](../reports/issue20-qyroven.md) for actual checks and limits.
+See the [handoff report](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/issue20-qyroven.md) for actual checks and limits.

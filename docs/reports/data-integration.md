@@ -70,7 +70,7 @@ Use [shared downloads](../data/DATA_DOWNLOADS.md), [the full flow/training expla
 - `data/inputs/issue18-integration-v1-20261020/`
 - `runs/issue18-integration-v1-20261020/` for explicit commands, configs, logs and verification drivers.
 
-The compact [evidence JSON](data-integration-evidence.json) records exact commands/config/source identities and per-run results. New producer/input manifests bind their new paths and code/runtime while old manifests and release hashes remain untouched.
+The compact [evidence JSON](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/data-integration-evidence.json) records exact commands/config/source identities and per-run results. New producer/input manifests bind their new paths and code/runtime while old manifests and release hashes remain untouched.
 
 The data-to-checkpoint interface is specified as `ev-checkpoint-input-binding-v1`. Actual model weight/optimizer/RNG serialization/reload tests are #19/runner implementation, not claimed as already implemented by the input loader. No checkpoint/model/controller code is added or required methods silently removed by this acceptance.
 

@@ -1,5 +1,20 @@
 # Historical work and remaining PR dispositions
 
+## Historical document snapshots
+
+The current tree omits 564 intermediate report files. Their original bytes remain
+at tag `archive/pre-doc-curation-20261102`, commit
+`8cdab1bc096a9c116c7b7f911d548a7621dd81ac` ([browse the snapshot](https://github.com/HungLD9505/adaptive-retention-ev/tree/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports)).
+[The file/hash manifest](archive-manifest.json) records every archived path, why
+other files remain and which Markdown links were redirected. Recover any original
+file with `git show archive/pre-doc-curation-20261102:<path>`.
+
+Start with the [curated evidence index](reports/README.md) for current report scope.
+Archiving keeps original adverse/null evidence and attribution; it does not certify
+old proposals or rerun experiments.
+
+## PR dispositions
+
 The primary pipeline, Hùng supporting track and member studies are integrated on dev through #76. The following dispositions distinguish code promoted by this cleanup from historical alternatives. Closing a superseded PR does not certify all of its results or promote every file to the active tree.
 
 Every listed source head is retained by an SHA-pinned archive tag and its PR history. The original primary scientific source is retained by `evidence/primary-final-20261027-v2`; all 92 Git-tracked frozen file pins match that historical commit. Raw/input data and existing numerical evidence are unchanged.

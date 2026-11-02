@@ -1,78 +1,56 @@
-# Adaptive Retention for EV Charging Demand Forecasting
+# Adaptive Retention
 
-Research code and report for low-history, 24→24 EV charging demand forecasting with
-GRU transfer learning and source-retention selection. This repository preserves
-implementations and evidence from all four team members. Work integrates into
-`dev`; promoting a snapshot to `main` requires a separate instruction.
+**Low-history EV charging demand forecasting with GRU transfer learning.**
 
-## System at a glance
+When should a target model retain knowledge from its source, and when should it
+adapt? This research repository implements and evaluates fixed and adaptive
+source-retention strategies under causal 24→24 forecasting.
+
+[**Report**](report/Adaptive_Retention_Report.pdf) ·
+[**Supplement**](report/Adaptive_Retention_Supplement.pdf) ·
+[**System diagrams**](docs/diagrams/README.md) ·
+[**Documentation**](docs/README.md) ·
+[**Data**](data/README.md)
+
+| Forecast task | Initial target history | Evaluation | Backbone |
+|---|---|---|---|
+| Past 24 hours → next 24 hours | 7 / 14 / 28 days | 90-day prequential replay | GRU |
+
+## System overview
 
 ![Primary research system](docs/diagrams/system.svg)
 
-See the [data pipeline and Adaptive replay diagrams](docs/diagrams/README.md) for
-separated datasets, forecast/label access and retention-state transitions. These
-views describe the primary code; member studies keep their own settings.
+Explore the [data pipeline and Adaptive replay](docs/diagrams/README.md): separate
+UrbanEV/CHARGED processing, prefix-only scaling, forecasts saved before label
+access, and selection from trained candidate states. The views describe the primary
+implementation; the member studies retain their own settings.
 
-## Read the report
+## Results and interpretation
 
-The canonical [report and supplement](report/README.md) contain the method,
-experimental design, results, limitations and detailed comparisons. Their source
-and figures are byte-pinned in `report/manifest.json`.
+The primary frozen execution covers **810 units / 11,340 method cells**, seven
+namespaces and three seeds. Null outcomes remain explicit.
 
-The primary frozen execution covers 810 units / 11,340 method cells across seven
-namespaces and 7/14/28-day initial histories. Null outcomes are retained. Adaptive
-has lower mean MAE than Target-only in 18/21 group/history aggregates and than
-Fixed in 9/21. These are descriptive aggregate counts, not independent replications
-or proof of consistent superiority. See the [Final handoff](
-docs/reports/issue23-final-complete-handoff-20261029.md) and
-[joint evidence synthesis](docs/reports/issue23-joint-evidence-synthesis-20261030.md).
+| Comparison | Aggregates with lower Adaptive mean MAE |
+|---|---:|
+| Adaptive vs Target-only | 18 / 21 |
+| Adaptive vs Fixed retention | 9 / 21 |
 
-Hùng's separate bounded 360-job Final and the other member studies use different
-settings. Do not pool their scores or rank implementations by absolute MAE.
+The 21 cells are dataset-group/history aggregates, not independent replications or
+significance counts. Source initialization is useful in many evaluated settings;
+a consistent advantage from adaptive retention over fixed retention is not
+established. Read the [report](report/Adaptive_Retention_Report.pdf),
+[paired evidence and limitations](docs/reports/issue23-joint-evidence-synthesis-20261030.md)
+and [full-precision tables](report/full-results.csv).
 
-## Release scope and provenance
+Hùng's separate bounded 360-job Final and the Đức/Cyber studies use different
+settings. Their scores are not pooled with the primary evaluation or ranked by
+absolute MAE.
 
-[RELEASE_SCOPE.md](RELEASE_SCOPE.md) identifies what belongs in the main candidate,
-which evidence is incomplete and which extensions are not planned. The
-[readiness handoff](docs/reports/main-readiness-20261102.md) records checks and the
-remaining release decision. [Archived PR dispositions](docs/ARCHIVE_INDEX.md)
-explain superseded branches; dated historical reports are evidence of their own
-snapshots, not current execution instructions.
+## Reproduce and inspect
 
-Original primary scientific source is retained under
-`evidence/primary-final-20261027-v2`. Later verifier and metadata hardening does not
-rewrite old outputs. The current checkout is not byte-identical to the original
-execution lock. Report 1 remains the [method reference](adaptive_retention_report_1.pdf).
-
-Full end-to-end compute accounting, expanded supporting experiments, a verified
-Đức bundle distribution link and corrected-code Cyber real-data results remain
-incomplete. No additional real-data training is planned for this release. Closing
-these extensions as **not planned** does not certify their acceptance criteria.
-
-## Code map
-
-| Location | Responsibility |
-|---|---|
-| `ev_inputs/` | Prepared data contracts, scaling, windows and authenticated loading |
-| `ev_models/` | Primary GRU model, retention loss and training helpers |
-| `ev_control/` | Confidence-based retention selection |
-| `ev_runner/` | Prequential forecasts, label availability, updates and checkpoints |
-| `ev_baselines/`, `ev_evaluation/` | Comparisons, metrics and audit artifacts |
-| `tools/`, `configs/` | Data/experiment CLIs, verifiers and versioned configurations |
-| `experiments/hung_sprint2/`, `tools/hung_*` | Separate supporting implementation |
-| `experiments/member_studies/` | Isolated Đức and Cyber implementations |
-| `report/` | Canonical report source, figures, tables and manifest |
-| `docs/data/`, `docs/reports/` | Contracts, data instructions and dated handoffs |
-| `tests/`, `tests/artifact/` | Offline fixtures and separately invoked artifact checks |
-
-Cyber's [corrected IO guards](experiments/member_studies/cyber_controller/README.md)
-are fixture-tested; historical scores are not outputs of that corrected version.
-Member settings/dependencies remain separate from the primary environment.
-
-## Install and verify offline
-
-Use **Python 3.12**. Create a local environment; do not copy environments or compiled
-packages between machines.
+Use **Python 3.12** in a new environment. A full Git checkout with retained
+history/tags is required for provenance checks. No raw-data download, GPU or
+credentials are needed for the offline checks.
 
 ```sh
 python3.12 -m venv .venv
@@ -90,32 +68,55 @@ python -m ruff format --check .
 git diff --check
 ```
 
-These checks require a full Git checkout with retained tags/history, but no raw
-data download, GPU or credentials. Some provenance tests require a clean tracked
-checkout. CUDA checks skip when unavailable. The release checker uses only the
-standard library; model tests also need the pinned PyTorch/NumPy requirements.
+Tests use fixtures; CUDA checks skip when unavailable. Some provenance tests need a
+clean tracked checkout. The [18 external-artifact tests](tests/artifact/README.md)
+require original trained artifacts and are invoked separately. Offline test success
+does not reproduce training or prove research effectiveness.
 
-The [18 external-artifact tests](tests/artifact/README.md) are invoked separately
-and require the original artifacts. Passing offline fixtures does not verify
-those artifacts, reproduce training, compile the report or prove effectiveness.
-Paid CI waiting and non-author review were waived by the lead for this integration;
-local checks are not reported as remote CI success or independent approval.
+For actual data, follow the [download and checksum instructions](data/README.md)
+and [shared snapshot guide](docs/data/DATA_DOWNLOADS.md). Data, checkpoints,
+environments and large runs are excluded from Git. Preserve their bytes and
+verify identities locally; historical checksums alone do not prove a fresh download.
 
-## Data and execution contracts
+## Repository map
 
-Start with the [data flow](docs/data/DATA_FLOW.md), [source catalog instructions](
-data/README.md) and [shared snapshot downloads](docs/data/DATA_DOWNLOADS.md).
-Raw archives, processed/input data, checkpoints, environments and large runs stay
-outside Git. Preserve their original bytes and verify recorded identities locally.
-Historical hashes alone do not prove a fresh acquisition.
+| Location | Responsibility |
+|---|---|
+| `ev_inputs/` | Roles, scaling, windows and authenticated loading |
+| `ev_models/` | GRU, retention loss and training |
+| `ev_control/` | Evidence-based retention selection |
+| `ev_runner/` | Causal replay, label gates, updates and checkpoints |
+| `ev_baselines/`, `ev_evaluation/` | Comparisons, metrics and verification |
+| `tools/`, `configs/` | Data/experiment utilities and versioned configurations |
+| `experiments/hung_sprint2/` | Separate supporting implementation |
+| `experiments/member_studies/` | Isolated Đức and Cyber studies |
+| `report/` | Report PDFs, LaTeX sources, vector figures and result tables |
+| `docs/` | Diagrams, contracts, curated evidence and archive navigation |
+| `tests/` | Offline fixtures and separate artifact verification |
 
-Before using an experiment CLI, read its configuration and the relevant
-[input acceptance](docs/data/INPUT_ACCEPTANCE.md),
-[controller](docs/data/CONTROLLER_CONTRACT.md),
-[runner](docs/data/PREQUENTIAL_RUNNER.md) and
-[baseline](docs/data/BASELINE_CONTRACT.md) contracts. Never fill missing target
-labels or expose future labels before availability. New executions require new
-output locations and recorded code, config, source/input and runtime identities.
+## Scope and provenance
 
-Follow [AGENTS.md](AGENTS.md) and the [team workflow](docs/WORKFLOW.md) for changes.
-`master` is a retained backup. Archived proposals are not enabled runtime policies.
+[RELEASE_SCOPE.md](RELEASE_SCOPE.md) states the exact inclusion scope and unresolved
+criteria. Full end-to-end compute accounting, expanded supporting reproduction,
+a verified Đức bundle distribution link and corrected-code Cyber real-data results
+remain incomplete. Fixtures for Cyber's [corrected IO guards](
+experiments/member_studies/cyber_controller/README.md) do not turn historical scores
+into corrected-code results. No further real-data training is planned for this release.
+
+The primary results belong to frozen source tag
+`evidence/primary-final-20261027-v2`, not a new run of the current verifier code.
+[Report 1](adaptive_retention_report_1.pdf) remains the method reference.
+The [evidence index](docs/reports/README.md) distinguishes retained results and
+validation dependencies from [historical reports](docs/ARCHIVE_INDEX.md).
+
+## Team and contributions
+
+The source history preserves contributions from [Qyroven](https://github.com/Qyroven),
+[HungLD9505](https://github.com/HungLD9505), [huuduc32](https://github.com/huuduc32)
+and [hung00cyber](https://github.com/hung00cyber). Integration preserves their
+original commits; implementation contribution is distinct from scientific
+validation of each result.
+
+Follow [AGENTS.md](AGENTS.md) and the [workflow](docs/WORKFLOW.md) for changes.
+Work integrates through `dev`; updating `main` requires a separate instruction.
+`master` is retained as a backup.
