@@ -51,6 +51,8 @@ arm64 CPU; Ruff 0.17.0 matches `requirements-dev.txt`.
 | `uv pip check --python <isolated-python>` | Installed package dependencies compatible |
 | Primary-code/config comparison against #52 | No differences in primary packages, tools, configs or source catalog |
 | Frozen lock tracked file pins | 92/92 bytes/SHA matched; 48 external `runs/` paths absent in this checkout |
+| Working-tree `git diff --check` | Passed for new integration edits |
+| Full PR-range `git diff origin/dev...HEAD --check` | Flags trailing whitespace in the inherited generated AMS SVG; original evidence bytes preserved, not a clean PR-range pass |
 | Exact dependency/member/synthesis head ancestry | All 8 named PR heads preserved |
 | Backup of original worktree uncommitted work | 587 files; archived bytes rehashed against originals |
 

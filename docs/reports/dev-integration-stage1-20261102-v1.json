@@ -103,5 +103,9 @@
     "Cyber availability/input/replay findings; preserved isolated study not accepted production evidence",
     "Hung #72 stack and unique side branches not imported",
     "Main promotion and all-four attribution verification not performed"
-  ]
+  ],
+  "diff_checks": {
+    "working_tree": "PASS",
+    "full_pr_range": "Inherited generated docs/reports/figures/ams-first-three-seeds-20261027.svg contains trailing whitespace; preserved unchanged. NOT PASS."
+  }
 }
