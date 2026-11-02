@@ -53,3 +53,21 @@ training, artifact download, fresh PDF compile, remote CI success or independent
 peer approval is implied. The lead's paid-CI/non-author-review exceptions remain
 explicit. Previously documented scientific gaps and the 18 external-artifact tests
 remain unverified; retiring their scope does not fulfill their original criteria.
+
+## Completed clean-checkout checks
+
+At code/package commit `c313510bca470a16a5e03dbbc5274925781b7abe`, a fresh Git clone
+ran 892 root tests (890 passed, two CUDA skips), nine Đức tests and 12 Cyber tests:
+**911 passed, two skipped**. Ruff lint/format, catalog listing, release provenance
+and new-change whitespace checks passed. The tracked checkout was clean before
+and after execution. Later commits change documentation/verification records only.
+
+The [verification record](release-curation-20261102-v1.json) contains test-log hashes
+and explicit unverified scope. All 564 removed-file hashes match the remote archive
+snapshot; all 116 retained JSON/CSV files, 17 report assets and two PDF exports match
+their original identities. The 39 retained historical Markdown bodies are unchanged
+apart from link destinations. No test expectation or scientific result was changed.
+
+The curated reports directory now has 158 files: 155 retained originals plus this
+handoff, its verification record and the evidence index. This count is a result
+of dependency/evidence retention, not a target quota.
