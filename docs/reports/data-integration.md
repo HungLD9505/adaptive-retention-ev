@@ -2,9 +2,10 @@
 
 ## Decision and scope
 
-On 2026-10-20 the team lead requested a final combined check, integration into dev, synchronization to main and cleanup of completed branches/issues. The instruction also accepts the minimum 1/24 historical availability gate subject to coverage/missing-rate reporting, identical gates across methods and separate reporting of `source_checkpoint_only` targets.
-
-**Independent peer approval has not been supplied.** This integration proceeds under that specific lead instruction as a one-time exception to waiting for peer approval. No GitHub Approve review is fabricated, no branch-protection setting is weakened, and the normal peer-review rule remains for subsequent work. Technical tests are executed by the implementing agent and are not described as independent human/research review.
+The input policy uses a minimum 1/24 historical availability gate, with coverage
+and missing-rate reporting, identical gates across methods and separate
+`source_checkpoint_only` strata. Independent scientific approval is not established
+by the implementing process's technical checks.
 
 Technical verification is complete for the scope below. Merge/promotion must use PRs and successful Ubuntu/Windows checks on the integrated state; PR metadata records actual merge completion. The data handoff covers #16/#17/#18; model training, checkpoint serialization, runner and effectiveness evaluation remain future #19/runner responsibilities.
 

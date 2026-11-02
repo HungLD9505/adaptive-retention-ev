@@ -15,7 +15,7 @@ The report's historical results retain their original frozen execution identity.
 Prepared source examples train the Source GRU; target-prefix examples initialize a
 separate target. Replay writes forecasts, events and state for verification and
 analysis. The report summarizes previously accepted evidence; the diagram is not
-an executable report-generation command. Hùng's supporting track and Đức/Cyber
+an executable report-generation command. The supporting pipeline and diagnostic
 studies retain different method and validation identities.
 
 ## 2. Data pipeline
@@ -60,13 +60,7 @@ Names use sans-serif, technical labels monospace and headings serif. Fonts may
 look slightly different across operating systems; this is not an exact Geist or
 Instrument Serif rendering claim.
 
-All three HTML files passed the skill's offline `self_check.py` and repository
-`verify-geometry.py`. SVG exports passed XML parsing and were visually inspected
-using macOS Quick Look previews inside Codex. No Chrome or browser automation was
-used for these final figures. The draft Archify experiment was superseded and is
-not part of this package. Browser layout/DOM checks were not performed.
-
-The editable HTML embeds each SVG directly. Standalone SVG is the maintained
-GitHub display format and scales without raster pixelation. Preview PNGs are local
-review artifacts outside Git. These documentation changes do not alter model,
-controller, data, report assets or numerical results.
+The diagrams passed offline structure and geometry checks. Standalone SVG files
+are the GitHub display format; their HTML versions embed the same vector content.
+Source ranges are recorded in `sources.json`. System font fallbacks can vary by OS.
+The original design/verification record remains in the historical snapshot.

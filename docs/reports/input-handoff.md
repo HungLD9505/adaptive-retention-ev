@@ -1,12 +1,14 @@
 # Issue #18 — input policy implementation and real-data handoff
 
-> Retained preparation-handoff snapshot. See [final integrated verification and lead acceptance](data-integration.md) for the subsequent merge/issue disposition. The actual counts below remain unchanged.
+> Retained preprocessing snapshot. See [integrated verification](data-integration.md) for the combined validation scope. The actual counts below remain unchanged.
 
 ## Status
 
-The team lead explicitly requested finalization/implementation on 2026-10-19. [Input handoff policy v1](../data/INPUT_ACCEPTANCE.md) now defines operational missing-data handling. All 21 configurations have been rerun into new uniquely identified outputs. The original PR #35 trial, workbook and evidence remain unchanged.
+[Input handoff policy v1](../data/INPUT_ACCEPTANCE.md) now defines operational missing-data handling. All 21 configurations have been rerun into new uniquely identified outputs. The original PR #35 trial, workbook and evidence remain unchanged.
 
-**Technical preprocessing implementation and actual-data handoff are ready for independent review. Formal #18 closure remains pending peer approval, CI, integration/merge of the prerequisite PRs and consumer acceptance.** No model was trained and no PR was merged. Readiness applies to the usable, explicitly accounted input stream, not to every configured station/day or strict-online causality.
+This record covers technical preprocessing and actual-data outputs. Usable streams,
+blocked entities and skipped dates are explicitly accounted; strict-online
+causality is not established by successful preprocessing.
 
 ## What changed
 
