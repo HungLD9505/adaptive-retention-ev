@@ -1,0 +1,94 @@
+{
+  "schema": "hung-development-queue-start-v1",
+  "snapshot_utc": "2026-10-26T21:42:00+00:00",
+  "model_code_sha": "44b8532959d76fb20691881539f991ca44983727",
+  "coordinator_code_commit": "2c5e73916854c61ca61a3e91309d45afac04182e",
+  "coordinator_module_sha256": "0940c74fe90ab6f2489bb59f6a254492046c54897092d13c855b67845d78ffbf",
+  "coordinator_notebook_sha256": "5ff1283feea236529d342eea6b36cd8361616563bded1019602021bc1da80000",
+  "coordinator_version_url": "https://www.kaggle.com/code/hungluongduc/hung-development-cpu-coordinator-20261027-v1?scriptVersionId=362629668",
+  "coordinator_status": "running CPU; next GPU group submission not yet observed",
+  "probe": {
+    "passed": true,
+    "native_readback": {
+      "passed": true,
+      "dataset": "hungluongduc/hung-e2e-api-storage-probe-20261027-v3/versions/1",
+      "sha256": "ec222656ce333085a7d894acc3ed9675031a22a2703a86d5e6e777aaa934a5aa",
+      "bytes": 303,
+      "crc": "passed",
+      "seconds": 3.6127340310000022,
+      "readback_path": "/kaggle/input/datasets/hungluongduc/hung-e2e-api-storage-probe-20261027-v3/probe.zip.bin",
+      "scope": "Documented native notebook resource mount; HTTP DownloadDataset403 is not retried"
+    },
+    "cpu_dispatch": {
+      "url": "https://www.kaggle.com/code/hungluongduc/hung-api-dispatch-probe-20261027-v1",
+      "ref": "/code/hungluongduc/hung-api-dispatch-probe-20261027-v1",
+      "version": 1,
+      "expected_completion_sha256": "438e92e59a1da8c3e6d307a9110ddba4b8478a3a45945ddfeb9bff30fe77053d",
+      "code_sha256": "5b2de1d0ccc57bc33f5a86981a079d92473a36c9941916536d3d25ad1999f943",
+      "gpu": false,
+      "is_private_requested": true
+    },
+    "completion_sha256": "438e92e59a1da8c3e6d307a9110ddba4b8478a3a45945ddfeb9bff30fe77053d",
+    "actual_cpu_child_complete": true,
+    "quota": {
+      "observed_at_utc": "2026-10-26T21:30:08.329083+00:00",
+      "total_seconds": 108000.0,
+      "used_seconds": 24436.380707,
+      "reserved_seconds": 0.0,
+      "pay_to_scale_enabled": false
+    },
+    "kagglehub_version": "1.0.2",
+    "scope": "Private native resource readback plus CPU-only SDK dispatch/completion proof; no training or Final"
+  },
+  "probe_log_sha256": "6617e59cf256e3d90879a339b24cf95d9f78e5d125c562e8bdecd54b5341d8d7",
+  "offline_tests": {
+    "ran": 295,
+    "skipped": 1,
+    "exit": {
+      "exit_code": 0,
+      "wall_seconds": 225.2313224
+    },
+    "log_sha256": "2ba0b671e95a89461f93bf50e61c6ab4b6dd87e26f7276a72883b5e13b90ec1a"
+  },
+  "new_jobs_completed_receipt_verified": 62,
+  "new_jobs_remote_archive_readback": 26,
+  "local_shard0037": {
+    "artifact_bytes": 62004895,
+    "artifact_sha256": "53cdb816e107c30d546e2256e48842b2b8011be7cf96db97ffbae3ccbc4c2d40",
+    "crc": "passed",
+    "job_ids": [
+      "uncertainty_b14s19e1987",
+      "uncertainty_b14s19e2152",
+      "uncertainty_b14s19e2613",
+      "uncertainty_b14s19e2644",
+      "uncertainty_b14s7e1025",
+      "uncertainty_b14s7e1153",
+      "uncertainty_b14s7e1405",
+      "uncertainty_b14s7e1693",
+      "uncertainty_b14s7e1987",
+      "uncertainty_b14s7e2152",
+      "uncertainty_b14s7e2613",
+      "uncertainty_b14s7e2644",
+      "uncertainty_b28s11e1165",
+      "uncertainty_b28s11e1188",
+      "uncertainty_b28s11e1251",
+      "uncertainty_b28s11e1408",
+      "uncertainty_b28s11e1987",
+      "uncertainty_b28s11e2005",
+      "uncertainty_b28s11e2152",
+      "uncertainty_b28s11e2472"
+    ],
+    "partition_sha256": "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f",
+    "peer_acceptance": "pending",
+    "plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+    "remote_readback": "pending; archive is on persistent local SSD",
+    "shard_id": "shard_0037",
+    "wall_seconds": 2960.904039400004
+  },
+  "remaining": {
+    "local": 180,
+    "kaggle_running_group02": 40,
+    "kaggle_future": 500
+  },
+  "independent_acceptance": "pending; no Final lock or #39 substitute decision"
+}

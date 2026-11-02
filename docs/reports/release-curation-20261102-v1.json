@@ -1,0 +1,60 @@
+{
+  "schema": "ev-curated-release-verification-v1",
+  "tested_commit": "c313510bca470a16a5e03dbbc5274925781b7abe",
+  "clean_clone": "/tmp/ev-curated-release-clean-20261102",
+  "tests": {
+    "root": {
+      "discovered": 892,
+      "skipped": 2,
+      "status": "passed",
+      "log_sha256": "531a4ff6e0610bb211b1a1e6e908789b5ce554585d94088a83ba0bd72442bead"
+    },
+    "duc": {
+      "discovered": 9,
+      "skipped": 0,
+      "status": "passed",
+      "log_sha256": "aae6479198a24864df1de75c9fb04bbaea40aedd2f219080813c3fb015a797f8"
+    },
+    "cyber": {
+      "discovered": 12,
+      "skipped": 0,
+      "status": "passed",
+      "log_sha256": "3e3db46f43ea3f886bcae5aa3420807fd51c23cb1791c75199bc3fbf33661d1e"
+    }
+  },
+  "total_passed": 911,
+  "total_skipped": 2,
+  "lint": "All checks passed!",
+  "format": "515 files already formatted",
+  "catalog": "passed",
+  "release_check": {
+    "schema": "ev-report-release-check-v1",
+    "status": "passed",
+    "code_commit": "c313510bca470a16a5e03dbbc5274925781b7abe",
+    "report_files_verified": 17,
+    "historical_source_pins_verified": 92,
+    "member_source_heads_preserved": [
+      "HungLD9505",
+      "Qyroven",
+      "hung00cyber",
+      "huuduc32"
+    ],
+    "external_artifacts_verified": false,
+    "fresh_pdf_compile": false,
+    "github_contributors_ui_verified": false
+  },
+  "archive_hashes_verified": 564,
+  "retained_machine_evidence_hashes_verified": 116,
+  "historical_markdown_bodies_verified_except_link_targets": 39,
+  "pdf_hashes_verified": 2,
+  "original_report_source_assets_verified": 17,
+  "clean_tracked_worktree_before_after": true,
+  "subsequent_changes": "Documentation and verification records only; no Python, notebook, config, model or result changes.",
+  "external_artifact_tests_not_run": 18,
+  "known_external_artifact_link": ".cache/kaggle-payload-v2/payload/inputs.zip (historical README; not acquired)",
+  "fresh_training": false,
+  "fresh_pdf_compile": false,
+  "remote_ci_pass": false,
+  "independent_approval": false,
+  "main_promoted": false
+}

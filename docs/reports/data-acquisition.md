@@ -2,7 +2,7 @@
 
 ## Scope and evidence
 
-Issue #8. Download the two required archives, verify their identity, inspect ZIP structure, and arrange usable provider files locally. Evidence: [acquisition manifest](acquisition_20261015_1633.json).
+Issue #8. Download the two required archives, verify their identity, inspect ZIP structure, and arrange usable provider files locally. Evidence: [acquisition manifest](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/acquisition_20261015_1633.json).
 
 | Archive | Bytes | SHA-256 | Publisher checksum | ZIP integrity |
 |---|---:|---|---|---|

@@ -1,0 +1,57 @@
+{
+  "schema": "ev-source-epoch-study-v1",
+  "scope": "Finite UrbanEV Development Source-duration study; three paired seeds; no Final lock or convergence guarantee",
+  "source_epochs": [
+    1,
+    3,
+    10
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "selection_sha256": "6884857291b79b35f83cc7d78b6fc7a2b5fe0283ebe85c0321a5eb1a5ee283f0",
+  "method": "full_finetuning",
+  "source_training": {
+    "epochs": 10,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "epsilon": 0.001,
+    "head_width": 64
+  },
+  "runner_config": {
+    "controller": {
+      "lambda_low": 0.01,
+      "lambda_high": 0.1,
+      "initial_lambda": 0.01,
+      "block_days": 14,
+      "min_valid_days": 7,
+      "delta": 0.0,
+      "alpha": 0.05,
+      "segment_days": 3,
+      "resamples": 2000,
+      "seed": 42
+    },
+    "initial_training": {
+      "seed": 42,
+      "epochs": 3,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "online_training": {
+      "seed": 42,
+      "epochs": 1,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "development_entities": [],
+    "replay_days": 90,
+    "state_retention": "latest"
+  },
+  "selection_rule": "equal_budget_station_seed_mae_kwh_then_fewer_epochs"
+}

@@ -1,0 +1,3 @@
+# Python 3.12 reference environment. Colab records its actual Python/CUDA versions.
+torch==2.11.0
+numpy==2.3.3

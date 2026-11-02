@@ -1,0 +1,16 @@
+{
+  "training": {
+    "seed": 42,
+    "epochs": 1,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "epsilon": 0.001,
+    "head_width": 64
+  },
+  "lambda": 0,
+  "development_entities": [
+    "1001",
+    "1008"
+  ],
+  "evaluation_origins": 7
+}

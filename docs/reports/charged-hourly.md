@@ -20,7 +20,7 @@ This Step 5 branch starts from dev. PRs #25–#28 remain separate review items; 
 - Run ID: `issue17-hourly-v1-20261017`; UTC start `2026-10-17T16:43:36.064011+00:00`.
 - Executed commit: `5f1c0a616b37ceb05d9160644950f3ae052a1add`; script SHA-256 `8ef558141a243d583ff074da854671e0b63c956220621633feab7b8d0e25d9ca`; tracked worktree was clean.
 - Python 3.12.14; runtime **31.31 s**.
-- Input archive: 268,720,500 bytes; size/SHA-256 and publisher MD5 freshly verified. Exact identities are in the [evidence snapshot](charged-hourly-evidence.json).
+- Input archive: 268,720,500 bytes; size/SHA-256 and publisher MD5 freshly verified. Exact identities are in the [evidence snapshot](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/charged-hourly-evidence.json).
 - Window: nominal local 2023-04-01 00:00 inclusive to 2023-10-01 00:00 exclusive. Start-of-hour labeling is an explicit provisional assumption; no timezone/DST conversion is claimed.
 - Local output: `data/processed/charged/issue17-hourly-v1-20261017/` (ignored by Git). All CSVs are machine handoff tables; use the small manifest/QC/report for review.
 

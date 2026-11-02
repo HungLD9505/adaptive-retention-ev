@@ -27,7 +27,7 @@ flowchart TB
 
 ## Cleanup after completion
 
-- After a PR merges, confirm its commits/work are preserved on the target branch, switch off the working branch, then delete it remotely and locally. Keep `main`, `dev`, and `master`. Do not delete unmerged work or a branch supporting an active PR.
+- After a PR merges, confirm its commits/work are preserved on the target branch, switch off the working branch, then delete it remotely and locally. Keep `main`, `dev`, and `master`. Do not delete unmerged work or a branch supporting an active PR. Check both the head and base branch of every open PR, not only its head; deleting a base can auto-close its dependent PRs. Preserve intentionally superseded unique work under an identified archive tag before removing its working branch.
 - Close the issue when all acceptance criteria are met, linking the merged PR/results. If it spans multiple PRs, keep it open until the remaining work is complete. Check closure manually for PRs targeting `dev`.
 - Merged PRs are already closed. Close abandoned or superseded PRs with a reason and replacement link where applicable; preserve their review history.
 - The person or agent completing the handoff performs this cleanup without another confirmation. This does not authorize an agent to merge a PR. GitHub automatic head-branch deletion is currently disabled (`delete_branch_on_merge=false`); enabling it requires repository admin access. Until then, perform the cleanup explicitly.
@@ -68,4 +68,4 @@ Keep large checkpoints/runs locally or in storage agreed by the team. Git stores
 | 5 | Runner and controller | Store forecasts before labels; availability/update/switch/checkpoint tests |
 | 6 | Lock and final experiments | Config locked before final evaluation, fair comparisons, metrics and cost evidence |
 
-Data acquisition/hourly processing/input implementations now have a shared snapshot and [integrated verification record](reports/data-integration.md). Models, runner/controller and experiments remain future work. The table gives the handoff order and criteria, not a competing progress plan. The core method follows Report 1. Parameters selected on development must not be tuned using final results.
+Data acquisition/hourly processing/input implementations now have a shared snapshot and [integrated verification record](reports/data-integration.md). Models, runner/controller and experiments are consolidated by the [2 November integration handoff](reports/dev-integration-final-20261102.md), with separate implementation identities and preserved historical evidence. The table gives the handoff order and criteria, not a competing progress plan. The core method follows Report 1. Parameters selected on development must not be tuned using final results.

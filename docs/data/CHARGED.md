@@ -300,7 +300,7 @@ The first row is a university at longitude 4.9115429, latitude 52.3637734. Row i
 
 ## 13. Verification, time semantics, and unresolved limits
 
-Direct numerical inspection is scoped to AMS. Evidence and input hashes are in [charged-ams-verification.json](../reports/charged-ams-verification.json). No raw data was modified. Checks used upstream commit `ff13cefe0c9e15073d02ad1e57efb4054dd70c5a`.
+Direct numerical inspection is scoped to AMS. Evidence and input hashes are in [charged-ams-verification.json](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/charged-ams-verification.json). No raw data was modified. Checks used upstream commit `ff13cefe0c9e15073d02ad1e57efb4054dd70c5a`.
 
 ### Verified relationships
 

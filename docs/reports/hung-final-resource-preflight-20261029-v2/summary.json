@@ -1,0 +1,51 @@
+{
+  "schema": "hung-final-resource-preflight-v1",
+  "status": "CANDIDATE_SCENARIOS_NOT_CAPACITY_APPROVAL",
+  "ledger_sha256": "bf1117c1d5fc0a902411cb6d850dca51e77802997c32880295ede20d8ac83004",
+  "measured_development_jobs": 782,
+  "measured_archives": 40,
+  "budget_strata": [
+    {
+      "budget_days": 7,
+      "observed_entity_groups": 6,
+      "observed_jobs_per_entity_group": 34,
+      "unmeasured_main_and_block7_jobs_per_group": 6,
+      "group_stage_wall_median_seconds": 1251.1818505,
+      "group_stage_wall_p95_seconds": 1329.571138,
+      "group_raw_plus_zip_median_bytes": 618039609.0,
+      "group_raw_plus_zip_p95_bytes": 846568204,
+      "block28_proxy_stage_wall_median_seconds": 29.2331815,
+      "block28_proxy_stage_wall_p95_seconds": 38.043466,
+      "block28_proxy_raw_plus_zip_median_bytes": 6204374.0,
+      "block28_proxy_raw_plus_zip_p95_bytes": 9982082
+    },
+    {
+      "budget_days": 14,
+      "observed_entity_groups": 8,
+      "observed_jobs_per_entity_group": 34,
+      "unmeasured_main_and_block7_jobs_per_group": 6,
+      "group_stage_wall_median_seconds": 1235.086053,
+      "group_stage_wall_p95_seconds": 1321.361661,
+      "group_raw_plus_zip_median_bytes": 809261873.0,
+      "group_raw_plus_zip_p95_bytes": 842728356,
+      "block28_proxy_stage_wall_median_seconds": 24.3476365,
+      "block28_proxy_stage_wall_p95_seconds": 25.973567,
+      "block28_proxy_raw_plus_zip_median_bytes": 8691879.0,
+      "block28_proxy_raw_plus_zip_p95_bytes": 9805449
+    },
+    {
+      "budget_days": 28,
+      "observed_entity_groups": 9,
+      "observed_jobs_per_entity_group": 34,
+      "unmeasured_main_and_block7_jobs_per_group": 6,
+      "group_stage_wall_median_seconds": 1312.354791,
+      "group_stage_wall_p95_seconds": 1372.293471,
+      "group_raw_plus_zip_median_bytes": 828674506,
+      "group_raw_plus_zip_p95_bytes": 841593599,
+      "block28_proxy_stage_wall_median_seconds": 25.717096,
+      "block28_proxy_stage_wall_p95_seconds": 27.058102,
+      "block28_proxy_raw_plus_zip_median_bytes": 8810358,
+      "block28_proxy_raw_plus_zip_p95_bytes": 8964895
+    }
+  ]
+}

@@ -8,27 +8,16 @@ We still have **two separate datasets**. We have created new representations of 
 | --- | --- | --- |
 | `data/raw/` | A record in the publisher's original archive/layout | Preserve the source exactly as acquired. |
 | `data/processed/` | One station/site, one hourly bin, energy in kWh, and file-QC information | Give both datasets a common hourly interface. |
-| `data/inputs/` | One entity's 24-hour history, future calendar features, and separately controlled labels | Supply examples and prediction inputs to the future model. |
+| `data/inputs/` | One entity's 24-hour history, future calendar features, and separately controlled labels | Supply examples and prediction inputs to training and causal replay. |
 
 For the team-shared files, use [DATA-v1-20261019 downloads](DATA_DOWNLOADS.md): it has links, package hashes and extraction instructions.
 
 All paths below are relative to the repository root, **TFL-EV**. These large files exist locally and are ignored by Git. A clone contains their code, explanations and compact evidence, not the datasets themselves.
 
-```mermaid
-flowchart TD
-    U["UrbanEV source archive: station activity every 5 minutes"] --> UP["#16: validate bins and sum 12 valid energy intervals per hour"]
-    C["CHARGED source archive: publisher-processed hourly data in 6 cities"] --> CP["#17: audit each city and reshape hourly energy"]
-    UP --> UH["UrbanEV hourly table, kWh + validity"]
-    CP --> CH["Separate CHARGED hourly table for each city, kWh + validity"]
-    UH --> I["#18: assign roles, fit permitted-prefix scalers, encode features and build 24→24 examples"]
-    CH --> I
-    I --> T["training.jsonl: contained examples for the appropriate training stage"]
-    I --> F["forecasts.jsonl: historical inputs and future calendar only"]
-    I --> L["labels.jsonl: actual future energy, kept separate"]
-    I --> A["Entity summaries + every scheduled origin + provenance manifest"]
-    T --> M["#19: future model trainer; not implemented here"]
-    F --> M
-```
+![Data preparation pipeline](../diagrams/data-pipeline.svg)
+
+See the [system and Adaptive replay views](../diagrams/README.md) for the downstream
+model, label gates and retention decisions.
 
 The shared box means **shared code and record structure**. Each dataset/city is still processed in a separate run. It does not mean their station series or training pools have been combined.
 

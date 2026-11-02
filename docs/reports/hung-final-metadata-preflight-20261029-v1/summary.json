@@ -1,0 +1,18 @@
+{
+  "schema": "hung-final-metadata-preflight-v1",
+  "status": "CANDIDATE_ONLY_NOT_EXECUTABLE_LOCK",
+  "input_zip_sha256": "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7",
+  "portable_development_plan_sha256": "b7c79f501230ea5e1308b4bc02b2707089a8c788e4ee3df229aadec005a05198",
+  "input_manifest_sha256_by_budget": {
+    "7": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+    "14": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+    "28": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd"
+  },
+  "final_urbanev_szh_ids_each_budget": 373,
+  "same_ids_all_budgets": true,
+  "candidate_urban30_ids": 30,
+  "candidate_rule": "SHA256(hung-final-urban-candidate-v1|entity_id), ascending, first 30",
+  "development_source_candidates": 9,
+  "final_values_read": false,
+  "charged_final_input_available_in_this_package": false
+}

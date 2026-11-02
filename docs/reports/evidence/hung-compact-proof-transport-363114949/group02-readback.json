@@ -1,0 +1,70 @@
+{
+  "claimed_source_version_id": 363105577,
+  "jobs": 40,
+  "readbacks": [
+    {
+      "job_ids": [
+        "block28_b14s7e1987",
+        "block28_b14s7e2152",
+        "block28_b14s7e2613",
+        "block28_b14s7e2644",
+        "block28_b28s11e1165",
+        "block28_b28s11e1188",
+        "block28_b28s11e1251",
+        "block28_b28s11e1408",
+        "block28_b28s11e1987",
+        "block28_b28s11e2005",
+        "block28_b28s11e2152",
+        "block28_b28s11e2472",
+        "block28_b28s11e2633",
+        "block28_b28s19e1165",
+        "block28_b28s19e1188",
+        "block28_b28s19e1251",
+        "block28_b28s19e1408",
+        "block28_b28s19e1987",
+        "block28_b28s19e2005",
+        "block28_b28s19e2152"
+      ],
+      "jobs": 20,
+      "jobset_sha256": "1cf89024e9c8b9d8488b386a54a0995924fad19a9334f9539d50843d345260f1",
+      "proof_bytes": 21388,
+      "proof_sha256": "735a225b2c6253b3357c325ae09735110fe39956c17e0dbbec037e064218a99b",
+      "shard_id": "shard_0002",
+      "status": "REMOTE_PROOF_READBACK_VERIFIED"
+    },
+    {
+      "job_ids": [
+        "block28_b28s19e2472",
+        "block28_b28s19e2633",
+        "block28_b28s7e1165",
+        "block28_b28s7e1188",
+        "block28_b28s7e1251",
+        "block28_b28s7e1408",
+        "block28_b28s7e1987",
+        "block28_b28s7e2005",
+        "block28_b28s7e2152",
+        "block28_b28s7e2472",
+        "block28_b28s7e2633",
+        "block28_b7s11e1050",
+        "block28_b7s11e1200",
+        "block28_b7s11e1405",
+        "block28_b7s11e2264",
+        "block28_b7s11e2447",
+        "block28_b7s11e2452",
+        "block28_b7s19e1050",
+        "block28_b7s19e1200",
+        "block28_b7s19e1405"
+      ],
+      "jobs": 20,
+      "jobset_sha256": "145d75ce5a847f1494d7ec4285e47812c769acb7206bc0da7a20a48e4545f4d8",
+      "proof_bytes": 21346,
+      "proof_sha256": "e23351b9593f1703a075e9fb2ddc935d35f52c43469dbd1b3c59db32fab7e5d8",
+      "shard_id": "shard_0003",
+      "status": "REMOTE_PROOF_READBACK_VERIFIED"
+    }
+  ],
+  "schema": "hung-kaggle-compact-proof-group-readback-v1",
+  "scope": "development_only",
+  "source_notebook": "hungluongduc/hung-compact-proof-group02-20261028-v1",
+  "status": "REMOTE_PROOF_READBACK_VERIFIED"
+}

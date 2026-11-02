@@ -1,0 +1,590 @@
+{
+  "schema": "hung-q-real-development-input-trace-v2",
+  "scope": "bounded_14_origin_real_development_input_with_random_untrained_models",
+  "q_commit": "83b877e16e7e690d93bb1f7736ce1870ef08fadd",
+  "q_sha256": {
+    "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+    "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+    "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4"
+  },
+  "h_runner_sha256": "38adc3c9952481e89c1417dfc677f3e9abb3bd3eda8accd2709bc547fdb52baa",
+  "tool_sha256": "563bc2d45cedda08de602064500d9335c3b72d63a5037933fb61f44438e53093",
+  "input": {
+    "zip_sha256": "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7",
+    "manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+    "member_sha256": {
+      "entities.jsonl": "179d4de2765dbd8593c94b347b15654a3d220202a314ad286cd26828977636fd",
+      "schedule.jsonl": "311609cfb4ac4af0f892c0833b2f4f8796bd1de67731e0447090ef63c8fad61c",
+      "forecasts.jsonl": "0668ad08794d96f7b4f3c8b399f487bb8b0fd96a83ea695711db15f13fafeeb7",
+      "labels.jsonl": "de1353e8c93f61f2ccf904cf81ae8481b2be978c37964bc175b514581ccb13cc"
+    },
+    "input_run_id": "urbanev-SZH-7d",
+    "entity_id": "1001",
+    "origins": [
+      "2022-12-01T00:00:00+08:00",
+      "2022-12-02T00:00:00+08:00",
+      "2022-12-03T00:00:00+08:00",
+      "2022-12-04T00:00:00+08:00",
+      "2022-12-05T00:00:00+08:00",
+      "2022-12-06T00:00:00+08:00",
+      "2022-12-07T00:00:00+08:00",
+      "2022-12-08T00:00:00+08:00",
+      "2022-12-09T00:00:00+08:00",
+      "2022-12-10T00:00:00+08:00",
+      "2022-12-11T00:00:00+08:00",
+      "2022-12-12T00:00:00+08:00",
+      "2022-12-13T00:00:00+08:00",
+      "2022-12-14T00:00:00+08:00"
+    ],
+    "scale": 20.2125,
+    "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+    "selected_14_row_sha256": {
+      "schedule.jsonl": "bbee248d7cadcf2befc0941d699679329e392fe42bda0960c8eec9630988fd12",
+      "forecasts.jsonl": "c9132872b5e123ce496892a7beb2958990fe5371e81cb9082214017fabcf8c3d",
+      "labels.jsonl": "ffc5ac9745d8cf9d7ed08c985c835d5c050d6aaaa2c3baf1e052e49c1fcbdf74"
+    }
+  },
+  "initial_state_sha256": "e3e4c5bf8d48648aa04ad1bb69cef2d34b02d8807eb123df6d1f990273ae69d7",
+  "torch_version": "2.8.0+cu126",
+  "device": "cpu",
+  "configuration": {
+    "seed": 7,
+    "levels": [
+      0,
+      0.1,
+      0.2
+    ],
+    "initial_level": 0,
+    "block_days": 14,
+    "min_complete_days": 5,
+    "delta": 0,
+    "alpha": 0.05,
+    "segment_days": 2,
+    "resamples": 100,
+    "learning_rate": 0.001,
+    "epsilon": 1e-06
+  },
+  "encoder_before_max_abs": 0.0,
+  "forecast_max_abs_by_origin": [
+    {
+      "origin": "2022-12-01T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.2125597596168518,
+        0.2125597596168518,
+        0.2125597596168518
+      ]
+    },
+    {
+      "origin": "2022-12-02T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.1521422266960144,
+        0.1521422266960144,
+        0.1521422266960144
+      ]
+    },
+    {
+      "origin": "2022-12-03T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.1820250153541565,
+        0.18199002742767334,
+        0.18195807933807373
+      ]
+    },
+    {
+      "origin": "2022-12-04T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.20865577459335327,
+        0.20862025022506714,
+        0.20859098434448242
+      ]
+    },
+    {
+      "origin": "2022-12-05T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.18202054500579834,
+        0.18211638927459717,
+        0.18220901489257812
+      ]
+    },
+    {
+      "origin": "2022-12-06T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.19693201780319214,
+        0.19714659452438354,
+        0.19740325212478638
+      ]
+    },
+    {
+      "origin": "2022-12-07T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.20823144912719727,
+        0.2082749605178833,
+        0.2083309292793274
+      ]
+    },
+    {
+      "origin": "2022-12-08T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.21570533514022827,
+        0.21588265895843506,
+        0.2158026099205017
+      ]
+    },
+    {
+      "origin": "2022-12-09T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.15006163716316223,
+        0.14854511618614197,
+        0.14820247888565063
+      ]
+    },
+    {
+      "origin": "2022-12-10T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.251920223236084,
+        0.25048965215682983,
+        0.24959498643875122
+      ]
+    },
+    {
+      "origin": "2022-12-11T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.25249648094177246,
+        0.2510966956615448,
+        0.2500574290752411
+      ]
+    },
+    {
+      "origin": "2022-12-12T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.2025255560874939,
+        0.20177483558654785,
+        0.20130395889282227
+      ]
+    },
+    {
+      "origin": "2022-12-13T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.20258033275604248,
+        0.20117861032485962,
+        0.19968366622924805
+      ]
+    },
+    {
+      "origin": "2022-12-14T00:00:00+08:00",
+      "max_abs_by_level": [
+        0.2929646968841553,
+        0.2907244563102722,
+        0.2876380681991577
+      ]
+    }
+  ],
+  "forecast_max_abs_all": 0.2929646968841553,
+  "encoder_after_block_max_abs": 0.02432682365179062,
+  "q_events": [
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "forecast_saved",
+    "score",
+    "update",
+    "update",
+    "update",
+    "decision",
+    "fork"
+  ],
+  "h_events": [
+    "fork:0",
+    "forecast:2022-12-01T00:00:00+08:00",
+    "unscored:2022-12-01T00:00:00+08:00",
+    "score:2022-12-01T00:00:00+08:00",
+    "update:2022-12-01T00:00:00+08:00",
+    "forecast:2022-12-02T00:00:00+08:00",
+    "unscored:2022-12-02T00:00:00+08:00",
+    "score:2022-12-02T00:00:00+08:00",
+    "update:2022-12-02T00:00:00+08:00",
+    "forecast:2022-12-03T00:00:00+08:00",
+    "unscored:2022-12-03T00:00:00+08:00",
+    "score:2022-12-03T00:00:00+08:00",
+    "update:2022-12-03T00:00:00+08:00",
+    "forecast:2022-12-04T00:00:00+08:00",
+    "unscored:2022-12-04T00:00:00+08:00",
+    "score:2022-12-04T00:00:00+08:00",
+    "update:2022-12-04T00:00:00+08:00",
+    "forecast:2022-12-05T00:00:00+08:00",
+    "unscored:2022-12-05T00:00:00+08:00",
+    "score:2022-12-05T00:00:00+08:00",
+    "update:2022-12-05T00:00:00+08:00",
+    "forecast:2022-12-06T00:00:00+08:00",
+    "unscored:2022-12-06T00:00:00+08:00",
+    "score:2022-12-06T00:00:00+08:00",
+    "update:2022-12-06T00:00:00+08:00",
+    "forecast:2022-12-07T00:00:00+08:00",
+    "unscored:2022-12-07T00:00:00+08:00",
+    "score:2022-12-07T00:00:00+08:00",
+    "update:2022-12-07T00:00:00+08:00",
+    "forecast:2022-12-08T00:00:00+08:00",
+    "unscored:2022-12-08T00:00:00+08:00",
+    "score:2022-12-08T00:00:00+08:00",
+    "update:2022-12-08T00:00:00+08:00",
+    "forecast:2022-12-09T00:00:00+08:00",
+    "unscored:2022-12-09T00:00:00+08:00",
+    "score:2022-12-09T00:00:00+08:00",
+    "update:2022-12-09T00:00:00+08:00",
+    "forecast:2022-12-10T00:00:00+08:00",
+    "unscored:2022-12-10T00:00:00+08:00",
+    "score:2022-12-10T00:00:00+08:00",
+    "update:2022-12-10T00:00:00+08:00",
+    "forecast:2022-12-11T00:00:00+08:00",
+    "unscored:2022-12-11T00:00:00+08:00",
+    "score:2022-12-11T00:00:00+08:00",
+    "update:2022-12-11T00:00:00+08:00",
+    "forecast:2022-12-12T00:00:00+08:00",
+    "unscored:2022-12-12T00:00:00+08:00",
+    "score:2022-12-12T00:00:00+08:00",
+    "update:2022-12-12T00:00:00+08:00",
+    "forecast:2022-12-13T00:00:00+08:00",
+    "unscored:2022-12-13T00:00:00+08:00",
+    "score:2022-12-13T00:00:00+08:00",
+    "update:2022-12-13T00:00:00+08:00",
+    "forecast:2022-12-14T00:00:00+08:00",
+    "unscored:2022-12-14T00:00:00+08:00",
+    "score:2022-12-14T00:00:00+08:00",
+    "update:2022-12-14T00:00:00+08:00",
+    "decision:0:0.0",
+    "fork:1"
+  ],
+  "normalized_core_events": [
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "forecast",
+    "score",
+    "update",
+    "decision",
+    "fork"
+  ],
+  "q_decision": {
+    "algorithm": "ev-retention-controller-mbb-v1",
+    "stream_id": "common-real-dev-input-v1",
+    "scale_id": "492d6ce7caa0747f436f0072d75c9faba05479a8ce4c1f6b9b00b49c441bc586",
+    "block_start": "2022-12-01T00:00:00+08:00",
+    "effective_from": "2022-12-15T00:00:00+08:00",
+    "active_lambda": 0.0,
+    "selected_lambda": 0.0,
+    "reason": "no_qualifying_challenger",
+    "valid_days": 14,
+    "pending_days": 0,
+    "incomplete_days": 0,
+    "absent_days": 0,
+    "valid_day_gaps": 0,
+    "used_origins": [
+      "2022-12-01T00:00:00+08:00",
+      "2022-12-02T00:00:00+08:00",
+      "2022-12-03T00:00:00+08:00",
+      "2022-12-04T00:00:00+08:00",
+      "2022-12-05T00:00:00+08:00",
+      "2022-12-06T00:00:00+08:00",
+      "2022-12-07T00:00:00+08:00",
+      "2022-12-08T00:00:00+08:00",
+      "2022-12-09T00:00:00+08:00",
+      "2022-12-10T00:00:00+08:00",
+      "2022-12-11T00:00:00+08:00",
+      "2022-12-12T00:00:00+08:00",
+      "2022-12-13T00:00:00+08:00",
+      "2022-12-14T00:00:00+08:00"
+    ],
+    "comparisons": [
+      {
+        "challenger": 0.1,
+        "mean_improvement": -0.0001985866221643603,
+        "lcb": -0.000434189988300205,
+        "qualifies": false
+      },
+      {
+        "challenger": 0.2,
+        "mean_improvement": -0.00039797267388728367,
+        "lcb": -0.0008493816657435313,
+        "qualifies": false
+      }
+    ],
+    "config": {
+      "lambda_low": 0.1,
+      "lambda_high": 0.2,
+      "initial_lambda": 0.0,
+      "block_days": 14,
+      "min_valid_days": 5,
+      "delta": 0.0,
+      "alpha": 0.05,
+      "segment_days": 2,
+      "resamples": 100,
+      "seed": 7
+    },
+    "bootstrap_seed": 29778173324316667855670350730000526627719349357065469390302666601049004988489,
+    "paired_input_sha256": "ea6b6183e49e8a531cea8dfd12aebf8b63f25869c5c78ac792b092e0a4299220"
+  },
+  "h_decision": {
+    "current_level": 0.0,
+    "selected_level": 0.0,
+    "valid_days": 14,
+    "skipped_days": 0,
+    "lower_bounds": [
+      null,
+      -0.00034415402582713535,
+      -0.0006934734327452523
+    ],
+    "alpha_per_challenger": 0.025,
+    "reason": "no_qualifying_challenger",
+    "selection_statistic": "bootstrap_lcb",
+    "observed_mean_improvement": null,
+    "proxy_value": null,
+    "proxy_samples": null
+  },
+  "q_label_accesses": [
+    {
+      "origin": "2022-12-01T00:00:00+08:00",
+      "as_of": "2022-12-02T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-02T00:00:00+08:00",
+      "as_of": "2022-12-03T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-03T00:00:00+08:00",
+      "as_of": "2022-12-04T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-04T00:00:00+08:00",
+      "as_of": "2022-12-05T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-05T00:00:00+08:00",
+      "as_of": "2022-12-06T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-06T00:00:00+08:00",
+      "as_of": "2022-12-07T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-07T00:00:00+08:00",
+      "as_of": "2022-12-08T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-08T00:00:00+08:00",
+      "as_of": "2022-12-09T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-09T00:00:00+08:00",
+      "as_of": "2022-12-10T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-10T00:00:00+08:00",
+      "as_of": "2022-12-11T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-11T00:00:00+08:00",
+      "as_of": "2022-12-12T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-12T00:00:00+08:00",
+      "as_of": "2022-12-13T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-13T00:00:00+08:00",
+      "as_of": "2022-12-14T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-14T00:00:00+08:00",
+      "as_of": "2022-12-15T00:00:00+08:00",
+      "status": "complete"
+    }
+  ],
+  "h_label_accesses": [
+    {
+      "origin": "2022-12-01T00:00:00+08:00",
+      "as_of": "2022-12-02T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-02T00:00:00+08:00",
+      "as_of": "2022-12-03T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-03T00:00:00+08:00",
+      "as_of": "2022-12-04T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-04T00:00:00+08:00",
+      "as_of": "2022-12-05T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-05T00:00:00+08:00",
+      "as_of": "2022-12-06T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-06T00:00:00+08:00",
+      "as_of": "2022-12-07T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-07T00:00:00+08:00",
+      "as_of": "2022-12-08T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-08T00:00:00+08:00",
+      "as_of": "2022-12-09T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-09T00:00:00+08:00",
+      "as_of": "2022-12-10T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-10T00:00:00+08:00",
+      "as_of": "2022-12-11T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-11T00:00:00+08:00",
+      "as_of": "2022-12-12T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-12T00:00:00+08:00",
+      "as_of": "2022-12-13T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-13T00:00:00+08:00",
+      "as_of": "2022-12-14T00:00:00+08:00",
+      "status": "complete"
+    },
+    {
+      "origin": "2022-12-14T00:00:00+08:00",
+      "as_of": "2022-12-15T00:00:00+08:00",
+      "status": "complete"
+    }
+  ],
+  "limitations": [
+    "Random untrained heads differ; no executed Source/Target checkpoint parity",
+    "Not a full 90-origin real-input trajectory or resume test",
+    "Observed controller outcome cannot choose the architecture or Final settings"
+  ]
+}

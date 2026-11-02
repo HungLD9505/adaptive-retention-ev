@@ -1,0 +1,218 @@
+[
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b7s7e2118",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b7s11e2118",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b7s19e2118",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b14s7e2118",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b14s11e2118",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b14s19e2118",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b28s7e2118",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b28s11e2118",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b28s19e2118",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b7s7e2579",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b7s11e2579",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b7s19e2579",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b14s7e2579",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b14s11e2579",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b14s19e2579",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b28s7e2579",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b28s11e2579",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b28s19e2579",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b7s7e2534",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b7s11e2534",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b7s19e2534",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b14s7e2534",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b14s11e2534",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b14s19e2534",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b28s7e2534",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b28s11e2534",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  },
+  {
+    "fields": [
+      "replay.drift_reference_mean",
+      "replay.drift_reference_scale"
+    ],
+    "job_id": "hung_final_candidate_v1_drift_b28s19e2534",
+    "reason": "Requires lock-pinned causal first-history derivation after Final input access"
+  }
+]

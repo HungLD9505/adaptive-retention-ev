@@ -1,0 +1,109 @@
+{
+  "schema": "hung-final-execution-contract-candidate-v1",
+  "status": "candidate_only_not_an_executable_lock_or_peer_approval",
+  "scope": "hung_urbanev_first_three_candidate",
+  "authority": {
+    "report1_sha256": "cafc1db09a7fda4e196808a96cedf1b18098a4e7ff859d272402e049ebd65bbc",
+    "report1_sections": ["5.1-5.4", "6.1-6.3", "7", "8.1-8.3"],
+    "development_ledger_sha256": "bf1117c1d5fc0a902411cb6d850dca51e77802997c32880295ede20d8ac83004",
+    "development_proxy_profile_sha256": "c63faac286905fa077179f0cdea7b0fee6af5e0c30f916a827d9bdd398954266",
+    "candidate_jobset_sha256": "7d09583446d9437cec63956f1673c6d1927428ff80ba59a8a876b9391a7c68a2",
+    "candidate_execution_plan_sha256": "429fdca711382161c45b338521897f945b70471f9b7b72b1fba7ef78e4cba0cb",
+    "candidate_source_config_bindings_sha256": "0ec6d8bda1dbc0f129e6e49bedf547bec1082eab1762518962e605e4f9163690"
+  },
+  "executed_hung_code_sha256": {
+    "model.py": "c8303d1c9e83ee4bdaf6f5ce6c3e520dc22ce95d51c442375ea8fa3e9879ef76",
+    "controller.py": "b97f49e6895d132b5d535a05d1941dc64893f0706537d82c810ca569ced94876",
+    "runner.py": "38adc3c9952481e89c1417dfc677f3e9abb3bd3eda8accd2709bc547fdb52baa",
+    "retention.py": "b5f5be226c3c4a4d777c391bda9c441e58e888696ade25e86465e883ceb9eced",
+    "evaluation.py": "594d9a3f4cdc388be12034ff6cedfcbc3457cf91340b1724232f6291e4d31b25"
+  },
+  "development_analysis_code_sha256": {
+    "tools/hung_results.py": "68fccbed056734d9b4842f7bda088880d7812d12417d64878d1aa018fc010456",
+    "tools/hung_development_audit.py": "be76468e2d61d3e280770b4624a53b38d4f328385bcf4d5bca9c1d203a1dfd7e",
+    "tools/hung_development_seed_stability.py": "e9bdd8f852a023f457b69b6b104af41438b32d69909727847ef6f773dc326503"
+  },
+  "prepared_final_durability_code_sha256": {
+    "experiments/hung_sprint2/final_drift.py": "c1a20e95ee3c6d0b9c12f4da5b96df78811517a0ad12269fe82e46178c527d0d",
+    "experiments/hung_sprint2/final_archive.py": "8d099276a130227cb5d70d7b3caaf61e9eec9a8460d0f0d08b78b650470e3453",
+    "experiments/hung_sprint2/final_transport.py": "17eccec20c5b80b74e5e811ce3208b927c4b9f49e1c8d50989ba6bad69994dff"
+  },
+  "candidate_source_checkpoint_sha256_by_budget_seed": {
+    "7/7": "97824c96cc74001751791d966187bdd9292ffc75942f41e385789c54c477e4bc",
+    "7/11": "0742a7804ab1fb37622a2aeac3326327d0ab7e3c25ff3de3be28270126979a5f",
+    "7/19": "907154054e18289d8e25b317708d5bf9afc9429882c700619c98677f784508a0",
+    "14/7": "8a3ead480325aa55ff4eb0279693f7a95bdb40f0268a3539a829b560be71cac1",
+    "14/11": "d0036b973c500ffcb4d453eca0ea9bf2e1372df746674a23d528da2e307c7f26",
+    "14/19": "0f364b823dbd165711c5bdf7dd38feadab93430f105d2a518bc3a10986a09274",
+    "28/7": "32c083fdc738369353799d161f73f1d0639ef0cac676d4927f711187d6a5e1c0",
+    "28/11": "643f9e82ff785924bb5761001e9bfe40a52d9a08b5347e5d1fc4b6600bd4cb5a",
+    "28/19": "b2fdaf4ae8cf7ff9915c54160eda87983e75567ec101b8ca3fe8392fe21514d4"
+  },
+  "execution_choice": {
+    "status": "hung_specific_pre_execution_choice_under_issue_23_lead_exception",
+    "head_topology": "2-layer GRU hidden 64; flatten 24x5 future calendar, Linear(120,8)+ReLU, concatenate with final 64 latent, Linear(72,24)+Softplus; 41696 parameters",
+    "source_target_transfer": "copy compatible GRU and head weights from one hash-pinned Source; Source encoder frozen in eval; Target initialized from Source except named no_source ablation",
+    "loss": "mean normalized 24-hour MAE plus lambda times mean squared 64-dimensional latent difference divided by fixed Source latent scale plus epsilon; complete arrived label required for update",
+    "main_levels": [0.0, 0.1, 0.2],
+    "initial_level": 0.0,
+    "controller": {
+      "block_days": 14,
+      "min_complete_days": 5,
+      "delta": 0.0,
+      "alpha": 0.05,
+      "challengers": 2,
+      "alpha_per_challenger": 0.025,
+      "bootstrap_segment_days": 2,
+      "bootstrap_resamples": 100,
+      "bootstrap_stream": "SHA256(decimal_seed:decimal_block_id) seeded Python random.Random",
+      "bootstrap_unit": "ordered complete valid forecast days; overlapping noncircular moving segments; shared resampled positions across challengers; gaps do not break a segment",
+      "lcb_quantile": "sorted replicate order statistic at max(0, ceil(alpha_per_challenger*resamples)-1), no interpolation",
+      "switch_rule": "LCB strictly greater than delta; choose greatest LCB; tie nearest current lambda then configured level order; insufficient evidence keeps trained active state"
+    },
+    "causal_order": "forecast all candidates and persist before label; score/update only after complete 24-hour label arrival; decision at block end affects future forecasts; preserve selected trained model and optimizer; audit never feeds policy",
+    "seeds": [7, 11, 19],
+    "history_budgets_days": [7, 14, 28],
+    "replay_origins": 90,
+    "epsilon": 0.000001,
+    "proxy_thresholds": {
+      "source_error": [0.1, 0.5],
+      "uncertainty": [0.005, 0.025],
+      "drift": [0.5, 1.5]
+    },
+    "proxy_levels_by_low_mid_high": [0.2, 0.1, 0.0],
+    "drift_reference": "first issued Final x_hist finite load with valid flag; population standard deviation with floor 0.1; derive only after lock and bind receipt",
+    "aliases": {
+      "without_confidence": "online_best_lambda if locked delta is exactly zero",
+      "fixed_lambda": "fixed_retention",
+      "seasonal_naive_seed_views": "one deterministic physical run at seed 7; seed 11 and 19 are aliases, not independent replications"
+    }
+  },
+  "analysis": {
+    "unit": "entity/station first within dataset, city, history budget and method",
+    "forecast_metrics": "for each run, sum absolute and squared original-kWh errors across all complete scored 24-hour days; MAE=sum_abs/scored_hours; RMSE=sqrt(sum_sq/scored_hours)",
+    "pairing": "same entity, budget and seed; exact common scored-day IDs and label SHA; changed input/source/target binding or no common scored day blocks the pair",
+    "aggregation": "equal seed means within a station, then equal station means within dataset/city/budget/method/reference; never treat repeated hours, days or seeds as independent stations",
+    "mae_gain_kwh": "paired reference MAE minus method MAE",
+    "transfer_gain": "(Target-only MAE - source-using method MAE)/Target-only MAE only when Target-only MAE>0; otherwise null with absolute difference retained",
+    "negative_transfer_rate": "fraction of paired scorable stations with station-mean source-using method MAE worse than Target-only MAE; report numerator and denominator",
+    "uncertainty": "for 1-5 scorable stations, exact n^n station bootstrap of station seed-mean gain with replacement; 95% linear-interpolated percentile interval; descriptive with small n and repeated-time dependence stated",
+    "controller": "report switch count, decisions, insufficient-evidence blocks, selected levels, candidate/audit update and inference counts, and post-switch old-policy audit difference only on paired scored days",
+    "cost": "separate Source and Target initialization, replay/candidates/audit, provider wall time, archive/upload and independent readback; preserve device and measured denominators; no unmatched hardware ranking",
+    "null_policy": "zero scored complete days gives null MAE/RMSE/gain; no paired scored days is an explicit blocked pair; unavailable/late/incomplete labels stay null, never zero or imputed; missing method/city/seed cells remain explicit",
+    "context": "weekday/weekend and local target-hour slices are descriptive; sparse/dense threshold remains unresolved until Development-pinned and is not an executable subgroup claim"
+  },
+  "unresolved_scientific_review": [
+    "Hùng calendar pre-embedding versus Qyroven post-concatenation head interpretation and trained-state parity",
+    "Bootstrap RNG, quantile, missing-day gap and candidate state convention across Hùng and Qyroven",
+    "Block7 historical 69-run equivalence and reviewer disposition",
+    "CHARGED six-city input, Source, cohort and cross-dataset claim scope",
+    "Sparse/dense context threshold and complete Final analysis implementation review"
+  ],
+  "required_in_future_executable_lock": [
+    "Exact code commit/tree hashes after all runner, Drift, archive, transport and analysis code is reviewed",
+    "Drift derivation spec hung-final-drift-reference-v1 with rule first_created_final_forecast_valid_load_population_sd and floor 0.1",
+    "Exact immutable archive route, provider allocation, output budget and independent remote SHA/CRC readback receipt identities",
+    "Versioned Final analysis implementation and its SHA-256, executed without changing this outcome-blind rule from Final results",
+    "Exact cohort/jobset/plan/input/Source identity and Hùng-specific issue 23 authorization"
+  ]
+}

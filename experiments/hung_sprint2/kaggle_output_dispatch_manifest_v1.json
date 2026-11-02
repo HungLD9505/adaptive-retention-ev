@@ -1,0 +1,176 @@
+{
+  "acceptance": "Technical execution only; independent scientific review pending",
+  "allocation_sha256": "12f5bc9ee402a806faedc89574a4e00c427c384335a3868668adf8ce7f93a0f2",
+  "final_evaluation": false,
+  "groups": [
+    {
+      "cpu_readback": "hung-output-g04-readback-20261027-v1",
+      "cpu_source_sha256": "148634a956c702ef7f4657596b7d533a96e1bd2fee82c7cfd99e59ded023ae2c",
+      "gpu": "hung-matched-group04-44b8532-20261027-v2",
+      "gpu_source_sha256": "fdedc6f709536e8de40ad1e7b003f2deb255b0ec8c68794bb2d66730a83b4b62",
+      "index": 2,
+      "jobs": 120,
+      "required_quota_seconds": 17178.0,
+      "shards": {
+        "shard_0014": {
+          "jobset_sha256": "1454cb90a5e8e0406617e4a0a8a1408040ae570ed6ce9cf81479e08878b5b6a8",
+          "runtime_partition_sha256": "60b67243dd5911dd0a63061ad7430732db3381bdc0777c14b900316fc46e6781",
+          "runtime_plan_sha256": "754fa4f3a7e79a017b64fb36ca19624c224f84b773cb88c570f74cd406b7ea4d"
+        },
+        "shard_0015": {
+          "jobset_sha256": "e839173725dde0f0e4fb122a9813fac263907e08dd9889d2011073e1e52c30d6",
+          "runtime_partition_sha256": "60b67243dd5911dd0a63061ad7430732db3381bdc0777c14b900316fc46e6781",
+          "runtime_plan_sha256": "754fa4f3a7e79a017b64fb36ca19624c224f84b773cb88c570f74cd406b7ea4d"
+        },
+        "shard_0016": {
+          "jobset_sha256": "ad6e9fe1219eec06bcde8a95ef333f50bee40c27ed97459375d208e76a01ed0f",
+          "runtime_partition_sha256": "60b67243dd5911dd0a63061ad7430732db3381bdc0777c14b900316fc46e6781",
+          "runtime_plan_sha256": "754fa4f3a7e79a017b64fb36ca19624c224f84b773cb88c570f74cd406b7ea4d"
+        },
+        "shard_0017": {
+          "jobset_sha256": "a494de718f33adde057a68ef1b4e9e0ea31b56461594f9316fdb6e45211fee75",
+          "runtime_partition_sha256": "60b67243dd5911dd0a63061ad7430732db3381bdc0777c14b900316fc46e6781",
+          "runtime_plan_sha256": "754fa4f3a7e79a017b64fb36ca19624c224f84b773cb88c570f74cd406b7ea4d"
+        },
+        "shard_0018": {
+          "jobset_sha256": "05c45a5b8bed8e143d16053d892c8abede23633e6c7d96d41288b601f429df20",
+          "runtime_partition_sha256": "60b67243dd5911dd0a63061ad7430732db3381bdc0777c14b900316fc46e6781",
+          "runtime_plan_sha256": "754fa4f3a7e79a017b64fb36ca19624c224f84b773cb88c570f74cd406b7ea4d"
+        },
+        "shard_0019": {
+          "jobset_sha256": "15761f42e1b901f0b99f98d90a61f9c9f81ba058535054f612be11867048bfef",
+          "runtime_partition_sha256": "60b67243dd5911dd0a63061ad7430732db3381bdc0777c14b900316fc46e6781",
+          "runtime_plan_sha256": "754fa4f3a7e79a017b64fb36ca19624c224f84b773cb88c570f74cd406b7ea4d"
+        }
+      },
+      "version": 1
+    },
+    {
+      "cpu_readback": "hung-output-g05-readback-20261027-v1",
+      "cpu_source_sha256": "77bbbe9379f986c466a5174c4093e99e123e73bdc6e9d8dc771484fda1852abf",
+      "gpu": "hung-matched-group05-44b8532-20261027-v2",
+      "gpu_source_sha256": "dc4412fa3f2edc73e0b7ab7546ed88e8103c21bc7b21534e14021d566a7a271b",
+      "index": 3,
+      "jobs": 120,
+      "required_quota_seconds": 17178.0,
+      "shards": {
+        "shard_0020": {
+          "jobset_sha256": "15e41973e7f727fdcbe7f239922ad02dc05c8efe77cc9609245e29f6278be493",
+          "runtime_partition_sha256": "fddd50e4992855dd5519b8562bce1daee0a2dfc31ab20181a23e11a7b5405666",
+          "runtime_plan_sha256": "4b0c6e5b63d5a7e28165454988650bcbdcc6b61ccea375899840197780574fe5"
+        },
+        "shard_0021": {
+          "jobset_sha256": "14e4fc0a128f8ed81e52b34d15af9a123503e0d5903f65eb16b5a20c477de5cb",
+          "runtime_partition_sha256": "fddd50e4992855dd5519b8562bce1daee0a2dfc31ab20181a23e11a7b5405666",
+          "runtime_plan_sha256": "4b0c6e5b63d5a7e28165454988650bcbdcc6b61ccea375899840197780574fe5"
+        },
+        "shard_0022": {
+          "jobset_sha256": "229dfba032263815967bfa18f3a5baef677747ed0c6f828e89202c12703e78fc",
+          "runtime_partition_sha256": "fddd50e4992855dd5519b8562bce1daee0a2dfc31ab20181a23e11a7b5405666",
+          "runtime_plan_sha256": "4b0c6e5b63d5a7e28165454988650bcbdcc6b61ccea375899840197780574fe5"
+        },
+        "shard_0023": {
+          "jobset_sha256": "f9def5fc4236ed9d9a540c937d554795b4da684d6b0705225dc8dff0f7f01c69",
+          "runtime_partition_sha256": "fddd50e4992855dd5519b8562bce1daee0a2dfc31ab20181a23e11a7b5405666",
+          "runtime_plan_sha256": "4b0c6e5b63d5a7e28165454988650bcbdcc6b61ccea375899840197780574fe5"
+        },
+        "shard_0024": {
+          "jobset_sha256": "86cb50e120c3081676b0e75a13055659ab17c7092ea8473e311fadad1328ce00",
+          "runtime_partition_sha256": "fddd50e4992855dd5519b8562bce1daee0a2dfc31ab20181a23e11a7b5405666",
+          "runtime_plan_sha256": "4b0c6e5b63d5a7e28165454988650bcbdcc6b61ccea375899840197780574fe5"
+        },
+        "shard_0025": {
+          "jobset_sha256": "ffc9c9a46dc12a5f843182e1e092c2e434cab2432d218ae1076b987c3b3e1937",
+          "runtime_partition_sha256": "fddd50e4992855dd5519b8562bce1daee0a2dfc31ab20181a23e11a7b5405666",
+          "runtime_plan_sha256": "4b0c6e5b63d5a7e28165454988650bcbdcc6b61ccea375899840197780574fe5"
+        }
+      },
+      "version": 1
+    },
+    {
+      "cpu_readback": "hung-output-g06-readback-20261027-v1",
+      "cpu_source_sha256": "619d98edd1df7c3520a978c4b69cdcacbdd4a44c12d614532452eb20febc4f9f",
+      "gpu": "hung-matched-group06-44b8532-20261027-v2",
+      "gpu_source_sha256": "df468a6d516df6e539f91ecb6ff870efba6c352bec7a728f9340395304fb4a94",
+      "index": 4,
+      "jobs": 60,
+      "required_quota_seconds": 10389.0,
+      "shards": {
+        "shard_0026": {
+          "jobset_sha256": "3cc709041d096465692797a24d8290c6b8d2e14f3e994d50a734c8fe34e64646",
+          "runtime_partition_sha256": "7750cfc08778c747122a2a2e82190a63c5e2f034d68f690748290c599b7c41be",
+          "runtime_plan_sha256": "2e9faad307c29ca681eedcc0f64da2ab6ec00ef3893a280d1aead08b30d16836"
+        },
+        "shard_0027": {
+          "jobset_sha256": "19f14ba77bf687edcf8847933ea5807006096d9a8eb0128560ad20f1cddc5369",
+          "runtime_partition_sha256": "7750cfc08778c747122a2a2e82190a63c5e2f034d68f690748290c599b7c41be",
+          "runtime_plan_sha256": "2e9faad307c29ca681eedcc0f64da2ab6ec00ef3893a280d1aead08b30d16836"
+        },
+        "shard_0028": {
+          "jobset_sha256": "a1328e31335db38f13e20e843025c25e6767ed1e86e11ff39b1da10a994db567",
+          "runtime_partition_sha256": "7750cfc08778c747122a2a2e82190a63c5e2f034d68f690748290c599b7c41be",
+          "runtime_plan_sha256": "2e9faad307c29ca681eedcc0f64da2ab6ec00ef3893a280d1aead08b30d16836"
+        }
+      },
+      "version": 1
+    },
+    {
+      "cpu_readback": "hung-output-g07-readback-20261027-v1",
+      "cpu_source_sha256": "d27ad6b5a41c49d6967d321cf27db5875f5076de8235bb6afdb81d062c7f5db0",
+      "gpu": "hung-matched-group07-44b8532-20261027-v2",
+      "gpu_source_sha256": "256eaeb2a2913e9efdbae37fa0948903a062476e094cd3468db724cf4f8b2d24",
+      "index": 5,
+      "jobs": 40,
+      "required_quota_seconds": 8126.0,
+      "shards": {
+        "shard_0033": {
+          "jobset_sha256": "a570c5e215f60b6463e4641f73ce13f7035552162a851d754f524d754031debe",
+          "runtime_partition_sha256": "0a02b5c6737445748fcff41d88b2a44cacdfd1f394d80f0a341de47bd983e08b",
+          "runtime_plan_sha256": "a15728a0c6e54de080e0fbfce2b49fbae9cfeedeaa2a76f281f584f369847886"
+        },
+        "shard_0034": {
+          "jobset_sha256": "79b8e55f8a74e34b504a736555e9add02e1422bbd5a872509bdab00ae4a21d8a",
+          "runtime_partition_sha256": "0a02b5c6737445748fcff41d88b2a44cacdfd1f394d80f0a341de47bd983e08b",
+          "runtime_plan_sha256": "a15728a0c6e54de080e0fbfce2b49fbae9cfeedeaa2a76f281f584f369847886"
+        }
+      },
+      "version": 1
+    },
+    {
+      "cpu_readback": "hung-output-g08-readback-20261027-v1",
+      "cpu_source_sha256": "b9d0fea2139804bfbbbe809aa58fcd467a6b348b09dc6097bcd1fa8ec44c49ee",
+      "gpu": "hung-matched-group08-44b8532-20261027-v2",
+      "gpu_source_sha256": "0350002135c486bd5c28a3d956f80bdec534695f504c3adf5a73d0d6e89df094",
+      "index": 6,
+      "jobs": 40,
+      "required_quota_seconds": 8126.0,
+      "shards": {
+        "shard_0035": {
+          "jobset_sha256": "0ecdc975791fe6b62b0d1be6514d5ca243b3892bf8e8fe612be00dd71a93dac0",
+          "runtime_partition_sha256": "bd9bc74c3c417f04fbb16781f9c3fb33b07b78d193145dfeae953e7ac610a01f",
+          "runtime_plan_sha256": "19129a69120e4f1cfd7dc6eae08d9a5ce4a20373fd9f48f584d8faf04801cb7d"
+        },
+        "shard_0036": {
+          "jobset_sha256": "c0f24e5038e361798c83d44bd292ef8d099cf575ba00fcab92d55cf178873c2a",
+          "runtime_partition_sha256": "bd9bc74c3c417f04fbb16781f9c3fb33b07b78d193145dfeae953e7ac610a01f",
+          "runtime_plan_sha256": "19129a69120e4f1cfd7dc6eae08d9a5ce4a20373fd9f48f584d8faf04801cb7d"
+        }
+      },
+      "version": 1
+    }
+  ],
+  "initial_state": {
+    "index": 2,
+    "ordinal": 0,
+    "phase": "predecessor"
+  },
+  "launcher_source_sha256": "f4a41b7689f6899979c9c1f76edae5bbea7c4080d7fb72d61f51f3ef6cb8f690",
+  "model_code": "44b8532959d76fb20691881539f991ca44983727",
+  "parent_plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+  "required_predecessor": {
+    "gpu": "hung-group03-shard13-recovery-20261027-v1",
+    "readback": "hung-g03-s13-readback-20261027-v1",
+    "version": 1
+  },
+  "scope": "development_only"
+}

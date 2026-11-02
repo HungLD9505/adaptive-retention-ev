@@ -1,0 +1,2 @@
+# Colab/Victus CUDA runtime for Hung Sprint 2; install from PyTorch cu126 index.
+torch==2.8.0+cu126

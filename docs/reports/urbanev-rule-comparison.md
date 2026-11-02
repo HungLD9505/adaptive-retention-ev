@@ -11,7 +11,7 @@ Both rules use exactly the same source records, requested window, clock conventi
 
 All 1,682 station files / 87,679,296 unique source-grid samples were compared. Each input SHA-256 matched the original full-run record. Independent Rule B retained-hour counts matched the existing pipeline **at every station**, not only in the total.
 
-[Numeric evidence](urbanev-rule-comparison.json), including examples, token classifications, monthly patterns, per-hour sample-count histograms, input lineage and executed analysis identity. Full per-station comparisons remain in ignored local run storage.
+[Numeric evidence](https://github.com/HungLD9505/adaptive-retention-ev/blob/8cdab1bc096a9c116c7b7f911d548a7621dd81ac/docs/reports/urbanev-rule-comparison.json), including examples, token classifications, monthly patterns, per-hour sample-count histograms, input lineage and executed analysis identity. Full per-station comparisons remain in ignored local run storage.
 
 ## Results
 

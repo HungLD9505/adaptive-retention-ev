@@ -1,0 +1,43 @@
+{
+  "provider_wall_seconds": 1810.4,
+  "receipt": {
+    "artifact_bytes": 65931034,
+    "artifact_sha256": "29e3db51106402942959f80762e4c27995ad4ec9f2253fd96cc8a4681d3b2dcd",
+    "crc": "passed",
+    "ended_at_utc": "2026-10-26T20:32:16.508290+00:00",
+    "exit_code": 0,
+    "job_ids": [
+      "block28_b14s11e1025",
+      "block28_b14s11e1153",
+      "block28_b14s11e1405",
+      "block28_b14s11e1693",
+      "block28_b14s11e1987",
+      "block28_b14s11e2152",
+      "block28_b14s11e2613",
+      "block28_b14s11e2644",
+      "block28_b14s19e1025",
+      "block28_b14s19e1153",
+      "block28_b14s19e1405",
+      "block28_b14s19e1693",
+      "block28_b14s19e1987",
+      "block28_b14s19e2152",
+      "block28_b14s19e2613",
+      "block28_b14s19e2644",
+      "block28_b14s7e1025",
+      "block28_b14s7e1153",
+      "block28_b14s7e1405",
+      "block28_b14s7e1693"
+    ],
+    "local_verify_exit_code": 0,
+    "peer_acceptance": "pending",
+    "plan_sha256": "80a1666cf2083594c9a2bc0b0a4dc3e30118eda43d07187cd5b6d8b51f90e0bb",
+    "remote_readback": "pending",
+    "shard_id": "shard_0001",
+    "shards_sha256": "e2c6cb6f15a7473c6cdfd7912fefa838d63a770cf352dff93c2cccc3ae86a15c",
+    "wall_seconds": 1298.752902966
+  },
+  "scope": "Execution, CPU verification and runtime-local CRC; remote output readback remains pending",
+  "terminal_ui_status": "1810.4 second run - successful",
+  "version_url": "https://www.kaggle.com/code/hungluongduc/hung-matched-shard0001-44b8532-20261027?scriptVersionId=362612528",
+  "visible_log_sha256": "f1b094162a206f11d36b79767a0e2f228b3f0ccb7f039d39e80930393012e63f"
+}

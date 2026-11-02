@@ -1,0 +1,17 @@
+{
+  "mapping": {
+    "urbanev-SZH": "UrbanEV/SZH",
+    "charged-AMS": "CHARGED/AMS",
+    "charged-JHB": "CHARGED/JHB",
+    "charged-LOA": "CHARGED/LOA",
+    "charged-MEL": "CHARGED/MEL",
+    "charged-SPO": "CHARGED/SPO",
+    "charged-SZH": "CHARGED/SZH"
+  },
+  "values_changed": false,
+  "figure1": "Shared method, not a single-dataset result.",
+  "figure2": "UrbanEV/SZH and six fully prefixed CHARGED groups.",
+  "figure3": "All three groups explicitly CHARGED.",
+  "figure4": "Both panels fully prefixed.",
+  "supplement": "All matrices and interval panels fully prefixed."
+}

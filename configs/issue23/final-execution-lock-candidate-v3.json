@@ -1,0 +1,2888 @@
+{
+  "schema": "ev-final-execution-lock-v1",
+  "status": "candidate_observed_cuda_fixture_human_acceptance_pending",
+  "scope": "90 namespace/entity IDs across same three budgets; not approved to execute",
+  "method_seed_cells": 11340,
+  "entity_budget_pairs": 270,
+  "whole_units": 810,
+  "required_unique_variants": [
+    "adaptive",
+    "block28",
+    "block7",
+    "drift",
+    "fixed_retention",
+    "frozen_source",
+    "full_finetuning",
+    "online_best",
+    "parameter_retention",
+    "seasonal_naive",
+    "source_error",
+    "target_only",
+    "uncertainty",
+    "without_source_initialization"
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "replay_days": 90,
+  "files": {
+    "ev_inputs/__init__.py": "8969f4448b3ebaf4837498e3fdbf5396304cad7a0deda915e5d349205df65add",
+    "ev_inputs/features.py": "a9bf5fddd64d2641f9b50f9ad8a027e5336e80eb6b6b2a3af267fe4eef91f379",
+    "ev_inputs/hourly_reader.py": "c839af7c27ef9c9bc8013e04016f11e2fd7c0449fc18f4cf5c6e8c0d62b9239a",
+    "ev_inputs/loader.py": "d46f9ae9e0b5431bc3d7c5113eef49afca92db7b165f7a45f98801f625254dd0",
+    "ev_inputs/scaling.py": "dbdc205c0700ca9cdfbf6965c45150be6adb4d9a596dcc5ee7a1134fd831da9b",
+    "ev_inputs/splits.py": "cf52ec982f2c97002b67b7f3bfaacc8aba4bf7ca4143e4e4a771b66c041bf8e0",
+    "ev_inputs/windows.py": "262c78344305227e4772297107bc1a369da6a92767fb3ba72a64f395cd57a94f",
+    "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+    "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+    "ev_models/data.py": "52efbe172ccb6388a5251e143012d7e1548420df499f3af3513c4f5afe1edb38",
+    "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+    "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+    "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+    "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+    "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+    "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+    "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+    "ev_runner/final_gate.py": "32bf9f0f676cd03e56e2555b40396ba0f8d60fe3023daac01090d3df7be1abe4",
+    "ev_runner/replay.py": "bce437ea37aa12b16d5930004e95258ae9c32926ce635a3daff56968f4206173",
+    "ev_runner/run.py": "cf830b16147e7f210fa5176eeb182860721e9d01aa4f02e6a1545e237be86d36",
+    "ev_runner/state.py": "8f922db2a539c08eca80a535cef67bfe38111bc1f43a4f8186c7e1a0c75f222a",
+    "ev_runner/store.py": "718c6813fb2a595e6309c755b0388f8a91bd414ed464b4b1e001dbfbacb10797",
+    "ev_baselines/__init__.py": "761479b2da6db28d81d2791501660a609ec9d0b271d2aabf1181150ddf3def48",
+    "ev_baselines/naive.py": "50a5842de61779e5b5494b988da8a1d61c8e40c7aeb647354b212812af00a5ef",
+    "ev_baselines/policies.py": "a9ba2e53843b6c93316506a41e001f090b3b361cc717c9929d3e6615e02fbcb0",
+    "ev_baselines/retention.py": "79e6b7338e6d02cf96318dfe014bdff3dcf9f48d86894b09169b4ba69cb526f4",
+    "ev_evaluation/__init__.py": "6bdf4368021b3dc28621b3fd3b9dc57206a4bf9a47c7038c5d7f6c6709e48d74",
+    "ev_evaluation/artifacts.py": "33b938016e95ca73cf28e51eb3e069f9ae07f829521a3aa7c7d0ef58b401a398",
+    "ev_evaluation/contexts.py": "fca61dea8bd13fdcfa93dcdbb3b5e73ec6fdb9de34a8122d6b3dfc043b959e18",
+    "ev_evaluation/costs.py": "f8069e611cb71026a46b4277d3fc92ceb9bb467a3ef4a044a2f2c625ec53cc23",
+    "ev_evaluation/metrics.py": "2c4e2cd83a54e2331c71bb0abab4fe595af851cd0277bcfbef91e3756e0655c2",
+    "ev_evaluation/proxy_relationships.py": "c256e42324602324f70a0d541c29c6e7abecfe633666d37f41c1cdc3f710513e",
+    "ev_evaluation/selection.py": "997d5ecc6de00018ce0082608567298a0ecda0ba93e8eb5fe371c2147852ed14",
+    "ev_evaluation/switching.py": "01a4002cedd61f6714183f51db130f01cceb8db9487c32a8b46bd9f678dac886",
+    "ev_evaluation/uncertainty.py": "de574a8aaf151578473df0c7909decc752c69b337e840615289447228eb84eeb",
+    "tools/__init__.py": "b31e4bd4e6c2f5eb954630e24918472bbdeb2c53935b58b0d22413ec29e87063",
+    "tools/analyze_charged_matched.py": "9ceecda2576517cc1b5e657e469c13685a5b018ebb0b09d699dc547701bbbf99",
+    "tools/analyze_core_comparisons.py": "6902651a6dc7c12462f3acc521ef035063b195b02608cd78cf1bda7cd60071ac",
+    "tools/analyze_final.py": "25dd23f8172bd9d4952b6530ab8978c6735031c65f34db3c9d670a1428251325",
+    "tools/analyze_matched.py": "edfb22e406747b5715e17c29e2aac7220a93955bb6c7195e9ef3c8025838d4eb",
+    "tools/audit_urbanev_rules.py": "569f837b5342c164763c93ed21208b41d7c9a11742e725dd4cd729d94d51d3b6",
+    "tools/backup_completed_city.py": "7129995ecdad2f76159015d89dd03ed18f1c1340902c063aa7c064b19b26181c",
+    "tools/charged_development_cohort.py": "3fa4d5a4afad1dc4cd27fab3cafade6d9d75a6bb1efaff8d2e53f81cd83f60d1",
+    "tools/charged_hourly.py": "8ef558141a243d583ff074da854671e0b63c956220621633feab7b8d0e25d9ca",
+    "tools/charged_inventory.py": "a9b828f6c8ba75ed21ed5582f7b931a56206f5c6160dfb228528f1938baa481f",
+    "tools/charged_matched_development.py": "d4e5d70fa81b40dbfe67a4842958cbcc964ce6e29934fa51c1d19524b296cdd1",
+    "tools/charged_semantics.py": "ec699125623c06a69d798cea1d2bbcba3dd64d62f9e3884de5a84a91033b28ee",
+    "tools/charged_suitability.py": "745a0fddf318a28640051428761f74d0b1003461b44aa5c5ca2c7a2410fda1fd",
+    "tools/city_pipeline.py": "a01cba827483e0afd7dcb1af869f26633f35bc4406d27e5f7d01f9cdd741a9fb",
+    "tools/city_source_outbox.py": "0a0b2eb888ac4d77a01144b6f860fad4164c846555adbb31c940485de2e83678",
+    "tools/city_target_outbox.py": "621eb1e179ad687975ab589cd77b2e28c7a2ab479a16569ed684900323e03f9a",
+    "tools/cloud_outbox.py": "f33fc40f21fc73664daf101a1c018a887348b7d3071dcbbc6acb311a7c6bb848",
+    "tools/compare_hung_components.py": "9969db95286a31c6aec735ab4f189d17821e0c076c8575a5981043549896b1ee",
+    "tools/comparison_matrix.py": "88898b597d60de4d051f116888bcd251838a2a3aaae7b5d9c9d185c123cda79c",
+    "tools/controller_calibration.py": "7b4a15c05e40953763be45f8479d1c5a4d1f075504e072e25cdc87667aec6dd1",
+    "tools/controller_smoke.py": "662f5c4961a2b6b213ccd876a00f6a4477ff5ac01f438a70391ad02eb8e6c5db",
+    "tools/development_comparators.py": "16691e222a647e8e65ddad0e89bd394efee51f3bad57d60e89c6e44c297ffee9",
+    "tools/development_contexts.py": "9bb76ef215fe58d79e6b5816f0ce8521d3d66015ea2e8a656c93ed44a0c2b4ca",
+    "tools/development_readiness.py": "d01bfcaccc0f404fb73d8dd0694ad40bfa9592838d87310b725b859ffd932100",
+    "tools/durable_run_backup.py": "cd3eb6d4046dd1708e3dc8eec22abd27efdb75135fbd7d4d92d58d93ed5ff5c1",
+    "tools/export_development.py": "00c131a61a12800dd2b4b32df94a26e0777fcb1ba2e9fb94b92463eabda44f81",
+    "tools/final_cohort.py": "bac127eebc03382bad163f9b8dbf13d448ad12960f7472d08b9d4ca59f566ca4",
+    "tools/final_replay.py": "f1a31fa4d2aaa4f35f12775d32ce12b0ea715ac8a45fcded52930496e7ef5080",
+    "tools/fixed_retention_sweep.py": "e8f1e626a3368b5a7ebb9b8008123c7f9107bc2b4b0b1f8ecc2dbb0280b88abf",
+    "tools/issue19_colab_smoke.py": "a56c1dd12f4df5b8a9e8fcdc9797b4a94bc0732b4c579bef8c8c7990a18fecff",
+    "tools/issue21_colab_smoke.py": "61fe907de09af3642ef904596eaecda856bfa034da8553f1ae64338e3fbc525f",
+    "tools/matched_development.py": "1d08815299ccb7cb748b3aad05241458a6a1e958f7a7bfcc24b8698863821b90",
+    "tools/model_inputs.py": "8b76438d586faf31eef6cc75cdb24344bb90763b73a50a0ef3e3a27e298cf3b9",
+    "tools/prepare_city_units.py": "1ecf4299644453c7f9df34ce8fbc2a9477a0e56fc075eb42e0c732ffa3584e14",
+    "tools/prepare_primary_unit.py": "98f59b88f32ecc6b52aaa29163e9d1f18fc5afe401b9d489ff2961c00554a7a1",
+    "tools/proxy_calibration.py": "6a352f00602d147995e3559f5f95f53fb3df8b4d61a54777b594281e41b74c57",
+    "tools/recover_controller.py": "f3734327794b5f088b7c542d761a9fd2553d5a46d1e5da72f7e6b604d4023c83",
+    "tools/replay_checkpoint_chunk.py": "dfc69db2de4dde3f7e2af1037f2402df1c1ba91efac9ab7f5de6f6d65a5efea9",
+    "tools/replay_missing_primary.py": "b43602951020baae6484f7cd0330c5f0b1467218e7a7b0e3a456d9548297f10f",
+    "tools/restore_development_export.py": "6168082f5a0fb4891a7c9315e5843d89deca31c34a5056486ad075423833c92f",
+    "tools/source_epoch_sweep.py": "b63a23e10bb82a7d6716b3c5486fa730664a0890275ce39af1669ed5466a6dba",
+    "tools/sources.py": "d8a8fb61ffc7e5ce5489f8b10bb608a56b89d3b3e2d99e18929aced4bb527c3e",
+    "tools/urbanev.py": "c30955f98e0e2623af27d9a4681a4114dbeb1478a6c9763edd3557603abfd71b",
+    "tools/urbanev_hourly.py": "5cb4cdb41bd56b91b6828b73ba8d4fd229d9c1062bc517bf8fc19e438d72be03",
+    "tools/verify_city_source.py": "dfe3a24ed9e708864fd339f9b2e49b54e58b3c00117c38bdf9981f6254d4bfb5",
+    "tools/verify_comparison.py": "886ad35c6e3749cd1418701b17430b1a585af78e929ba4f9b3db2e71c1ccb26f",
+    "tools/verify_latest_states.py": "6c7e5a03497ba64007e499a3ad110a41f3f71eac7dfa468bea7cbec0fb5d2aae",
+    "configs/issue23/final-bounded-cohort-v1.json": "fc799a669dd381decd1921d70c2044b8f8d2424f524124e873cb22024be4f565",
+    "configs/issue23/final-analysis-profile-v1.json": "1ee7e081f57aac9f052e3199f0cae2593e277f21beeeb53ef5f25892ca85ce4a",
+    "configs/issue23/source-epoch-study.json": "1be79afd6543bf7140c66e23562277f54115c39e458409b27cc9eb768bcd896f",
+    "configs/issue23/controller-calibration.json": "95790752573964834a0cd8002eb220bb7d8b675b6c75cc7512a12025c9fa3e42",
+    "configs/issue23/proxy-calibration.json": "23823e3fe6c942ed35fc79724163e6be6345e3c44061f0f6445030fbf145486d",
+    "configs/issue23/fixed-retention-study.json": "487834ac304fcab0a5be8aae22f5fa50eea09b78c9b63330248654db05c86adc",
+    "runs/issue23-jhb-complete-recovery-20261026-v2/metadata/primary-analysis.json": "ecc8b1854128f84ab13070be4ab38d6179d7f15c331f8cf2caf72604576157b6",
+    "runs/issue23-final-preparation-20261027-v1/coordinate-audit.json": "2ad2e2ceb462baa58effffa70f622f33c9a1a24922c819ec1252b773163c9afc",
+    "runs/issue23-final-preparation-20261027-v1/source-reuse-proof.json": "7774295e41dc097d6c9cf846adb6c259864c7598d69aa52bfceca03f5ff4cedf",
+    "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed42/epoch-10.pt": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+    "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed42/run.json": "744147de06aa6acc6d55b6bba430c647bfc55fa1294e8a15f4a00e21afcaf0a9",
+    "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed43/epoch-10.pt": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+    "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed43/run.json": "fbb9b12cb7d4061d5d1ab660a1584203769fa0e0dff9825891226bf3a6265309",
+    "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed44/epoch-10.pt": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5",
+    "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed44/run.json": "62a1a6db7b004286b6ff6cdc0faa836f3c14e263cc490184794a31ea5b9b2321",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed42/epoch-10.pt": "a368c3ebabeb9cb91180ff01ee41b271dbbdf888b610083834bbc75a5b2eda2d",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed42/run.json": "2abbead943374f95dde00f1e93b96e0119b2d86fb93566af9c8abddc708b6c2f",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed43/epoch-10.pt": "14053287dbc260984dba17d2948dae26533b516aa16e3e3b25e74c3ab212e660",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed43/run.json": "6ab6cc2a8d81baab9306f5779f8893ca85d13ffaaa8e9b47a54a0dbda0942dab",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed44/epoch-10.pt": "2354032b5314bbfcf81d5572474fe1513506d90e36abd1b36e5c6b82e37d35b7",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed44/run.json": "33af9965a54f89307cb8fff3f892d84f0ce3ae5fec483f6e7e4a6eb5b4a45378",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed42/epoch-10.pt": "73b1d6b8a2d4466d83b5cf207d161dc0c101adfd02af3515a56c960b230009eb",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed42/run.json": "9e36aeb5a267a3896ff20ec15a6e139675749015bc1fc14c5f8c91eda36adb5a",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed43/epoch-10.pt": "86e40cce4414876fa319e0f74a76996d6f3f0ad72d89bd98d53cdedcb7c0439e",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed43/run.json": "1d60849f487ac7c8e0fee4d9be5bcfcf445331bfa21ad887ab5bb1dfb18ab1c2",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed44/epoch-10.pt": "e0deaabf8f9d8e63341ddc99d69e2eb2b5b7225a968fa5e53e4cabc595dc96c1",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed44/run.json": "459b04fcbb8d86cb1c9e66340f22d888e0ac3eb52c34260861e87d673cdc3e3f",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed42/epoch-10.pt": "ca703dc98859cefc8ac9145a97970c0b0c2f083eb07fcc39d56fd417d3d1b419",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed42/run.json": "7cd3f25b65f22172111ffa5aeb3b09c48255ac168be945ff02486b87053021a9",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed43/epoch-10.pt": "31ee68e5ed021f4318b9fc1a239c30a914c8d2c8f3b40fabe2462cca43538086",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed43/run.json": "2fd4201eac0f2c7b807e4bf24627c128df0f475f6a70f75f7557e0b624094b2d",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed44/epoch-10.pt": "1549235c7bbb948005bdd970cb4a04d8527639f5f5d22bffa44ff3143dd47b8e",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed44/run.json": "5443c14f9f9db3ea6bab72ec8e4938366553a30411162a8ec0f830e005a5d5d7",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed42/epoch-10.pt": "5eb1778e3a9df10699fd614cffb8b37d667e541db6608d3d417054c2c9770c4c",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed42/run.json": "c452d79bf80691582b8b6d330dbd8f4f9149bf72468fb0ec31a032375371b777",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed43/epoch-10.pt": "11782c2f2cb773ec5c98745520f9e98dc899b510dd60fabf3bd2f25b2ba12bb0",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed43/run.json": "fd980a2c0df7a161e73eec07751291f3e3b014539ce9a4fa575dd7cd995e9e09",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed44/epoch-10.pt": "f0be6ac27d6d635ad4bb869ef6f32551985d8ea4a10c664ff637b6dbe9844de1",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed44/run.json": "4035a30a62e1a41a7a570ae7198281b851f48956f6d1b0a374cb7da5c7efe52e",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed42/epoch-10.pt": "6e096dd5c74582b725777c1b1af3009fd2fb9af7d5e140a05e6abbe61ebd7376",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed42/run.json": "738ca442f7986549818ca222aa3ea4f68ac3b03d9740cce503c36d2512b42258",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed43/epoch-10.pt": "75f93b6b39d8223cba3ee6c95ab8509a3f4749359d645a6f3b5cf9ca1f19388f",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed43/run.json": "b80346a18cf207b291b30668683e718e915bab75e505f39595219e5f13fd990c",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed44/epoch-10.pt": "18003c08b4741cc5c40228a5f2c40efb89aa9c4f4597759b6b1d1a4e83df5b0a",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed44/run.json": "7b7affaf17d06c497f7ff0501ead70ef7921d72d16db49594172daee9f74dab8",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed42/epoch-10.pt": "c8da9be3701c65c3cf96edd5f979ff2457beaeaba7611459568d7b3e0e53352a",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed42/run.json": "c80b1eb715bdfd2da367fa32a2fd666e289606765b80282130ea2e7289d24227",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed43/epoch-10.pt": "6b3fde03bf169d81d252a62d3cd15323493e165a9fa92bbaa869a369d7efffee",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed43/run.json": "c3767cb2f3526b8552274f486c502a275814045f15894be3405fb4c85a33eabe",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed44/epoch-10.pt": "6b7c8aec3f7f017628f298f766a53d49d16c1f6de174a7a897d080d7db5c0c4b",
+    "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed44/run.json": "4e2243e04a8e3547e8eed090817fe9a9daf572eee797e516c411ca70b8db4115",
+    "runs/issue23-final-preparation-20261027-v1/observed-cuda-runtime-profile-v1.json": "83f9d32579593cf2ef09669b00eb00c19d23177952b4c110fb081c1218aa85e6",
+    "runs/issue23-final-preparation-20261027-v1/cuda-independent-cpu-readback-v1.json": "1070a94fd4a961424f273413135e2515a6a752cd1a750976616e52dc57a3dd8b",
+    "runs/issue23-final-preparation-20261027-v1/native-cuda-evidence-proof-v1.json": "d3e7d490a4a8de50c0bd1954e2740c3f5364eed2db2c406c40d050f50906b6e8"
+  },
+  "groups": [
+    {
+      "namespace": [
+        "urbanev",
+        "SZH"
+      ],
+      "history_days": 7,
+      "selected_ids": [
+        "1143",
+        "1171",
+        "1240",
+        "1272",
+        "1355",
+        "1468",
+        "1511",
+        "1556",
+        "1572",
+        "1593",
+        "1615",
+        "1616",
+        "1641",
+        "1642",
+        "1645",
+        "1697",
+        "1856",
+        "1914",
+        "1925",
+        "1939",
+        "1958",
+        "2013",
+        "2193",
+        "2369",
+        "2397",
+        "2420",
+        "2436",
+        "2520",
+        "2607",
+        "2653"
+      ],
+      "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+      "entities_sha256": "179d4de2765dbd8593c94b347b15654a3d220202a314ad286cd26828977636fd",
+      "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+      "clock_mode": "offset-aware-local",
+      "deployment": "2022-12-01T00:00:00+08:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed42/epoch-10.pt",
+          "sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed42/run.json",
+          "producer_report_sha256": "744147de06aa6acc6d55b6bba430c647bfc55fa1294e8a15f4a00e21afcaf0a9"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed43/epoch-10.pt",
+          "sha256": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed43/run.json",
+          "producer_report_sha256": "fbb9b12cb7d4061d5d1ab660a1584203769fa0e0dff9825891226bf3a6265309"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed44/epoch-10.pt",
+          "sha256": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed44/run.json",
+          "producer_report_sha256": "62a1a6db7b004286b6ff6cdc0faa836f3c14e263cc490184794a31ea5b9b2321"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "urbanev",
+        "SZH"
+      ],
+      "history_days": 14,
+      "selected_ids": [
+        "1143",
+        "1171",
+        "1240",
+        "1272",
+        "1355",
+        "1468",
+        "1511",
+        "1556",
+        "1572",
+        "1593",
+        "1615",
+        "1616",
+        "1641",
+        "1642",
+        "1645",
+        "1697",
+        "1856",
+        "1914",
+        "1925",
+        "1939",
+        "1958",
+        "2013",
+        "2193",
+        "2369",
+        "2397",
+        "2420",
+        "2436",
+        "2520",
+        "2607",
+        "2653"
+      ],
+      "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+      "entities_sha256": "e7c9dd4cb0b6f95cdfb1a0939fcadbc69edd1af6e9fb0fa30c861c4d7a38953e",
+      "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+      "clock_mode": "offset-aware-local",
+      "deployment": "2022-12-01T00:00:00+08:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed42/epoch-10.pt",
+          "sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed42/run.json",
+          "producer_report_sha256": "744147de06aa6acc6d55b6bba430c647bfc55fa1294e8a15f4a00e21afcaf0a9"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed43/epoch-10.pt",
+          "sha256": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed43/run.json",
+          "producer_report_sha256": "fbb9b12cb7d4061d5d1ab660a1584203769fa0e0dff9825891226bf3a6265309"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed44/epoch-10.pt",
+          "sha256": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed44/run.json",
+          "producer_report_sha256": "62a1a6db7b004286b6ff6cdc0faa836f3c14e263cc490184794a31ea5b9b2321"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "urbanev",
+        "SZH"
+      ],
+      "history_days": 28,
+      "selected_ids": [
+        "1143",
+        "1171",
+        "1240",
+        "1272",
+        "1355",
+        "1468",
+        "1511",
+        "1556",
+        "1572",
+        "1593",
+        "1615",
+        "1616",
+        "1641",
+        "1642",
+        "1645",
+        "1697",
+        "1856",
+        "1914",
+        "1925",
+        "1939",
+        "1958",
+        "2013",
+        "2193",
+        "2369",
+        "2397",
+        "2420",
+        "2436",
+        "2520",
+        "2607",
+        "2653"
+      ],
+      "input_manifest_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+      "entities_sha256": "ac73bec61766bc77fc50cd971bbc3edbdf1955045f12e6995d13828fb6202bb0",
+      "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+      "clock_mode": "offset-aware-local",
+      "deployment": "2022-12-01T00:00:00+08:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed42/epoch-10.pt",
+          "sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed42/run.json",
+          "producer_report_sha256": "744147de06aa6acc6d55b6bba430c647bfc55fa1294e8a15f4a00e21afcaf0a9"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed43/epoch-10.pt",
+          "sha256": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed43/run.json",
+          "producer_report_sha256": "fbb9b12cb7d4061d5d1ab660a1584203769fa0e0dff9825891226bf3a6265309"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed44/epoch-10.pt",
+          "sha256": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed44/run.json",
+          "producer_report_sha256": "62a1a6db7b004286b6ff6cdc0faa836f3c14e263cc490184794a31ea5b9b2321"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "AMS"
+      ],
+      "history_days": 7,
+      "selected_ids": [
+        "1413",
+        "1432",
+        "1444",
+        "1867",
+        "1924",
+        "24",
+        "298",
+        "35",
+        "358",
+        "689"
+      ],
+      "input_manifest_sha256": "ced8bde958ca038228548a13e4990cd89b5a36cd25f9c34af3bb9f06e557e754",
+      "entities_sha256": "5b15277f093e40f6f6e8d6209a223b31ad5297d100ef3a4878fdd7d577daf578",
+      "source_population_sha256": "3427446906cdc0bc0a46064c9e70ed83bc878960c20983858782ad4c67ed8e86",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed42/epoch-10.pt",
+          "sha256": "a368c3ebabeb9cb91180ff01ee41b271dbbdf888b610083834bbc75a5b2eda2d",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed42/run.json",
+          "producer_report_sha256": "2abbead943374f95dde00f1e93b96e0119b2d86fb93566af9c8abddc708b6c2f"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed43/epoch-10.pt",
+          "sha256": "14053287dbc260984dba17d2948dae26533b516aa16e3e3b25e74c3ab212e660",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed43/run.json",
+          "producer_report_sha256": "6ab6cc2a8d81baab9306f5779f8893ca85d13ffaaa8e9b47a54a0dbda0942dab"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed44/epoch-10.pt",
+          "sha256": "2354032b5314bbfcf81d5572474fe1513506d90e36abd1b36e5c6b82e37d35b7",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed44/run.json",
+          "producer_report_sha256": "33af9965a54f89307cb8fff3f892d84f0ce3ae5fec483f6e7e4a6eb5b4a45378"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "AMS"
+      ],
+      "history_days": 14,
+      "selected_ids": [
+        "1413",
+        "1432",
+        "1444",
+        "1867",
+        "1924",
+        "24",
+        "298",
+        "35",
+        "358",
+        "689"
+      ],
+      "input_manifest_sha256": "ad041d1ee3eb6f379abfc3fb2abae6939df1b29e802b121aef6db10863045b9a",
+      "entities_sha256": "5490ec7a29bb7c58ae4c4e4835a9468ebc2266c180945b1e5b7c7390071fa090",
+      "source_population_sha256": "3427446906cdc0bc0a46064c9e70ed83bc878960c20983858782ad4c67ed8e86",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed42/epoch-10.pt",
+          "sha256": "a368c3ebabeb9cb91180ff01ee41b271dbbdf888b610083834bbc75a5b2eda2d",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed42/run.json",
+          "producer_report_sha256": "2abbead943374f95dde00f1e93b96e0119b2d86fb93566af9c8abddc708b6c2f"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed43/epoch-10.pt",
+          "sha256": "14053287dbc260984dba17d2948dae26533b516aa16e3e3b25e74c3ab212e660",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed43/run.json",
+          "producer_report_sha256": "6ab6cc2a8d81baab9306f5779f8893ca85d13ffaaa8e9b47a54a0dbda0942dab"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed44/epoch-10.pt",
+          "sha256": "2354032b5314bbfcf81d5572474fe1513506d90e36abd1b36e5c6b82e37d35b7",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed44/run.json",
+          "producer_report_sha256": "33af9965a54f89307cb8fff3f892d84f0ce3ae5fec483f6e7e4a6eb5b4a45378"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "AMS"
+      ],
+      "history_days": 28,
+      "selected_ids": [
+        "1413",
+        "1432",
+        "1444",
+        "1867",
+        "1924",
+        "24",
+        "298",
+        "35",
+        "358",
+        "689"
+      ],
+      "input_manifest_sha256": "9cdddef1c4ccd2568bf40dbab8209f8c8691d386fd0eea30ec5a39781aad51d7",
+      "entities_sha256": "e2de7331ff8d33e66a8a034b5da870d7cf1d82b9532109d2914af063bba01b4c",
+      "source_population_sha256": "3427446906cdc0bc0a46064c9e70ed83bc878960c20983858782ad4c67ed8e86",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed42/epoch-10.pt",
+          "sha256": "a368c3ebabeb9cb91180ff01ee41b271dbbdf888b610083834bbc75a5b2eda2d",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed42/run.json",
+          "producer_report_sha256": "2abbead943374f95dde00f1e93b96e0119b2d86fb93566af9c8abddc708b6c2f"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed43/epoch-10.pt",
+          "sha256": "14053287dbc260984dba17d2948dae26533b516aa16e3e3b25e74c3ab212e660",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed43/run.json",
+          "producer_report_sha256": "6ab6cc2a8d81baab9306f5779f8893ca85d13ffaaa8e9b47a54a0dbda0942dab"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed44/epoch-10.pt",
+          "sha256": "2354032b5314bbfcf81d5572474fe1513506d90e36abd1b36e5c6b82e37d35b7",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed44/run.json",
+          "producer_report_sha256": "33af9965a54f89307cb8fff3f892d84f0ce3ae5fec483f6e7e4a6eb5b4a45378"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "JHB"
+      ],
+      "history_days": 7,
+      "selected_ids": [
+        "13",
+        "18",
+        "24",
+        "28",
+        "3",
+        "31",
+        "35",
+        "36",
+        "40",
+        "46"
+      ],
+      "input_manifest_sha256": "f513a479f7503995a7a44a49970ad6142682068665b903a49ed3b7275a29fc99",
+      "entities_sha256": "3db056f9b0c6592884e6cd6cd1f0fc7e4de29842085f46bc3de8b444f3e14632",
+      "source_population_sha256": "2d5fd56a9d0d23570dec6199465ebea628069207f96fee54c79370e9894762a4",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed42/epoch-10.pt",
+          "sha256": "73b1d6b8a2d4466d83b5cf207d161dc0c101adfd02af3515a56c960b230009eb",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed42/run.json",
+          "producer_report_sha256": "9e36aeb5a267a3896ff20ec15a6e139675749015bc1fc14c5f8c91eda36adb5a"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed43/epoch-10.pt",
+          "sha256": "86e40cce4414876fa319e0f74a76996d6f3f0ad72d89bd98d53cdedcb7c0439e",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed43/run.json",
+          "producer_report_sha256": "1d60849f487ac7c8e0fee4d9be5bcfcf445331bfa21ad887ab5bb1dfb18ab1c2"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed44/epoch-10.pt",
+          "sha256": "e0deaabf8f9d8e63341ddc99d69e2eb2b5b7225a968fa5e53e4cabc595dc96c1",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed44/run.json",
+          "producer_report_sha256": "459b04fcbb8d86cb1c9e66340f22d888e0ac3eb52c34260861e87d673cdc3e3f"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "JHB"
+      ],
+      "history_days": 14,
+      "selected_ids": [
+        "13",
+        "18",
+        "24",
+        "28",
+        "3",
+        "31",
+        "35",
+        "36",
+        "40",
+        "46"
+      ],
+      "input_manifest_sha256": "27bc5b4779a02213fd84dd2c87290b38b35616563f2281e37eed16e3afed98fb",
+      "entities_sha256": "3450814c3ed7ed6b32e5a1ce7bc951bfd3f94356ceaeb8f0eb6a7b0a7d718765",
+      "source_population_sha256": "2d5fd56a9d0d23570dec6199465ebea628069207f96fee54c79370e9894762a4",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed42/epoch-10.pt",
+          "sha256": "73b1d6b8a2d4466d83b5cf207d161dc0c101adfd02af3515a56c960b230009eb",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed42/run.json",
+          "producer_report_sha256": "9e36aeb5a267a3896ff20ec15a6e139675749015bc1fc14c5f8c91eda36adb5a"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed43/epoch-10.pt",
+          "sha256": "86e40cce4414876fa319e0f74a76996d6f3f0ad72d89bd98d53cdedcb7c0439e",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed43/run.json",
+          "producer_report_sha256": "1d60849f487ac7c8e0fee4d9be5bcfcf445331bfa21ad887ab5bb1dfb18ab1c2"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed44/epoch-10.pt",
+          "sha256": "e0deaabf8f9d8e63341ddc99d69e2eb2b5b7225a968fa5e53e4cabc595dc96c1",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed44/run.json",
+          "producer_report_sha256": "459b04fcbb8d86cb1c9e66340f22d888e0ac3eb52c34260861e87d673cdc3e3f"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "JHB"
+      ],
+      "history_days": 28,
+      "selected_ids": [
+        "13",
+        "18",
+        "24",
+        "28",
+        "3",
+        "31",
+        "35",
+        "36",
+        "40",
+        "46"
+      ],
+      "input_manifest_sha256": "9ea9b37072195c0601b9a464bb19d48972aefd04267b54ed3b6f9553ab337adb",
+      "entities_sha256": "74bbfff944609358b0337c1d41be124f2c9ac271b377cf8601dff1bfeb5a76a2",
+      "source_population_sha256": "2d5fd56a9d0d23570dec6199465ebea628069207f96fee54c79370e9894762a4",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed42/epoch-10.pt",
+          "sha256": "73b1d6b8a2d4466d83b5cf207d161dc0c101adfd02af3515a56c960b230009eb",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed42/run.json",
+          "producer_report_sha256": "9e36aeb5a267a3896ff20ec15a6e139675749015bc1fc14c5f8c91eda36adb5a"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed43/epoch-10.pt",
+          "sha256": "86e40cce4414876fa319e0f74a76996d6f3f0ad72d89bd98d53cdedcb7c0439e",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed43/run.json",
+          "producer_report_sha256": "1d60849f487ac7c8e0fee4d9be5bcfcf445331bfa21ad887ab5bb1dfb18ab1c2"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed44/epoch-10.pt",
+          "sha256": "e0deaabf8f9d8e63341ddc99d69e2eb2b5b7225a968fa5e53e4cabc595dc96c1",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed44/run.json",
+          "producer_report_sha256": "459b04fcbb8d86cb1c9e66340f22d888e0ac3eb52c34260861e87d673cdc3e3f"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "LOA"
+      ],
+      "history_days": 7,
+      "selected_ids": [
+        "108",
+        "122",
+        "127",
+        "129",
+        "166",
+        "18",
+        "202",
+        "205",
+        "208",
+        "49"
+      ],
+      "input_manifest_sha256": "cb09d9d5c751b3bc1fcbad79ef548800c33e1506e6863f2600f88b167ac5e384",
+      "entities_sha256": "d4d0feac371b3cd25b28a318a4a7c09bc9218c765bb692482a343a7e3060924d",
+      "source_population_sha256": "51532d0be90e457363e53008b5b292ed8f1c3a8be387da54746a38821dc981f6",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed42/epoch-10.pt",
+          "sha256": "ca703dc98859cefc8ac9145a97970c0b0c2f083eb07fcc39d56fd417d3d1b419",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed42/run.json",
+          "producer_report_sha256": "7cd3f25b65f22172111ffa5aeb3b09c48255ac168be945ff02486b87053021a9"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed43/epoch-10.pt",
+          "sha256": "31ee68e5ed021f4318b9fc1a239c30a914c8d2c8f3b40fabe2462cca43538086",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed43/run.json",
+          "producer_report_sha256": "2fd4201eac0f2c7b807e4bf24627c128df0f475f6a70f75f7557e0b624094b2d"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed44/epoch-10.pt",
+          "sha256": "1549235c7bbb948005bdd970cb4a04d8527639f5f5d22bffa44ff3143dd47b8e",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed44/run.json",
+          "producer_report_sha256": "5443c14f9f9db3ea6bab72ec8e4938366553a30411162a8ec0f830e005a5d5d7"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "LOA"
+      ],
+      "history_days": 14,
+      "selected_ids": [
+        "108",
+        "122",
+        "127",
+        "129",
+        "166",
+        "18",
+        "202",
+        "205",
+        "208",
+        "49"
+      ],
+      "input_manifest_sha256": "de2b529b207a20378976e5fa84564c3b4ab5826ae1795047fb17dc6023e3b55c",
+      "entities_sha256": "6d8618337c22c256f0aad71c6622d87a0f623fe947ae2380622bdd43537cf8f6",
+      "source_population_sha256": "51532d0be90e457363e53008b5b292ed8f1c3a8be387da54746a38821dc981f6",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed42/epoch-10.pt",
+          "sha256": "ca703dc98859cefc8ac9145a97970c0b0c2f083eb07fcc39d56fd417d3d1b419",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed42/run.json",
+          "producer_report_sha256": "7cd3f25b65f22172111ffa5aeb3b09c48255ac168be945ff02486b87053021a9"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed43/epoch-10.pt",
+          "sha256": "31ee68e5ed021f4318b9fc1a239c30a914c8d2c8f3b40fabe2462cca43538086",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed43/run.json",
+          "producer_report_sha256": "2fd4201eac0f2c7b807e4bf24627c128df0f475f6a70f75f7557e0b624094b2d"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed44/epoch-10.pt",
+          "sha256": "1549235c7bbb948005bdd970cb4a04d8527639f5f5d22bffa44ff3143dd47b8e",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed44/run.json",
+          "producer_report_sha256": "5443c14f9f9db3ea6bab72ec8e4938366553a30411162a8ec0f830e005a5d5d7"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "LOA"
+      ],
+      "history_days": 28,
+      "selected_ids": [
+        "108",
+        "122",
+        "127",
+        "129",
+        "166",
+        "18",
+        "202",
+        "205",
+        "208",
+        "49"
+      ],
+      "input_manifest_sha256": "710c7ab60b9c9e57f58cd944bd422f373190baa3f2f313c01772bf09030fd8ea",
+      "entities_sha256": "c1c70463a9bffb0ad4279c69b25b273f58209fe43acec4ea724b55f7fab0006f",
+      "source_population_sha256": "51532d0be90e457363e53008b5b292ed8f1c3a8be387da54746a38821dc981f6",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed42/epoch-10.pt",
+          "sha256": "ca703dc98859cefc8ac9145a97970c0b0c2f083eb07fcc39d56fd417d3d1b419",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed42/run.json",
+          "producer_report_sha256": "7cd3f25b65f22172111ffa5aeb3b09c48255ac168be945ff02486b87053021a9"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed43/epoch-10.pt",
+          "sha256": "31ee68e5ed021f4318b9fc1a239c30a914c8d2c8f3b40fabe2462cca43538086",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed43/run.json",
+          "producer_report_sha256": "2fd4201eac0f2c7b807e4bf24627c128df0f475f6a70f75f7557e0b624094b2d"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed44/epoch-10.pt",
+          "sha256": "1549235c7bbb948005bdd970cb4a04d8527639f5f5d22bffa44ff3143dd47b8e",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed44/run.json",
+          "producer_report_sha256": "5443c14f9f9db3ea6bab72ec8e4938366553a30411162a8ec0f830e005a5d5d7"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "MEL"
+      ],
+      "history_days": 7,
+      "selected_ids": [
+        "11",
+        "14",
+        "19",
+        "22",
+        "34",
+        "37",
+        "48",
+        "49",
+        "50",
+        "54"
+      ],
+      "input_manifest_sha256": "e609732b5c35f5cdcd50b33cd4e4cc154049c42ecfd231af7e849d399359c93e",
+      "entities_sha256": "3ca47fa86fb6a4c8a5d39b1e0d4cf943f212495da1633ebac414b52711296bc3",
+      "source_population_sha256": "b06e8b7e62ab6ffa4a4185761c6f1d6c4fbbdd0ec42c7e89933440a1997dc6c6",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed42/epoch-10.pt",
+          "sha256": "5eb1778e3a9df10699fd614cffb8b37d667e541db6608d3d417054c2c9770c4c",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed42/run.json",
+          "producer_report_sha256": "c452d79bf80691582b8b6d330dbd8f4f9149bf72468fb0ec31a032375371b777"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed43/epoch-10.pt",
+          "sha256": "11782c2f2cb773ec5c98745520f9e98dc899b510dd60fabf3bd2f25b2ba12bb0",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed43/run.json",
+          "producer_report_sha256": "fd980a2c0df7a161e73eec07751291f3e3b014539ce9a4fa575dd7cd995e9e09"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed44/epoch-10.pt",
+          "sha256": "f0be6ac27d6d635ad4bb869ef6f32551985d8ea4a10c664ff637b6dbe9844de1",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed44/run.json",
+          "producer_report_sha256": "4035a30a62e1a41a7a570ae7198281b851f48956f6d1b0a374cb7da5c7efe52e"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "MEL"
+      ],
+      "history_days": 14,
+      "selected_ids": [
+        "11",
+        "14",
+        "19",
+        "22",
+        "34",
+        "37",
+        "48",
+        "49",
+        "50",
+        "54"
+      ],
+      "input_manifest_sha256": "d68bfc4fbbe3092be9edb26d90ffe643b526528ef64aed0a4ab8a4b56228f2de",
+      "entities_sha256": "d4d40e2018c3b597105f9f720e69288c9b0f646a754e0013241fe2071bf53a51",
+      "source_population_sha256": "b06e8b7e62ab6ffa4a4185761c6f1d6c4fbbdd0ec42c7e89933440a1997dc6c6",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed42/epoch-10.pt",
+          "sha256": "5eb1778e3a9df10699fd614cffb8b37d667e541db6608d3d417054c2c9770c4c",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed42/run.json",
+          "producer_report_sha256": "c452d79bf80691582b8b6d330dbd8f4f9149bf72468fb0ec31a032375371b777"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed43/epoch-10.pt",
+          "sha256": "11782c2f2cb773ec5c98745520f9e98dc899b510dd60fabf3bd2f25b2ba12bb0",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed43/run.json",
+          "producer_report_sha256": "fd980a2c0df7a161e73eec07751291f3e3b014539ce9a4fa575dd7cd995e9e09"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed44/epoch-10.pt",
+          "sha256": "f0be6ac27d6d635ad4bb869ef6f32551985d8ea4a10c664ff637b6dbe9844de1",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed44/run.json",
+          "producer_report_sha256": "4035a30a62e1a41a7a570ae7198281b851f48956f6d1b0a374cb7da5c7efe52e"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "MEL"
+      ],
+      "history_days": 28,
+      "selected_ids": [
+        "11",
+        "14",
+        "19",
+        "22",
+        "34",
+        "37",
+        "48",
+        "49",
+        "50",
+        "54"
+      ],
+      "input_manifest_sha256": "f9067fb49c092578cb5076ce15af6bff7617cc9f6e0b63da106fb89675e5ab6e",
+      "entities_sha256": "b9951922dfe01ec56152745bc2775027bd777c1537e94a5bc73944f4af63b442",
+      "source_population_sha256": "b06e8b7e62ab6ffa4a4185761c6f1d6c4fbbdd0ec42c7e89933440a1997dc6c6",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed42/epoch-10.pt",
+          "sha256": "5eb1778e3a9df10699fd614cffb8b37d667e541db6608d3d417054c2c9770c4c",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed42/run.json",
+          "producer_report_sha256": "c452d79bf80691582b8b6d330dbd8f4f9149bf72468fb0ec31a032375371b777"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed43/epoch-10.pt",
+          "sha256": "11782c2f2cb773ec5c98745520f9e98dc899b510dd60fabf3bd2f25b2ba12bb0",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed43/run.json",
+          "producer_report_sha256": "fd980a2c0df7a161e73eec07751291f3e3b014539ce9a4fa575dd7cd995e9e09"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed44/epoch-10.pt",
+          "sha256": "f0be6ac27d6d635ad4bb869ef6f32551985d8ea4a10c664ff637b6dbe9844de1",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed44/run.json",
+          "producer_report_sha256": "4035a30a62e1a41a7a570ae7198281b851f48956f6d1b0a374cb7da5c7efe52e"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "SPO"
+      ],
+      "history_days": 7,
+      "selected_ids": [
+        "12",
+        "16",
+        "20",
+        "21",
+        "22",
+        "27",
+        "28",
+        "30",
+        "42",
+        "43"
+      ],
+      "input_manifest_sha256": "455fa7eeff650b14358a911197cd0fc11476c8a1563263716e1cfc4131b60702",
+      "entities_sha256": "74388697fdcfc30fdec99001897496987531549b62b73c88bb840d10091a4037",
+      "source_population_sha256": "49f762797667fd7952cd766a61fe66ed20afebd6d893ca995eef9689875b4d1e",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed42/epoch-10.pt",
+          "sha256": "6e096dd5c74582b725777c1b1af3009fd2fb9af7d5e140a05e6abbe61ebd7376",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed42/run.json",
+          "producer_report_sha256": "738ca442f7986549818ca222aa3ea4f68ac3b03d9740cce503c36d2512b42258"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed43/epoch-10.pt",
+          "sha256": "75f93b6b39d8223cba3ee6c95ab8509a3f4749359d645a6f3b5cf9ca1f19388f",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed43/run.json",
+          "producer_report_sha256": "b80346a18cf207b291b30668683e718e915bab75e505f39595219e5f13fd990c"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed44/epoch-10.pt",
+          "sha256": "18003c08b4741cc5c40228a5f2c40efb89aa9c4f4597759b6b1d1a4e83df5b0a",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed44/run.json",
+          "producer_report_sha256": "7b7affaf17d06c497f7ff0501ead70ef7921d72d16db49594172daee9f74dab8"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "SPO"
+      ],
+      "history_days": 14,
+      "selected_ids": [
+        "12",
+        "16",
+        "20",
+        "21",
+        "22",
+        "27",
+        "28",
+        "30",
+        "42",
+        "43"
+      ],
+      "input_manifest_sha256": "83b9f000e325ad4465a6263aadd862f4ac112d94e4940467da241c6747f63570",
+      "entities_sha256": "e0539f225cb4f3bf87f7ce49fc3f08c57afb4ca42f66a39629eda1eb6fe9af6a",
+      "source_population_sha256": "49f762797667fd7952cd766a61fe66ed20afebd6d893ca995eef9689875b4d1e",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed42/epoch-10.pt",
+          "sha256": "6e096dd5c74582b725777c1b1af3009fd2fb9af7d5e140a05e6abbe61ebd7376",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed42/run.json",
+          "producer_report_sha256": "738ca442f7986549818ca222aa3ea4f68ac3b03d9740cce503c36d2512b42258"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed43/epoch-10.pt",
+          "sha256": "75f93b6b39d8223cba3ee6c95ab8509a3f4749359d645a6f3b5cf9ca1f19388f",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed43/run.json",
+          "producer_report_sha256": "b80346a18cf207b291b30668683e718e915bab75e505f39595219e5f13fd990c"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed44/epoch-10.pt",
+          "sha256": "18003c08b4741cc5c40228a5f2c40efb89aa9c4f4597759b6b1d1a4e83df5b0a",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed44/run.json",
+          "producer_report_sha256": "7b7affaf17d06c497f7ff0501ead70ef7921d72d16db49594172daee9f74dab8"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "SPO"
+      ],
+      "history_days": 28,
+      "selected_ids": [
+        "12",
+        "16",
+        "20",
+        "21",
+        "22",
+        "27",
+        "28",
+        "30",
+        "42",
+        "43"
+      ],
+      "input_manifest_sha256": "ac84b0de5d75eb74f4d7dd2d26395ab70367195f0bd1a70443f71024a8fe4371",
+      "entities_sha256": "86a97bb0b09764aef690c0d51d464f156960632552f71102f4ee271a3e8c03c5",
+      "source_population_sha256": "49f762797667fd7952cd766a61fe66ed20afebd6d893ca995eef9689875b4d1e",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed42/epoch-10.pt",
+          "sha256": "6e096dd5c74582b725777c1b1af3009fd2fb9af7d5e140a05e6abbe61ebd7376",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed42/run.json",
+          "producer_report_sha256": "738ca442f7986549818ca222aa3ea4f68ac3b03d9740cce503c36d2512b42258"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed43/epoch-10.pt",
+          "sha256": "75f93b6b39d8223cba3ee6c95ab8509a3f4749359d645a6f3b5cf9ca1f19388f",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed43/run.json",
+          "producer_report_sha256": "b80346a18cf207b291b30668683e718e915bab75e505f39595219e5f13fd990c"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed44/epoch-10.pt",
+          "sha256": "18003c08b4741cc5c40228a5f2c40efb89aa9c4f4597759b6b1d1a4e83df5b0a",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed44/run.json",
+          "producer_report_sha256": "7b7affaf17d06c497f7ff0501ead70ef7921d72d16db49594172daee9f74dab8"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "SZH"
+      ],
+      "history_days": 7,
+      "selected_ids": [
+        "1074",
+        "1213",
+        "1227",
+        "1326",
+        "169",
+        "31",
+        "383",
+        "654",
+        "71",
+        "88"
+      ],
+      "input_manifest_sha256": "37f94eb4887e34ee9bf96a66946ce908786e576ead5decfff3402229ab7c6f00",
+      "entities_sha256": "b2bcc4d378881abbc6a85a075e6435a9a2ac564c738f37788dc8fc6bbde54dc5",
+      "source_population_sha256": "a9ca26f2c47ecdfddb6c7bbaba65439861135634b993b90005dc2e27a2c892c7",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed42/epoch-10.pt",
+          "sha256": "c8da9be3701c65c3cf96edd5f979ff2457beaeaba7611459568d7b3e0e53352a",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed42/run.json",
+          "producer_report_sha256": "c80b1eb715bdfd2da367fa32a2fd666e289606765b80282130ea2e7289d24227"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed43/epoch-10.pt",
+          "sha256": "6b3fde03bf169d81d252a62d3cd15323493e165a9fa92bbaa869a369d7efffee",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed43/run.json",
+          "producer_report_sha256": "c3767cb2f3526b8552274f486c502a275814045f15894be3405fb4c85a33eabe"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed44/epoch-10.pt",
+          "sha256": "6b7c8aec3f7f017628f298f766a53d49d16c1f6de174a7a897d080d7db5c0c4b",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed44/run.json",
+          "producer_report_sha256": "4e2243e04a8e3547e8eed090817fe9a9daf572eee797e516c411ca70b8db4115"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "SZH"
+      ],
+      "history_days": 14,
+      "selected_ids": [
+        "1074",
+        "1213",
+        "1227",
+        "1326",
+        "169",
+        "31",
+        "383",
+        "654",
+        "71",
+        "88"
+      ],
+      "input_manifest_sha256": "82f962287c897d5ddade229da891e60829181ca2314380c5a8eb104c082a429f",
+      "entities_sha256": "21929ab0208cc3bc6c1fbf88a96c0c6084c54d87a06a2140a38d097879e00b59",
+      "source_population_sha256": "a9ca26f2c47ecdfddb6c7bbaba65439861135634b993b90005dc2e27a2c892c7",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed42/epoch-10.pt",
+          "sha256": "c8da9be3701c65c3cf96edd5f979ff2457beaeaba7611459568d7b3e0e53352a",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed42/run.json",
+          "producer_report_sha256": "c80b1eb715bdfd2da367fa32a2fd666e289606765b80282130ea2e7289d24227"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed43/epoch-10.pt",
+          "sha256": "6b3fde03bf169d81d252a62d3cd15323493e165a9fa92bbaa869a369d7efffee",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed43/run.json",
+          "producer_report_sha256": "c3767cb2f3526b8552274f486c502a275814045f15894be3405fb4c85a33eabe"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed44/epoch-10.pt",
+          "sha256": "6b7c8aec3f7f017628f298f766a53d49d16c1f6de174a7a897d080d7db5c0c4b",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed44/run.json",
+          "producer_report_sha256": "4e2243e04a8e3547e8eed090817fe9a9daf572eee797e516c411ca70b8db4115"
+        }
+      }
+    },
+    {
+      "namespace": [
+        "charged",
+        "SZH"
+      ],
+      "history_days": 28,
+      "selected_ids": [
+        "1074",
+        "1213",
+        "1227",
+        "1326",
+        "169",
+        "31",
+        "383",
+        "654",
+        "71",
+        "88"
+      ],
+      "input_manifest_sha256": "883c8564cb1dc28069319104d13888abca66497cb46361e8763c24bf117562c8",
+      "entities_sha256": "47b638d0eea245ef0dc16db05ff4f401481db9c0c1b2d5be255b3855504fa272",
+      "source_population_sha256": "a9ca26f2c47ecdfddb6c7bbaba65439861135634b993b90005dc2e27a2c892c7",
+      "clock_mode": "publisher-local-naive",
+      "deployment": "2023-07-01T00:00:00",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed42/epoch-10.pt",
+          "sha256": "c8da9be3701c65c3cf96edd5f979ff2457beaeaba7611459568d7b3e0e53352a",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed42/run.json",
+          "producer_report_sha256": "c80b1eb715bdfd2da367fa32a2fd666e289606765b80282130ea2e7289d24227"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed43/epoch-10.pt",
+          "sha256": "6b3fde03bf169d81d252a62d3cd15323493e165a9fa92bbaa869a369d7efffee",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed43/run.json",
+          "producer_report_sha256": "c3767cb2f3526b8552274f486c502a275814045f15894be3405fb4c85a33eabe"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed44/epoch-10.pt",
+          "sha256": "6b7c8aec3f7f017628f298f766a53d49d16c1f6de174a7a897d080d7db5c0c4b",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed44/run.json",
+          "producer_report_sha256": "4e2243e04a8e3547e8eed090817fe9a9daf572eee797e516c411ca70b8db4115"
+        }
+      }
+    }
+  ],
+  "method_configs": {
+    "42": {
+      "adaptive": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "adaptive"
+        }
+      },
+      "full_finetuning": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "full_finetuning"
+        }
+      },
+      "fixed_retention": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "fixed_retention",
+          "fixed_lambda": 1.0
+        }
+      },
+      "source_error": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "source_error",
+          "proxy_thresholds": [
+            0.1,
+            0.5
+          ],
+          "proxy_order": [
+            2,
+            1,
+            0
+          ]
+        }
+      },
+      "uncertainty": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "uncertainty",
+          "proxy_thresholds": [
+            0.01,
+            0.05
+          ],
+          "proxy_order": [
+            2,
+            1,
+            0
+          ]
+        }
+      },
+      "drift": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "drift",
+          "proxy_thresholds": [
+            1.0,
+            3.0
+          ],
+          "proxy_order": [
+            2,
+            1,
+            0
+          ]
+        }
+      },
+      "parameter_retention": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "parameter_retention"
+        }
+      },
+      "seasonal_naive": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "seasonal_naive"
+        }
+      },
+      "target_only": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "target_only"
+        }
+      },
+      "frozen_source": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "frozen_source"
+        }
+      },
+      "online_best": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "online_best"
+        }
+      },
+      "without_source_initialization": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "without_source_initialization"
+        }
+      },
+      "block7": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 7,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "block7"
+        }
+      },
+      "block28": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 28,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 42
+        },
+        "initial_training": {
+          "seed": 42,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 42,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "block28"
+        }
+      }
+    },
+    "43": {
+      "adaptive": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "adaptive"
+        }
+      },
+      "full_finetuning": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "full_finetuning"
+        }
+      },
+      "fixed_retention": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "fixed_retention",
+          "fixed_lambda": 1.0
+        }
+      },
+      "source_error": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "source_error",
+          "proxy_thresholds": [
+            0.1,
+            0.5
+          ],
+          "proxy_order": [
+            2,
+            1,
+            0
+          ]
+        }
+      },
+      "uncertainty": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "uncertainty",
+          "proxy_thresholds": [
+            0.01,
+            0.05
+          ],
+          "proxy_order": [
+            2,
+            1,
+            0
+          ]
+        }
+      },
+      "drift": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "drift",
+          "proxy_thresholds": [
+            1.0,
+            3.0
+          ],
+          "proxy_order": [
+            2,
+            1,
+            0
+          ]
+        }
+      },
+      "parameter_retention": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "parameter_retention"
+        }
+      },
+      "seasonal_naive": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "seasonal_naive"
+        }
+      },
+      "target_only": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "target_only"
+        }
+      },
+      "frozen_source": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "frozen_source"
+        }
+      },
+      "online_best": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "online_best"
+        }
+      },
+      "without_source_initialization": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "without_source_initialization"
+        }
+      },
+      "block7": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 7,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "block7"
+        }
+      },
+      "block28": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 28,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 43
+        },
+        "initial_training": {
+          "seed": 43,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 43,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "block28"
+        }
+      }
+    },
+    "44": {
+      "adaptive": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "adaptive"
+        }
+      },
+      "full_finetuning": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "full_finetuning"
+        }
+      },
+      "fixed_retention": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "fixed_retention",
+          "fixed_lambda": 1.0
+        }
+      },
+      "source_error": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "source_error",
+          "proxy_thresholds": [
+            0.1,
+            0.5
+          ],
+          "proxy_order": [
+            2,
+            1,
+            0
+          ]
+        }
+      },
+      "uncertainty": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "uncertainty",
+          "proxy_thresholds": [
+            0.01,
+            0.05
+          ],
+          "proxy_order": [
+            2,
+            1,
+            0
+          ]
+        }
+      },
+      "drift": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "drift",
+          "proxy_thresholds": [
+            1.0,
+            3.0
+          ],
+          "proxy_order": [
+            2,
+            1,
+            0
+          ]
+        }
+      },
+      "parameter_retention": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "parameter_retention"
+        }
+      },
+      "seasonal_naive": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "seasonal_naive"
+        }
+      },
+      "target_only": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "target_only"
+        }
+      },
+      "frozen_source": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "frozen_source"
+        }
+      },
+      "online_best": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "online_best"
+        }
+      },
+      "without_source_initialization": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 14,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "without_source_initialization"
+        }
+      },
+      "block7": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 7,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "block7"
+        }
+      },
+      "block28": {
+        "controller": {
+          "lambda_low": 0.1,
+          "lambda_high": 1.0,
+          "initial_lambda": 0.1,
+          "block_days": 28,
+          "min_valid_days": 7,
+          "delta": 0.0,
+          "alpha": 0.05,
+          "segment_days": 3,
+          "resamples": 2000,
+          "seed": 44
+        },
+        "initial_training": {
+          "seed": 44,
+          "epochs": 3,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "online_training": {
+          "seed": 44,
+          "epochs": 1,
+          "batch_size": 64,
+          "learning_rate": 0.001,
+          "epsilon": 0.001,
+          "head_width": 64
+        },
+        "development_entities": [
+          "_locked_target_"
+        ],
+        "replay_days": 90,
+        "state_retention": "latest",
+        "method": {
+          "name": "block28"
+        }
+      }
+    }
+  },
+  "cohort_path": "configs/issue23/final-bounded-cohort-v1.json",
+  "analysis_profile_path": "configs/issue23/final-analysis-profile-v1.json",
+  "source_reuse": "Exact21 accepted own-namespace seed42/43/44 epoch10 checkpoints. No Source refitting or cross-city weight pooling. Original producer metadata retained.",
+  "runtime_profile": {
+    "python": "3.13.16",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "torch": "2.11.0+cu130",
+    "cuda": "13.0",
+    "device": "cuda",
+    "device_name": "Tesla T4",
+    "deterministic_algorithms": true
+  },
+  "capacity_accepted": false,
+  "approval": null,
+  "execution_authorized": false,
+  "unmet_gates": [
+    "Human scientific Development acceptance, including adverse AMS, all crossing-zero intervals, sparsity and cross-release physical-overlap limitations",
+    "Human resource acceptance for full bounded11340-cell workload: observed Development scenarios plus measured synthetic CUDA/transport/restoration proof; not a full real Final90-day capacity benchmark",
+    "Independent current-head PR52 code/cohort/Source/analysis/lock approval and explicit lead Development/capacity/Final execution acceptance naming exact lock SHA",
+    "Restore complete dependencies and verify next actual allocation matches the observed runtime exactly; changes require a new reviewed lock"
+  ],
+  "operational_bounds": {
+    "max_whole_units_per_dispatch": 1,
+    "max_cells_per_dispatch": 14,
+    "max_minutes_per_dispatch": 20,
+    "no_completed_run_deadman_seconds": 120,
+    "reserve_units": 30,
+    "external_full_readback_required_before_next_unit": true,
+    "capacity_or_runtime_change": "Stop; a new reviewed lock is required; never mix profiles within a whole unit"
+  },
+  "CI": "Blocked by GitHub account billing, not passed; no checks/protections bypassed",
+  "runtime_profile_evidence": {
+    "scope": "Observed T4 synthetic-only preflight, no real Final data/fits or real Source/Development refitting",
+    "archive_url": "https://drive.google.com/file/d/1lnScj9y9LVwbJ7o0DPokcOQ0VVbjlbcl/view",
+    "archive_sha256": "7d8146a1c3d72cf773e3b2dc4bfe7d02fd133c5b6d8608094cfaca6bd94ba6a3",
+    "bytes": 20500038,
+    "manifest_files": 263,
+    "complete_unique_fixture_variants": 14,
+    "complete_daily_latest_proofs_including_resume": 15,
+    "driver_process_wall_seconds": 24.452636993,
+    "driver_reported_total_wall_seconds": 14.799385070000028,
+    "real_Final_values_decoded": false,
+    "GRU_contiguity_warning": "Recorded; no flattening/optimization change. Functional fixture timing is not a controlled benchmark.",
+    "full_package_freeze_recorded": false,
+    "limits": "Short synthetic2-day and1-initial-epoch paths, not90-day stress/capacity or power/effectiveness evidence. Full resolved dependency inventory and restored real input/Source verification remain allocation preflight requirements."
+  }
+}

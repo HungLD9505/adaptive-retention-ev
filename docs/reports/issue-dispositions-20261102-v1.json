@@ -1,0 +1,55 @@
+{
+  "scope": "Repository cleanup; scientific completion is not inferred from PR closure.",
+  "issues": [
+    {
+      "number": 10,
+      "action": "close_completed",
+      "reason": "Canonical v8 report/supplement LaTeX sources, exact result tables and original export metadata are preserved under report/; the Report 1 audit and evidence synthesis accompany them. Non-author review is explicitly waived by the lead, not claimed performed."
+    },
+    {
+      "number": 15,
+      "action": "keep_open",
+      "reason": "Release/main promotion and the November 6 handoff gate are not complete. Earlier equal-dual-E2E demands and current primary/supporting scope must remain distinguishable."
+    },
+    {
+      "number": 19,
+      "action": "close_completed",
+      "reason": "Primary source/GRU/latent-retention implementation, actual historical Development smoke and independent formula/freeze/checkpoint fixtures are delivered and integrated through #76; no superiority claim."
+    },
+    {
+      "number": 20,
+      "action": "close_completed",
+      "reason": "Primary causal confidence controller, finite Development configuration and ordering/tie/bootstrap fixtures are delivered and integrated through #76; statistical benefit remains limited as reported."
+    },
+    {
+      "number": 21,
+      "action": "close_completed",
+      "reason": "Primary prequential runner, trained-state carry, delayed-label handling, isolated audits, resume fixtures and historical GPU smoke/capacity records are integrated; model effectiveness is not inferred from fixtures."
+    },
+    {
+      "number": 22,
+      "action": "close_completed",
+      "reason": "Primary nine-baseline/five-ablation definitions and finite Development executions are integrated with alias/cost/proxy limitations preserved; separate supporting implementations are not pooled."
+    },
+    {
+      "number": 23,
+      "action": "keep_open",
+      "reason": "Primary frozen 810-unit Final and analysis are complete, but complete end-to-end runtime/memory accounting and all original archival/acceptance criteria are not established. Explicit shortfalls cannot be filled from update counts."
+    },
+    {
+      "number": 39,
+      "action": "keep_open",
+      "reason": "Bounded Hung supporting code/results are preserved, but the original expanded E2E scope, physical-lineage/reproduction and handoff requirements are not all fulfilled. No new training is assigned by this cleanup."
+    },
+    {
+      "number": 40,
+      "action": "keep_open",
+      "reason": "Duc bounded study and 152 recorded artifact checks are preserved, but the historical handoff explicitly leaves successful Drive distribution and a verified file link pending; integration does not invent that delivery."
+    },
+    {
+      "number": 41,
+      "action": "keep_open",
+      "reason": "Cyber guarded IO is fixture-tested; historical scores are not outputs of the corrected version. No fresh real-data validation or complete checkpoint/artifact handoff is claimed, and no new training is authorized."
+    }
+  ]
+}

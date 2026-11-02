@@ -1,0 +1,715 @@
+{
+  "boundary_rule": "Exclude the first Main saved-journal day in every pair before comparing core tags",
+  "core_tags": [
+    "forecast",
+    "skip",
+    "score",
+    "unscored",
+    "update"
+  ],
+  "excluded_separate_branch_tag": "audit-update",
+  "pair_count": 69,
+  "pairs": [
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s11e1025",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 10,
+      "cell_id": "b14s11e1153",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 11,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 28,
+      "cell_id": "b14s11e1405",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 29,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 3,
+      "cell_id": "b14s11e1693",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 4,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s11e1987",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s11e2152",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s11e2613",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s11e2644",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s19e1025",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 10,
+      "cell_id": "b14s19e1153",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 11,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 7,
+      "cell_id": "b14s19e1405",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 8,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s19e1693",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s19e1987",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s19e2152",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s19e2613",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s19e2644",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s7e1025",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 3,
+      "cell_id": "b14s7e1153",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 4,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 14,
+      "cell_id": "b14s7e1405",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 15,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s7e1693",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s7e1987",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s7e2152",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s7e2613",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b14s7e2644",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 3,
+      "cell_id": "b28s11e1165",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 4,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s11e1188",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s11e1251",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s11e1408",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s11e1987",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s11e2005",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 7,
+      "cell_id": "b28s11e2152",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 8,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s11e2472",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s11e2633",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 3,
+      "cell_id": "b28s19e1165",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 4,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s19e1188",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s19e1251",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s19e1408",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s19e1987",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s19e2005",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s19e2152",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s19e2472",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s19e2633",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 3,
+      "cell_id": "b28s7e1165",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 4,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s7e1188",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s7e1251",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s7e1408",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s7e1987",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s7e2005",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s7e2152",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s7e2472",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b28s7e2633",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s11e1050",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s11e1200",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 28,
+      "cell_id": "b7s11e1405",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 29,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 13,
+      "cell_id": "b7s11e2264",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 14,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s11e2447",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s11e2452",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s19e1050",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s19e1200",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 7,
+      "cell_id": "b7s19e1405",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 8,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s19e2264",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s19e2447",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s19e2452",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s7e1050",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s7e1200",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 14,
+      "cell_id": "b7s7e1405",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 15,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 7,
+      "cell_id": "b7s7e2264",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 8,
+      "nonboundary_common_days": 48
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s7e2447",
+      "common_days": 48,
+      "core_boundary_differences": 0,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-12T00:00:00+08:00",
+      "full_tag_differences": 0,
+      "nonboundary_common_days": 47
+    },
+    {
+      "audit_only_differences": 0,
+      "cell_id": "b7s7e2452",
+      "common_days": 49,
+      "core_boundary_differences": 1,
+      "core_nonboundary_differences": 0,
+      "first_main_day": "2023-01-11T00:00:00+08:00",
+      "full_tag_differences": 1,
+      "nonboundary_common_days": 48
+    }
+  ],
+  "pairs_sha256": "e260de421d6c53ef3dffe5901f9e3478708b9e578791d3f370588a0a508699de",
+  "request_sha256": "38295dade44c779b381cd7b54fe7983699c688754e597d88ede50c1e1127fc02",
+  "schema": "hung-block7-shared-event-order-v1",
+  "totals": {
+    "audit_only_differences": 160,
+    "common_days": 3348,
+    "core_boundary_differences": 36,
+    "core_nonboundary_differences": 0,
+    "full_tag_differences": 196,
+    "nonboundary_common_days": 3279
+  }
+}

@@ -1,0 +1,262 @@
+{
+  "archive_sha256": "531bff0d24ddf7eb0a08d4ed9d97976e55140b81025db0d91c28c557684e1114",
+  "jobs": 360,
+  "lock_sha256": "e5e8fe1cb5636e508b3edbcedbbd00a72d9d8230041bf383eeba3d1133883e5e",
+  "schema": "hung-final-wape-audit-v1",
+  "source_output_sha256": "5d9eafd520b3d9aedf88d6ccf0a032dce97ac30958059ebaf6067d40cb641dda",
+  "station_first": [
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.5058403650192923,
+      "stations": 3,
+      "variant": "block28"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.5129829815351381,
+      "stations": 3,
+      "variant": "block7"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.5066951611999831,
+      "stations": 3,
+      "variant": "drift"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.5071215664984998,
+      "stations": 3,
+      "variant": "fixed_retention"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.5685473929320063,
+      "stations": 3,
+      "variant": "frozen_source"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.507169292117001,
+      "stations": 3,
+      "variant": "full_finetuning"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.5155526818219239,
+      "stations": 3,
+      "variant": "main"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.8760190353475874,
+      "stations": 3,
+      "variant": "no_source"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.51317889537453,
+      "stations": 3,
+      "variant": "online_best_lambda"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.5071448233440499,
+      "stations": 3,
+      "variant": "parameter_retention"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.7437919019161972,
+      "stations": 3,
+      "variant": "seasonal_naive"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.5049680708587403,
+      "stations": 3,
+      "variant": "source_error"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.860638821903164,
+      "stations": 3,
+      "variant": "target_only"
+    },
+    {
+      "budget_days": 7,
+      "equal_station_wape": 0.5059488280530153,
+      "stations": 3,
+      "variant": "uncertainty"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.5096977408431839,
+      "stations": 3,
+      "variant": "block28"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.5209953533605668,
+      "stations": 3,
+      "variant": "block7"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.5112841826449522,
+      "stations": 3,
+      "variant": "drift"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.5112399087076486,
+      "stations": 3,
+      "variant": "fixed_retention"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.5625330722882286,
+      "stations": 3,
+      "variant": "frozen_source"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.5062863669521517,
+      "stations": 3,
+      "variant": "full_finetuning"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.5229268383277464,
+      "stations": 3,
+      "variant": "main"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.8515637071116734,
+      "stations": 3,
+      "variant": "no_source"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.5151617199210949,
+      "stations": 3,
+      "variant": "online_best_lambda"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.5063608006800896,
+      "stations": 3,
+      "variant": "parameter_retention"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.7437919058586915,
+      "stations": 3,
+      "variant": "seasonal_naive"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.5099472124349554,
+      "stations": 3,
+      "variant": "source_error"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.8433443432341251,
+      "stations": 3,
+      "variant": "target_only"
+    },
+    {
+      "budget_days": 14,
+      "equal_station_wape": 0.5098838174592213,
+      "stations": 3,
+      "variant": "uncertainty"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.5101862587125646,
+      "stations": 3,
+      "variant": "block28"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.51301032306027,
+      "stations": 3,
+      "variant": "block7"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.5052705265949862,
+      "stations": 3,
+      "variant": "drift"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.5073266011993708,
+      "stations": 3,
+      "variant": "fixed_retention"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.5699929981164983,
+      "stations": 3,
+      "variant": "frozen_source"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.5044482646192173,
+      "stations": 3,
+      "variant": "full_finetuning"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.5142665815365468,
+      "stations": 3,
+      "variant": "main"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.7761708036870943,
+      "stations": 3,
+      "variant": "no_source"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.51313392483333,
+      "stations": 3,
+      "variant": "online_best_lambda"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.5045416538271207,
+      "stations": 3,
+      "variant": "parameter_retention"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.7437919068379996,
+      "stations": 3,
+      "variant": "seasonal_naive"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.5046245128009846,
+      "stations": 3,
+      "variant": "source_error"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.7864950307477625,
+      "stations": 3,
+      "variant": "target_only"
+    },
+    {
+      "budget_days": 28,
+      "equal_station_wape": 0.5102684031767751,
+      "stations": 3,
+      "variant": "uncertainty"
+    }
+  ],
+  "undefined_jobs": 0
+}

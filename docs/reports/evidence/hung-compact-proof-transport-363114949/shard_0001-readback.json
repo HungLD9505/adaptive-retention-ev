@@ -1,0 +1,33 @@
+{
+  "claimed_source_version_id": 363099687,
+  "job_ids": [
+    "block28_b14s11e1025",
+    "block28_b14s11e1153",
+    "block28_b14s11e1405",
+    "block28_b14s11e1693",
+    "block28_b14s11e1987",
+    "block28_b14s11e2152",
+    "block28_b14s11e2613",
+    "block28_b14s11e2644",
+    "block28_b14s19e1025",
+    "block28_b14s19e1153",
+    "block28_b14s19e1405",
+    "block28_b14s19e1693",
+    "block28_b14s19e1987",
+    "block28_b14s19e2152",
+    "block28_b14s19e2613",
+    "block28_b14s19e2644",
+    "block28_b14s7e1025",
+    "block28_b14s7e1153",
+    "block28_b14s7e1405",
+    "block28_b14s7e1693"
+  ],
+  "jobs": 20,
+  "jobset_sha256": "e2051de08dfb0f0ee91c3617151f08d5cd2c712bb88344244980e4ec2f350c69",
+  "proof_bytes": 21399,
+  "proof_sha256": "75862528c5d56a27fd5c164c616faf69bcff5c7b23451e09c20ffcdae2cd87e6",
+  "schema": "hung-kaggle-compact-proof-readback-v1",
+  "scope": "development_only",
+  "source_notebook": "hungluongduc/hung-compact-proof-shard0001-20261028-v1",
+  "status": "REMOTE_PROOF_READBACK_VERIFIED"
+}

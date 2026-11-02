@@ -1,0 +1,200 @@
+{
+  "schema": "hung-development-group03-metrics-v2",
+  "snapshot_utc": "2026-10-26T22:33:06.996321+00:00",
+  "model_code_sha": "44b8532959d76fb20691881539f991ca44983727",
+  "group02": {
+    "version_url": "https://www.kaggle.com/code/hungluongduc/hung-matched-group02-44b8532-20261027?scriptVersionId=362625674",
+    "provider_wall_seconds": 3761.7,
+    "complete": {
+      "shards": [
+        "shard_0002",
+        "shard_0003"
+      ],
+      "jobs": 40,
+      "receipts": [
+        {
+          "shard_id": "shard_0002",
+          "exit_code": 0,
+          "wall_seconds": 1409.504643018,
+          "ended_at_utc": "2026-10-26T21:41:04.182805+00:00",
+          "plan_sha256": "70dff1c41380aa781062470b6986829e470e320a1cd0522ac49c63956ea6d12d",
+          "shards_sha256": "7d99e722c6e27b7257a709182a0827b63c4a1599cfe14f3472e9e4a914cf8ad1",
+          "job_ids": [
+            "block28_b14s7e1987",
+            "block28_b14s7e2152",
+            "block28_b14s7e2613",
+            "block28_b14s7e2644",
+            "block28_b28s11e1165",
+            "block28_b28s11e1188",
+            "block28_b28s11e1251",
+            "block28_b28s11e1408",
+            "block28_b28s11e1987",
+            "block28_b28s11e2005",
+            "block28_b28s11e2152",
+            "block28_b28s11e2472",
+            "block28_b28s11e2633",
+            "block28_b28s19e1165",
+            "block28_b28s19e1188",
+            "block28_b28s19e1251",
+            "block28_b28s19e1408",
+            "block28_b28s19e1987",
+            "block28_b28s19e2005",
+            "block28_b28s19e2152"
+          ],
+          "local_verify_exit_code": 0,
+          "artifact_bytes": 61939216,
+          "artifact_sha256": "409c523b421397fecc22bc953a13b2642aa49cf1f0f443c9e88f1d11af4ca908",
+          "crc": "passed",
+          "remote_readback": "pending",
+          "peer_acceptance": "pending"
+        },
+        {
+          "shard_id": "shard_0003",
+          "exit_code": 0,
+          "wall_seconds": 1353.6183424360001,
+          "ended_at_utc": "2026-10-26T22:11:20.980490+00:00",
+          "plan_sha256": "70dff1c41380aa781062470b6986829e470e320a1cd0522ac49c63956ea6d12d",
+          "shards_sha256": "7d99e722c6e27b7257a709182a0827b63c4a1599cfe14f3472e9e4a914cf8ad1",
+          "job_ids": [
+            "block28_b28s19e2472",
+            "block28_b28s19e2633",
+            "block28_b28s7e1165",
+            "block28_b28s7e1188",
+            "block28_b28s7e1251",
+            "block28_b28s7e1408",
+            "block28_b28s7e1987",
+            "block28_b28s7e2005",
+            "block28_b28s7e2152",
+            "block28_b28s7e2472",
+            "block28_b28s7e2633",
+            "block28_b7s11e1050",
+            "block28_b7s11e1200",
+            "block28_b7s11e1405",
+            "block28_b7s11e2264",
+            "block28_b7s11e2447",
+            "block28_b7s11e2452",
+            "block28_b7s19e1050",
+            "block28_b7s19e1200",
+            "block28_b7s19e1405"
+          ],
+          "local_verify_exit_code": 0,
+          "artifact_bytes": 62632926,
+          "artifact_sha256": "f7f5073878345a4cb44f1e293a7bfd1e1c762244475cf10e7bba40167c66430b",
+          "crc": "passed",
+          "remote_readback": "pending",
+          "peer_acceptance": "pending"
+        }
+      ],
+      "wall_seconds": 3663.4859303,
+      "allocation_queue_sha256": "12f5bc9ee402a806faedc89574a4e00c427c384335a3868668adf8ce7f93a0f2",
+      "predecessor_sha256": "29e3db51106402942959f80762e4c27995ad4ec9f2253fd96cc8a4681d3b2dcd",
+      "remote_readback": "Pending next provider readback; only a completed version preserves these outputs",
+      "scope": "Development execution; no Final lock or peer-acceptance claim"
+    },
+    "log_sha256": "d8bcadf6504104c43bab3447101f2e300ca4cbea18cddd4ce0448b2a3301b9d7"
+  },
+  "group03": {
+    "version": 1,
+    "url": "https://www.kaggle.com/code/hungluongduc/hung-matched-group03-44b8532-20261027-v2",
+    "submitted_source_sha256": "41cf557ec06f966b5165a790e9cb0eb9eda1c6d58c3df12722716678a4433d0d",
+    "predecessor_readback": {
+      "predecessor_readback": [
+        {
+          "shard": "shard_0002",
+          "sha256": "409c523b421397fecc22bc953a13b2642aa49cf1f0f443c9e88f1d11af4ca908",
+          "bytes": 61939216,
+          "crc": "passed"
+        },
+        {
+          "shard": "shard_0003",
+          "sha256": "f7f5073878345a4cb44f1e293a7bfd1e1c762244475cf10e7bba40167c66430b",
+          "bytes": 62632926,
+          "crc": "passed"
+        }
+      ]
+    },
+    "parity": {
+      "passed": true,
+      "checks": 28,
+      "elapsed_seconds": 7.379672836999987
+    },
+    "status": "running GPU T4 x2; first shard terminal receipt not yet observed",
+    "log_sha256": "2dbafc9ec1642e27c61582d3895867471f380b7ccd99fe17aee8e8b572b70bd4"
+  },
+  "local_shard0038": {
+    "artifact_bytes": 61993556,
+    "artifact_sha256": "ee9886b0c29530bf3c6bcc0c986c1c0d223184eff4742cc5c16849dbbf80cf26",
+    "crc": "passed",
+    "job_ids": [
+      "uncertainty_b28s11e2633",
+      "uncertainty_b28s19e1165",
+      "uncertainty_b28s19e1188",
+      "uncertainty_b28s19e1251",
+      "uncertainty_b28s19e1408",
+      "uncertainty_b28s19e1987",
+      "uncertainty_b28s19e2005",
+      "uncertainty_b28s19e2152",
+      "uncertainty_b28s19e2472",
+      "uncertainty_b28s19e2633",
+      "uncertainty_b28s7e1188",
+      "uncertainty_b28s7e1251",
+      "uncertainty_b28s7e1408",
+      "uncertainty_b28s7e1987",
+      "uncertainty_b28s7e2005",
+      "uncertainty_b28s7e2152",
+      "uncertainty_b28s7e2472",
+      "uncertainty_b28s7e2633",
+      "uncertainty_b7s11e1050",
+      "uncertainty_b7s11e1200"
+    ],
+    "partition_sha256": "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f",
+    "peer_acceptance": "pending",
+    "plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+    "remote_readback": "pending; archive is on persistent local SSD",
+    "shard_id": "shard_0038",
+    "wall_seconds": 3074.265376800002
+  },
+  "new_completed_in_certified_whole_shards": 122,
+  "remote_readback_new_jobs": 66,
+  "remaining": {
+    "local": 160,
+    "current_kaggle_group": 120,
+    "future_kaggle_groups": 380
+  },
+  "metrics": {
+    "schema": "hung-development-partial-results-v2",
+    "catalog_sha256": "2d4b3aa5284552a0b82955ab5e05cdc2832f96a06a24145a1d0a7f3c2dd67da8",
+    "result_sha256": "95d63a6adf8b8c4e5b2f7c08b131defdd892953b3d0628ef672e554d170ca584",
+    "counts": {
+      "runs": 111,
+      "scorable_runs": 60,
+      "zero_scored_runs": 51
+    },
+    "station_first_rows": 11,
+    "numeric_regression": "All111 per-run metrics and11 station-first MAE/RMSE/reference/gain rows unchanged; only schema/reference semantics expanded",
+    "aggregation": "Complete hourly errors within paired station/seed; mean seeds within station, then equal station mean within each budget. Budgets remain separate. Transfer gain and negative transfer apply only to Source-using methods versus Target-only. Other comparisons report generic MAE differences/worse-than-reference fractions. Zero reference MAE gives undefined relative gain; absolute differences remain available."
+  },
+  "numpy_fix": {
+    "commit": "5b175d2694c02cfe39426b8275ac6890277d0c69",
+    "actual_111_run_result_sha_before": "56e9370abafbc1e155c7f2f9e06ad5848025c157f5018a0afe88d58b7bd4010d",
+    "actual_111_run_result_sha_after": "56e9370abafbc1e155c7f2f9e06ad5848025c157f5018a0afe88d58b7bd4010d",
+    "ubuntu_ci": "passed at this commit"
+  },
+  "full_tests": {
+    "ran": 306,
+    "skipped": 1,
+    "test_seconds": 219.525,
+    "terminal": {
+      "exit_code": 0,
+      "wall_seconds": 227.1690607
+    },
+    "log_sha256": "3d35130de48a7f81053dbcb29df034541f2d6a1bc2faacc0e6f4d4cf066afe97"
+  },
+  "semantic_fix_tests": "9focused tests passed, including Source/Target-only NTR semantics;111-run integration passed",
+  "source_files": {
+    "tools/hung_results.py": "4690dd0f5ac758492f904e3cd17ac43c056f11446ff1d89b5b3d40e158909d81",
+    "tools/hung_result_report.py": "a18520615a07ac77da1619df1323737c24817fe9698a8cd0e1c9310f4efc2ac2",
+    "tests/test_hung_results.py": "9d25b1362dd806c9f1af4e45ee117d6d83ccc370f0031ad9b343e42e2fcaaf9f"
+  },
+  "acceptance": "Partial Development evidence; independent scientific review/Final lock/#39 decision pending"
+}
