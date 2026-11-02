@@ -1,0 +1,57 @@
+{
+  "schema": "verified-colab-unit-publication-v1",
+  "status": "verified_partition_not_complete_unit",
+  "unit": [
+    "urbanev",
+    "SZH",
+    28,
+    "1165",
+    42
+  ],
+  "start": 0,
+  "end": 12,
+  "unit_total": 14,
+  "run_ids": [
+    "urbanev-SZH-1165-28d-adaptive-seed42",
+    "urbanev-SZH-1165-28d-block28-seed42",
+    "urbanev-SZH-1165-28d-block7-seed42",
+    "urbanev-SZH-1165-28d-drift-seed42-recipe3",
+    "urbanev-SZH-1165-28d-fixed_retention-seed42",
+    "urbanev-SZH-1165-28d-frozen_source-seed42",
+    "urbanev-SZH-1165-28d-full_finetuning-seed42",
+    "urbanev-SZH-1165-28d-online_best-seed42",
+    "urbanev-SZH-1165-28d-parameter_retention-seed42-recipe2",
+    "urbanev-SZH-1165-28d-seasonal_naive-seed42",
+    "urbanev-SZH-1165-28d-source_error-seed42-recipe1",
+    "urbanev-SZH-1165-28d-target_only-seed42"
+  ],
+  "catalog_sha256": "a8dbd68f38f71e14012480bd0d82906d50cb21b814e678e42145376c85ffac66",
+  "remote_transport_verified": true,
+  "independent_daily_input_verified": true,
+  "independent_latest_state_verified": true,
+  "all_three_original_sources_verified": true,
+  "proof_hashes": {
+    "transport-proof.json": "d55eb8a5c77055398228aebda3b60ccd4574cf73ea9270102c6565442d06e3bd",
+    "independent-daily.json": "a8b5fd97204e260720fe9082ea970517cf12685145a06e1e39c835a292d1ca4b",
+    "independent-states.json": "2bd830242ab18e2780c35e6f8879538fd33ec2b3d4ba0ba43a727c416f1f1308",
+    "independent-sources.json": "ee50be332f1610544c507bd64809f89d53aff1587427d78f9f88d30aafa6bb67"
+  },
+  "original_operator_kit_sha256": "5e0193d79c588f988adad3cc4404598c46c67b2ba1d293c98d1bf2a79a5950e4",
+  "scope": "Fresh off-Colab download/content verification of first12 only. Whole14 unit not yet accepted; old/new partial methods must not be pooled.",
+  "drive_folder": "https://drive.google.com/drive/folders/1YN4rJ6dKG6Oh01gF-a_3wvTs7B8XWe84",
+  "transport": {
+    "status": "PASS",
+    "scope": "Fresh direct Drive download outside Colab, all5 part byte/SHA identities and ZIP CRC checked; independent content verification next. Connector raw fetch did not return a usable code.bundle file URI; no auth or sharing bypass.",
+    "parts": 5,
+    "targets": 12,
+    "catalog_sha256": "a8dbd68f38f71e14012480bd0d82906d50cb21b814e678e42145376c85ffac66",
+    "drive_ids": {
+      "catalog.json": "1iQY8V_AOnN7NFFyE9uHcQJkCqYRTUtZm",
+      "metadata.zip": "1A-JteDgTBjSyN9sd0RXc1jB2W9RrvDHd",
+      "code.bundle": "1_NvtR5GU_-O1Myn8EI6TDqgY5acEjdFI",
+      "runs-0002.zip": "1Ky9V-MXZlV62_PkW700ynIEtJAaf2R7X",
+      "runs-0001.zip": "11eH_8EYP1Y7yCczlXArqVzxfbqgJYerw",
+      "runs-0000.zip": "1mxTTTs-ejTxOoPHWzHDSjdQFnWLOhREv"
+    }
+  }
+}

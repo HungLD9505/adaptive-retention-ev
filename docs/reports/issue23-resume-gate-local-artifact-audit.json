@@ -1,0 +1,35 @@
+[
+  {
+    "directory": "issue23-kaggle-matched-0276-0288-publication-20261027-v1",
+    "readback_zip_sha256": "9ab8d2456b92a631e81ee11ac3ae8f5780bc148b0c35f7daa822d1a224e021dc",
+    "bytes": 26243161,
+    "crc_pass": true,
+    "members": 5,
+    "expected_wrapper_sha256": "9ab8d2456b92a631e81ee11ac3ae8f5780bc148b0c35f7daa822d1a224e021dc",
+    "expected_hash_match": true,
+    "verification_record_sha256": "2a4cef5bcd3b41c44aa91bef3e73adb8f83b3144f4af741d1eeacca7d07d803f",
+    "scope": "Fresh local byte/hash/CRC check of previously downloaded Drive wrapper; not a fresh remote download"
+  },
+  {
+    "directory": "issue23-kaggle-matched-0288-0300-publication-20261027-v1",
+    "readback_zip_sha256": "85e58a92de84fd873178008d53c28777bdb5944d8f55b22c1136388af279f3a8",
+    "bytes": 24242393,
+    "crc_pass": true,
+    "members": 5,
+    "expected_wrapper_sha256": "85e58a92de84fd873178008d53c28777bdb5944d8f55b22c1136388af279f3a8",
+    "expected_hash_match": true,
+    "verification_record_sha256": "2cb890301240c13706a876be3cadce6888bbf5f7e2da0f9e90595f45eff8a8b4",
+    "scope": "Fresh local byte/hash/CRC check of previously downloaded Drive wrapper; not a fresh remote download"
+  },
+  {
+    "directory": "issue23-spo-target-0037-0049-publication-20261027-v1",
+    "readback_zip_sha256": "01d5180daa42e54ab4b37aa854f428579b70c6da117f2a1083a41214a5c318f9",
+    "bytes": 31370286,
+    "crc_pass": true,
+    "members": 5,
+    "expected_wrapper_sha256": "01d5180daa42e54ab4b37aa854f428579b70c6da117f2a1083a41214a5c318f9",
+    "expected_hash_match": true,
+    "verification_record_sha256": "3f53abf9608b7611b0634f9735498500e93a989502626df12dfd212138ce1ec5",
+    "scope": "Fresh local byte/hash/CRC check of previously downloaded Drive wrapper; not a fresh remote download"
+  }
+]

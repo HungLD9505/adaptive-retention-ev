@@ -1,0 +1,43 @@
+{
+  "schema": "ev-controller-calibration-v1",
+  "scope": "Finite UrbanEV Adaptive Controller Development calibration; no Final lock",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "selection_sha256": "6884857291b79b35f83cc7d78b6fc7a2b5fe0283ebe85c0321a5eb1a5ee283f0",
+  "source_profile_sha256": "1be79afd6543bf7140c66e23562277f54115c39e458409b27cc9eb768bcd896f",
+  "source_study_code": "ff42ea944bf05b4b77e2b730edf500b1fee6e851",
+  "selection_rule": "equal_budget_station_seed_mae_kwh_then_recipe_index",
+  "recipes": [
+    [
+      0.01,
+      0.1,
+      7,
+      0.0,
+      3
+    ],
+    [
+      0.1,
+      1.0,
+      7,
+      0.0,
+      3
+    ],
+    [
+      0.01,
+      0.1,
+      10,
+      0.005,
+      5
+    ],
+    [
+      0.1,
+      1.0,
+      10,
+      0.005,
+      5
+    ]
+  ]
+}

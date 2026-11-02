@@ -1,0 +1,607 @@
+{
+  "schema": "verified-multiunit-colab-development-publication-v1",
+  "status": "verified_complete_units",
+  "units": [
+    {
+      "unit": [
+        "charged",
+        "SZH",
+        7,
+        "119",
+        42
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-SZH-119-7d-adaptive-seed42",
+          "mae_kwh": 0.00011796160347038468,
+          "rmse_kwh": 0.0008642771051880751,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-SZH-119-7d-block28-seed42",
+          "mae_kwh": 0.00011810719809473728,
+          "rmse_kwh": 0.0008642772725238597,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-SZH-119-7d-block7-seed42",
+          "mae_kwh": 0.00156313847281509,
+          "rmse_kwh": 0.007855191861778438,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-SZH-119-7d-drift-seed42",
+          "mae_kwh": 0.00011214360028936792,
+          "rmse_kwh": 0.0008632107794246831,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-SZH-119-7d-fixed_retention-seed42",
+          "mae_kwh": 0.0002792798451602576,
+          "rmse_kwh": 0.0021410933363599166,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-SZH-119-7d-frozen_source-seed42",
+          "mae_kwh": 1.2113842410105886e-05,
+          "rmse_kwh": 1.7849785342057697e-05,
+          "initial_examples": 6,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-SZH-119-7d-full_finetuning-seed42",
+          "mae_kwh": 1.3502717142116974e-10,
+          "rmse_kwh": 4.5364993473763976e-10,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-SZH-119-7d-online_best-seed42",
+          "mae_kwh": 0.00012995432769493276,
+          "rmse_kwh": 0.0008687838392781747,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-SZH-119-7d-parameter_retention-seed42",
+          "mae_kwh": 1.3836396766438673e-10,
+          "rmse_kwh": 4.629449330219092e-10,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-SZH-119-7d-seasonal_naive-seed42",
+          "mae_kwh": 0.0,
+          "rmse_kwh": 0.0,
+          "initial_examples": 6,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-SZH-119-7d-source_error-seed42",
+          "mae_kwh": 0.00011214360028936792,
+          "rmse_kwh": 0.0008632107794246831,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-SZH-119-7d-target_only-seed42",
+          "mae_kwh": 0.11689948328738975,
+          "rmse_kwh": 0.23809941683003402,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-SZH-119-7d-uncertainty-seed42",
+          "mae_kwh": 0.00011214360028936792,
+          "rmse_kwh": 0.0008632107794246831,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-SZH-119-7d-without_source_initialization-seed42",
+          "mae_kwh": 0.13537065864109712,
+          "rmse_kwh": 0.25772507945160655,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    },
+    {
+      "unit": [
+        "charged",
+        "SZH",
+        7,
+        "119",
+        43
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-SZH-119-7d-adaptive-seed43",
+          "mae_kwh": 1.1055931315329936e-06,
+          "rmse_kwh": 6.447278933418681e-06,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-SZH-119-7d-block28-seed43",
+          "mae_kwh": 1.144833539252683e-06,
+          "rmse_kwh": 6.448119534871836e-06,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-SZH-119-7d-block7-seed43",
+          "mae_kwh": 1.1491821222334909e-06,
+          "rmse_kwh": 6.491263010097905e-06,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-SZH-119-7d-drift-seed43",
+          "mae_kwh": 1.1010732148696178e-06,
+          "rmse_kwh": 6.446751906250268e-06,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-SZH-119-7d-fixed_retention-seed43",
+          "mae_kwh": 1.1826366552474348e-06,
+          "rmse_kwh": 6.701983257762054e-06,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-SZH-119-7d-frozen_source-seed43",
+          "mae_kwh": 2.2973474311764146e-05,
+          "rmse_kwh": 4.0472920252970765e-05,
+          "initial_examples": 6,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-SZH-119-7d-full_finetuning-seed43",
+          "mae_kwh": 1.0363114445138746e-08,
+          "rmse_kwh": 7.566055702941577e-08,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-SZH-119-7d-online_best-seed43",
+          "mae_kwh": 1.0705052098358933e-06,
+          "rmse_kwh": 6.446388697596861e-06,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-SZH-119-7d-parameter_retention-seed43",
+          "mae_kwh": 1.0603206829501433e-08,
+          "rmse_kwh": 7.632531686663504e-08,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-SZH-119-7d-seasonal_naive-seed43",
+          "mae_kwh": 0.0,
+          "rmse_kwh": 0.0,
+          "initial_examples": 6,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-SZH-119-7d-source_error-seed43",
+          "mae_kwh": 1.1010732148696178e-06,
+          "rmse_kwh": 6.446751906250268e-06,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-SZH-119-7d-target_only-seed43",
+          "mae_kwh": 0.10912763738354746,
+          "rmse_kwh": 0.22687970906914084,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-SZH-119-7d-uncertainty-seed43",
+          "mae_kwh": 1.1010732148696178e-06,
+          "rmse_kwh": 6.446751906250268e-06,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-SZH-119-7d-without_source_initialization-seed43",
+          "mae_kwh": 0.1240648727048345,
+          "rmse_kwh": 0.24180076474536785,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    },
+    {
+      "unit": [
+        "charged",
+        "SZH",
+        7,
+        "119",
+        44
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-SZH-119-7d-adaptive-seed44",
+          "mae_kwh": 0.00014150117309159147,
+          "rmse_kwh": 0.0014131396571204571,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-SZH-119-7d-block28-seed44",
+          "mae_kwh": 0.00014151282422147145,
+          "rmse_kwh": 0.001413139694279438,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-SZH-119-7d-block7-seed44",
+          "mae_kwh": 7.375604132184528e-05,
+          "rmse_kwh": 0.0006742279816833895,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-SZH-119-7d-drift-seed44",
+          "mae_kwh": 0.00014161181082058776,
+          "rmse_kwh": 0.0014131396991286366,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-SZH-119-7d-fixed_retention-seed44",
+          "mae_kwh": 7.808659792151769e-05,
+          "rmse_kwh": 0.0007675671301845276,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-SZH-119-7d-frozen_source-seed44",
+          "mae_kwh": 2.2582485369458416e-05,
+          "rmse_kwh": 3.119135836403995e-05,
+          "initial_examples": 6,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-SZH-119-7d-full_finetuning-seed44",
+          "mae_kwh": 6.465451381189761e-10,
+          "rmse_kwh": 3.4576601633320317e-09,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-SZH-119-7d-online_best-seed44",
+          "mae_kwh": 0.00014150117309159147,
+          "rmse_kwh": 0.0014131396571204571,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-SZH-119-7d-parameter_retention-seed44",
+          "mae_kwh": 6.532854978669396e-10,
+          "rmse_kwh": 3.4858594711411413e-09,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-SZH-119-7d-seasonal_naive-seed44",
+          "mae_kwh": 0.0,
+          "rmse_kwh": 0.0,
+          "initial_examples": 6,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-SZH-119-7d-source_error-seed44",
+          "mae_kwh": 0.00014161181082058776,
+          "rmse_kwh": 0.0014131396991286366,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-SZH-119-7d-target_only-seed44",
+          "mae_kwh": 0.13994071601799213,
+          "rmse_kwh": 0.2670308698132609,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-SZH-119-7d-uncertainty-seed44",
+          "mae_kwh": 0.00014161181082058776,
+          "rmse_kwh": 0.0014131396991286366,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-SZH-119-7d-without_source_initialization-seed44",
+          "mae_kwh": 0.15615611161143128,
+          "rmse_kwh": 0.2834276402773485,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    },
+    {
+      "unit": [
+        "charged",
+        "SZH",
+        7,
+        "242",
+        42
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-SZH-242-7d-adaptive-seed42",
+          "mae_kwh": 0.055123645766281794,
+          "rmse_kwh": 0.0758415285323365,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-SZH-242-7d-block28-seed42",
+          "mae_kwh": 0.05663535167911539,
+          "rmse_kwh": 0.07645123735849664,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-SZH-242-7d-block7-seed42",
+          "mae_kwh": 0.060288074355066563,
+          "rmse_kwh": 0.08963573116902057,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-SZH-242-7d-drift-seed42",
+          "mae_kwh": 0.05604196105520299,
+          "rmse_kwh": 0.07640531998080181,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-SZH-242-7d-fixed_retention-seed42",
+          "mae_kwh": 0.0590796490257353,
+          "rmse_kwh": 0.08963772711906981,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-SZH-242-7d-frozen_source-seed42",
+          "mae_kwh": 0.011795572467424253,
+          "rmse_kwh": 0.013951105609231063,
+          "initial_examples": 6,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-SZH-242-7d-full_finetuning-seed42",
+          "mae_kwh": 0.05654982912273688,
+          "rmse_kwh": 0.07913276373688634,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-SZH-242-7d-online_best-seed42",
+          "mae_kwh": 0.05447829005618891,
+          "rmse_kwh": 0.07467350078512264,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-SZH-242-7d-parameter_retention-seed42",
+          "mae_kwh": 0.05655085472275078,
+          "rmse_kwh": 0.0791348780303333,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-SZH-242-7d-seasonal_naive-seed42",
+          "mae_kwh": 0.0,
+          "rmse_kwh": 0.0,
+          "initial_examples": 6,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-SZH-242-7d-source_error-seed42",
+          "mae_kwh": 0.05604196105520299,
+          "rmse_kwh": 0.07640531998080181,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-SZH-242-7d-target_only-seed42",
+          "mae_kwh": 0.2630891658710661,
+          "rmse_kwh": 0.41585237296718197,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-SZH-242-7d-uncertainty-seed42",
+          "mae_kwh": 0.05604196105520299,
+          "rmse_kwh": 0.07640531998080181,
+          "initial_examples": 6,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-SZH-242-7d-without_source_initialization-seed42",
+          "mae_kwh": 0.26090635545666757,
+          "rmse_kwh": 0.4211930723210897,
+          "initial_examples": 6,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    }
+  ],
+  "method_cells": 56,
+  "publication_catalog_sha256": "d819f8df6adde2af42b999ad79ea15de6aff470569c02e36630aa4424c00e261",
+  "independent_receipt_sha256": "ab9b638a76c5e51b4ffd62f337aa5950e7533a7c28ff88d1512b3df3ae5decc1",
+  "independent_proof_sha256": "04a4513b60955d48ca11361ac5b7b93534b5fa90b6925b62b6f8ef3f50db333a",
+  "coverage_review_sha256": "e7c488e1bb13a78b457051eecbcd49e59300d5e054c34e3f7818b5ca70b468f6",
+  "profile_sha256": "549f81ba91c11413f9f6b3bdbb85e2fbee79da518f2292860d7658d6bcf56617",
+  "external_exit_sha256": "49043e931c60228e27e7df4a2e0cc5b2b67411fe341c6b076bc05ef285e773be",
+  "reviewed_verifier_sha256": "88bbebd821796a02ce046942a17ac3a464ffe4fd4dce42861e5020fcfe5cc3ed",
+  "exact_original_configs_and_inputs": true,
+  "all_three_original_sources_verified": true,
+  "child_wall_seconds": 407.9594263529998,
+  "dispatch_to_publication_seconds": 436.6263988018036,
+  "operator_caps": {
+    "maximum_cells": 56,
+    "paired_units": 4,
+    "maximum_seconds": 600,
+    "maximum_fit_seconds": 480,
+    "unit_allowance": 1,
+    "reserve_units": 30,
+    "deadman_seconds": 120
+  },
+  "drive_folder": "https://drive.google.com/drive/folders/1VjJSlhV2kjdKrCbDhd_xJRhX5rzQ-QDW",
+  "canonical_collection_rule": "Replace old partial cells with complete units; preserve old bytes; no double counting",
+  "score_policy": "Retain null metrics and missing coverage; operational completion does not establish method effectiveness",
+  "scope": "Development only; no Final execution or effectiveness claim"
+}

@@ -1,0 +1,55 @@
+{
+  "status": "complete_offruntime_daily_state_and_analysis_verified",
+  "scope": "JHB Development recovery only; no Final or peer approval",
+  "runs": 378,
+  "source_models": 3,
+  "daily_files": 69930,
+  "audit_scores": 5791,
+  "latest_states": 378,
+  "matrix_sha256": "2a87b2120e7e9ccccd8c658c8a4fd34f21707b6d7a0e9c4d1d87aaaee2b053a7",
+  "local_daily_proof_sha256": "d6d26fcb60e399a6f2b93e940935e9f8971b2942e0559532e2483ac75cbf6476",
+  "local_state_proof_sha256": "8e9ece527392b9df9ab1972fa1f9fd3f44ddec5ae20f7c05a785b4ea6a60ab08",
+  "analysis_numeric_context_proxy_switch_audit_cost_equal_server": true,
+  "runs_csv_byte_equal_server": true,
+  "expected_analysis_identity_differences": [
+    "analysis_code.commit (local documentation commit)",
+    "verification_sha256 (local authenticated snapshot path envelope)"
+  ],
+  "local_analysis_sha256": "59c424c192bf224364fa8afb46c4cbde1a221900f6effa3eec86ea8ab0f204ae",
+  "metadata_archive": {
+    "url": "https://drive.google.com/file/d/1SnGvNZQsmdGN4fMSdmO71vf5lvhzOrb8/view",
+    "bytes": 1711971,
+    "sha256": "dd35f088a1995bb1856ee9dbce17eb79fc4ade6c6df42730dba3a59544ba586d",
+    "anonymous_readback": "PASS, CRC and all31 members"
+  },
+  "offruntime_proof_archive": {
+    "url": "https://drive.google.com/file/d/18pTe86UKx7mVMNjUDlqg6fiF-SR-fkj0/view",
+    "bytes": 302133,
+    "sha256": "4a7b0b8934d5004fb8bfb63c8d25e2c99ee511ca102f57ac80683812ca88cd60",
+    "remote_readback": "Kaggle downloaded exact size/hash and checked ZIP CRC before SPO launch"
+  },
+  "source_models_url": "https://drive.google.com/file/d/1ebTZQ3lsNdtaR6TLbaxsowYDVxAaJ6ed/view",
+  "prefix182_archive": {
+    "url": "https://drive.google.com/file/d/1Cu3zLr81UavnNd6CN_udxmAcuelsNSZt/view",
+    "bytes": 289105442,
+    "sha256": "b7c8de2733f0e7720b28698e83e8a20d0b7e0c400d416a71b6707d216b9867f9",
+    "anonymous_readback": "PASS bytes/hash/CRC"
+  },
+  "suffix196_archive": {
+    "bytes": 288618977,
+    "sha256": "316db8dcf1b643e839c6185cf564b3850b58e4ad92d0075e00efed4cc1eb5f6f",
+    "scope": "Complete direct UI upload after reconnect; anonymous bytes/hash/CRC and all54684 members PASS",
+    "url": "https://drive.google.com/file/d/1NFgELsgl-Md2Ng2wuUwoUYiNE-g2Xoun/view"
+  },
+  "method_effectiveness": "Adaptive point MAE exceeds Fixed Retention for all three budgets; exploratory conditional intervals include0; no superiority/equivalence claim",
+  "remaining": "Full primary missing artifacts; SPO reproducible delivery; MEL/LOA/SZH/AMS; complete capacity/peer acceptance and immutable Final lock",
+  "portable_handoff": {
+    "url": "https://drive.google.com/file/d/12WVuaN5C6LG1y1kOadzA0-nlx9fWZE01/view",
+    "bytes": 4807,
+    "sha256": "56409433cd91ae2a0314cee99c8ee2775246dfb03578c088fc203820785224d0",
+    "anonymous_readback": "PASS bytes/hash/CRC/all3 members",
+    "actual_restore_and_reverification": "378 daily/state proof rows identical to independently verified reference",
+    "script_safety_checks": "Existing output refused without changes; missing archives rejected before output creation"
+  },
+  "standalone_target_stdout": "Not retained in the core-run recovery ZIPs; aggregate training/source/pipeline logs and all committed forecast/event/state artifacts remain. No empty stdout files fabricated."
+}

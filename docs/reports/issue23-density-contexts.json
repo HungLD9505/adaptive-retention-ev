@@ -1,0 +1,369 @@
+{
+  "scope": "Descriptive Development-only grouping proposal; not a Final lock, controller input, cohort exclusion or behavior truth",
+  "policy": "prefix-positive-valid-hour-fraction-development-median-v1",
+  "rule": "One eligible Development entity vote per namespace/budget; sparse strictly below median, dense includes ties; zero valid hours undefined",
+  "limitations": "Missing hours excluded from denominator and reported separately; publisher-imputed values may count as valid; groups describe positive-energy frequency, not physical occupancy or energy magnitude. Budget/namespace thresholds differ. No forecast outcomes used.",
+  "code": {
+    "commit": "3e34bebd4cac0ec5ff197d868d6c37b84c651d84",
+    "dirty": false,
+    "files": {
+      "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+      "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+      "ev_models/data.py": "b030861a59ef9d549db4f96404f43ac38525dcb61acbd7a02c77b5eea2380660",
+      "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+      "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+      "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+      "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+      "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+      "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+      "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+      "ev_runner/replay.py": "8ecae7246d6169d32b04fbd185b9be826b2968d062598dca2113cab2241f337b",
+      "ev_runner/run.py": "1cd7ef9732419d3c18399dff140cde4034a44914b0345f57232a85f0a574bff3",
+      "ev_runner/state.py": "8f922db2a539c08eca80a535cef67bfe38111bc1f43a4f8186c7e1a0c75f222a",
+      "ev_runner/store.py": "718c6813fb2a595e6309c755b0388f8a91bd414ed464b4b1e001dbfbacb10797",
+      "ev_baselines/__init__.py": "761479b2da6db28d81d2791501660a609ec9d0b271d2aabf1181150ddf3def48",
+      "ev_baselines/naive.py": "50a5842de61779e5b5494b988da8a1d61c8e40c7aeb647354b212812af00a5ef",
+      "ev_baselines/policies.py": "a9ba2e53843b6c93316506a41e001f090b3b361cc717c9929d3e6615e02fbcb0",
+      "ev_baselines/retention.py": "79e6b7338e6d02cf96318dfe014bdff3dcf9f48d86894b09169b4ba69cb526f4"
+    }
+  },
+  "full_output_sha256": "686c9adf4b56d834787f98dd47d80059e214b7d57192bc4e0778c02a13ef0393",
+  "groups": [
+    {
+      "namespace": [
+        "charged",
+        "AMS"
+      ],
+      "history_days": 14,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 0.9970238095238095,
+      "eligible_development_entities": 475,
+      "undefined_entities": [],
+      "sparse_entities": 230,
+      "dense_entities": 245,
+      "at_threshold_entities": 10,
+      "manifest_sha256": "ad041d1ee3eb6f379abfc3fb2abae6939df1b29e802b121aef6db10863045b9a",
+      "entities_sha256": "5490ec7a29bb7c58ae4c4e4835a9468ebc2266c180945b1e5b7c7390071fa090"
+    },
+    {
+      "namespace": [
+        "charged",
+        "AMS"
+      ],
+      "history_days": 28,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 0.9985119047619048,
+      "eligible_development_entities": 475,
+      "undefined_entities": [],
+      "sparse_entities": 236,
+      "dense_entities": 239,
+      "at_threshold_entities": 85,
+      "manifest_sha256": "9cdddef1c4ccd2568bf40dbab8209f8c8691d386fd0eea30ec5a39781aad51d7",
+      "entities_sha256": "e2de7331ff8d33e66a8a034b5da870d7cf1d82b9532109d2914af063bba01b4c"
+    },
+    {
+      "namespace": [
+        "charged",
+        "AMS"
+      ],
+      "history_days": 7,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 1.0,
+      "eligible_development_entities": 475,
+      "undefined_entities": [],
+      "sparse_entities": 224,
+      "dense_entities": 251,
+      "at_threshold_entities": 251,
+      "manifest_sha256": "ced8bde958ca038228548a13e4990cd89b5a36cd25f9c34af3bb9f06e557e754",
+      "entities_sha256": "5b15277f093e40f6f6e8d6209a223b31ad5297d100ef3a4878fdd7d577daf578"
+    },
+    {
+      "namespace": [
+        "charged",
+        "JHB"
+      ],
+      "history_days": 14,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 0.9077380952380952,
+      "eligible_development_entities": 8,
+      "undefined_entities": [],
+      "sparse_entities": 4,
+      "dense_entities": 4,
+      "at_threshold_entities": 0,
+      "manifest_sha256": "27bc5b4779a02213fd84dd2c87290b38b35616563f2281e37eed16e3afed98fb",
+      "entities_sha256": "3450814c3ed7ed6b32e5a1ce7bc951bfd3f94356ceaeb8f0eb6a7b0a7d718765"
+    },
+    {
+      "namespace": [
+        "charged",
+        "JHB"
+      ],
+      "history_days": 28,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 0.9025297619047619,
+      "eligible_development_entities": 8,
+      "undefined_entities": [],
+      "sparse_entities": 4,
+      "dense_entities": 4,
+      "at_threshold_entities": 0,
+      "manifest_sha256": "9ea9b37072195c0601b9a464bb19d48972aefd04267b54ed3b6f9553ab337adb",
+      "entities_sha256": "74bbfff944609358b0337c1d41be124f2c9ac271b377cf8601dff1bfeb5a76a2"
+    },
+    {
+      "namespace": [
+        "charged",
+        "JHB"
+      ],
+      "history_days": 7,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 1.0,
+      "eligible_development_entities": 8,
+      "undefined_entities": [],
+      "sparse_entities": 3,
+      "dense_entities": 5,
+      "at_threshold_entities": 5,
+      "manifest_sha256": "f513a479f7503995a7a44a49970ad6142682068665b903a49ed3b7275a29fc99",
+      "entities_sha256": "3db056f9b0c6592884e6cd6cd1f0fc7e4de29842085f46bc3de8b444f3e14632"
+    },
+    {
+      "namespace": [
+        "charged",
+        "LOA"
+      ],
+      "history_days": 14,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 0.8214285714285714,
+      "eligible_development_entities": 51,
+      "undefined_entities": [],
+      "sparse_entities": 25,
+      "dense_entities": 26,
+      "at_threshold_entities": 1,
+      "manifest_sha256": "de2b529b207a20378976e5fa84564c3b4ab5826ae1795047fb17dc6023e3b55c",
+      "entities_sha256": "6d8618337c22c256f0aad71c6622d87a0f623fe947ae2380622bdd43537cf8f6"
+    },
+    {
+      "namespace": [
+        "charged",
+        "LOA"
+      ],
+      "history_days": 28,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 0.8035714285714286,
+      "eligible_development_entities": 51,
+      "undefined_entities": [],
+      "sparse_entities": 25,
+      "dense_entities": 26,
+      "at_threshold_entities": 1,
+      "manifest_sha256": "710c7ab60b9c9e57f58cd944bd422f373190baa3f2f313c01772bf09030fd8ea",
+      "entities_sha256": "c1c70463a9bffb0ad4279c69b25b273f58209fe43acec4ea724b55f7fab0006f"
+    },
+    {
+      "namespace": [
+        "charged",
+        "LOA"
+      ],
+      "history_days": 7,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 0.8154761904761905,
+      "eligible_development_entities": 51,
+      "undefined_entities": [],
+      "sparse_entities": 25,
+      "dense_entities": 26,
+      "at_threshold_entities": 2,
+      "manifest_sha256": "cb09d9d5c751b3bc1fcbad79ef548800c33e1506e6863f2600f88b167ac5e384",
+      "entities_sha256": "d4d0feac371b3cd25b28a318a4a7c09bc9218c765bb692482a343a7e3060924d"
+    },
+    {
+      "namespace": [
+        "charged",
+        "MEL"
+      ],
+      "history_days": 14,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 0.8705357142857143,
+      "eligible_development_entities": 14,
+      "undefined_entities": [],
+      "sparse_entities": 7,
+      "dense_entities": 7,
+      "at_threshold_entities": 0,
+      "manifest_sha256": "d68bfc4fbbe3092be9edb26d90ffe643b526528ef64aed0a4ab8a4b56228f2de",
+      "entities_sha256": "d4d40e2018c3b597105f9f720e69288c9b0f646a754e0013241fe2071bf53a51"
+    },
+    {
+      "namespace": [
+        "charged",
+        "MEL"
+      ],
+      "history_days": 28,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 0.8690476190476191,
+      "eligible_development_entities": 14,
+      "undefined_entities": [],
+      "sparse_entities": 7,
+      "dense_entities": 7,
+      "at_threshold_entities": 0,
+      "manifest_sha256": "f9067fb49c092578cb5076ce15af6bff7617cc9f6e0b63da106fb89675e5ab6e",
+      "entities_sha256": "b9951922dfe01ec56152745bc2775027bd777c1537e94a5bc73944f4af63b442"
+    },
+    {
+      "namespace": [
+        "charged",
+        "MEL"
+      ],
+      "history_days": 7,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 0.7767857142857143,
+      "eligible_development_entities": 14,
+      "undefined_entities": [],
+      "sparse_entities": 7,
+      "dense_entities": 7,
+      "at_threshold_entities": 0,
+      "manifest_sha256": "e609732b5c35f5cdcd50b33cd4e4cc154049c42ecfd231af7e849d399359c93e",
+      "entities_sha256": "3ca47fa86fb6a4c8a5d39b1e0d4cf943f212495da1633ebac414b52711296bc3"
+    },
+    {
+      "namespace": [
+        "charged",
+        "SPO"
+      ],
+      "history_days": 14,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 1.0,
+      "eligible_development_entities": 8,
+      "undefined_entities": [],
+      "sparse_entities": 3,
+      "dense_entities": 5,
+      "at_threshold_entities": 5,
+      "manifest_sha256": "83b9f000e325ad4465a6263aadd862f4ac112d94e4940467da241c6747f63570",
+      "entities_sha256": "e0539f225cb4f3bf87f7ce49fc3f08c57afb4ca42f66a39629eda1eb6fe9af6a"
+    },
+    {
+      "namespace": [
+        "charged",
+        "SPO"
+      ],
+      "history_days": 28,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 0.9985119047619048,
+      "eligible_development_entities": 8,
+      "undefined_entities": [],
+      "sparse_entities": 4,
+      "dense_entities": 4,
+      "at_threshold_entities": 0,
+      "manifest_sha256": "ac84b0de5d75eb74f4d7dd2d26395ab70367195f0bd1a70443f71024a8fe4371",
+      "entities_sha256": "86a97bb0b09764aef690c0d51d464f156960632552f71102f4ee271a3e8c03c5"
+    },
+    {
+      "namespace": [
+        "charged",
+        "SPO"
+      ],
+      "history_days": 7,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 1.0,
+      "eligible_development_entities": 8,
+      "undefined_entities": [],
+      "sparse_entities": 3,
+      "dense_entities": 5,
+      "at_threshold_entities": 5,
+      "manifest_sha256": "455fa7eeff650b14358a911197cd0fc11476c8a1563263716e1cfc4131b60702",
+      "entities_sha256": "74388697fdcfc30fdec99001897496987531549b62b73c88bb840d10091a4037"
+    },
+    {
+      "namespace": [
+        "charged",
+        "SZH"
+      ],
+      "history_days": 14,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 1.0,
+      "eligible_development_entities": 288,
+      "undefined_entities": [],
+      "sparse_entities": 54,
+      "dense_entities": 234,
+      "at_threshold_entities": 234,
+      "manifest_sha256": "82f962287c897d5ddade229da891e60829181ca2314380c5a8eb104c082a429f",
+      "entities_sha256": "21929ab0208cc3bc6c1fbf88a96c0c6084c54d87a06a2140a38d097879e00b59"
+    },
+    {
+      "namespace": [
+        "charged",
+        "SZH"
+      ],
+      "history_days": 28,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 1.0,
+      "eligible_development_entities": 288,
+      "undefined_entities": [],
+      "sparse_entities": 60,
+      "dense_entities": 228,
+      "at_threshold_entities": 228,
+      "manifest_sha256": "883c8564cb1dc28069319104d13888abca66497cb46361e8763c24bf117562c8",
+      "entities_sha256": "47b638d0eea245ef0dc16db05ff4f401481db9c0c1b2d5be255b3855504fa272"
+    },
+    {
+      "namespace": [
+        "charged",
+        "SZH"
+      ],
+      "history_days": 7,
+      "cutoff": "2023-07-01T00:00:00",
+      "threshold": 1.0,
+      "eligible_development_entities": 288,
+      "undefined_entities": [],
+      "sparse_entities": 48,
+      "dense_entities": 240,
+      "at_threshold_entities": 240,
+      "manifest_sha256": "37f94eb4887e34ee9bf96a66946ce908786e576ead5decfff3402229ab7c6f00",
+      "entities_sha256": "b2bcc4d378881abbc6a85a075e6435a9a2ac564c738f37788dc8fc6bbde54dc5"
+    },
+    {
+      "namespace": [
+        "urbanev",
+        "SZH"
+      ],
+      "history_days": 14,
+      "cutoff": "2022-12-01T00:00:00+08:00",
+      "threshold": 0.8244047619047619,
+      "eligible_development_entities": 296,
+      "undefined_entities": [],
+      "sparse_entities": 147,
+      "dense_entities": 149,
+      "at_threshold_entities": 3,
+      "manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+      "entities_sha256": "e7c9dd4cb0b6f95cdfb1a0939fcadbc69edd1af6e9fb0fa30c861c4d7a38953e"
+    },
+    {
+      "namespace": [
+        "urbanev",
+        "SZH"
+      ],
+      "history_days": 28,
+      "cutoff": "2022-12-01T00:00:00+08:00",
+      "threshold": 0.8181818181818182,
+      "eligible_development_entities": 301,
+      "undefined_entities": [],
+      "sparse_entities": 150,
+      "dense_entities": 151,
+      "at_threshold_entities": 1,
+      "manifest_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+      "entities_sha256": "ac73bec61766bc77fc50cd971bbc3edbdf1955045f12e6995d13828fb6202bb0"
+    },
+    {
+      "namespace": [
+        "urbanev",
+        "SZH"
+      ],
+      "history_days": 7,
+      "cutoff": "2022-12-01T00:00:00+08:00",
+      "threshold": 0.8088714938030006,
+      "eligible_development_entities": 294,
+      "undefined_entities": [],
+      "sparse_entities": 147,
+      "dense_entities": 147,
+      "at_threshold_entities": 0,
+      "manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+      "entities_sha256": "179d4de2765dbd8593c94b347b15654a3d220202a314ad286cd26828977636fd"
+    }
+  ]
+}

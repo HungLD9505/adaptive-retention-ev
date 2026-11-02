@@ -1,0 +1,95 @@
+{
+  "namespace": "charged-LOA",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "days": 90,
+  "state_retention": "latest",
+  "selection_rule": "three_prefix_count_rank_bins_hash_min_plus_one_empty_prefix_v1",
+  "budgets": {
+    "7": {
+      "manifest_sha256": "cb09d9d5c751b3bc1fcbad79ef548800c33e1506e6863f2600f88b167ac5e384",
+      "ready_development_population": 51,
+      "positive_prefix_population": 51,
+      "empty_prefix_population": 0,
+      "entities": [
+        {
+          "entity_id": "201",
+          "initial_trainable": 6,
+          "identity_hash": "00163fd563690142e4958dcb61df28203a7f5df716936871b4cce9bf5f02bc3d",
+          "selection_stratum": "lower_prefix_count_rank"
+        },
+        {
+          "entity_id": "164",
+          "initial_trainable": 6,
+          "identity_hash": "5e311db601a20f8031ca4dc8bde8e31a8866ab727ec6457db5f32ebe3b8065d1",
+          "selection_stratum": "middle_prefix_count_rank"
+        },
+        {
+          "entity_id": "186",
+          "initial_trainable": 6,
+          "identity_hash": "b6110414959d20e9aeaa0affa9d5548ec6e5d929a14388d9ca7e455907074d3f",
+          "selection_stratum": "upper_prefix_count_rank"
+        }
+      ]
+    },
+    "14": {
+      "manifest_sha256": "de2b529b207a20378976e5fa84564c3b4ab5826ae1795047fb17dc6023e3b55c",
+      "ready_development_population": 51,
+      "positive_prefix_population": 51,
+      "empty_prefix_population": 0,
+      "entities": [
+        {
+          "entity_id": "216",
+          "initial_trainable": 13,
+          "identity_hash": "00710e2ced11b61ebda3bc6e4254e7bfd126286dd964acac598c65fd97e5ca88",
+          "selection_stratum": "lower_prefix_count_rank"
+        },
+        {
+          "entity_id": "161",
+          "initial_trainable": 13,
+          "identity_hash": "6eca2649b5058a3eafe592674e7953280926452586a73d0607e58407d5308e06",
+          "selection_stratum": "middle_prefix_count_rank"
+        },
+        {
+          "entity_id": "154",
+          "initial_trainable": 13,
+          "identity_hash": "aeb58d5891c18890cb9121f7a983f185592b12e2adc4c692f83810fe8b86ca11",
+          "selection_stratum": "upper_prefix_count_rank"
+        }
+      ]
+    },
+    "28": {
+      "manifest_sha256": "710c7ab60b9c9e57f58cd944bd422f373190baa3f2f313c01772bf09030fd8ea",
+      "ready_development_population": 51,
+      "positive_prefix_population": 51,
+      "empty_prefix_population": 0,
+      "entities": [
+        {
+          "entity_id": "91",
+          "initial_trainable": 27,
+          "identity_hash": "06c6586f629eadd97117620d599781ba38094d695682cb256e464aa8cede8562",
+          "selection_stratum": "lower_prefix_count_rank"
+        },
+        {
+          "entity_id": "33",
+          "initial_trainable": 27,
+          "identity_hash": "457eb4a8aeeeb28de64e887ea12fc4e3f4561179401f9f18bab4d7081a27d6ff",
+          "selection_stratum": "middle_prefix_count_rank"
+        },
+        {
+          "entity_id": "10",
+          "initial_trainable": 27,
+          "identity_hash": "a1e31c641539737bdd81ec5a6f1a09b08313d72e808aee0a33637a186d7a217a",
+          "selection_stratum": "upper_prefix_count_rank"
+        }
+      ]
+    }
+  },
+  "source_population_sha256": "51532d0be90e457363e53008b5b292ed8f1c3a8be387da54746a38821dc981f6",
+  "clock_mode": "publisher-local-naive",
+  "deployment": "2023-07-01T00:00:00",
+  "scope": "Small supplementary Development cohort; no Final or population-effectiveness claim. SZH analyzed separately for possible UrbanEV overlap."
+}

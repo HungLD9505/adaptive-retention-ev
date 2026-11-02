@@ -2,7 +2,7 @@
 
 Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. Work follows **Issue → working branch → PR → `dev`**. Updating `main` requires a separate instruction.
 
-**Current status:** raw acquisition, UrbanEV hourly processing, CHARGED audit/adapter and the model-input pipeline are implemented. The shared data snapshot includes raw, hourly and prepared 7/14/28-day inputs. See the [integrated verification and acceptance record](docs/reports/data-integration.md) for checks, scope and the lead-directed review exception. Models, controllers and research experiments are not implemented yet. Large data stays on Drive/outside Git.
+**Current status:** raw acquisition, UrbanEV hourly processing, CHARGED audit/adapter and the model-input pipeline are implemented. The shared data snapshot includes raw, hourly and prepared 7/14/28-day inputs. See the [integrated verification and acceptance record](docs/reports/data-integration.md) for checks, scope and the lead-directed review exception. The independent #19 GRU/source/adaptation implementation and actual Colab Development smoke are available for peer review; see [training instructions](docs/data/MODEL_TRAINING.md) and the [run handoff](docs/reports/issue19-qyroven.md). The independent #20 controller and #21 online runner, including real Development replay/resume evidence, are also available for review; see the [runner handoff](docs/reports/issue21-qyroven.md). The baseline/ablation implementation and seven-namespace Development smoke are available for review; see the [comparison handoff](docs/reports/issue22-qyroven.md). A [three-seed UrbanEV readiness run](docs/reports/issue23-readiness.md) adds sparse/source-only and exact GPU resume evidence. The [complete Development evidence handoff](docs/reports/issue23-development-handoff.md) now covers all 231 declared whole units / 3,234 method cells across UrbanEV and six separate CHARGED cities, with independent artifact checks and full analyses. The [bounded Final preparation](docs/reports/issue23-final-bounded-preparation.md) declares30UrbanEV stations plus10sites per CHARGED city with shared IDs across budgets (270pairs/11,340cells). Final execution proceeded under the recorded lead peer-review exception and is now [stopped at a durable partial checkpoint](docs/reports/issue23-final-execution-incident-20261027.md): 170/810 units (2,380/11,340 cells), with 640 units missing after a recurring receipt-service timeout. Both owned GPU allocations are released and the heartbeat is paused; full Final analysis and independent peer approval remain incomplete. Large data stays on Drive/outside Git.
 
 ## Start here
 
@@ -20,6 +20,19 @@ The [input policy](docs/data/INPUT_ACCEPTANCE.md) defines masks, coverage gates,
 2. Read the [data sources and download/verification instructions](data/README.md).
 3. Review the [foundation handoff report](docs/FOUNDATION_REPORT.md).
 4. Use [Report 1](adaptive_retention_report_1.pdf) as the unchanged method reference.
+
+The [confidence-controller contract](docs/data/CONTROLLER_CONTRACT.md) describes the
+independent #20 helper, bootstrap profile, availability gates and #21 integration
+boundary. Its example configuration is not a Final lock.
+
+The [prequential-runner contract](docs/data/PREQUENTIAL_RUNNER.md) documents #21
+candidate state, causal event order, isolated audit and daily resume. Its
+[handoff](docs/reports/issue21-qyroven.md) records the actual Development smoke scope.
+
+The [baseline contract](docs/data/BASELINE_CONTRACT.md) defines the nine comparisons,
+ablation aliases, proxy estimators and calibration limits. Its
+[execution handoff](docs/reports/issue22-qyroven.md) distinguishes real Development
+smoke from pending scientific validation and Final configuration approval.
 
 ## Environment setup
 
@@ -51,7 +64,7 @@ python -m ruff format --check .
 git diff --check
 ```
 
-Tests use temporary fixtures and require no raw datasets, GPU, credentials, or dataset downloads. The data/input pipelines use the standard library; Ruff is the only development dependency. Data/ML dependencies will be selected and locked in their implementation PRs.
+Tests use temporary fixtures and require no raw datasets, GPU, credentials, or dataset downloads. The data/input pipelines use the standard library; Ruff is the only development dependency. For #19 model tests, also install `python -m pip install -r requirements-model.txt`. The model requirements pin PyTorch/NumPy; actual training records the complete resolved environment.
 
 ## Structure
 

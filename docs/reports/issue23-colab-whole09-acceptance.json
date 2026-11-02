@@ -1,0 +1,595 @@
+{
+  "schema": "verified-multiunit-colab-development-publication-v1",
+  "status": "verified_complete_units",
+  "units": [
+    {
+      "unit": [
+        "charged",
+        "AMS",
+        14,
+        "110",
+        44
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-AMS-110-14d-adaptive-seed44",
+          "mae_kwh": 86.31859645894536,
+          "rmse_kwh": 88.67122043426177,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-AMS-110-14d-block28-seed44",
+          "mae_kwh": 86.31859645907073,
+          "rmse_kwh": 88.67122043440915,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-AMS-110-14d-block7-seed44",
+          "mae_kwh": 86.31859645890819,
+          "rmse_kwh": 88.67122043421459,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-AMS-110-14d-drift-seed44",
+          "mae_kwh": 86.31859645983165,
+          "rmse_kwh": 88.67122043504595,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-AMS-110-14d-fixed_retention-seed44",
+          "mae_kwh": 86.31859645986509,
+          "rmse_kwh": 88.67122043507358,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-AMS-110-14d-frozen_source-seed44",
+          "mae_kwh": 86.31859646152253,
+          "rmse_kwh": 88.6712204364671,
+          "initial_examples": 13,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-AMS-110-14d-full_finetuning-seed44",
+          "mae_kwh": 86.31859645986431,
+          "rmse_kwh": 88.6712204350727,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-AMS-110-14d-online_best-seed44",
+          "mae_kwh": 86.31859645894536,
+          "rmse_kwh": 88.67122043426177,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-AMS-110-14d-parameter_retention-seed44",
+          "mae_kwh": 86.31859645986431,
+          "rmse_kwh": 88.6712204350727,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-AMS-110-14d-seasonal_naive-seed44",
+          "mae_kwh": 5.466745389342647,
+          "rmse_kwh": 5.466745389343072,
+          "initial_examples": 13,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-AMS-110-14d-source_error-seed44",
+          "mae_kwh": 86.3185964590273,
+          "rmse_kwh": 88.671220434311,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-AMS-110-14d-target_only-seed44",
+          "mae_kwh": 6.774174774784847,
+          "rmse_kwh": 10.362020800180506,
+          "initial_examples": 13,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-AMS-110-14d-uncertainty-seed44",
+          "mae_kwh": 86.31859645894536,
+          "rmse_kwh": 88.67122043426177,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-AMS-110-14d-without_source_initialization-seed44",
+          "mae_kwh": 8.249742515500673,
+          "rmse_kwh": 12.569627012076763,
+          "initial_examples": 13,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    },
+    {
+      "unit": [
+        "charged",
+        "AMS",
+        14,
+        "1349",
+        42
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-AMS-1349-14d-adaptive-seed42",
+          "mae_kwh": 13.591683608416743,
+          "rmse_kwh": 18.09634713887675,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-AMS-1349-14d-block28-seed42",
+          "mae_kwh": 13.59168360898504,
+          "rmse_kwh": 18.09634713919731,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-AMS-1349-14d-block7-seed42",
+          "mae_kwh": 13.591683608965972,
+          "rmse_kwh": 18.09634713910013,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-AMS-1349-14d-drift-seed42",
+          "mae_kwh": 13.59168360898666,
+          "rmse_kwh": 18.096347139198294,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-AMS-1349-14d-fixed_retention-seed42",
+          "mae_kwh": 13.591683608986266,
+          "rmse_kwh": 18.09634713919743,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-AMS-1349-14d-frozen_source-seed42",
+          "mae_kwh": 13.591683610505337,
+          "rmse_kwh": 18.09634714008669,
+          "initial_examples": 13,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-AMS-1349-14d-full_finetuning-seed42",
+          "mae_kwh": 13.591683608985909,
+          "rmse_kwh": 18.09634713919752,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-AMS-1349-14d-online_best-seed42",
+          "mae_kwh": 13.591683609018231,
+          "rmse_kwh": 18.096347139164024,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-AMS-1349-14d-parameter_retention-seed42",
+          "mae_kwh": 13.591683608985912,
+          "rmse_kwh": 18.096347139197523,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-AMS-1349-14d-seasonal_naive-seed42",
+          "mae_kwh": 5.09646119821192,
+          "rmse_kwh": 10.477773012958357,
+          "initial_examples": 13,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-AMS-1349-14d-source_error-seed42",
+          "mae_kwh": 13.591683609019025,
+          "rmse_kwh": 18.096347139164404,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-AMS-1349-14d-target_only-seed42",
+          "mae_kwh": 10.159357301454177,
+          "rmse_kwh": 13.88670815448268,
+          "initial_examples": 13,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-AMS-1349-14d-uncertainty-seed42",
+          "mae_kwh": 13.591683608416743,
+          "rmse_kwh": 18.09634713887675,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-AMS-1349-14d-without_source_initialization-seed42",
+          "mae_kwh": 8.835526293917473,
+          "rmse_kwh": 12.88208043298427,
+          "initial_examples": 13,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    },
+    {
+      "unit": [
+        "charged",
+        "AMS",
+        14,
+        "1349",
+        43
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-AMS-1349-14d-adaptive-seed43",
+          "mae_kwh": 2.22293380415942,
+          "rmse_kwh": 5.6920376274320486,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-AMS-1349-14d-block28-seed43",
+          "mae_kwh": 2.22293380415942,
+          "rmse_kwh": 5.6920376274320486,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-AMS-1349-14d-block7-seed43",
+          "mae_kwh": 2.174550256852337,
+          "rmse_kwh": 5.703509600240523,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-AMS-1349-14d-drift-seed43",
+          "mae_kwh": 2.1318839097312083,
+          "rmse_kwh": 5.715677344165177,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-AMS-1349-14d-fixed_retention-seed43",
+          "mae_kwh": 2.0833081637884168,
+          "rmse_kwh": 5.680938523837043,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-AMS-1349-14d-frozen_source-seed43",
+          "mae_kwh": 2.0327112011645156,
+          "rmse_kwh": 5.8388049328141465,
+          "initial_examples": 13,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-AMS-1349-14d-full_finetuning-seed43",
+          "mae_kwh": 2.304883348233658,
+          "rmse_kwh": 5.722738949195596,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-AMS-1349-14d-online_best-seed43",
+          "mae_kwh": 2.1376332047701467,
+          "rmse_kwh": 5.7160378495301725,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-AMS-1349-14d-parameter_retention-seed43",
+          "mae_kwh": 2.3044600475269705,
+          "rmse_kwh": 5.7226799886552175,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-AMS-1349-14d-seasonal_naive-seed43",
+          "mae_kwh": 5.09646119821192,
+          "rmse_kwh": 10.477773012958357,
+          "initial_examples": 13,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-AMS-1349-14d-source_error-seed43",
+          "mae_kwh": 2.160340753320306,
+          "rmse_kwh": 5.715100728047457,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-AMS-1349-14d-target_only-seed43",
+          "mae_kwh": 9.672877505983983,
+          "rmse_kwh": 13.397185954664309,
+          "initial_examples": 13,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-AMS-1349-14d-uncertainty-seed43",
+          "mae_kwh": 2.2508667700922937,
+          "rmse_kwh": 5.6910083285017405,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-AMS-1349-14d-without_source_initialization-seed43",
+          "mae_kwh": 9.437851121665284,
+          "rmse_kwh": 13.060986893186222,
+          "initial_examples": 13,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    },
+    {
+      "unit": [
+        "charged",
+        "AMS",
+        14,
+        "1349",
+        44
+      ],
+      "method_count": 14,
+      "scheduled_days": 90,
+      "issued_days_each": 90,
+      "scored_days_each": 90,
+      "scored_origins_identical_all_methods": true,
+      "scored_origins_sha256": "2aa6e27d554fc145fbcdb396a5479658c00c9c1af8a7ed1f0209fca4a4d838dd",
+      "scientific_score_status": "scorable_development_only",
+      "methods": [
+        {
+          "variant": "adaptive",
+          "run_id": "charged-AMS-1349-14d-adaptive-seed44",
+          "mae_kwh": 13.591683614374755,
+          "rmse_kwh": 18.096347143620495,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block28",
+          "run_id": "charged-AMS-1349-14d-block28-seed44",
+          "mae_kwh": 13.591683614607831,
+          "rmse_kwh": 18.096347143754176,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "block7",
+          "run_id": "charged-AMS-1349-14d-block7-seed44",
+          "mae_kwh": 13.591683614539388,
+          "rmse_kwh": 18.09634714368262,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "drift",
+          "run_id": "charged-AMS-1349-14d-drift-seed44",
+          "mae_kwh": 13.591683614608147,
+          "rmse_kwh": 18.09634714375446,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "fixed_retention",
+          "run_id": "charged-AMS-1349-14d-fixed_retention-seed44",
+          "mae_kwh": 13.591683614607726,
+          "rmse_kwh": 18.096347143754038,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "frozen_source",
+          "run_id": "charged-AMS-1349-14d-frozen_source-seed44",
+          "mae_kwh": 13.59168361498901,
+          "rmse_kwh": 18.096347143979667,
+          "initial_examples": 13,
+          "initialization": "frozen_source_checkpoint",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "full_finetuning",
+          "run_id": "charged-AMS-1349-14d-full_finetuning-seed44",
+          "mae_kwh": 13.591683614607645,
+          "rmse_kwh": 18.096347143754034,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "online_best",
+          "run_id": "charged-AMS-1349-14d-online_best-seed44",
+          "mae_kwh": 13.591683614566914,
+          "rmse_kwh": 18.096347143712897,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "parameter_retention",
+          "run_id": "charged-AMS-1349-14d-parameter_retention-seed44",
+          "mae_kwh": 13.591683614607657,
+          "rmse_kwh": 18.09634714375404,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "seasonal_naive",
+          "run_id": "charged-AMS-1349-14d-seasonal_naive-seed44",
+          "mae_kwh": 5.09646119821192,
+          "rmse_kwh": 10.477773012958357,
+          "initial_examples": 13,
+          "initialization": "seasonal_prefix_history",
+          "candidate_steps": 0
+        },
+        {
+          "variant": "source_error",
+          "run_id": "charged-AMS-1349-14d-source_error-seed44",
+          "mae_kwh": 13.591683614622793,
+          "rmse_kwh": 18.09634714373925,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "target_only",
+          "run_id": "charged-AMS-1349-14d-target_only-seed44",
+          "mae_kwh": 10.403584229715165,
+          "rmse_kwh": 14.251019084226847,
+          "initial_examples": 13,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 90
+        },
+        {
+          "variant": "uncertainty",
+          "run_id": "charged-AMS-1349-14d-uncertainty-seed44",
+          "mae_kwh": 13.591683614374755,
+          "rmse_kwh": 18.096347143620495,
+          "initial_examples": 13,
+          "initialization": "target_initial_adaptation",
+          "candidate_steps": 270
+        },
+        {
+          "variant": "without_source_initialization",
+          "run_id": "charged-AMS-1349-14d-without_source_initialization-seed44",
+          "mae_kwh": 9.65186909552074,
+          "rmse_kwh": 13.649267187098491,
+          "initial_examples": 13,
+          "initialization": "random_target_initial_adaptation",
+          "candidate_steps": 270
+        }
+      ]
+    }
+  ],
+  "method_cells": 56,
+  "publication_catalog_sha256": "152119c9dcd20fa0642b984fcab4328b6b19b33bbefa5fceb88224e6cc25a2f5",
+  "independent_receipt_sha256": "9592ffbae985fab8b1c8faa3fc97cccd88a1ffc3f96e7d70b55156f79f112149",
+  "independent_proof_sha256": "d3298f2fcf239fd72b2cf0b765c63f4648093de2ef227d213f2cb1c60074687c",
+  "profile_sha256": "b4f5a6ec3734af95d9db62db3c1c24b0f1cab3bb97f846815a315ebe5146e877",
+  "exact_original_configs_and_inputs": true,
+  "all_three_original_sources_verified": true,
+  "child_wall_seconds": 540.427446636,
+  "allowance": "20minutes/1unit;120second no-completed-run deadman;30unit reserve; no provider-bill attribution",
+  "drive_folder": "https://drive.google.com/drive/folders/1pTNh7ve0NgZQ4j4Qirk0O002S3GW2u9Y",
+  "canonical_collection_rule": "Replace matching old partial cells with complete units; preserve old bytes; no double counting",
+  "score_policy": "Retain null metrics and missing coverage; completion is operational, not method effectiveness",
+  "scope": "Development only; not Final, population effectiveness or original-byte recovery"
+}

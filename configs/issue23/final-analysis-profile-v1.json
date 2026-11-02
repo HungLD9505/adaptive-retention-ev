@@ -1,0 +1,214 @@
+{
+  "scope": "Frozen bounded Final analysis proposal inherited from Development; independent lock approval pending",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "station_weighting": "Equal station after paired seed mean; retain budget/initialization strata",
+  "bootstrap": {
+    "segment_days": 7,
+    "resamples": 2000,
+    "alpha": 0.05,
+    "seed": 20261026
+  },
+  "bootstrap_rationale": "Weekly calendar blocks; common calendar draws across stations; fixed paired seeds; gaps stay missing",
+  "multiple_comparisons": "No simultaneous correction; exploratory marginal intervals only",
+  "contexts": [
+    "weekday",
+    "weekend"
+  ],
+  "online_phase_days": [
+    [
+      1,
+      30
+    ],
+    [
+      31,
+      60
+    ],
+    [
+      61,
+      90
+    ]
+  ],
+  "load_density_policy": "prefix-positive-valid-hour-fraction-development-median-v1",
+  "proxy_relationship_policy": "same-block-paired-available-proxy-v1",
+  "switching_analysis_policy": "recorded-calendar-next-block-drain-separated-v1",
+  "audit": "Descriptive normalized new-minus-old gaps only; no harmful-switch threshold or recovery time invented",
+  "population_inference": "Conditional equal-entity summaries for bounded selected cohort; not weighted all-ready population estimates. Empty-prefix stratum is deliberately represented. SPO is a census of ten metadata-ready Final IDs; not ten independent geographical replicates.",
+  "budget_pairing": "Same namespace/entity IDs across budgets; seeds paired, never independent station replicates. Do not pool cities; SZH temporal overlap remains separate.",
+  "undefined_policy": "Keep null metrics/unscored identities and explicit issued/scored/missing denominators; no label filling or station replacement. Zero Target-only denominator produces undefined proportional gain.",
+  "development_density_thresholds": [
+    {
+      "namespace": [
+        "charged",
+        "AMS"
+      ],
+      "history_days": 14,
+      "threshold": 0.9970238095238095
+    },
+    {
+      "namespace": [
+        "charged",
+        "AMS"
+      ],
+      "history_days": 28,
+      "threshold": 0.9985119047619048
+    },
+    {
+      "namespace": [
+        "charged",
+        "AMS"
+      ],
+      "history_days": 7,
+      "threshold": 1.0
+    },
+    {
+      "namespace": [
+        "charged",
+        "JHB"
+      ],
+      "history_days": 14,
+      "threshold": 0.9077380952380952
+    },
+    {
+      "namespace": [
+        "charged",
+        "JHB"
+      ],
+      "history_days": 28,
+      "threshold": 0.9025297619047619
+    },
+    {
+      "namespace": [
+        "charged",
+        "JHB"
+      ],
+      "history_days": 7,
+      "threshold": 1.0
+    },
+    {
+      "namespace": [
+        "charged",
+        "LOA"
+      ],
+      "history_days": 14,
+      "threshold": 0.8214285714285714
+    },
+    {
+      "namespace": [
+        "charged",
+        "LOA"
+      ],
+      "history_days": 28,
+      "threshold": 0.8035714285714286
+    },
+    {
+      "namespace": [
+        "charged",
+        "LOA"
+      ],
+      "history_days": 7,
+      "threshold": 0.8154761904761905
+    },
+    {
+      "namespace": [
+        "charged",
+        "MEL"
+      ],
+      "history_days": 14,
+      "threshold": 0.8705357142857143
+    },
+    {
+      "namespace": [
+        "charged",
+        "MEL"
+      ],
+      "history_days": 28,
+      "threshold": 0.8690476190476191
+    },
+    {
+      "namespace": [
+        "charged",
+        "MEL"
+      ],
+      "history_days": 7,
+      "threshold": 0.7767857142857143
+    },
+    {
+      "namespace": [
+        "charged",
+        "SPO"
+      ],
+      "history_days": 14,
+      "threshold": 1.0
+    },
+    {
+      "namespace": [
+        "charged",
+        "SPO"
+      ],
+      "history_days": 28,
+      "threshold": 0.9985119047619048
+    },
+    {
+      "namespace": [
+        "charged",
+        "SPO"
+      ],
+      "history_days": 7,
+      "threshold": 1.0
+    },
+    {
+      "namespace": [
+        "charged",
+        "SZH"
+      ],
+      "history_days": 14,
+      "threshold": 1.0
+    },
+    {
+      "namespace": [
+        "charged",
+        "SZH"
+      ],
+      "history_days": 28,
+      "threshold": 1.0
+    },
+    {
+      "namespace": [
+        "charged",
+        "SZH"
+      ],
+      "history_days": 7,
+      "threshold": 1.0
+    },
+    {
+      "namespace": [
+        "urbanev",
+        "SZH"
+      ],
+      "history_days": 14,
+      "threshold": 0.8244047619047619
+    },
+    {
+      "namespace": [
+        "urbanev",
+        "SZH"
+      ],
+      "history_days": 28,
+      "threshold": 0.8181818181818182
+    },
+    {
+      "namespace": [
+        "urbanev",
+        "SZH"
+      ],
+      "history_days": 7,
+      "threshold": 0.8088714938030006
+    }
+  ],
+  "density_threshold_source_sha256": "686c9adf4b56d834787f98dd47d80059e214b7d57192bc4e0778c02a13ef0393",
+  "density_assignment": "After lock approval only, assign target prefix density using frozen Development threshold; sparse strictly below, dense includes ties, no valid hours undefined. No refit on Final, future activity or errors."
+}

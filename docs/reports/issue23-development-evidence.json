@@ -1,0 +1,128 @@
+{
+  "schema": "issue23-complete-development-evidence-v1",
+  "scope": "Development evidence handoff; lead scientific acceptance pending, no Final approval/execution",
+  "ledger_sha256": "4a606c5265036468d4d7a8c5c3d089b70c5ecb1f0c5fe5d0c28c5904ec47dae8",
+  "whole_units": 231,
+  "method_cells": 3234,
+  "null_metric_cells": 462,
+  "pending_units": 0,
+  "source_trajectories": 21,
+  "all_seven_cost_state_proofs_checked": true,
+  "raw_dependencies_external": true,
+  "raw_archives_freshly_checked_locally": false,
+  "GPU_sessions_after_release": 0,
+  "collections": [
+    {
+      "namespace": "UrbanEV",
+      "report": "docs/reports/issue23-urbanev-development-primary.md",
+      "report_sha256": "fbe41486ce625a1046c55d1b2b2a577b473a01169ce257f6829de11275e67ba1",
+      "units": 69,
+      "cells": 966,
+      "null_metric_cells": 462,
+      "bundle": {
+        "drive_id": "1CvtHNGVhz_ve6fcbo9uOMT1OF0amVnoN",
+        "bytes": 503773,
+        "sha256": "f1adbeb00892cc17b4b6fdbbb818d425e7e2dee340a64d2bd2792aaa85dfc0ba",
+        "native_exact_byte_sha_crc_readback": "PASS",
+        "raw_payload_external": true
+      }
+    },
+    {
+      "namespace": "JHB",
+      "report": "docs/reports/issue23-jhb-development.md",
+      "report_sha256": "70d30b1eed1c16157bc038fe118c152138e3b5d60d60345038e7ab1f950c20be",
+      "units": 27,
+      "cells": 378,
+      "null_metric_cells": 0,
+      "bundle": {
+        "drive_id": "12jNGqCFEO0eAKUdnke85Oj6gJvSrHN0t",
+        "bytes": 518240,
+        "sha256": "7ef3c9a1c0b234ce0ead46e257c14d4fd8c6a0c12dd45d1343c047db0d11d851",
+        "native_exact_byte_sha_crc_readback": "PASS",
+        "raw_payload_external": true
+      }
+    },
+    {
+      "namespace": "AMS",
+      "report": "docs/reports/issue23-ams-development.md",
+      "report_sha256": "1f6b23ac14e83567e0743f17ef1580a5076647ba6980f1055893ce84de9f4e07",
+      "units": 27,
+      "cells": 378,
+      "null_metric_cells": 0,
+      "bundle": {
+        "drive_id": "1tp2O-up-enhnC8OzN4Z5OhMblXixUsOO",
+        "bytes": 918925,
+        "sha256": "d4d0ff99b8d0083cc390c83b017cfa86bafe04b53fca7f5b93d21f5a691ba2b7",
+        "native_exact_byte_sha_crc_readback": "PASS",
+        "raw_payload_external": true
+      }
+    },
+    {
+      "namespace": "LOA",
+      "report": "docs/reports/issue23-loa-development.md",
+      "report_sha256": "cc5b9d81ceecab2cfb3f8a7a61fff7a5345dc335527e09fa67aaa433e967e27f",
+      "units": 27,
+      "cells": 378,
+      "null_metric_cells": 0,
+      "bundle": {
+        "drive_id": "1KUX_yyOyP8adddzXP2BSmEzKFfJFIc_K",
+        "bytes": 862137,
+        "sha256": "5cae69c0d58856ecf44f3f6a122e639f6a4373eddad035c5530d9c71a0761804",
+        "native_exact_byte_sha_crc_readback": "PASS",
+        "raw_payload_external": true
+      }
+    },
+    {
+      "namespace": "MEL",
+      "report": "docs/reports/issue23-mel-development.md",
+      "report_sha256": "9805c13ba3c2517b6dff42d6d0c0c883e70f97672f9da8dfde0cb645774030b1",
+      "units": 27,
+      "cells": 378,
+      "null_metric_cells": 0,
+      "bundle": {
+        "drive_id": "1b6b2A3wSTR3JHF8petObLOxHMbYFNRkv",
+        "bytes": 870325,
+        "sha256": "eaaa1b8d933d98c7fdc6646443bec9e7f0a4b39f621ff8cc827364c5c5d78653",
+        "native_exact_byte_sha_crc_readback": "PASS",
+        "raw_payload_external": true
+      }
+    },
+    {
+      "namespace": "SPO",
+      "report": "docs/reports/issue23-spo-development.md",
+      "report_sha256": "41e11a7aeb6412604affd78baf93e5b4212c2dd779c49f2bfa7b7f70e63420d3",
+      "units": 27,
+      "cells": 378,
+      "null_metric_cells": 0,
+      "bundle": {
+        "drive_id": "1jBT5_WMQ4c-O1y8rklgv5KEDjnXbwtBh",
+        "bytes": 879378,
+        "sha256": "feaa459ad58c9656363eb4a262de6ba4633c65083629799a4525899ef538d3a2",
+        "native_exact_byte_sha_crc_readback": "PASS",
+        "raw_payload_external": true
+      }
+    },
+    {
+      "namespace": "SZH",
+      "report": "docs/reports/issue23-szh-development.md",
+      "report_sha256": "b710c2f27e3b2c33e02b40842e3e1131d6fa0cd498297f806e195cbf94ebad28",
+      "units": 27,
+      "cells": 378,
+      "null_metric_cells": 0,
+      "bundle": {
+        "drive_id": "1ju4vs0sGj52kGqzbl_fzzjCIX7X-bYDg",
+        "bytes": 992587,
+        "sha256": "a33579575bbf2489f7ccd13e324e31fa51194797d2661127611a3dbfa7a4e64a",
+        "native_exact_byte_sha_crc_readback": "PASS",
+        "raw_payload_external": true
+      }
+    }
+  ],
+  "final_accounting": {
+    "drive_id": "1PAp2qxGUynXaRj1V4la7iBa0csxd4r9d",
+    "bytes": 1277200,
+    "sha256": "1a898d7687a49c58dde44d4c15bd4471bdad29aac3c902a54f014b41ad872bba",
+    "native_exact_byte_sha_crc_manifest": "PASS",
+    "inventory_sha256": "8fe0e5b55d850abb1855230d858d2b02af336515b0380e158ec401e1aa0f90a4"
+  }
+}
