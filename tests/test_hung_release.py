@@ -10,7 +10,7 @@ from unittest import mock
 from zipfile import ZIP_STORED, ZipFile
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.cli import _verify_input_zip, main
+from experiments.supporting_pipeline.cli import _verify_input_zip, main
 
 
 class InputReleaseTests(unittest.TestCase):
@@ -45,7 +45,7 @@ class InputReleaseTests(unittest.TestCase):
             result = _verify_input_zip(archive, archive.name, catalog)
             self.assertEqual(result["status"], "verified")
             self.assertEqual(archive.read_bytes(), before)
-            with mock.patch("experiments.hung_sprint2.cli.RELEASE_CATALOG", catalog):
+            with mock.patch("experiments.supporting_pipeline.cli.RELEASE_CATALOG", catalog):
                 self.assertEqual(
                     main(
                         ["verify-input-zip", "--archive", str(archive), "--package", archive.name]

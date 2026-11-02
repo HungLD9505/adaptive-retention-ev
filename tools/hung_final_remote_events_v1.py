@@ -16,7 +16,7 @@ PINS = {
     "lock.json": LOCK_SHA,
     "jobset.json": "7d09583446d9437cec63956f1673c6d1927428ff80ba59a8a876b9391a7c68a2",
     "execution-plan.json": "429fdca711382161c45b338521897f945b70471f9b7b72b1fba7ef78e4cba0cb",
-    "experiments/hung_sprint2/final_archive.py": "8d099276a130227cb5d70d7b3caaf61e9eec9a8460d0f0d08b78b650470e3453",
+    "experiments/supporting_pipeline/final_archive.py": "8d099276a130227cb5d70d7b3caaf61e9eec9a8460d0f0d08b78b650470e3453",
 }
 
 
@@ -41,7 +41,7 @@ def main() -> None:
     jobs = json.loads(paths["jobset.json"].read_text(encoding="utf-8"))["jobs"]
     plan = json.loads(paths["execution-plan.json"].read_text(encoding="utf-8"))["jobs"]
     archive_path = mount / "hung-final-artifacts/archive.zip"
-    checker = runpy.run_path(str(paths["experiments/hung_sprint2/final_archive.py"]))[
+    checker = runpy.run_path(str(paths["experiments/supporting_pipeline/final_archive.py"]))[
         "readback_archive"
     ]
     checked = checker(archive_path, ARCHIVE_SHA, LOCK_SHA, jobs, plan)

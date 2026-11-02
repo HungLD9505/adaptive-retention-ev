@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Callable
 
-from experiments.hung_sprint2.final_archive import require
+from experiments.supporting_pipeline.final_archive import require
 from tools.hung_final_lock_preflight import _pin
 
 PROBE_VERSION = "hungluongduc/hung-final-gpu-capacity-probe-20261029-2a6a92a7/1"

@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from experiments.hung_sprint2._create_only import publish_create_only
+from experiments.supporting_pipeline._create_only import publish_create_only
 
 
 @unittest.skipIf(os.name == "nt", "Drive FUSE fallback applies on POSIX")
@@ -21,7 +21,7 @@ class CreateOnlyFallbackTests(unittest.TestCase):
             destination = root / "checkpoint.pt"
             temporary.write_bytes(b"first checkpoint")
             with patch(
-                "experiments.hung_sprint2._create_only.os.link",
+                "experiments.supporting_pipeline._create_only.os.link",
                 side_effect=PermissionError(errno.EPERM, "Drive FUSE rejects hard links"),
             ):
                 publish_create_only(temporary, destination)

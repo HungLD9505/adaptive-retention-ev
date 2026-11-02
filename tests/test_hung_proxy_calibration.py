@@ -14,8 +14,8 @@ from unittest import mock
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.checkpoint import load_runner, save_runner
-from experiments.hung_sprint2.cli import _replay
+from experiments.supporting_pipeline.checkpoint import load_runner, save_runner
+from experiments.supporting_pipeline.cli import _replay
 from tests.test_hung_replay_inputs import input_run
 from tools.hung_proxy_calibration import (
     METHODS,

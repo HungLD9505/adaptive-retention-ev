@@ -10,9 +10,12 @@ from unittest.mock import patch
 
 import torch
 
-from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.retention import frozen_source_reference, parameter_retention_loss
-from experiments.hung_sprint2.training import (
+from experiments.supporting_pipeline.model import ForecastGRU, ModelConfig
+from experiments.supporting_pipeline.retention import (
+    frozen_source_reference,
+    parameter_retention_loss,
+)
+from experiments.supporting_pipeline.training import (
     forecast_mae,
     initialize_target,
     load_checkpoint,
@@ -226,7 +229,9 @@ class ModelTests(unittest.TestCase):
                 stream.write(b"partial checkpoint")
                 raise RuntimeError("injected serialization failure")
 
-            with patch("experiments.hung_sprint2.training.torch.save", fail_after_partial_write):
+            with patch(
+                "experiments.supporting_pipeline.training.torch.save", fail_after_partial_write
+            ):
                 with self.assertRaisesRegex(RuntimeError, "injected serialization failure"):
                     save_checkpoint(
                         path,

@@ -157,11 +157,11 @@ def main() -> None:
     from ev_runner.replay import Labels
     from ev_runner.state import Branch, rng_state, state_digest
     from ev_runner.store import Store
-    from experiments.hung_sprint2.controller import ControllerConfig as HControllerConfig
-    from experiments.hung_sprint2.model import ForecastGRU as HForecastGRU
-    from experiments.hung_sprint2.model import ModelConfig as HModelConfig
-    from experiments.hung_sprint2.retention import frozen_source_reference
-    from experiments.hung_sprint2.runner import LabelArrival, Origin, PrequentialRunner
+    from experiments.supporting_pipeline.controller import ControllerConfig as HControllerConfig
+    from experiments.supporting_pipeline.model import ForecastGRU as HForecastGRU
+    from experiments.supporting_pipeline.model import ModelConfig as HModelConfig
+    from experiments.supporting_pipeline.retention import frozen_source_reference
+    from experiments.supporting_pipeline.runner import LabelArrival, Origin, PrequentialRunner
 
     class RealReplay:
         def __init__(self) -> None:
@@ -369,7 +369,7 @@ def main() -> None:
         "scope": "bounded_14_origin_real_development_input_with_random_untrained_models",
         "q_commit": "83b877e16e7e690d93bb1f7736ce1870ef08fadd",
         "q_sha256": Q_SHA256,
-        "h_runner_sha256": sha256_file(ROOT / "experiments/hung_sprint2/runner.py"),
+        "h_runner_sha256": sha256_file(ROOT / "experiments/supporting_pipeline/runner.py"),
         "tool_sha256": sha256_file(ROOT / "tools/hung_q_real_dev_trace.py"),
         "input": identity,
         "initial_state_sha256": sha256_file(output / "h_initial_state.pt"),

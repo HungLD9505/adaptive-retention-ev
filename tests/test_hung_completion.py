@@ -10,9 +10,9 @@ from unittest.mock import patch
 
 import torch
 
-from experiments.hung_sprint2.checkpoint import load_runner, save_runner
-from experiments.hung_sprint2.runner import PrequentialRunner
-from experiments.hung_sprint2.selection import select_development
+from experiments.supporting_pipeline.checkpoint import load_runner, save_runner
+from experiments.supporting_pipeline.runner import PrequentialRunner
+from experiments.supporting_pipeline.selection import select_development
 from tests.test_hung_runner import binding, complete, origin, runner
 
 
@@ -56,7 +56,7 @@ class SelectionTests(unittest.TestCase):
                     },
                 }
 
-            with patch("experiments.hung_sprint2.selection._load_run", side_effect=manifest):
+            with patch("experiments.supporting_pipeline.selection._load_run", side_effect=manifest):
                 first = select_development(runs)
                 second = select_development(runs)
             self.assertEqual(first, second)

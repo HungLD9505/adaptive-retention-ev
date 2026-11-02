@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest import mock
 
-from experiments.hung_sprint2.final_lock import MIN_FREE_BYTES, validate_lock
+from experiments.supporting_pipeline.final_lock import MIN_FREE_BYTES, validate_lock
 from tools.hung_final_lock_preflight import _attestation, _candidate, _pin, prepare_lock
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -56,8 +56,15 @@ class FinalLockPreflightTests(unittest.TestCase):
         self.spec["authority"]["candidate_execution_plan_sha256"] = _pin(
             self.candidate / "candidate_execution_plan.json"
         )["sha256"]
+        # Build a NEW synthetic lock profile for the renamed checkout. The recorded
+        # historical analysis spec stays byte-identical and retains its old paths.
+        for group in ("development_analysis_code_sha256", "prepared_final_durability_code_sha256"):
+            self.spec[group] = {
+                name.replace("experiments/hung_sprint2/", "experiments/supporting_pipeline/"): value
+                for name, value in self.spec[group].items()
+            }
         for group, prefix in (
-            ("executed_hung_code_sha256", "experiments/hung_sprint2"),
+            ("executed_hung_code_sha256", "experiments/supporting_pipeline"),
             ("development_analysis_code_sha256", ""),
             ("prepared_final_durability_code_sha256", ""),
         ):
@@ -190,7 +197,7 @@ class FinalLockPreflightTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Changed candidate code"):
             _candidate(ROOT, self.candidate, self.analysis, self.source_csv)
         self.spec["executed_hung_code_sha256"]["model.py"] = _pin(
-            ROOT / "experiments/hung_sprint2/model.py"
+            ROOT / "experiments/supporting_pipeline/model.py"
         )["sha256"]
         changed = self.base / "changed-candidate"
         changed.mkdir()
@@ -294,7 +301,7 @@ class FinalLockPreflightTests(unittest.TestCase):
             destination = relocated / ref["path"]
             destination.parent.mkdir(parents=True, exist_ok=True)
             os.link(original, destination)
-        with mock.patch("experiments.hung_sprint2.final_lock.ROOT", relocated):
+        with mock.patch("experiments.supporting_pipeline.final_lock.ROOT", relocated):
             context = validate_lock(
                 relocated / Path(result["lock"]).relative_to(ROOT),
                 result["sha256"],

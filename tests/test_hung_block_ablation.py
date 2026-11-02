@@ -6,12 +6,12 @@ import json
 import unittest
 from pathlib import Path
 
-from experiments.hung_sprint2.run_development import verification_split_limit
+from experiments.supporting_pipeline.run_development import verification_split_limit
 
 
 class BlockAblationTests(unittest.TestCase):
     def test_variant_configs_change_only_block_days_and_proposal_status(self) -> None:
-        root = Path(__file__).resolve().parents[1] / "experiments" / "hung_sprint2"
+        root = Path(__file__).resolve().parents[1] / "experiments" / "supporting_pipeline"
         base = json.loads((root / "development_config_v1.json").read_text(encoding="utf-8"))
         for block_days in (7, 28):
             with self.subTest(block_days=block_days):

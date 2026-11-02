@@ -238,7 +238,7 @@ def execute_shard(repo: Path, shard_id: str, evidence: Path) -> dict:
         sys.executable,
         "-u",
         "-m",
-        "experiments.hung_sprint2.dispatch_matched",
+        "experiments.supporting_pipeline.dispatch_matched",
         "--plan",
         str(plan_path),
         "--plan-sha256",

@@ -13,10 +13,10 @@ from unittest.mock import patch
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.checkpoint import load_runner
-from experiments.hung_sprint2.cli import _binding, _load_run, _replay, _target
-from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.training import load_checkpoint, save_checkpoint
+from experiments.supporting_pipeline.checkpoint import load_runner
+from experiments.supporting_pipeline.cli import _binding, _load_run, _replay, _target
+from experiments.supporting_pipeline.model import ForecastGRU, ModelConfig
+from experiments.supporting_pipeline.training import load_checkpoint, save_checkpoint
 from tests.test_hung_replay_inputs import input_run
 from tests.test_hung_resume import assert_same_replay
 
@@ -379,7 +379,7 @@ class ReplayCliTests(unittest.TestCase):
             run, digest, source, target, _ = self._inputs(root)
             args = self._args(root, run, digest, source, target, "interrupted", 1)
             with patch(
-                "experiments.hung_sprint2.replay_inputs.ready_labels",
+                "experiments.supporting_pipeline.replay_inputs.ready_labels",
                 side_effect=ValueError("simulated input failure"),
             ):
                 with self.assertRaisesRegex(ValueError, "simulated input failure"):

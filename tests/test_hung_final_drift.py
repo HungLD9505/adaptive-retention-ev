@@ -5,8 +5,8 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from experiments.hung_sprint2.final_dispatch import _locked_drift_reference
-from experiments.hung_sprint2.final_drift import derive_drift_reference
+from experiments.supporting_pipeline.final_dispatch import _locked_drift_reference
+from experiments.supporting_pipeline.final_drift import derive_drift_reference
 from tests.test_hung_final_role_replay import final_fixture
 
 ROOT = Path(__file__).resolve().parents[1]

@@ -11,7 +11,7 @@ from tools import hung_kaggle_recovery13 as recovery
 class Recovery13Tests(unittest.TestCase):
     def test_only_missing_shard_preserves_original_identity(self):
         notebook = json.loads(
-            Path("experiments/hung_sprint2/kaggle_matched_group02.ipynb").read_text()
+            Path("experiments/supporting_pipeline/kaggle_matched_group02.ipynb").read_text()
         )
         setup, parity = ("".join(notebook["cells"][i]["source"]) for i in (1, 3))
         module = queue.compose_module_source(Path(queue.__file__).read_text(), "pass")

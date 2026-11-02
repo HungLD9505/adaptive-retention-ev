@@ -1,6 +1,6 @@
 # Representative Development matrix plan generator
 
-`python -m experiments.hung_sprint2.generate_matched_plan` writes a new
+`python -m experiments.supporting_pipeline.generate_matched_plan` writes a new
 dispatcher plan and coverage record. It never runs training. The recipe and
 every referenced file are SHA-pinned; the λ selection must be complete
 Development evidence. A reviewer must approve the configs and explicit
@@ -134,12 +134,12 @@ runs, Source/target equality counts, rerun decisions, aliases and plan SHA.
 $env:PYTHONUTF8 = '1'
 $recipe = '.cache/matched-recipe-v1.json'
 $sha = (Get-FileHash $recipe -Algorithm SHA256).Hash.ToLowerInvariant()
-python -m experiments.hung_sprint2.generate_matched_plan `
+python -m experiments.supporting_pipeline.generate_matched_plan `
   --recipe $recipe --recipe-sha256 $sha `
   --output .cache/matched-plan-v1.json `
   --coverage-output .cache/matched-coverage-v1.json
 $planSha = (Get-FileHash .cache/matched-plan-v1.json -Algorithm SHA256).Hash.ToLowerInvariant()
-python -m experiments.hung_sprint2.dispatch_matched `
+python -m experiments.supporting_pipeline.dispatch_matched `
   --plan .cache/matched-plan-v1.json --plan-sha256 $planSha
 ```
 

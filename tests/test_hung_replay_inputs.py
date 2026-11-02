@@ -13,13 +13,13 @@ from unittest import mock
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.checkpoint import load_runner, save_runner
-from experiments.hung_sprint2.cli import ARTIFACTS
-from experiments.hung_sprint2.evaluation import evaluate_replay
-from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.replay_inputs import replay_target
-from experiments.hung_sprint2.retention import frozen_source_reference
-from experiments.hung_sprint2.runner import LabelArrival, Origin, PrequentialRunner
+from experiments.supporting_pipeline.checkpoint import load_runner, save_runner
+from experiments.supporting_pipeline.cli import ARTIFACTS
+from experiments.supporting_pipeline.evaluation import evaluate_replay
+from experiments.supporting_pipeline.model import ForecastGRU, ModelConfig
+from experiments.supporting_pipeline.replay_inputs import replay_target
+from experiments.supporting_pipeline.retention import frozen_source_reference
+from experiments.supporting_pipeline.runner import LabelArrival, Origin, PrequentialRunner
 from tests.test_hung_resume import assert_same_replay
 from tests.test_hung_runner import runner as fixture_runner
 
@@ -205,7 +205,7 @@ class ReplayInputTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             run, digest = input_run(Path(directory))
             replay = bound_runner(digest)
-            from experiments.hung_sprint2 import replay_inputs
+            from experiments.supporting_pipeline import replay_inputs
 
             original = replay_inputs._label_record
 

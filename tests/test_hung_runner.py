@@ -8,11 +8,11 @@ from unittest import mock
 
 import torch
 
-from experiments.hung_sprint2.controller import ControllerConfig, Decision
-from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.retention import frozen_source_reference
-from experiments.hung_sprint2.runner import LabelArrival, Origin, PrequentialRunner
-from experiments.hung_sprint2.training import target_step
+from experiments.supporting_pipeline.controller import ControllerConfig, Decision
+from experiments.supporting_pipeline.model import ForecastGRU, ModelConfig
+from experiments.supporting_pipeline.retention import frozen_source_reference
+from experiments.supporting_pipeline.runner import LabelArrival, Origin, PrequentialRunner
+from experiments.supporting_pipeline.training import target_step
 
 
 def binding() -> dict:
@@ -126,7 +126,7 @@ class RunnerTests(unittest.TestCase):
         old_active = replay.candidates[1][0].encoder.weight_ih_l0.detach().clone()
         winner = replay.candidates[2][0].encoder.weight_ih_l0.detach().clone()
         forced = Decision(0.1, 0.3, 1, 13, (None, None, 1.0), 0.025, "switch")
-        with mock.patch("experiments.hung_sprint2.runner.decide_block", return_value=forced):
+        with mock.patch("experiments.supporting_pipeline.runner.decide_block", return_value=forced):
             replay.finish_block()
         self.assertTrue(torch.equal(winner, replay.active_model.encoder.weight_ih_l0))
         self.assertTrue(torch.equal(old_active, replay.audit[1].encoder.weight_ih_l0))
@@ -142,7 +142,7 @@ class RunnerTests(unittest.TestCase):
             return result
 
         with mock.patch(
-            "experiments.hung_sprint2.runner.target_step", side_effect=consume_audit_rng
+            "experiments.supporting_pipeline.runner.target_step", side_effect=consume_audit_rng
         ):
             replay.arrive(complete(14))
         self.assertTrue(torch.equal(rng_before, torch.get_rng_state()))
@@ -199,7 +199,9 @@ class RunnerTests(unittest.TestCase):
         self.assertIsNone(initial_memory["audit"])
         self.assertEqual(len(initial_memory["candidate"]), 3)
         label = complete(0)
-        with mock.patch("experiments.hung_sprint2.runner.perf_counter_ns", side_effect=count(0, 7)):
+        with mock.patch(
+            "experiments.supporting_pipeline.runner.perf_counter_ns", side_effect=count(0, 7)
+        ):
             replay.forecast(origin(0))
             replay.arrive(label)
         updated_memory = replay.state_tensor_memory()

@@ -9,8 +9,8 @@ from unittest import mock
 from zipfile import ZipFile
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.final_extract import materialize_locked_inputs
-from experiments.hung_sprint2.final_lock import MIN_FREE_BYTES, ROOT, validate_lock
+from experiments.supporting_pipeline.final_extract import materialize_locked_inputs
+from experiments.supporting_pipeline.final_lock import MIN_FREE_BYTES, ROOT, validate_lock
 from tests.test_hung_final_dispatch import _fixture
 
 
@@ -45,11 +45,11 @@ class FinalExtractionTests(unittest.TestCase):
     def _materialize(self, lock_path: Path, digest: str) -> dict:
         with (
             mock.patch(
-                "experiments.hung_sprint2.final_extract.shutil.disk_usage",
+                "experiments.supporting_pipeline.final_extract.shutil.disk_usage",
                 return_value=mock.Mock(free=100 * 1024**3),
             ),
             mock.patch(
-                "experiments.hung_sprint2.final_extract._receipt_path",
+                "experiments.supporting_pipeline.final_extract._receipt_path",
                 return_value=self.root / "receipt.json",
             ),
         ):
@@ -81,11 +81,11 @@ class FinalExtractionTests(unittest.TestCase):
         lock_path, digest, input_run, _ = _archive_fixture(self.root)
         with (
             mock.patch(
-                "experiments.hung_sprint2.final_extract.shutil.disk_usage",
+                "experiments.supporting_pipeline.final_extract.shutil.disk_usage",
                 return_value=mock.Mock(free=MIN_FREE_BYTES + 1),
             ),
             mock.patch(
-                "experiments.hung_sprint2.final_extract._receipt_path",
+                "experiments.supporting_pipeline.final_extract._receipt_path",
                 return_value=self.root / "receipt.json",
             ),
         ):

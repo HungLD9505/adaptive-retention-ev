@@ -12,7 +12,11 @@ import time
 import zipfile
 from pathlib import Path
 
-from experiments.hung_sprint2.dispatch_state import atomic_create, exclusive_lock, select_shard
+from experiments.supporting_pipeline.dispatch_state import (
+    atomic_create,
+    exclusive_lock,
+    select_shard,
+)
 from tools.hung_provider import check, pinned, safe_members, sha256
 
 
@@ -82,7 +86,7 @@ def run_shard(queue: dict, plan: dict, partition: dict, shard_id: str, evidence:
         sys.executable,
         "-u",
         "-m",
-        "experiments.hung_sprint2.dispatch_matched",
+        "experiments.supporting_pipeline.dispatch_matched",
         "--plan",
         queue["plan"],
         "--plan-sha256",

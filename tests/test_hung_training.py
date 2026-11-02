@@ -11,9 +11,9 @@ from unittest.mock import patch
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.cli import ARTIFACTS, main
-from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.training import (
+from experiments.supporting_pipeline.cli import ARTIFACTS, main
+from experiments.supporting_pipeline.model import ForecastGRU, ModelConfig
+from experiments.supporting_pipeline.training import (
     initialize_target,
     load_checkpoint,
     model_state_sha256,
@@ -108,7 +108,7 @@ class TrainingConsumerTests(unittest.TestCase):
             initialize_target(source, learning_rate=0.001, initialization_kind="unknown")
 
     def test_no_source_proposal_changes_only_initialization(self) -> None:
-        root = Path(__file__).resolve().parents[1] / "experiments/hung_sprint2"
+        root = Path(__file__).resolve().parents[1] / "experiments/supporting_pipeline"
         base = json.loads((root / "development_config_v1.json").read_text())
         variant = json.loads(
             (root / "development_no_source_initialization_proposal_v1.json").read_text()
@@ -359,7 +359,9 @@ class TrainingCheckpointRngTests(unittest.TestCase):
             torch.full((2, 24, 5), 0.2),
             torch.full((2, 24), 0.3),
         )
-        with patch("experiments.hung_sprint2.training.torch.cuda.is_available", return_value=False):
+        with patch(
+            "experiments.supporting_pipeline.training.torch.cuda.is_available", return_value=False
+        ):
             save_checkpoint(
                 path,
                 model,
@@ -396,7 +398,7 @@ class TrainingCheckpointRngTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "model.pt"
             _, _, binding = self._save(path)
-            with patch("experiments.hung_sprint2.training.torch.set_rng_state") as set_rng:
+            with patch("experiments.supporting_pipeline.training.torch.set_rng_state") as set_rng:
                 load_checkpoint(path, expected_binding=binding)
                 set_rng.assert_not_called()
             payload = torch.load(path, weights_only=True)
@@ -423,21 +425,26 @@ class TrainingCheckpointRngTests(unittest.TestCase):
             unavailable_path = Path(directory) / "unavailable-cuda.pt"
             torch.save(payload, unavailable_path)
             with patch(
-                "experiments.hung_sprint2.training.torch.cuda.is_available", return_value=False
+                "experiments.supporting_pipeline.training.torch.cuda.is_available",
+                return_value=False,
             ):
                 with self.assertRaisesRegex(ValueError, "CUDA is unavailable"):
                     load_checkpoint(unavailable_path, expected_binding=binding, restore_rng=True)
             with (
                 patch(
-                    "experiments.hung_sprint2.training.torch.cuda.is_available", return_value=True
+                    "experiments.supporting_pipeline.training.torch.cuda.is_available",
+                    return_value=True,
                 ),
-                patch("experiments.hung_sprint2.training.torch.cuda.device_count", return_value=1),
                 patch(
-                    "experiments.hung_sprint2.training.torch.cuda.get_device_name",
+                    "experiments.supporting_pipeline.training.torch.cuda.device_count",
+                    return_value=1,
+                ),
+                patch(
+                    "experiments.supporting_pipeline.training.torch.cuda.get_device_name",
                     return_value="other",
                 ),
                 patch(
-                    "experiments.hung_sprint2.training.torch.cuda.get_device_capability",
+                    "experiments.supporting_pipeline.training.torch.cuda.get_device_capability",
                     return_value=(8, 6),
                 ),
             ):

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from experiments.hung_sprint2.controller import ControllerConfig, DailyScore, decide_block
+from experiments.supporting_pipeline.controller import ControllerConfig, DailyScore, decide_block
 
 
 def config(**changes: object) -> ControllerConfig:

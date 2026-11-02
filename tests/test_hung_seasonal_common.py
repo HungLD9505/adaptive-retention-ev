@@ -12,11 +12,11 @@ from unittest.mock import patch
 import torch
 
 from ev_inputs.hourly_reader import sha256_file
-from experiments.hung_sprint2.cli import ARTIFACTS
-from experiments.hung_sprint2.seasonal_naive import forecast_previous_day
-from experiments.hung_sprint2.single_baseline import SingleBaselineRunner
-from experiments.hung_sprint2.single_baseline_cli import _replay
-from experiments.hung_sprint2.single_forecast_journal import verify_forecast_journal
+from experiments.supporting_pipeline.cli import ARTIFACTS
+from experiments.supporting_pipeline.seasonal_naive import forecast_previous_day
+from experiments.supporting_pipeline.single_baseline import SingleBaselineRunner
+from experiments.supporting_pipeline.single_baseline_cli import _replay
+from experiments.supporting_pipeline.single_forecast_journal import verify_forecast_journal
 from tests import test_hung_single_baseline as fixture
 
 
@@ -126,7 +126,7 @@ class SeasonalCommonTests(unittest.TestCase):
             self.assertFalse(args.output.exists())
             args.source_manifest_sha256 = None
 
-            from experiments.hung_sprint2 import replay_inputs
+            from experiments.supporting_pipeline import replay_inputs
 
             def crash_before_label(*_args, **_kwargs):
                 journal = args.output / "forecasts.jsonl"

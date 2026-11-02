@@ -6,12 +6,12 @@ from tempfile import TemporaryDirectory
 
 import torch
 
-from experiments.hung_sprint2.baseline_selection import decide_fixed_block, decide_mean_block
-from experiments.hung_sprint2.checkpoint import load_runner, save_runner
-from experiments.hung_sprint2.controller import ControllerConfig, DailyScore
-from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.retention import frozen_source_reference
-from experiments.hung_sprint2.runner import LabelArrival, Origin, PrequentialRunner
+from experiments.supporting_pipeline.baseline_selection import decide_fixed_block, decide_mean_block
+from experiments.supporting_pipeline.checkpoint import load_runner, save_runner
+from experiments.supporting_pipeline.controller import ControllerConfig, DailyScore
+from experiments.supporting_pipeline.model import ForecastGRU, ModelConfig
+from experiments.supporting_pipeline.retention import frozen_source_reference
+from experiments.supporting_pipeline.runner import LabelArrival, Origin, PrequentialRunner
 
 
 def config(*, delta: float = 0.0, minimum: int = 2, initial: float = 0.1) -> ControllerConfig:

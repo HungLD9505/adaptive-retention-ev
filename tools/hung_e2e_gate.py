@@ -10,9 +10,9 @@ from pathlib import Path
 
 import torch
 
-from experiments.hung_sprint2 import dispatch_matched as dispatch
-from experiments.hung_sprint2.dispatch_state import atomic_create, make_shards
-from experiments.hung_sprint2.matched_plan_provenance import (
+from experiments.supporting_pipeline import dispatch_matched as dispatch
+from experiments.supporting_pipeline.dispatch_state import atomic_create, make_shards
+from experiments.supporting_pipeline.matched_plan_provenance import (
     pinned_checkpoint,
     pinned_json,
     verify_reuse,

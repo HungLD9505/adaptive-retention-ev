@@ -6,11 +6,11 @@ import unittest
 
 import torch
 
-from experiments.hung_sprint2.controller import ControllerConfig
-from experiments.hung_sprint2.model import ForecastGRU, ModelConfig
-from experiments.hung_sprint2.proxy_selection import ProxyConfig, decide_proxy_block
-from experiments.hung_sprint2.retention import frozen_source_reference
-from experiments.hung_sprint2.runner import LabelArrival, Origin, PrequentialRunner
+from experiments.supporting_pipeline.controller import ControllerConfig
+from experiments.supporting_pipeline.model import ForecastGRU, ModelConfig
+from experiments.supporting_pipeline.proxy_selection import ProxyConfig, decide_proxy_block
+from experiments.supporting_pipeline.retention import frozen_source_reference
+from experiments.supporting_pipeline.runner import LabelArrival, Origin, PrequentialRunner
 from tests.test_hung_runner import binding
 
 

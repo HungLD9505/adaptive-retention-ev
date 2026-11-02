@@ -166,7 +166,7 @@ def audit(plan: dict, coverage: dict, records: list[dict]) -> dict:
 
 
 def main() -> None:
-    from experiments.hung_sprint2.dispatch_state import atomic_create
+    from experiments.supporting_pipeline.dispatch_state import atomic_create
     from tools.hung_results import verified_file, verify_artifacts
 
     parser = argparse.ArgumentParser(description=__doc__)

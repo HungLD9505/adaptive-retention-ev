@@ -7,8 +7,8 @@ supporting/diagnostic implementations and the report's identified evidence.
 |---|---|
 | `ev_inputs`, `ev_models`, `ev_control`, `ev_runner` | Prepared-input contracts, GRU and losses, retention selection and causal replay |
 | `ev_baselines`, `ev_evaluation`, `tools`, `configs` | Comparisons, analysis, verification utilities and versioned settings |
-| `experiments/hung_sprint2` | Alternate end-to-end implementation and bounded three-station evaluation |
-| `experiments/member_studies` | Fixed-adaptation and confidence-controller diagnostics |
+| `experiments/supporting_pipeline` | Alternate end-to-end implementation and bounded three-station evaluation |
+| `experiments/fixed_adaptation`, `experiments/confidence_controller` | Fixed-adaptation and confidence-controller diagnostics |
 | `report` | Exported report/supplement PDFs, original LaTeX source, figures and result tables |
 | `docs`, `tests` | Technical contracts, vector diagrams, provenance and validation fixtures |
 
