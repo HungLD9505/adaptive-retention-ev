@@ -1,0 +1,24 @@
+{
+  "blocked_cells": 0,
+  "files": {
+    "blocked.csv": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "paired.csv": "7ce9d01e61d5d13c4ebc61f9b22f160bf29d5a10818dc43f49f1167d670ceda6",
+    "runs.csv": "2e26b3f99a11e7acc9de539dc08f07dbbb8dad9cbc6c53fb30ae71cba48d4491",
+    "station_first.csv": "f01def5b1074cddf2bfda8fba98b9d7f5609dcea9510c3314ffe2645b0535c17"
+  },
+  "issued_forecasts": 32400,
+  "jobs": 360,
+  "ledger_sha256": "0dca10975d5431ac199909ccb5bf69298040d6e4a21d3424bd15986a26cfa0a8",
+  "lock_sha256": "e5e8fe1cb5636e508b3edbcedbbd00a72d9d8230041bf383eeba3d1133883e5e",
+  "null_jobs": 0,
+  "paired_cells": 666,
+  "replay_duration_rows": 360,
+  "replay_duration_seconds_sum": 4329.8125943679825,
+  "requested_origins": 32400,
+  "schema": "hung-final-aggregate-v1",
+  "scored_complete_days": 32280,
+  "scored_jobs": 360,
+  "scores_sha256": "9e09ae4f72b13c03ed029deb338301753ae377c15cbbfa7414433c5538cba73a",
+  "source_kernel": "hungluongduc/hung-final-e5e8fe1c-360-20261029-v1/1",
+  "station_first_groups": 78
+}

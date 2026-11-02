@@ -1,0 +1,23 @@
+{
+  "block7_config_sha256": "91ef6159391c8fa2b30e82d4cea740667135466bf36b7e797e7bf73e9fccf24f",
+  "budget_counts": {
+    "7": 18,
+    "14": 24,
+    "28": 27
+  },
+  "candidate_csv_sha256": "05d660c72962d51ec3e8c22a57cd015977ceb333f23b1408f891d343f785d802",
+  "candidate_jobs": 69,
+  "frozen_development_code_commit": "44b8532959d76fb20691881539f991ca44983727",
+  "frozen_parent_plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+  "frozen_portable_plan_sha256": "b7c79f501230ea5e1308b4bc02b2707089a8c788e4ee3df229aadec005a05198",
+  "input_zip_sha256": "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7",
+  "pair_table_sha256": "e260de421d6c53ef3dffe5901f9e3478708b9e578791d3f370588a0a508699de",
+  "scope": "Development Block7 contingency only; no submission or authorization",
+  "source_checkpoint_hashes": 9,
+  "stages_per_job": [
+    "replay-21",
+    "replay-90"
+  ],
+  "target_checkpoint_hashes": 69,
+  "v5_ledger_sha256": "bf1117c1d5fc0a902411cb6d850dca51e77802997c32880295ede20d8ac83004"
+}

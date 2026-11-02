@@ -1,0 +1,511 @@
+{
+  "entries": [
+    {
+      "archive": {
+        "bytes": 65931034,
+        "path": ".cache/kaggle-shard0001-dataset-v1-local-20261028/artifacts.zip.bin",
+        "sha256": "29e3db51106402942959f80762e4c27995ad4ec9f2253fd96cc8a4681d3b2dcd"
+      },
+      "proof": {
+        "bytes": 21419,
+        "path": ".cache/kaggle-shard0001-dataset-v1-local-20261028/local-stageplan-proof-v2.json",
+        "sha256": "cddc444f352e61053f61fd360777eab8c993dad674e70f46ed2152580e2e8e06"
+      },
+      "receipt": {
+        "bytes": 1097,
+        "path": ".cache/kaggle-shard0001-dataset-v1-local-20261028/receipt.json",
+        "sha256": "503d23094d5647290c45cc823db7089fb0e9a147a4453577076678e0b2e4cf95"
+      },
+      "shard_id": "shard_0001"
+    },
+    {
+      "archive": {
+        "bytes": 61939216,
+        "path": ".cache/kaggle-proof-group02-raw-20261028/hung-matched-group02-v1/shard_0002/artifacts.zip",
+        "sha256": "409c523b421397fecc22bc953a13b2642aa49cf1f0f443c9e88f1d11af4ca908"
+      },
+      "proof": {
+        "bytes": 21419,
+        "path": ".cache/kaggle-proof-group02-stageplan-20261028/shard_0002-proof-v2.json",
+        "sha256": "0a1182caa798385eb9de236139b1a74fcc35662cb052efb1f27c0d57bd52c051"
+      },
+      "receipt": {
+        "bytes": 1097,
+        "path": ".cache/kaggle-proof-group02-raw-20261028/hung-matched-group02-v1/shard_0002/receipt.json",
+        "sha256": "fb335aa069dc58c72da9f189786483446ea09583f74a95188d996fd289ae0140"
+      },
+      "shard_id": "shard_0002"
+    },
+    {
+      "archive": {
+        "bytes": 62632926,
+        "path": ".cache/kaggle-proof-group02-raw-20261028/hung-matched-group02-v1/shard_0003/artifacts.zip",
+        "sha256": "f7f5073878345a4cb44f1e293a7bfd1e1c762244475cf10e7bba40167c66430b"
+      },
+      "proof": {
+        "bytes": 21377,
+        "path": ".cache/kaggle-proof-group02-stageplan-20261028/shard_0003-proof-v2.json",
+        "sha256": "07c4267c60c163c1e7b6a2b3566be0d74c1695645d3c2871dd13806c7b29ac88"
+      },
+      "receipt": {
+        "bytes": 1087,
+        "path": ".cache/kaggle-proof-group02-raw-20261028/hung-matched-group02-v1/shard_0003/receipt.json",
+        "sha256": "433b5463316503f9710e7be7517adb48834611f69d538c114c117800fbf2f2ab"
+      },
+      "shard_id": "shard_0003"
+    },
+    {
+      "archive": {
+        "bytes": 74362442,
+        "path": ".cache/kaggle-proof-group03-raw-20261028b/hung-matched-group03-v1/shard_0008/artifacts.zip",
+        "sha256": "a49fc9c6c56b5e6cdcf54bb1af15d05cb511d017f3be3cb4abfb41f17dc151e8"
+      },
+      "proof": {
+        "bytes": 25113,
+        "path": ".cache/kaggle-proof-group03-stageplan-20261028/shard_0008.json",
+        "sha256": "861a2dc5917280aa1dddee90f15d15b0ba00300ff19fb841784dfb705bc7f907"
+      },
+      "receipt": {
+        "bytes": 1255,
+        "path": ".cache/kaggle-proof-group03-raw-20261028b/hung-matched-group03-v1/shard_0008/receipt.json",
+        "sha256": "f1e0be95e015a41f6de2f81ad491310a5c9608ab9561b1884c31d35a5bf2aecb"
+      },
+      "shard_id": "shard_0008"
+    },
+    {
+      "archive": {
+        "bytes": 68786447,
+        "path": ".cache/kaggle-proof-group03-raw-20261028b/hung-matched-group03-v1/shard_0009/artifacts.zip",
+        "sha256": "37f635185da5bf08fd927e0ecacb9efb53f41f2b87f85ad3554f5a92ee53de5e"
+      },
+      "proof": {
+        "bytes": 25125,
+        "path": ".cache/kaggle-proof-group03-stageplan-20261028/shard_0009.json",
+        "sha256": "8e8603cfe0d78393fba123f41d8cf99647719d508b4f2dab30e0bd73dddb9760"
+      },
+      "receipt": {
+        "bytes": 1263,
+        "path": ".cache/kaggle-proof-group03-raw-20261028b/hung-matched-group03-v1/shard_0009/receipt.json",
+        "sha256": "5efd99106405d7992ca01fd83fdb826366fcc639dae6a98c9e58310bbaa739a7"
+      },
+      "shard_id": "shard_0009"
+    },
+    {
+      "archive": {
+        "bytes": 66147049,
+        "path": ".cache/kaggle-proof-group03-raw-20261028b/hung-matched-group03-v1/shard_0010/artifacts.zip",
+        "sha256": "c83b3af82e5eedc2c4b68d0bb1d808b10e66fb037708bb5345c38ae3c602b180"
+      },
+      "proof": {
+        "bytes": 25071,
+        "path": ".cache/kaggle-proof-group03-stageplan-20261028/shard_0010.json",
+        "sha256": "b65be0dcd8f57e9bbfc61ecae639fe6ad7e98d7648893bf4f7faf28038112b7a"
+      },
+      "receipt": {
+        "bytes": 1245,
+        "path": ".cache/kaggle-proof-group03-raw-20261028b/hung-matched-group03-v1/shard_0010/receipt.json",
+        "sha256": "c7522288f2e18ca960c3f81f589fe62c2891611f4cdd8260ed92c4cdb8e87218"
+      },
+      "shard_id": "shard_0010"
+    },
+    {
+      "archive": {
+        "bytes": 317485131,
+        "path": ".cache/kaggle-proof-group03-raw-20261028b/hung-matched-group03-v1/shard_0011/artifacts.zip",
+        "sha256": "959dbb76e407ac6c1ff7fce723fdc1510046280b1b473902ede231ff79bcfc6b"
+      },
+      "proof": {
+        "bytes": 22818,
+        "path": ".cache/kaggle-proof-group03-stageplan-20261028/shard_0011.json",
+        "sha256": "3df0ba6f701e0fcd3f73b3d922ee6999abf19f00e71de6574a2408c1cf400663"
+      },
+      "receipt": {
+        "bytes": 1227,
+        "path": ".cache/kaggle-proof-group03-raw-20261028b/hung-matched-group03-v1/shard_0011/receipt.json",
+        "sha256": "0486059910dcdcd63a855e6a1964d91ed83a5bb70bf65389dc355102842b1e42"
+      },
+      "shard_id": "shard_0011"
+    },
+    {
+      "archive": {
+        "bytes": 452751164,
+        "path": ".cache/kaggle-proof-group03-raw-20261028b/hung-matched-group03-v1/shard_0012/artifacts.zip",
+        "sha256": "d0f7f0335745843adbf16b5c05aafd7fb7a4505ba13c92ab649849677d9b92dc"
+      },
+      "proof": {
+        "bytes": 21611,
+        "path": ".cache/kaggle-proof-group03-stageplan-20261028/shard_0012.json",
+        "sha256": "98ab56e65f0fff452e1dc30e92787baa2ac8e87b54b9292cbe0cb1afafe89658"
+      },
+      "receipt": {
+        "bytes": 1215,
+        "path": ".cache/kaggle-proof-group03-raw-20261028b/hung-matched-group03-v1/shard_0012/receipt.json",
+        "sha256": "afa62249ae27839e4324ff18265771dbd159e0f8d591eb07523f35cfe535cf01"
+      },
+      "shard_id": "shard_0012"
+    },
+    {
+      "archive": {
+        "bytes": 453014419,
+        "path": ".cache/kaggle-proof-group03-raw-20261028b/hung-matched-group03-v1/shard_0013/artifacts.zip",
+        "sha256": "49442d6a54209957e2fc008f3f7891b5160c7a9e23fa7c5eee7c49f46f710b51"
+      },
+      "proof": {
+        "bytes": 21596,
+        "path": ".cache/kaggle-proof-group03-stageplan-20261028/shard_0013.json",
+        "sha256": "d73c743bf3391b73ecac2c644b477b64f359f3be86dd258850214f9b7d9fc94f"
+      },
+      "receipt": {
+        "bytes": 1210,
+        "path": ".cache/kaggle-proof-group03-raw-20261028b/hung-matched-group03-v1/shard_0013/receipt.json",
+        "sha256": "139fb7971640f6de44931695cbe61bd16975b5c0ef1f7e48a8a503b75e90197b"
+      },
+      "shard_id": "shard_0013"
+    },
+    {
+      "archive": {
+        "bytes": 361579479,
+        "path": ".cache/kaggle-proof-group04-archives-20261028/hung-matched-group04-v1/shard_0014/artifacts.zip",
+        "sha256": "f1494f5921251207dc8514f18240aa3b76625c651841c92da2ddadceab3d8b06"
+      },
+      "proof": {
+        "bytes": 22444,
+        "path": ".cache/kaggle-proof-group04-stageplan-20261028/shard_0014.json",
+        "sha256": "9711e2da035111eb07a693da6a5efed345e28984c8bfdac8e0d3fbb2f3c03179"
+      },
+      "receipt": {
+        "bytes": 1211,
+        "path": ".cache/kaggle-proof-group04-receipts-20261028b/hung-matched-group04-v1/shard_0014/receipt.json",
+        "sha256": "06e972a60d7159eb56ad7a1a78788b50c5034af9989814df018d6b4fefb4c270"
+      },
+      "shard_id": "shard_0014"
+    },
+    {
+      "archive": {
+        "bytes": 68805964,
+        "path": ".cache/kaggle-proof-group04-archives-20261028/hung-matched-group04-v1/shard_0015/artifacts.zip",
+        "sha256": "843bd97b8ed9139c05c99d32bb95cd0916f3b2bb1a73757b23d870c5a8cb67ab"
+      },
+      "proof": {
+        "bytes": 25107,
+        "path": ".cache/kaggle-proof-group04-stageplan-20261028/shard_0015.json",
+        "sha256": "c035b9fdf724473829235fce9fd210c40d0f95afbe6c94898c7730389fcde649"
+      },
+      "receipt": {
+        "bytes": 1257,
+        "path": ".cache/kaggle-proof-group04-receipts-20261028b/hung-matched-group04-v1/shard_0015/receipt.json",
+        "sha256": "b7ca869b20b647415ec279495fbf80321f7823a9c9a23fccbb1e6ed5ebe731b3"
+      },
+      "shard_id": "shard_0015"
+    },
+    {
+      "archive": {
+        "bytes": 68784141,
+        "path": ".cache/kaggle-proof-group04-archives-20261028/hung-matched-group04-v1/shard_0016/artifacts.zip",
+        "sha256": "217211335a5fe32458e53dcf1399c298e5486704e3b87d333f887b41bf36636f"
+      },
+      "proof": {
+        "bytes": 25122,
+        "path": ".cache/kaggle-proof-group04-stageplan-20261028/shard_0016.json",
+        "sha256": "cd5afbcd4269b7e04160299c3de42b141288741feb66df1eb2800da544e3f91c"
+      },
+      "receipt": {
+        "bytes": 1258,
+        "path": ".cache/kaggle-proof-group04-receipts-20261028b/hung-matched-group04-v1/shard_0016/receipt.json",
+        "sha256": "15bca72f4782098a46449108070ef2a25f912dc7d3854e79538c9b1ca29ebe7b"
+      },
+      "shard_id": "shard_0016"
+    },
+    {
+      "archive": {
+        "bytes": 66136089,
+        "path": ".cache/kaggle-proof-group04-archives-20261028/hung-matched-group04-v1/shard_0017/artifacts.zip",
+        "sha256": "af56d31e54605e77be94ea2e2ea8785875f21fd8299f57f8c9fd3c43d504670c"
+      },
+      "proof": {
+        "bytes": 25065,
+        "path": ".cache/kaggle-proof-group04-stageplan-20261028/shard_0017.json",
+        "sha256": "1c31d3544fb781c2bcd6c5d6a9b45a875d864365b156f14f9dc495b8a78c9907"
+      },
+      "receipt": {
+        "bytes": 1243,
+        "path": ".cache/kaggle-proof-group04-receipts-20261028b/hung-matched-group04-v1/shard_0017/receipt.json",
+        "sha256": "0f4ff54589914f532cbc4220daef2a78b067a1c5e82997381c1b92f7d6bdbd48"
+      },
+      "shard_id": "shard_0017"
+    },
+    {
+      "archive": {
+        "bytes": 73013901,
+        "path": ".cache/kaggle-proof-group04-archives-20261028/hung-matched-group04-v1/shard_0018/artifacts.zip",
+        "sha256": "755233d120f16b978710fc968a75fc0cf0aaa5dfc6a12e511f6c3e1042e4f569"
+      },
+      "proof": {
+        "bytes": 24931,
+        "path": ".cache/kaggle-proof-group04-stageplan-20261028/shard_0018.json",
+        "sha256": "5c4a214aacfe7a39828b292e96f657fd86786e05ccba2314be22452130c78452"
+      },
+      "receipt": {
+        "bytes": 1161,
+        "path": ".cache/kaggle-proof-group04-receipts-20261028b/hung-matched-group04-v1/shard_0018/receipt.json",
+        "sha256": "f29e1c3627cdc7d71f8a133f6824ffe99c8b8255fd98a012c0abcf5f79425d76"
+      },
+      "shard_id": "shard_0018"
+    },
+    {
+      "archive": {
+        "bytes": 70615649,
+        "path": ".cache/kaggle-proof-group04-archives-20261028/hung-matched-group04-v1/shard_0019/artifacts.zip",
+        "sha256": "7389d73c09aa348afbd927e8a457f3070269d7f8414e1fe368bc5d8a4557d7f5"
+      },
+      "proof": {
+        "bytes": 24887,
+        "path": ".cache/kaggle-proof-group04-stageplan-20261028/shard_0019.json",
+        "sha256": "00b952be1e4368af7125ba4da2a92cd778f279159df3e7f605311a17fb455b0a"
+      },
+      "receipt": {
+        "bytes": 1133,
+        "path": ".cache/kaggle-proof-group04-receipts-20261028b/hung-matched-group04-v1/shard_0019/receipt.json",
+        "sha256": "f5a948c6711ff1d36d0c481e4d15de76067af1e14eb7b73a81210f9b2227be92"
+      },
+      "shard_id": "shard_0019"
+    },
+    {
+      "archive": {
+        "bytes": 72573872,
+        "path": ".cache/kaggle-proof-group05-archives-20261028/hung-matched-group05-v1/shard_0020/artifacts.zip",
+        "sha256": "0dac16215393c6ef495a65a54e04837df2fbb6d012fa7f092d8c8de8a58d2213"
+      },
+      "proof": {
+        "bytes": 24869,
+        "path": ".cache/kaggle-proof-group05-stageplan-20261028/shard_0020.json",
+        "sha256": "62603d933a301841c181803144611c2dd94f868db2e98a95c0af24012e3bc550"
+      },
+      "receipt": {
+        "bytes": 1127,
+        "path": ".cache/kaggle-proof-group05-receipts-20261028/hung-matched-group05-v1/shard_0020/receipt.json",
+        "sha256": "2b5885fc7684bda22bb37decfeeb9df4bc034c7314f760d3aa48dc2d7aecfba2"
+      },
+      "shard_id": "shard_0020"
+    },
+    {
+      "archive": {
+        "bytes": 68578761,
+        "path": ".cache/kaggle-proof-group05-archives-20261028/hung-matched-group05-v1/shard_0021/artifacts.zip",
+        "sha256": "19eb373ce6943afe5c835037ab2b933bcdbee6bc0d244d0395ad8ffd4fbcf419"
+      },
+      "proof": {
+        "bytes": 23720,
+        "path": ".cache/kaggle-proof-group05-stageplan-20261028/shard_0021.json",
+        "sha256": "9d5c77d0eb2a302747e42191dc9f10d62754e236d79076765075ddbc69f9cc47"
+      },
+      "receipt": {
+        "bytes": 1136,
+        "path": ".cache/kaggle-proof-group05-receipts-20261028/hung-matched-group05-v1/shard_0021/receipt.json",
+        "sha256": "c54c0cad64d73c04d08ebd39e76585fc2885fc0564f468cb993204ffca5b791a"
+      },
+      "shard_id": "shard_0021"
+    },
+    {
+      "archive": {
+        "bytes": 59264349,
+        "path": ".cache/kaggle-proof-group05-archives-20261028/hung-matched-group05-v1/shard_0022/artifacts.zip",
+        "sha256": "1a7f7384ef7d25382cd6cec3c56dfee7eedf51117e34904ef0a5c4a68accae95"
+      },
+      "proof": {
+        "bytes": 21650,
+        "path": ".cache/kaggle-proof-group05-stageplan-20261028/shard_0022.json",
+        "sha256": "7c5233f38e232ca3d1b0ced59f7b912c98f6a42ca232bedeb6519b4263963bd8"
+      },
+      "receipt": {
+        "bytes": 1174,
+        "path": ".cache/kaggle-proof-group05-receipts-20261028/hung-matched-group05-v1/shard_0022/receipt.json",
+        "sha256": "a53f1267bc6eb38136550af56de46a6954f0f988bddf920c5897969498db6776"
+      },
+      "shard_id": "shard_0022"
+    },
+    {
+      "archive": {
+        "bytes": 68683068,
+        "path": ".cache/kaggle-proof-group05-archives-20261028/hung-matched-group05-v1/shard_0023/artifacts.zip",
+        "sha256": "31183a84fe0ee0b44fe6941fcf70db31d28f3b8891d8ace87942b483df041064"
+      },
+      "proof": {
+        "bytes": 21653,
+        "path": ".cache/kaggle-proof-group05-stageplan-20261028/shard_0023.json",
+        "sha256": "34238cf427c6a97e87f4a74debf2d6bd46ada6f6b3949bacbb94c41837d249d7"
+      },
+      "receipt": {
+        "bytes": 1175,
+        "path": ".cache/kaggle-proof-group05-receipts-20261028/hung-matched-group05-v1/shard_0023/receipt.json",
+        "sha256": "c9a435da1e9765943b416a3356071f85d663678aa057911c8208c795405d06ce"
+      },
+      "shard_id": "shard_0023"
+    },
+    {
+      "archive": {
+        "bytes": 64762703,
+        "path": ".cache/kaggle-proof-group05-archives-20261028/hung-matched-group05-v1/shard_0024/artifacts.zip",
+        "sha256": "b40a08f88621d02ec6ac2259590fecb322b0355b5b41339861fb9c6d77852318"
+      },
+      "proof": {
+        "bytes": 21596,
+        "path": ".cache/kaggle-proof-group05-stageplan-20261028/shard_0024.json",
+        "sha256": "1e39b078bc78c96c204648e0c253c44af8b72b55b3e1a00620c7a6d2048cf6ae"
+      },
+      "receipt": {
+        "bytes": 1160,
+        "path": ".cache/kaggle-proof-group05-receipts-20261028/hung-matched-group05-v1/shard_0024/receipt.json",
+        "sha256": "7a50a107708397e7ea4a005c84633962a0ace58b9ff5e041ed541eba1e5bd8ad"
+      },
+      "shard_id": "shard_0024"
+    },
+    {
+      "archive": {
+        "bytes": 73557851,
+        "path": ".cache/kaggle-proof-group05-archives-20261028/hung-matched-group05-v1/shard_0025/artifacts.zip",
+        "sha256": "f337765856af83c7b46c810ad6cacfdace38a46e6f35aeea55b2582c90d092f8"
+      },
+      "proof": {
+        "bytes": 24924,
+        "path": ".cache/kaggle-proof-group05-stageplan-20261028/shard_0025.json",
+        "sha256": "ce1b8b11ab9b465a99e2c34c5dd3ec5b3b49328e86aa60b7fc91d36350783c7f"
+      },
+      "receipt": {
+        "bytes": 1332,
+        "path": ".cache/kaggle-proof-group05-receipts-20261028/hung-matched-group05-v1/shard_0025/receipt.json",
+        "sha256": "f9b750bde2b11c6a5a28f722f4bbce47452fcff75a51d8ebcab2145ef5a12347"
+      },
+      "shard_id": "shard_0025"
+    },
+    {
+      "archive": {
+        "bytes": 70222453,
+        "path": ".cache/kaggle-proof-group06-archives-20261028/hung-matched-group06-v1/shard_0026/artifacts.zip",
+        "sha256": "326d0948c17201e9dee95afe9aa5d99376a5626bc0253e77aaa1e6e26dc3e971"
+      },
+      "proof": {
+        "bytes": 25096,
+        "path": ".cache/kaggle-proof-group06-stageplan-20261028/shard_0026.json",
+        "sha256": "9c006c610e979a4d285f550aeff3a4913bd006d658325021d5658e4ca2edd359"
+      },
+      "receipt": {
+        "bytes": 1340,
+        "path": ".cache/kaggle-proof-group06-receipts-20261028/hung-matched-group06-v1/shard_0026/receipt.json",
+        "sha256": "3ad6c740629adaae2b1d1fe38e58e303115b65af6a1ebbcdd628227dae74c554"
+      },
+      "shard_id": "shard_0026"
+    },
+    {
+      "archive": {
+        "bytes": 70822245,
+        "path": ".cache/kaggle-proof-group06-archives-20261028/hung-matched-group06-v1/shard_0027/artifacts.zip",
+        "sha256": "baec1bf8527d1fdb9e386621fdc10e9feee07e5ea826064050b0251d5ee577c4"
+      },
+      "proof": {
+        "bytes": 25060,
+        "path": ".cache/kaggle-proof-group06-stageplan-20261028/shard_0027.json",
+        "sha256": "ef58d6165c948391538d3ac19d1aa6fec68ec8af9f142a86dd2c13a25c44266d"
+      },
+      "receipt": {
+        "bytes": 1328,
+        "path": ".cache/kaggle-proof-group06-receipts-20261028/hung-matched-group06-v1/shard_0027/receipt.json",
+        "sha256": "c665f67ce2ef1fb14189d461c079c27f8a6131b0b302a2baac0ad963aa24b6ce"
+      },
+      "shard_id": "shard_0027"
+    },
+    {
+      "archive": {
+        "bytes": 46907043,
+        "path": ".cache/kaggle-proof-group06-archives-20261028/hung-matched-group06-v1/shard_0028/artifacts.zip",
+        "sha256": "5a5ef4fd05b82be4db824af93ec3c815af10a5ad42d08991100394635ef770db"
+      },
+      "proof": {
+        "bytes": 23141,
+        "path": ".cache/kaggle-proof-group06-stageplan-20261028/shard_0028.json",
+        "sha256": "7b727ee21049ac6f48df30a165b8a67b06e8ac177537c28070abced163b932e7"
+      },
+      "receipt": {
+        "bytes": 1264,
+        "path": ".cache/kaggle-proof-group06-receipts-20261028/hung-matched-group06-v1/shard_0028/receipt.json",
+        "sha256": "b81d078d9a95a360f08fa5c85066f81fd488dcdd76b107d4fb06f70b6f3b26bd"
+      },
+      "shard_id": "shard_0028"
+    },
+    {
+      "archive": {
+        "bytes": 990876431,
+        "path": ".cache/kaggle-proof-group07-archives-20261028/hung-matched-group07-v1/shard_0033/artifacts.zip",
+        "sha256": "85968e4c002eb4f2e1b8247ea56dc5b70cf0a424e5b6275bd6b11d585399fa77"
+      },
+      "proof": {
+        "bytes": 25380,
+        "path": ".cache/kaggle-proof-group07-stageplan-20261028/shard_0033.json",
+        "sha256": "ff0c5b7ee2b28679e570ed64ecaa5cf3c7c8b33e260c2809b5454961f62bfde7"
+      },
+      "receipt": {
+        "bytes": 1182,
+        "path": ".cache/kaggle-proof-group07-receipts-20261028/hung-matched-group07-v1/shard_0033/receipt.json",
+        "sha256": "6412b8bb8b8e7385c0fa59ceb68c39776437a83f056a526d60d51ae7cbb51798"
+      },
+      "shard_id": "shard_0033"
+    },
+    {
+      "archive": {
+        "bytes": 947213941,
+        "path": ".cache/kaggle-proof-group07-archives-20261028/hung-matched-group07-v1/shard_0034/artifacts.zip",
+        "sha256": "e4b048a7365879852c78ce68cd51948283bf0c5b9d62dc0791a268ee74a96f32"
+      },
+      "proof": {
+        "bytes": 25380,
+        "path": ".cache/kaggle-proof-group07-stageplan-20261028/shard_0034.json",
+        "sha256": "0402d104510185672f811a3883a3adbb16b3e44fc418efed6d6163ead101cd9b"
+      },
+      "receipt": {
+        "bytes": 1182,
+        "path": ".cache/kaggle-proof-group07-receipts-20261028/hung-matched-group07-v1/shard_0034/receipt.json",
+        "sha256": "7f00e0a171f304038587d275f88b5b4f78c9f91ab9b17252d6342825017f95f3"
+      },
+      "shard_id": "shard_0034"
+    },
+    {
+      "archive": {
+        "bytes": 949818304,
+        "path": ".cache/kaggle-proof-group08-archives-20261028/hung-matched-group08-v1/shard_0035/artifacts.zip",
+        "sha256": "44b2d40372948ffc98c7a19398d1e707df095bb2bb16a56d11b04b56a3a04db1"
+      },
+      "proof": {
+        "bytes": 25338,
+        "path": ".cache/kaggle-proof-group08-stageplan-20261028/shard_0035.json",
+        "sha256": "660480b4b4ceb55440b51a8ab8f7d3c884d4a0cc0c65ff2d0cdad81de47c6441"
+      },
+      "receipt": {
+        "bytes": 1164,
+        "path": ".cache/kaggle-proof-group08-receipts-20261028/hung-matched-group08-v1/shard_0035/receipt.json",
+        "sha256": "06dedc8cd0ecb7f5837787c79c4b5a06e764445fdd85a28c67c6f71cc1a81756"
+      },
+      "shard_id": "shard_0035"
+    },
+    {
+      "archive": {
+        "bytes": 386014187,
+        "path": ".cache/kaggle-proof-group08-archives-20261028/hung-matched-group08-v1/shard_0036/artifacts.zip",
+        "sha256": "15684a44f3dc4d1e37014f71cfcd262f13e821456afb2089872928d12afa0574"
+      },
+      "proof": {
+        "bytes": 23037,
+        "path": ".cache/kaggle-proof-group08-stageplan-20261028/shard_0036.json",
+        "sha256": "2613ac75410d204ed929ccad2e07eb053cfcdfe6282061c9e496f3a4e192fc14"
+      },
+      "receipt": {
+        "bytes": 1168,
+        "path": ".cache/kaggle-proof-group08-receipts-20261028/hung-matched-group08-v1/shard_0036/receipt.json",
+        "sha256": "ba67bc95d62452167bc981f4847eaba51fca141b01e4f3b7480467b37a5bbbc4"
+      },
+      "shard_id": "shard_0036"
+    }
+  ],
+  "schema": "hung-local-stageplan-ledger-v1",
+  "scope": "development_only",
+  "verifier_sha256": "412c5d3c2802f6c9ba072cef2efc80e9b6ea71bc0776f3468d6a638e573e77e5"
+}

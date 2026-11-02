@@ -1,0 +1,120 @@
+{
+  "budgets": [
+    7,
+    14,
+    28
+  ],
+  "declared_shortfalls": [
+    "370 of 373 Final-role UrbanEV/SZH IDs outside this bounded first-three-ID candidate",
+    "Six CHARGED city input/Source/jobset identities are unavailable in the repo-local package"
+  ],
+  "expected_jobs": 360,
+  "missing_cells": [],
+  "replay_origins": 90,
+  "seeds": [
+    7,
+    11,
+    19
+  ],
+  "selected_entities": [
+    {
+      "city_id": "SZH",
+      "dataset_id": "urbanev",
+      "entity_id": "2118"
+    },
+    {
+      "city_id": "SZH",
+      "dataset_id": "urbanev",
+      "entity_id": "2534"
+    },
+    {
+      "city_id": "SZH",
+      "dataset_id": "urbanev",
+      "entity_id": "2579"
+    }
+  ],
+  "variant_categories": {
+    "block28": [
+      "ablation:different_block_size"
+    ],
+    "block7": [
+      "ablation:different_block_size"
+    ],
+    "drift": [
+      "baseline:drift"
+    ],
+    "fixed_retention": [
+      "baseline:fixed_retention",
+      "ablation:fixed_lambda"
+    ],
+    "frozen_source": [
+      "baseline:frozen_source"
+    ],
+    "full_finetuning": [
+      "baseline:full_finetuning"
+    ],
+    "main": [
+      "main"
+    ],
+    "no_source": [
+      "ablation:without_source_initialization"
+    ],
+    "online_best_lambda": [
+      "baseline:online_best_lambda",
+      "ablation:without_confidence"
+    ],
+    "parameter_retention": [
+      "ablation:parameter_retention"
+    ],
+    "seasonal_naive": [
+      "baseline:seasonal_naive"
+    ],
+    "source_error": [
+      "baseline:source_error"
+    ],
+    "target_only": [
+      "baseline:target_only"
+    ],
+    "uncertainty": [
+      "baseline:uncertainty"
+    ]
+  },
+  "variant_seed_policy": {
+    "block28": "all_seeds",
+    "block7": "all_seeds",
+    "drift": "all_seeds",
+    "fixed_retention": "all_seeds",
+    "frozen_source": "all_seeds",
+    "full_finetuning": "all_seeds",
+    "main": "all_seeds",
+    "no_source": "all_seeds",
+    "online_best_lambda": "all_seeds",
+    "parameter_retention": "all_seeds",
+    "seasonal_naive": {
+      "alias_seeds": [
+        11,
+        19
+      ],
+      "deterministic_representative_seed": 7
+    },
+    "source_error": "all_seeds",
+    "target_only": "all_seeds",
+    "uncertainty": "all_seeds"
+  },
+  "variants": [
+    "block28",
+    "block7",
+    "drift",
+    "fixed_retention",
+    "frozen_source",
+    "full_finetuning",
+    "main",
+    "no_source",
+    "online_best_lambda",
+    "parameter_retention",
+    "seasonal_naive",
+    "source_error",
+    "target_only",
+    "uncertainty"
+  ]
+}

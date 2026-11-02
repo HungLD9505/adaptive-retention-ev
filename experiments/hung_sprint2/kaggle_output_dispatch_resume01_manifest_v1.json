@@ -1,0 +1,17 @@
+{
+  "export_policy": "Resume batches1\u20136 only after metric readers complete; batch0 already verified. No third idle export controller.",
+  "initial_state": {
+    "index": 2,
+    "ordinal": 1,
+    "phase": "predecessor"
+  },
+  "new_controller": "hung-output-relay-01-20261027-v1",
+  "new_readback": "hung-g03-s13-readback-20261027-v2",
+  "parent_execution_manifest_sha256": "167eedc010cd9a216fa14eac96c35b80f1664f965b6e4de424e64f53492c7ac8",
+  "readback_program_sha256": "52b0acfd248deedbcfe1f4635eb4fd33f665410fe2bc630a06283d502797f9f1",
+  "reason": "CPU session limit rejected readback execution; old resource is draft0, not absent. Preserve old claim/draft; do not adopt or retry it. Original export and output controller0 intentionally cancelled.",
+  "resume_program_sha256": "381225ad2c452ef42587fcd416b920e0cc4457b5c84b3dec529b55273c7b0e03",
+  "scope": "development_only",
+  "unchanged_gpu_and_cpu_child_programs": true,
+  "unchanged_successor_jobs": 380
+}

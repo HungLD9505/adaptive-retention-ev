@@ -1,0 +1,17 @@
+{
+  "all_stage_duration_seconds_sum": 7128.104986350967,
+  "decision_rows": 297,
+  "decisions": 1863,
+  "events_sha256": "02434d02989fb60bd18e8002cf9878bb29dab0aa436048cb8e235fcf80b54f08",
+  "files": {
+    "job_events.csv": "ff1648153823140e3a0ebe4ef237f80f7d82184fe6b1e799ace819d2b867036f",
+    "variant_events.csv": "19ae7995cd0fbf28006dcbc1143d64eeb0e2f90906a3d215678bb3cb6270ef05"
+  },
+  "jobs": 360,
+  "missing_stage_duration_count": 54,
+  "observed_stage_duration_seconds_sum": 8238.380264381969,
+  "replay_duration_seconds_sum": 4329.8125943679825,
+  "schema": "hung-final-event-audit-v1",
+  "scores_sha256": "9e09ae4f72b13c03ed029deb338301753ae377c15cbbfa7414433c5538cba73a",
+  "switches": 313
+}

@@ -1,0 +1,452 @@
+{
+  "decision_trace_runs": 690,
+  "decisions": 3933,
+  "groups": [
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 18,
+      "decisions": 108,
+      "method": "main",
+      "runs": 18,
+      "source_kind": "historical_main_manifest",
+      "switches": 12
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 24,
+      "decisions": 144,
+      "method": "main",
+      "runs": 24,
+      "source_kind": "historical_main_manifest",
+      "switches": 11
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 27,
+      "decisions": 162,
+      "method": "main",
+      "runs": 27,
+      "source_kind": "historical_main_manifest",
+      "switches": 9
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 9,
+      "decisions": 27,
+      "method": "block28",
+      "runs": 9,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 3
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 24,
+      "decisions": 72,
+      "method": "block28",
+      "runs": 24,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 6
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 27,
+      "decisions": 81,
+      "method": "block28",
+      "runs": 27,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 4
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 18,
+      "decisions": 108,
+      "method": "fixed_retention",
+      "runs": 18,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 22,
+      "decisions": 132,
+      "method": "fixed_retention",
+      "runs": 22,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 27,
+      "decisions": 162,
+      "method": "fixed_retention",
+      "runs": 27,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "frozen_source",
+      "runs": 18,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "frozen_source",
+      "runs": 23,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "frozen_source",
+      "runs": 27,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 18,
+      "decisions": 108,
+      "method": "full_finetuning",
+      "runs": 18,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 24,
+      "decisions": 144,
+      "method": "full_finetuning",
+      "runs": 24,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 27,
+      "decisions": 162,
+      "method": "full_finetuning",
+      "runs": 27,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 18,
+      "decisions": 108,
+      "method": "no_source",
+      "runs": 18,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 14
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 24,
+      "decisions": 144,
+      "method": "no_source",
+      "runs": 24,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 17
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 27,
+      "decisions": 162,
+      "method": "no_source",
+      "runs": 27,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 22
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 18,
+      "decisions": 108,
+      "method": "online_best",
+      "runs": 18,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 23
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 23,
+      "decisions": 138,
+      "method": "online_best",
+      "runs": 23,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 26
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 27,
+      "decisions": 162,
+      "method": "online_best",
+      "runs": 27,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 41
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 18,
+      "decisions": 108,
+      "method": "parameter_retention",
+      "runs": 18,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 7
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 24,
+      "decisions": 144,
+      "method": "parameter_retention",
+      "runs": 24,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 11
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 26,
+      "decisions": 156,
+      "method": "parameter_retention",
+      "runs": 26,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 7
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "seasonal_naive",
+      "runs": 8,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "seasonal_naive",
+      "runs": 3,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "target_only",
+      "runs": 17,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "target_only",
+      "runs": 24,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "target_only",
+      "runs": 27,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 12,
+      "decisions": 72,
+      "method": "uncertainty",
+      "runs": 12,
+      "source_kind": "kaggle_v2_verified",
+      "switches": 0
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 9,
+      "decisions": 27,
+      "method": "block28",
+      "runs": 9,
+      "source_kind": "local_ledger_archive",
+      "switches": 4
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 18,
+      "decisions": 108,
+      "method": "drift",
+      "runs": 18,
+      "source_kind": "local_ledger_archive",
+      "switches": 33
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 24,
+      "decisions": 144,
+      "method": "drift",
+      "runs": 24,
+      "source_kind": "local_ledger_archive",
+      "switches": 39
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 27,
+      "decisions": 162,
+      "method": "drift",
+      "runs": 27,
+      "source_kind": "local_ledger_archive",
+      "switches": 42
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 2,
+      "decisions": 12,
+      "method": "fixed_retention",
+      "runs": 2,
+      "source_kind": "local_ledger_archive",
+      "switches": 0
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "frozen_source",
+      "runs": 1,
+      "source_kind": "local_ledger_archive",
+      "switches": 0
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 1,
+      "decisions": 6,
+      "method": "online_best",
+      "runs": 1,
+      "source_kind": "local_ledger_archive",
+      "switches": 1
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 1,
+      "decisions": 6,
+      "method": "parameter_retention",
+      "runs": 1,
+      "source_kind": "local_ledger_archive",
+      "switches": 0
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "seasonal_naive",
+      "runs": 6,
+      "source_kind": "local_ledger_archive",
+      "switches": 0
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "seasonal_naive",
+      "runs": 6,
+      "source_kind": "local_ledger_archive",
+      "switches": 0
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 18,
+      "decisions": 108,
+      "method": "source_error",
+      "runs": 18,
+      "source_kind": "local_ledger_archive",
+      "switches": 15
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 24,
+      "decisions": 144,
+      "method": "source_error",
+      "runs": 24,
+      "source_kind": "local_ledger_archive",
+      "switches": 21
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 27,
+      "decisions": 162,
+      "method": "source_error",
+      "runs": 27,
+      "source_kind": "local_ledger_archive",
+      "switches": 18
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 0,
+      "decisions": 0,
+      "method": "target_only",
+      "runs": 1,
+      "source_kind": "local_ledger_archive",
+      "switches": 0
+    },
+    {
+      "budget_days": 7,
+      "decision_trace_runs": 18,
+      "decisions": 108,
+      "method": "uncertainty",
+      "runs": 18,
+      "source_kind": "local_ledger_archive",
+      "switches": 0
+    },
+    {
+      "budget_days": 14,
+      "decision_trace_runs": 12,
+      "decisions": 72,
+      "method": "uncertainty",
+      "runs": 12,
+      "source_kind": "local_ledger_archive",
+      "switches": 0
+    },
+    {
+      "budget_days": 28,
+      "decision_trace_runs": 27,
+      "decisions": 162,
+      "method": "uncertainty",
+      "runs": 27,
+      "source_kind": "local_ledger_archive",
+      "switches": 0
+    }
+  ],
+  "issued_count_only_runs": 161,
+  "limits": [
+    "Historical Main manifests match the saved review capsule, its internal ledger, the tracked pair table and merged-result SHA; there is no per-job Main receipt in the capsule.",
+    "Issued-count-only fixed policies have null decision/switch counts, not zero.",
+    "Kaggle per-job trace rows inherit the pinned v2 audit; their archive bytes are not rehashed by this recovery pass.",
+    "This audit reports observed Development decisions; it does not establish causal benefit or Final performance."
+  ],
+  "runs": 851,
+  "scope": "development_only",
+  "source_kind_counts": {
+    "historical_main_manifest": 69,
+    "kaggle_v2_verified": 560,
+    "local_ledger_archive": 222
+  },
+  "source_sha256": {
+    "kaggle_switches": "2ada3cad067868000bac59378f766391a6126eb4d2b0626aa60281c7b64d112e",
+    "ledger": "bf1117c1d5fc0a902411cb6d850dca51e77802997c32880295ede20d8ac83004",
+    "main_capsule": "2493e0c1f440f6b5ead7c81facb3901623c4a58252ca7fa656cf9bdb1e32953d",
+    "main_capsule_receipt": "09a22b098ac73c1b79b4bb043eedfca95609e19482daef3658e458544a349997",
+    "merged": "82d9342c62baef0da9e6f70baf548fb9e97e653792305adbb0fb85c872a1173d",
+    "pairs": "e260de421d6c53ef3dffe5901f9e3478708b9e578791d3f370588a0a508699de"
+  },
+  "switches": 386
+}

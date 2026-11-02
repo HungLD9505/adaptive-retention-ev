@@ -1,0 +1,51 @@
+{
+  "after_one_adam_step_forecast_max_abs_difference_normalized": 0.05560660362243652,
+  "disposition": "INITIAL_FUNCTION_EMBEDDING_ONLY_NOT_TRAINED_UPDATE_PARITY",
+  "fixture": {
+    "entity_id": "1153",
+    "first_clock_mode": "offset-aware-local",
+    "first_label_available_by": "2022-12-02T00:00:00+08:00",
+    "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+    "origins": [
+      "2022-12-01T00:00:00+08:00",
+      "2022-12-02T00:00:00+08:00",
+      "2022-12-03T00:00:00+08:00",
+      "2022-12-04T00:00:00+08:00",
+      "2022-12-05T00:00:00+08:00",
+      "2022-12-06T00:00:00+08:00",
+      "2022-12-07T00:00:00+08:00",
+      "2022-12-08T00:00:00+08:00",
+      "2022-12-09T00:00:00+08:00",
+      "2022-12-10T00:00:00+08:00",
+      "2022-12-11T00:00:00+08:00",
+      "2022-12-12T00:00:00+08:00",
+      "2022-12-13T00:00:00+08:00",
+      "2022-12-14T00:00:00+08:00"
+    ],
+    "scale": 55.99999999999998,
+    "scale_id": "c22f31dd5dc537cfbaa333df359dc6ace33a9151285b1c267878e296b8890868"
+  },
+  "hung_model_sha256": "c8303d1c9e83ee4bdaf6f5ce6c3e520dc22ce95d51c442375ea8fa3e9879ef76",
+  "hung_parameters": 41696,
+  "initial_forecast_max_abs_difference_normalized": 1.1920928955078125e-07,
+  "initial_forecast_mean_abs_difference_normalized": 1.3304608525999129e-09,
+  "initial_forecasts_before_label_member_read": true,
+  "input_zip_sha256": "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7",
+  "mapped_hidden_units": {
+    "calendar": 8,
+    "latent_positive_negative": 48,
+    "unused": 8
+  },
+  "one_step_encoder_gradient_max_abs_difference": 7.450580596923828e-09,
+  "one_step_forecast_loss_hung": 0.11046528071165085,
+  "one_step_forecast_loss_qyroven": 0.11046528071165085,
+  "one_step_optimizer_setup": "fresh_Adam_0.001_for_both; saved_Hung_slots_not_transplanted",
+  "qyroven_model_sha256": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+  "qyroven_parameters": 52376,
+  "schema": "hung-q-head-embedding-audit-v1",
+  "scope": "Development trained-state diagnostic; not execution or controller parity",
+  "target_checkpoint_optimizer_slots": 12,
+  "target_checkpoint_sha256": "ec244e11a68b334200e80c2f2abf28a54f5dd834e81b2dc92d58c90cf032c5ff",
+  "target_checkpoint_training_step": 7,
+  "target_run_manifest_sha256": "a36894bed2b2add2bc3356f840acfeeef906bf2199b7091b1509a81c8e0c60d6"
+}

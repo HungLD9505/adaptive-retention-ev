@@ -1,0 +1,13 @@
+{
+  "schema": "hung-development-seed-stability-v1",
+  "scope": "development_only",
+  "source_sha256": "82d9342c62baef0da9e6f70baf548fb9e97e653792305adbb0fb85c872a1173d",
+  "paired_groups": 72,
+  "paired_cells": 816,
+  "seed_rows": 204,
+  "three_seed_groups": 66,
+  "single_seed_groups": 6,
+  "mixed_sign_stations_across_three_seed_groups": 49,
+  "context_fields_in_paired_source": [],
+  "per_origin_proxy_value_fields_in_merged_runs": []
+}

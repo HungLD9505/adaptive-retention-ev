@@ -1,0 +1,4 @@
+candidate_urban_entities,budgets,physical_jobs_per_entity_budget_assumed,candidate_physical_jobs,stage_wall_median_scenario_hours,stage_wall_observed_p95_scenario_hours,raw_plus_zip_observed_p95_bytes,raw_plus_zip_p95_with_1_5_margin_bytes,scope
+3,3,40,360,3.562,3.808,8110214145,12165321218,UrbanEV/SZH candidate only; excludes CHARGED and Source fit/provider overhead
+10,3,40,1200,11.873,12.694,27034047150,40551070725,UrbanEV/SZH candidate only; excludes CHARGED and Source fit/provider overhead
+30,3,40,3600,35.62,38.081,81102141450,121653212175,UrbanEV/SZH candidate only; excludes CHARGED and Source fit/provider overhead

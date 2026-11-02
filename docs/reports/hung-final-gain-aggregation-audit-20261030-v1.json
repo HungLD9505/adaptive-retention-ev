@@ -1,0 +1,97 @@
+{
+  "paired_csv_sha256": "7ce9d01e61d5d13c4ebc61f9b22f160bf29d5a10818dc43f49f1167d670ceda6",
+  "results": [
+    {
+      "budget_days": 7,
+      "mean_of_station_transfer_gains": 0.38919513155255353,
+      "negative_transfer_stations": 0,
+      "paired_cells": 9,
+      "published_transfer_gain_ratio_of_means": 0.4076465380296214,
+      "stations": [
+        {
+          "mae_gain_kwh": 1.0569380043252496,
+          "method_mae_kwh": 3.480468141543898,
+          "reference_mae_kwh": 4.537406145869148,
+          "station": "2118",
+          "station_transfer_gain": 0.23293881357468638
+        },
+        {
+          "mae_gain_kwh": 1.7014870764268166,
+          "method_mae_kwh": 1.6114955919886533,
+          "reference_mae_kwh": 3.31298266841547,
+          "station": "2534",
+          "station_transfer_gain": 0.5135816412950335
+        },
+        {
+          "mae_gain_kwh": 13.862240919102856,
+          "method_mae_kwh": 19.05961889208029,
+          "reference_mae_kwh": 32.92185981118315,
+          "station": "2579",
+          "station_transfer_gain": 0.4210649397879407
+        }
+      ]
+    },
+    {
+      "budget_days": 14,
+      "mean_of_station_transfer_gains": 0.3691471168080093,
+      "negative_transfer_stations": 0,
+      "paired_cells": 9,
+      "published_transfer_gain_ratio_of_means": 0.38338332025262084,
+      "stations": [
+        {
+          "mae_gain_kwh": 0.9810941910931414,
+          "method_mae_kwh": 3.5917055863354412,
+          "reference_mae_kwh": 4.572799777428583,
+          "station": "2118",
+          "station_transfer_gain": 0.214549999747603
+        },
+        {
+          "mae_gain_kwh": 1.588056383956202,
+          "method_mae_kwh": 1.6109706974957156,
+          "reference_mae_kwh": 3.1990270814519177,
+          "station": "2534",
+          "station_transfer_gain": 0.49641854961585485
+        },
+        {
+          "mae_gain_kwh": 12.43193594775519,
+          "method_mae_kwh": 18.9244040445459,
+          "reference_mae_kwh": 31.356339992301088,
+          "station": "2579",
+          "station_transfer_gain": 0.39647280106057015
+        }
+      ]
+    },
+    {
+      "budget_days": 28,
+      "mean_of_station_transfer_gains": 0.3304956386783035,
+      "negative_transfer_stations": 0,
+      "paired_cells": 9,
+      "published_transfer_gain_ratio_of_means": 0.3617158115276806,
+      "stations": [
+        {
+          "mae_gain_kwh": 0.5230614044656501,
+          "method_mae_kwh": 3.479384248171852,
+          "reference_mae_kwh": 4.002445652637502,
+          "station": "2118",
+          "station_transfer_gain": 0.1306854483135747
+        },
+        {
+          "mae_gain_kwh": 1.489929079090875,
+          "method_mae_kwh": 1.6101400677144,
+          "reference_mae_kwh": 3.100069146805275,
+          "station": "2534",
+          "station_transfer_gain": 0.48061156333441685
+        },
+        {
+          "mae_gain_kwh": 11.444358740352598,
+          "method_mae_kwh": 18.6573315157508,
+          "reference_mae_kwh": 30.1016902561034,
+          "station": "2579",
+          "station_transfer_gain": 0.38018990438691885
+        }
+      ]
+    }
+  ],
+  "schema": "hung-final-gain-aggregation-audit-v1",
+  "station_first_csv_sha256": "f01def5b1074cddf2bfda8fba98b9d7f5609dcea9510c3314ffe2645b0535c17"
+}

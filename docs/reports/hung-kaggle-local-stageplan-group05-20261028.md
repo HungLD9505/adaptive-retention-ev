@@ -1,0 +1,16 @@
+# Local exact-stage readback of Kaggle group05 (2026-10-28)
+
+The official Kaggle CLI downloaded six immutable `artifacts.zip` files from [group05 training saved version 362783198](https://www.kaggle.com/code/hungluongduc/hung-matched-group05-44b8532-20261027-v2?scriptVersionId=362783198), ordinal `/1`, into a new ignored drive-D directory. Their total is 407,420,604 bytes. Six saved shard receipts were downloaded separately. The independent [CPU readback saved version 362840784](https://www.kaggle.com/code/hungluongduc/hung-output-g05-readback-20261027-v1?scriptVersionId=362840784) has a `passed:true` saved receipt, SHA-256 `63449f29ac7c21e7b6bee3fe1a71ae80fdf517913b555fa1c13a99b2460e702e`, listing the same six archive bytes/SHA and CRC `passed`.
+
+The provider plan/partition were generated create-only from the previously saved group03 originals by replacing only the group-specific output-root paths and the resulting plan SHA reference. This transformation reproduced the existing group03 files byte-for-byte from group02 before use. The resulting group05 plan SHA-256 `4b0c6e5b63d5a7e28165454988650bcbdcc6b61ccea375899840197780574fe5` and partition SHA-256 `fddd50e4992855dd5519b8562bce1daee0a2dfc31ab20181a23e11a7b5405666` match all six saved group05 shard receipts. The parent plan/partition and frozen config bundle came from saved payload bytes.
+
+| Shard | Saved archive bytes | Saved archive SHA-256 | New local proof SHA-256 | Jobs |
+| --- | ---: | --- | --- | ---: |
+| `shard_0020` | 72,573,872 | `0dac16215393c6ef495a65a54e04837df2fbb6d012fa7f092d8c8de8a58d2213` | `62603d933a301841c181803144611c2dd94f868db2e98a95c0af24012e3bc550` | 20 |
+| `shard_0021` | 68,578,761 | `19eb373ce6943afe5c835037ab2b933bcdbee6bc0d244d0395ad8ffd4fbcf419` | `9d5c77d0eb2a302747e42191dc9f10d62754e236d79076765075ddbc69f9cc47` | 20 |
+| `shard_0022` | 59,264,349 | `1a7f7384ef7d25382cd6cec3c56dfee7eedf51117e34904ef0a5c4a68accae95` | `7c5233f38e232ca3d1b0ced59f7b912c98f6a42ca232bedeb6519b4263963bd8` | 20 |
+| `shard_0023` | 68,683,068 | `31183a84fe0ee0b44fe6941fcf70db31d28f3b8891d8ace87942b483df041064` | `34238cf427c6a97e87f4a74debf2d6bd46ada6f6b3949bacbb94c41837d249d7` | 20 |
+| `shard_0024` | 64,762,703 | `b40a08f88621d02ec6ac2259590fecb322b0355b5b41339861fb9c6d77852318` | `1e39b078bc78c96c204648e0c253c44af8b72b55b3e1a00620c7a6d2048cf6ae` | 20 |
+| `shard_0025` | 73,557,851 | `f337765856af83c7b46c810ad6cacfdace38a46e6f35aeea55b2582c90d092f8` | `ce1b8b11ab9b465a99e2c34c5dd3ec5b3b49328e86aa60b7fc91d36350783c7f` | 20 |
+
+The corrected verifier `tools/hung_kaggle_compact_proof.py` checked exact archive bytes/SHA, ZIP CRC, jobsets, receipt/manifest references, mandatory stage plans, config bytes and checkpoint/log references. Each run exited zero. All six create-only proof JSONs under `.cache/kaggle-proof-group05-stageplan-20261028/` contain 20 distinct `VERIFIED_ARCHIVE_BYTES_AND_STAGE_PLAN` rows. Across shard0001 and groups02–05, **420/560 Kaggle jobs** have corrected local exact-stage proof outside a new ledger snapshot, with 420 unique job IDs. The published v4 ledger remains 222/782 locally byte-verified until a new exact ledger is generated; 140 Kaggle jobs still need this check. Independent peer acceptance remains open. No training job was submitted or rerun.

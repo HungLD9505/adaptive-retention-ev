@@ -1,0 +1,66 @@
+{
+  "archive": {
+    "bytes": 48346859,
+    "crc": "passed",
+    "job_ids": [
+      "uncertainty_b7s11e1405",
+      "uncertainty_b7s11e2264",
+      "uncertainty_b7s11e2447",
+      "uncertainty_b7s11e2452",
+      "uncertainty_b7s19e1050",
+      "uncertainty_b7s19e1200",
+      "uncertainty_b7s19e1405",
+      "uncertainty_b7s19e2264",
+      "uncertainty_b7s19e2447",
+      "uncertainty_b7s19e2452",
+      "uncertainty_b7s7e1050",
+      "uncertainty_b7s7e1200",
+      "uncertainty_b7s7e1405",
+      "uncertainty_b7s7e2264",
+      "uncertainty_b7s7e2447",
+      "uncertainty_b7s7e2452"
+    ],
+    "peer_acceptance": "pending",
+    "remote_readback": "pending",
+    "sha256": "76b3f2196c514c04a44587a6e4502dc864b4f3d08614e1a4cea8e857eaef2be8"
+  },
+  "code_sha": "44b8532959d76fb20691881539f991ca44983727",
+  "execution": {
+    "exit_code": 0,
+    "log_sha256": "a787c6c24114bf8fc49e3423de762234bf875d2dcb8dc34313a5b900b1a77fd7",
+    "wall_seconds": 1659.888873600008
+  },
+  "kaggle_allocation_including_live_first_shard": 560,
+  "local_worker_process_record": {
+    "command": [
+      "C:\\Users\\HP\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "-u",
+      "-m",
+      "tools.hung_local_worker",
+      "--queue",
+      "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\development-allocation-v1\\local-queue.json",
+      "--queue-sha256",
+      "12f5bc9ee402a806faedc89574a4e00c427c384335a3868668adf8ce7f93a0f2",
+      "--evidence",
+      "D:\\\u0110\u00f4\u0300 A\u0301n\\.cache\\hung-provider-execution-v1\\.cache\\local-development-worker-v1",
+      "--execute"
+    ],
+    "pid": 35940,
+    "scope": "Wait for verified shard0039 then execute only 200 fixed disjoint local jobs",
+    "started_at_utc": "2026-10-26T20:36:21.101919+00:00"
+  },
+  "local_worker_state_observed": "Terminal barrier passed; shard_0037 evidence directory created; no completed-queue claim",
+  "new_jobs_completed_and_verified_locally": 22,
+  "new_jobs_with_provider_readback": 6,
+  "partition_sha256": "7dd340b84a51abca9dcb2e83490d088c07178ffbdbb9d81d68225d665a279c7f",
+  "peer_acceptance": "pending",
+  "plan_sha256": "2d448d2584f65baf7e09445e013b4283314b08ea2cce855c6850e9fc12ba87ee",
+  "remaining_local_queue": 200,
+  "remaining_new_jobs": 760,
+  "schema": "hung-local-shard0039-completed-v1",
+  "scope": "Development technical execution only; Final not opened",
+  "verification": {
+    "exit_code": 0,
+    "log_sha256": "09db314c6e23851cc8658429b72257afa39c61254ff861985bf70974f2275997"
+  }
+}

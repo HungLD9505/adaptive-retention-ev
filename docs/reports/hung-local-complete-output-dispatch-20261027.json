@@ -1,0 +1,76 @@
+{
+  "capsule": {
+    "bytes": 369295643,
+    "computed_runs": 149,
+    "cpu_version": 362699093,
+    "crc": "passed",
+    "dataset_url": "https://www.kaggle.com/datasets/hungluongduc/hung-local0407-review-capsule-20261027-v1/versions/1",
+    "helper_sha256": "78c4bd421ec0971023dca141ed8e81b22dbc97fe5c5855cd2511bfb30d1761be",
+    "log_sha256": "d6364db97f81c5f7e7a7d2e40b0febf8abba1c470f803e52ae0219406c6a6577",
+    "main_anchors": 69,
+    "native_wall_seconds": 45.7,
+    "new_local_jobs": 80,
+    "scored_runs": 78,
+    "sha256": "237aee82487d32ea9da8f42b4aaf91a9695765491f3da91875744cf3b5155957",
+    "source_sha256": "4b5f09c0fcadad55e6851f43d1def94fe2c3c3bc003999f8d52b6aaf6f8ac0a3",
+    "upload_only_elapsed_seconds": null,
+    "verification_seconds": 33.626378262
+  },
+  "completed_new_jobs": 382,
+  "historical_block7_status": "EXTERNAL_COMPLETE_UNMATCHED",
+  "historical_main_anchors": 69,
+  "hybrid_v4": {
+    "blocked_pairs": 142,
+    "new_shard7_export_sha256": "31f0084bfcacb0d423a55b8d9d15f29d7c3c77d319fdfcc915c091aafcea681a",
+    "paired_cells": 166,
+    "result_sha256": "bfdff9be47653c25ea5e15049b35e9148f4dfffc750a4249ec5afd0ccf73f39c",
+    "runs": 371,
+    "scorable_runs": 196,
+    "spec_sha256": "f1eb33723e9cb9b6038b02cc38a14a7e16b7652e2dd8e232505720d2d6d09446",
+    "zero_scored_runs": 175
+  },
+  "local_completion": {
+    "all_local_report_snapshots_complete": true,
+    "bounded_remainder39_jobs": 16,
+    "fixed_queue_jobs": 200,
+    "pilot_jobs": 6,
+    "through7_counts": {
+      "runs": 291,
+      "scorable_runs": 154,
+      "zero_scored_runs": 137
+    },
+    "total_new_local_jobs": 222
+  },
+  "observed_at_utc": "2026-10-27T04:24:09.296667+00:00",
+  "output_dispatcher": {
+    "initial_group_index": 2,
+    "launcher_sha256": "f4a41b7689f6899979c9c1f76edae5bbea7c4080d7fb72d61f51f3ef6cb8f690",
+    "manifest_sha256": "167eedc010cd9a216fa14eac96c35b80f1664f965b6e4de424e64f53492c7ac8",
+    "observed_state": "RUNNING awaiting predecessor",
+    "scope": "Only fixed groups14\u201319,20\u201325,26\u201328,33\u201334,35\u201336; blocked until existing13 GPU+CPU proof complete",
+    "successor_jobs": 380,
+    "version": 362696128
+  },
+  "remote_readback_verified_new_jobs": 382,
+  "review": {
+    "final_locked_or_run": false,
+    "issue39_comments": 5,
+    "pr66_head": "c269cfa181981224198f3d8535f8c87135e62620",
+    "pr68_head": "315113f73840e0f36d1930ae0373d6b61fe0e6f9",
+    "pr70_review_submissions": 0,
+    "pr72_review_submissions": 0,
+    "substitution_accepted": false
+  },
+  "scope": "development_only",
+  "uncertified_new_jobs": 400,
+  "validation": {
+    "exit_code": 0,
+    "focused_tests": 28,
+    "full_tests": 393,
+    "ruff": "PASS147 files before new readback notebook; rerun recorded below",
+    "skips": 1,
+    "source_head": "30fe7d196d9e3ede954384089790e718aa314d32",
+    "suite_seconds": 159.877,
+    "wrapper_seconds": 167.0402391
+  }
+}
