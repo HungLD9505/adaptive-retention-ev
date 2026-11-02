@@ -1,5 +1,14 @@
 # Confidence controller — Issue #20
 
+![Adaptive replay and retention selection](../diagrams/adaptive-loop.svg)
+
+The diagram follows one forecast origin across ticks in the integrated primary
+runner. At each actual tick, earlier label arrivals are processed before a due
+boundary and the new forecast. Pending labels do not halt the replay clock.
+The helper contract below describes the selection component; fixed/proxy policies
+are separate. See the [complete diagram notes](../diagrams/README.md#3-adaptive-replay).
+
+
 Implementation: `ev_control/confidence.py`, algorithm `ev-retention-controller-mbb-v1`.
 Method references: Report 1 §6 and the [Sprint 2 requirements](../SPRINT_PLAN.md).
 This is an independently authored, model-independent decision helper. It does not

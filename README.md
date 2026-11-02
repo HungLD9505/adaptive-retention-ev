@@ -20,30 +20,12 @@ source-retention strategies under causal 24→24 forecasting.
 
 ![Primary research system](docs/diagrams/system.svg)
 
-Explore the [data pipeline and Adaptive replay](docs/diagrams/README.md): separate
-UrbanEV/CHARGED processing, prefix-only scaling, forecasts saved before label
-access, and selection from trained candidate states. The views describe the primary
-implementation; the member studies retain their own settings.
+The overview maps primary code responsibilities. For the two detailed views:
 
-<details open>
-<summary><strong>Data pipeline — UrbanEV and CHARGED</strong></summary>
+- [Data pipeline: UrbanEV/CHARGED preparation and separated labels](docs/data/DATA_FLOW.md).
+- [Adaptive mechanism: forecast, observe, update and select](docs/data/CONTROLLER_CONTRACT.md).
 
-![UrbanEV and CHARGED data preparation pipeline](docs/diagrams/data-pipeline.svg)
-
-Separate dataset/city preparation, prefix-only scaling, training examples,
-prediction inputs and availability-controlled labels.
-
-</details>
-
-<details open>
-<summary><strong>Adaptive replay — forecasts, labels and retention decisions</strong></summary>
-
-![Adaptive prequential replay and label-availability gates](docs/diagrams/adaptive-loop.svg)
-
-Forecasts are saved before labels are accessed. Complete available labels permit
-scoring and updates; block-boundary decisions carry the selected trained state.
-
-</details>
+Member implementations retain their own settings and evidence boundaries.
 
 ## Results and interpretation
 
