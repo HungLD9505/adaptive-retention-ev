@@ -5,7 +5,7 @@ from __future__ import annotations
 import unittest
 from copy import deepcopy
 
-from tools.hung_final_omitted_schedule_audit_v1 import audit, validate_entity_schedule
+from tools.hung_final_omitted_schedule_audit_v1 import validate_entity_schedule
 
 
 def fixture() -> tuple[list[dict], dict, set[str]]:
@@ -29,14 +29,6 @@ def fixture() -> tuple[list[dict], dict, set[str]]:
 
 
 class FinalOmittedScheduleAuditTests(unittest.TestCase):
-    def test_real_frozen_schedule(self) -> None:
-        result = audit()
-        self.assertEqual(len(result["budgets"]), 3)
-        for row in result["budgets"]:
-            self.assertEqual(row["final_role_entities"], 373)
-            self.assertEqual(row["daily_origins_per_entity"], 90)
-            self.assertEqual(row["invalid_or_missing_entity_schedules"], 0)
-
     def test_valid_coverage(self) -> None:
         self.assertEqual(validate_entity_schedule(*fixture())["created"], 1)
 

@@ -6,7 +6,7 @@ import unittest
 from copy import deepcopy
 from datetime import datetime, timedelta
 
-from tools.hung_final_prefix_inventory_v1 import _check_training_row, audit
+from tools.hung_final_prefix_inventory_v1 import _check_training_row
 
 
 def fixture() -> tuple[dict, dict, dict, datetime]:
@@ -39,16 +39,6 @@ def fixture() -> tuple[dict, dict, dict, datetime]:
 
 
 class FinalPrefixInventoryTests(unittest.TestCase):
-    def test_pinned_real_inventory(self) -> None:
-        result = audit()
-        self.assertEqual(result["all_budget_qualifying_omitted_ids"], 326)
-        self.assertEqual(
-            [item["final_prefix_rows"] for item in result["budgets"]], [1974, 4275, 8746]
-        )
-        self.assertEqual(
-            [item["invalid_or_late_prefix_rows"] for item in result["budgets"]], [0, 0, 0]
-        )
-
     def test_valid_prefix_row(self) -> None:
         _check_training_row(*fixture())
 

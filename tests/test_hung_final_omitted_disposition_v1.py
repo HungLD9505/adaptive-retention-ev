@@ -5,7 +5,7 @@ from __future__ import annotations
 import unittest
 from copy import deepcopy
 
-from tools.hung_final_omitted_disposition_v1 import audit, classify_entity
+from tools.hung_final_omitted_disposition_v1 import classify_entity
 
 
 def fixture() -> dict[int, dict]:
@@ -22,22 +22,6 @@ def fixture() -> dict[int, dict]:
 
 
 class FinalOmittedDispositionTests(unittest.TestCase):
-    def test_real_frozen_partition(self) -> None:
-        result = audit()
-        self.assertEqual(result["omitted_count"], 370)
-        self.assertEqual(
-            result["disposition_counts"],
-            {
-                "POSITIVE_PREFIX_ALL_BUDGETS": 326,
-                "UNDEFINED_SCALE_ANY_BUDGET": 33,
-                "ZERO_PREFIX_ANY_BUDGET_READY": 11,
-            },
-        )
-        self.assertEqual(len({row["entity_id"] for row in result["records"]}), 370)
-        mixed = next(row for row in result["records"] if row["entity_id"] == "1004")
-        self.assertEqual(mixed["disposition"], "ZERO_PREFIX_ANY_BUDGET_READY")
-        self.assertEqual([budget["initial_trainable"] for budget in mixed["budgets"]], [0, 0, 11])
-
     def test_mixed_zero_prefix_is_preserved(self) -> None:
         entities = fixture()
         for budget in (7, 14):

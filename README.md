@@ -2,7 +2,7 @@
 
 Foundation for **Adaptive Transfer Learning for Cold-Start EV Charging Demand Forecasting**. Work follows **Issue → working branch → PR → `dev`**. Updating `main` requires a separate instruction.
 
-**Integration candidate:** this branch combines the data/input foundation, the primary GRU/controller/runner/baseline/evaluation implementation and isolated member studies for review into `dev`. It is not yet the accepted `dev` release. The shared data snapshot includes raw, hourly and prepared 7/14/28-day inputs. See the [integrated verification and acceptance record](docs/reports/data-integration.md) for checks, scope and the lead-directed review exception. The [integration handoff](docs/reports/dev-integration-final-20261102.md) records the preserved heads, local verification and outstanding review limits. Large data stays on Drive/outside Git.
+**Integration snapshot:** this source tree combines the data/input foundation, the primary GRU/controller/runner/baseline/evaluation implementation and isolated member studies for `dev`. The lead-directed integration scope, local checks and remaining scientific limits are recorded below. The shared data snapshot includes raw, hourly and prepared 7/14/28-day inputs. See the [integrated verification and acceptance record](docs/reports/data-integration.md) for checks, scope and the lead-directed review exception. The [integration handoff](docs/reports/dev-integration-final-20261102.md) records the preserved heads, local verification and outstanding review limits. Large data stays on Drive/outside Git.
 
 **Research evidence as of 30 October 2026:** Qyroven's frozen Final has completed all 810 whole units / 11,340 method cells across seven namespaces, including analysis and output/bootstrap audits. Hùng has a separate bounded 360-job Final on three UrbanEV stations. The [joint evidence synthesis](docs/reports/issue23-joint-evidence-synthesis-20261030.md), [full-precision result tables and source hashes](docs/reports/issue23-joint-evidence-synthesis-20261030-v1.json), and [primary Final handoff](docs/reports/issue23-final-complete-handoff-20261029.md) distinguish the completed evidence from pending scientific review, integration, CI and scope decisions. The two implementations and cohorts must not be pooled or ranked by their absolute MAE. A consistent accuracy benefit of confidence-based selection over Fixed Retention or online best-lambda has not been established.
 
@@ -46,9 +46,9 @@ smoke from pending scientific validation and Final configuration approval.
   fixed-model Development study with separate settings and historical dependencies.
   It is not an online controller benchmark.
 - **Cyber study:** `experiments/member_studies/cyber_controller/` is preserved as
-  a historical independent implementation with [open correctness findings](
-  experiments/member_studies/cyber_controller/README.md). Its presence and passing
-  unit tests do not accept its replay as availability-correct evidence.
+  a separate implementation with [corrected input and replay guards](
+  experiments/member_studies/cyber_controller/README.md). Historical scores were not
+  rerun and are not outputs of the corrected IO version.
 - **Hung supporting track:** `experiments/hung_sprint2/` and the `tools/hung_*`
   utilities preserve #72 as a separate implementation. Historical Development and
   bounded three-station Final results remain distinct from primary results.
@@ -75,6 +75,10 @@ py -3.12 -m venv .venv
 python -m pip install -r requirements-dev.txt
 python -m pip install -r requirements-model.txt
 ```
+
+Run the offline checks below. Historical artifact checks are separate; see
+[external artifact verification](tests/artifact/README.md). No GPU or dataset download
+is required for these offline commands.
 
 Run before opening a PR:
 

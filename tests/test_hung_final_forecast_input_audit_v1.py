@@ -6,7 +6,7 @@ import unittest
 from copy import deepcopy
 from datetime import datetime, timedelta
 
-from tools.hung_final_forecast_input_audit_v1 import audit, validate_forecast
+from tools.hung_final_forecast_input_audit_v1 import validate_forecast
 
 
 def fixture() -> tuple[dict, dict]:
@@ -36,17 +36,6 @@ def fixture() -> tuple[dict, dict]:
 
 
 class FinalForecastInputAuditTests(unittest.TestCase):
-    def test_real_pinned_forecasts_match_created_schedule(self) -> None:
-        result = audit()
-        self.assertEqual(
-            [row["final_created_and_forecast_inputs"] for row in result["budgets"]],
-            [25978, 26022, 26146],
-        )
-        self.assertEqual(
-            [row["missing_or_extra_forecast_inputs"] for row in result["budgets"]],
-            [0, 0, 0],
-        )
-
     def test_valid_forecast_binding(self) -> None:
         row, entity = fixture()
         self.assertEqual(

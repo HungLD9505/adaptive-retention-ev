@@ -1,0 +1,74 @@
+[
+  {
+    "module": "test_hung_block7_code_lineage_v1",
+    "tests": [
+      "test_duplicate_cell_rejected",
+      "test_manifest_sha_mismatch_rejected",
+      "test_real_manifest_and_git_source_identity"
+    ],
+    "destination": "tests/artifact/test_hung_block7_code_lineage_v1.py"
+  },
+  {
+    "module": "test_hung_block7_journal_stage",
+    "tests": [
+      "test_pinned_request_has_exact_138_distinct_journals"
+    ],
+    "destination": "tests/artifact/test_hung_block7_journal_stage.py"
+  },
+  {
+    "module": "test_hung_final_forecast_input_audit_v1",
+    "tests": [
+      "test_real_pinned_forecasts_match_created_schedule"
+    ],
+    "destination": "tests/artifact/test_hung_final_forecast_input_audit_v1.py"
+  },
+  {
+    "module": "test_hung_final_omitted_disposition_v1",
+    "tests": [
+      "test_real_frozen_partition"
+    ],
+    "destination": "tests/artifact/test_hung_final_omitted_disposition_v1.py"
+  },
+  {
+    "module": "test_hung_final_omitted_schedule_audit_v1",
+    "tests": [
+      "test_real_frozen_schedule"
+    ],
+    "destination": "tests/artifact/test_hung_final_omitted_schedule_audit_v1.py"
+  },
+  {
+    "module": "test_hung_final_prefix_inventory_v1",
+    "tests": [
+      "test_pinned_real_inventory"
+    ],
+    "destination": "tests/artifact/test_hung_final_prefix_inventory_v1.py"
+  },
+  {
+    "module": "test_hung_final_scope_source_audit_v1",
+    "tests": [
+      "test_changed_jobset_rejected",
+      "test_changed_source_fingerprint_rejected",
+      "test_real_pinned_inventory"
+    ],
+    "destination": "tests/artifact/test_hung_final_scope_source_audit_v1.py"
+  },
+  {
+    "module": "test_hung_final_scope_source_audit_v2",
+    "tests": [
+      "test_changed_jobset_rejected",
+      "test_changed_source_fingerprint_rejected",
+      "test_changed_source_run_manifest_rejected",
+      "test_real_pinned_inventory"
+    ],
+    "destination": "tests/artifact/test_hung_final_scope_source_audit_v2.py"
+  },
+  {
+    "module": "test_hung_q_controller_decision_sensitivity_v1",
+    "tests": [
+      "test_quantile_source_matches_independent_example",
+      "test_real_pinned_development_decisions",
+      "test_saved_decision_mismatch_is_rejected"
+    ],
+    "destination": "tests/artifact/test_hung_q_controller_decision_sensitivity_v1.py"
+  }
+]

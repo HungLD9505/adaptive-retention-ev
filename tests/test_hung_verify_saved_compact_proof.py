@@ -12,9 +12,7 @@ from tools.hung_verify_saved_compact_proof import readback, sha256
 
 class SavedCompactProofReadbackTests(unittest.TestCase):
     def test_version_pinned_local_readback(self):
-        with tempfile.TemporaryDirectory(
-            dir=Path(__file__).resolve().parents[1] / ".cache"
-        ) as temp:
+        with tempfile.TemporaryDirectory() as temp:
             self._check_version_pinned_local_readback(Path(temp))
 
     def _check_version_pinned_local_readback(self, tmp_path):
