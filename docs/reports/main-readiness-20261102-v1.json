@@ -1,0 +1,71 @@
+{
+  "schema": "main-readiness-verification-v1",
+  "checked_code_commit": "b751d491272fa9964ffd74b8bdc9a0051bb6070b",
+  "clean_checkout": "/tmp/ev-main-readiness-clean-20261102",
+  "tests": {
+    "root": {
+      "discovered": 892,
+      "skipped": 2,
+      "status": "passed",
+      "log_sha256": "b59e514ad0772b37d9c427c3ce46890128875014ea5994085c59875c053ad6a1"
+    },
+    "duc": {
+      "discovered": 9,
+      "skipped": 0,
+      "status": "passed",
+      "log_sha256": "a55649ffd01a2f2eb4e94dcb46680b07e96e01cb336366e6b3b9a91d1686fe88"
+    },
+    "cyber": {
+      "discovered": 12,
+      "skipped": 0,
+      "status": "passed",
+      "log_sha256": "1d1f363d023c011b0539813deb5c54c00ce95e6a883c9d7094119cdffabcee8f"
+    }
+  },
+  "total_discovered": 913,
+  "total_skipped": 2,
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.11.0",
+    "numpy": "2.3.3",
+    "ruff": "0.17.0",
+    "platform": "macOS 26.5.2 arm64"
+  },
+  "ruff_lint": "passed",
+  "ruff_format": {
+    "passed": true,
+    "files": 870
+  },
+  "catalog_list": "passed",
+  "release_check": {
+    "schema": "ev-report-release-check-v1",
+    "status": "passed",
+    "code_commit": "b751d491272fa9964ffd74b8bdc9a0051bb6070b",
+    "report_files_verified": 17,
+    "historical_source_pins_verified": 92,
+    "member_source_heads_preserved": [
+      "HungLD9505",
+      "Qyroven",
+      "hung00cyber",
+      "huuduc32"
+    ],
+    "external_artifacts_verified": false,
+    "fresh_pdf_compile": false,
+    "github_contributors_ui_verified": false
+  },
+  "git_clean_before_after": true,
+  "new_commit_diff_whitespace": "passed",
+  "external_artifact_tests_not_run": 18,
+  "new_real_data_training": false,
+  "fresh_pdf_compile": false,
+  "remote_ci_pass": false,
+  "independent_approval": false,
+  "main_promoted": false,
+  "scope_disposition": {
+    "23": "not_planned_with_completed_primary_evidence",
+    "39": "not_planned_with_bounded_supporting_evidence",
+    "40": "not_planned_with_unverified_distribution",
+    "41": "not_planned_with_unvalidated_corrected_code",
+    "15": "open_release_decision"
+  }
+}

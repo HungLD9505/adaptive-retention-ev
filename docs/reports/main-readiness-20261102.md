@@ -32,3 +32,24 @@ not scientific effectiveness. Full clean-checkout checks and the candidate SHA a
 recorded after execution; later documentation-only changes are distinguished from
 the tested code. No actual real-data training or missing-artifact verification is
 performed for release preparation.
+
+## Verified candidate
+
+Code commit `b751d491272fa9964ffd74b8bdc9a0051bb6070b` was tested in a fresh shared Git clone
+with a clean tracked checkout before and after checks. Root discovery ran
+892 tests, with two CUDA skips; Đức ran 9 and Cyber ran 12.
+Total: **911 passed, 2 skipped**. Ruff lint and format (870 Python files),
+source catalog listing, release provenance checks and this change's whitespace
+check passed. Expected negative-fixture diagnostics are not suite failures.
+
+The [machine-readable verification](main-readiness-20261102-v1.json) records the
+environment, log hashes and limitations. Eighteen external-artifact tests were not
+run. No fresh training, PDF compilation, remote CI pass or independent approval is
+claimed. Subsequent edits in this PR are documentation-only. Main remains unchanged.
+
+The complete main candidate includes the earlier integrated implementations and
+17 byte-identical report assets. Vendor/template whitespace already preserved in
+that history means a full main-to-dev whitespace check is not clean; this change
+does not rewrite the original report source to conceal it. All four original
+member source heads remain ancestors; GitHub contributor-profile visibility on the
+default branch is not established before promotion.
