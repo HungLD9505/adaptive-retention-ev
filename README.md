@@ -25,6 +25,26 @@ UrbanEV/CHARGED processing, prefix-only scaling, forecasts saved before label
 access, and selection from trained candidate states. The views describe the primary
 implementation; the member studies retain their own settings.
 
+<details open>
+<summary><strong>Data pipeline — UrbanEV and CHARGED</strong></summary>
+
+![UrbanEV and CHARGED data preparation pipeline](docs/diagrams/data-pipeline.svg)
+
+Separate dataset/city preparation, prefix-only scaling, training examples,
+prediction inputs and availability-controlled labels.
+
+</details>
+
+<details open>
+<summary><strong>Adaptive replay — forecasts, labels and retention decisions</strong></summary>
+
+![Adaptive prequential replay and label-availability gates](docs/diagrams/adaptive-loop.svg)
+
+Forecasts are saved before labels are accessed. Complete available labels permit
+scoring and updates; block-boundary decisions carry the selected trained state.
+
+</details>
+
 ## Results and interpretation
 
 The primary frozen execution covers **810 units / 11,340 method cells**, seven
