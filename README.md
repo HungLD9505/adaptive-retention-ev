@@ -25,7 +25,7 @@ The overview maps primary code responsibilities. For the two detailed views:
 - [Data pipeline: UrbanEV/CHARGED preparation and separated labels](docs/data/DATA_FLOW.md).
 - [Adaptive mechanism: forecast, observe, update and select](docs/data/CONTROLLER_CONTRACT.md).
 
-Member implementations retain their own settings and evidence boundaries.
+Alternate implementations retain their own settings and evidence boundaries.
 
 ## Results and interpretation
 
@@ -44,7 +44,7 @@ Fixed. Read the [report](report/Adaptive_Retention_Report.pdf),
 [paired evidence and limitations](docs/reports/issue23-joint-evidence-synthesis-20261030.md)
 and [full-precision tables](report/full-results.csv).
 
-Hùng's separate bounded 360-job Final and the Đức/Cyber studies use different
+The separate bounded 360-job Final and the diagnostic studies use different
 settings. Their scores are not pooled with the primary evaluation or ranked by
 absolute MAE.
 
@@ -90,8 +90,8 @@ verify identities locally; historical checksums alone do not prove a fresh downl
 | `ev_runner/` | Causal replay, label gates, updates and checkpoints |
 | `ev_baselines/`, `ev_evaluation/` | Comparisons, metrics and verification |
 | `tools/`, `configs/` | Data/experiment utilities and versioned configurations |
-| `experiments/hung_sprint2/` | Separate supporting implementation |
-| `experiments/member_studies/` | Isolated Đức and Cyber studies |
+| `experiments/hung_sprint2/` | Alternate end-to-end training, replay and evaluation pipeline |
+| `experiments/member_studies/` | Fixed-adaptation and confidence-controller diagnostic implementations |
 | `report/` | Report PDFs, LaTeX sources, vector figures and result tables |
 | `docs/` | Diagrams, contracts, curated evidence and archive navigation |
 | `tests/` | Offline fixtures and separate artifact verification |
@@ -100,8 +100,8 @@ verify identities locally; historical checksums alone do not prove a fresh downl
 
 [RELEASE_SCOPE.md](RELEASE_SCOPE.md) states the exact inclusion scope and unresolved
 criteria. Full end-to-end compute accounting, expanded supporting reproduction,
-a verified Đức bundle distribution link and corrected-code Cyber real-data results
-remain incomplete. Fixtures for Cyber's [corrected IO guards](
+a verified CPU-adaptation artifact distribution link and corrected diagnostic-controller results
+remain incomplete. Fixtures for the [corrected diagnostic IO guards](
 experiments/member_studies/cyber_controller/README.md) do not turn historical scores
 into corrected-code results. No further real-data training is planned for this release.
 
@@ -110,14 +110,6 @@ The primary results belong to frozen source tag
 [Report 1](adaptive_retention_report_1.pdf) remains the method reference.
 The [evidence index](docs/reports/README.md) distinguishes retained results and
 validation dependencies from [historical reports](docs/ARCHIVE_INDEX.md).
-
-## Team and contributions
-
-The source history preserves contributions from [Qyroven](https://github.com/Qyroven),
-[HungLD9505](https://github.com/HungLD9505), [huuduc32](https://github.com/huuduc32)
-and [hung00cyber](https://github.com/hung00cyber). Integration preserves their
-original commits; implementation contribution is distinct from scientific
-validation of each result.
 
 Follow [AGENTS.md](AGENTS.md) and the [workflow](docs/WORKFLOW.md) for changes.
 Work integrates through `dev`; updating `main` requires a separate instruction.

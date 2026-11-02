@@ -1,7 +1,7 @@
-# Duc: independent retention study (#40)
+# Fixed-model target-adaptation study
 
-This isolated implementation was prepared with Codex for huuduc32. It does not replace
-the co-leads' shared model API, runner, controller, or official results.
+This isolated implementation evaluates fixed-model target adaptation. Its settings
+and results are separate from the primary online forecasting pipeline.
 
 ## Scope and model
 
@@ -10,7 +10,7 @@ hidden dimension 64, with no dropout. The last hidden state is concatenated with
 the flattened 24x5 future calendar. Our explicit MLP choice is
 Linear(184,64), ReLU, Linear(64,24), Softplus. This head width is an implementation
 choice, not an independently established optimum or guaranteed weight compatibility
-with another member's head. The same architecture is used for our Source and targets.
+with another implementation's head. The same architecture is used for our Source and targets.
 
 The forecast loss is mean absolute error over batch and 24 normalized outputs.
 Retention is the mean over batch and 64 dimensions of
@@ -50,7 +50,7 @@ significance, optimal lambda, physical-site independence, or strict-online valid
 
 ## Run (Python 3.12, CPU)
 
-The user authorized local CPU execution on 2026-10-26 instead of Colab. Install
+The recorded execution used a local CPU environment. Install
 study dependencies separately; foundation requirements and CI stay unchanged.
 
 ```sh

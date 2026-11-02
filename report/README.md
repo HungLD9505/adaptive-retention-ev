@@ -6,7 +6,7 @@ It supersedes the earlier thesis outline in PR #54.
 Read the exported [main report](Adaptive_Retention_Report.pdf) and
 [supplement](Adaptive_Retention_Supplement.pdf) directly. These are the unchanged
 31 October exports authenticated by `verification.json`, not newly compiled PDFs. The report distinguishes the
-primary UrbanEV/CHARGED evaluation from Hùng's separate supporting implementation.
+primary UrbanEV/CHARGED evaluation from the separate supporting implementation.
 
 - Main document: `retention-manuscript-v8.tex`.
 - Supplement: `retention-supplement-v8.tex`.

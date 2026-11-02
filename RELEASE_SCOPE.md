@@ -1,62 +1,52 @@
-# Main candidate: supervisor-report research snapshot
+# Research snapshot: contents and limitations
 
-This release candidate consolidates the work in dev for the student research report.
-It is not a claim of universal Adaptive superiority, complete dual-implementation
-replication, calibrated future-switch safety, or a curated public dataset release.
+This repository contains the primary 24→24 forecasting implementation, separate
+supporting/diagnostic implementations and the report's identified evidence.
 
-| Include on main | Purpose and boundary |
+| Location | Contents |
 |---|---|
-| `ev_inputs`, `ev_models`, `ev_control`, `ev_runner`, `ev_baselines`, `ev_evaluation` | Primary 24→24 pipeline and analysis; original results belong to the frozen source, not later verifier revisions |
-| `tools` and `configs` | Identified data/replay/verification utilities and frozen configs; historical operation tools are not instructions to resume production |
-| `report` | Exact delivered report/supplement PDFs and source, figures and result tables; no new compile or numerical result is claimed |
-| `experiments/member_studies` | Attributable isolated studies with their actual validation boundaries; not primary Final evidence |
-| `experiments/hung_sprint2` | Separately identified supporting implementation and bounded three-station evidence; no pooled scores or full cross-city equivalence |
-| `docs/data`, selected entry points and curated `docs/reports` | Contracts, final provenance, negative/null outcomes and verification dependencies; intermediate drafts are retained in the archive tag |
-| Offline tests and explicit external-artifact tests | Keep fixture checks distinct from checks that require original trained artifacts |
+| `ev_inputs`, `ev_models`, `ev_control`, `ev_runner` | Prepared-input contracts, GRU and losses, retention selection and causal replay |
+| `ev_baselines`, `ev_evaluation`, `tools`, `configs` | Comparisons, analysis, verification utilities and versioned settings |
+| `experiments/hung_sprint2` | Alternate end-to-end implementation and bounded three-station evaluation |
+| `experiments/member_studies` | Fixed-adaptation and confidence-controller diagnostics |
+| `report` | Exported report/supplement PDFs, original LaTeX source, figures and result tables |
+| `docs`, `tests` | Technical contracts, vector diagrams, provenance and validation fixtures |
 
-Do not include raw archives, processed/input datasets, environments, checkpoints,
-large runs, temporary manuscript builds or local operational state in Git. They stay
-in ignored storage with recorded hashes. Superseded branches remain in SHA-pinned
-archive tags; they are not additional active implementations to run.
+Raw/input data, environments, trained checkpoints, large runs and preview/build
+outputs are stored outside Git. Superseded operational records remain available
+through the [archive index](docs/ARCHIVE_INDEX.md).
 
-## Scope limits retained for this report
+## Evidence boundaries
 
-- **#23:** Primary 810-unit/11,340-cell Final and analysis are complete. Missing full
-  end-to-end timing/memory/billing information cannot be recovered from update counts;
-  lost compute and incomplete timing remain unknown. No new training is planned to
-  replace those observations. The original unrestricted accounting acceptance is
-  retired as **not planned**, rather than declared experimentally satisfied.
-- **#39:** Hùng's bounded 360-job supporting result is retained. The earlier expanded
-  full dual-E2E/cross-city/reproduction assignment is not complete and is not needed
-  to label the primary report's actual scope. That expansion is **not planned** for
-  this release; disputed physical lineage and incomplete private-artifact reproduction
-  remain explicit limits, not approved replications.
-- **#40:** Đức's bounded CPU study and recorded 152 artifact/49 checkpoint checks are
-  preserved. The reported 23,035,669-byte bundle has no verified distribution link in
-  this release. That unresolved handoff is **not planned** here; successful Drive
-  upload/access is not invented. No training is repeated.
-- **#41:** Cyber's historical results stay separate from the corrected IO code.
-  Fixtures validate the new guards; they do not create corrected real-data results.
-  New training/validation is **not planned** here, and the old result is not relabeled.
-- **#15:** Remains the release decision gate until the exact candidate is chosen for
-  main and the final handoff is actually made. Closing research-scope tickets as
-  not planned does not close that release gate or assert its November 6 goal achieved.
+- The primary frozen Final covers 810 units and 11,340 method cells, with null
+  outcomes retained. Complete end-to-end runtime/memory/billing information is
+  unavailable; missing or lost compute is not inferred from update counts.
+- The alternate implementation's 360-job evaluation covers three stations. Expanded
+  cross-city execution and full independent private-artifact reproduction are not
+  established. Physical-lineage limitations remain explicit.
+- The CPU fixed-adaptation study records 152 artifact and 49 checkpoint checks.
+  A verified distribution link for its reported 23,035,669-byte bundle is unavailable.
+- Diagnostic-controller IO guards are fixture-tested. Its historical scores are
+  not outputs of the corrected IO version; corrected-code real-data results remain
+  unverified.
+- Source-based and adaptive-selection benefits are distinct. These results do not
+  establish universal Adaptive superiority, full cross-implementation equivalence
+  or a calibrated guarantee of future switch benefit.
 
-The human lead requested no additional training and waived paid-CI waiting/non-author
-review for repository integration. These are recorded lead exceptions, not independent
-scientific approval or remote CI success. Any later training, method change or scope
-extension requires its own versioned experiment; it cannot rewrite the frozen evidence.
+## Reproduction identity and verification
 
-## Reproduction identity
+Original primary scientific source: `evidence/primary-final-20261027-v2`, commit
+`61c32328d9829a69037dca629f727b4863015122`. The 92 tracked frozen pins match that
+historical source; later verification/metadata changes have a separate identity.
+Existing run bytes, cohorts, seeds, source references and numerical results are
+not replaced by the current checkout.
 
-Original scientific source: `evidence/primary-final-20261027-v2` at
-`61c32328d9829a69037dca629f727b4863015122`. All 92 tracked pins match that source.
-Current verifier/metadata hardening is versioned separately and does not alter old
-run bytes, expected hashes, cohorts, seeds, model or loss. No new broad performance
-or equivalence claim follows from source integration.
+Run `python -m tools.check_release` for an offline source/package check. It verifies
+report-source bytes, original tracked source pins, preserved source history and
+excluded tracked-storage paths. It does not download missing artifacts, train,
+compile PDFs or establish scientific effectiveness. Eighteen external-artifact
+checks require original files and are separate from the offline fixtures.
 
-Run `python -m tools.check_release` for an offline package/provenance check. It checks
-report bytes, source-head reachability, original tracked source and excluded tracked
-storage paths. It does not download data, train, verify missing remote artifacts,
-compile PDFs or certify GitHub's contributor UI. The original export remains the
-last actual PDF compile/layout check.
+The exported PDF identities are recorded in `report/verification.json`. Offline
+checks do not constitute remote CI success or independent scientific approval.
+See the [evidence index](docs/reports/README.md) for results and validation records.
