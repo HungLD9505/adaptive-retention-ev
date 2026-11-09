@@ -13,7 +13,7 @@ from ev_runner.continuous_run import code_identity as continuous_code_identity
 from ev_runner.replay import Labels
 from ev_runner.run import runtime_code as discrete_code_identity
 from ev_search.comparison import event_hashes, execute_job, plan_jobs
-from ev_search.comparison_verify import _scores, verify_matrix
+from ev_search.comparison_verify import _scores, _verify_full_horizon, verify_matrix
 
 TARGETS = ("1405", "2152", "1153", "1693")
 
@@ -33,6 +33,8 @@ class FakeInputs:
 class FakeReplay:
     scale = 1.0
     start = datetime.fromisoformat("2023-01-03T00:00:00+08:00")
+    stop = start + timedelta(days=1)
+    delay = timedelta(0)
 
     def __init__(self, inputs, target, days):
         assert days == 90
@@ -114,10 +116,70 @@ def fixtures(root, *, fixed=0.5, initial=0.5):
         source = root / f"seed-{seed}.pt"
         source.write_text(str(seed))
         sources[str(seed)] = {"path": str(source), "sha256": digest(source)}
+    (root / "source-bindings.json").write_text(json.dumps(sources))
+    (root / "audit.json").write_text(
+        json.dumps(
+            {
+                "status": "PASS",
+                "inputs": {
+                    "budgets": {"14": {"manifest_sha256": FakeInputs.sha256}},
+                    "source_population_sha256": FakeInputs.source_hash,
+                },
+                "source": {
+                    seed: {"checkpoint_sha256": source["sha256"]}
+                    for seed, source in sources.items()
+                },
+            }
+        )
+    )
     return protocol_path, lock_path, sources
 
 
 class ComparisonTests(unittest.TestCase):
+    def test_truncated_run_fails_full_horizon(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for index in range(2):
+                (root / f"tick-{index:04d}").mkdir()
+            with self.assertRaisesRegex(ValueError, "declared horizon"):
+                _verify_full_horizon(root, FakeReplay(None, "1405", 90))
+            (root / "tick-0002").mkdir()
+            _verify_full_horizon(root, FakeReplay(None, "1405", 90))
+
+    def test_forged_all_seed_sources_fail_trusted_audit(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            protocol, lock, sources = fixtures(root)
+            inputs = FakeInputs()
+            jobs = plan_jobs(inputs, protocol, lock, sources)
+            for job in jobs:
+                job["source_sha256"] = "f" * 64
+            for source in sources.values():
+                source["sha256"] = "f" * 64
+            (root / "source-bindings.json").write_text(json.dumps(sources))
+            with self.assertRaisesRegex(ValueError, "trusted local audit"):
+                verify_matrix(
+                    jobs,
+                    root / "runs",
+                    inputs,
+                    protocol,
+                    lock,
+                    source_audit_path=root / "audit.json",
+                    source_audit_sha256=digest(root / "audit.json"),
+                )
+            audit_sha = digest(root / "audit.json")
+            (root / "audit.json").write_text((root / "audit.json").read_text() + " ")
+            with self.assertRaisesRegex(ValueError, "audit bytes changed"):
+                verify_matrix(
+                    jobs,
+                    root / "runs",
+                    inputs,
+                    protocol,
+                    lock,
+                    source_audit_path=root / "audit.json",
+                    source_audit_sha256=audit_sha,
+                )
+
     def test_verifier_rejects_forecast_or_score_at_wrong_tick(self):
         with tempfile.TemporaryDirectory() as temporary:
             run = Path(temporary)
@@ -326,7 +388,15 @@ class ComparisonTests(unittest.TestCase):
                     )
                     saved_path.write_text(json.dumps(saved))
             with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
-                result = verify_matrix(jobs, output, inputs, protocol, lock)
+                result = verify_matrix(
+                    jobs,
+                    output,
+                    inputs,
+                    protocol,
+                    lock,
+                    source_audit_path=root / "audit.json",
+                    source_audit_sha256=digest(root / "audit.json"),
+                )
             self.assertEqual(result["aggregate_mae_kwh"]["fixed"], 2.0)
             self.assertEqual(result["target_rmse_kwh"]["1405"]["fixed"], 2.0)
             self.assertEqual(result["paired_mae_delta_vs_lambda0_kwh"]["1405"]["fixed"]["42"], 0.0)
@@ -353,14 +423,30 @@ class ComparisonTests(unittest.TestCase):
             paths[2].write_text(json.dumps(saved))
             with self.assertRaisesRegex(ValueError, "selection lock"):
                 with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
-                    verify_matrix(forged_jobs, output, inputs, protocol, lock)
+                    verify_matrix(
+                        forged_jobs,
+                        output,
+                        inputs,
+                        protocol,
+                        lock,
+                        source_audit_path=root / "audit.json",
+                        source_audit_sha256=digest(root / "audit.json"),
+                    )
             for path, original in zip(paths, originals, strict=True):
                 path.write_bytes(original)
             victim = output / "lambda0-1405-seed42" / "run" / "tick-0002" / "events.jsonl"
             victim.write_text(victim.read_text().replace("2.0", "3.0"))
             with self.assertRaisesRegex(ValueError, "stream hash changed"):
                 with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
-                    verify_matrix(jobs, output, inputs, protocol, lock)
+                    verify_matrix(
+                        jobs,
+                        output,
+                        inputs,
+                        protocol,
+                        lock,
+                        source_audit_path=root / "audit.json",
+                        source_audit_sha256=digest(root / "audit.json"),
+                    )
             # A forged event with fresh hashes still cannot change the label/vector metric.
             run = victim.parent.parent
             score = json.loads(victim.read_text())
@@ -381,7 +467,15 @@ class ComparisonTests(unittest.TestCase):
             job_path.write_text(json.dumps(saved))
             with self.assertRaisesRegex(ValueError, "score differs from forecast and labels"):
                 with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
-                    verify_matrix(jobs, output, inputs, protocol, lock)
+                    verify_matrix(
+                        jobs,
+                        output,
+                        inputs,
+                        protocol,
+                        lock,
+                        source_audit_path=root / "audit.json",
+                        source_audit_sha256=digest(root / "audit.json"),
+                    )
 
     def test_resume_uses_fresh_output_and_rejects_changed_partial_chain(self):
         with tempfile.TemporaryDirectory() as temporary:
