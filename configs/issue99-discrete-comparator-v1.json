@@ -1,0 +1,41 @@
+{
+  "controller": {
+    "lambda_low": 0.1,
+    "lambda_high": 1.0,
+    "initial_lambda": 0.1,
+    "block_days": 14,
+    "min_valid_days": 7,
+    "delta": 0.0,
+    "alpha": 0.05,
+    "segment_days": 3,
+    "resamples": 2000,
+    "seed": 42
+  },
+  "initial_training": {
+    "seed": 42,
+    "epochs": 3,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "epsilon": 0.001,
+    "head_width": 64
+  },
+  "online_training": {
+    "seed": 42,
+    "epochs": 1,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "epsilon": 0.001,
+    "head_width": 64
+  },
+  "development_entities": [
+    "1405",
+    "2152",
+    "1153",
+    "1693"
+  ],
+  "replay_days": 90,
+  "state_retention": "latest",
+  "method": {
+    "name": "adaptive"
+  }
+}

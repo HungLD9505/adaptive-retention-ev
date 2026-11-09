@@ -35,7 +35,8 @@ class FixedDispatchTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Duplicate"):
             aggregate_matrix(self.rows() + [self.rows()[0]])
 
-    def test_dispatch_uses_all_twelve_fresh_calibration_runs(self):
+    @mock.patch("ev_search.execute.Replay")
+    def test_dispatch_uses_all_twelve_fresh_calibration_runs(self, replay):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             protocol = root / "protocol.json"
@@ -84,6 +85,7 @@ class FixedDispatchTests(unittest.TestCase):
 
             with mock.patch("ev_search.execute.execute", side_effect=fake_execute):
                 result = evaluator(0.37251, "bo_ei", 0)
+            self.assertEqual(replay.call_count, 4)
             self.assertEqual(len(calls), 12)
             self.assertEqual(result["objective_mae_kwh"], 2.0)
             self.assertEqual(len(result["runs"]), 12)

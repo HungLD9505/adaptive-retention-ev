@@ -9,6 +9,7 @@ import torch
 from ev_control.continuous import ArrivedWindow, WindowRule, decide
 from ev_models.model import ForecastGRU
 from ev_models.training import TrainingConfig
+from ev_runner.diagnostics import measure
 from ev_runner.replay import Replay
 from ev_runner.state import Branch, identity, state_digest
 from ev_runner.store import Store
@@ -160,6 +161,26 @@ class ContinuousRunner:
                     events.append(
                         {"event": "meta_decision", "origin": issued["origin"], **decision}
                     )
+            diagnostic_every = self.store.binding.get("config", {}).get("diagnostic_every", 0)
+            if diagnostic_every and self.arrivals % diagnostic_every == 0:
+                self.synchronize()
+                diagnostic_started = time.perf_counter()
+                diagnostic = measure(
+                    self.branch.model,
+                    self.reference,
+                    self.latent_scale,
+                    record,
+                    self.current_lambda,
+                    epsilon=self.training.epsilon,
+                    device=self.device,
+                )
+                self.synchronize()
+                self.cost["diagnostic_seconds"] = (
+                    self.cost.get("diagnostic_seconds", 0.0)
+                    + time.perf_counter()
+                    - diagnostic_started
+                )
+                events.append({"event": "loss_gradient", "origin": issued["origin"], **diagnostic})
             before = self.branch.steps
             self.synchronize()
             started = time.perf_counter()

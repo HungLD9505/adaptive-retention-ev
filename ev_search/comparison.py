@@ -10,6 +10,7 @@ from ev_models.checkpoint import digest
 from ev_models.data import InputRun
 from ev_runner.continuous_run import code_identity as continuous_code_identity
 from ev_runner.continuous_run import execute as execute_continuous
+from ev_runner.replay import Replay
 from ev_runner.run import execute as execute_discrete
 from ev_runner.run import runtime_code as discrete_code_identity
 from ev_search.ledger import canonical
@@ -231,6 +232,7 @@ def execute_job(
     *,
     device: str,
     resume_from: Path | None = None,
+    prepared_replay: Replay | None = None,
 ) -> dict:
     """Run one fresh job or reuse an exact semantic twin without overwriting."""
     if digest(protocol_path) != job["protocol_sha256"]:
@@ -267,6 +269,7 @@ def execute_job(
                 device=device,
                 protocol_path=protocol_path,
                 resume_from=resume_from,
+                prepared_replay=prepared_replay,
             )
         else:
             report = execute_discrete(
@@ -278,6 +281,7 @@ def execute_job(
                 output / "run",
                 device=device,
                 resume_from=resume_from,
+                prepared_replay=prepared_replay,
             )
         verify_run_binding(job, report, inputs)
         run_path = output / "run" / "run.json"

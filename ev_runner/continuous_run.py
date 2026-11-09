@@ -94,8 +94,20 @@ def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, Window
         "protocol_sha256",
         "objective_origins",
     }
-    if set(config) != required or config["schema"] != "issue99-study-v1":
+    if (
+        set(config) - {"state_retention", "diagnostic_every"} != required
+        or config["schema"] != "issue99-study-v1"
+    ):
         raise ValueError("Invalid issue #99 study config")
+    if config.get("state_retention", "all") not in {"all", "latest"}:
+        raise ValueError("Invalid state retention")
+    diagnostic_every = config.get("diagnostic_every", 0)
+    if (
+        isinstance(diagnostic_every, bool)
+        or not isinstance(diagnostic_every, int)
+        or diagnostic_every < 0
+    ):
+        raise ValueError("Invalid diagnostic cadence")
     if config["phase"] not in {"pilot", "calibration", "evaluation"}:
         raise ValueError("Unknown study phase")
     if config["phase"] != "pilot" and not config["protocol_sha256"]:
@@ -170,6 +182,7 @@ def execute(
     resume_from: Path | None = None,
     stop_after_ticks: int | None = None,
     protocol_path: Path | None = None,
+    prepared_replay: Replay | None = None,
 ) -> dict:
     invocation_started = time.perf_counter()
     initial, online, rule = validate_study(config)
@@ -229,7 +242,13 @@ def execute(
     ):
         raise ValueError("Invalid source-derived latent scale")
     replay_load_started = time.perf_counter()
-    replay = Replay(inputs, entity_id, config["replay_days"])
+    replay = prepared_replay or Replay(inputs, entity_id, config["replay_days"])
+    if (
+        replay.inputs is not inputs
+        or replay.entity_id != entity_id
+        or replay.stop != replay.start + config["replay_days"] * DAY
+    ):
+        raise ValueError("Prepared replay differs from input/entity/horizon")
     replay_load_wall_seconds = time.perf_counter() - replay_load_started
     if device == "cuda":
         torch.cuda.reset_peak_memory_stats()

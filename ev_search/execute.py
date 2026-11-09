@@ -10,6 +10,7 @@ from ev_models.checkpoint import digest
 from ev_models.data import InputRun
 from ev_runner.continuous_run import code_identity as runner_code_identity
 from ev_runner.continuous_run import execute
+from ev_runner.replay import Replay
 from ev_search.fixed import FixedSearchConfig
 from ev_search.ledger import FixedLedger, run_bounded_search
 
@@ -77,6 +78,7 @@ class FixedMatrixEvaluator:
             or study_template.get("frozen_lambda") is not True
         ):
             raise ValueError("Fixed search may execute calibration with frozen lambda only")
+        self.replays = {target: Replay(inputs, target, 90) for target in TARGETS}
 
     def __call__(self, weight: float, role: str, trial: int) -> dict:
         trial_root = self.output / f"trial-{trial:04d}"
@@ -101,6 +103,7 @@ class FixedMatrixEvaluator:
                     run_root,
                     device=self.device,
                     protocol_path=self.protocol_path,
+                    prepared_replay=self.replays[target],
                 )
                 rows.append(
                     {
