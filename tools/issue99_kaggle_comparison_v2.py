@@ -18,11 +18,19 @@ from pathlib import Path
 
 # INPUTS: set mounted, read-only paths and exact hashes before saving the notebook.
 # C transport auto-extracts manifest.json/preflight.py directly at this root.
-OUTER_EXTRACTED = Path("/kaggle/input/datasets/hungluongduc/issue99-source10-2798384-scored-inputs-v1")
-PROTOCOL_FILE = Path("/kaggle/input/datasets/hungluongduc/issue99-comparison-lock-2798384-v2/issue99-protocol-locked-v2.json")
-LOCK_FILE = Path("/kaggle/input/datasets/hungluongduc/issue99-comparison-lock-2798384-v2/issue99-comparison-lock-v2.json")
+OUTER_EXTRACTED = Path(
+    "/kaggle/input/datasets/hungluongduc/issue99-source10-2798384-scored-inputs-v1"
+)
+PROTOCOL_FILE = Path(
+    "/kaggle/input/datasets/hungluongduc/issue99-comparison-lock-2798384-v2/issue99-protocol-locked-v2.json"
+)
+LOCK_FILE = Path(
+    "/kaggle/input/datasets/hungluongduc/issue99-comparison-lock-2798384-v2/issue99-comparison-lock-v2.json"
+)
 # The Fixed audit E saved notebook output is attached read-only as a Kaggle input.
-FIXED_AUDIT_FILE = Path("/kaggle/input/notebooks/hungluongduc/issue99-fixed-protocol-v2-independent-audit-e-v1/issue99-fixed-independent-audit-protocol-v2-E.json")
+FIXED_AUDIT_FILE = Path(
+    "/kaggle/input/notebooks/hungluongduc/issue99-fixed-protocol-v2-independent-audit-e-v1/issue99-fixed-independent-audit-protocol-v2-E.json"
+)
 # E manifest is at the dataset root; its ZIP contents are under the child folder.
 E_DATASET_ROOT = Path("/kaggle/input/datasets/hungluongduc/issue99-fixed-verifier-19812d66-e-v1")
 E_EXTRACTED_ROOT = E_DATASET_ROOT / "issue99-fixed-verifier-E-19812d66-v1"
@@ -148,7 +156,10 @@ def main():
         or fixed_audit.get("protocol_sha256") != PROTOCOL_SHA256
     ):
         raise ValueError("Independent Fixed v2 audit has not passed")
-    if lock.get("status") != "locked_owner_approved" or lock.get("protocol_sha256") != PROTOCOL_SHA256:
+    if (
+        lock.get("status") != "locked_owner_approved"
+        or lock.get("protocol_sha256") != PROTOCOL_SHA256
+    ):
         raise ValueError("Comparison selection lock is missing or bound to another protocol")
     if not isinstance(lock.get("selected_fixed_lambda"), (int, float)):
         raise ValueError("Selected Fixed lambda is missing")
@@ -158,8 +169,11 @@ def main():
     require_hash(preflight_file, "6bede89694d6d0dfb30fd59ed8b0305d7d374eca932e723e4af690d56ab561f6")
     preflight = load_module(preflight_file, "issue99_preflight")
     preflight.rehydrate_and_stage(
-        OUTER_EXTRACTED, BUNDLE_COPY, STAGE,
-        expected_manifest_sha256=OUTER_MANIFEST_SHA256, require_t4=True,
+        OUTER_EXTRACTED,
+        BUNDLE_COPY,
+        STAGE,
+        expected_manifest_sha256=OUTER_MANIFEST_SHA256,
+        require_t4=True,
     )
     if (STAGE / "code" / ".issue99-code-commit").read_text().strip() != CODE_COMMIT:
         raise ValueError("Staged runner commit differs")
@@ -184,8 +198,15 @@ def main():
     replays = {target: Replay(inputs, target, 90) for target in ("1405", "2152", "1153", "1693")}
 
     OUTPUT_ROOT.mkdir(parents=True, exist_ok=False)
-    log({"event": "start", "code_commit": CODE_COMMIT, "protocol_sha256": PROTOCOL_SHA256,
-         "lock_sha256": LOCK_SHA256, "prior_gpu_seconds": PRIOR_GPU_SECONDS})
+    log(
+        {
+            "event": "start",
+            "code_commit": CODE_COMMIT,
+            "protocol_sha256": PROTOCOL_SHA256,
+            "lock_sha256": LOCK_SHA256,
+            "prior_gpu_seconds": PRIOR_GPU_SECONDS,
+        }
+    )
     start = time.perf_counter()
     durations = []
     if PRIOR_OUTPUT_ROOT is not None:
@@ -211,31 +232,70 @@ def main():
         estimate = max(MIN_NEXT_JOB_SECONDS, 1.5 * max(durations, default=MIN_NEXT_JOB_SECONDS))
         size = output_size(OUTPUT_ROOT)
         free = shutil.disk_usage(OUTPUT_ROOT).free
-        if remaining < estimate + RESERVE_SECONDS or size >= MAX_OUTPUT_BYTES or free < MIN_FREE_BYTES:
-            log({"event": "stopped_budget", "next_job": job_id, "remaining_seconds": remaining,
-                 "output_bytes": size, "free_bytes": free})
+        if (
+            remaining < estimate + RESERVE_SECONDS
+            or size >= MAX_OUTPUT_BYTES
+            or free < MIN_FREE_BYTES
+        ):
+            log(
+                {
+                    "event": "stopped_budget",
+                    "next_job": job_id,
+                    "remaining_seconds": remaining,
+                    "output_bytes": size,
+                    "free_bytes": free,
+                }
+            )
             break
         resume_from = None
         if PRIOR_OUTPUT_ROOT is not None:
             partial = Path(PRIOR_OUTPUT_ROOT) / job_id / "run"
-            if partial.is_dir() and list(partial.glob("tick-*")) and not list(partial.glob(".pending-*")):
+            if (
+                partial.is_dir()
+                and list(partial.glob("tick-*"))
+                and not list(partial.glob(".pending-*"))
+            ):
                 resume_from = partial
-        log({"event": "job_started", "job_id": job_id,
-             "resume_from": str(resume_from) if resume_from else None})
+        log(
+            {
+                "event": "job_started",
+                "job_id": job_id,
+                "resume_from": str(resume_from) if resume_from else None,
+            }
+        )
         job_start = time.perf_counter()
         try:
-            execute_job(job, inputs, PROTOCOL_FILE, LOCK_FILE, OUTPUT_ROOT,
-                        device="cuda", resume_from=resume_from)
+            execute_job(
+                job,
+                inputs,
+                PROTOCOL_FILE,
+                LOCK_FILE,
+                OUTPUT_ROOT,
+                device="cuda",
+                resume_from=resume_from,
+            )
             check_completed(job, OUTPUT_ROOT, verifier, inputs, replays[job["target"]])
         except Exception as exc:
-            log({"event": "job_failed", "job_id": job_id, "error": repr(exc),
-                 "traceback": traceback.format_exc(),
-                 "elapsed_seconds": time.perf_counter() - job_start})
+            log(
+                {
+                    "event": "job_failed",
+                    "job_id": job_id,
+                    "error": repr(exc),
+                    "traceback": traceback.format_exc(),
+                    "elapsed_seconds": time.perf_counter() - job_start,
+                }
+            )
             break  # Save this version, including partial artifacts, for inspection.
         duration = time.perf_counter() - job_start
         durations.append(duration)
-        log({"event": "job_completed", "job_id": job_id, "elapsed_seconds": duration,
-             "output_bytes": output_size(OUTPUT_ROOT)})
+        log(
+            {
+                "event": "job_completed",
+                "job_id": job_id,
+                "elapsed_seconds": duration,
+                "output_bytes": output_size(OUTPUT_ROOT),
+            }
+        )
 
     complete = all((OUTPUT_ROOT / job["job_id"] / "job.json").is_file() for job in jobs)
     if complete:
@@ -243,17 +303,37 @@ def main():
             result = verifier.verify_matrix(jobs, OUTPUT_ROOT, inputs, PROTOCOL_FILE, LOCK_FILE)
             with (OUTPUT_ROOT / "verification.json").open("x", encoding="utf-8") as stream:
                 json.dump(result, stream, allow_nan=False, sort_keys=True)
-            log({"event": "matrix_verified", "verification_sha256": sha256(OUTPUT_ROOT / "verification.json")})
+            log(
+                {
+                    "event": "matrix_verified",
+                    "verification_sha256": sha256(OUTPUT_ROOT / "verification.json"),
+                }
+            )
         except Exception as exc:
-            log({"event": "matrix_verification_failed", "error": repr(exc),
-                 "traceback": traceback.format_exc()})
+            log(
+                {
+                    "event": "matrix_verification_failed",
+                    "error": repr(exc),
+                    "traceback": traceback.format_exc(),
+                }
+            )
             raise
     else:
-        log({"event": "matrix_incomplete", "completed_jobs": sum(
-            (OUTPUT_ROOT / job["job_id"] / "job.json").is_file() for job in jobs
-        )})
-    log({"event": "version_finished", "gpu_seconds_this_version": time.perf_counter() - start,
-         "gpu_seconds_cumulative": PRIOR_GPU_SECONDS + time.perf_counter() - start})
+        log(
+            {
+                "event": "matrix_incomplete",
+                "completed_jobs": sum(
+                    (OUTPUT_ROOT / job["job_id"] / "job.json").is_file() for job in jobs
+                ),
+            }
+        )
+    log(
+        {
+            "event": "version_finished",
+            "gpu_seconds_this_version": time.perf_counter() - start,
+            "gpu_seconds_cumulative": PRIOR_GPU_SECONDS + time.perf_counter() - start,
+        }
+    )
 
 
 if __name__ == "__main__":
