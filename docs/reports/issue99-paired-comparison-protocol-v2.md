@@ -1,6 +1,6 @@
 # Issue #99 paired Development comparison, protocol v2
 
-The [saved Kaggle comparison](https://www.kaggle.com/code/hungluongduc/issue99-source10-2798384-paired-comparison-v2) Version 1 (run `367824175`) reported `60` `job_completed` events, `matrix_verified`, no failed jobs, and `version_finished`. Its verification JSON preview has SHA-256 `c3038079cd65f575851dfd53be139017c6ad95aad087d7a3817dcd34a3d6bfed`. This is a saved Kaggle result observed through the notebook UI; its output has not been downloaded for local, independent hash verification.
+The [saved Kaggle comparison](https://www.kaggle.com/code/hungluongduc/issue99-source10-2798384-paired-comparison-v2) Version 1 (run `367824175`) reported `60` `job_completed` events, `matrix_verified`, no failed jobs, and `version_finished`. The saved verification JSON showed SHA-256 `c3038079cd65f575851dfd53be139017c6ad95aad087d7a3817dcd34a3d6bfed`, matching the logged hash. This is a log-bound Kaggle readback; the output bytes have not been downloaded for local, independent hash verification.
 
 ## Bound execution
 
@@ -22,4 +22,15 @@ These values come from the saved comparison verification preview. The macro is t
 
 Fixed has the lowest reported macro MAE in this comparison. The continuous controller's reported macro MAE exceeds Fixed by about 0.1294 kWh and the old discrete controller by about 0.0985 kWh. At target 1693, λ=0 has the lowest reported target mean. These are descriptive comparisons only: this Development cohort and historical aggregate outcomes had prior exposure, so the later chronological window is exploratory, not an untouched test. No Final replay was run for issue #99, and protocol v2 results must not be pooled with the failed protocol v1 search.
 
-The verification preview reports 60 rows, but the exact per-row scored-origin counts have not yet been read back independently; this report does not assert 28/28 coverage for each row. The complete output remains in Kaggle. Browser automatic approval denied downloading it, and the owner cannot transfer it manually at present. Local possession, independent file-hash and metric checks, further diagnostics analysis, and PR review/merge remain outstanding. The PR is not merged and issue #99 is not complete.
+## Coverage readback
+
+The saved verification JSON's 60 coverage entries were opened in the Kaggle UI. Every method and seed had `evaluation_scored_days = 28` for its target. The following issued/scored counts cover the **full 90-day replay**, including days outside the 28-day Evaluation objective.
+
+| Target | Full-replay issued days | Full-replay scored days | Evaluation scored days |
+| --- | ---: | ---: | ---: |
+| 1405 | 90 | 89 | 28 |
+| 2152 | 59 | 52 | 28 |
+| 1153 | 59 | 52 | 28 |
+| 1693 | 59 | 52 | 28 |
+
+These counts were read in Kaggle, not recomputed from locally held forecasts and labels. The complete output remains there. Browser automatic approval denied downloading it, and the owner cannot transfer it manually at present. Local possession, independent file-hash and metric checks, further diagnostics analysis, and PR review/merge remain outstanding. The PR is not merged and issue #99 is not complete.
