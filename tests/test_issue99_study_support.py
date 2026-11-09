@@ -7,6 +7,7 @@ from unittest import mock
 
 import torch
 
+from ev_models.checkpoint import digest
 from ev_models.data import InputRun
 from ev_models.model import ForecastGRU
 from ev_models.training import frozen_reference
@@ -24,8 +25,12 @@ class StudySupportTests(unittest.TestCase):
             inputs.root = root
             inputs._verified = {}
             inputs._rows = {}
+            inputs.manifest = {
+                "files": {
+                    "training.jsonl": {"size_bytes": 8, "sha256": digest(root / "training.jsonl")}
+                }
+            }
             with (
-                mock.patch.object(InputRun, "verify"),
                 mock.patch.object(
                     InputRun, "_selected_rows", return_value=iter([{"values": [1]}])
                 ) as loader,
@@ -42,6 +47,27 @@ class StudySupportTests(unittest.TestCase):
                     list(inputs._selected_rows("training.jsonl", "development", "1405"))
             with self.assertRaisesRegex(ValueError, "restricted"):
                 list(inputs._selected_rows("training.jsonl", "final", "1405"))
+
+    def test_windows_hashes_same_size_edit_even_when_all_stats_are_unchanged(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            path = root / "training.jsonl"
+            path.write_bytes(b"original")
+            inputs = PreparedInputs.__new__(PreparedInputs)
+            inputs.root = root
+            inputs._verified = {}
+            inputs.manifest = {
+                "files": {"training.jsonl": {"size_bytes": 8, "sha256": digest(path)}}
+            }
+            original_stat = path.stat()
+            with (
+                mock.patch("tools.issue99_study_support._TRUST_FILE_STAT", False),
+                mock.patch.object(Path, "stat", return_value=original_stat),
+            ):
+                inputs.verify("training.jsonl")
+                path.write_bytes(b"tampered")
+                with self.assertRaisesRegex(ValueError, "changed"):
+                    inputs.verify("training.jsonl")
 
     def test_diagnostics_preserve_parameters_gradients_rng_and_mode(self):
         for device in ["cpu", "cuda"] if torch.cuda.is_available() else ["cpu"]:

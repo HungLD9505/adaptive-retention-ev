@@ -1,14 +1,17 @@
 """Immutable prepared-input caching for the bounded issue99 study."""
 
 import copy
+import os
 from pathlib import Path
 from typing import Iterator
 
 from ev_models.data import InputRun
 
+_TRUST_FILE_STAT = os.name != "nt"
+
 
 class PreparedInputs(InputRun):
-    """Authenticate once, fail on file-stat changes, rehash all bytes at completion.
+    """Authenticate bytes; cache POSIX stats, rehash every Windows access.
 
     Cache only explicitly requested Development predictor/prefix rows. Replay
     label energy stays in the original delayed provider and is never cached here.
@@ -27,6 +30,13 @@ class PreparedInputs(InputRun):
         if name in self._verified:
             if self._verified[name] != stamp:
                 raise ValueError(f"Immutable prepared input changed: {name}")
+            if not _TRUST_FILE_STAT:
+                # Windows can retain the same stat tuple across rapid same-size
+                # writes. A cached tuple is not sufficient authentication there.
+                try:
+                    super().verify(name)
+                except ValueError as error:
+                    raise ValueError(f"Immutable prepared input changed: {name}") from error
         else:
             super().verify(name)
             after = (self.root / name).stat()
