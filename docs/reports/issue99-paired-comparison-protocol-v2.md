@@ -33,4 +33,6 @@ The saved verification JSON's 60 coverage entries were opened in the Kaggle UI. 
 | 1153 | 59 | 52 | 28 |
 | 1693 | 59 | 52 | 28 |
 
-These counts were read in Kaggle, not recomputed from locally held forecasts and labels. The complete output remains there. Browser automatic approval denied downloading it, and the owner cannot transfer it manually at present. Local possession, independent file-hash and metric checks, further diagnostics analysis, and PR review/merge remain outstanding. The PR is not merged and issue #99 is not complete.
+These counts were read in Kaggle, not recomputed from locally held forecasts and labels. The complete output remains there. Browser automatic approval denied downloading it, and the owner cannot transfer it manually at present. Local possession, independent file-hash checks, further diagnostics analysis, and PR merge remain outstanding. The verifier E recomputed metrics inside Kaggle, but a local readback has not been possible.
+
+[PR #102](https://github.com/HungLD9505/adaptive-retention-ev/pull/102) reports a broader, separately locked issue #99 study with a different temporal split, Fixed domain and controller settings. Its results cannot be pooled with this protocol v2. PR #102 and this PR are both open; issue #99 remains open even though PR #102 reports that its execution is complete.
