@@ -2,12 +2,23 @@
 
 import json
 import math
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from ev_models.checkpoint import digest
 from ev_runner.replay import Replay
-from ev_search.comparison import METHODS, SEEDS, TARGETS, event_hashes, verify_run_binding
+from ev_search.comparison import (
+    METHODS,
+    SEEDS,
+    TARGETS,
+    event_hashes,
+    plan_jobs,
+    verify_run_binding,
+)
+
+DAY = timedelta(days=1)
+LOCAL_AUDIT = Path(__file__).resolve().parents[1] / "docs/reports/issue99-local-audit-v2.json"
+LOCAL_AUDIT_SHA256 = "305321931c27891792876f8d14a7d7b33939f31c7bb80907eee7dea4f19bc47b"
 
 
 def _same(actual: float, expected: float) -> bool:
@@ -20,11 +31,14 @@ def _scores(
     issued = set()
     errors = {}
     forecasts = {}
-    for tick in sorted(run_path.glob("tick-*")):
+    for index, tick in enumerate(sorted(run_path.glob("tick-*"))):
+        tick_time = replay.start + index * DAY
         forecast_path = tick / "forecasts.json"
         forecast = json.loads(forecast_path.read_text())
         if forecast:
             origin = forecast["origin"]
+            if datetime.fromisoformat(origin) != tick_time:
+                raise ValueError("Forecast origin differs from chronological tick")
             if origin in issued:
                 raise ValueError("Duplicate issued origin")
             issued.add(origin)
@@ -40,6 +54,8 @@ def _scores(
             if event["prediction_sha256"] != prediction_sha:
                 raise ValueError("Score prediction hash differs from issued vector")
             as_of = datetime.fromisoformat(event["as_of"])
+            if as_of != tick_time or datetime.fromisoformat(origin) >= as_of:
+                raise ValueError("Score time differs from chronological tick or issued origin")
             label = replay.labels(datetime.fromisoformat(origin), as_of)
             if label.status != "complete" or label.values is None or len(label.values) != 24:
                 raise ValueError("Score lacks complete arrived authenticated labels")
@@ -113,7 +129,23 @@ def _verify_commit_chain(run_path: Path, report: dict) -> None:
         raise ValueError("Report commit chain differs")
 
 
-def verify_matrix(jobs: list[dict], output_root: Path, inputs, protocol_path: Path) -> dict:
+def _verify_full_horizon(run_path: Path, replay: Replay) -> None:
+    end = replay.stop + (int(replay.delay.total_seconds() // DAY.total_seconds()) + 1) * DAY
+    expected_ticks = int((end - replay.start) // DAY) + 1
+    if len(list(run_path.glob("tick-*"))) != expected_ticks:
+        raise ValueError("Comparison run ended before its declared horizon")
+
+
+def verify_matrix(
+    jobs: list[dict],
+    output_root: Path,
+    inputs,
+    protocol_path: Path,
+    lock_path: Path,
+    *,
+    source_audit_path: Path = LOCAL_AUDIT,
+    source_audit_sha256: str = LOCAL_AUDIT_SHA256,
+) -> dict:
     """Require exact matrix, saved hashes and common scored origins before aggregation."""
     expected_ids = {
         f"{method}-{target}-seed{seed}"
@@ -125,6 +157,29 @@ def verify_matrix(jobs: list[dict], output_root: Path, inputs, protocol_path: Pa
         raise ValueError("Incomplete or duplicated comparison matrix")
     protocol_sha = digest(protocol_path)
     protocol = json.loads(protocol_path.read_text())
+    if digest(source_audit_path) != source_audit_sha256:
+        raise ValueError("Trusted local Source10 audit bytes changed")
+    audit = json.loads(source_audit_path.read_text())
+    if (
+        audit.get("status") != "PASS"
+        or audit["inputs"]["budgets"]["14"]["manifest_sha256"] != protocol["input_manifest_sha256"]
+        or audit["inputs"]["source_population_sha256"] != protocol["source_population_sha256"]
+    ):
+        raise ValueError("Trusted local Source10 audit differs from comparison input")
+    sources = {}
+    for job in jobs:
+        seed = str(job["seed"])
+        source = {"path": job["source_path"], "sha256": job["source_sha256"]}
+        if source["sha256"] != audit["source"][seed]["checkpoint_sha256"]:
+            raise ValueError("Comparison Source checkpoint differs from trusted local audit")
+        if seed in sources and sources[seed] != source:
+            raise ValueError("Comparison Source path/hash differs across jobs")
+        sources[seed] = source
+    if json.loads((output_root.parent / "source-bindings.json").read_text()) != sources:
+        raise ValueError("Comparison Source bindings differ from saved study record")
+    expected_jobs = plan_jobs(inputs, protocol_path, lock_path, sources)
+    if {job["job_id"]: job for job in jobs} != {job["job_id"]: job for job in expected_jobs}:
+        raise ValueError("Comparison jobs differ from authenticated selection lock")
     by_target = {}
     details = []
     replay_by_target = {}
@@ -159,6 +214,7 @@ def verify_matrix(jobs: list[dict], output_root: Path, inputs, protocol_path: Pa
         replay = replay_by_target[target]
         if not _same(replay.scale, scale):
             raise ValueError("Replay scale differs from identified target")
+        _verify_full_horizon(run_path, replay)
         scored_job = {**job, "report_levels": report.get("candidate_levels")}
         issued, errors = _scores(run_path, scored_job, replay)
         if report["issued_days"] != len(issued) or report["scored_days"] != len(errors):

@@ -435,7 +435,9 @@ def build(args: argparse.Namespace) -> None:
     protocol = json.loads(protocol_path.read_text())
     inputs = PreparedInputs(args.inputs, protocol["input_manifest_sha256"])
     jobs = json.loads((root / "comparison-jobs.json").read_text())
-    checked = verify_matrix(jobs, root / "comparison", inputs, protocol_path)
+    checked = verify_matrix(
+        jobs, root / "comparison", inputs, protocol_path, root / "controller-lock.json"
+    )
     (out / "independent-verification.json").write_text(json.dumps(checked, indent=2) + "\n")
     replays = {target: Replay(inputs, target, 90) for target in TARGETS}
     ledger_metadata = json.loads((root / "fixed/config.json").read_text())
