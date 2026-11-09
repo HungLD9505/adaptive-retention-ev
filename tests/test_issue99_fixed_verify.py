@@ -13,7 +13,13 @@ from ev_runner.replay import Labels
 from ev_runner.state import state_digest
 from ev_search.execute import SEEDS, TARGETS
 from ev_search.fixed import FixedSearchConfig
-from ev_search.fixed_verify import _code_hashes, verify_fixed_trials
+from ev_search.fixed_verify import (
+    RUNNER_FILES,
+    SCORER_COMMIT,
+    SCORER_FILES,
+    _code_hashes,
+    verify_fixed_trials,
+)
 from ev_search.ledger import FixedLedger
 from ev_search.protocol import canonical_sha256
 
@@ -42,13 +48,19 @@ class FakeReplay:
         return Labels("complete", (0.0,) * 24, available)
 
 
-def fixture(root: Path, *, null_target: str | None = None, wrong_score: bool = False):
+def fixture(
+    root: Path,
+    *,
+    null_target: str | None = None,
+    wrong_score: bool = False,
+    complete: bool = False,
+):
     scorer = root / "scorer"
     for folder in ("ev_search", "ev_inputs", "ev_models", "ev_control", "ev_runner", "configs"):
         (scorer / folder).mkdir(parents=True)
-        if folder != "configs":
-            (scorer / folder / "fixture.py").write_text(folder)
-    commit = "c" * 40
+    for name in SCORER_FILES | RUNNER_FILES:
+        (scorer / name).write_text(name)
+    commit = SCORER_COMMIT
     (scorer / ".issue99-code-commit").write_text(commit + "\n")
     search = {
         "positive_lower": 0.1,
@@ -110,14 +122,11 @@ def fixture(root: Path, *, null_target: str | None = None, wrong_score: bool = F
         "fixed_search_config_sha256": digest(search_path),
         "code_commit": commit,
         "sources": {seed: source["sha256"] for seed, source in sources.items()},
-        "code_files": _code_hashes(scorer, {"ev_search/fixture.py": ""}, ("ev_search",)),
+        "code_files": _code_hashes(scorer, dict.fromkeys(SCORER_FILES, ""), SCORER_FILES),
         "runner_code_files": _code_hashes(
             scorer,
-            {
-                f"{folder}/fixture.py": ""
-                for folder in ("ev_inputs", "ev_models", "ev_control", "ev_runner")
-            },
-            ("ev_inputs", "ev_models", "ev_control", "ev_runner"),
+            dict.fromkeys(RUNNER_FILES, ""),
+            RUNNER_FILES,
         ),
     }
     ledger = FixedLedger(root / "ledger", FixedSearchConfig(**search), binding=binding)
@@ -243,6 +252,9 @@ def fixture(root: Path, *, null_target: str | None = None, wrong_score: bool = F
         }
 
     ledger.evaluate(0.0, "zero_baseline", evaluate)
+    if complete:
+        ledger.evaluate(0.1, "initial", evaluate)
+        ledger.evaluate(1.0, "sensitivity", evaluate)
     return ledger.root, protocol, scorer, sources
 
 
@@ -254,9 +266,27 @@ class FixedVerifyTests(unittest.TestCase):
             before = digest(ledger / "events.jsonl")
             with mock.patch("ev_search.fixed_verify.Replay", FakeReplay):
                 result = verify_fixed_trials(ledger, FakeInputs(), protocol, scorer, sources)
-            self.assertEqual(result["status"], "PASS")
+            self.assertEqual(result["status"], "INCOMPLETE")
+            self.assertFalse(result["search_complete"])
+            self.assertEqual(result["verified_objectives"], 1)
             self.assertEqual(result["trials"][0]["objective_mae_kwh"], 2.0)
             self.assertEqual(digest(ledger / "events.jsonl"), before)
+
+    def test_complete_search_passes_and_all_null_does_not(self):
+        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+            ledger, protocol, scorer, sources = fixture(Path(temporary), complete=True)
+            with mock.patch("ev_search.fixed_verify.Replay", FakeReplay):
+                result = verify_fixed_trials(ledger, FakeInputs(), protocol, scorer, sources)
+            self.assertEqual(result["status"], "PASS")
+            self.assertEqual(result["verified_objectives"], 3)
+        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+            ledger, protocol, scorer, sources = fixture(
+                Path(temporary), complete=True, null_target="1405"
+            )
+            with mock.patch("ev_search.fixed_verify.Replay", FakeReplay):
+                result = verify_fixed_trials(ledger, FakeInputs(), protocol, scorer, sources)
+            self.assertEqual(result["status"], "NO_VERIFIED_OBJECTIVE")
+            self.assertEqual(result["verified_objectives"], 0)
 
     def test_null_coverage_is_preserved(self):
         with tempfile.TemporaryDirectory(dir=".cache") as temporary:
@@ -294,9 +324,15 @@ class FixedVerifyTests(unittest.TestCase):
     def test_rejects_tampered_scorer_code_or_run_bytes(self):
         with tempfile.TemporaryDirectory(dir=".cache") as temporary:
             ledger, protocol, scorer, sources = fixture(Path(temporary))
-            (scorer / "ev_search/fixture.py").write_text("changed")
+            (scorer / "ev_search/execute.py").write_text("changed")
             with self.assertRaisesRegex(ValueError, "binding differs"):
                 verify_fixed_trials(ledger, FakeInputs(), protocol, scorer, sources)
+        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+            _, _, scorer, _ = fixture(Path(temporary))
+            with self.assertRaisesRegex(ValueError, "inventory differs"):
+                _code_hashes(
+                    scorer, dict.fromkeys(SCORER_FILES - {"ev_search/execute.py"}, ""), SCORER_FILES
+                )
         with tempfile.TemporaryDirectory(dir=".cache") as temporary:
             ledger, protocol, scorer, sources = fixture(Path(temporary))
             victim = ledger / "trial-0000/target-1405-seed-42/tick-0000/forecasts.json"

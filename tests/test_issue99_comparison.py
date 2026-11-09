@@ -12,7 +12,12 @@ from ev_runner.continuous_run import code_identity as continuous_code_identity
 from ev_runner.replay import Labels
 from ev_runner.run import runtime_code as discrete_code_identity
 from ev_search.comparison import event_hashes, execute_job, plan_jobs
-from ev_search.comparison_verify import _scores, verify_matrix
+from ev_search.comparison_verify import (
+    _scores,
+    _verify_commit_chain,
+    _verify_full_horizon,
+    verify_matrix,
+)
 from ev_search.protocol import canonical_sha256
 
 TARGETS = ("1405", "2152", "1153", "1693")
@@ -33,6 +38,8 @@ class FakeInputs:
 class FakeReplay:
     scale = 1.0
     start = datetime.fromisoformat("2023-01-03T00:00:00+08:00")
+    stop = start + timedelta(days=1)
+    delay = timedelta(0)
 
     def __init__(self, inputs, target, days):
         assert days == 90
@@ -124,10 +131,44 @@ def fixtures(root, *, fixed=0.5, initial=0.5):
         source = root / f"seed-{seed}.pt"
         source.write_text(str(seed))
         sources[str(seed)] = {"path": str(source), "sha256": digest(source)}
+    protocol_data = json.loads(protocol_path.read_text())
+    protocol_data["source_checkpoint_sha256"] = {
+        seed: source["sha256"] for seed, source in sources.items()
+    }
+    protocol_path.write_text(json.dumps(protocol_data))
+    lock_data = json.loads(lock_path.read_text())
+    lock_data["protocol_sha256"] = digest(protocol_path)
+    lock_path.write_text(json.dumps(lock_data))
     return protocol_path, lock_path, sources
 
 
 class ComparisonTests(unittest.TestCase):
+    def test_hash_consistent_truncated_comparison_fails_horizon(self):
+        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+            run = Path(temporary)
+            binding = {"config": {"state_retention": "all"}}
+            (run / "binding.json").write_text(json.dumps(binding))
+            previous = "0" * 64
+            for index in range(2):
+                tick = run / f"tick-{index:04d}"
+                tick.mkdir()
+                for name in ("state.pt", "events.jsonl", "forecasts.json"):
+                    (tick / name).write_bytes(b"fixture")
+                commit = {
+                    "index": index,
+                    "previous": previous,
+                    "files": {
+                        name: digest(tick / name)
+                        for name in ("state.pt", "events.jsonl", "forecasts.json")
+                    },
+                }
+                (tick / "commit.json").write_text(json.dumps(commit))
+                previous = digest(tick / "commit.json")
+            report = {"binding": binding, "commit_chain": previous, "scheduled_days": 1}
+            _verify_commit_chain(run, report)
+            with self.assertRaisesRegex(ValueError, "declared horizon"):
+                _verify_full_horizon(run, FakeReplay(None, "1405", 90))
+
     def test_verifier_rejects_forecast_or_score_at_wrong_tick(self):
         with tempfile.TemporaryDirectory(dir=".cache") as temporary:
             run = Path(temporary)
@@ -182,6 +223,24 @@ class ComparisonTests(unittest.TestCase):
             self.assertTrue(
                 all(job["reuse_job_id"] is None for job in jobs if job["method"] == "frozen_lambda")
             )
+
+    def test_verifier_rejects_job_origin_and_lock_config_tampering(self):
+        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+            root = Path(temporary)
+            protocol, lock, sources = fixtures(root)
+            jobs = plan_jobs(FakeInputs(), protocol, lock, sources)
+            changed_origins = json.loads(json.dumps(jobs))
+            changed_origins[0]["evaluation_origins"] = ["2023-01-04T00:00:00+08:00"]
+            with self.assertRaisesRegex(ValueError, "evaluation origins differ"):
+                verify_matrix(changed_origins, root / "runs", FakeInputs(), protocol, lock)
+            changed_config = json.loads(json.dumps(jobs))
+            changed_config[0]["config"]["initial_lambda"] = 0.2
+            with self.assertRaisesRegex(ValueError, "authenticated selection lock"):
+                verify_matrix(changed_config, root / "runs", FakeInputs(), protocol, lock)
+            changed_source = json.loads(json.dumps(jobs))
+            changed_source[0]["source_sha256"] = "0" * 64
+            with self.assertRaisesRegex(ValueError, "Source checkpoint differs"):
+                verify_matrix(changed_source, root / "runs", FakeInputs(), protocol, lock)
 
     def test_reject_final_input_and_changed_lock(self):
         with tempfile.TemporaryDirectory(dir=".cache") as temporary:
@@ -353,7 +412,7 @@ class ComparisonTests(unittest.TestCase):
                     )
                     saved_path.write_text(json.dumps(saved))
             with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
-                result = verify_matrix(jobs, output, inputs, protocol)
+                result = verify_matrix(jobs, output, inputs, protocol, lock)
             self.assertEqual(result["aggregate_mae_kwh"]["fixed"], 2.0)
             self.assertEqual(result["target_rmse_kwh"]["1405"]["fixed"], 2.0)
             self.assertEqual(result["paired_mae_delta_vs_lambda0_kwh"]["1405"]["fixed"]["42"], 0.0)
@@ -361,7 +420,7 @@ class ComparisonTests(unittest.TestCase):
             victim.write_text(victim.read_text().replace("2.0", "3.0"))
             with self.assertRaisesRegex(ValueError, "stream hash changed"):
                 with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
-                    verify_matrix(jobs, output, inputs, protocol)
+                    verify_matrix(jobs, output, inputs, protocol, lock)
             # A forged event with fresh hashes still cannot change the label/vector metric.
             run = victim.parent.parent
             score = json.loads(victim.read_text())
@@ -382,7 +441,7 @@ class ComparisonTests(unittest.TestCase):
             job_path.write_text(json.dumps(saved))
             with self.assertRaisesRegex(ValueError, "score differs from forecast and labels"):
                 with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
-                    verify_matrix(jobs, output, inputs, protocol)
+                    verify_matrix(jobs, output, inputs, protocol, lock)
 
     def test_resume_uses_fresh_output_and_rejects_changed_partial_chain(self):
         with tempfile.TemporaryDirectory(dir=".cache") as temporary:

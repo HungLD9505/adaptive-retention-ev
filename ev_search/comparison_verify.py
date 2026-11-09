@@ -6,8 +6,15 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 from ev_models.checkpoint import digest
-from ev_runner.replay import Replay
-from ev_search.comparison import METHODS, SEEDS, TARGETS, event_hashes, verify_run_binding
+from ev_runner.replay import DAY, Replay
+from ev_search.comparison import (
+    METHODS,
+    SEEDS,
+    TARGETS,
+    event_hashes,
+    plan_jobs,
+    verify_run_binding,
+)
 
 
 def _same(actual: float, expected: float) -> bool:
@@ -118,7 +125,18 @@ def _verify_commit_chain(run_path: Path, report: dict) -> None:
         raise ValueError("Report commit chain differs")
 
 
-def verify_matrix(jobs: list[dict], output_root: Path, inputs, protocol_path: Path) -> dict:
+def _verify_full_horizon(run_path: Path, replay: Replay) -> None:
+    # Both comparison runners poll inclusively through the declared horizon
+    # plus enough daily ticks for delayed labels to arrive.
+    end = replay.stop + (int(replay.delay.total_seconds() // DAY.total_seconds()) + 1) * DAY
+    expected_ticks = int((end - replay.start) // DAY) + 1
+    if len(list(run_path.glob("tick-*"))) != expected_ticks:
+        raise ValueError("Comparison run ended before its declared horizon")
+
+
+def verify_matrix(
+    jobs: list[dict], output_root: Path, inputs, protocol_path: Path, lock_path: Path
+) -> dict:
     """Require exact matrix, saved hashes and common scored origins before aggregation."""
     expected_ids = {
         f"{method}-{target}-seed{seed}"
@@ -130,6 +148,21 @@ def verify_matrix(jobs: list[dict], output_root: Path, inputs, protocol_path: Pa
         raise ValueError("Incomplete or duplicated comparison matrix")
     protocol_sha = digest(protocol_path)
     protocol = json.loads(protocol_path.read_text())
+    sources = {}
+    for job in jobs:
+        target = job["target"]
+        seed = str(job["seed"])
+        if job["evaluation_origins"] != protocol["evaluation_origins"][target]:
+            raise ValueError("Comparison evaluation origins differ from locked protocol")
+        if job["source_sha256"] != protocol["source_checkpoint_sha256"][seed]:
+            raise ValueError("Comparison Source checkpoint differs from locked protocol")
+        source = {"path": job["source_path"], "sha256": job["source_sha256"]}
+        if seed in sources and sources[seed] != source:
+            raise ValueError("Comparison Source path/hash differs across jobs")
+        sources[seed] = source
+    expected_jobs = plan_jobs(inputs, protocol_path, lock_path, sources)
+    if {job["job_id"]: job for job in jobs} != {job["job_id"]: job for job in expected_jobs}:
+        raise ValueError("Comparison jobs differ from authenticated selection lock")
     by_target = {}
     details = []
     replay_by_target = {}
@@ -150,7 +183,6 @@ def verify_matrix(jobs: list[dict], output_root: Path, inputs, protocol_path: Pa
             raise ValueError("Saved forecast/score stream hash changed")
         report = json.loads(report_path.read_text())
         verify_run_binding(job, report, inputs)
-        _verify_commit_chain(run_path, report)
         if result["reused_from"] != job["reuse_job_id"]:
             raise ValueError("Reuse identity changed")
         target = job["target"]
@@ -164,6 +196,8 @@ def verify_matrix(jobs: list[dict], output_root: Path, inputs, protocol_path: Pa
         replay = replay_by_target[target]
         if not _same(replay.scale, scale):
             raise ValueError("Replay scale differs from identified target")
+        _verify_commit_chain(run_path, report)
+        _verify_full_horizon(run_path, replay)
         scored_job = {**job, "report_levels": report.get("candidate_levels")}
         issued, errors = _scores(run_path, scored_job, replay)
         if report["issued_days"] != len(issued) or report["scored_days"] != len(errors):

@@ -13,11 +13,57 @@ from ev_runner.replay import Replay
 from ev_runner.state import state_digest
 from ev_search.comparison_verify import _scores, _verify_commit_chain
 from ev_search.execute import SEEDS, TARGETS
-from ev_search.fixed import FixedSearchConfig
+from ev_search.fixed import FixedSearchConfig, expanded_upper, sensitivity_design
 from ev_search.ledger import FixedLedger
 from ev_search.protocol import canonical_sha256
 
 DAY = timedelta(days=1)
+SCORER_COMMIT = "27983845b5d446e3915b0b4353570466f1da23ef"
+
+# Exact Python inventory in the immutable 2798384 scorer archive. Later verifier
+# modules may be present in a separate checkout, but cannot replace this inventory.
+SCORER_FILES = frozenset(
+    f"ev_search/{name}.py"
+    for name in (
+        "__init__",
+        "comparison",
+        "comparison_verify",
+        "execute",
+        "fixed",
+        "ledger",
+        "protocol",
+        "recover",
+        "select",
+    )
+)
+RUNNER_FILES = frozenset(
+    f"{folder}/{name}.py"
+    for folder, names in {
+        "ev_inputs": (
+            "__init__",
+            "features",
+            "hourly_reader",
+            "loader",
+            "scaling",
+            "splits",
+            "windows",
+        ),
+        "ev_models": ("__init__", "checkpoint", "data", "model", "run", "training"),
+        "ev_control": ("__init__", "confidence", "continuous", "diagnostics", "hypergradient"),
+        "ev_runner": (
+            "__init__",
+            "continuous",
+            "continuous_run",
+            "engine",
+            "final_gate",
+            "replay",
+            "run",
+            "state",
+            "store",
+        ),
+    }.items()
+    for name in names
+)
 
 
 def _same(actual: float | None, expected: float | None) -> bool:
@@ -26,15 +72,10 @@ def _same(actual: float | None, expected: float | None) -> bool:
     return math.isfinite(actual) and math.isclose(actual, expected, rel_tol=1e-6, abs_tol=1e-6)
 
 
-def _code_hashes(root: Path, names: dict[str, str], folders: tuple[str, ...]) -> dict[str, str]:
-    """Hash the scorer's recorded file set; verifier files can be added later."""
-    allowed = {
-        path.relative_to(root).as_posix()
-        for folder in folders
-        for path in (root / folder).glob("*.py")
-    }
-    if not names or not set(names) <= allowed:
-        raise ValueError("Recorded scorer file set is missing from staged code")
+def _code_hashes(root: Path, names: dict[str, str], expected: frozenset[str]) -> dict[str, str]:
+    """Hash the complete C scorer file inventory, ignoring later verifier additions."""
+    if set(names) != expected:
+        raise ValueError("Recorded scorer file inventory differs from immutable C package")
     return {name: digest(root / name) for name in names}
 
 
@@ -58,13 +99,12 @@ def _verify_ledger(
         "fixed_search_config_sha256": digest(search_path),
         "code_commit": commit,
         "sources": protocol["source_checkpoint_sha256"],
-        "code_files": _code_hashes(scorer_root, code_files, ("ev_search",)),
-        "runner_code_files": _code_hashes(
-            scorer_root, runner_files, ("ev_inputs", "ev_models", "ev_control", "ev_runner")
-        ),
+        "code_files": _code_hashes(scorer_root, code_files, SCORER_FILES),
+        "runner_code_files": _code_hashes(scorer_root, runner_files, RUNNER_FILES),
     }
     if (
         protocol.get("status") != "locked_owner_approved"
+        or commit != SCORER_COMMIT
         or commit != protocol["code_commit"]
         or expected["fixed_search_config_sha256"] != protocol["fixed_search_config_sha256"]
         or expected["calibration_study_template_sha256"]
@@ -180,6 +220,35 @@ def _verify_run(
     }
 
 
+def _search_complete(ledger: FixedLedger) -> bool:
+    """Match the scorer's finite zero/BO/sensitivity stopping rule without writing."""
+    completed = ledger.completed()
+    if sum(event["role"] == "zero_baseline" for event in completed) != 1:
+        return False
+    bo = [event for event in completed if event["role"] in {"initial", "bo_ei"}]
+    if len(bo) != ledger.config.bo_trials:
+        return False
+    expansions = [event for event in ledger.events if event["event"] == "domain_expansion"]
+    upper = expansions[-1]["upper"] if expansions else ledger.config.positive_upper
+    if (
+        bo
+        and bo[-1]["status"] == "complete"
+        and (not expansions or expansions[-1]["after_trial"] != bo[-1]["trial"])
+    ):
+        finite = [
+            (event["lambda"], event["outcome"]["objective_mae_kwh"])
+            for event in bo
+            if event["status"] == "complete"
+        ]
+        if expanded_upper(ledger.config, upper, len(expansions), finite) > upper:
+            return False
+    attempted = [event["lambda"] for event in completed]
+    return all(
+        any(math.isclose(weight, old, rel_tol=1e-10, abs_tol=0) for old in attempted)
+        for weight in sensitivity_design(ledger.config, upper)
+    )
+
+
 def verify_fixed_trials(
     ledger_root: Path, inputs, protocol_path: Path, scorer_root: Path, sources: dict
 ) -> dict:
@@ -270,9 +339,20 @@ def verify_fixed_trials(
                 "station_first_mae_kwh": stations,
             }
         )
+    complete = _search_complete(ledger)
+    finite_count = sum(row["objective_mae_kwh"] is not None for row in details)
+    status = (
+        "PASS"
+        if complete and finite_count
+        else "NO_VERIFIED_OBJECTIVE"
+        if complete
+        else "INCOMPLETE"
+    )
     return {
         "schema": "issue99-fixed-independent-verification-v1",
-        "status": "PASS",
+        "status": status,
+        "search_complete": complete,
+        "verified_objectives": finite_count,
         "protocol_sha256": digest(protocol_path),
         "ledger_events_sha256": digest(ledger_root / "events.jsonl"),
         "code_commit": protocol["code_commit"],
