@@ -25,6 +25,10 @@ class ProtocolOriginPreflight(unittest.TestCase):
 
     def test_revision_preserves_all_non_origin_settings_and_instants(self) -> None:
         previous_bytes = V1.read_bytes()
+        self.assertEqual(
+            hashlib.sha256(V2.read_bytes()).hexdigest(),
+            "f104d8809e04d0cde7d8982efd8146788f32c3c9a1c561ee9309891e6b040eb0",
+        )
         previous = json.loads(previous_bytes)
         current = json.loads(V2.read_text(encoding="utf-8"))
         self.assertEqual(
