@@ -2,7 +2,7 @@
 
 import json
 import math
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from ev_models.checkpoint import digest
@@ -20,11 +20,14 @@ def _scores(
     issued = set()
     errors = {}
     forecasts = {}
-    for tick in sorted(run_path.glob("tick-*")):
+    for index, tick in enumerate(sorted(run_path.glob("tick-*"))):
+        tick_time = replay.start + index * timedelta(days=1)
         forecast_path = tick / "forecasts.json"
         forecast = json.loads(forecast_path.read_text())
         if forecast:
             origin = forecast["origin"]
+            if datetime.fromisoformat(origin) != tick_time:
+                raise ValueError("Forecast origin differs from chronological tick")
             if origin in issued:
                 raise ValueError("Duplicate issued origin")
             issued.add(origin)
@@ -40,6 +43,8 @@ def _scores(
             if event["prediction_sha256"] != prediction_sha:
                 raise ValueError("Score prediction hash differs from issued vector")
             as_of = datetime.fromisoformat(event["as_of"])
+            if as_of != tick_time or datetime.fromisoformat(origin) >= as_of:
+                raise ValueError("Score time differs from chronological tick or issued origin")
             label = replay.labels(datetime.fromisoformat(origin), as_of)
             if label.status != "complete" or label.values is None or len(label.values) != 24:
                 raise ValueError("Score lacks complete arrived authenticated labels")

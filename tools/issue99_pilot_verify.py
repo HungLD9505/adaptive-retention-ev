@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import math
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import torch
@@ -140,6 +141,7 @@ def verify_pilot(
     previous = "0" * 64
     issued = {}
     scored = {}
+    skipped = {}
     actual_updates = 0
     decisions = 0
     state_commitments = {}
@@ -190,12 +192,28 @@ def verify_pilot(
                 if (
                     origin not in issued
                     or origin in scored
+                    or origin in skipped
                     or event["prediction_sha256"] != issued[origin]
                 ):
                     raise ValueError(f"Score lacks prior saved prediction: {origin}")
                 for metric in ("mae_kwh", "mse_kwh2"):
                     finite_nonnegative(event[metric], metric)
                 scored[origin] = event
+            elif event["event"] == "skip_incomplete_labels":
+                origin = event["origin"]
+                as_of = event["as_of"]
+                if (
+                    origin not in issued
+                    or origin in scored
+                    or origin in skipped
+                    or (forecast and as_of != forecast["origin"])
+                    or datetime.fromisoformat(as_of)
+                    < datetime.fromisoformat(origin) + timedelta(days=1)
+                ):
+                    raise ValueError(
+                        f"Incomplete-label skip lacks arrived forecast lineage: {origin}"
+                    )
+                skipped[origin] = event
             elif event["event"] == "actual_update":
                 actual_updates += 1
             elif event["event"] == "meta_decision":
@@ -230,8 +248,9 @@ def verify_pilot(
         or report.get("controller_decisions") != decisions
         or final["actual_steps"] != report.get("actual_steps")
         or final["virtual_steps"] != report.get("virtual_steps")
-        or any(row["origin"] in scored for row in final["pending"])
-        or {row["origin"] for row in final["pending"]} != set(issued) - set(scored)
+        or report.get("objective_missing_origins") != []
+        or len({row["origin"] for row in final["pending"]}) != len(final["pending"])
+        or {row["origin"] for row in final["pending"]} != set(issued) - set(scored) - set(skipped)
     ):
         raise ValueError("Pilot count/coverage/null-objective report differs")
     if (
@@ -266,6 +285,8 @@ def verify_pilot(
         "ticks": expected_ticks,
         "issued_days": len(issued),
         "scored_days": len(scored),
+        "skipped_incomplete_days": len(skipped),
+        "skipped_origins": sorted(skipped),
         "actual_update_events": actual_updates,
         "controller_decisions": decisions,
         "gpu": runtime["gpu"],

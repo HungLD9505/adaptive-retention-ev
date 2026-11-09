@@ -7,7 +7,7 @@ from pathlib import Path
 
 import torch
 
-from ev_runner.state import state_digest
+from ev_runner.state import canonical, state_digest
 from ev_runner.store import Store
 from tools.issue99_pilot_verify import sha256, verify_pilot
 
@@ -79,18 +79,27 @@ class PilotVerifyTests(unittest.TestCase):
             events = []
             if index:
                 previous_origin = f"2026-01-{index:02d}T00:00:00"
-                events.extend(
-                    [
+                if index == 1:
+                    events.append(
                         {
-                            "event": "score",
+                            "event": "skip_incomplete_labels",
                             "origin": previous_origin,
-                            "prediction_sha256": issued[previous_origin],
-                            "mae_kwh": 0.5,
-                            "mse_kwh2": 0.25,
-                        },
-                        {"event": "actual_update", "origin": previous_origin},
-                    ]
-                )
+                            "as_of": origin,
+                        }
+                    )
+                else:
+                    events.extend(
+                        [
+                            {
+                                "event": "score",
+                                "origin": previous_origin,
+                                "prediction_sha256": issued[previous_origin],
+                                "mae_kwh": 0.5,
+                                "mse_kwh2": 0.25,
+                            },
+                            {"event": "actual_update", "origin": previous_origin},
+                        ]
+                    )
             events.append(
                 {"event": "forecast_saved", "origin": origin, "prediction_sha256": current_sha}
             )
@@ -99,7 +108,7 @@ class PilotVerifyTests(unittest.TestCase):
             state = {
                 "branch": final_branch,
                 "pending": [{"origin": origin}],
-                "actual_steps": index,
+                "actual_steps": max(0, index - 1),
                 "virtual_steps": 0,
                 "cost": {"inference_seconds": 0.1, "actual_update_seconds": 0.2},
             }
@@ -112,15 +121,16 @@ class PilotVerifyTests(unittest.TestCase):
             "initial_logs": self.initial_logs,
             "scheduled_days": 90,
             "issued_days": 3,
-            "scored_days": 2,
+            "scored_days": 1,
             "objective_requested_days": 0,
             "objective_scored_days": 0,
             "objective_minimum_scored_days": None,
+            "objective_missing_origins": [],
             "objective_coverage_pass": False,
             "mae_kwh": None,
             "rmse_kwh": None,
             "controller_decisions": 0,
-            "actual_steps": 2,
+            "actual_steps": 1,
             "virtual_steps": 0,
             "pending_days": 1,
             "cost_seconds": {"inference_seconds": 0.1, "actual_update_seconds": 0.2},
@@ -149,7 +159,9 @@ class PilotVerifyTests(unittest.TestCase):
     def test_verifies_complete_pilot(self):
         result = self.verify()
         self.assertEqual(result["status"], "PASS")
-        self.assertEqual((result["ticks"], result["issued_days"], result["scored_days"]), (3, 3, 2))
+        self.assertEqual((result["ticks"], result["issued_days"], result["scored_days"]), (3, 3, 1))
+        self.assertEqual(result["skipped_incomplete_days"], 1)
+        self.assertEqual(result["skipped_origins"], ["2026-01-01T00:00:00"])
         self.assertIn("tick-0002/state.pt", result["files_sha256"])
 
     def test_rejects_changed_retained_state(self):
@@ -157,6 +169,25 @@ class PilotVerifyTests(unittest.TestCase):
         with state.open("ab") as stream:
             stream.write(b"corrupt")
         with self.assertRaisesRegex(ValueError, "Changed retained pilot artifact"):
+            self.verify()
+
+    def test_rejects_skip_before_label_availability(self):
+        tick = self.run / "tick-0001"
+        events_path = tick / "events.jsonl"
+        events = [json.loads(line) for line in events_path.read_text().splitlines()]
+        events[0]["as_of"] = events[0]["origin"]
+        events_path.write_bytes(b"".join(canonical(event) for event in events))
+        commit_path = tick / "commit.json"
+        commit = json.loads(commit_path.read_text())
+        commit["files"]["events.jsonl"] = sha256(events_path)
+        commit_path.write_bytes(canonical(commit))
+        final_commit_path = self.run / "tick-0002" / "commit.json"
+        final_commit = json.loads(final_commit_path.read_text())
+        final_commit["previous"] = sha256(commit_path)
+        final_commit_path.write_bytes(canonical(final_commit))
+        self.report["commit_chain"] = sha256(final_commit_path)
+        (self.run / "run.json").write_bytes(canonical(self.report))
+        with self.assertRaisesRegex(ValueError, "Incomplete-label skip"):
             self.verify()
 
     def test_rejects_wrong_pinned_manifest(self):

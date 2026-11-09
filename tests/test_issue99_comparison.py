@@ -12,7 +12,7 @@ from ev_runner.continuous_run import code_identity as continuous_code_identity
 from ev_runner.replay import Labels
 from ev_runner.run import runtime_code as discrete_code_identity
 from ev_search.comparison import event_hashes, execute_job, plan_jobs
-from ev_search.comparison_verify import verify_matrix
+from ev_search.comparison_verify import _scores, verify_matrix
 from ev_search.protocol import canonical_sha256
 
 TARGETS = ("1405", "2152", "1153", "1693")
@@ -32,6 +32,7 @@ class FakeInputs:
 
 class FakeReplay:
     scale = 1.0
+    start = datetime.fromisoformat("2023-01-03T00:00:00+08:00")
 
     def __init__(self, inputs, target, days):
         assert days == 90
@@ -127,6 +128,41 @@ def fixtures(root, *, fixed=0.5, initial=0.5):
 
 
 class ComparisonTests(unittest.TestCase):
+    def test_verifier_rejects_forecast_or_score_at_wrong_tick(self):
+        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+            run = Path(temporary)
+            origin = FakeReplay.start.isoformat()
+            forecast = {"origin": origin, "prediction": [2.0] * 24}
+            for index in range(3):
+                tick = run / f"tick-{index:04d}"
+                tick.mkdir()
+                (tick / "forecasts.json").write_text(json.dumps(forecast if index == 0 else {}))
+                (tick / "events.jsonl").write_text("")
+            replay = FakeReplay(None, "1405", 90)
+            job = {"family": "continuous"}
+            forecast_path = run / "tick-0000" / "forecasts.json"
+            event = {
+                "event": "score",
+                "origin": origin,
+                "as_of": (FakeReplay.start + timedelta(days=2)).isoformat(),
+                "prediction_sha256": digest(forecast_path),
+                "mae_kwh": 2.0,
+                "mse_kwh2": 4.0,
+            }
+            (run / "tick-0002" / "events.jsonl").write_text(json.dumps(event) + "\n")
+            self.assertEqual(len(_scores(run, job, replay)[1]), 1)
+            forecast["origin"] = (FakeReplay.start + timedelta(days=1)).isoformat()
+            forecast_path.write_text(json.dumps(forecast))
+            with self.assertRaisesRegex(ValueError, "Forecast origin differs"):
+                _scores(run, job, replay)
+            forecast["origin"] = origin
+            forecast_path.write_text(json.dumps(forecast))
+            event["prediction_sha256"] = digest(forecast_path)
+            event["as_of"] = (FakeReplay.start + timedelta(days=3)).isoformat()
+            (run / "tick-0002" / "events.jsonl").write_text(json.dumps(event) + "\n")
+            with self.assertRaisesRegex(ValueError, "Score time differs"):
+                _scores(run, job, replay)
+
     def test_plan_sixty_identities_and_only_exact_frozen_aliases(self):
         with tempfile.TemporaryDirectory(dir=".cache") as temporary:
             root = Path(temporary)
@@ -232,8 +268,7 @@ class ComparisonTests(unittest.TestCase):
             output = root / "runs"
             for job in jobs:
                 run = output / job["job_id"] / "run"
-                tick = run / "tick-0000"
-                tick.mkdir(parents=True)
+                run.mkdir(parents=True)
                 origin = job["evaluation_origins"][0]
                 forecast = {
                     "origin": origin,
@@ -241,29 +276,37 @@ class ComparisonTests(unittest.TestCase):
                     "predictions": [[2.0] * 24],
                     "active": 0.0,
                 }
-                (tick / "forecasts.json").write_text(json.dumps(forecast))
                 event = {
                     "event": "score",
                     "origin": origin,
                     "as_of": (datetime.fromisoformat(origin) + timedelta(days=2)).isoformat(),
-                    "prediction_sha256": digest(tick / "forecasts.json"),
                     "mae_kwh": 2.0,
                     "mse_kwh2": 4.0,
                     "mae_scaled": [2.0],
                     "mse_scaled": [4.0],
                     "issued_active": 0.0,
                 }
-                (tick / "events.jsonl").write_text(json.dumps(event) + "\n")
-                (tick / "state.pt").write_bytes(b"fixture-state")
-                commit = {
-                    "index": 0,
-                    "previous": "0" * 64,
-                    "files": {
-                        name: digest(tick / name)
-                        for name in ("state.pt", "events.jsonl", "forecasts.json")
-                    },
-                }
-                (tick / "commit.json").write_text(json.dumps(commit))
+                previous = "0" * 64
+                for index in range(3):
+                    tick = run / f"tick-{index:04d}"
+                    tick.mkdir()
+                    (tick / "forecasts.json").write_text(json.dumps(forecast if index == 0 else {}))
+                    if index == 0:
+                        event["prediction_sha256"] = digest(tick / "forecasts.json")
+                    (tick / "events.jsonl").write_text(
+                        json.dumps(event) + "\n" if index == 2 else ""
+                    )
+                    (tick / "state.pt").write_bytes(b"fixture-state")
+                    commit = {
+                        "index": index,
+                        "previous": previous,
+                        "files": {
+                            name: digest(tick / name)
+                            for name in ("state.pt", "events.jsonl", "forecasts.json")
+                        },
+                    }
+                    (tick / "commit.json").write_text(json.dumps(commit))
+                    previous = digest(tick / "commit.json")
                 binding = {
                     "input": inputs.binding("target", job["target"], job["source_sha256"]),
                     "config": job["config"],
@@ -273,7 +316,7 @@ class ComparisonTests(unittest.TestCase):
                 }
                 report = {
                     "binding": binding,
-                    "commit_chain": digest(tick / "commit.json"),
+                    "commit_chain": previous,
                     "phase": "evaluation",
                     "scheduled_days": 90,
                     "issued_days": 1,
@@ -314,7 +357,7 @@ class ComparisonTests(unittest.TestCase):
             self.assertEqual(result["aggregate_mae_kwh"]["fixed"], 2.0)
             self.assertEqual(result["target_rmse_kwh"]["1405"]["fixed"], 2.0)
             self.assertEqual(result["paired_mae_delta_vs_lambda0_kwh"]["1405"]["fixed"]["42"], 0.0)
-            victim = output / "lambda0-1405-seed42" / "run" / "tick-0000" / "events.jsonl"
+            victim = output / "lambda0-1405-seed42" / "run" / "tick-0002" / "events.jsonl"
             victim.write_text(victim.read_text().replace("2.0", "3.0"))
             with self.assertRaisesRegex(ValueError, "stream hash changed"):
                 with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
