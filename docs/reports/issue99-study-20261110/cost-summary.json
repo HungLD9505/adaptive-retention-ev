@@ -1,0 +1,52 @@
+{
+  "phases": {
+    "controller_calibration": {
+      "invocations": 72,
+      "known_wall_seconds": 267.3506762849995,
+      "unknown_wall_invocations": 0
+    },
+    "controller-scale-pilot": {
+      "invocations": 12,
+      "known_wall_seconds": 16.44628291099957,
+      "unknown_wall_invocations": 0
+    },
+    "fixed": {
+      "invocations": 252,
+      "known_wall_seconds": 373.7781055739997,
+      "unknown_wall_invocations": 0
+    },
+    "comparison": {
+      "invocations": 48,
+      "known_wall_seconds": 347.67183278599987,
+      "unknown_wall_invocations": 0
+    }
+  },
+  "comparison_by_method": {
+    "lambda0": {
+      "invocations": 12,
+      "known_wall_seconds": 52.2443796999994
+    },
+    "continuous": {
+      "invocations": 12,
+      "known_wall_seconds": 148.98389866299976
+    },
+    "discrete": {
+      "invocations": 12,
+      "known_wall_seconds": 90.71336135900037
+    },
+    "fixed": {
+      "invocations": 12,
+      "known_wall_seconds": 55.73019306400033
+    },
+    "frozen_lambda": {
+      "invocations": 0,
+      "known_wall_seconds": 0.0,
+      "exact_reuse_rows": 12
+    }
+  },
+  "incomplete_invocations_without_report": 0,
+  "source_pretraining_wall_seconds": null,
+  "source_retrains_in_this_study": 0,
+  "pytorch_peak_allocated_bytes": 89864192,
+  "timing_scope": "Invocation wall includes IO and checkpoint work; component timers overlap these totals and must not be added again. Failed/unreported invocation costs remain unknown. Exact reuse has no additional model invocation, not zero bookkeeping cost. Tests, provisioning, transfer and prior pilots are outside these totals. PyTorch peak is not total device memory."
+}

@@ -10,6 +10,7 @@ The report PDFs and exact tables live under [report/](../../report/README.md).
 | Primary vs separate supporting evidence | [Joint synthesis](issue23-joint-evidence-synthesis-20261030.md) and [full-precision record](issue23-joint-evidence-synthesis-20261030-v1.json) |
 | Posthoc interpretation and report consistency | [Retention analysis](issue23-retention-posthoc-20261031.md), [Report 1 audit](issue23-manuscript-report1-review-20261031.md) |
 | Alternate implementation and bounded evaluation | [Latest supporting report](hung-e2e-research-report-draft-20261030-v47.md), [remaining gates](hung-e2e-gate-register-20261030-v70.md) |
+| Exploratory continuous-retention study (10 November) | [Results and method](issue99-study-20261110/paper-method-and-results.md), [verified execution](issue99-study-20261110/execution-verification.md), [full-precision means](issue99-study-20261110/method-summary.csv) |
 | Diagnostic studies | [Fixed adaptation](member-duc-retention.md), [Confidence controller](member-cyber-controller.md) |
 | Data and input handoff | [Data integration](data-integration.md), [inputs](input-handoff.md) |
 | Software and package validation | [Verification reference](main-readiness-20261102.md), [machine-readable checks](release-curation-20261102-v1.json) |
