@@ -262,6 +262,7 @@ def draw_figures(
         title="Fixed sensitivity: exploratory Development",
     )
     axes[0].legend()
+    axes[0].set_xlim(left=0)
     for name, key in [
         ("Penalty-gradient ratio", "median_local_gradient_ratio"),
         ("Latent displacement MSE", "median_latent_displacement_mse"),
@@ -269,7 +270,7 @@ def draw_figures(
         p = [r for r in valid if r["lambda"] > 0 and r[key] is not None]
         axes[1].plot([r["lambda"] for r in p], [r[key] for r in p], "o-", label=name)
     axes[1].set_xscale("log")
-    axes[1].set_yscale("symlog", linthresh=1e-5)
+    axes[1].set_yscale("log")
     axes[1].set(
         xlabel="Fixed lambda",
         ylabel="Median sampled diagnostic",
@@ -329,6 +330,7 @@ def draw_figures(
             ylabel="Lambda",
         )
         ax.legend(fontsize=7)
+        ax.set_ylim(bottom=0)
     fig.savefig(out / "controller-trajectories.png", dpi=180)
     fig.savefig(out / "controller-trajectories.pdf")
     plt.close(fig)
