@@ -12,6 +12,8 @@ PR #100 starts continuous λ at `0.1`, with one-step Adam, A/V=`1/1`, and meta s
 
 PR #102 already addressed the scale of the update: it initialized at its calibrated Fixed λ, used A/V=`2/1`, and selected a much larger meta step on Calibration. Its saved λ trajectories moved materially, yet its later aggregate MAE still slightly exceeded Fixed. A moving λ is therefore a mechanism check, not evidence of forecast benefit. Target heterogeneity and calibration noise remain plausible explanations. The forecast/retention losses and causal arrived-label ordering should remain unchanged in any follow-up unless a separately identified method change is tested.
 
+The current hypergradient optimizes a virtual update on older arrived A rows against the newer arrived V row. The real update then trains on V, and forecast benefit is measured on later arrivals. Whether the A→V gradient sign predicts the effect of the V→future update is an untested assumption; the target-2152 degradation makes this a priority diagnostic, not a proven causal explanation.
+
 ## Bounded local Calibration probe
 
 Three ignored scripts and their new, separate output directories live under `.cache/issue99-controller-probe-v{1,2,3}` in this worktree. No historical run was overwritten. The final probe script `.cache/issue99-controller-probe-v3.py` has SHA-256 `fc93c9fcd03237fd166d05dc38a3b8a90aabfd15a1001f8396291780e11e32b9`; its `summary.json` has SHA-256 `e395237ef1767101f425ae12ab49c21c6ded71ab210bac28a20e569aff98f42d`. The scripts are local exploratory material, not a locked scored protocol or a tracked reproduction package.
