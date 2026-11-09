@@ -27,7 +27,13 @@ def virtual_adam_step(
     }
     updated = {}
     for group in optimizer.param_groups:
-        if group["capturable"] or group["differentiable"] or group["fused"] or group["foreach"]:
+        if (
+            group["capturable"]
+            or group["differentiable"]
+            or group["fused"]
+            or group["foreach"]
+            or group.get("decoupled_weight_decay", False)
+        ):
             raise ValueError("Unsupported Adam execution variant")
         beta1, beta2 = group["betas"]
         lr, eps, decay = group["lr"], group["eps"], group["weight_decay"]
@@ -35,7 +41,7 @@ def virtual_adam_step(
             raise ValueError("Nonfinite Adam setting")
         for parameter in group["params"]:
             name, gradient = by_id[id(parameter)]
-            state = optimizer.state[parameter]
+            state = optimizer.state.get(parameter, {})
             step = int(state["step"].item()) + 1 if state else 1
             grad = -gradient if group["maximize"] else gradient
             if decay:

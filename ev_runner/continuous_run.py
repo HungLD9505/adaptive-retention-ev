@@ -6,7 +6,7 @@ import math
 import os
 import subprocess
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import torch
@@ -28,6 +28,55 @@ from ev_runner.state import Branch, rng_state, state_digest
 from ev_runner.store import Store
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def validate_origin_boundary(
+    protocol: dict, entity_id: str, start: datetime, stop: datetime
+) -> list[str]:
+    """Require chronological disjoint scored windows with an explicit embargo."""
+    embargo = protocol.get("embargo_days")
+    if isinstance(embargo, bool) or not isinstance(embargo, int) or embargo < 0:
+        raise ValueError("Protocol needs nonnegative integer embargo_days")
+    checked = {}
+    for name in ("calibration_origins", "evaluation_origins"):
+        rows = protocol[name][entity_id]
+        if (
+            not isinstance(rows, list)
+            or not rows
+            or len(rows) != len(set(rows))
+            or rows != sorted(rows)
+        ):
+            raise ValueError(f"Invalid chronological {name}")
+        stamps = [datetime.fromisoformat(origin) for origin in rows]
+        if any(not start <= stamp < stop for stamp in stamps):
+            raise ValueError(f"{name} outside replay calendar")
+        checked[name] = stamps
+    if (
+        checked["calibration_origins"][-1] + timedelta(days=1 + embargo)
+        > checked["evaluation_origins"][0]
+    ):
+        raise ValueError("Evaluation must follow calibration horizon and embargo")
+    return protocol["calibration_origins"][entity_id]
+
+
+def objective_summary(scores: list[dict], origins: list[str], minimum_scored: int | None) -> dict:
+    """Keep partial or low-coverage objectives null under the registered gate."""
+    selected = set(origins)
+    objective = [row for row in scores if row["origin"] in selected]
+    if len({row["origin"] for row in objective}) != len(objective):
+        raise ValueError("Duplicate scored objective origin")
+    valid = minimum_scored is not None and len(objective) >= minimum_scored
+    return {
+        "objective_requested_days": len(origins),
+        "objective_scored_days": len(objective),
+        "objective_minimum_scored_days": minimum_scored,
+        "objective_missing_origins": sorted(selected - {row["origin"] for row in objective}),
+        "objective_coverage_pass": valid,
+        "mae_kwh": sum(row["mae_kwh"] for row in objective) / len(objective) if valid else None,
+        "rmse_kwh": math.sqrt(sum(row["mse_kwh2"] for row in objective) / len(objective))
+        if valid
+        else None,
+    }
 
 
 def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, WindowRule]:
@@ -117,6 +166,7 @@ def execute(
     stop_after_ticks: int | None = None,
     protocol_path: Path | None = None,
 ) -> dict:
+    invocation_started = time.perf_counter()
     initial, online, rule = validate_study(config)
     if entity_id not in config["targets"] or inputs.config["history_days"] != 14:
         raise ValueError("Wrong Development target or history budget")
@@ -128,16 +178,34 @@ def execute(
         if protocol_path is None or digest(protocol_path) != config["protocol_sha256"]:
             raise ValueError("Missing or changed reviewed protocol")
         protocol = json.loads(protocol_path.read_text())
-        if protocol.get("status") != "locked_reviewed" or not protocol.get("review"):
-            raise ValueError("Scored execution requires recorded peer review")
-        calibration = protocol["calibration_origins"][entity_id]
+        if protocol.get("status") != "locked_owner_approved" or not protocol.get(
+            "owner_authorization"
+        ):
+            raise ValueError("Scored execution requires recorded owner authorization")
+        calibration = validate_origin_boundary(
+            protocol,
+            entity_id,
+            inputs.deployment,
+            inputs.deployment + config["replay_days"] * DAY,
+        )
         evaluation = protocol["evaluation_origins"][entity_id]
-        if set(calibration) & set(evaluation) or not calibration or not evaluation:
-            raise ValueError("Calibration/evaluation origins overlap or are empty")
         selected = calibration if config["phase"] == "calibration" else evaluation
         if config["objective_origins"] != selected:
             raise ValueError("Objective origins differ from reviewed protocol")
+        minimum_scored = protocol["minimum_scored_days"][config["phase"]][entity_id]
+        if (
+            isinstance(minimum_scored, bool)
+            or not isinstance(minimum_scored, int)
+            or not 1 <= minimum_scored <= len(selected)
+        ):
+            raise ValueError("Invalid registered objective coverage minimum")
+        if stop_after_ticks is not None:
+            raise ValueError("Scored phase cannot stop before its declared horizon")
+    else:
+        minimum_scored = None
+    source_load_started = time.perf_counter()
     source, _, source_value = load_checkpoint(source_path, sha256=source_sha256, device=device)
+    source_load_wall_seconds = time.perf_counter() - source_load_started
     meta = source_value["metadata"]
     if (
         meta["input_binding"]["stage"] != "source"
@@ -155,13 +223,22 @@ def execute(
         or (latent < 0).any()
     ):
         raise ValueError("Invalid source-derived latent scale")
+    replay_load_started = time.perf_counter()
     replay = Replay(inputs, entity_id, config["replay_days"])
+    replay_load_wall_seconds = time.perf_counter() - replay_load_started
+    if device == "cuda":
+        torch.cuda.reset_peak_memory_stats()
     seed_everything(initial.seed)
     target = adapt_model(source)
     reference = frozen_reference(source)
     optimizer = torch.optim.Adam(target.parameters(), lr=initial.learning_rate)
+    prefix_load_started = time.perf_counter()
     prefix = inputs.training("development", entity_id)
+    prefix_load_wall_seconds = time.perf_counter() - prefix_load_started
     initial_logs = []
+    if device == "cuda":
+        torch.cuda.synchronize()
+    initial_started = time.perf_counter()
     if resume_from is None:
         for epoch in range(initial.epochs):
             initial_logs.append(
@@ -179,6 +256,9 @@ def execute(
             )
     else:
         initial_logs = json.loads((resume_from / "initial-adaptation.json").read_text())
+    if device == "cuda":
+        torch.cuda.synchronize()
+    initial_wall_seconds = time.perf_counter() - initial_started if resume_from is None else None
     binding = {
         "schema": "issue99-run-binding-v1",
         "input": inputs.binding("target", entity_id, source_sha256),
@@ -221,7 +301,6 @@ def execute(
         )
     if stop_after_ticks:
         end = min(end, runner.next_at + (stop_after_ticks - 1) * DAY)
-    started = time.perf_counter()
     runner.run_until(end)
     scores = []
     issued = 0
@@ -235,11 +314,7 @@ def execute(
                 scores.append(event)
             elif event["event"] == "meta_decision":
                 decisions += 1
-    objective = (
-        [row for row in scores if row["origin"] in config["objective_origins"]]
-        if config["phase"] != "pilot"
-        else []
-    )
+    objective = objective_summary(scores, config["objective_origins"], minimum_scored)
     report = {
         "schema": "issue99-run-v1",
         "run_id": output.name,
@@ -247,22 +322,23 @@ def execute(
         "method": "fixed_real_lambda" if config["frozen_lambda"] else "continuous_one_step_adam",
         "binding": binding,
         "initial_logs": initial_logs,
+        "initial_wall_seconds_this_invocation": initial_wall_seconds,
+        "source_load_wall_seconds_this_invocation": source_load_wall_seconds,
+        "replay_load_wall_seconds_this_invocation": replay_load_wall_seconds,
+        "prefix_load_wall_seconds_this_invocation": prefix_load_wall_seconds,
         "scheduled_days": 90,
         "issued_days": issued,
         "scored_days": len(scores),
-        "objective_requested_days": len(config["objective_origins"]),
-        "objective_scored_days": len(objective),
-        "mae_kwh": sum(row["mae_kwh"] for row in objective) / len(objective) if objective else None,
-        "rmse_kwh": math.sqrt(sum(row["mse_kwh2"] for row in objective) / len(objective))
-        if objective
-        else None,
+        **objective,
         "actual_steps": runner.actual_steps,
         "virtual_steps": runner.virtual_steps,
         "controller_decisions": decisions,
         "final_lambda": runner.current_lambda,
         "pending_days": len(runner.pending),
         "cost_seconds": runner.cost,
-        "invocation_wall_seconds": time.perf_counter() - started,
+        "invocation_wall_seconds": time.perf_counter() - invocation_started,
+        "gpu_peak_allocated_bytes": torch.cuda.max_memory_allocated() if device == "cuda" else None,
+        "gpu_peak_reserved_bytes": torch.cuda.max_memory_reserved() if device == "cuda" else None,
         "commit_chain": store.previous,
         "final_state_sha256": state_digest(runner.branch.snapshot()),
         "resume_from": str(resume_from) if resume_from else None,

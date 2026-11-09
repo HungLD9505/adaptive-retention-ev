@@ -56,6 +56,10 @@ class ContinuousRunner:
         if store.restored is not None:
             self.restore(store.restored)
 
+    def synchronize(self) -> None:
+        if self.device == "cuda":
+            torch.cuda.synchronize()
+
     def snapshot(self) -> dict:
         return {
             "branch": self.branch.snapshot(),
@@ -137,6 +141,7 @@ class ContinuousRunner:
                         }
                     )
                 else:
+                    self.synchronize()
                     started = time.perf_counter()
                     decision = decide(
                         self.branch.model,
@@ -148,6 +153,7 @@ class ContinuousRunner:
                         self.rule,
                         device=self.device,
                     )
+                    self.synchronize()
                     self.cost["meta_seconds"] += time.perf_counter() - started
                     self.current_lambda = decision["lambda_after"]
                     self.virtual_steps += 1
@@ -155,6 +161,7 @@ class ContinuousRunner:
                         {"event": "meta_decision", "origin": issued["origin"], **decision}
                     )
             before = self.branch.steps
+            self.synchronize()
             started = time.perf_counter()
             logs = self.branch.update(
                 record,
@@ -165,6 +172,7 @@ class ContinuousRunner:
                 latent_scale=self.latent_scale,
                 event_index=self.arrivals - 1,
             )
+            self.synchronize()
             self.cost["actual_update_seconds"] += time.perf_counter() - started
             self.actual_steps += self.branch.steps - before
             self.window.mark_trained(origin)
@@ -186,8 +194,10 @@ class ContinuousRunner:
         record = self.replay.forecast(as_of) if as_of < self.replay.stop else None
         issued = {}
         if record is not None:
+            self.synchronize()
             started = time.perf_counter()
             prediction = self.branch.predict(record, device=self.device)
+            self.synchronize()
             self.cost["inference_seconds"] += time.perf_counter() - started
             issued = {
                 "origin": as_of.isoformat(),

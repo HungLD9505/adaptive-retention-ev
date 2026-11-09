@@ -78,6 +78,14 @@ class HypergradientTests(unittest.TestCase):
                 numerical = (upper - lower) / (2 * delta)
                 torch.testing.assert_close(gradient, numerical, rtol=5e-5, atol=1e-7)
 
+    def test_fresh_adam_state_remains_empty_after_virtual_step(self):
+        model = nn.Linear(2, 1).double()
+        optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
+        self.assertEqual(len(optimizer.state), 0)
+        coefficient = torch.tensor(0.2, dtype=torch.float64, requires_grad=True)
+        virtual_adam_step(model, optimizer, self.train_loss(model, coefficient))
+        self.assertEqual(len(optimizer.state), 0)
+
 
 if __name__ == "__main__":
     unittest.main()

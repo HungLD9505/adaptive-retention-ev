@@ -2,8 +2,9 @@
 
 import copy
 import unittest
+from datetime import datetime, timedelta, timezone
 
-from ev_runner.continuous_run import validate_study
+from ev_runner.continuous_run import objective_summary, validate_origin_boundary, validate_study
 
 
 def pilot_config():
@@ -64,6 +65,36 @@ class StudyConfigTests(unittest.TestCase):
         config["initial_lambda"] = 2.1
         with self.assertRaises(ValueError):
             validate_study(config)
+
+    def test_protocol_requires_calibration_before_evaluation_with_embargo(self):
+        start = datetime(2022, 12, 1, tzinfo=timezone.utc)
+        stop = start + timedelta(days=90)
+
+        def day(index):
+            return (start + timedelta(days=index)).isoformat()
+
+        protocol = {
+            "embargo_days": 1,
+            "calibration_origins": {"1405": [day(0), day(1)]},
+            "evaluation_origins": {"1405": [day(4), day(5)]},
+        }
+        self.assertEqual(validate_origin_boundary(protocol, "1405", start, stop), [day(0), day(1)])
+        protocol["evaluation_origins"]["1405"] = [day(1), day(5)]
+        with self.assertRaises(ValueError):
+            validate_origin_boundary(protocol, "1405", start, stop)
+        protocol["evaluation_origins"]["1405"] = [day(91)]
+        with self.assertRaises(ValueError):
+            validate_origin_boundary(protocol, "1405", start, stop)
+
+    def test_objective_is_null_below_registered_coverage(self):
+        rows = [{"origin": "day-1", "mae_kwh": 3.0, "mse_kwh2": 10.0}]
+        partial = objective_summary(rows, ["day-1", "day-2"], 2)
+        self.assertIsNone(partial["mae_kwh"])
+        self.assertEqual(partial["objective_missing_origins"], ["day-2"])
+        complete = objective_summary(rows, ["day-1", "day-2"], 1)
+        self.assertEqual(complete["mae_kwh"], 3.0)
+        with self.assertRaises(ValueError):
+            objective_summary(rows * 2, ["day-1"], 1)
 
 
 if __name__ == "__main__":
