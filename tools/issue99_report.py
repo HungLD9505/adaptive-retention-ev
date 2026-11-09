@@ -370,7 +370,7 @@ def write_handoff(
         )
     text = f"""# Issue #99 completed exploratory Development study
 
-The owner authorized execution without waiting for Hung review. This is a method-change study, not scientific peer approval or a fresh held-out test. Source10, four selected UrbanEV/SZH targets, three paired seeds and 14-day initial history were reused. The task remains 24→24. Historical reports and Final results are unchanged.
+This study compares calibrated fixed latent retention with a continuous one-step validation controller. On the registered later objective, Continuous MAE is {checked["aggregate_mae_kwh"]["continuous"]:.6f} kWh and Fixed MAE is {checked["aggregate_mae_kwh"]["fixed"]:.6f} kWh. Source10, four selected UrbanEV/SZH targets, three paired seeds and 14-day initial history were reused. This is exploratory Development evidence, not fresh held-out or scientifically peer-approved evidence. The task remains 24→24. Historical reports and Final results are unchanged.
 
 ## Registered scope and selection
 
@@ -386,7 +386,7 @@ Controller interval: [0,{selected["controller_upper_bound"]:.12g}], initialized 
 Continuous minus calibrated Fixed on the later objective is **{paired_delta:+.6f} kWh**; a negative value favors Continuous. This is the main mechanism comparison, not the earlier calibration improvement.
 
 {station_table}
-All entries average paired seeds within station, then give the four stations equal weight. The full-90 column mixes calibration and later days and is descriptive only. Frozen lambda may exactly reuse Fixed when all executable configurations match; it is not an independently retrained replicate. The legacy discrete controller keeps its original recipe and three shadow models, with greater compute and different initialization than the single-branch methods.
+All entries average paired seeds within station, then give the four stations equal weight. The full-90 column mixes calibration and later days and is descriptive only. Frozen lambda may exactly reuse Fixed when all executable configurations match; it is not an independently retrained replicate. The legacy discrete controller keeps its original recipe and three shadow models, with greater compute and different initialization than the single-branch methods. It was not retuned for this new calibration split, so tuning budgets differ and its gap cannot be attributed solely to the controller mechanism.
 
 ## Interpretation and limits
 
