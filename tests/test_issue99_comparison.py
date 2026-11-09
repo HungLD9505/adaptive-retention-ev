@@ -3,11 +3,13 @@
 import json
 import tempfile
 import unittest
+from datetime import datetime, timedelta
 from pathlib import Path
 from unittest import mock
 
 from ev_models.checkpoint import digest
 from ev_runner.continuous_run import code_identity as continuous_code_identity
+from ev_runner.replay import Labels
 from ev_runner.run import runtime_code as discrete_code_identity
 from ev_search.comparison import event_hashes, execute_job, plan_jobs
 from ev_search.comparison_verify import verify_matrix
@@ -25,6 +27,19 @@ class FakeInputs:
 
     def binding(self, stage, target, source_sha):
         return {"stage": stage, "target": target, "source": source_sha}
+
+
+class FakeReplay:
+    scale = 1.0
+
+    def __init__(self, inputs, target, days):
+        assert days == 90
+
+    def labels(self, origin, as_of):
+        available = origin + timedelta(days=2)
+        if as_of < available:
+            return Labels("pending", None, available)
+        return Labels("complete", (0.0,) * 24, available)
 
 
 def fixtures(root, *, fixed=0.5, initial=0.5):
@@ -189,18 +204,38 @@ class ComparisonTests(unittest.TestCase):
             output = root / "runs"
             for job in jobs:
                 run = output / job["job_id"] / "run"
-                tick = run / "tick-0"
+                tick = run / "tick-0000"
                 tick.mkdir(parents=True)
                 origin = job["evaluation_origins"][0]
-                (tick / "forecasts.json").write_text(json.dumps({"origin": origin}))
+                forecast = {
+                    "origin": origin,
+                    "prediction": [2.0] * 24,
+                    "predictions": [[2.0] * 24],
+                    "active": 0.0,
+                }
+                (tick / "forecasts.json").write_text(json.dumps(forecast))
                 event = {
                     "event": "score",
                     "origin": origin,
+                    "as_of": (datetime.fromisoformat(origin) + timedelta(days=2)).isoformat(),
+                    "prediction_sha256": digest(tick / "forecasts.json"),
                     "mae_kwh": 2.0,
+                    "mse_kwh2": 4.0,
                     "mae_scaled": [2.0],
+                    "mse_scaled": [4.0],
                     "issued_active": 0.0,
                 }
                 (tick / "events.jsonl").write_text(json.dumps(event) + "\n")
+                (tick / "state.pt").write_bytes(b"fixture-state")
+                commit = {
+                    "index": 0,
+                    "previous": "0" * 64,
+                    "files": {
+                        name: digest(tick / name)
+                        for name in ("state.pt", "events.jsonl", "forecasts.json")
+                    },
+                }
+                (tick / "commit.json").write_text(json.dumps(commit))
                 binding = {
                     "input": inputs.binding("target", job["target"], job["source_sha256"]),
                     "config": job["config"],
@@ -210,6 +245,7 @@ class ComparisonTests(unittest.TestCase):
                 }
                 report = {
                     "binding": binding,
+                    "commit_chain": digest(tick / "commit.json"),
                     "phase": "evaluation",
                     "scheduled_days": 90,
                     "issued_days": 1,
@@ -219,7 +255,11 @@ class ComparisonTests(unittest.TestCase):
                     "objective_missing_origins": [],
                     "objective_coverage_pass": True,
                     "mae_kwh": 2.0,
+                    "rmse_kwh": 2.0,
+                    "active_mae_kwh": 2.0,
+                    "active_rmse_kwh": 2.0,
                 }
+                (run / "binding.json").write_text(json.dumps(binding))
                 (run / "run.json").write_text(json.dumps(report))
                 saved = {
                     "job": job,
@@ -241,12 +281,91 @@ class ComparisonTests(unittest.TestCase):
                         event_sha256=event_hashes(source_run),
                     )
                     saved_path.write_text(json.dumps(saved))
-            result = verify_matrix(jobs, output, inputs, protocol)
+            with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
+                result = verify_matrix(jobs, output, inputs, protocol)
             self.assertEqual(result["aggregate_mae_kwh"]["fixed"], 2.0)
-            victim = output / "lambda0-1405-seed42" / "run" / "tick-0" / "events.jsonl"
+            self.assertEqual(result["target_rmse_kwh"]["1405"]["fixed"], 2.0)
+            self.assertEqual(result["paired_mae_delta_vs_lambda0_kwh"]["1405"]["fixed"]["42"], 0.0)
+            victim = output / "lambda0-1405-seed42" / "run" / "tick-0000" / "events.jsonl"
             victim.write_text(victim.read_text().replace("2.0", "3.0"))
             with self.assertRaisesRegex(ValueError, "stream hash changed"):
-                verify_matrix(jobs, output, inputs, protocol)
+                with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
+                    verify_matrix(jobs, output, inputs, protocol)
+            # A forged event with fresh hashes still cannot change the label/vector metric.
+            run = victim.parent.parent
+            score = json.loads(victim.read_text())
+            score["mae_kwh"] = 3.0
+            victim.write_text(json.dumps(score) + "\n")
+            commit_path = victim.parent / "commit.json"
+            commit = json.loads(commit_path.read_text())
+            commit["files"]["events.jsonl"] = digest(victim)
+            commit_path.write_text(json.dumps(commit))
+            report_path = run / "run.json"
+            report = json.loads(report_path.read_text())
+            report["commit_chain"] = digest(commit_path)
+            report_path.write_text(json.dumps(report))
+            job_path = run.parent / "job.json"
+            saved = json.loads(job_path.read_text())
+            saved["run_sha256"] = digest(report_path)
+            saved["event_sha256"] = event_hashes(run)
+            job_path.write_text(json.dumps(saved))
+            with self.assertRaisesRegex(ValueError, "score differs from forecast and labels"):
+                with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
+                    verify_matrix(jobs, output, inputs, protocol)
+
+    def test_resume_uses_fresh_output_and_rejects_changed_partial_chain(self):
+        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+            root = Path(temporary)
+            protocol, lock, sources = fixtures(root)
+            inputs = FakeInputs()
+            job = next(
+                job
+                for job in plan_jobs(inputs, protocol, lock, sources)
+                if job["method"] == "continuous" and job["target"] == "1405" and job["seed"] == 42
+            )
+            old = root / "partial" / "run"
+            tick = old / "tick-0000"
+            tick.mkdir(parents=True)
+            binding = {
+                "input": inputs.binding("target", job["target"], job["source_sha256"]),
+                "config": job["config"],
+                "source_population_sha256": inputs.source_hash,
+                "code": {"files": continuous_code_identity()["files"]},
+            }
+            (old / "binding.json").write_text(json.dumps(binding))
+            for name in ("forecasts.json", "events.jsonl", "state.pt"):
+                (tick / name).write_bytes(name.encode())
+            commit = {
+                "index": 0,
+                "previous": "0" * 64,
+                "files": {
+                    name: digest(tick / name)
+                    for name in ("state.pt", "events.jsonl", "forecasts.json")
+                },
+            }
+            (tick / "commit.json").write_text(json.dumps(commit))
+            old_hash = digest(tick / "commit.json")
+
+            def fake_resume(*args, **kwargs):
+                self.assertEqual(kwargs["resume_from"], old)
+                run_root = args[5]
+                run_root.mkdir()
+                report = {"phase": "evaluation", "binding": binding}
+                (run_root / "run.json").write_text(json.dumps(report))
+                return report
+
+            with mock.patch("ev_search.comparison.execute_continuous", side_effect=fake_resume):
+                result = execute_job(
+                    job, inputs, protocol, lock, root / "fresh", device="cpu", resume_from=old
+                )
+            self.assertEqual(result["resume_source_chain_sha256"], old_hash)
+            self.assertEqual(digest(tick / "commit.json"), old_hash)
+            (tick / "state.pt").write_bytes(b"changed")
+            with self.assertRaisesRegex(ValueError, "Resume committed artifact differs"):
+                execute_job(
+                    job, inputs, protocol, lock, root / "another", device="cpu", resume_from=old
+                )
+            self.assertFalse((root / "another").exists())
 
 
 if __name__ == "__main__":

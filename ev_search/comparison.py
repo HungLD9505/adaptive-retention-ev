@@ -158,12 +158,68 @@ def verify_run_binding(job: dict, report: dict, inputs: InputRun) -> None:
 
 
 def event_hashes(run_path: Path) -> dict[str, str]:
-    """Bind the persisted daily forecast and score stream to its job record."""
+    """Bind every committed tick artifact, including model state where retained."""
     return {
         str(path.relative_to(run_path)).replace("\\", "/"): digest(path)
         for tick in sorted(run_path.glob("tick-*"))
-        for path in (tick / "forecasts.json", tick / "events.jsonl")
+        for path in (
+            tick / "forecasts.json",
+            tick / "events.jsonl",
+            tick / "commit.json",
+            tick / "state.pt",
+        )
+        if path.exists()
     }
+
+
+def _resume_chain(job: dict, inputs: InputRun, run_path: Path) -> str:
+    """Read-only preflight; Store repeats full validation while copying into a new run."""
+    binding = json.loads((run_path / "binding.json").read_text())
+    if (
+        binding.get("input") != inputs.binding("target", job["target"], job["source_sha256"])
+        or binding.get("config") != job["config"]
+        or binding.get("source_population_sha256") != inputs.source_hash
+    ):
+        raise ValueError("Resume input/config/source binding differs")
+    files = (
+        continuous_code_identity()["files"]
+        if job["family"] == "continuous"
+        else discrete_code_identity()["files"]
+    )
+    saved_files = (
+        binding["code"]["files"] if job["family"] == "continuous" else binding["code_files"]
+    )
+    if saved_files != files:
+        raise ValueError("Resume code binding differs")
+    if list(run_path.glob(".pending-*")):
+        raise ValueError("Resume source has uncommitted tick")
+    ticks = sorted(run_path.glob("tick-*"))
+    if not ticks:
+        raise ValueError("Resume source has no committed ticks")
+    previous = "0" * 64
+    retention = job["config"].get("state_retention", "all")
+    for index, tick in enumerate(ticks):
+        meta = json.loads((tick / "commit.json").read_text())
+        if (
+            tick.name != f"tick-{index:04d}"
+            or meta["index"] != index
+            or meta["previous"] != previous
+            or set(meta["files"]) != {"state.pt", "events.jsonl", "forecasts.json"}
+        ):
+            raise ValueError("Resume commit chain differs")
+        for name, expected in meta["files"].items():
+            path = tick / name
+            if (
+                name == "state.pt"
+                and retention == "latest"
+                and index < len(ticks) - 1
+                and not path.exists()
+            ):
+                continue
+            if digest(path) != expected:
+                raise ValueError("Resume committed artifact differs")
+        previous = digest(tick / "commit.json")
+    return previous
 
 
 def execute_job(
@@ -174,6 +230,7 @@ def execute_job(
     output_root: Path,
     *,
     device: str,
+    resume_from: Path | None = None,
 ) -> dict:
     """Run one fresh job or reuse an exact semantic twin without overwriting."""
     if digest(protocol_path) != job["protocol_sha256"]:
@@ -182,6 +239,9 @@ def execute_job(
         raise ValueError("Comparison selection lock changed")
     if digest(Path(job["source_path"])) != job["source_sha256"]:
         raise ValueError("Comparison Source checkpoint changed")
+    if resume_from is not None and job["reuse_job_id"] is not None:
+        raise ValueError("Exact reuse job cannot resume a separate run")
+    resume_chain = _resume_chain(job, inputs, resume_from) if resume_from else None
     output = output_root / job["job_id"]
     output.mkdir(parents=True, exist_ok=False)
     reused = job["reuse_job_id"]
@@ -206,6 +266,7 @@ def execute_job(
                 output / "run",
                 device=device,
                 protocol_path=protocol_path,
+                resume_from=resume_from,
             )
         else:
             report = execute_discrete(
@@ -216,6 +277,7 @@ def execute_job(
                 job["config"],
                 output / "run",
                 device=device,
+                resume_from=resume_from,
             )
         verify_run_binding(job, report, inputs)
         run_path = output / "run" / "run.json"
@@ -225,6 +287,8 @@ def execute_job(
             "run_path": f"{job['job_id']}/run",
             "run_sha256": digest(run_path),
         }
+        if resume_from is not None:
+            result["resume_source_chain_sha256"] = resume_chain
     with (output / "job.json").open("xb") as stream:
         result["event_sha256"] = event_hashes(output_root / result["run_path"])
         stream.write(canonical(result))

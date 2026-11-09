@@ -38,13 +38,22 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def runtime_code() -> dict:
-    return {
-        "commit": subprocess.check_output(
+    marker = ROOT / ".issue99-code-commit"
+    if marker.exists():
+        commit = marker.read_text(encoding="ascii").strip()
+        if len(commit) != 40 or any(char not in "0123456789abcdef" for char in commit):
+            raise ValueError("Invalid verified package commit marker")
+        dirty = False
+    else:
+        commit = subprocess.check_output(
             ["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True
-        ).strip(),
-        "dirty": bool(
+        ).strip()
+        dirty = bool(
             subprocess.check_output(["git", "-C", str(ROOT), "status", "--porcelain"], text=True)
-        ),
+        )
+    return {
+        "commit": commit,
+        "dirty": dirty,
         "files": {
             str(p.relative_to(ROOT)): digest(p)
             for folder in ("ev_models", "ev_control", "ev_runner", "ev_baselines")

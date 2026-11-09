@@ -8,6 +8,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import ev_runner.continuous_run as continuous_run
+import ev_runner.run as discrete_run
 from ev_runner.continuous_run import objective_summary, validate_origin_boundary, validate_study
 
 
@@ -54,6 +55,17 @@ class StudyConfigTests(unittest.TestCase):
             with patch.object(continuous_run, "ROOT", root):
                 with self.assertRaises(ValueError):
                     continuous_run.code_identity()
+
+    def test_discrete_uses_verified_package_commit_without_git(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            commit = "a" * 40
+            (root / ".issue99-code-commit").write_text(commit)
+            with patch.object(discrete_run, "ROOT", root):
+                self.assertEqual(
+                    discrete_run.runtime_code(),
+                    {"commit": commit, "dirty": False, "files": {}},
+                )
 
     def test_real_fixed_lambda_is_accepted(self):
         initial, online, rule = validate_study(pilot_config())
