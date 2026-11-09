@@ -356,6 +356,18 @@ def write_handoff(
     table = "| Method | Later-objective MAE, kWh | Delta vs lambda0 | Full-90 descriptive MAE |\n| --- | ---: | ---: | ---: |\n"
     for row in summary:
         table += f"| {row['method']} | {row['evaluation_mae_kwh']:.6f} | {row['evaluation_mae_kwh'] - evaluation0:+.6f} | {row['full90_descriptive_mae_kwh']:.6f} |\n"
+    paired_delta = (
+        checked["aggregate_mae_kwh"]["continuous"] - checked["aggregate_mae_kwh"]["fixed"]
+    )
+    station_table = "| Target | lambda0 | Fixed | Discrete | Continuous | Frozen |\n| --- | ---: | ---: | ---: | ---: | ---: |\n"
+    for target in TARGETS:
+        station_table += (
+            "| "
+            + target
+            + " | "
+            + " | ".join(f"{checked['targets'][target][method]:.6f}" for method in METHODS)
+            + " |\n"
+        )
     text = f"""# Issue #99 completed exploratory Development study
 
 The owner authorized execution without waiting for Hung review. This is a method-change study, not scientific peer approval or a fresh held-out test. Source10, four selected UrbanEV/SZH targets, three paired seeds and 14-day initial history were reused. The task remains 24→24. Historical reports and Final results are unchanged.
@@ -371,6 +383,9 @@ Controller interval: [0,{selected["controller_upper_bound"]:.12g}], initialized 
 ## Matched results
 
 {table}
+Continuous minus calibrated Fixed on the later objective is **{paired_delta:+.6f} kWh**; a negative value favors Continuous. This is the main mechanism comparison, not the earlier calibration improvement.
+
+{station_table}
 All entries average paired seeds within station, then give the four stations equal weight. The full-90 column mixes calibration and later days and is descriptive only. Frozen lambda may exactly reuse Fixed when all executable configurations match; it is not an independently retrained replicate. The legacy discrete controller keeps its original recipe and three shadow models, with greater compute and different initialization than the single-branch methods.
 
 ## Interpretation and limits
@@ -392,7 +407,7 @@ Let F be the mean absolute error across complete normalized 24-hour forecast day
 
 $$F(B;\theta)=\frac{1}{24|B|}\sum_{i\in B}\sum_{j=1}^{24}|\hat y_{ij}^{scaled}(\theta)-y_{ij}^{scaled}|,\qquad R(B;\theta)=\frac{1}{64|B|}\sum_{i\in B}\sum_{k=1}^{64}\left(\frac{h_k(x_i;\theta)-h_k(x_i;\theta_s)}{s_k+\epsilon_R}\right)^2.$$
 
-Source parameters theta_s and population latent standard deviations s remain frozen; epsilon_R=0.001. The division occurs before squaring. Fixed trains with F+lambda R using a constant real coefficient. The model remains the existing two-layer, 64-unit GRU and calendar-aware head; no custom GRU cell is introduced. Lambda changes the retention penalty, not the learning rate.
+Source parameters theta_s and population latent standard deviations s remain frozen; epsilon_R=0.001. The division occurs before squaring. Fixed trains with F+lambda R using a constant real coefficient. The model remains the existing two-layer, 64-unit GRU and calendar-aware head; no custom GRU cell is introduced. Lambda changes the retention penalty, not the learning rate, and is not a percentage of retained knowledge.
 
 The one-step controller follows the validation-hypergradient rationale of [Luketina et al. (2016)](https://proceedings.mlr.press/v48/luketina16.pdf), specialized here to current-Adam dynamics. From the current real weights/moments, form g(lambda)=grad_theta[F_A+lambda R_A], virtual moments m'=beta1*m+(1-beta1)*g and v'=beta2*v+(1-beta2)*g^2, and a bias-corrected Adam virtual update. Previous weights and moments are treated as fixed starting state for this local derivative; the virtual update does not mutate the real optimizer.
 
