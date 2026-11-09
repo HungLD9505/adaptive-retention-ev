@@ -140,15 +140,20 @@ def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, Window
 
 
 def code_identity() -> dict:
+    marker = ROOT / ".issue99-code-commit"
+    if marker.exists():
+        commit = marker.read_text(encoding="ascii").strip()
+        if len(commit) != 40 or any(char not in "0123456789abcdef" for char in commit):
+            raise ValueError("Invalid verified package commit marker")
+    else:
+        commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     paths = [
         path.relative_to(ROOT).as_posix()
         for folder in ("ev_inputs", "ev_models", "ev_control", "ev_runner")
         for path in sorted((ROOT / folder).glob("*.py"))
     ]
     return {
-        "commit": subprocess.check_output(
-            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
-        ).strip(),
+        "commit": commit,
         "files": {name: digest(ROOT / name) for name in paths},
     }
 

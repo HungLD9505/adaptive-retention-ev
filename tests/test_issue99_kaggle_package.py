@@ -16,9 +16,11 @@ from tools.issue99_kaggle_package import (
     artifact,
     check_member,
     create_bundle,
+    rehydrate_and_stage,
     sha256,
     stage_bundle,
     verify_bundle,
+    wrap_bundle,
 )
 
 
@@ -132,7 +134,7 @@ class KaggleBundleTests(unittest.TestCase):
         preflight.write_bytes(b"preflight")
         manifest = {
             "schema": "issue99-kaggle-bundle-v1",
-            "code_commit": "test-commit",
+            "code_commit": "a" * 40,
             "code_files_sha256": {"ev_control/continuous.py": hashlib.sha256(b"code").hexdigest()},
             "input_manifest_sha256": hashlib.sha256(b"input").hexdigest(),
             "source_checkpoint_sha256": source_hashes,
@@ -150,15 +152,16 @@ class KaggleBundleTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=".cache") as temp:
             root = Path(temp)
             bundle = self.make_bundle(root)
-            self.assertEqual(verify_bundle(bundle)["code_commit"], "test-commit")
+            self.assertEqual(verify_bundle(bundle)["code_commit"], "a" * 40)
             with self.assertRaisesRegex(ValueError, "locally pinned"):
                 verify_bundle(bundle, expected_manifest_sha256="0" * 64)
             staged = root / "new-stage"
             runtime = stage_bundle(
                 bundle, staged, expected_manifest_sha256=sha256(bundle / "manifest.json")
             )
-            self.assertEqual(runtime["code_commit"], "test-commit")
+            self.assertEqual(runtime["code_commit"], "a" * 40)
             self.assertEqual((staged / "code/ev_control/continuous.py").read_bytes(), b"code")
+            self.assertEqual((staged / "code/.issue99-code-commit").read_bytes(), b"a" * 40 + b"\n")
             self.assertEqual(
                 sha256(staged / "sources/seed42/epoch-10.pt"),
                 hashlib.sha256(b"checkpoint-42").hexdigest(),
@@ -169,6 +172,40 @@ class KaggleBundleTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "active T4"):
                     stage_bundle(bundle, root / "no-gpu-stage", require_t4=True)
             self.assertFalse((root / "no-gpu-stage").exists())
+
+    def test_outer_zip_rehydrates_then_stages(self) -> None:
+        with tempfile.TemporaryDirectory(dir=".cache") as temp:
+            root = Path(temp)
+            bundle = self.make_bundle(root)
+            pinned = sha256(bundle / "manifest.json")
+            outer = root / "transport.zip"
+            wrapped = wrap_bundle(bundle, outer, expected_manifest_sha256=pinned)
+            self.assertEqual(wrapped["manifest_sha256"], pinned)
+            with ZipFile(outer) as archive:
+                names = archive.namelist()
+                self.assertIn("issue99-code.zip.bin", names)
+                self.assertFalse(any(name.endswith(".zip") for name in names))
+                extracted = root / "auto-extracted"
+                extracted.mkdir()
+                archive.extractall(extracted)
+            stage = root / "fresh-stage"
+            fresh_bundle = root / "rehydrated-bundle"
+            runtime = rehydrate_and_stage(
+                extracted,
+                fresh_bundle,
+                stage,
+                expected_manifest_sha256=pinned,
+            )
+            self.assertEqual(runtime["code_commit"], "a" * 40)
+            self.assertEqual(sha256(fresh_bundle / INPUT_NAME), sha256(bundle / INPUT_NAME))
+            self.assertEqual((stage / "code/.issue99-code-commit").read_text(), "a" * 40 + "\n")
+            with self.assertRaises(FileExistsError):
+                rehydrate_and_stage(
+                    extracted,
+                    fresh_bundle,
+                    root / "another-stage",
+                    expected_manifest_sha256=pinned,
+                )
 
     def test_changed_bytes_and_unsafe_member_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory(dir=".cache") as temp:

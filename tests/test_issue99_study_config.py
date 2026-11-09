@@ -1,9 +1,13 @@
 """Protocol-gate and real-lambda validation fixtures for the new study CLI."""
 
 import copy
+import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
+from unittest.mock import patch
 
+import ev_runner.continuous_run as continuous_run
 from ev_runner.continuous_run import objective_summary, validate_origin_boundary, validate_study
 
 
@@ -39,6 +43,18 @@ def pilot_config():
 
 
 class StudyConfigTests(unittest.TestCase):
+    def test_verified_package_commit_without_git(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            commit = "c" * 40
+            (root / ".issue99-code-commit").write_text(commit)
+            with patch.object(continuous_run, "ROOT", root):
+                self.assertEqual(continuous_run.code_identity(), {"commit": commit, "files": {}})
+            (root / ".issue99-code-commit").write_text("malformed")
+            with patch.object(continuous_run, "ROOT", root):
+                with self.assertRaises(ValueError):
+                    continuous_run.code_identity()
+
     def test_real_fixed_lambda_is_accepted(self):
         initial, online, rule = validate_study(pilot_config())
         self.assertEqual(initial.seed, online.seed)

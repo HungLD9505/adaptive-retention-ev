@@ -6,12 +6,13 @@ import importlib.metadata
 import json
 import os
 import platform
+import re
 import shutil
 import stat
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
-from zipfile import ZipFile
+from zipfile import ZIP_STORED, ZipFile
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_NAME = "qyroven-issue23-source-duration-20261026-v1-seed{seed}.zip"
@@ -189,6 +190,10 @@ def verify_bundle(directory: Path, *, expected_manifest_sha256: str | None = Non
     manifest = json.loads((directory / "manifest.json").read_text(encoding="utf-8"))
     if manifest.get("schema") != "issue99-kaggle-bundle-v1":
         raise ValueError("Unsupported Kaggle bundle manifest")
+    if not isinstance(manifest.get("code_commit"), str) or not re.fullmatch(
+        r"[0-9a-f]{40}", manifest["code_commit"]
+    ):
+        raise ValueError("Invalid pinned code commit")
     file_records = [manifest["files"][key] for key in ("code", "input", "preflight")]
     file_records += list(manifest["files"]["sources"].values())
     for record in file_records:
@@ -213,6 +218,92 @@ def verify_bundle(directory: Path, *, expected_manifest_sha256: str | None = Non
             if hashlib.sha256(archive.read(name)).hexdigest() != expected:
                 raise ValueError(f"Committed code differs in bundle: {name}")
     return manifest
+
+
+def wrap_bundle(directory: Path, outer_zip: Path, *, expected_manifest_sha256: str) -> dict:
+    """Hide inner ZIP extensions from Kaggle's automatic dataset extraction."""
+    manifest = verify_bundle(directory, expected_manifest_sha256=expected_manifest_sha256)
+    if outer_zip.exists():
+        raise FileExistsError(outer_zip)
+    records = [manifest["files"][key] for key in ("code", "input")]
+    records += list(manifest["files"]["sources"].values())
+    with ZipFile(outer_zip, "x", compression=ZIP_STORED, allowZip64=True) as archive:
+        archive.write(directory / "manifest.json", "manifest.json")
+        archive.write(directory / "preflight.py", "preflight.py")
+        for record in records:
+            name = record["name"]
+            if not name.endswith(".zip") or Path(name).name != name:
+                raise ValueError(f"Invalid inner ZIP name: {name}")
+            archive.write(directory / name, name + ".bin")
+    zip_check(outer_zip)
+    return {
+        "schema": "issue99-kaggle-outer-zip-v1",
+        "outer_zip": artifact(outer_zip),
+        "manifest_sha256": expected_manifest_sha256,
+        "inner_zip_suffix": ".zip.bin",
+    }
+
+
+def rehydrate_bundle(
+    extracted_outer: Path, destination: Path, *, expected_manifest_sha256: str
+) -> dict:
+    """Restore verified inner ZIP bytes under exact names in a fresh directory."""
+    if sha256(extracted_outer / "manifest.json") != expected_manifest_sha256:
+        raise ValueError("Auto-extracted manifest differs from locally pinned SHA-256")
+    manifest = json.loads((extracted_outer / "manifest.json").read_text(encoding="utf-8"))
+    if destination.exists():
+        raise FileExistsError(destination)
+    records = [manifest["files"][key] for key in ("code", "input")]
+    records += list(manifest["files"]["sources"].values())
+    for record in records:
+        name = record["name"]
+        if not name.endswith(".zip") or Path(name).name != name:
+            raise ValueError(f"Invalid rehydrated ZIP name: {name}")
+        source = extracted_outer / (name + ".bin")
+        if source.stat().st_size != record["size_bytes"] or sha256(source) != record["sha256"]:
+            raise ValueError(f"Auto-extracted inner ZIP differs: {name}")
+    preflight = manifest["files"]["preflight"]
+    if (
+        preflight["name"] != "preflight.py"
+        or sha256(extracted_outer / "preflight.py") != preflight["sha256"]
+    ):
+        raise ValueError("Auto-extracted preflight differs")
+    destination.mkdir(parents=True, exist_ok=False)
+    copy_checked(
+        extracted_outer / "manifest.json", destination / "manifest.json", expected_manifest_sha256
+    )
+    copy_checked(
+        extracted_outer / "preflight.py", destination / "preflight.py", preflight["sha256"]
+    )
+    for record in records:
+        copy_checked(
+            extracted_outer / (record["name"] + ".bin"),
+            destination / record["name"],
+            record["sha256"],
+        )
+    return verify_bundle(destination, expected_manifest_sha256=expected_manifest_sha256)
+
+
+def rehydrate_and_stage(
+    extracted_outer: Path,
+    bundle_destination: Path,
+    stage_destination: Path,
+    *,
+    expected_manifest_sha256: str,
+    require_t4: bool = False,
+) -> dict:
+    """Rehydrate Kaggle's auto-extracted outer ZIP, verify, then stage."""
+    rehydrate_bundle(
+        extracted_outer,
+        bundle_destination,
+        expected_manifest_sha256=expected_manifest_sha256,
+    )
+    return stage_bundle(
+        bundle_destination,
+        stage_destination,
+        expected_manifest_sha256=expected_manifest_sha256,
+        require_t4=require_t4,
+    )
 
 
 def extract_member(archive: ZipFile, name: str, destination: Path) -> None:
@@ -273,6 +364,8 @@ def stage_bundle(
                 raise ValueError(f"Extracted Source10 differs: {seed}")
     with (destination / "runtime.json").open("xb") as output:
         output.write((json.dumps(runtime, indent=2, allow_nan=False) + "\n").encode())
+    with (destination / "code" / ".issue99-code-commit").open("xb") as output:
+        output.write((manifest["code_commit"] + "\n").encode())
     return runtime
 
 
@@ -292,16 +385,40 @@ def main() -> None:
     stage.add_argument("--destination", type=Path, required=True)
     stage.add_argument("--expected-manifest-sha256", required=True)
     stage.add_argument("--require-t4", action="store_true")
+    wrap = subcommands.add_parser("wrap")
+    wrap.add_argument("--bundle", type=Path, required=True)
+    wrap.add_argument("--destination", type=Path, required=True)
+    wrap.add_argument("--expected-manifest-sha256", required=True)
+    rehydrate = subcommands.add_parser("rehydrate")
+    rehydrate.add_argument("--extracted-outer", type=Path, required=True)
+    rehydrate.add_argument("--bundle-destination", type=Path, required=True)
+    rehydrate.add_argument("--stage-destination", type=Path, required=True)
+    rehydrate.add_argument("--expected-manifest-sha256", required=True)
+    rehydrate.add_argument("--require-t4", action="store_true")
     args = parser.parse_args()
     if args.command == "create":
         report = create_bundle(args.destination, args.input_zip, args.source_directory, args.audit)
         report = {"manifest_sha256": sha256(args.destination / "manifest.json"), "manifest": report}
     elif args.command == "verify":
         report = verify_bundle(args.bundle, expected_manifest_sha256=args.expected_manifest_sha256)
-    else:
+    elif args.command == "stage":
         report = stage_bundle(
             args.bundle,
             args.destination,
+            expected_manifest_sha256=args.expected_manifest_sha256,
+            require_t4=args.require_t4,
+        )
+    elif args.command == "wrap":
+        report = wrap_bundle(
+            args.bundle,
+            args.destination,
+            expected_manifest_sha256=args.expected_manifest_sha256,
+        )
+    else:
+        report = rehydrate_and_stage(
+            args.extracted_outer,
+            args.bundle_destination,
+            args.stage_destination,
             expected_manifest_sha256=args.expected_manifest_sha256,
             require_t4=args.require_t4,
         )
