@@ -117,7 +117,7 @@ def fixtures(root, *, fixed=0.5, initial=0.5):
 
 class ComparisonTests(unittest.TestCase):
     def test_plan_sixty_identities_and_only_exact_frozen_aliases(self):
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             protocol, lock, sources = fixtures(root)
             jobs = plan_jobs(FakeInputs(), protocol, lock, sources)
@@ -137,7 +137,7 @@ class ComparisonTests(unittest.TestCase):
             )
 
     def test_reject_final_input_and_changed_lock(self):
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             protocol, lock, sources = fixtures(root)
             inputs = FakeInputs()
@@ -151,7 +151,7 @@ class ComparisonTests(unittest.TestCase):
                 plan_jobs(FakeInputs(), protocol, lock, sources)
 
     def test_execute_exact_alias_checks_binding_and_preserves_source_run(self):
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             protocol, lock, sources = fixtures(root)
             jobs = plan_jobs(FakeInputs(), protocol, lock, sources)
@@ -196,7 +196,7 @@ class ComparisonTests(unittest.TestCase):
                 execute_job(frozen, FakeInputs(), protocol, lock, output, device="cpu")
 
     def test_verify_saved_matrix_recomputes_common_origin_and_detects_tampering(self):
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             protocol, lock, sources = fixtures(root)
             inputs = FakeInputs()
@@ -314,7 +314,7 @@ class ComparisonTests(unittest.TestCase):
                     verify_matrix(jobs, output, inputs, protocol)
 
     def test_resume_uses_fresh_output_and_rejects_changed_partial_chain(self):
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             protocol, lock, sources = fixtures(root)
             inputs = FakeInputs()

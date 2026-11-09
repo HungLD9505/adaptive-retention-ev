@@ -38,7 +38,7 @@ class FixedLedgerTests(unittest.TestCase):
             score = 1.0 if weight == 0 else (math.log(weight) - math.log(0.5)) ** 2
             return {"objective_mae_kwh": score, "cost_seconds": float(trial + 1)}
 
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary) / "search"
             ledger = FixedLedger(root, config())
             first = run_bounded_search(ledger, evaluator, max_new_trials=3)
@@ -69,7 +69,7 @@ class FixedLedgerTests(unittest.TestCase):
                 raise RuntimeError("synthetic_failure")
             return {"objective_mae_kwh": 1.0}
 
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             ledger = FixedLedger(Path(temporary) / "search", config())
             events = run_bounded_search(ledger, evaluator, max_new_trials=3)
             self.assertEqual(events[1]["status"], "failed")
@@ -78,7 +78,7 @@ class FixedLedgerTests(unittest.TestCase):
             self.assertNotIn(config().initial_lambdas[0], [event["lambda"] for event in more])
 
     def test_nonserializable_outcome_is_recorded_as_failure(self):
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             ledger = FixedLedger(Path(temporary) / "search", config())
             result = ledger.evaluate(
                 0.0,
@@ -90,7 +90,7 @@ class FixedLedgerTests(unittest.TestCase):
             self.assertEqual(len(FixedLedger(ledger.root, config(), resume=True).completed()), 1)
 
     def test_all_failed_initial_trials_stop_without_repeating(self):
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             ledger = FixedLedger(Path(temporary) / "search", config())
             with self.assertRaisesRegex(ValueError, "No finite initial observation"):
                 run_bounded_search(
@@ -101,7 +101,7 @@ class FixedLedgerTests(unittest.TestCase):
             self.assertEqual(len(ledger.completed()), 1 + len(config().initial_lambdas))
 
     def test_changed_binding_chain_or_uncommitted_trial_rejected(self):
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary) / "search"
             ledger = FixedLedger(root, config())
             run_bounded_search(ledger, lambda *_: {"objective_mae_kwh": 1.0}, max_new_trials=1)
@@ -122,7 +122,7 @@ class FixedLedgerTests(unittest.TestCase):
                 FixedLedger(root, config(), resume=True)
 
     def test_resume_rejects_changed_metadata_content_even_with_old_hash(self):
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary) / "search"
             FixedLedger(root, config())
             metadata_path = root / "config.json"
@@ -133,7 +133,7 @@ class FixedLedgerTests(unittest.TestCase):
                 FixedLedger(root, config(), resume=True)
 
     def test_resume_records_due_expansion_after_completed_boundary_trial(self):
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary) / "search"
             ledger = FixedLedger(root, config())
 

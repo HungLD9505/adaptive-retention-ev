@@ -36,7 +36,7 @@ class FixedDispatchTests(unittest.TestCase):
             aggregate_matrix(self.rows() + [self.rows()[0]])
 
     def test_dispatch_uses_all_twelve_fresh_calibration_runs(self):
-        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+        with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             protocol = root / "protocol.json"
             origins = {

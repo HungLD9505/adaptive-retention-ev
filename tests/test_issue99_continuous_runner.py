@@ -102,7 +102,7 @@ class ContinuousRunnerTests(unittest.TestCase):
             runner.run_until(stop)
             return runner
 
-        with tempfile.TemporaryDirectory(dir=".cache") as temp:
+        with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             full_store = Store(root / "full", binding)
             full = run(full_store, replay.stop)

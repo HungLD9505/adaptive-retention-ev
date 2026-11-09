@@ -26,7 +26,7 @@ from tools.issue99_kaggle_package import (
 
 class KaggleBundleTests(unittest.TestCase):
     def test_create_requires_clean_commit_and_refuses_overwrite(self) -> None:
-        with tempfile.TemporaryDirectory(dir=".cache") as temp:
+        with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             code = root / "repo"
             code.mkdir()
@@ -149,7 +149,7 @@ class KaggleBundleTests(unittest.TestCase):
         return bundle
 
     def test_verify_and_stage_only_to_fresh_destination(self) -> None:
-        with tempfile.TemporaryDirectory(dir=".cache") as temp:
+        with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             bundle = self.make_bundle(root)
             self.assertEqual(verify_bundle(bundle)["code_commit"], "a" * 40)
@@ -174,7 +174,7 @@ class KaggleBundleTests(unittest.TestCase):
             self.assertFalse((root / "no-gpu-stage").exists())
 
     def test_outer_zip_rehydrates_then_stages(self) -> None:
-        with tempfile.TemporaryDirectory(dir=".cache") as temp:
+        with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             bundle = self.make_bundle(root)
             pinned = sha256(bundle / "manifest.json")
@@ -208,7 +208,7 @@ class KaggleBundleTests(unittest.TestCase):
                 )
 
     def test_changed_bytes_and_unsafe_member_fail_closed(self) -> None:
-        with tempfile.TemporaryDirectory(dir=".cache") as temp:
+        with tempfile.TemporaryDirectory() as temp:
             bundle = self.make_bundle(Path(temp))
             (bundle / "preflight.py").write_bytes(b"changed!!")
             with self.assertRaisesRegex(ValueError, "SHA-256 mismatch"):
