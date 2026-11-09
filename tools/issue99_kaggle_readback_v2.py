@@ -349,11 +349,11 @@ def summarize(jobs: list[dict], root: Path, inputs, saved: dict) -> dict:
     }
 
 
-def main() -> None:
+def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--notebook-root", type=Path, default=NOTEBOOK_ROOT)
     parser.add_argument("--output", type=Path, default=OUTPUT)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     comparison = args.notebook_root / "issue99-comparison-v2"
     stage = args.notebook_root / "issue99-stage-v2"
     verification = comparison / "verification.json"
@@ -420,4 +420,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    main([] if "ipykernel" in sys.modules else None)
