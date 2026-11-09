@@ -314,7 +314,7 @@ def run(args: argparse.Namespace) -> None:
             prepared_replay=replays[job["target"]],
         )
         emit("comparison", job=job["job_id"], reused=job["reuse_job_id"])
-    verified = verify_matrix(jobs, comparison, inputs, protocol_path)
+    verified = verify_matrix(jobs, comparison, inputs, protocol_path, lock_path)
     save(args.output / "comparison-verification.json", verified)
     inputs.reauthenticate()
     save(
