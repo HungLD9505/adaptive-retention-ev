@@ -1,0 +1,38 @@
+{
+  "schema": "issue99-study-v1",
+  "phase": "calibration",
+  "targets": ["1405", "2152", "1153", "1693"],
+  "initial_training": {
+    "seed": 42,
+    "epochs": 3,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "epsilon": 0.001,
+    "head_width": 64
+  },
+  "online_training": {
+    "seed": 42,
+    "epochs": 1,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "epsilon": 0.001,
+    "head_width": 64
+  },
+  "window_rule": {
+    "older_count": 1,
+    "newer_count": 1,
+    "upper_bound": 8.0,
+    "meta_step_size": 0.01,
+    "epsilon": 0.001
+  },
+  "initial_lambda": 0.1,
+  "cadence": 1,
+  "frozen_lambda": true,
+  "replay_days": 90,
+  "protocol_sha256": null,
+  "objective_origins": [],
+  "diagnostics": {
+    "cadence": 7,
+    "epsilon_g": 1e-12
+  }
+}

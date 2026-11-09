@@ -13,6 +13,7 @@ from ev_runner.replay import Labels
 from ev_runner.run import runtime_code as discrete_code_identity
 from ev_search.comparison import event_hashes, execute_job, plan_jobs
 from ev_search.comparison_verify import verify_matrix
+from ev_search.protocol import canonical_sha256
 
 TARGETS = ("1405", "2152", "1153", "1693")
 
@@ -93,6 +94,14 @@ def fixtures(root, *, fixed=0.5, initial=0.5):
         "controller": {"seed": 42},
         "development_entities": list(TARGETS),
     }
+    protocol_data = json.loads(protocol_path.read_text())
+    protocol_data.update(
+        fixed_search_config_sha256="c" * 64,
+        evaluation_study_template_sha256=canonical_sha256(study),
+        calibration_study_template_sha256=canonical_sha256({"phase": "calibration"}),
+        code_commit=continuous_code_identity()["commit"],
+    )
+    protocol_path.write_text(json.dumps(protocol_data))
     lock_path = root / "lock.json"
     lock_path.write_text(
         json.dumps(
@@ -100,6 +109,8 @@ def fixtures(root, *, fixed=0.5, initial=0.5):
                 "schema": "issue99-comparison-lock-v1",
                 "status": "locked_owner_approved",
                 "protocol_sha256": digest(protocol_path),
+                "fixed_search_config_sha256": "c" * 64,
+                "code_commit": continuous_code_identity()["commit"],
                 "selected_fixed_lambda": fixed,
                 "controller_initial_lambda": initial,
                 "study_template": study,
@@ -149,6 +160,23 @@ class ComparisonTests(unittest.TestCase):
             lock.write_text(json.dumps(lock_data))
             with self.assertRaisesRegex(ValueError, "matching owner-locked"):
                 plan_jobs(FakeInputs(), protocol, lock, sources)
+
+    def test_reject_comparison_selection_search_study_or_code_drift(self):
+        with tempfile.TemporaryDirectory(dir=".cache") as temporary:
+            root = Path(temporary)
+            protocol, lock, sources = fixtures(root)
+            original = json.loads(lock.read_text())
+            for change, message in (
+                ({"fixed_search_config_sha256": "d" * 64}, "Fixed search JSON file"),
+                ({"code_commit": "0" * 40}, "selection code commit"),
+                (
+                    {"study_template": {**original["study_template"], "cadence": 2}},
+                    "Canonical evaluation study",
+                ),
+            ):
+                lock.write_text(json.dumps({**original, **change}))
+                with self.assertRaisesRegex(ValueError, message):
+                    plan_jobs(FakeInputs(), protocol, lock, sources)
 
     def test_execute_exact_alias_checks_binding_and_preserves_source_run(self):
         with tempfile.TemporaryDirectory(dir=".cache") as temporary:

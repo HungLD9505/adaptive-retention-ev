@@ -6,10 +6,50 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
+from ev_runner.continuous_run import code_identity
 from ev_search.execute import FixedMatrixEvaluator, aggregate_matrix
+from ev_search.protocol import canonical_sha256, require_scored_bindings
 
 
 class FixedDispatchTests(unittest.TestCase):
+    def test_scored_protocol_rejects_search_study_and_code_drift(self):
+        study = {"phase": "calibration"}
+        protocol = {
+            "status": "locked_owner_approved",
+            "owner_authorization": "fixture",
+            "fixed_search_config_sha256": "a" * 64,
+            "calibration_study_template_sha256": canonical_sha256(study),
+            "evaluation_study_template_sha256": canonical_sha256({"phase": "evaluation"}),
+            "code_commit": code_identity()["commit"],
+        }
+        require_scored_bindings(
+            protocol, study, fixed_search_config_sha256="a" * 64, phase="calibration"
+        )
+        with self.assertRaisesRegex(ValueError, "Fixed search JSON file"):
+            require_scored_bindings(
+                protocol, study, fixed_search_config_sha256="b" * 64, phase="calibration"
+            )
+        with self.assertRaisesRegex(ValueError, "Canonical calibration study"):
+            require_scored_bindings(
+                protocol,
+                {"phase": "calibration", "cadence": 2},
+                fixed_search_config_sha256="a" * 64,
+                phase="calibration",
+            )
+        with self.assertRaisesRegex(ValueError, "Code commit"):
+            require_scored_bindings(
+                {**protocol, "code_commit": "0" * 40},
+                study,
+                fixed_search_config_sha256="a" * 64,
+                phase="calibration",
+            )
+        require_scored_bindings(
+            protocol,
+            {"phase": "evaluation"},
+            fixed_search_config_sha256="a" * 64,
+            phase="evaluation",
+        )
+
     def rows(self):
         return [
             {
@@ -39,11 +79,29 @@ class FixedDispatchTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=".cache") as temporary:
             root = Path(temporary)
             protocol = root / "protocol.json"
+            study = {
+                "phase": "calibration",
+                "frozen_lambda": True,
+                "initial_training": {"seed": 0},
+                "online_training": {"seed": 0},
+            }
             origins = {
                 target: ["2022-12-01T00:00:00+08:00"] for target in ("1405", "2152", "1153", "1693")
             }
             protocol.write_text(
-                json.dumps({"status": "locked_owner_approved", "calibration_origins": origins})
+                json.dumps(
+                    {
+                        "status": "locked_owner_approved",
+                        "owner_authorization": "fixture",
+                        "fixed_search_config_sha256": "c" * 64,
+                        "calibration_study_template_sha256": canonical_sha256(study),
+                        "evaluation_study_template_sha256": canonical_sha256(
+                            {"phase": "evaluation"}
+                        ),
+                        "code_commit": code_identity()["commit"],
+                        "calibration_origins": origins,
+                    }
+                )
             )
             sources = {
                 str(seed): {"path": f"seed{seed}.pt", "sha256": str(seed) * 32}
@@ -52,15 +110,11 @@ class FixedDispatchTests(unittest.TestCase):
             evaluator = FixedMatrixEvaluator(
                 object(),
                 protocol,
-                {
-                    "phase": "calibration",
-                    "frozen_lambda": True,
-                    "initial_training": {"seed": 0},
-                    "online_training": {"seed": 0},
-                },
+                study,
                 sources,
                 root,
                 device="cpu",
+                search_config_sha256="c" * 64,
             )
             calls = []
 

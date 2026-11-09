@@ -13,6 +13,7 @@ from ev_runner.continuous_run import execute as execute_continuous
 from ev_runner.run import execute as execute_discrete
 from ev_runner.run import runtime_code as discrete_code_identity
 from ev_search.ledger import canonical
+from ev_search.protocol import require_scored_bindings
 
 TARGETS = ("1405", "2152", "1153", "1693")
 SEEDS = (42, 43, 44)
@@ -51,6 +52,16 @@ def plan_jobs(
     initial = lock["controller_initial_lambda"]
     study = lock["study_template"]
     discrete = lock["discrete_config"]
+    if lock.get("code_commit") != protocol.get("code_commit"):
+        raise ValueError("Comparison selection code commit differs from protocol")
+    require_scored_bindings(
+        protocol,
+        study,
+        fixed_search_config_sha256=lock.get("fixed_search_config_sha256"),
+        phase="evaluation",
+    )
+    if discrete_code_identity()["commit"] != protocol["code_commit"]:
+        raise ValueError("Historical discrete runner code commit differs from protocol")
     if study.get("phase") != "evaluation" or study.get("replay_days") != 90:
         raise ValueError("Comparison study template must be 90-day evaluation")
     if discrete.get("replay_days") != 90 or discrete.get("method", {}).get("name") != "adaptive":

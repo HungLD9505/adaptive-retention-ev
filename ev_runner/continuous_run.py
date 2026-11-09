@@ -12,6 +12,7 @@ from pathlib import Path
 import torch
 
 from ev_control.continuous import WindowRule
+from ev_control.diagnostics import DiagnosticConfig
 from ev_models.checkpoint import digest, load_checkpoint, write_json
 from ev_models.data import InputRun
 from ev_models.run import environment
@@ -94,8 +95,20 @@ def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, Window
         "protocol_sha256",
         "objective_origins",
     }
-    if set(config) != required or config["schema"] != "issue99-study-v1":
+    if (
+        set(config) not in (required, required | {"diagnostics"})
+        or config["schema"] != "issue99-study-v1"
+    ):
         raise ValueError("Invalid issue #99 study config")
+    if "diagnostics" in config:
+        if not isinstance(config["diagnostics"], dict) or set(config["diagnostics"]) != {
+            "cadence",
+            "epsilon_g",
+        }:
+            raise ValueError("Invalid diagnostic config")
+        DiagnosticConfig(**config["diagnostics"])
+    elif config["phase"] != "pilot":
+        raise ValueError("Scored execution needs registered diagnostics")
     if config["phase"] not in {"pilot", "calibration", "evaluation"}:
         raise ValueError("Unknown study phase")
     if config["phase"] != "pilot" and not config["protocol_sha256"]:
@@ -187,6 +200,8 @@ def execute(
             "owner_authorization"
         ):
             raise ValueError("Scored execution requires recorded owner authorization")
+        if config["diagnostics"] != protocol.get("diagnostics"):
+            raise ValueError("Diagnostics differ from reviewed protocol")
         calibration = validate_origin_boundary(
             protocol,
             entity_id,
@@ -293,6 +308,7 @@ def execute(
         device=device,
         cadence=config["cadence"],
         frozen_lambda=config["frozen_lambda"],
+        diagnostics=DiagnosticConfig(**config["diagnostics"]) if "diagnostics" in config else None,
     )
     if stop_after_ticks is not None and stop_after_ticks < 1:
         raise ValueError("stop_after_ticks must be positive")
