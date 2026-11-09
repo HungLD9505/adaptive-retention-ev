@@ -8,7 +8,7 @@ from pathlib import Path
 
 import torch
 
-from ev_control.continuous import WindowRule
+from ev_control.continuous import WindowRule, decide
 from ev_models.model import ForecastGRU
 from ev_models.training import TrainingConfig, adapt_model, frozen_reference
 from ev_runner.continuous import ContinuousRunner
@@ -41,6 +41,26 @@ class ToyReplay:
 
 
 class ContinuousRunnerTests(unittest.TestCase):
+    def test_virtual_decision_restores_prediction_mode(self):
+        for device in ("cpu", "cuda") if torch.cuda.is_available() else ("cpu",):
+            model = ForecastGRU().to(device)
+            reference = frozen_reference(ForecastGRU().to(device))
+            optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+            model.eval()
+            record = {
+                "x_hist": [[0.2] + [0.0] * 5 + [1.0] for _ in range(24)],
+                "c_future": [[0.0] * 5 for _ in range(24)],
+                "y_scaled": [0.5] * 24,
+            }
+            a = [{"origin": "2022-12-01", "trained": True, "record": record}]
+            v = [{"origin": "2022-12-02", "trained": False, "record": record}]
+            rule = WindowRule(1, 1, 1.0, 0.01, 0.001)
+            result = decide(
+                model, optimizer, reference, torch.ones(64), a, v, 0.1, rule, device=device
+            )
+            self.assertFalse(model.training)
+            self.assertEqual(result["virtual_adam_steps"], 1)
+
     def test_resume_matches_full_predictions_and_state(self):
         torch.manual_seed(42)
         source = ForecastGRU()

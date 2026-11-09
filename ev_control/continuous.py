@@ -130,9 +130,18 @@ def decide(
     def validation_objective(virtual):
         return forecast_loss(forecast_with_virtual(model, virtual, xv, cv), yv)
 
-    gradient, validation = validation_hypergradient(
-        model, optimizer, coefficient, training_objective, validation_objective
-    )
+    # The previous forecast leaves the GRU in eval mode. cuDNN cannot backprop
+    # through that mode, even though this model has no dropout or batch norm.
+    previous_mode = model.training
+    try:
+        model.train()
+        # Hypergradients require a second GRU backward; cuDNN does not provide it.
+        with torch.backends.cudnn.flags(enabled=False):
+            gradient, validation = validation_hypergradient(
+                model, optimizer, coefficient, training_objective, validation_objective
+            )
+    finally:
+        model.train(previous_mode)
     raw = current_lambda - rule.meta_step_size * gradient.item()
     if not math.isfinite(raw):
         raise ValueError("Nonfinite controller update")
