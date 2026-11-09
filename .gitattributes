@@ -25,3 +25,6 @@ configs/issue99-protocol-locked-v2.json -text -eol whitespace=cr-at-eol
 
 # Keep the Kaggle comparison lock identical to the uploaded bytes.
 configs/issue99-comparison-lock-v2.json -text -eol whitespace=cr-at-eol
+
+# Keep the Kaggle comparison orchestrator identical to the uploaded bytes.
+tools/issue99_kaggle_comparison_v2.py -text -eol whitespace=cr-at-eol
