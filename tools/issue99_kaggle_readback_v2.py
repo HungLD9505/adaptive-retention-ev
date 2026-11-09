@@ -144,7 +144,7 @@ def validate_jobs(jobs: list[dict]) -> None:
                 raise ValueError("Method configuration differs from locked comparison")
 
 
-def read_scores(run_path: Path, job: dict, replay, report: dict) -> dict[str, float]:
+def read_scores(run_path: Path, job: dict, replay, report: dict) -> dict[str, tuple[float, float]]:
     """Independently score authenticated saved vectors at their actual tick dates."""
     forecasts = {}
     errors = {}
@@ -192,21 +192,24 @@ def read_scores(run_path: Path, job: dict, replay, report: dict) -> dict[str, fl
                 prediction = issued["prediction"]
             if len(prediction) != 24 or any(not math.isfinite(value) for value in prediction):
                 raise ValueError("Invalid saved prediction vector")
-            mae = (
-                sum(
-                    abs(value * replay.scale - label)
-                    for value, label in zip(prediction, labels.values, strict=True)
-                )
-                / 24
-            )
+            differences = [
+                value * replay.scale - label
+                for value, label in zip(prediction, labels.values, strict=True)
+            ]
+            mae = sum(abs(value) for value in differences) / 24
+            mse = sum(value * value for value in differences) / 24
             if job["family"] == "discrete":
                 index_active = levels.index(issued["active"])
-                recorded = event["mae_scaled"][index_active] * replay.scale
+                recorded_mae = event["mae_scaled"][index_active] * replay.scale
+                recorded_mse = event["mse_scaled"][index_active] * replay.scale**2
             else:
-                recorded = event["mae_kwh"]
-            if not math.isclose(mae, recorded, rel_tol=1e-6, abs_tol=1e-6):
+                recorded_mae = event["mae_kwh"]
+                recorded_mse = event["mse_kwh2"]
+            if not math.isclose(mae, recorded_mae, rel_tol=1e-6, abs_tol=1e-6) or not math.isclose(
+                mse, recorded_mse, rel_tol=1e-6, abs_tol=1e-6
+            ):
                 raise ValueError("Saved score differs from prediction and arrived labels")
-            errors[origin] = mae
+            errors[origin] = (mae, mse)
     if len(forecasts) != report["issued_days"] or len(errors) != report["scored_days"]:
         raise ValueError("Run coverage differs from saved forecasts and scores")
     return errors
@@ -259,8 +262,9 @@ def summarize(jobs: list[dict], root: Path, inputs, saved: dict) -> dict:
         origins = set(job["evaluation_origins"])
         if len(origins) != 28 or origins - errors.keys():
             raise ValueError(f"Evaluation coverage is not 28/28: {job_id}")
-        mean = sum(errors[origin] for origin in origins) / 28
-        cells[(job["method"], job["target"], job["seed"])] = mean
+        mean = sum(errors[origin][0] for origin in origins) / 28
+        rmse = math.sqrt(sum(errors[origin][1] for origin in origins) / 28)
+        cells[(job["method"], job["target"], job["seed"])] = (mean, rmse)
         group = costs[job["method"]]
         group["logical_cells"] += 1
         if receipt["reused_from"] is not None:
@@ -279,7 +283,7 @@ def summarize(jobs: list[dict], root: Path, inputs, saved: dict) -> dict:
         raise ValueError("Comparison matrix is incomplete")
     target_means = {
         target: {
-            method: sum(cells[method, target, seed] for seed in SEEDS) / len(SEEDS)
+            method: sum(cells[method, target, seed][0] for seed in SEEDS) / len(SEEDS)
             for method in METHODS
         }
         for target in TARGETS
@@ -288,10 +292,17 @@ def summarize(jobs: list[dict], root: Path, inputs, saved: dict) -> dict:
         method: sum(target_means[target][method] for target in TARGETS) / len(TARGETS)
         for method in METHODS
     }
+    target_rmse = {
+        target: {
+            method: sum(cells[method, target, seed][1] for seed in SEEDS) / len(SEEDS)
+            for method in METHODS
+        }
+        for target in TARGETS
+    }
     deltas = {
         target: {
             method: {
-                str(seed): cells[method, target, seed] - cells["lambda0", target, seed]
+                str(seed): cells[method, target, seed][0] - cells["lambda0", target, seed][0]
                 for seed in SEEDS
             }
             for method in METHODS
@@ -306,6 +317,7 @@ def summarize(jobs: list[dict], root: Path, inputs, saved: dict) -> dict:
         not near(macro[method], saved["aggregate_mae_kwh"][method])
         or any(
             not near(target_means[target][method], saved["targets"][target][method])
+            or not near(target_rmse[target][method], saved["target_rmse_kwh"][target][method])
             or any(
                 not near(
                     deltas[target][method][str(seed)],
@@ -331,6 +343,7 @@ def summarize(jobs: list[dict], root: Path, inputs, saved: dict) -> dict:
         ).hexdigest(),
         "aggregate_mae_kwh": macro,
         "target_mae_kwh": target_means,
+        "target_rmse_kwh": target_rmse,
         "paired_mae_delta_vs_lambda0_kwh": deltas,
         "run_costs": compact_costs,
     }
@@ -391,6 +404,14 @@ def main() -> None:
                 "status": result["status"],
                 "verified_jobs": result["verified_jobs"],
                 "aggregate_mae_kwh": result["aggregate_mae_kwh"],
+                "cost_by_method": {
+                    method: {
+                        "executions": row["executions"],
+                        "reused": row["reused"],
+                        "wall_seconds": row["wall_seconds"],
+                    }
+                    for method, row in result["run_costs"].items()
+                },
                 "readback_sha256": sha256(args.output),
             },
             allow_nan=False,

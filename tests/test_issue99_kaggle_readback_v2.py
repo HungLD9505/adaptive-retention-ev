@@ -42,6 +42,7 @@ class ReadbackTests(unittest.TestCase):
                 "as_of": (FakeReplay.start + timedelta(days=1)).isoformat(),
                 "prediction_sha256": sha256(first / "forecasts.json"),
                 "mae_kwh": 2.0,
+                "mse_kwh2": 4.0,
             }
             (second / "events.jsonl").write_text(json.dumps(event) + "\n")
             self.assertEqual(
@@ -51,8 +52,18 @@ class ReadbackTests(unittest.TestCase):
                     FakeReplay(),
                     {"issued_days": 1, "scored_days": 1},
                 ),
-                {origin: 2.0},
+                {origin: (2.0, 4.0)},
             )
+            event["mse_kwh2"] = 5.0
+            (second / "events.jsonl").write_text(json.dumps(event) + "\n")
+            with self.assertRaisesRegex(ValueError, "score differs"):
+                read_scores(
+                    run,
+                    {"family": "continuous"},
+                    FakeReplay(),
+                    {"issued_days": 1, "scored_days": 1},
+                )
+            event["mse_kwh2"] = 4.0
             event["as_of"] = (FakeReplay.start + timedelta(days=2)).isoformat()
             (second / "events.jsonl").write_text(json.dumps(event) + "\n")
             with self.assertRaisesRegex(ValueError, "chronological tick"):
