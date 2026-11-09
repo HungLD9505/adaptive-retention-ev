@@ -63,7 +63,9 @@ class StudySupportTests(unittest.TestCase):
             "c_future": [[0.1] * 5 for _ in range(24)],
             "y_scaled": [0.3] * 24,
         }
-        result = measure(model, reference, torch.ones(64), record, 2.0, epsilon=0.001, device=device)
+        result = measure(
+            model, reference, torch.ones(64), record, 2.0, epsilon=0.001, device=device
+        )
         self.assertEqual(result["retention_mse"], 0.0)
         self.assertEqual(result["weighted_gradient_ratio"], 0.0)
         self.assertGreater(result["forecast_gradient_norm"], 0.0)
