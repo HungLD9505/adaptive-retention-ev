@@ -12,6 +12,7 @@ from pathlib import Path
 import torch
 
 from ev_control.continuous import WindowRule
+from ev_control.persistent import PersistentRule
 from ev_models.checkpoint import digest, load_checkpoint, write_json
 from ev_models.data import InputRun
 from ev_models.run import environment
@@ -79,6 +80,42 @@ def objective_summary(scores: list[dict], origins: list[str], minimum_scored: in
     }
 
 
+def validate_controller_protocol(config: dict, protocol: dict) -> None:
+    """Bind each scored comparison arm to its predeclared method settings."""
+    variant = config.get("controller_variant", "immediate")
+    methods = protocol.get("persistent_experiment", {}).get("method_configs")
+    if methods is None:
+        if protocol.get("controller_variant", "immediate") != variant or (
+            variant == "persistent_v1"
+            and protocol.get("persistent_rule") != config["persistent_rule"]
+        ):
+            raise ValueError("Controller variant/rule differs from locked protocol")
+        return
+    if set(methods) != {"lambda0", "fixed", "immediate", "persistent"}:
+        raise ValueError("Incomplete locked comparison methods")
+    if variant == "persistent_v1":
+        method = "persistent"
+    elif not config["frozen_lambda"]:
+        method = "immediate"
+    elif config["initial_lambda"] == 0:
+        method = "lambda0"
+    else:
+        method = "fixed"
+    locked = methods[method]
+    observed = {
+        "initial_lambda": config["initial_lambda"],
+        "frozen_lambda": config["frozen_lambda"],
+        "cadence": config["cadence"],
+        "controller_variant": variant,
+        "meta_step_size": config["window_rule"]["meta_step_size"],
+        "upper_bound": config["window_rule"]["upper_bound"],
+    }
+    if locked != observed or (
+        method == "persistent" and protocol.get("persistent_rule") != config["persistent_rule"]
+    ):
+        raise ValueError("Method settings differ from locked protocol")
+
+
 def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, WindowRule]:
     required = {
         "schema",
@@ -95,7 +132,8 @@ def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, Window
         "objective_origins",
     }
     if (
-        set(config) - {"state_retention", "diagnostic_every"} != required
+        set(config) - {"state_retention", "diagnostic_every", "controller_variant", "persistent_rule"}
+        != required
         or config["schema"] != "issue99-study-v1"
     ):
         raise ValueError("Invalid issue #99 study config")
@@ -110,6 +148,21 @@ def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, Window
         raise ValueError("Invalid diagnostic cadence")
     if config["phase"] not in {"pilot", "calibration", "evaluation"}:
         raise ValueError("Unknown study phase")
+    variant = config.get("controller_variant", "immediate")
+    if variant not in {"immediate", "persistent_v1"}:
+        raise ValueError("Unknown controller variant")
+    if variant == "persistent_v1":
+        if config["frozen_lambda"] or not isinstance(config.get("persistent_rule"), dict):
+            raise ValueError("Persistent controller needs an active, versioned rule")
+        persistent = PersistentRule(**config["persistent_rule"])
+        if (
+            config["online_training"]["epochs"] != 1
+            or config["cadence"] != 1
+            or config["initial_lambda"] != persistent.anchor
+        ):
+            raise ValueError("Persistent controller needs one daily step at its anchor")
+    elif "persistent_rule" in config:
+        raise ValueError("Unexpected persistent rule for immediate controller")
     if config["phase"] != "pilot" and not config["protocol_sha256"]:
         raise ValueError("Scored execution needs reviewed protocol hash")
     if config["phase"] == "pilot" and config["objective_origins"]:
@@ -200,6 +253,7 @@ def execute(
             "owner_authorization"
         ):
             raise ValueError("Scored execution requires recorded owner authorization")
+        validate_controller_protocol(config, protocol)
         calibration = validate_origin_boundary(
             protocol,
             entity_id,
@@ -312,6 +366,9 @@ def execute(
         device=device,
         cadence=config["cadence"],
         frozen_lambda=config["frozen_lambda"],
+        persistent_rule=PersistentRule(**config["persistent_rule"])
+        if config.get("controller_variant") == "persistent_v1"
+        else None,
     )
     if stop_after_ticks is not None and stop_after_ticks < 1:
         raise ValueError("stop_after_ticks must be positive")
@@ -343,7 +400,13 @@ def execute(
         "schema": "issue99-run-v1",
         "run_id": output.name,
         "phase": config["phase"],
-        "method": "fixed_real_lambda" if config["frozen_lambda"] else "continuous_one_step_adam",
+        "method": (
+            "fixed_real_lambda"
+            if config["frozen_lambda"]
+            else "persistent_paired_adam_v1"
+            if config.get("controller_variant") == "persistent_v1"
+            else "continuous_one_step_adam"
+        ),
         "binding": binding,
         "initial_logs": initial_logs,
         "initial_wall_seconds_this_invocation": initial_wall_seconds,
@@ -367,6 +430,9 @@ def execute(
         "final_state_sha256": state_digest(runner.branch.snapshot()),
         "resume_from": str(resume_from) if resume_from else None,
     }
+    if runner.persistent is not None:
+        report["shadow_steps"] = runner.persistent.shadow_steps
+        report["cost_seconds"]["shadow_seconds"] = runner.persistent.shadow_seconds
     write_json(output / "run.json", report)
     return report
 
