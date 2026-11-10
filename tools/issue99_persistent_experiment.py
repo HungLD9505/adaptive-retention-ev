@@ -61,7 +61,10 @@ def lock_protocol(source: Path, output: Path) -> tuple[Path, dict, str]:
     if digest(locked) != source_sha:
         raise ValueError("Existing protocol lock differs from packaged protocol")
     protocol = json.loads(locked.read_text(encoding="utf-8"))
-    if protocol["schema"] != "issue99-execution-protocol-v1" or protocol["status"] != "locked_owner_approved":
+    if (
+        protocol["schema"] != "issue99-execution-protocol-v1"
+        or protocol["status"] != "locked_owner_approved"
+    ):
         raise ValueError("Protocol is not execution-locked")
     if tuple(protocol["targets"]) != TARGETS or tuple(protocol["seeds"]) != SEEDS:
         raise ValueError("Target/seed declaration changed")
@@ -76,7 +79,9 @@ def source_paths(stage: Path) -> dict[int, Path]:
     return found
 
 
-def config_for(protocol: dict, protocol_sha: str, method: str, seed: int, target: str, phase: str) -> dict:
+def config_for(
+    protocol: dict, protocol_sha: str, method: str, seed: int, target: str, phase: str
+) -> dict:
     if method not in METHODS or phase not in {"pilot", "calibration", "evaluation"}:
         raise ValueError("Unregistered method or phase")
     arm = protocol["persistent_experiment"]["method_configs"][method]
@@ -107,9 +112,11 @@ def config_for(protocol: dict, protocol_sha: str, method: str, seed: int, target
         "controller_variant": arm["controller_variant"],
         "replay_days": 90,
         "protocol_sha256": protocol_sha,
-        "objective_origins": [] if phase == "pilot" else protocol[
-            "calibration_origins" if phase == "calibration" else "evaluation_origins"
-        ][target],
+        "objective_origins": []
+        if phase == "pilot"
+        else protocol["calibration_origins" if phase == "calibration" else "evaluation_origins"][
+            target
+        ],
         "state_retention": "latest",
         "diagnostic_every": 7,
     }
@@ -121,11 +128,23 @@ def config_for(protocol: dict, protocol_sha: str, method: str, seed: int, target
 def plan(phase: str) -> list[tuple[str, str, int]]:
     if phase == "pilot":
         cases = (("1405", 42), ("2152", 43), ("1693", 42))
-        return [(method, target, seed) for target, seed in cases for method in ("fixed", "persistent")]
+        return [
+            (method, target, seed) for target, seed in cases for method in ("fixed", "persistent")
+        ]
     if phase == "calibration_reference":
-        return [(method, target, seed) for target in TARGETS for seed in SEEDS for method in ("fixed", "immediate")]
+        return [
+            (method, target, seed)
+            for target in TARGETS
+            for seed in SEEDS
+            for method in ("fixed", "immediate")
+        ]
     if phase == "calibration_remaining":
-        return [(method, target, seed) for target in TARGETS for seed in SEEDS for method in ("lambda0", "persistent")]
+        return [
+            (method, target, seed)
+            for target in TARGETS
+            for seed in SEEDS
+            for method in ("lambda0", "persistent")
+        ]
     return [(method, target, seed) for target in TARGETS for seed in SEEDS for method in METHODS]
 
 
@@ -138,8 +157,11 @@ def run_phase(stage: Path, protocol_path: Path, output: Path, phase: str, device
         if not pilot.exists():
             raise ValueError("Independent pilot verification missing")
         verified_pilot = json.loads(pilot.read_text(encoding="utf-8"))
-        if (verified_pilot.get("status") != "PASS" or verified_pilot.get("screen_pass") is not True
-                or verified_pilot.get("protocol_sha256") != protocol_sha):
+        if (
+            verified_pilot.get("status") != "PASS"
+            or verified_pilot.get("screen_pass") is not True
+            or verified_pilot.get("protocol_sha256") != protocol_sha
+        ):
             raise ValueError("Independent pilot verification failed or binding changed")
     if phase == "calibration_remaining":
         comparison = output / "reference-comparability.json"
@@ -153,9 +175,12 @@ def run_phase(stage: Path, protocol_path: Path, output: Path, phase: str, device
         if not verification_path.exists():
             raise ValueError("Independent Calibration verification missing")
         verification = json.loads(verification_path.read_text(encoding="utf-8"))
-        if (verification.get("status") != "PASS" or verification.get("gate_pass") is not True
-                or verification.get("calibration_gate_sha256") != digest(gate_path)
-                or verification.get("protocol_sha256") != protocol_sha):
+        if (
+            verification.get("status") != "PASS"
+            or verification.get("gate_pass") is not True
+            or verification.get("calibration_gate_sha256") != digest(gate_path)
+            or verification.get("protocol_sha256") != protocol_sha
+        ):
             raise ValueError("Independent Calibration verification failed or binding changed")
     torch.set_num_threads(1)
     sources = source_paths(stage)
@@ -163,7 +188,13 @@ def run_phase(stage: Path, protocol_path: Path, output: Path, phase: str, device
     if inputs.source_hash != protocol["source_population_sha256"]:
         raise ValueError("Source population differs")
     replays = {target: Replay(inputs, target, 90) for target in TARGETS}
-    name = "later" if phase == "evaluation" else "calibration" if phase.startswith("calibration_") else phase
+    name = (
+        "later"
+        if phase == "evaluation"
+        else "calibration"
+        if phase.startswith("calibration_")
+        else phase
+    )
     phase_root = output / name
     phase_root.mkdir(exist_ok=True)
     rows = []
@@ -175,7 +206,9 @@ def run_phase(stage: Path, protocol_path: Path, output: Path, phase: str, device
         existing = path / "run.json"
         if existing.exists():
             report = json.loads(existing.read_text(encoding="utf-8"))
-            if report["binding"]["config"] != config_for(protocol, protocol_sha, method, seed, target, study_phase):
+            if report["binding"]["config"] != config_for(
+                protocol, protocol_sha, method, seed, target, study_phase
+            ):
                 raise ValueError(f"Existing run has different config: {run_id}")
             status = "existing_complete"
         elif path.exists():
@@ -198,16 +231,27 @@ def run_phase(stage: Path, protocol_path: Path, output: Path, phase: str, device
                 status = "complete"
             except Exception as error:
                 failure = {
-                    "phase": phase, "run_id": run_id, "status": "error",
-                    "error_type": type(error).__name__, "error": str(error),
+                    "phase": phase,
+                    "run_id": run_id,
+                    "status": "error",
+                    "error_type": type(error).__name__,
+                    "error": str(error),
                     "traceback": traceback.format_exc(),
                     "wall_seconds": time.perf_counter() - started,
                     "partial_path": str(path) if path.exists() else None,
                 }
                 append_event(output / "dispatch.jsonl", failure)
-                print(json.dumps({k: failure[k] for k in ("phase", "run_id", "status", "error_type", "error")}), flush=True)
+                print(
+                    json.dumps(
+                        {
+                            k: failure[k]
+                            for k in ("phase", "run_id", "status", "error_type", "error")
+                        }
+                    ),
+                    flush=True,
+                )
                 rows.append(failure)
-                for skipped_method, skipped_target, skipped_seed in jobs[index + 1:]:
+                for skipped_method, skipped_target, skipped_seed in jobs[index + 1 :]:
                     skipped = {
                         "phase": phase,
                         "run_id": f"{skipped_method}-{skipped_target}-seed{skipped_seed}",
@@ -219,24 +263,54 @@ def run_phase(stage: Path, protocol_path: Path, output: Path, phase: str, device
                     rows.append(skipped)
                 break
         row = {
-            "phase": phase, "run_id": run_id, "method": method, "target": target, "seed": seed,
-            "status": status, "mae_kwh": report["mae_kwh"],
+            "phase": phase,
+            "run_id": run_id,
+            "method": method,
+            "target": target,
+            "seed": seed,
+            "status": status,
+            "mae_kwh": report["mae_kwh"],
             "objective_scored_days": report["objective_scored_days"],
             "objective_coverage_pass": report["objective_coverage_pass"],
             "objective_missing_origins": report["objective_missing_origins"],
             "invocation_wall_seconds": report["invocation_wall_seconds"],
-            "run_sha256": digest(existing), "run_path": str(path),
+            "run_sha256": digest(existing),
+            "run_path": str(path),
             "final_lambda": report["final_lambda"],
         }
         append_event(output / "dispatch.jsonl", row)
-        print(json.dumps({k: row[k] for k in ("phase", "run_id", "status", "mae_kwh", "objective_scored_days", "final_lambda")}, allow_nan=False), flush=True)
+        print(
+            json.dumps(
+                {
+                    k: row[k]
+                    for k in (
+                        "phase",
+                        "run_id",
+                        "status",
+                        "mae_kwh",
+                        "objective_scored_days",
+                        "final_lambda",
+                    )
+                },
+                allow_nan=False,
+            ),
+            flush=True,
+        )
         rows.append(row)
     inputs.reauthenticate()
     summary_path = output / f"{phase}-dispatch-summary.json"
     if summary_path.exists():
         raise FileExistsError(summary_path)
-    write_new(summary_path, {"phase": phase, "protocol_sha256": protocol_sha, "jobs": len(plan(phase)), "rows": rows})
-    return {"phase": phase, "jobs": len(rows), "errors": sum(row["status"] in {"error", "not_run_after_error"} for row in rows), "summary_sha256": digest(summary_path)}
+    write_new(
+        summary_path,
+        {"phase": phase, "protocol_sha256": protocol_sha, "jobs": len(plan(phase)), "rows": rows},
+    )
+    return {
+        "phase": phase,
+        "jobs": len(rows),
+        "errors": sum(row["status"] in {"error", "not_run_after_error"} for row in rows),
+        "summary_sha256": digest(summary_path),
+    }
 
 
 def scores(path: Path) -> dict[str, float]:
@@ -279,7 +353,9 @@ def reference_guard(output: Path, protocol_path: Path) -> dict:
                     failures.append(f"Missing reference arm: {method}-{target}-seed{seed}")
                     continue
                 report = json.loads(path.read_text(encoding="utf-8"))
-                if report["binding"]["config"] != config_for(protocol, protocol_sha, method, seed, target, "calibration"):
+                if report["binding"]["config"] != config_for(
+                    protocol, protocol_sha, method, seed, target, "calibration"
+                ):
                     failures.append(f"Reference arm config mismatch: {path.parent.name}")
                     continue
                 if not report["objective_coverage_pass"] or report["mae_kwh"] is None:
@@ -287,14 +363,34 @@ def reference_guard(output: Path, protocol_path: Path) -> dict:
                     continue
                 current[(method, target, seed)] = report["mae_kwh"]
                 if method == "fixed":
-                    cell_deltas.append({"target": target, "seed": seed, "signed_delta_kwh": report["mae_kwh"] - reference[(target, seed)]})
+                    cell_deltas.append(
+                        {
+                            "target": target,
+                            "seed": seed,
+                            "signed_delta_kwh": report["mae_kwh"] - reference[(target, seed)],
+                        }
+                    )
     tolerance = protocol["persistent_experiment"]["cross_runtime_comparability"]
     if len(current) == 24:
-        macro = {method: statistics.mean(current[(method, target, seed)] for target in TARGETS for seed in SEEDS) for method in ("fixed", "immediate")}
-        macro_deltas = {"fixed": macro["fixed"] - expected_fixed_macro, "immediate": macro["immediate"] - expected_immediate_macro}
-        if any(abs(row["signed_delta_kwh"]) > tolerance["max_abs_cell_mae_delta_kwh"] for row in cell_deltas):
+        macro = {
+            method: statistics.mean(
+                current[(method, target, seed)] for target in TARGETS for seed in SEEDS
+            )
+            for method in ("fixed", "immediate")
+        }
+        macro_deltas = {
+            "fixed": macro["fixed"] - expected_fixed_macro,
+            "immediate": macro["immediate"] - expected_immediate_macro,
+        }
+        if any(
+            abs(row["signed_delta_kwh"]) > tolerance["max_abs_cell_mae_delta_kwh"]
+            for row in cell_deltas
+        ):
             failures.append("Fixed reference per-cell engineering tolerance exceeded")
-        if any(abs(value) > tolerance["max_abs_station_first_macro_mae_delta_kwh"] for value in macro_deltas.values()):
+        if any(
+            abs(value) > tolerance["max_abs_station_first_macro_mae_delta_kwh"]
+            for value in macro_deltas.values()
+        ):
             failures.append("Historical macro engineering tolerance exceeded")
     else:
         macro, macro_deltas = {}, {}
@@ -329,7 +425,9 @@ def summarize(output: Path, protocol_path: Path) -> dict:
                     failures.append(f"Missing run: {path.name}")
                     continue
                 report = json.loads(report_path.read_text(encoding="utf-8"))
-                if report["binding"]["config"] != config_for(protocol, protocol_sha, method, seed, target, "calibration"):
+                if report["binding"]["config"] != config_for(
+                    protocol, protocol_sha, method, seed, target, "calibration"
+                ):
                     failures.append(f"Config mismatch: {path.name}")
                     continue
                 actual_scores = scores(path)
@@ -361,22 +459,49 @@ def summarize(output: Path, protocol_path: Path) -> dict:
     by_seed = {}
     if not failures:
         for method in METHODS:
-            by_method[method] = statistics.mean(cell[(method, target, seed)]["mae_kwh"] for target in TARGETS for seed in SEEDS)
+            by_method[method] = statistics.mean(
+                cell[(method, target, seed)]["mae_kwh"] for target in TARGETS for seed in SEEDS
+            )
         for target in TARGETS:
-            by_target[target] = {method: statistics.mean(cell[(method, target, seed)]["mae_kwh"] for seed in SEEDS) for method in METHODS}
+            by_target[target] = {
+                method: statistics.mean(cell[(method, target, seed)]["mae_kwh"] for seed in SEEDS)
+                for method in METHODS
+            }
         for seed in SEEDS:
-            by_seed[str(seed)] = {method: statistics.mean(cell[(method, target, seed)]["mae_kwh"] for target in TARGETS) for method in METHODS}
-        wall_ratio = sum(cell[("persistent", target, seed)]["wall_seconds"] for target in TARGETS for seed in SEEDS) / sum(cell[("fixed", target, seed)]["wall_seconds"] for target in TARGETS for seed in SEEDS)
+            by_seed[str(seed)] = {
+                method: statistics.mean(
+                    cell[(method, target, seed)]["mae_kwh"] for target in TARGETS
+                )
+                for method in METHODS
+            }
+        wall_ratio = sum(
+            cell[("persistent", target, seed)]["wall_seconds"]
+            for target in TARGETS
+            for seed in SEEDS
+        ) / sum(
+            cell[("fixed", target, seed)]["wall_seconds"] for target in TARGETS for seed in SEEDS
+        )
         checks = {
-            "macro_gain": by_method["fixed"] - by_method["persistent"] >= gate["macro_mae_improvement_vs_fixed_at_least_kwh"],
-            "target_harm": all(by_target[target]["persistent"] - by_target[target]["fixed"] <= gate["max_target_mean_mae_harm_vs_fixed_kwh"] for target in TARGETS),
-            "seed_macro": sum(by_seed[str(seed)]["persistent"] < by_seed[str(seed)]["fixed"] for seed in SEEDS) >= gate["min_seed_macro_improvements_vs_fixed"],
+            "macro_gain": by_method["fixed"] - by_method["persistent"]
+            >= gate["macro_mae_improvement_vs_fixed_at_least_kwh"],
+            "target_harm": all(
+                by_target[target]["persistent"] - by_target[target]["fixed"]
+                <= gate["max_target_mean_mae_harm_vs_fixed_kwh"]
+                for target in TARGETS
+            ),
+            "seed_macro": sum(
+                by_seed[str(seed)]["persistent"] < by_seed[str(seed)]["fixed"] for seed in SEEDS
+            )
+            >= gate["min_seed_macro_improvements_vs_fixed"],
             "wall_ratio": wall_ratio <= gate["persistent_wall_time_over_fixed_max"],
             "coverage": True,
         }
     else:
         wall_ratio = None
-        checks = {name: False for name in ("macro_gain", "target_harm", "seed_macro", "wall_ratio", "coverage")}
+        checks = {
+            name: False
+            for name in ("macro_gain", "target_harm", "seed_macro", "wall_ratio", "coverage")
+        }
     result = {
         "schema": "issue99-persistent-calibration-gate-v1",
         "protocol_sha256": protocol_sha,
@@ -389,7 +514,9 @@ def summarize(output: Path, protocol_path: Path) -> dict:
         "persistent_over_fixed_invocation_wall_ratio": wall_ratio,
         "cells": [
             {"method": method, "target": target, "seed": seed, **cell[(method, target, seed)]}
-            for target in TARGETS for seed in SEEDS for method in METHODS
+            for target in TARGETS
+            for seed in SEEDS
+            for method in METHODS
             if (method, target, seed) in cell
         ],
     }
@@ -397,7 +524,24 @@ def summarize(output: Path, protocol_path: Path) -> dict:
     if path.exists():
         raise FileExistsError(path)
     write_new(path, result)
-    print(json.dumps({key: result[key] for key in ("go_to_later", "checks", "failures", "macro_mae_kwh", "target_mae_kwh", "seed_macro_mae_kwh", "persistent_over_fixed_invocation_wall_ratio")}, allow_nan=False), flush=True)
+    print(
+        json.dumps(
+            {
+                key: result[key]
+                for key in (
+                    "go_to_later",
+                    "checks",
+                    "failures",
+                    "macro_mae_kwh",
+                    "target_mae_kwh",
+                    "seed_macro_mae_kwh",
+                    "persistent_over_fixed_invocation_wall_ratio",
+                )
+            },
+            allow_nan=False,
+        ),
+        flush=True,
+    )
     return result
 
 
@@ -407,7 +551,18 @@ def main() -> None:
     parser.add_argument("--protocol", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
-    parser.add_argument("--phase", choices=("pilot", "calibration_reference", "reference_guard", "calibration_remaining", "gate", "evaluation"), required=True)
+    parser.add_argument(
+        "--phase",
+        choices=(
+            "pilot",
+            "calibration_reference",
+            "reference_guard",
+            "calibration_remaining",
+            "gate",
+            "evaluation",
+        ),
+        required=True,
+    )
     args = parser.parse_args()
     if args.phase == "gate":
         summarize(args.output, args.protocol)
@@ -417,7 +572,9 @@ def main() -> None:
         result = run_phase(args.stage, args.protocol, args.output, args.phase, args.device)
         print(json.dumps(result, allow_nan=False))
         if result["errors"]:
-            raise RuntimeError(f"{result['errors']} {args.phase} jobs failed; partial artifacts preserved")
+            raise RuntimeError(
+                f"{result['errors']} {args.phase} jobs failed; partial artifacts preserved"
+            )
 
 
 if __name__ == "__main__":

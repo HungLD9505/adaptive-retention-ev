@@ -45,7 +45,9 @@ class PersistentRule:
         if any(isinstance(value, bool) or not isinstance(value, int) for value in integers):
             raise ValueError("Integer persistent-controller counts required")
         if not (
-            1 <= self.minimum_candidate_wins <= self.valid_complete_pairs
+            1
+            <= self.minimum_candidate_wins
+            <= self.valid_complete_pairs
             <= self.max_wait_issued_days
         ):
             raise ValueError("Invalid persistent-controller acceptance counts")

@@ -29,16 +29,21 @@ INCLUDE_FILES = (
 
 
 def committed_bytes(commit: str, name: str) -> bytes:
-    if subprocess.run(["git", "diff", "--quiet", commit, "--", name], cwd=ROOT, check=False).returncode:
+    if subprocess.run(
+        ["git", "diff", "--quiet", commit, "--", name], cwd=ROOT, check=False
+    ).returncode:
         raise ValueError(f"Working file differs from pinned commit: {name}")
     data = subprocess.check_output(["git", "show", f"{commit}:{name}"], cwd=ROOT)
     return data
 
 
 def package(commit: str) -> tuple[str, str, dict[str, str]]:
-    tracked = subprocess.check_output(["git", "ls-tree", "-r", "--name-only", commit], cwd=ROOT, text=True).splitlines()
+    tracked = subprocess.check_output(
+        ["git", "ls-tree", "-r", "--name-only", commit], cwd=ROOT, text=True
+    ).splitlines()
     names = sorted(
-        name for name in tracked
+        name
+        for name in tracked
         if (name.endswith(".py") and name.split("/", 1)[0] in INCLUDE_DIRS)
         or (name.startswith(("tools/issue99", "tests/test_issue99")) and name.endswith(".py"))
         or name in {"tools/__init__.py", "tests/__init__.py", "tools/check_release.py"}
@@ -69,7 +74,13 @@ def package(commit: str) -> tuple[str, str, dict[str, str]]:
 
 
 def code_cell(source: str) -> dict:
-    return {"cell_type": "code", "execution_count": None, "metadata": {}, "outputs": [], "source": source.splitlines(keepends=True)}
+    return {
+        "cell_type": "code",
+        "execution_count": None,
+        "metadata": {},
+        "outputs": [],
+        "source": source.splitlines(keepends=True),
+    }
 
 
 def markdown_cell(source: str) -> dict:
@@ -78,7 +89,7 @@ def markdown_cell(source: str) -> dict:
 
 def notebook(commit: str, payload: str, payload_sha: str, files: dict[str, str]) -> dict:
     suffix = commit[:8]
-    bootstrap = f'''import base64, hashlib, importlib.util, json, os, pathlib, platform, subprocess, sys, zipfile
+    bootstrap = f"""import base64, hashlib, importlib.util, json, os, pathlib, platform, subprocess, sys, zipfile
 from pathlib import Path
 DATASET = Path({DATASET!r})
 OUTER_SHA = {OUTER_MANIFEST_SHA256!r}
@@ -122,8 +133,8 @@ os.chdir(CODE)
 RESULT.mkdir(exist_ok=False)
 (RESULT / 'runtime.json').write_text(json.dumps({{'new_code_commit': COMMIT, 'new_package_sha256': ZIP_SHA, 'outer_manifest_sha256': OUTER_SHA, 'runtime': runtime}}, indent=2) + '\\n')
 print(json.dumps({{'stage': 'verified', 'commit': COMMIT, 'package_sha256': ZIP_SHA, 'outer_manifest_sha256': OUTER_SHA, 'runtime': runtime}}, default=str))
-'''
-    test = '''import importlib.util, json, subprocess, sys
+"""
+    test = """import importlib.util, json, subprocess, sys
 tests = [
     'tests/test_issue99_persistent.py',
     'tests/test_issue99_persistent_verify.py',
@@ -151,8 +162,8 @@ else:
         record(command, True)
 record([sys.executable, '-m', 'tools.check_release'], False)
 print('README_CHECK_RELEASE_SCOPE: embedded package has no Git history or frozen report fixtures; see checks.json', flush=True)
-'''
-    execute = '''import json, subprocess, sys
+"""
+    execute = """import json, subprocess, sys
 PROTOCOL = CODE / 'configs/issue99-persistent-protocol-v1.json'
 base = [sys.executable, '-m', 'tools.issue99_persistent_experiment', '--stage', str(STAGE), '--protocol', str(PROTOCOL), '--output', str(RESULT), '--device', 'cuda']
 def experiment(phase):
@@ -177,8 +188,8 @@ if gate['go_to_later'] and verification['status'] == 'PASS' and verification['ga
     verify('evaluation', 'later-independent-verification.json')
 else:
     print('LATER_STOPPED_BY_REGISTERED_GATE', flush=True)
-'''
-    report = '''import hashlib, json
+"""
+    report = """import hashlib, json
 from pathlib import Path
 for name in ('pilot-independent-verification.json', 'reference-comparability.json', 'calibration-gate.json', 'independent-verification.json', 'later-independent-verification.json'):
     path = RESULT / name
@@ -197,14 +208,24 @@ for path in sorted(RESULT.rglob('*')):
     if path.is_file() and (path.name in ('run.json', 'calibration-gate.json', 'independent-verification.json', 'reference-comparability.json', 'runtime.json') or path.name.endswith('dispatch-summary.json')):
         artifacts.append({'path': str(path.relative_to(RESULT)), 'bytes': path.stat().st_size, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
 print('ARTIFACT_INVENTORY', json.dumps(artifacts, sort_keys=True), flush=True)
-'''
+"""
     return {
         "nbformat": 4,
         "nbformat_minor": 5,
-        "metadata": {"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"}, "language_info": {"name": "python"}, "issue99_code_commit": commit, "issue99_code_package_sha256": payload_sha},
+        "metadata": {
+            "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
+            "language_info": {"name": "python"},
+            "issue99_code_commit": commit,
+            "issue99_code_package_sha256": payload_sha,
+        },
         "cells": [
-            markdown_cell("# Issue #99 persistent λ follow-up\n\nExploratory Development only. This notebook uses the existing authenticated Source10/14-day dataset attachment. It creates new output paths and runs the preregistered pilot, Calibration, independent verifier and conditional Later matrix.\n"),
-            code_cell(bootstrap), code_cell(test), code_cell(execute), code_cell(report),
+            markdown_cell(
+                "# Issue #99 persistent λ follow-up\n\nExploratory Development only. This notebook uses the existing authenticated Source10/14-day dataset attachment. It creates new output paths and runs the preregistered pilot, Calibration, independent verifier and conditional Later matrix.\n"
+            ),
+            code_cell(bootstrap),
+            code_cell(test),
+            code_cell(execute),
+            code_cell(report),
         ],
     }
 
@@ -214,7 +235,10 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--commit", help="Pinned committed code SHA; defaults to HEAD")
     args = parser.parse_args()
-    commit = args.commit or subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    commit = (
+        args.commit
+        or subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    )
     if len(commit) != 40:
         raise ValueError("Expected full git commit SHA")
     payload, payload_sha, files = package(commit)
@@ -224,7 +248,17 @@ def main() -> None:
     with args.output.open("x", encoding="utf-8") as stream:
         json.dump(value, stream, ensure_ascii=False, indent=1)
         stream.write("\n")
-    print(json.dumps({"notebook": str(args.output), "commit": commit, "package_sha256": payload_sha, "files": len(files), "bytes": args.output.stat().st_size}))
+    print(
+        json.dumps(
+            {
+                "notebook": str(args.output),
+                "commit": commit,
+                "package_sha256": payload_sha,
+                "files": len(files),
+                "bytes": args.output.stat().st_size,
+            }
+        )
+    )
 
 
 if __name__ == "__main__":

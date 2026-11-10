@@ -9,13 +9,19 @@ class PilotScreenTest(unittest.TestCase):
     def test_rejected_shadow_harm_does_not_trigger_trajectory_stop(self) -> None:
         rows = [
             {
-                "target": "1405", "seed": 42, "method": "fixed",
-                "all_scored_origins": ["day-a", "day-b"], "all_scored_mae_kwh": 1.0,
+                "target": "1405",
+                "seed": 42,
+                "method": "fixed",
+                "all_scored_origins": ["day-a", "day-b"],
+                "all_scored_mae_kwh": 1.0,
                 "persistent": None,
             },
             {
-                "target": "1405", "seed": 42, "method": "persistent",
-                "all_scored_origins": ["day-a", "day-b"], "all_scored_mae_kwh": 1.02,
+                "target": "1405",
+                "seed": 42,
+                "method": "persistent",
+                "all_scored_origins": ["day-a", "day-b"],
+                "all_scored_mae_kwh": 1.02,
                 "persistent": {"paired_differences_kwh": [0.40], "acceptances": 0},
             },
         ]
@@ -28,12 +34,18 @@ class PilotScreenTest(unittest.TestCase):
     def test_actual_trajectory_harm_stops_pilot(self) -> None:
         rows = [
             {
-                "target": "1405", "seed": 42, "method": "fixed",
-                "all_scored_origins": ["day-a"], "all_scored_mae_kwh": 1.0,
+                "target": "1405",
+                "seed": 42,
+                "method": "fixed",
+                "all_scored_origins": ["day-a"],
+                "all_scored_mae_kwh": 1.0,
             },
             {
-                "target": "1405", "seed": 42, "method": "persistent",
-                "all_scored_origins": ["day-a"], "all_scored_mae_kwh": 1.06,
+                "target": "1405",
+                "seed": 42,
+                "method": "persistent",
+                "all_scored_origins": ["day-a"],
+                "all_scored_mae_kwh": 1.06,
                 "persistent": {"paired_differences_kwh": [-0.10]},
             },
         ]

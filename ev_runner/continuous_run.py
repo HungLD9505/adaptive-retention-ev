@@ -132,7 +132,8 @@ def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, Window
         "objective_origins",
     }
     if (
-        set(config) - {"state_retention", "diagnostic_every", "controller_variant", "persistent_rule"}
+        set(config)
+        - {"state_retention", "diagnostic_every", "controller_variant", "persistent_rule"}
         != required
         or config["schema"] != "issue99-study-v1"
     ):

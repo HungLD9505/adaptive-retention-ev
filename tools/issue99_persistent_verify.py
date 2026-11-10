@@ -406,7 +406,9 @@ def verify_run(
         "method": method,
         "mae_kwh": mae,
         "rmse_kwh": rmse,
-        "all_scored_mae_kwh": sum(value[0] for value in scored.values()) / len(scored) if scored else None,
+        "all_scored_mae_kwh": sum(value[0] for value in scored.values()) / len(scored)
+        if scored
+        else None,
         "scored_origins": sorted(selected),
         "all_scored_origins": sorted(scored),
         "issued_days": len(forecasts),

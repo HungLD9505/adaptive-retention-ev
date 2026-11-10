@@ -58,9 +58,7 @@ class ContinuousRunner:
         self.current_lambda, self.device, self.cadence = initial_lambda, device, cadence
         self.frozen_lambda = frozen_lambda
         self.persistent = (
-            PersistentCandidate(
-                persistent_rule, training, reference, latent_scale, device=device
-            )
+            PersistentCandidate(persistent_rule, training, reference, latent_scale, device=device)
             if persistent_rule is not None
             else None
         )
@@ -120,20 +118,31 @@ class ContinuousRunner:
             return
         selected = self.window.select(as_of, self.rule)
         if selected is None:
-            events.append({"event": "persistent_skip", "reason": "insufficient_arrived_A_or_untrained_V"})
+            events.append(
+                {"event": "persistent_skip", "reason": "insufficient_arrived_A_or_untrained_V"}
+            )
             return
         self.synchronize()
         started = time.perf_counter()
         suggestion = decide(
-            self.branch.model, self.branch.optimizer, self.reference, self.latent_scale,
-            *selected, self.current_lambda, self.rule, device=self.device,
+            self.branch.model,
+            self.branch.optimizer,
+            self.reference,
+            self.latent_scale,
+            *selected,
+            self.current_lambda,
+            self.rule,
+            device=self.device,
         )
         self.synchronize()
         self.cost["meta_seconds"] += time.perf_counter() - started
         self.virtual_steps += 1
         event = self.persistent.start(
-            self.branch, self.current_lambda, suggestion["hypergradient"],
-            self.rule.upper_bound, as_of,
+            self.branch,
+            self.current_lambda,
+            suggestion["hypergradient"],
+            self.rule.upper_bound,
+            as_of,
         )
         event["a_origins"] = suggestion["a_origins"]
         event["v_origins"] = suggestion["v_origins"]
@@ -187,7 +196,10 @@ class ContinuousRunner:
                 )
                 real_before = branch_digests(self.branch) if final_pair else None
                 observation, decision = self.persistent.observe(
-                    issued, normalized, outcome.available_at or as_of, as_of,
+                    issued,
+                    normalized,
+                    outcome.available_at or as_of,
+                    as_of,
                     self.replay.scale,
                 )
                 if observation is not None:
@@ -281,15 +293,17 @@ class ContinuousRunner:
                     record, event_index=self.arrivals - 1, real_steps=self.branch.steps
                 )
                 if shadow_block is not None:
-                    events.append({
-                        "event": "persistent_shadow_update",
-                        "origin": issued["origin"],
-                        "as_of": as_of.isoformat(),
-                        "block_id": shadow_block["id"],
-                        "event_index": self.arrivals - 1,
-                        "real_steps": self.branch.steps,
-                        "shadow_steps": self.persistent.branch.steps,
-                    })
+                    events.append(
+                        {
+                            "event": "persistent_shadow_update",
+                            "origin": issued["origin"],
+                            "as_of": as_of.isoformat(),
+                            "block_id": shadow_block["id"],
+                            "event_index": self.arrivals - 1,
+                            "real_steps": self.branch.steps,
+                            "shadow_steps": self.persistent.branch.steps,
+                        }
+                    )
             self.window.mark_trained(origin)
             events.append(
                 {
@@ -342,9 +356,7 @@ class ContinuousRunner:
             }
             if "paired" in issued:
                 saved_event["persistent_block_id"] = issued["paired"]["block_id"]
-                saved_event["candidate_prediction_id"] = issued["paired"][
-                    "candidate_prediction_id"
-                ]
+                saved_event["candidate_prediction_id"] = issued["paired"]["candidate_prediction_id"]
             events.append(saved_event)
         elif as_of < self.replay.stop:
             events.append({"event": "skip_all_missing_history", "origin": as_of.isoformat()})

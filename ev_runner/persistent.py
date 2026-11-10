@@ -72,8 +72,12 @@ class PersistentCandidate:
         self.shadow_seconds = value["shadow_seconds"]
 
     def start(
-        self, incumbent: Branch, current_lambda: float, hypergradient: float,
-        upper_bound: float, as_of: datetime,
+        self,
+        incumbent: Branch,
+        current_lambda: float,
+        hypergradient: float,
+        upper_bound: float,
+        as_of: datetime,
     ) -> dict:
         if self.block is not None:
             raise ValueError("Persistent block already active")
@@ -154,11 +158,19 @@ class PersistentCandidate:
         if self.block is not None and paired["block_id"] == self.block["id"]:
             # Eligibility is label completeness, never the observed error value.
             self.block["pending_pairs"] -= 1
-        return {"event": "persistent_skip", "reason": "incomplete_labels", "block_id": paired["block_id"]}
+        return {
+            "event": "persistent_skip",
+            "reason": "incomplete_labels",
+            "block_id": paired["block_id"],
+        }
 
     def observe(
-        self, issued: dict, normalized: list[float], available_at: datetime,
-        as_of: datetime, scale: float,
+        self,
+        issued: dict,
+        normalized: list[float],
+        available_at: datetime,
+        as_of: datetime,
+        scale: float,
     ) -> tuple[dict | None, dict | None]:
         paired = issued.get("paired")
         if paired is None:
@@ -175,7 +187,11 @@ class PersistentCandidate:
             raise ValueError("Noncausal or malformed persistent forecast")
         block = self.block
         if block is None or paired["block_id"] != block["id"]:
-            return {"event": "persistent_skip", "reason": "stale_block", "origin": issued["origin"]}, None
+            return {
+                "event": "persistent_skip",
+                "reason": "stale_block",
+                "origin": issued["origin"],
+            }, None
         if (
             issued["lambda"] != block["incumbent"]
             or paired["candidate_lambda"] != block["candidate"]
@@ -183,14 +199,22 @@ class PersistentCandidate:
         ):
             raise ValueError("Persistent forecast does not match candidate block")
         self.block["pending_pairs"] -= 1
-        incumbent_mae = sum(
-            abs(value - label)
-            for value, label in zip(issued["prediction"], normalized, strict=True)
-        ) * scale / 24
-        candidate_mae = sum(
-            abs(value - label)
-            for value, label in zip(paired["candidate_prediction"], normalized, strict=True)
-        ) * scale / 24
+        incumbent_mae = (
+            sum(
+                abs(value - label)
+                for value, label in zip(issued["prediction"], normalized, strict=True)
+            )
+            * scale
+            / 24
+        )
+        candidate_mae = (
+            sum(
+                abs(value - label)
+                for value, label in zip(paired["candidate_prediction"], normalized, strict=True)
+            )
+            * scale
+            / 24
+        )
         difference = candidate_mae - incumbent_mae
         if not all(math.isfinite(value) for value in (incumbent_mae, candidate_mae, difference)):
             raise ValueError("Nonfinite persistent paired score")

@@ -119,9 +119,7 @@ class PersistentTests(unittest.TestCase):
         manager = PersistentCandidate(
             self.rule, self.training, self.reference, torch.ones(64), device="cpu"
         )
-        started = manager.start(
-            real, 0.8, -0.01, 2.0, datetime(2022, 12, 1, tzinfo=timezone.utc)
-        )
+        started = manager.start(real, 0.8, -0.01, 2.0, datetime(2022, 12, 1, tzinfo=timezone.utc))
         self.assertEqual(started["event"], "persistent_proposal")
         self.assertEqual(branch_digests(real), branch_digests(manager.branch))
         real_before = branch_digests(real)
@@ -143,16 +141,22 @@ class PersistentTests(unittest.TestCase):
         }
         with self.assertRaisesRegex(ValueError, "malformed persistent forecast"):
             manager.observe(
-                malformed, [0.1] * 24, now + timedelta(days=1),
-                now + timedelta(days=1), 2.0,
+                malformed,
+                [0.1] * 24,
+                now + timedelta(days=1),
+                now + timedelta(days=1),
+                2.0,
             )
-        with patch("ev_runner.persistent.accept", return_value={
-            "accepted": True,
-            "mean_candidate_minus_incumbent_mae_kwh": -0.02,
-            "candidate_wins": 5,
-            "max_candidate_harm_kwh": -0.01,
-            "paired_differences_kwh": [-0.02] * 5,
-        }):
+        with patch(
+            "ev_runner.persistent.accept",
+            return_value={
+                "accepted": True,
+                "mean_candidate_minus_incumbent_mae_kwh": -0.02,
+                "candidate_wins": 5,
+                "max_candidate_harm_kwh": -0.01,
+                "paired_differences_kwh": [-0.02] * 5,
+            },
+        ):
             for index in range(5):
                 origin = now + timedelta(days=index)
                 manager.issued(True)
@@ -171,8 +175,11 @@ class PersistentTests(unittest.TestCase):
                     },
                 }
                 _, decision = manager.observe(
-                    issued, [0.1] * 24, origin + timedelta(days=1),
-                    origin + timedelta(days=1), 2.0,
+                    issued,
+                    [0.1] * 24,
+                    origin + timedelta(days=1),
+                    origin + timedelta(days=1),
+                    2.0,
                 )
         self.assertTrue(decision["accepted"])
         self.assertIsNone(manager.branch)
@@ -186,9 +193,7 @@ class PersistentTests(unittest.TestCase):
             full_store = Store(root / "full", binding)
             full = self.execute_replay(replay, full_store, replay.stop + timedelta(days=2))
             partial_store = Store(root / "partial", binding)
-            partial = self.execute_replay(
-                replay, partial_store, replay.start + timedelta(days=7)
-            )
+            partial = self.execute_replay(replay, partial_store, replay.start + timedelta(days=7))
             self.assertIsNotNone(partial.persistent.block)
             self.assertIsNotNone(partial.persistent.branch)
             resumed_store = Store(root / "resumed", binding, resume_from=root / "partial")
@@ -208,31 +213,36 @@ class PersistentTests(unittest.TestCase):
                     )
                 tick = root / "full" / folder
                 manifest = json.loads((tick / "commit.json").read_text())
-                self.assertEqual(digest(tick / "forecasts.json"), manifest["files"]["forecasts.json"])
+                self.assertEqual(
+                    digest(tick / "forecasts.json"), manifest["files"]["forecasts.json"]
+                )
                 issued = json.loads((tick / "forecasts.json").read_text())
                 if "paired" in issued:
                     self.assertEqual(
                         issued["paired"]["candidate_prediction_id"],
-                        identity({
-                            "origin": issued["origin"],
-                            "prediction": issued["paired"]["candidate_prediction"],
-                        }),
+                        identity(
+                            {
+                                "origin": issued["origin"],
+                                "prediction": issued["paired"]["candidate_prediction"],
+                            }
+                        ),
                     )
             events = self.events(root / "full")
             shadows = [event for event in events if event["event"] == "persistent_shadow_update"]
             actual = [event for event in events if event["event"] == "actual_update"]
             self.assertGreaterEqual(len(shadows), 5)
             self.assertTrue(all(row["real_steps"] == row["shadow_steps"] for row in shadows))
-            self.assertTrue(all(row["origin"] in {event["origin"] for event in actual} for row in shadows))
+            self.assertTrue(
+                all(row["origin"] in {event["origin"] for event in actual} for row in shadows)
+            )
             observations = [event for event in events if event["event"] == "persistent_observation"]
             self.assertGreaterEqual(len(observations), 5)
             for row in observations:
                 self.assertLessEqual(row["available_at"], row["as_of"])
                 self.assertLess(row["origin"], row["as_of"])
-            self.assertTrue(any(
-                sum(row["as_of"] == other["as_of"] for other in shadows) > 1
-                for row in shadows
-            ))
+            self.assertTrue(
+                any(sum(row["as_of"] == other["as_of"] for other in shadows) > 1 for row in shadows)
+            )
 
     def test_accepted_proposal_changes_lambda_without_branch_transplant(self) -> None:
         replay = LateReplay()
@@ -251,14 +261,13 @@ class PersistentTests(unittest.TestCase):
                     replay, Store(root / "run", binding), replay.start + timedelta(days=12)
                 )
             decisions = [
-                row for row in self.events(root / "run")
-                if row["event"] == "meta_decision"
+                row for row in self.events(root / "run") if row["event"] == "meta_decision"
             ]
             self.assertTrue(decisions)
             self.assertTrue(all(row["accepted"] for row in decisions))
-            self.assertTrue(all(
-                row["real_state_before"] == row["real_state_after"] for row in decisions
-            ))
+            self.assertTrue(
+                all(row["real_state_before"] == row["real_state_after"] for row in decisions)
+            )
             self.assertTrue(all("candidate_state" in row for row in decisions))
             self.assertNotEqual(runner.current_lambda, self.rule.anchor)
 
@@ -268,8 +277,12 @@ class PersistentTests(unittest.TestCase):
             root = Path(temporary)
             normal = LateReplay()
             changed = LateReplay(changed_day=7)
-            self.execute_replay(normal, Store(root / "normal", binding), normal.start + timedelta(days=8))
-            self.execute_replay(changed, Store(root / "changed", binding), changed.start + timedelta(days=8))
+            self.execute_replay(
+                normal, Store(root / "normal", binding), normal.start + timedelta(days=8)
+            )
+            self.execute_replay(
+                changed, Store(root / "changed", binding), changed.start + timedelta(days=8)
+            )
             for index in range(9):
                 folder = f"tick-{index:04d}"
                 for name in ("forecasts.json", "events.jsonl"):
@@ -283,16 +296,16 @@ class PersistentTests(unittest.TestCase):
         binding = {"schema": "issue99-persistent-timeout-test", "input": "synthetic"}
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            runner = self.execute_replay(
-                replay, Store(root / "run", binding), replay.stop
-            )
+            runner = self.execute_replay(replay, Store(root / "run", binding), replay.stop)
             events = self.events(root / "run")
-            self.assertTrue(any(
-                row["event"] == "persistent_timeout"
-                and row["status"] == "expired"
-                and row["issued_days"] == self.rule.max_wait_issued_days
-                for row in events
-            ))
+            self.assertTrue(
+                any(
+                    row["event"] == "persistent_timeout"
+                    and row["status"] == "expired"
+                    and row["issued_days"] == self.rule.max_wait_issued_days
+                    for row in events
+                )
+            )
             self.assertFalse(any(row["event"] == "meta_decision" for row in events))
             self.assertEqual(runner.current_lambda, self.rule.anchor)
 
@@ -317,16 +330,34 @@ class PersistentTests(unittest.TestCase):
             "meta_step_size": config["window_rule"]["meta_step_size"],
             "upper_bound": config["window_rule"]["upper_bound"],
         }
-        protocol["persistent_experiment"] = {"method_configs": {
-            "lambda0": {**common, "initial_lambda": 0.0, "frozen_lambda": True,
-                        "controller_variant": "immediate"},
-            "fixed": {**common, "initial_lambda": self.rule.anchor, "frozen_lambda": True,
-                      "controller_variant": "immediate"},
-            "immediate": {**common, "initial_lambda": self.rule.anchor, "frozen_lambda": False,
-                          "controller_variant": "immediate"},
-            "persistent": {**common, "initial_lambda": self.rule.anchor,
-                           "frozen_lambda": False, "controller_variant": "persistent_v1"},
-        }}
+        protocol["persistent_experiment"] = {
+            "method_configs": {
+                "lambda0": {
+                    **common,
+                    "initial_lambda": 0.0,
+                    "frozen_lambda": True,
+                    "controller_variant": "immediate",
+                },
+                "fixed": {
+                    **common,
+                    "initial_lambda": self.rule.anchor,
+                    "frozen_lambda": True,
+                    "controller_variant": "immediate",
+                },
+                "immediate": {
+                    **common,
+                    "initial_lambda": self.rule.anchor,
+                    "frozen_lambda": False,
+                    "controller_variant": "immediate",
+                },
+                "persistent": {
+                    **common,
+                    "initial_lambda": self.rule.anchor,
+                    "frozen_lambda": False,
+                    "controller_variant": "persistent_v1",
+                },
+            }
+        }
         for method, locked in protocol["persistent_experiment"]["method_configs"].items():
             arm = copy.deepcopy(config)
             arm["initial_lambda"] = locked["initial_lambda"]
