@@ -79,6 +79,7 @@ def run_fast(
             retention_weight=0,
         )
         for e in range(initial.epochs)
+        if prefix
     ]
     memory = {r["origin"]: r for r in prefix}
     audit = []
@@ -187,8 +188,15 @@ def execute_group(index: int, lock_path: str, base_path: str, output_path: str) 
                 raise ValueError("Historical adaptive and Fixed masks differ")
             config = lock["method_configs"][str(seed)]["fixed_retention"]
             fast_path = folder / f"fast-{target}-{seed}"
-            previous = Path(lock["reuse_fast"]["root"]) / folder.name / fast_path.name
-            reused = (previous / "run.json").exists()
+            candidates = [
+                (Path(item["root"]) / folder.name / fast_path.name, item["lock_sha256"])
+                for item in lock["reuse_fast_runs"]
+            ]
+            previous, previous_lock = next(
+                ((path, sha) for path, sha in candidates if (path / "run.json").exists()),
+                (None, None),
+            )
+            reused = previous is not None
             if reused:
                 saved = json.loads((previous / "run.json").read_text())
                 expected_config = json.loads(json.dumps(config))
@@ -200,7 +208,7 @@ def execute_group(index: int, lock_path: str, base_path: str, output_path: str) 
                 expected_config["state_retention"] = "latest"
                 if (
                     saved["binding"]["config"] != expected_config
-                    or saved["binding"]["followup_lock_sha256"] != lock["reuse_fast"]["lock_sha256"]
+                    or saved["binding"]["followup_lock_sha256"] != previous_lock
                     or saved["binding"]["input"]
                     != inputs.binding("target", target, group["sources"][str(seed)]["sha256"])
                 ):

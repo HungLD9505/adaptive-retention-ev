@@ -88,6 +88,53 @@ class FullScopeTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 historical_vectors(record, replay)
 
+    def test_empty_prefix_keeps_source_initialization_then_learns_arrivals(self):
+        from datetime import timedelta
+        from unittest.mock import patch
+
+        import torch
+
+        from ev_models.model import ForecastGRU
+        from tests.test_issue99_continuous_runner import ToyReplay
+        from tools.issue99_full_scope import run_fast
+
+        torch.set_num_threads(1)
+        replay = ToyReplay()
+        replay.entity_id = "a"
+        replay.delay = timedelta(0)
+        for origin, record in replay.records.items():
+            record["origin"] = origin.isoformat()
+        inputs = SimpleNamespace(
+            source_hash="population",
+            training=lambda role, entity: [],
+            binding=lambda *args: {},
+            final_access=SimpleNamespace(sha256="lock"),
+        )
+        checkpoint = {
+            "metadata": {"source_population_sha256": "population", "training_config": {"seed": 42}},
+            "completed_epochs": 10,
+            "latent_scale": torch.ones(64),
+        }
+        config = {
+            "initial_training": {"seed": 42, "epochs": 3},
+            "online_training": {"seed": 42, "epochs": 1},
+        }
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch(
+                "tools.issue99_full_scope.load_checkpoint",
+                return_value=(ForecastGRU(), None, checkpoint),
+            ),
+        ):
+            folder = Path(tmp) / "run"
+            result = run_fast(
+                inputs, replay, {"path": "source.pt", "sha256": "pin"}, Path(tmp), config, folder
+            )
+            report = json.loads((folder / "run.json").read_text())
+            self.assertEqual(report["initial_logs"], [])
+            self.assertEqual(report["actual_steps"], 3)
+            self.assertEqual(len(result), 3)
+
 
 class IndependentReadbackTests(unittest.TestCase):
     def test_independent_weights_match_and_ignore_future_labels(self):
