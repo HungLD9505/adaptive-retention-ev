@@ -299,7 +299,9 @@ Mean seconds per row from `runs_v3.csv`:
 - **Machine:** Windows 11 (10.0.26300), Intel64 Family 6 Model 154, 12 torch threads.
 - **Software:** Python 3.12.10, numpy 2.5.4, pandas 3.1.1, torch 2.14.1+cpu, scikit-learn 1.9.1, xgboost 3.4.1, statsmodels 0.15.0.
 - **Input:** the input `manifest.json` SHA-256.
-- **Code identity:** the SHA-256 of every executed study source file. The run was executed from uncommitted changes on top of `553275a`, so the code hashes, not the base commit, identify the executed code. The v3 commit contains byte-identical `.py` files, and `verify_results` users can recompute those hashes.
+- **Code identity:** the SHA-256 of every executed study source file. The run was executed from uncommitted changes on top of `553275a`, so the code hashes, not the base commit, identify the executed code. Commit `126f041` contains byte-identical `.py` files, and `verify_results` users can recompute those hashes.
+
+A later CI fix changed `models/classical.py` only. Without pandas or statsmodels, `SARIMABaseline` now records `dependencies_unavailable` and falls back, instead of raising. The path taken in the v3 execution (both libraries installed) is unchanged, so the v3 results are unaffected.
 - **Platform caveat:** this is a local CPU run, not the external compute environment #95 asks for. The full replay is short (3 minutes), but the run should be read with that caveat.
 
 ---
@@ -364,7 +366,7 @@ The full-suite failures are in tests this PR does not touch:
 
 The branch differs from `dev` only in Cyber files and `.gitignore`. These failures are reported, not attributed to this PR, and not fixed here. The checkout is a OneDrive-synced Windows working copy, not a clean CI checkout.
 
-Cyber tests: `python -m unittest tests.test_cyber_baselines` → **23 passed**, including 10 new regression tests in v3. These tests are fixtures, not evidence of model effectiveness.
+Cyber tests: `python -m unittest tests.test_cyber_baselines` → **24 passed**, including 11 new regression tests in v3. In the CI dependency set (no pandas, statsmodels, scikit-learn or xgboost), 16 pass and 8 are skipped. These tests are fixtures, not evidence of model effectiveness.
 
 ---
 

@@ -144,7 +144,10 @@ class SARIMABaseline(BaseForecaster):
         self.model_forecasts = 0
         self.fallback_reasons: dict[str, int] = {}
 
-        if initial_records:
+        if not (HAS_PANDAS and HAS_STATSMODELS):
+            # Optional dependencies missing: every forecast is a counted "unfitted" fallback
+            self.last_fit_status = "dependencies_unavailable"
+        elif initial_records:
             for rec in initial_records:
                 timestamps = self._extract_timestamps(rec)
                 y_scaled = rec.get("y_scaled", [])
@@ -276,6 +279,9 @@ class SARIMABaseline(BaseForecaster):
 
     def update(self, record: dict[str, Any], y_scaled: list[float]) -> dict[str, Any]:
         """Add a newly arrived complete day; refit weekly, otherwise advance the state."""
+        if not (HAS_PANDAS and HAS_STATSMODELS):
+            self.step_count += 1
+            return {"status": self.last_fit_status, "step": self.step_count, "total_points": 0}
         timestamps = self._extract_timestamps(record)
         for t, v in zip(timestamps, y_scaled, strict=True):
             self.hourly_dict[t] = float(v)

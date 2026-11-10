@@ -516,10 +516,29 @@ class TestCyberBaselines(unittest.TestCase):
                 output_dir=Path(tmp_dir), runs_csv_path=Path(tmp_dir) / "runs.csv"
             )
             replay = self._two_origin_replay("2022-12-02T00:00:00+08:00")
-            summary = BenchmarkRunner(cfg).run_replay(SARIMABaseline(), replay)
+            model = MockStatefulForecaster()
+            model.diagnostics = {"fallback_forecasts": 2, "fit_failures": 1}
+            summary = BenchmarkRunner(cfg).run_replay(model, replay)
             data = json.loads((cfg.output_dir / f"{summary.run_id}_predictions.json").read_text())
-            self.assertIn("model_diagnostics", data)
-            self.assertGreaterEqual(data["model_diagnostics"]["fallback_forecasts"], 1)
+            self.assertEqual(
+                data["model_diagnostics"], {"fallback_forecasts": 2, "fit_failures": 1}
+            )
+
+    def test_sarima_without_optional_dependencies_falls_back_and_counts(self) -> None:
+        from unittest import mock
+
+        from experiments.member_studies.cyber_baselines.models import classical
+
+        with (
+            mock.patch.object(classical, "HAS_PANDAS", False),
+            mock.patch.object(classical, "HAS_STATSMODELS", False),
+        ):
+            sarima = SARIMABaseline(initial_records=[{**self.mock_record, "y_scaled": self.mock_y}])
+            preds = sarima.predict(self.mock_record)
+            sarima.update(self.mock_record, self.mock_y)
+        self.assertEqual(len(preds), 24)
+        self.assertEqual(sarima.diagnostics["last_fit_status"], "dependencies_unavailable")
+        self.assertEqual(sarima.diagnostics["fallback_reasons"], {"unfitted": 1})
 
     def test_graph_node_selection_uses_nearest_development_supports(self) -> None:
         import zipfile
