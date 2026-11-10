@@ -134,8 +134,8 @@ optional tests remain skipped; the CI result is not an empirical MAE result.
 
 At the last output-preservation attempt, Quick Save Version 5 with Output
 failed with `502 UploadKernelSessionOutput`; the original Kaggle kernel was
-still alive. Independent verification had passed inside that runtime, but
-durable saved Output and local artifact-byte verification remain pending.
+still alive. Independent verification had passed inside that runtime, but at
+that point saved Output and local artifact-byte verification remained pending.
 
 For the next attempt, only three copies each of reconstructible
 `stage/inputs` (895,451,840 bytes per root) and `verified-bundle`
@@ -146,5 +146,22 @@ Source weights, run outputs, code and reports were retained in
 `/kaggle/working/issue99-persistent-b2ab78ba/reconstructible-input-relocations.json`.
 The first attempted console command failed with a SyntaxError before mutation;
 the corrected single-line command completed. `/kaggle/working` shrank from
-about 3.1 GiB to 155.5 MiB. Version 6 was Quick Saved with Output and was
-**Committing** at the last observation; this is not yet a preservation receipt.
+about 3.1 GiB to 155.5 MiB. Version 6 was Quick Saved with Output and
+subsequently completed. Its [saved Output viewer](https://www.kaggle.com/code/hungluongduc/issue99-source10-2798384-paired-comparison-v2?scriptVersionId=368145244)
+showed all eight expected `report/` files at the recorded sizes. The 10.5 s
+displayed runtime belongs to Quick Save conversion, not the experiment.
+
+A subsequent Kaggle-only ZIP of the compact `b2ab78ba` root was created at
+`/kaggle/working/00-issue99-b2ab78b-verified-artifacts.zip` (53,304,857
+bytes; 5,709 files; ZIP CRC passed; SHA-256
+`64148ffce5b104f3d51038aa8d72cef64c0eddf66cf46ae3b47e1f6159c6de0d`).
+The receipt is `/kaggle/working/00-issue99-b2ab78b-archive-receipt.json`.
+[Version 7 saved Output](https://www.kaggle.com/code/hungluongduc/issue99-source10-2798384-paired-comparison-v2/output?scriptVersionId=368146429)
+was opened and displayed the ZIP and 294-byte receipt with the matching
+53,304,857-byte size, SHA-256 and 5,709-file count, plus
+`model_experiments_rerun: false`. The 10.4-second runtime was the Quick Save
+conversion, not a model run. A local ZIP/receipt download and byte-level hash
+check have **not** been performed. Version 4 was subsequently confirmed
+Cancelled; a stop request was sent for the failed Version 5 save. The separate
+draft GPU-check session was stopped. Two unrelated old queued notebooks were
+left untouched.

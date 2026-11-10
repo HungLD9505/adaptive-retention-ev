@@ -207,9 +207,30 @@ The verifier and report-manifest hashes above were unchanged after the move.
 `stage/inputs` must be
 reconstructed from the original attached ZIP with hash checks for any future
 replay; `/kaggle/temp` is not durable. Quick Save Version 6, named
-`b2ab78b verified54 compact output`, was submitted with Output and showed
-**Committing** at the last observation. Durable saved Output remains **not
-confirmed**. Preserve all notebook versions and output paths.
+`b2ab78b verified54 compact output`, subsequently completed. Its
+[saved Output viewer](https://www.kaggle.com/code/hungluongduc/issue99-source10-2798384-paired-comparison-v2?scriptVersionId=368145244)
+showed all eight expected `report/` files with the sizes above. The displayed
+10.5-second runtime is the Quick Save conversion, **not** experiment duration.
+This provides a Kaggle saved-Output view, but no local byte-level audit.
+
+An additional archive was created and CRC-checked **inside Kaggle only**:
+`/kaggle/working/00-issue99-b2ab78b-verified-artifacts.zip`, 53,304,857
+bytes, 5,709 files, SHA-256
+`64148ffce5b104f3d51038aa8d72cef64c0eddf66cf46ae3b47e1f6159c6de0d`.
+It contains the entire compact `issue99-persistent-b2ab78ba` root, including
+code, report, results, Source weights and relocation map; the duplicate input
+copies moved to `/kaggle/temp` are excluded and must be reconstructed from
+the original attached dataset for replay. The Kaggle receipt is
+`/kaggle/working/00-issue99-b2ab78b-archive-receipt.json` (294 bytes).
+[Version 7 saved Output](https://www.kaggle.com/code/hungluongduc/issue99-source10-2798384-paired-comparison-v2/output?scriptVersionId=368146429)
+was opened and displayed the ZIP at the root and the receipt with the exact
+size/hash/count above and `model_experiments_rerun: false`. Its 10.4-second
+runtime was Quick Save conversion, not training. This confirms a saved Kaggle
+archive and receipt; it does **not** establish a local byte-level hash check.
+Version 4 was subsequently confirmed Cancelled; a stop request was sent for
+the failed Version 5 save; the separate draft GPU-check session was stopped.
+Two unrelated older queued notebooks were left untouched. Preserve all
+notebook versions and output paths.
 
 ## Interpretation and next work
 
@@ -236,3 +257,26 @@ history are in [the Kaggle handoff](issue99-persistent-kaggle-handoff-20261110.m
 commands were the pinned notebook's focused tests, pilot, independent pilot
 audit, Calibration dispatch, independent Calibration audit, gate and report
 generator; exact invocations are embedded in `tools/issue99_persistent_notebook.py`.
+
+Implementation/reproduction file inventory for this follow-up (in addition to
+the inherited PR #102 dependency):
+
+- Controller and runner: `ev_control/persistent.py`, `ev_runner/persistent.py`,
+  `ev_runner/continuous.py`, `ev_runner/continuous_run.py`.
+- Locked configuration: `configs/issue99-persistent-protocol-v1.json`.
+- Dispatch, independent verification, packaging and descriptive reporting:
+  `tools/issue99_persistent_experiment.py`, `tools/issue99_persistent_verify.py`,
+  `tools/issue99_persistent_notebook.py`, `tools/issue99_persistent_report.py`.
+- Tests/remote checks: `tests/test_issue99_persistent.py`,
+  `tests/test_issue99_persistent_verify.py`, `.github/workflows/ci.yml`.
+- Evidence: this report, `issue99-persistent-calibration-cells-20261111.csv`,
+  `issue99-persistent-kaggle-handoff-20261110.md`,
+  `issue99-persistent-validation-20261110.md`,
+  `issue99-persistent-historical-context-20261110.md`,
+  `issue99-persistent-verifier-notes-20261110.md`, and the preserved
+  `issue99-wide-paired-screen-20261110.md` (all under `docs/reports/`).
+
+Remaining work is reviewer assessment of the implementation and this negative
+research result, plus optional local byte-level archive verification when disk
+and access permit. Promotion to Later and 7/28-day expansion were intentionally
+not performed after the failed gate. No additional parameter search is implied.

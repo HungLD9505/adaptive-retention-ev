@@ -231,5 +231,35 @@ from the original attached input ZIP and verify its manifest/file hashes before
 use; the relocated temporary copy is only an upload-size workaround. The
 original `stage/sources` checkpoint files remain in `/kaggle/working`.
 Quick Save Version 6, named `b2ab78b verified54 compact output`, was submitted
-with **Save output this version** and showed **Committing** at the last
-observation. Durable preservation is still pending confirmation.
+with **Save output this version** and subsequently completed. Its
+[saved viewer](https://www.kaggle.com/code/hungluongduc/issue99-source10-2798384-paired-comparison-v2?scriptVersionId=368145244)
+showed the `report/` directory with all eight expected files and their
+recorded sizes. The viewer's 10.5-second runtime is the Quick Save conversion
+time, **not** the pilot/Calibration experiment duration. This confirms a
+saved Kaggle Output view; it is not local byte-level verification.
+
+For a second preservation path, a ZIP was made **inside Kaggle only** at
+`/kaggle/working/00-issue99-b2ab78b-verified-artifacts.zip` (53,304,857
+bytes, SHA-256
+`64148ffce5b104f3d51038aa8d72cef64c0eddf66cf46ae3b47e1f6159c6de0d`).
+The ZIP contains 5,709 files and passed ZIP CRC verification in Kaggle. It
+contains the whole `issue99-persistent-b2ab78ba` root, including code,
+reports, results, Source weights and relocation map. It excludes only the
+reconstructible duplicate inputs moved to `/kaggle/temp`; the original input
+dataset remains attached separately. The receipt is at
+`/kaggle/working/00-issue99-b2ab78b-archive-receipt.json`. These ZIP/receipt
+paths were created after the Version 6 save. Version 7 then completed with
+the ZIP and receipt in its [saved Output](https://www.kaggle.com/code/hungluongduc/issue99-source10-2798384-paired-comparison-v2/output?scriptVersionId=368146429).
+The saved viewer displayed the 294-byte receipt with the exact ZIP size,
+SHA-256 and 5,709-file count above, `model_experiments_rerun: false`, and the
+ZIP listed at the output root. Version 7's 10.4-second runtime is Quick Save
+conversion time, not experiment duration. This establishes a Kaggle saved
+archive receipt and visible ZIP, **not** a local download or byte-level check;
+neither ZIP nor receipt has been rehashed locally.
+
+After the archive was confirmed, the older Version 4 queued job was explicitly
+stopped and showed **Cancelled**. The failed Version 5 save had a queued stop
+request sent; a final Cancelled state was not observed. Versions 2 and 3 had
+already been cancelled. The separate draft GPU-check session showed
+**Session stopped**. Two unrelated older queued notebooks were left untouched.
+These statuses do not alter the completed `b2ab78b` results or the failed gate.
