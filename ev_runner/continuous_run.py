@@ -12,6 +12,7 @@ from pathlib import Path
 import torch
 
 from ev_control.continuous import WindowRule
+from ev_control.delayed import DelayedRule
 from ev_models.checkpoint import digest, load_checkpoint, write_json
 from ev_models.data import InputRun
 from ev_models.run import environment
@@ -95,7 +96,7 @@ def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, Window
         "objective_origins",
     }
     if (
-        set(config) - {"state_retention", "diagnostic_every"} != required
+        set(config) - {"state_retention", "diagnostic_every", "controller_variant", "delayed_rule"} != required
         or config["schema"] != "issue99-study-v1"
     ):
         raise ValueError("Invalid issue #99 study config")
@@ -110,6 +111,21 @@ def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, Window
         raise ValueError("Invalid diagnostic cadence")
     if config["phase"] not in {"pilot", "calibration", "evaluation"}:
         raise ValueError("Unknown study phase")
+    variant = config.get("controller_variant", "immediate")
+    if variant not in {"immediate", "delayed"}:
+        raise ValueError("Unknown controller variant")
+    if variant == "delayed":
+        if config["phase"] != "pilot" or config["frozen_lambda"] or "delayed_rule" not in config:
+            raise ValueError("Delayed controller is pilot-only and must be active")
+        delayed = DelayedRule(**config["delayed_rule"])
+        if (
+            config["online_training"]["epochs"] != 1
+            or config["cadence"] != 1
+            or config["initial_lambda"] != delayed.anchor
+        ):
+            raise ValueError("Delayed pilot needs one online epoch and calibrated anchor")
+    elif "delayed_rule" in config:
+        raise ValueError("Unexpected delayed rule for immediate controller")
     if config["phase"] != "pilot" and not config["protocol_sha256"]:
         raise ValueError("Scored execution needs reviewed protocol hash")
     if config["phase"] == "pilot" and config["objective_origins"]:
@@ -312,6 +328,9 @@ def execute(
         device=device,
         cadence=config["cadence"],
         frozen_lambda=config["frozen_lambda"],
+        delayed_rule=DelayedRule(**config["delayed_rule"])
+        if config.get("controller_variant", "immediate") == "delayed"
+        else None,
     )
     if stop_after_ticks is not None and stop_after_ticks < 1:
         raise ValueError("stop_after_ticks must be positive")
@@ -343,7 +362,13 @@ def execute(
         "schema": "issue99-run-v1",
         "run_id": output.name,
         "phase": config["phase"],
-        "method": "fixed_real_lambda" if config["frozen_lambda"] else "continuous_one_step_adam",
+        "method": (
+            "fixed_real_lambda"
+            if config["frozen_lambda"]
+            else "delayed_forecast_aligned_adam"
+            if config.get("controller_variant") == "delayed"
+            else "continuous_one_step_adam"
+        ),
         "binding": binding,
         "initial_logs": initial_logs,
         "initial_wall_seconds_this_invocation": initial_wall_seconds,

@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import torch
 
 from ev_control.continuous import ArrivedWindow, WindowRule, decide
+from ev_control.delayed import DelayedRule, choose_lambda, observe_delayed_gradient
 from ev_models.model import ForecastGRU
 from ev_models.training import TrainingConfig
 from ev_runner.diagnostics import measure
@@ -34,9 +35,18 @@ class ContinuousRunner:
         device: str,
         cadence: int,
         frozen_lambda: bool = False,
+        delayed_rule: DelayedRule | None = None,
     ) -> None:
         if not 0 <= initial_lambda <= rule.upper_bound or cadence < 1:
             raise ValueError("Invalid initial lambda or cadence")
+        if delayed_rule is not None and (
+            frozen_lambda
+            or training.epochs != 1
+            or cadence != 1
+            or initial_lambda != delayed_rule.anchor
+            or delayed_rule.anchor > rule.upper_bound
+        ):
+            raise ValueError("Delayed pilot needs one real step, daily decisions, and its anchor")
         self.replay, self.branch, self.reference = replay, branch, reference
         self.latent_scale, self.rule, self.training, self.store = (
             latent_scale,
@@ -46,6 +56,10 @@ class ContinuousRunner:
         )
         self.current_lambda, self.device, self.cadence = initial_lambda, device, cadence
         self.frozen_lambda = frozen_lambda
+        self.delayed_rule = delayed_rule
+        self.delayed_pending: dict[str, dict] = {}
+        self.gradient_history: list[float] = []
+        self.last_update_for_forecast: dict | None = None
         self.window = ArrivedWindow()
         self.pending: list[dict] = []
         self.next_at = replay.start
@@ -62,7 +76,7 @@ class ContinuousRunner:
             torch.cuda.synchronize()
 
     def snapshot(self) -> dict:
-        return {
+        result = {
             "branch": self.branch.snapshot(),
             "window": self.window.snapshot(),
             "pending": self.pending,
@@ -74,6 +88,10 @@ class ContinuousRunner:
             "cost": self.cost,
             "source_state_sha256": self.source_state_sha256,
         }
+        if self.delayed_rule is not None:
+            result["delayed_pending"] = self.delayed_pending
+            result["gradient_history"] = self.gradient_history
+        return result
 
     def restore(self, value: dict) -> None:
         if value["source_state_sha256"] != self.source_state_sha256:
@@ -89,6 +107,85 @@ class ContinuousRunner:
         self.actual_steps = value["actual_steps"]
         self.virtual_steps = value["virtual_steps"]
         self.cost = value["cost"]
+        if self.delayed_rule is not None:
+            if "delayed_pending" not in value or "gradient_history" not in value:
+                raise ValueError("Delayed controller state missing on resume")
+            self.delayed_pending = value["delayed_pending"]
+            self.gradient_history = value["gradient_history"]
+
+    def _delayed_arrival(
+        self, issued: dict, record: dict, available_at: datetime, as_of: datetime, events: list[dict]
+    ) -> None:
+        """Observe only the forecast made immediately after a known real update."""
+        probe = self.delayed_pending.pop(issued["origin"], None)
+        reason = None
+        if probe is None:
+            reason = "no_preceding_update_bound_to_forecast"
+        elif (
+            probe["forecast_origin"] != issued["origin"]
+            or probe["forecast_sha256"] != issued["prediction_sha256"]
+            or datetime.fromisoformat(probe["v_origin"])
+            >= datetime.fromisoformat(issued["origin"])
+            or datetime.fromisoformat(probe["v_available_at"])
+            > datetime.fromisoformat(issued["origin"])
+            or available_at > as_of
+        ):
+            raise ValueError("Noncausal or mismatched delayed forecast binding")
+        if reason is not None:
+            decision = choose_lambda(
+                self.current_lambda, self.gradient_history, None, self.delayed_rule,
+                self.rule.upper_bound,
+            )
+            self.gradient_history = decision["gradient_history"]
+            self.current_lambda = decision["lambda_after"]
+            events.append({"event": "meta_skip", "origin": issued["origin"], "reason": reason})
+            return
+        virtual_branch = Branch.from_snapshot(
+            probe["pre_branch"], device=self.device, learning_rate=self.training.learning_rate
+        )
+        self.synchronize()
+        started = time.perf_counter()
+        observation = observe_delayed_gradient(
+            virtual_branch.model,
+            virtual_branch.optimizer,
+            self.reference,
+            self.latent_scale,
+            probe["v_record"],
+            record,
+            issued["prediction"],
+            probe["lambda_used"],
+            epsilon=self.training.epsilon,
+            device=self.device,
+        )
+        self.synchronize()
+        self.cost["meta_seconds"] += time.perf_counter() - started
+        self.virtual_steps += 1
+        if observation["status"] == "skip":
+            decision = choose_lambda(
+                self.current_lambda, self.gradient_history, None, self.delayed_rule,
+                self.rule.upper_bound,
+            )
+            self.gradient_history = decision["gradient_history"]
+            self.current_lambda = decision["lambda_after"]
+            events.append({"event": "meta_skip", "origin": issued["origin"], **observation})
+            return
+        decision = choose_lambda(
+            self.current_lambda, self.gradient_history, observation["hypergradient"],
+            self.delayed_rule, self.rule.upper_bound,
+        )
+        self.gradient_history = decision["gradient_history"]
+        self.current_lambda = decision["lambda_after"]
+        events.append({
+            "event": "meta_decision",
+            "origin": issued["origin"],
+            "as_of": as_of.isoformat(),
+            "available_at": available_at.isoformat(),
+            "v_origin": probe["v_origin"],
+            "forecast_sha256": issued["prediction_sha256"],
+            "lambda_used_for_v": probe["lambda_used"],
+            **observation,
+            **{key: value for key, value in decision.items() if key != "gradient_history"},
+        })
 
     def _arrivals(self, as_of: datetime, events: list[dict]) -> None:
         waiting = []
@@ -99,6 +196,14 @@ class ContinuousRunner:
                 waiting.append(issued)
                 continue
             if outcome.status == "incomplete":
+                if self.delayed_rule is not None:
+                    self.delayed_pending.pop(issued["origin"], None)
+                    decision = choose_lambda(
+                        self.current_lambda, self.gradient_history, None,
+                        self.delayed_rule, self.rule.upper_bound,
+                    )
+                    self.gradient_history = decision["gradient_history"]
+                    self.current_lambda = decision["lambda_after"]
                 events.append(
                     {
                         "event": "skip_incomplete_labels",
@@ -131,7 +236,11 @@ class ContinuousRunner:
                 record=record,
             )
             self.arrivals += 1
-            if not self.frozen_lambda and self.arrivals % self.cadence == 0:
+            if self.delayed_rule is not None:
+                self._delayed_arrival(
+                    issued, record, outcome.available_at or as_of, as_of, events
+                )
+            elif not self.frozen_lambda and self.arrivals % self.cadence == 0:
                 selected = self.window.select(as_of, self.rule)
                 if selected is None:
                     events.append(
@@ -182,6 +291,7 @@ class ContinuousRunner:
                 )
                 events.append({"event": "loss_gradient", "origin": issued["origin"], **diagnostic})
             before = self.branch.steps
+            pre_branch = self.branch.snapshot() if self.delayed_rule is not None else None
             self.synchronize()
             started = time.perf_counter()
             logs = self.branch.update(
@@ -197,6 +307,14 @@ class ContinuousRunner:
             self.cost["actual_update_seconds"] += time.perf_counter() - started
             self.actual_steps += self.branch.steps - before
             self.window.mark_trained(origin)
+            if pre_branch is not None:
+                self.last_update_for_forecast = {
+                    "pre_branch": pre_branch,
+                    "v_record": record,
+                    "v_origin": issued["origin"],
+                    "v_available_at": (outcome.available_at or as_of).isoformat(),
+                    "lambda_used": self.current_lambda,
+                }
             events.append(
                 {
                     "event": "actual_update",
@@ -209,6 +327,7 @@ class ContinuousRunner:
 
     def tick(self) -> None:
         as_of = self.next_at
+        self.last_update_for_forecast = None
         transaction = self.store.begin()
         events: list[dict] = []
         self._arrivals(as_of, events)
@@ -231,6 +350,12 @@ class ContinuousRunner:
         if issued:
             issued["prediction_sha256"] = checksum
             self.pending.append(issued)
+            if self.delayed_rule is not None and self.last_update_for_forecast is not None:
+                self.delayed_pending[issued["origin"]] = {
+                    **self.last_update_for_forecast,
+                    "forecast_origin": issued["origin"],
+                    "forecast_sha256": checksum,
+                }
             events.append(
                 {
                     "event": "forecast_saved",
