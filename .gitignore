@@ -16,12 +16,15 @@ Thumbs.db
 data/raw/
 data/processed/
 data/inputs/
+data/downloads/
 checkpoints/
 runs/
 handoff/
 *.pt
 *.pth
 *.ckpt
+# Large baseline execution artifacts outside Git
+experiments/member_studies/cyber_baselines/artifacts/*_predictions.json
 # Preserve the preliminary local CPU audit; v2 is the tracked, reviewed output.
 docs/reports/hung-development-audit-20261028-v1/
 # Keep the preliminary switch audit locally; v4 is the pinned tracked report.
