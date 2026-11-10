@@ -79,7 +79,9 @@ def objective_summary(scores: list[dict], origins: list[str], minimum_scored: in
     }
 
 
-def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, WindowRule]:
+def validate_study(
+    config: dict, *, approved_targets: tuple[str, ...] = ("1405", "2152", "1153", "1693")
+) -> tuple[TrainingConfig, TrainingConfig, WindowRule]:
     required = {
         "schema",
         "phase",
@@ -120,8 +122,12 @@ def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, Window
         raise ValueError("Invalid objective origins")
     if config["phase"] != "pilot" and not config["objective_origins"]:
         raise ValueError("Scored phase needs declared objective origins")
-    if config["targets"] != ["1405", "2152", "1153", "1693"]:
-        raise ValueError("Issue #99 uses the declared four targets")
+    if (
+        not approved_targets
+        or len(set(approved_targets)) != len(approved_targets)
+        or config["targets"] != list(approved_targets)
+    ):
+        raise ValueError("Issue #99 targets differ from the explicit approved cohort")
     if config["replay_days"] != 90 or not isinstance(config["frozen_lambda"], bool):
         raise ValueError("Issue #99 requires 90-day replay and explicit frozen flag")
     if (
@@ -183,10 +189,15 @@ def execute(
     stop_after_ticks: int | None = None,
     protocol_path: Path | None = None,
     prepared_replay: Replay | None = None,
+    approved_targets: tuple[str, ...] = ("1405", "2152", "1153", "1693"),
 ) -> dict:
     invocation_started = time.perf_counter()
-    initial, online, rule = validate_study(config)
-    if entity_id not in config["targets"] or inputs.config["history_days"] != 14:
+    initial, online, rule = validate_study(config, approved_targets=approved_targets)
+    if (
+        entity_id not in config["targets"]
+        or inputs.config["history_days"] != 14
+        or inputs.target_role != "development"
+    ):
         raise ValueError("Wrong Development target or history budget")
     if device not in ("cpu", "cuda") or (device == "cuda" and not torch.cuda.is_available()):
         raise ValueError("Requested device unavailable")
