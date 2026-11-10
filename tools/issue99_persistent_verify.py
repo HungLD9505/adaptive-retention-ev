@@ -44,17 +44,26 @@ def vector_error(
     return sum(abs(error) for error in errors) / 24, sum(error * error for error in errors) / 24
 
 
-def pilot_screen(rows: list[dict], cases: tuple[tuple[str, int], ...], max_case_harm_kwh: float) -> tuple[dict[str, float], float, bool]:
+def pilot_screen(
+    rows: list[dict], cases: tuple[tuple[str, int], ...], max_case_harm_kwh: float
+) -> tuple[dict[str, float], float, bool]:
     """Screen actual paired trajectories; shadow forecasts never enter this gate."""
     by_key = {(row["target"], row["seed"], row["method"]): row for row in rows}
     harm: dict[str, float] = {}
     for target, seed in cases:
         fixed = by_key[(target, seed, "fixed")]
         persistent = by_key[(target, seed, "persistent")]
-        if fixed["all_scored_origins"] != persistent["all_scored_origins"] or not fixed["all_scored_origins"]:
+        if (
+            fixed["all_scored_origins"] != persistent["all_scored_origins"]
+            or not fixed["all_scored_origins"]
+        ):
             raise ValueError("Pilot lacks nonempty paired complete scored origins")
         a, b = persistent["all_scored_mae_kwh"], fixed["all_scored_mae_kwh"]
-        if not isinstance(a, (int, float)) or not isinstance(b, (int, float)) or not (math.isfinite(a) and math.isfinite(b)):
+        if (
+            not isinstance(a, (int, float))
+            or not isinstance(b, (int, float))
+            or not (math.isfinite(a) and math.isfinite(b))
+        ):
             raise ValueError("Pilot actual trajectory MAE is missing or nonfinite")
         harm[f"{target}-seed{seed}"] = a - b
     maximum = max(harm.values())
