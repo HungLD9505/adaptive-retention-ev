@@ -514,7 +514,7 @@
     "newer_count": 1,
     "selection": "Minimum four-station/three-seed calibration MAE, then smaller eta, then larger cadence. No selection by later evaluation.",
     "rationale": "Pilot showed eta=.01 nearly frozen and measured-scale probes meaningful movement versus projection; compare 1%,10%,100% nominal steps and daily vs every-three-arrivals decisions, rather than assume movement improves MAE."
-  },
+  }
   },
   "resources": {
     "state_retention": "latest",

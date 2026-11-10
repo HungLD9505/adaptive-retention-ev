@@ -1,11 +1,24 @@
 """The pilot safety screen uses real trajectories, not shadow candidates."""
 
+import json
 import unittest
+from pathlib import Path
 
+from ev_runner.continuous_run import validate_controller_protocol, validate_study
+from tools.issue99_persistent_experiment import METHODS, config_for
 from tools.issue99_persistent_verify import pilot_screen
 
 
 class PilotScreenTest(unittest.TestCase):
+    def test_packaged_protocol_loads_and_binds_every_comparison_arm(self) -> None:
+        path = Path(__file__).resolve().parents[1] / "configs/issue99-persistent-protocol-v1.json"
+        protocol = json.loads(path.read_text(encoding="utf-8"))
+        for method in METHODS:
+            with self.subTest(method=method):
+                config = config_for(protocol, "a" * 64, method, 42, "1405", "calibration")
+                validate_study(config)
+                validate_controller_protocol(config, protocol)
+
     def test_rejected_shadow_harm_does_not_trigger_trajectory_stop(self) -> None:
         rows = [
             {
