@@ -33,6 +33,14 @@ except ImportError:
     SARIMAX = None
     HAS_STATSMODELS = False
 
+try:
+    import pandas as pd
+
+    HAS_PANDAS = True
+except ImportError:
+    pd = None
+    HAS_PANDAS = False
+
 from experiments.member_studies.cyber_baselines.models.base import BaseForecaster
 
 
@@ -98,7 +106,7 @@ class RidgeBaseline(BaseForecaster):
 
 
 class SARIMABaseline(BaseForecaster):
-    """SARIMA baseline with weekly bounded refit on available hourly sequence."""
+    """SARIMA baseline with calendar gap preservation, Kalman state advance, and weekly refit."""
 
     def __init__(
         self,
@@ -112,14 +120,20 @@ class SARIMABaseline(BaseForecaster):
         self.seasonal_order = seasonal_order
         self.maxiter = maxiter
         self.refit_interval = refit_interval
-        self.series: list[float] = []
+
+        self.hourly_dict: dict[Any, float] = {}
         self.fitted_res = None
         self.step_count = 0
+        self.last_fit_status = "unfitted"
+        self.fit_error: str | None = None
 
         if initial_records:
             for rec in initial_records:
-                for v in rec.get("y_scaled", []):
-                    self.series.append(float(v))
+                timestamps = self._extract_timestamps(rec)
+                y_scaled = rec.get("y_scaled", [])
+                if len(y_scaled) == len(timestamps):
+                    for t, v in zip(timestamps, y_scaled, strict=False):
+                        self.hourly_dict[t] = float(v)
             self._fit()
 
     @property
@@ -130,9 +144,43 @@ class SARIMABaseline(BaseForecaster):
     def param_count(self) -> int:
         return sum(self.order[::2]) + sum(self.seasonal_order[::2]) + 1
 
+    @property
+    def diagnostics(self) -> dict[str, Any]:
+        """Surface fitting status and error diagnostics for auditability."""
+        return {
+            "last_fit_status": self.last_fit_status,
+            "fit_error": self.fit_error,
+            "step_count": self.step_count,
+            "total_hourly_points": len(self.hourly_dict),
+        }
+
+    def _extract_timestamps(self, record: dict[str, Any]) -> list[Any]:
+        """Extract continuous hourly timestamps from record, with synthetic fallback."""
+        fc = record.get("forecast", record)
+        labels = fc.get("future_labels")
+        if HAS_PANDAS and labels and len(labels) == 24:
+            return [pd.to_datetime(t) for t in labels]
+        if HAS_PANDAS and "origin" in fc:
+            base = pd.to_datetime(fc["origin"])
+            return [base + pd.Timedelta(hours=h) for h in range(24)]
+        if HAS_PANDAS:
+            base = pd.Timestamp("2022-11-01 00:00:00") + pd.Timedelta(hours=len(self.hourly_dict))
+            return [base + pd.Timedelta(hours=h) for h in range(24)]
+        return list(range(len(self.hourly_dict), len(self.hourly_dict) + 24))
+
     def _fit(self) -> None:
-        active_series = self.series[-336:]
-        if len(active_series) >= 48:
+        """Full parameter optimization on active recent history (up to 336 hours = 14 days)."""
+        if not HAS_STATSMODELS or not HAS_PANDAS or not self.hourly_dict:
+            return
+
+        min_t = min(self.hourly_dict.keys())
+        max_t = max(self.hourly_dict.keys())
+        full_idx = pd.date_range(start=min_t, end=max_t, freq="h")
+        s = pd.Series(self.hourly_dict).reindex(full_idx)
+        active_series = s.iloc[-336:]
+
+        # Must have at least 48 valid non-null observations
+        if active_series.dropna().shape[0] >= 48:
             try:
                 with warnings.catch_warnings():
                     warnings.simplefilter("ignore")
@@ -144,29 +192,86 @@ class SARIMABaseline(BaseForecaster):
                         enforce_invertibility=False,
                     )
                     self.fitted_res = mod.fit(disp=False, maxiter=self.maxiter)
-            except Exception:
-                self.fitted_res = None
+                    self.last_fit_status = "ok"
+                    self.fit_error = None
+            except Exception as e:
+                self.last_fit_status = "failed"
+                self.fit_error = str(e)
+                # Note: preserve previous fitted_res if present to prevent silent degradation
 
     def predict(self, record: dict[str, Any]) -> list[float]:
+        """Predict 24 hours, advancing across any missing calendar gaps if needed."""
         x_hist = record.get("x_hist", [])
-        if self.fitted_res is not None:
+        if self.fitted_res is not None and HAS_PANDAS:
             try:
+                target_timestamps = self._extract_timestamps(record)
+                if (
+                    hasattr(self.fitted_res, "fittedvalues")
+                    and isinstance(self.fitted_res.fittedvalues.index, pd.DatetimeIndex)
+                    and len(target_timestamps) == 24
+                ):
+                    last_t = self.fitted_res.fittedvalues.index[-1]
+                    target_start = target_timestamps[0]
+                    # Fill calendar gap with NaNs in Kalman filter
+                    if target_start > last_t + pd.Timedelta(hours=1):
+                        gap_idx = pd.date_range(
+                            start=last_t + pd.Timedelta(hours=1),
+                            end=target_start - pd.Timedelta(hours=1),
+                            freq="h",
+                        )
+                        if len(gap_idx) > 0:
+                            gap_s = pd.Series(np.nan, index=gap_idx)
+                            with warnings.catch_warnings():
+                                warnings.simplefilter("ignore")
+                                self.fitted_res = self.fitted_res.append(gap_s, refit=False)
+
                 fc = self.fitted_res.forecast(steps=24)
                 return np.maximum(0.0, np.asarray(fc, dtype=float)).tolist()
-            except Exception:
-                pass
+            except Exception as e:
+                self.fit_error = f"predict_failed: {e}"
 
         # Fallback to recent 24h from visible history
         fallback = [row[0] if len(row) >= 7 and row[-1] > 0.5 else 0.0 for row in x_hist]
         return fallback
 
     def update(self, record: dict[str, Any], y_scaled: list[float]) -> dict[str, Any]:
-        for v in y_scaled:
-            self.series.append(float(v))
+        """Incorporate newly arrived complete day. Refit weekly; advance Kalman state daily."""
+        timestamps = self._extract_timestamps(record)
+        for t, v in zip(timestamps, y_scaled, strict=False):
+            self.hourly_dict[t] = float(v)
+
         self.step_count += 1
+        # Weekly refit or initial fit if unfitted
         if self.step_count % self.refit_interval == 0 or self.fitted_res is None:
             self._fit()
-        return {"status": "ok", "total_hours": len(self.series)}
+        else:
+            # Daily state advance between refits without re-estimating parameters
+            if self.fitted_res is not None and HAS_PANDAS:
+                try:
+                    last_t = self.fitted_res.fittedvalues.index[-1]
+                    new_start = timestamps[0]
+                    if new_start > last_t + pd.Timedelta(hours=1):
+                        gap_idx = pd.date_range(
+                            start=last_t + pd.Timedelta(hours=1),
+                            end=new_start - pd.Timedelta(hours=1),
+                            freq="h",
+                        )
+                        gap_s = pd.Series(np.nan, index=gap_idx)
+                        new_s = pd.concat([gap_s, pd.Series(y_scaled, index=timestamps)])
+                    else:
+                        new_s = pd.Series(y_scaled, index=timestamps)
+
+                    with warnings.catch_warnings():
+                        warnings.simplefilter("ignore")
+                        self.fitted_res = self.fitted_res.append(new_s, refit=False)
+                except Exception as e:
+                    self.fit_error = f"daily_advance_failed: {e}"
+
+        return {
+            "status": self.last_fit_status,
+            "step": self.step_count,
+            "total_points": len(self.hourly_dict),
+        }
 
 
 class RandomForestBaseline(BaseForecaster):

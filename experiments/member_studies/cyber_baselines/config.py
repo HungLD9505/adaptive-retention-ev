@@ -76,12 +76,12 @@ class ClassicalHyperparameters:
     ridge_alpha: float = 1.0
     rf_n_estimators: int = 100
     rf_max_depth: int = 10
-    xgb_n_estimators: int = 100
+    xgb_n_estimators: int = 50
     xgb_max_depth: int = 5
     xgb_lr: float = 0.1
     sarima_order: tuple[int, int, int] = (1, 0, 1)
     sarima_seasonal_order: tuple[int, int, int, int] = (1, 0, 0, 24)
-    sarima_maxiter: int = 25
+    sarima_maxiter: int = 15
 
 
 @dataclass

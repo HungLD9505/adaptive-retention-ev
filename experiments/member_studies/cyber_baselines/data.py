@@ -145,6 +145,39 @@ def load_target_replay_data(
     )
 
 
+def load_all_targets_history_lookup(
+    input_root: Path = INPUT_ROOT,
+    target_ids: tuple[str, ...] = TARGET_IDS,
+) -> dict[tuple[str, str], list[list[float]]]:
+    """Load time-aligned 24h history lookup for all targets.
+
+    Returns mapping: (station_id, origin_iso) -> x_hist [24, 7]
+    Populated from training.jsonl (initial prefixes) and forecasts.jsonl (replay origins).
+    """
+    lookup: dict[tuple[str, str], list[list[float]]] = {}
+    target_set = set(target_ids)
+
+    # 1. From training.jsonl (development records)
+    with open(input_root / "training.jsonl", "r", encoding="utf-8") as f:
+        for line in f:
+            rec = json.loads(line)
+            if rec.get("role") == "development":
+                fc = rec["forecast"]
+                tid = str(fc["identity"][2])
+                if tid in target_set:
+                    lookup[(tid, fc["origin"])] = fc["x_hist"]
+
+    # 2. From forecasts.jsonl
+    with open(input_root / "forecasts.jsonl", "r", encoding="utf-8") as f:
+        for line in f:
+            r = json.loads(line)
+            tid = str(r["identity"][2])
+            if tid in target_set:
+                lookup[(tid, r["origin"])] = r["x_hist"]
+
+    return lookup
+
+
 def load_distance_matrix(
     raw_zip_path: Path = RAW_ZIP_PATH,
     target_ids: tuple[str, ...] = TARGET_IDS,

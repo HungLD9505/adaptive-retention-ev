@@ -8,10 +8,13 @@ import json
 import time
 from pathlib import Path
 
+import torch
+
 from experiments.member_studies.cyber_baselines.config import (
     BenchmarkConfig,
 )
 from experiments.member_studies.cyber_baselines.data import (
+    load_all_targets_history_lookup,
     load_distance_matrix,
     load_source_dataset,
     load_target_replay_data,
@@ -96,8 +99,14 @@ def run_pilot(config: BenchmarkConfig) -> None:
 
     # 12. Basic GCN-LSTM
     adj_norm, node_ids = load_distance_matrix(config.raw_zip_path, config.targets)
+    hist_lookup = load_all_targets_history_lookup(config.input_root, config.targets)
     gcn = BasicGCNLSTM(
-        node_ids, adj_norm, "1405", seed=42, initial_records=target_data.initial_records
+        node_ids,
+        adj_norm,
+        "1405",
+        seed=42,
+        initial_records=target_data.initial_records,
+        history_lookup=hist_lookup,
     )
     res_gcn = runner.run_replay(gcn, target_data, mode="target_only", seed=42)
     print(
@@ -218,10 +227,17 @@ def run_full_benchmark(config: BenchmarkConfig) -> None:
     source_ckpts: dict[tuple[str, int], tuple[Path, float]] = {}
     for backbone in ("MLP", "GRU", "LSTM", "TCN", "TimeXer"):
         for seed in config.seeds:
-            print(f"Pretraining {backbone} (Seed {seed}) on Source...")
-            ckpt_path, elapsed = train_source_model(backbone, seed, source_ds, config)
-            source_ckpts[(backbone, seed)] = (ckpt_path, elapsed)
-            print(f"Finished {backbone} (Seed {seed}) in {elapsed:.2f}s -> {ckpt_path.name}")
+            ckpt_path = config.checkpoint_dir / f"{backbone.lower()}_source_seed{seed}.pt"
+            if ckpt_path.is_file():
+                ckpt_data = torch.load(ckpt_path, map_location="cpu", weights_only=False)
+                elapsed = float(ckpt_data.get("wall_seconds", 20.0))
+                source_ckpts[(backbone, seed)] = (ckpt_path, elapsed)
+                print(f"Loaded existing checkpoint: {ckpt_path.name} ({elapsed:.2f}s)")
+            else:
+                print(f"Pretraining {backbone} (Seed {seed}) on Source...")
+                ckpt_path, elapsed = train_source_model(backbone, seed, source_ds, config)
+                source_ckpts[(backbone, seed)] = (ckpt_path, elapsed)
+                print(f"Finished {backbone} (Seed {seed}) in {elapsed:.2f}s -> {ckpt_path.name}")
 
     # ----------------------------------------------------
     # Phase D: Neural Target-Only and Transfer Runs (120 rows)
@@ -273,6 +289,7 @@ def run_full_benchmark(config: BenchmarkConfig) -> None:
     # Phase E: Basic GCN-LSTM Spatial Comparator (12 rows)
     # ----------------------------------------------------
     print("\n--- Phase E: Basic GCN-LSTM Spatial Comparator (12 rows) ---")
+    hist_lookup = load_all_targets_history_lookup(config.input_root, config.targets)
     for seed in config.seeds:
         for t_id in config.targets:
             td = targets_data[t_id]
@@ -282,6 +299,7 @@ def run_full_benchmark(config: BenchmarkConfig) -> None:
                 target_id=t_id,
                 seed=seed,
                 initial_records=td.initial_records,
+                history_lookup=hist_lookup,
             )
             s_gcn = runner.run_replay(gcn, td, mode="target_only", seed=seed)
             append_summary_to_csv(s_gcn, config.runs_csv_path)
@@ -298,13 +316,25 @@ def run_full_benchmark(config: BenchmarkConfig) -> None:
 
 
 def create_artifact_manifest(config: BenchmarkConfig) -> None:
-    """Generate SHA-256 checksum manifest of all predictions and models."""
+    """Generate SHA-256 checksum manifest of all predictions, checkpoints, and metrics ledger."""
     manifest_records = {}
+
+    # 1. Prediction artifacts
     for p in sorted(config.output_dir.glob("*.json")):
+        if p.name == "manifest.json":
+            continue
         with open(p, "rb") as f:
             h = hashlib.sha256(f.read()).hexdigest()
         manifest_records[p.name] = {"sha256": h, "bytes": p.stat().st_size}
 
+    # 2. Checkpoints
+    if config.checkpoint_dir.is_dir():
+        for p in sorted(config.checkpoint_dir.glob("*.pt")):
+            with open(p, "rb") as f:
+                h = hashlib.sha256(f.read()).hexdigest()
+            manifest_records[p.name] = {"sha256": h, "bytes": p.stat().st_size}
+
+    # 3. Runs ledger
     if config.runs_csv_path.is_file():
         with open(config.runs_csv_path, "rb") as f:
             h = hashlib.sha256(f.read()).hexdigest()
@@ -314,8 +344,10 @@ def create_artifact_manifest(config: BenchmarkConfig) -> None:
         }
 
     manifest_path = config.output_dir / "manifest.json"
-    with open(manifest_path, "w", encoding="utf-8") as f:
-        json.dump(manifest_records, f, indent=2)
+    manifest_bytes = json.dumps(manifest_records, indent=2).encode("utf-8")
+    with open(manifest_path, "wb") as f:
+        f.write(manifest_bytes)
+    print(f"Wrote checksum manifest with {len(manifest_records)} entries to {manifest_path}")
     print(f"Wrote checksum manifest to {manifest_path}")
 
 

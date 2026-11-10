@@ -92,7 +92,7 @@ class GCNLSTMNet(nn.Module):
 
 
 class BasicGCNLSTM(BaseForecaster):
-    """Spatial comparator baseline wrapping GCNLSTMNet."""
+    """Spatial comparator baseline wrapping GCNLSTMNet with real time-aligned node histories."""
 
     def __init__(
         self,
@@ -101,11 +101,13 @@ class BasicGCNLSTM(BaseForecaster):
         target_id: str,
         seed: int = 42,
         initial_records: list[dict[str, Any]] | None = None,
+        history_lookup: dict[tuple[str, str], list[list[float]]] | None = None,
     ) -> None:
-        self.node_ids = node_ids
-        self.target_id = target_id
-        self.target_idx = node_ids.index(target_id)
+        self.node_ids = [str(n) for n in node_ids]
+        self.target_id = str(target_id)
+        self.target_idx = self.node_ids.index(self.target_id)
         self.seed = seed
+        self.history_lookup = history_lookup or {}
 
         torch.manual_seed(seed)
         np.random.seed(seed)
@@ -114,12 +116,6 @@ class BasicGCNLSTM(BaseForecaster):
         self.net = GCNLSTMNet(num_nodes=len(node_ids), adj_norm=adj_tensor)
         self.optimizer = torch.optim.Adam(self.net.parameters(), lr=1e-3)
 
-        # Buffer for recent node histories
-        self.recent_x_hist: dict[str, list[list[float]]] = {
-            nid: [[0.0] * 7] * 24 for nid in node_ids
-        }
-
-        # Train on target initial records if available
         if initial_records:
             self._fit_initial(initial_records)
 
@@ -131,19 +127,36 @@ class BasicGCNLSTM(BaseForecaster):
     def param_count(self) -> int:
         return sum(p.numel() for p in self.net.parameters() if p.requires_grad)
 
+    def _build_graph_x_seq(self, record: dict[str, Any]) -> Tensor:
+        """Construct [1, 24, N, 7] tensor with time-aligned real histories across all graph nodes."""
+        origin = record.get("origin")
+        node_x_tensors = []
+        custom_nodes = record.get("node_histories", {})
+
+        for nid in self.node_ids:
+            if nid in custom_nodes:
+                hist = custom_nodes[nid]
+            elif nid == self.target_id:
+                hist = record.get("x_hist", [[0.0] * 7] * 24)
+            elif origin is not None and (nid, origin) in self.history_lookup:
+                hist = self.history_lookup[(nid, origin)]
+            else:
+                hist = [[0.0] * 7] * 24
+
+            node_x_tensors.append(torch.tensor(hist, dtype=torch.float32))
+
+        # Shape: [24, N, 7] -> [1, 24, N, 7]
+        stacked = torch.stack(node_x_tensors, dim=1).unsqueeze(0)
+        return stacked
+
     def _fit_initial(self, initial_records: list[dict[str, Any]], epochs: int = 5) -> None:
         self.net.train()
         for _ in range(epochs):
             for rec in initial_records:
                 fc = rec.get("forecast", rec)
-                x_hist = torch.tensor(fc["x_hist"], dtype=torch.float32).unsqueeze(0)  # [1, 24, 7]
-                c_future = torch.tensor(fc["c_future"], dtype=torch.float32).unsqueeze(
-                    0
-                )  # [1, 24, 5]
+                x_seq = self._build_graph_x_seq(fc)
+                c_future = torch.tensor(fc["c_future"], dtype=torch.float32).unsqueeze(0)
                 y_label = torch.tensor(rec["y_scaled"], dtype=torch.float32).unsqueeze(0)
-
-                # Broadcast or tile across N nodes for initial target-only training
-                x_seq = x_hist.unsqueeze(2).repeat(1, 1, len(self.node_ids), 1)  # [1, 24, N, 7]
 
                 self.optimizer.zero_grad()
                 pred = self.net(x_seq, c_future, self.target_idx)
@@ -154,22 +167,16 @@ class BasicGCNLSTM(BaseForecaster):
     def predict(self, record: dict[str, Any]) -> list[float]:
         self.net.eval()
         with torch.no_grad():
-            x_hist = torch.tensor(record["x_hist"], dtype=torch.float32).unsqueeze(0)
+            x_seq = self._build_graph_x_seq(record)
             c_future = torch.tensor(record["c_future"], dtype=torch.float32).unsqueeze(0)
-
-            # Sequence across graph nodes: target uses its own x_hist
-            x_seq = x_hist.unsqueeze(2).repeat(1, 1, len(self.node_ids), 1)
-
             pred = self.net(x_seq, c_future, self.target_idx)
             return pred.squeeze(0).cpu().tolist()
 
     def update(self, record: dict[str, Any], y_scaled: list[float]) -> dict[str, Any]:
         self.net.train()
-        x_hist = torch.tensor(record["x_hist"], dtype=torch.float32).unsqueeze(0)
+        x_seq = self._build_graph_x_seq(record)
         c_future = torch.tensor(record["c_future"], dtype=torch.float32).unsqueeze(0)
         y_label = torch.tensor(y_scaled, dtype=torch.float32).unsqueeze(0)
-
-        x_seq = x_hist.unsqueeze(2).repeat(1, 1, len(self.node_ids), 1)
 
         self.optimizer.zero_grad()
         pred = self.net(x_seq, c_future, self.target_idx)

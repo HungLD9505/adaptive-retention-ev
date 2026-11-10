@@ -23,6 +23,7 @@ handoff/
 *.pt
 *.pth
 *.ckpt
+*.zip
 # Large baseline execution artifacts outside Git
 experiments/member_studies/cyber_baselines/artifacts/*_predictions.json
 # Preserve the preliminary local CPU audit; v2 is the tracked, reviewed output.
