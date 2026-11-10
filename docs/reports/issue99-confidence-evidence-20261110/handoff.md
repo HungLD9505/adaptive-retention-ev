@@ -81,3 +81,9 @@ Final analysis:
 Reproduce training with python -m tools.issue99_confidence_evidence and --input, --sources, --inventory and a new --output directory. Reproduce final normalized policy readback with python -m tools.issue99_confidence_readback and --input, --run, --inventory and a new --output. Large checkpoints and per-forecast results remain outside Git. cells.csv, decisions.csv and station-results.csv provide full-precision review tables.
 
 The current evidence remains Development-only. Tracked metadata checks do not exhaustively establish the absence of prior remote/untracked exposure, and the twelve stations have already been inspected in the preceding extension. Neither Final performance nor a new-method effectiveness claim follows from this study.
+
+## Software validation
+
+All 949 root tests passed on the clean committed implementation, with two CUDA skips. Nine fixed-adaptation and twelve confidence-controller tests passed, as did Ruff lint/format, release checks and diff whitespace checks. Five new fixtures cover unavailable/future-label exclusion, same-challenger gate isolation, original-unit reporting, calibrated initial level before the first decision, and rejection of random initialization with positive retention. The initial full-suite attempt during artifact editing hit the existing dirty-worktree provenance fixture; the clean-tree repeat passed without relaxing that fixture. No optional all-namespace external-artifact suite was run.
+
+The method and future-outcome figures were visually inspected. Current core source hashes match the initial loaded implementation; policy readback hashes identify the final normalized implementation separately.
