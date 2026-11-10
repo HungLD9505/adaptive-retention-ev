@@ -2,6 +2,7 @@
 
 import argparse
 import json
+from dataclasses import replace
 from datetime import datetime
 from pathlib import Path
 
@@ -23,6 +24,8 @@ def authenticated_scores(folder: Path, replay: Replay) -> dict:
     for path in folder.glob("tick-*/forecasts.json"):
         value = json.loads(path.read_text())
         if value:
+            if value["origin"] in forecasts:
+                raise ValueError("Duplicate forecast origin")
             forecasts[value["origin"]] = (value["prediction"], digest(path))
     rows = {}
     for path in sorted(folder.glob("tick-*/events.jsonl")):
@@ -46,7 +49,7 @@ def authenticated_scores(folder: Path, replay: Replay) -> dict:
             )
             if abs(mae - event["mae_kwh"]) > 1e-9:
                 raise ValueError("Prediction/label score mismatch")
-            rows[origin] = {**event, "mae_kwh": mae}
+            rows[origin] = event
     return rows
 
 
@@ -129,6 +132,20 @@ def main() -> None:
                 )
                 for name, gate in (("mean_only", False), ("confidence_gate", True))
             }
+            for name, gate in (
+                ("mean_only_fixed_start", False),
+                ("confidence_gate_fixed_start", True),
+            ):
+                arms[name] = policy_replay(
+                    rows,
+                    replace(config, initial_lambda=selected_fixed),
+                    replay.start,
+                    replay.stop,
+                    f"common-bank/{target}/{seed}",
+                    scale_id,
+                    gate,
+                    scale=scale,
+                )
             for name, level in (("source_finetune", 0.0), ("fixed_bank", selected_fixed)):
                 errors = [
                     {
@@ -199,6 +216,9 @@ def main() -> None:
         ("confidence_gate", "mean_only"),
         ("confidence_gate", "fixed_bank"),
         ("mean_only", "fixed_bank"),
+        ("confidence_gate_fixed_start", "mean_only_fixed_start"),
+        ("confidence_gate_fixed_start", "fixed_bank"),
+        ("mean_only_fixed_start", "fixed_bank"),
     ):
         samples = np.zeros(20000)
         for group in strata:

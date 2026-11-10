@@ -2,6 +2,7 @@
 
 import json
 import unittest
+from dataclasses import replace
 from datetime import datetime, timedelta
 from pathlib import Path
 from types import SimpleNamespace
@@ -76,6 +77,20 @@ class ConfidenceEvidenceTests(unittest.TestCase):
             fixture_rows(), CONFIG, START, START + 7 * DAY, "t", "fixture", False, scale=10
         )
         self.assertEqual(result["mae"], 10)
+
+    def test_fixed_start_uses_calibrated_level_before_first_decision(self):
+        result = policy_replay(
+            fixture_rows(),
+            replace(CONFIG, initial_lambda=1.0),
+            START,
+            START + 7 * DAY,
+            "t",
+            "fixture",
+            True,
+            scale=10,
+        )
+        self.assertTrue(all(level == 1.0 for level in result["choices"].values()))
+        self.assertEqual(result["mae"], 5.0)
 
     def test_random_initialization_rejects_retention(self):
         config = json.loads(
