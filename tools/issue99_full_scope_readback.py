@@ -3,6 +3,7 @@
 import argparse
 import csv
 import json
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -95,13 +96,25 @@ def main() -> None:
     parser = argparse.ArgumentParser(__doc__)
     for key in ("base", "run", "lock", "output"):
         parser.add_argument("--" + key, required=True, type=Path)
+    parser.add_argument(
+        "--wait",
+        action="store_true",
+        help="Wait for this task's active producer to commit each group",
+    )
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
     lock = json.loads(args.lock.read_text())
     registration = json.loads((args.run / "registration.json").read_text())
     if registration["lock_sha256"] != digest(args.lock):
         raise ValueError("Executed lock differs")
-    original = json.loads((args.run / "summary.json").read_text())
+
+    def await_artifact(path: Path) -> None:
+        deadline = time.monotonic() + 3600
+        while not path.exists():
+            if not args.wait or time.monotonic() >= deadline:
+                raise FileNotFoundError(path)
+            time.sleep(1)
+
     access = FinalAccess(ROOT, args.lock, lock["parent_commit"], {})
     analysis = args.base / "runs/issue23-final-analysis-20261028-root-v1"
     selection = lock["selection"]
@@ -112,6 +125,7 @@ def main() -> None:
     for group in lock["groups"]:
         ns, budget = "-".join(group["namespace"]), group["history_days"]
         folder = args.run / f"{ns}-{budget}d"
+        await_artifact(folder / "summary.json")
         inputs = FollowupInputs(
             args.base / "data/inputs/issue18-input-handoff-v1-20261019" / folder.name, group, access
         )
@@ -243,6 +257,8 @@ def main() -> None:
         for m in summaries[0]["macro_mae"]
         if m != "old_fixed"
     }
+    await_artifact(args.run / "summary.json")
+    original = json.loads((args.run / "summary.json").read_text())
     if wins != original["lower_than_fixed_groups"]:
         raise ValueError("Group win counts differ")
     with (args.output / "cells.csv").open("w", newline="") as stream:

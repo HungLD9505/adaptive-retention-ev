@@ -1,0 +1,14 @@
+{
+  "readback_code_sha256": "349d82c4a0157abaff6edf6a5e7ee478866ab03c7fe3ea1fe09f53e6bc5db13f",
+  "readback_artifact_manifest_sha256": "07cadb033297b71e7736fc5e2ee5d626023cefd9381eb0c8aa926e1224dd4a44",
+  "retained_expert_trajectories": 810,
+  "distinct_expert_paths": 810,
+  "reused_completed_experts": 273,
+  "new_v3_experts": 537,
+  "zero_prefix_initializations": 9,
+  "initial_training_epochs_total": 2403,
+  "v3_dispatch_wall_seconds_excluding_prior_dispatches": 387.9417225419311,
+  "fixed_share_lower_than_static_groups": 12,
+  "fixed_share_lower_than_old_adaptive_groups": 20,
+  "acceptance": "Exploratory historical-cohort comparison; complete and technically verified, no scientific peer approval or unseen confirmation"
+}
