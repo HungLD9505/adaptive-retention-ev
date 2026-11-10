@@ -89,5 +89,25 @@ class FullScopeTests(unittest.TestCase):
                 historical_vectors(record, replay)
 
 
+class IndependentReadbackTests(unittest.TestCase):
+    def test_independent_weights_match_and_ignore_future_labels(self):
+        from copy import deepcopy
+
+        from ev_control.expert_mix import forecast_mixture
+        from tests.test_expert_mix import cell
+        from tools.issue99_full_scope_readback import independent_weights
+
+        original = cell(labels=0)
+        expected = forecast_mixture(original, 0.43, eta=0.1, share=0.1)["weights"]
+        actual = independent_weights(original, 0.43, 0.1, 0.1)
+        for a, b in zip(actual, expected, strict=True):
+            self.assertAlmostEqual(a, b)
+        changed = deepcopy(original)
+        changed["labels"][1:] = [[100] * 24] * 3
+        new = independent_weights(changed, 0.43, 0.1, 0.1)
+        self.assertEqual(actual[:2], new[:2])
+        self.assertNotEqual(actual[2], new[2])
+
+
 if __name__ == "__main__":
     unittest.main()
