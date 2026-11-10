@@ -26,7 +26,7 @@
     "methods": ["lambda0", "fixed", "immediate", "persistent"],
     "calibration_jobs": 48,
     "pilot": "Six unscored 22-tick paired runs: Fixed and persistent on 1405/seed42, 2152/seed43, and 1693/seed42. Pilot checks feasibility, identity and causal behavior; it is not used for method selection.",
-    "pilot_screen": "Require all six runs, independent raw-label verification, identical paired scored origins and first forecast, and persistent minus Fixed paired mean MAE <= 0.05 kWh in each of the three cases. A failure stops Calibration; no controller parameter is tuned from pilot outcomes.",
+    "pilot_screen": "Require all six runs, independent raw-label verification, identical paired scored origins and first forecast. In each target/seed case, compare the actual Persistent and Fixed run trajectories on their same complete scored origins over the 22-tick pilot; Persistent mean daily MAE minus Fixed mean daily MAE must be <= 0.05 kWh. Shadow candidate forecasts are excluded from this external screen. A failure stops Calibration; no controller parameter is tuned from pilot outcomes.",
     "pilot_max_case_harm_kwh": 0.05,
     "method_configs": {
       "lambda0": {"initial_lambda": 0.0, "frozen_lambda": true, "cadence": 1, "controller_variant": "immediate", "meta_step_size": 211.29500343057222, "upper_bound": 33.84424612726798},

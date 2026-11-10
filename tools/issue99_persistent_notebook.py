@@ -126,6 +126,7 @@ print(json.dumps({{'stage': 'verified', 'commit': COMMIT, 'package_sha256': ZIP_
     test = '''import importlib.util, json, subprocess, sys
 tests = [
     'tests/test_issue99_persistent.py',
+    'tests/test_issue99_persistent_verify.py',
     'tests/test_issue99_continuous.py',
     'tests/test_issue99_continuous_runner.py',
     'tests/test_issue99_hypergradient.py',

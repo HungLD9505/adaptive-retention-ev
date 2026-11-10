@@ -44,6 +44,23 @@ def vector_error(
     return sum(abs(error) for error in errors) / 24, sum(error * error for error in errors) / 24
 
 
+def pilot_screen(rows: list[dict], cases: tuple[tuple[str, int], ...], max_case_harm_kwh: float) -> tuple[dict[str, float], float, bool]:
+    """Screen actual paired trajectories; shadow forecasts never enter this gate."""
+    by_key = {(row["target"], row["seed"], row["method"]): row for row in rows}
+    harm: dict[str, float] = {}
+    for target, seed in cases:
+        fixed = by_key[(target, seed, "fixed")]
+        persistent = by_key[(target, seed, "persistent")]
+        if fixed["all_scored_origins"] != persistent["all_scored_origins"] or not fixed["all_scored_origins"]:
+            raise ValueError("Pilot lacks nonempty paired complete scored origins")
+        a, b = persistent["all_scored_mae_kwh"], fixed["all_scored_mae_kwh"]
+        if not isinstance(a, (int, float)) or not isinstance(b, (int, float)) or not (math.isfinite(a) and math.isfinite(b)):
+            raise ValueError("Pilot actual trajectory MAE is missing or nonfinite")
+        harm[f"{target}-seed{seed}"] = a - b
+    maximum = max(harm.values())
+    return harm, maximum, maximum <= max_case_harm_kwh
+
+
 def committed_ticks(run_path: Path, report: dict) -> list[Path]:
     if json.loads((run_path / "binding.json").read_text()) != report["binding"]:
         raise ValueError("Run and saved binding differ")
@@ -380,6 +397,7 @@ def verify_run(
         "method": method,
         "mae_kwh": mae,
         "rmse_kwh": rmse,
+        "all_scored_mae_kwh": sum(value[0] for value in scored.values()) / len(scored) if scored else None,
         "scored_origins": sorted(selected),
         "all_scored_origins": sorted(scored),
         "issued_days": len(forecasts),
@@ -465,20 +483,16 @@ def verify_matrix(root: Path, inputs: InputRun, protocol_path: Path, phase_name:
             key: sum(row["persistent"][key] for row in rows if row["method"] == "persistent")
             for key in ("proposals", "observed_pairs", "decisions", "shadow_updates")
         }
-        observed_differences = [
-            value
-            for row in rows
-            if row["method"] == "persistent"
-            for value in row["persistent"]["paired_differences_kwh"]
-        ]
-        maximum_harm = max(observed_differences) if observed_differences else None
-        screen_pass = maximum_harm is None or maximum_harm <= 0.05
+        trajectory_harm, maximum_harm, screen_pass = pilot_screen(
+            rows, pilot_cases, protocol["persistent_experiment"]["pilot_max_case_harm_kwh"]
+        )
         return {
             "schema": "issue99-persistent-independent-verification-v1",
             "phase": "pilot",
             "status": "PASS" if screen_pass else "PILOT_HARM_STOP",
             "screen_pass": screen_pass,
-            "max_observed_paired_harm_kwh": maximum_harm,
+            "persistent_minus_fixed_trajectory_mae_kwh": trajectory_harm,
+            "max_trajectory_harm_kwh": maximum_harm,
             "protocol_sha256": protocol_sha,
             "runs_verified": len(rows),
             "run_rows": rows,
