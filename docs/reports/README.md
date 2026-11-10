@@ -12,6 +12,7 @@ The report PDFs and exact tables live under [report/](../../report/README.md).
 | Alternate implementation and bounded evaluation | [Latest supporting report](hung-e2e-research-report-draft-20261030-v47.md), [remaining gates](hung-e2e-gate-register-20261030-v70.md) |
 | Exploratory continuous-retention study (10 November) | [Results and method](issue99-study-20261110/paper-method-and-results.md), [verified execution](issue99-study-20261110/execution-verification.md), [full-precision means](issue99-study-20261110/method-summary.csv) |
 | Additional-station retention comparison (10 November) | [Twelve-station handoff](issue99-expanded-development-20261110/handoff.md), [paired means](issue99-expanded-development-20261110/station-results.csv), [verification](issue99-expanded-development-20261110/verification-and-summary.json) |
+| Transfer and isolated confidence ablation (10 November) | [Common-bank and target-only handoff](issue99-confidence-evidence-20261110/handoff.md), [station means](issue99-confidence-evidence-20261110/station-results.csv), [future decision audits](issue99-confidence-evidence-20261110/decisions.csv) |
 | Diagnostic studies | [Fixed adaptation](member-duc-retention.md), [Confidence controller](member-cyber-controller.md) |
 | Data and input handoff | [Data integration](data-integration.md), [inputs](input-handoff.md) |
 | Software and package validation | [Verification reference](main-readiness-20261102.md), [machine-readable checks](release-curation-20261102-v1.json) |

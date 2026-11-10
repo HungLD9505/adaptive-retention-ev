@@ -1,0 +1,14 @@
+[
+  {
+    "seed": 42,
+    "first_forecast_exactly_matches_independent_random_training": true
+  },
+  {
+    "seed": 43,
+    "first_forecast_exactly_matches_independent_random_training": true
+  },
+  {
+    "seed": 44,
+    "first_forecast_exactly_matches_independent_random_training": true
+  }
+]
