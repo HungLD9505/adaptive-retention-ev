@@ -115,7 +115,9 @@ class BasicGCNLSTM(BaseForecaster):
         self.optimizer = torch.optim.Adam(self.net.parameters(), lr=1e-3)
 
         # Buffer for recent node histories
-        self.recent_x_hist: dict[str, list[list[float]]] = {nid: [[0.0] * 7] * 24 for nid in node_ids}
+        self.recent_x_hist: dict[str, list[list[float]]] = {
+            nid: [[0.0] * 7] * 24 for nid in node_ids
+        }
 
         # Train on target initial records if available
         if initial_records:
@@ -135,7 +137,9 @@ class BasicGCNLSTM(BaseForecaster):
             for rec in initial_records:
                 fc = rec.get("forecast", rec)
                 x_hist = torch.tensor(fc["x_hist"], dtype=torch.float32).unsqueeze(0)  # [1, 24, 7]
-                c_future = torch.tensor(fc["c_future"], dtype=torch.float32).unsqueeze(0)  # [1, 24, 5]
+                c_future = torch.tensor(fc["c_future"], dtype=torch.float32).unsqueeze(
+                    0
+                )  # [1, 24, 5]
                 y_label = torch.tensor(rec["y_scaled"], dtype=torch.float32).unsqueeze(0)
 
                 # Broadcast or tile across N nodes for initial target-only training

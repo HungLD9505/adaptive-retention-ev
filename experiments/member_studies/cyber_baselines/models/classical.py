@@ -6,10 +6,32 @@ import warnings
 from typing import Any
 
 import numpy as np
-import xgboost as xgb
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.linear_model import Ridge
-from statsmodels.tsa.statespace.sarimax import SARIMAX
+
+try:
+    import xgboost as xgb
+
+    HAS_XGBOOST = True
+except ImportError:
+    xgb = None
+    HAS_XGBOOST = False
+
+try:
+    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.linear_model import Ridge
+
+    HAS_SKLEARN = True
+except ImportError:
+    RandomForestRegressor = None
+    Ridge = None
+    HAS_SKLEARN = False
+
+try:
+    from statsmodels.tsa.statespace.sarimax import SARIMAX
+
+    HAS_STATSMODELS = True
+except ImportError:
+    SARIMAX = None
+    HAS_STATSMODELS = False
 
 from experiments.member_studies.cyber_baselines.models.base import BaseForecaster
 

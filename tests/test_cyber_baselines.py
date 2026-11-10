@@ -7,6 +7,9 @@ import unittest
 import torch
 
 from experiments.member_studies.cyber_baselines.models.classical import (
+    HAS_SKLEARN,
+    HAS_STATSMODELS,
+    HAS_XGBOOST,
     RandomForestBaseline,
     RidgeBaseline,
     SARIMABaseline,
@@ -54,6 +57,7 @@ class TestCyberBaselines(unittest.TestCase):
         # Without weekly history, should fallback to daily/history mean
         self.assertTrue(all(p >= 0.0 for p in preds))
 
+    @unittest.skipUnless(HAS_SKLEARN, "scikit-learn is not installed in environment")
     def test_ridge_baseline(self) -> None:
         rec_with_y = {**self.mock_record, "y_scaled": self.mock_y}
         ridge = RidgeBaseline(alpha=1.0, initial_records=[rec_with_y] * 3)
@@ -61,6 +65,7 @@ class TestCyberBaselines(unittest.TestCase):
         self.assertEqual(len(preds), 24)
         self.assertTrue(all(p >= 0.0 for p in preds))
 
+    @unittest.skipUnless(HAS_STATSMODELS, "statsmodels is not installed in environment")
     def test_sarima_baseline(self) -> None:
         rec_with_y = {**self.mock_record, "y_scaled": self.mock_y}
         sarima = SARIMABaseline(initial_records=[rec_with_y] * 3, maxiter=5)
@@ -68,16 +73,22 @@ class TestCyberBaselines(unittest.TestCase):
         self.assertEqual(len(preds), 24)
         self.assertTrue(all(p >= 0.0 for p in preds))
 
+    @unittest.skipUnless(HAS_SKLEARN, "scikit-learn is not installed in environment")
     def test_random_forest_baseline(self) -> None:
         rec_with_y = {**self.mock_record, "y_scaled": self.mock_y}
-        rf = RandomForestBaseline(n_estimators=10, max_depth=4, seed=42, initial_records=[rec_with_y] * 3)
+        rf = RandomForestBaseline(
+            n_estimators=10, max_depth=4, seed=42, initial_records=[rec_with_y] * 3
+        )
         preds = rf.predict(self.mock_record)
         self.assertEqual(len(preds), 24)
         self.assertTrue(all(p >= 0.0 for p in preds))
 
+    @unittest.skipUnless(HAS_XGBOOST, "xgboost is not installed in environment")
     def test_xgboost_baseline(self) -> None:
         rec_with_y = {**self.mock_record, "y_scaled": self.mock_y}
-        xgb_m = XGBoostBaseline(n_estimators=10, max_depth=3, seed=42, initial_records=[rec_with_y] * 3)
+        xgb_m = XGBoostBaseline(
+            n_estimators=10, max_depth=3, seed=42, initial_records=[rec_with_y] * 3
+        )
         preds = xgb_m.predict(self.mock_record)
         self.assertEqual(len(preds), 24)
         self.assertTrue(all(p >= 0.0 for p in preds))

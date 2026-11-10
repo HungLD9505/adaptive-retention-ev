@@ -165,7 +165,9 @@ def build_neural_forecaster(
 
     if mode == "transfer":
         if source_ckpt_path is None or not source_ckpt_path.is_file():
-            raise FileNotFoundError(f"Missing Source checkpoint {source_ckpt_path} for {backbone_name}")
+            raise FileNotFoundError(
+                f"Missing Source checkpoint {source_ckpt_path} for {backbone_name}"
+            )
         state = torch.load(source_ckpt_path, map_location="cpu", weights_only=True)
         model.load_state_dict(state["state_dict"])
 
@@ -184,7 +186,9 @@ def build_neural_forecaster(
         c_t = torch.tensor(c_list, dtype=torch.float32)
         y_t = torch.tensor(y_list, dtype=torch.float32)
         prefix_ds = TensorDataset(x_t, c_t, y_t)
-        prefix_loader = DataLoader(prefix_ds, batch_size=config.training_hp.target_batch_size, shuffle=True)
+        prefix_loader = DataLoader(
+            prefix_ds, batch_size=config.training_hp.target_batch_size, shuffle=True
+        )
 
         for _ in range(config.training_hp.target_adapt_epochs):
             for xb, cb, yb in prefix_loader:

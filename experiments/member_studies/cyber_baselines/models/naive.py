@@ -101,7 +101,9 @@ class SeasonalNaive(BaseForecaster):
         self.ingest_history(record)
         origin = datetime.fromisoformat(record["origin"])
 
-        past_vals = [v for t_str, v in self.history_map.items() if datetime.fromisoformat(t_str) < origin]
+        past_vals = [
+            v for t_str, v in self.history_map.items() if datetime.fromisoformat(t_str) < origin
+        ]
         mean_fallback = sum(past_vals) / len(past_vals) if past_vals else 0.0
 
         output = []
@@ -131,4 +133,8 @@ class SeasonalNaive(BaseForecaster):
         for h, val in enumerate(y_scaled):
             ts = (origin + timedelta(hours=h)).isoformat()
             self.history_map[ts] = float(val)
-        return {"status": "ok", "buffer_size": len(self.history_map), "fallbacks": dict(self.fallbacks)}
+        return {
+            "status": "ok",
+            "buffer_size": len(self.history_map),
+            "fallbacks": dict(self.fallbacks),
+        }

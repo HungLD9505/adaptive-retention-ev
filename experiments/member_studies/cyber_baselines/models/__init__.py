@@ -2,6 +2,9 @@
 
 from experiments.member_studies.cyber_baselines.models.base import BaseForecaster
 from experiments.member_studies.cyber_baselines.models.classical import (
+    HAS_SKLEARN,
+    HAS_STATSMODELS,
+    HAS_XGBOOST,
     RandomForestBaseline,
     RidgeBaseline,
     SARIMABaseline,
@@ -31,4 +34,7 @@ __all__ = [
     "TCNForecaster",
     "TimeXerForecaster",
     "BasicGCNLSTM",
+    "HAS_SKLEARN",
+    "HAS_STATSMODELS",
+    "HAS_XGBOOST",
 ]

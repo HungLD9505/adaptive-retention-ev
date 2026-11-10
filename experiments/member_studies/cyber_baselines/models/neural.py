@@ -118,17 +118,25 @@ class Chomp1d(nn.Module):
 class TemporalBlock(nn.Module):
     """Dilated causal convolution residual block."""
 
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, dilation: int) -> None:
+    def __init__(
+        self, in_channels: int, out_channels: int, kernel_size: int, dilation: int
+    ) -> None:
         super().__init__()
         padding = (kernel_size - 1) * dilation
-        self.conv1 = nn.Conv1d(in_channels, out_channels, kernel_size, padding=padding, dilation=dilation)
+        self.conv1 = nn.Conv1d(
+            in_channels, out_channels, kernel_size, padding=padding, dilation=dilation
+        )
         self.chomp1 = Chomp1d(padding)
         self.relu1 = nn.ReLU()
-        self.conv2 = nn.Conv1d(out_channels, out_channels, kernel_size, padding=padding, dilation=dilation)
+        self.conv2 = nn.Conv1d(
+            out_channels, out_channels, kernel_size, padding=padding, dilation=dilation
+        )
         self.chomp2 = Chomp1d(padding)
         self.relu2 = nn.ReLU()
 
-        self.downsample = nn.Conv1d(in_channels, out_channels, 1) if in_channels != out_channels else None
+        self.downsample = (
+            nn.Conv1d(in_channels, out_channels, 1) if in_channels != out_channels else None
+        )
         self.relu = nn.ReLU()
 
     def forward(self, x: Tensor) -> Tensor:

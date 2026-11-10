@@ -43,44 +43,66 @@ def run_pilot(config: BenchmarkConfig) -> None:
     # 1. Daily Naive
     dn = DailyNaive(target_data.initial_records)
     res_dn = runner.run_replay(dn, target_data, mode="target_only", seed=None)
-    print(f"[Pilot] Daily Naive: MAE={res_dn.mae_kwh:.4f} kWh, Scored={res_dn.scored_days}, Time={res_dn.total_seconds:.2f}s")
+    print(
+        f"[Pilot] Daily Naive: MAE={res_dn.mae_kwh:.4f} kWh, Scored={res_dn.scored_days}, Time={res_dn.total_seconds:.2f}s"
+    )
 
     # 2. Seasonal Naive
     sn = SeasonalNaive(target_data.initial_records)
     res_sn = runner.run_replay(sn, target_data, mode="target_only", seed=None)
-    print(f"[Pilot] Seasonal Naive: MAE={res_sn.mae_kwh:.4f} kWh, Scored={res_sn.scored_days}, Time={res_sn.total_seconds:.2f}s")
+    print(
+        f"[Pilot] Seasonal Naive: MAE={res_sn.mae_kwh:.4f} kWh, Scored={res_sn.scored_days}, Time={res_sn.total_seconds:.2f}s"
+    )
 
     # 3. Ridge
     ridge = RidgeBaseline(alpha=1.0, initial_records=target_data.initial_records)
     res_ridge = runner.run_replay(ridge, target_data, mode="target_only", seed=None)
-    print(f"[Pilot] Ridge: MAE={res_ridge.mae_kwh:.4f} kWh, Scored={res_ridge.scored_days}, Time={res_ridge.total_seconds:.2f}s")
+    print(
+        f"[Pilot] Ridge: MAE={res_ridge.mae_kwh:.4f} kWh, Scored={res_ridge.scored_days}, Time={res_ridge.total_seconds:.2f}s"
+    )
 
     # 4. SARIMA
     sarima = SARIMABaseline(initial_records=target_data.initial_records, maxiter=10)
     res_sarima = runner.run_replay(sarima, target_data, mode="target_only", seed=None)
-    print(f"[Pilot] SARIMA: MAE={res_sarima.mae_kwh:.4f} kWh, Scored={res_sarima.scored_days}, Time={res_sarima.total_seconds:.2f}s")
+    print(
+        f"[Pilot] SARIMA: MAE={res_sarima.mae_kwh:.4f} kWh, Scored={res_sarima.scored_days}, Time={res_sarima.total_seconds:.2f}s"
+    )
 
     # 5. Random Forest
     rf = RandomForestBaseline(seed=42, initial_records=target_data.initial_records)
     res_rf = runner.run_replay(rf, target_data, mode="target_only", seed=42)
-    print(f"[Pilot] Random Forest: MAE={res_rf.mae_kwh:.4f} kWh, Scored={res_rf.scored_days}, Time={res_rf.total_seconds:.2f}s")
+    print(
+        f"[Pilot] Random Forest: MAE={res_rf.mae_kwh:.4f} kWh, Scored={res_rf.scored_days}, Time={res_rf.total_seconds:.2f}s"
+    )
 
     # 6. XGBoost
     xgb_m = XGBoostBaseline(seed=42, initial_records=target_data.initial_records)
     res_xgb = runner.run_replay(xgb_m, target_data, mode="target_only", seed=42)
-    print(f"[Pilot] XGBoost: MAE={res_xgb.mae_kwh:.4f} kWh, Scored={res_xgb.scored_days}, Time={res_xgb.total_seconds:.2f}s")
+    print(
+        f"[Pilot] XGBoost: MAE={res_xgb.mae_kwh:.4f} kWh, Scored={res_xgb.scored_days}, Time={res_xgb.total_seconds:.2f}s"
+    )
 
     # 7-11 Neural Backbones (Target-only)
     for bb in ("MLP", "GRU", "LSTM", "TCN", "TimeXer"):
-        net, adapt_time = build_neural_forecaster(bb, "target_only", 42, "1405", target_data.initial_records, config)
-        res_nn = runner.run_replay(net, target_data, mode="target_only", seed=42, target_adapt_seconds=adapt_time)
-        print(f"[Pilot] {bb} (target_only): MAE={res_nn.mae_kwh:.4f} kWh, Scored={res_nn.scored_days}, Time={res_nn.total_seconds:.2f}s")
+        net, adapt_time = build_neural_forecaster(
+            bb, "target_only", 42, "1405", target_data.initial_records, config
+        )
+        res_nn = runner.run_replay(
+            net, target_data, mode="target_only", seed=42, target_adapt_seconds=adapt_time
+        )
+        print(
+            f"[Pilot] {bb} (target_only): MAE={res_nn.mae_kwh:.4f} kWh, Scored={res_nn.scored_days}, Time={res_nn.total_seconds:.2f}s"
+        )
 
     # 12. Basic GCN-LSTM
     adj_norm, node_ids = load_distance_matrix(config.raw_zip_path, config.targets)
-    gcn = BasicGCNLSTM(node_ids, adj_norm, "1405", seed=42, initial_records=target_data.initial_records)
+    gcn = BasicGCNLSTM(
+        node_ids, adj_norm, "1405", seed=42, initial_records=target_data.initial_records
+    )
     res_gcn = runner.run_replay(gcn, target_data, mode="target_only", seed=42)
-    print(f"[Pilot] Basic GCN-LSTM: MAE={res_gcn.mae_kwh:.4f} kWh, Scored={res_gcn.scored_days}, Time={res_gcn.total_seconds:.2f}s")
+    print(
+        f"[Pilot] Basic GCN-LSTM: MAE={res_gcn.mae_kwh:.4f} kWh, Scored={res_gcn.scored_days}, Time={res_gcn.total_seconds:.2f}s"
+    )
 
     print("=== PILOT RUN COMPLETE ===")
 
@@ -102,7 +124,9 @@ def run_full_benchmark(config: BenchmarkConfig) -> None:
     print("\n--- 1. Loading Replay Data for 4 Target Stations ---")
     targets_data = {t: load_target_replay_data(config.input_root, t) for t in config.targets}
     for t, td in targets_data.items():
-        print(f"Target {t}: initial={td.initial_trainable_count}, scale={td.p95_scale:.2f} kWh, scheduled={len(td.schedule)}")
+        print(
+            f"Target {t}: initial={td.initial_trainable_count}, scale={td.p95_scale:.2f} kWh, scheduled={len(td.schedule)}"
+        )
 
     # Load spatial distance matrix
     adj_norm, node_ids = load_distance_matrix(config.raw_zip_path, config.targets)
@@ -118,19 +142,27 @@ def run_full_benchmark(config: BenchmarkConfig) -> None:
         dn = DailyNaive(td.initial_records)
         s_dn = runner.run_replay(dn, td, mode="target_only", seed=None)
         append_summary_to_csv(s_dn, config.runs_csv_path)
-        print(f"[Daily Naive] Target {t_id}: MAE={s_dn.mae_kwh:.4f} kWh, RMSE={s_dn.rmse_kwh:.4f} kWh")
+        print(
+            f"[Daily Naive] Target {t_id}: MAE={s_dn.mae_kwh:.4f} kWh, RMSE={s_dn.rmse_kwh:.4f} kWh"
+        )
 
         # 2. Seasonal Naive
         sn = SeasonalNaive(td.initial_records)
         s_sn = runner.run_replay(sn, td, mode="target_only", seed=None)
         append_summary_to_csv(s_sn, config.runs_csv_path)
-        print(f"[Seasonal Naive] Target {t_id}: MAE={s_sn.mae_kwh:.4f} kWh, RMSE={s_sn.rmse_kwh:.4f} kWh")
+        print(
+            f"[Seasonal Naive] Target {t_id}: MAE={s_sn.mae_kwh:.4f} kWh, RMSE={s_sn.rmse_kwh:.4f} kWh"
+        )
 
         # 3. Ridge
-        ridge = RidgeBaseline(alpha=config.classical_hp.ridge_alpha, initial_records=td.initial_records)
+        ridge = RidgeBaseline(
+            alpha=config.classical_hp.ridge_alpha, initial_records=td.initial_records
+        )
         s_ridge = runner.run_replay(ridge, td, mode="target_only", seed=None)
         append_summary_to_csv(s_ridge, config.runs_csv_path)
-        print(f"[Ridge] Target {t_id}: MAE={s_ridge.mae_kwh:.4f} kWh, RMSE={s_ridge.rmse_kwh:.4f} kWh")
+        print(
+            f"[Ridge] Target {t_id}: MAE={s_ridge.mae_kwh:.4f} kWh, RMSE={s_ridge.rmse_kwh:.4f} kWh"
+        )
 
         # 4. SARIMA
         sarima = SARIMABaseline(
@@ -141,7 +173,9 @@ def run_full_benchmark(config: BenchmarkConfig) -> None:
         )
         s_sarima = runner.run_replay(sarima, td, mode="target_only", seed=None)
         append_summary_to_csv(s_sarima, config.runs_csv_path)
-        print(f"[SARIMA] Target {t_id}: MAE={s_sarima.mae_kwh:.4f} kWh, RMSE={s_sarima.rmse_kwh:.4f} kWh")
+        print(
+            f"[SARIMA] Target {t_id}: MAE={s_sarima.mae_kwh:.4f} kWh, RMSE={s_sarima.rmse_kwh:.4f} kWh"
+        )
 
     # ----------------------------------------------------
     # Phase B: Classical ML Baselines (RF, XGBoost x 3 seeds) (24 rows)
@@ -208,11 +242,19 @@ def run_full_benchmark(config: BenchmarkConfig) -> None:
                     net_to, td, mode="target_only", seed=seed, target_adapt_seconds=adapt_to
                 )
                 append_summary_to_csv(s_to, config.runs_csv_path)
-                print(f"[{backbone} Target-Only] Target {t_id} (Seed {seed}): MAE={s_to.mae_kwh:.4f} kWh")
+                print(
+                    f"[{backbone} Target-Only] Target {t_id} (Seed {seed}): MAE={s_to.mae_kwh:.4f} kWh"
+                )
 
                 # 2. Transfer (Source -> Target Fine-tuning)
                 net_tf, adapt_tf = build_neural_forecaster(
-                    backbone, "transfer", seed, t_id, td.initial_records, config, source_ckpt_path=ckpt_path
+                    backbone,
+                    "transfer",
+                    seed,
+                    t_id,
+                    td.initial_records,
+                    config,
+                    source_ckpt_path=ckpt_path,
                 )
                 s_tf = runner.run_replay(
                     net_tf,
@@ -223,7 +265,9 @@ def run_full_benchmark(config: BenchmarkConfig) -> None:
                     target_adapt_seconds=adapt_tf,
                 )
                 append_summary_to_csv(s_tf, config.runs_csv_path)
-                print(f"[{backbone} Transfer] Target {t_id} (Seed {seed}): MAE={s_tf.mae_kwh:.4f} kWh")
+                print(
+                    f"[{backbone} Transfer] Target {t_id} (Seed {seed}): MAE={s_tf.mae_kwh:.4f} kWh"
+                )
 
     # ----------------------------------------------------
     # Phase E: Basic GCN-LSTM Spatial Comparator (12 rows)
