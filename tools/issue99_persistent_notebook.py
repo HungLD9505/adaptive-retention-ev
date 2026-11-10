@@ -20,7 +20,15 @@ ROOT = Path(__file__).resolve().parents[1]
 DATASET = "/kaggle/input/datasets/hungluongduc/issue99-source10-2798384-scored-inputs-v1"
 OUTER_MANIFEST_SHA256 = "a09f6a03ae5911717fd5afd070e93b52e0a3a066398278dac7b598bfd89ae088"
 PREFLIGHT_SHA256 = "6bede89694d6d0dfb30fd59ed8b0305d7d374eca932e723e4af690d56ab561f6"
-INCLUDE_DIRS = ("ev_inputs", "ev_models", "ev_control", "ev_runner", "ev_search")
+INCLUDE_DIRS = (
+    "ev_inputs",
+    "ev_models",
+    "ev_control",
+    "ev_runner",
+    "ev_search",
+    "ev_baselines",
+    "ev_evaluation",
+)
 INCLUDE_FILES = (
     "configs/issue99-persistent-protocol-v1.json",
     "docs/reports/issue99-study-20261110/fixed-station-seed.csv",

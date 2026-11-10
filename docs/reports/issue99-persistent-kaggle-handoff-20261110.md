@@ -107,7 +107,42 @@ and the code-only verifier checks documented in
 locally. The packaging attempt at `aab29aa` correctly failed because a formatting
 edit differed from its pinned commit; the edit was committed before repackaging.
 
-Next status check is due around 16:54–17:03 UTC (20–30 minutes after submission).
+The initial Version 2 status check was scheduled around 16:54–17:03 UTC
+(20–30 minutes after submission).
 Two pre-existing queued jobs were visible before submission: Fixed search v1
 Version 2 and independent pilot audit Version 1, both approximately 21 hours old.
 They were not cancelled or claimed as results of this follow-up.
+
+## Status update (2026-11-10 approximately 17:00 UTC)
+
+The Version 2 submission above was later cancelled after zero seconds. Version 3
+was also cancelled after zero seconds. The Kaggle editor had saved JSON notebook
+content while set to **Script**, so neither version ran the experiment. These
+versions and their job records remain historical; they are not empirical
+failures of the controller. The editor was explicitly changed using
+**File → Editor Type → Script** before the next save.
+
+[Version 4, run 368138679](https://www.kaggle.com/code/hungluongduc/issue99-source10-2798384-paired-comparison-v2?scriptVersionId=368138679)
+was saved at approximately 16:59 UTC. The saved source was checked and is actual
+Python, not JSON. It showed **Queued** at the last observation; no training,
+pilot, Calibration, or Later result has been observed from this version.
+
+- Pinned execution commit:
+  `087b7ee085835824fc7bb8effef7a05df126e6e8`.
+- Embedded code ZIP SHA-256:
+  `dc1e78cf2ba00cf11794b32ed42f140777e904a4a012c6423dc9aa9b497ad0a8`.
+- Local upload source:
+  `D:\Đồ Án\.cache\issue99-persistent-lambda\.cache\issue99-persistent-v5.py`,
+  259,584 bytes, 73 packaged files. This is a packaging artifact, not a run output.
+- Session options shown for the pinned original environment: **T4 x2** and
+  internet on. The quota display was **01:59 / 30 hours**; it does not by
+  itself establish remaining usable GPU time.
+- A separate draft session was started at approximately 17:00 UTC to check GPU
+  availability and showed **Starting**. This was not the Version 4 run, and no
+  GPU availability or empirical result was established from the draft session.
+
+Preserve Versions 1–4 and their outputs/status records. Resume checking Version 4
+at approximately 20–30 minute intervals without starting duplicate experiments.
+Draft PR #113 already exists; the remaining empirical work is to observe the
+Version 4 run, independently verify its saved pilot and Calibration artifacts,
+apply the locked gate, and run/report Later only if that gate passes.

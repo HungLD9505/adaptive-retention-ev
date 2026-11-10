@@ -61,3 +61,24 @@ model execution. The newly formatted commit still needs its own CI result.
 The audit, report and dispatcher modules exceed 500 lines after formatting.
 Their cohesive artifact-verification, reporting and phase-dispatch responsibilities
 are disclosed for reviewer agreement; no line-count-only split was performed.
+
+## Full CI at c0ef72c: passed
+
+[GitHub Actions run 42858352451](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/42858352451)
+completed successfully for commit `c0ef72c` on both Windows and Ubuntu. The run
+passed the full registered checks, including the README experiment checks and
+Ruff. This is code/fixture validation, not a Kaggle training or MAE result.
+The earlier CI failures above remain in the ledger as resolved history.
+
+## Kaggle status update
+
+Version 2, run `368131180`, and Version 3 were cancelled after zero seconds
+because the editor held notebook JSON as a Script. **File → Editor Type → Script**
+was then explicitly selected, and the saved Version 4 source was inspected as
+Python. [Version 4, run 368138679](https://www.kaggle.com/code/hungluongduc/issue99-source10-2798384-paired-comparison-v2?scriptVersionId=368138679)
+is pinned to code commit `087b7ee085835824fc7bb8effef7a05df126e6e8`
+and embedded ZIP SHA-256
+`dc1e78cf2ba00cf11794b32ed42f140777e904a4a012c6423dc9aa9b497ad0a8`.
+It was **Queued** at the last observation. No persistent pilot, Calibration,
+Later, metric, or GPU availability result is available yet. The full path and
+session details are recorded in `issue99-persistent-kaggle-handoff-20261110.md`.
