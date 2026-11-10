@@ -108,6 +108,8 @@ class BasicGCNLSTM(BaseForecaster):
         self.target_idx = self.node_ids.index(self.target_id)
         self.seed = seed
         self.history_lookup = history_lookup or {}
+        self.node_lookups = 0
+        self.missing_node_histories = 0
 
         torch.manual_seed(seed)
         np.random.seed(seed)
@@ -127,8 +129,22 @@ class BasicGCNLSTM(BaseForecaster):
     def param_count(self) -> int:
         return sum(p.numel() for p in self.net.parameters() if p.requires_grad)
 
+    @property
+    def diagnostics(self) -> dict[str, Any]:
+        """Node-history coverage: support-node histories missing at an origin are zero-masked."""
+        return {
+            "node_ids": list(self.node_ids),
+            "support_node_lookups": self.node_lookups,
+            "missing_support_histories": self.missing_node_histories,
+        }
+
     def _build_graph_x_seq(self, record: dict[str, Any]) -> Tensor:
-        """Construct [1, 24, N, 7] tensor with time-aligned real histories across all graph nodes."""
+        """Construct [1, 24, N, 7] tensor with time-aligned real histories across all graph nodes.
+
+        The target node uses the record's own predictor-visible ``x_hist``. Every other node uses
+        its own ``x_hist`` at the same origin (available at that origin by construction); a
+        missing support history is all-zero, including its validity channel.
+        """
         origin = record.get("origin")
         node_x_tensors = []
         custom_nodes = record.get("node_histories", {})
@@ -137,11 +153,13 @@ class BasicGCNLSTM(BaseForecaster):
             if nid in custom_nodes:
                 hist = custom_nodes[nid]
             elif nid == self.target_id:
-                hist = record.get("x_hist", [[0.0] * 7] * 24)
-            elif origin is not None and (nid, origin) in self.history_lookup:
-                hist = self.history_lookup[(nid, origin)]
+                hist = record["x_hist"]
             else:
-                hist = [[0.0] * 7] * 24
+                self.node_lookups += 1
+                hist = self.history_lookup.get((nid, origin)) if origin is not None else None
+                if hist is None:
+                    self.missing_node_histories += 1
+                    hist = [[0.0] * 7] * 24
 
             node_x_tensors.append(torch.tensor(hist, dtype=torch.float32))
 

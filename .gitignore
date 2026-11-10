@@ -26,6 +26,10 @@ handoff/
 *.zip
 # Large baseline execution artifacts outside Git
 experiments/member_studies/cyber_baselines/artifacts/*_predictions.json
+experiments/member_studies/cyber_baselines/artifacts_*/*_predictions.json
+experiments/member_studies/cyber_baselines/artifacts_*/fitted/
+experiments/member_studies/cyber_baselines/artifacts_*/pilot/*_predictions.json
+experiments/member_studies/cyber_baselines/artifacts_*/readback/daily_errors.csv
 # Preserve the preliminary local CPU audit; v2 is the tracked, reviewed output.
 docs/reports/hung-development-audit-20261028-v1/
 # Keep the preliminary switch audit locally; v4 is the pinned tracked report.

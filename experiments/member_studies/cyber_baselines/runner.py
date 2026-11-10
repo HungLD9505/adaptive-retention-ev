@@ -79,7 +79,8 @@ class BenchmarkRunner:
         p95_scale = replay_data.p95_scale
 
         seed_str = f"seed{seed}" if seed is not None else "det"
-        run_id = f"cyber_{model.name.lower().replace(' ', '_').replace('-', '_')}_{mode}_{target_id}_{seed_str}"
+        model_slug = model.name.lower().replace(" ", "_").replace("-", "_")
+        run_id = f"cyber_{self.config.run_tag}_{model_slug}_{mode}_{target_id}_{seed_str}"
 
         scheduled_count = len(replay_data.schedule)
         issued_count = 0
@@ -96,13 +97,88 @@ class BenchmarkRunner:
         # Pending issued forecasts waiting for label arrival: list of dicts
         pending_evaluations: list[dict[str, Any]] = []
 
+        def resolve_pending(as_of: datetime, final: bool) -> None:
+            """Score/update every saved forecast whose complete label has arrived by ``as_of``.
+
+            A label counts as arrived only when all 24 hourly ``available_at`` stamps are
+            non-null and ``<= as_of``. Saved forecasts are never changed here. When ``final``
+            is true, forecasts still waiting are closed as unscored nulls.
+            """
+            nonlocal pending_evaluations, scored_count, update_seconds
+            still_pending: list[dict[str, Any]] = []
+            for pending in pending_evaluations:
+                p_origin = pending["origin"]
+                lbl_record = replay_data.labels.get(p_origin)
+                avail_times = (lbl_record or {}).get("available_at") or []
+                has_arrived = len(avail_times) == 24 and all(
+                    a is not None and datetime.fromisoformat(a) <= as_of for a in avail_times
+                )
+                if not has_arrived:
+                    if final:
+                        daily_results_map[p_origin] = DailyResult(
+                            origin=p_origin,
+                            issued=True,
+                            scored=False,
+                            mae_kwh=None,
+                            rmse_kwh=None,
+                            predictions_kwh=pending["pred_kwh"],
+                            ground_truth_kwh=None,
+                        )
+                    else:
+                        still_pending.append(pending)
+                    continue
+
+                file_valid = lbl_record.get("file_valid", [])
+                if len(file_valid) == 24 and all(file_valid):
+                    gt_kwh = lbl_record["energy_kwh"]
+                    p_kwh = pending["pred_kwh"]
+                    diffs = [abs(p - y) for p, y in zip(p_kwh, gt_kwh, strict=True)]
+                    sq_diffs = [(p - y) ** 2 for p, y in zip(p_kwh, gt_kwh, strict=True)]
+                    mae_val = float(np.mean(diffs))
+                    rmse_val = float(math.sqrt(np.mean(sq_diffs)))
+                    daily_maes.append(mae_val)
+                    squared_errors.extend(sq_diffs)
+                    scored_count += 1
+                    daily_results_map[p_origin] = DailyResult(
+                        origin=p_origin,
+                        issued=True,
+                        scored=True,
+                        mae_kwh=mae_val,
+                        rmse_kwh=rmse_val,
+                        predictions_kwh=p_kwh,
+                        ground_truth_kwh=gt_kwh,
+                    )
+                    # Online update only after the saved forecast has been scored
+                    y_scaled = [y / p95_scale for y in gt_kwh]
+                    t0 = time.perf_counter()
+                    model.update(pending["fc_record"], y_scaled)
+                    update_seconds += time.perf_counter() - t0
+                else:
+                    # Arrived but incomplete sensors (dropout null) -> cannot be scored
+                    daily_results_map[p_origin] = DailyResult(
+                        origin=p_origin,
+                        issued=True,
+                        scored=False,
+                        mae_kwh=None,
+                        rmse_kwh=None,
+                        predictions_kwh=pending["pred_kwh"],
+                        ground_truth_kwh=None,
+                    )
+            pending_evaluations = still_pending
+
         # Chronological replay loop
         for item in replay_data.schedule:
             origin = item["origin"]
             status = item["status"]
             current_as_of = datetime.fromisoformat(origin)
 
-            # 1. Prediction step: Predict origin before any labels arriving at or after current_as_of
+            # 1. Causal label arrival: labels that have fully arrived by this origin are
+            #    scored against their saved forecasts and used for updates BEFORE predicting.
+            #    The label for this origin's own horizon cannot have arrived yet, so the
+            #    forecast for ``origin`` is still saved before its label is seen.
+            resolve_pending(current_as_of, final=False)
+
+            # 2. Prediction step for this origin
             if status == "created" and origin in replay_data.forecasts:
                 fc_record = replay_data.forecasts[origin]
                 t0 = time.perf_counter()
@@ -131,131 +207,13 @@ class BenchmarkRunner:
                     ground_truth_kwh=None,
                 )
 
-            # 2. Causal Label Arrival & Model Update step:
-            # Check pending evaluations whose labels have arrived by current_as_of
-            still_pending: list[dict[str, Any]] = []
-            for pending in pending_evaluations:
-                p_origin = pending["origin"]
-                lbl_record = replay_data.labels.get(p_origin)
-
-                if lbl_record is None:
-                    still_pending.append(pending)
-                    continue
-
-                avail_times = lbl_record.get("available_at", [])
-                file_valid = lbl_record.get("file_valid", [])
-
-                # Strict causal guard: label has arrived if all 24 hourly timestamps are <= current_as_of
-                has_arrived = len(avail_times) == 24 and all(
-                    a is not None and datetime.fromisoformat(a) <= current_as_of
-                    for a in avail_times
-                )
-
-                if has_arrived:
-                    # Check sensor validity
-                    is_complete = all(file_valid)
-                    if is_complete:
-                        gt_kwh = lbl_record["energy_kwh"]
-                        p_kwh = pending["pred_kwh"]
-                        diffs = [abs(p - y) for p, y in zip(p_kwh, gt_kwh, strict=True)]
-                        sq_diffs = [(p - y) ** 2 for p, y in zip(p_kwh, gt_kwh, strict=True)]
-
-                        mae_val = float(np.mean(diffs))
-                        rmse_val = float(math.sqrt(np.mean(sq_diffs)))
-
-                        daily_maes.append(mae_val)
-                        squared_errors.extend(sq_diffs)
-                        scored_count += 1
-
-                        daily_results_map[p_origin] = DailyResult(
-                            origin=p_origin,
-                            issued=True,
-                            scored=True,
-                            mae_kwh=mae_val,
-                            rmse_kwh=rmse_val,
-                            predictions_kwh=p_kwh,
-                            ground_truth_kwh=gt_kwh,
-                        )
-
-                        # Model online update on arrived ground truth
-                        y_scaled = [y / p95_scale for y in gt_kwh]
-                        t0 = time.perf_counter()
-                        model.update(pending["fc_record"], y_scaled)
-                        update_seconds += time.perf_counter() - t0
-                    else:
-                        # Arrived but incomplete sensors (dropout null) -> cannot be scored
-                        daily_results_map[p_origin] = DailyResult(
-                            origin=p_origin,
-                            issued=True,
-                            scored=False,
-                            mae_kwh=None,
-                            rmse_kwh=None,
-                            predictions_kwh=pending["pred_kwh"],
-                            ground_truth_kwh=None,
-                        )
-                else:
-                    still_pending.append(pending)
-
-            pending_evaluations = still_pending
-
-        # 3. Post-Replay Evaluation of Final Horizon:
-        # After replay ends, clock advances past the final forecast horizon
-        if pending_evaluations:
+        # 3. Post-replay: the clock advances one day past the final origin so the last
+        #    horizon's labels can arrive; anything still missing is closed as a null.
+        if replay_data.schedule:
             final_as_of = datetime.fromisoformat(replay_data.schedule[-1]["origin"]) + timedelta(
                 days=1
             )
-            for pending in pending_evaluations:
-                p_origin = pending["origin"]
-                lbl_record = replay_data.labels.get(p_origin)
-                if lbl_record is not None:
-                    avail_times = lbl_record.get("available_at", [])
-                    file_valid = lbl_record.get("file_valid", [])
-                    has_arrived = len(avail_times) == 24 and all(
-                        a is not None and datetime.fromisoformat(a) <= final_as_of
-                        for a in avail_times
-                    )
-                    if has_arrived and all(file_valid):
-                        gt_kwh = lbl_record["energy_kwh"]
-                        p_kwh = pending["pred_kwh"]
-                        diffs = [abs(p - y) for p, y in zip(p_kwh, gt_kwh, strict=True)]
-                        sq_diffs = [(p - y) ** 2 for p, y in zip(p_kwh, gt_kwh, strict=True)]
-
-                        mae_val = float(np.mean(diffs))
-                        rmse_val = float(math.sqrt(np.mean(sq_diffs)))
-
-                        daily_maes.append(mae_val)
-                        squared_errors.extend(sq_diffs)
-                        scored_count += 1
-
-                        daily_results_map[p_origin] = DailyResult(
-                            origin=p_origin,
-                            issued=True,
-                            scored=True,
-                            mae_kwh=mae_val,
-                            rmse_kwh=rmse_val,
-                            predictions_kwh=p_kwh,
-                            ground_truth_kwh=gt_kwh,
-                        )
-                    else:
-                        daily_results_map[p_origin] = DailyResult(
-                            origin=p_origin,
-                            issued=True,
-                            scored=False,
-                            mae_kwh=None,
-                            rmse_kwh=None,
-                            predictions_kwh=pending["pred_kwh"],
-                            ground_truth_kwh=None,
-                        )
-                else:
-                    daily_results_map[p_origin] = DailyResult(
-                        origin=p_origin,
-                        issued=True,
-                        scored=False,
-                        mae_kwh=None,
-                        rmse_kwh=None,
-                        predictions_kwh=pending["pred_kwh"],
-                        ground_truth_kwh=None,
-                    )
+            resolve_pending(final_as_of, final=True)
 
         # Assemble daily results in exact schedule order
         ordered_daily_results = [daily_results_map[item["origin"]] for item in replay_data.schedule]
@@ -286,6 +244,10 @@ class BenchmarkRunner:
         }
         if scored_count == 0:
             preds_export["unscored_reason"] = "zero_scored_observations"
+        # Surface model-side fit/fallback diagnostics instead of hiding substituted forecasts
+        diagnostics = getattr(model, "diagnostics", None)
+        if isinstance(diagnostics, dict):
+            preds_export["model_diagnostics"] = diagnostics
 
         # Byte-level LF serialization policy: binary mode prevents Windows CRLF translation
         preds_json = json.dumps(preds_export, indent=2)
@@ -295,6 +257,9 @@ class BenchmarkRunner:
         artifact_path = self.config.output_dir / f"{run_id}_predictions.json"
         with open(artifact_path, "wb") as f:
             f.write(preds_bytes)
+
+        if self.config.save_fitted:
+            export_fitted_state(model, self.config.output_dir / "fitted", run_id)
 
         return RunSummary(
             run_id=run_id,
@@ -315,6 +280,52 @@ class BenchmarkRunner:
             total_seconds=total_elapsed,
             predictions_sha256=preds_sha256,
         )
+
+
+def export_fitted_state(model: BaseForecaster, fitted_dir: Path, run_id: str) -> Path:
+    """Persist the end-of-replay fitted target state of one run.
+
+    - PyTorch models (neural wrappers, GCN-LSTM): ``state_dict`` via ``torch.save``.
+    - scikit-learn / XGBoost estimators: pickled estimator object.
+    - SARIMA: estimated parameters, fit diagnostics and filtered-state end (JSON).
+    - Naive models are stateless: a JSON stub records that there is nothing to fit.
+    """
+    import pickle
+
+    import torch
+
+    fitted_dir.mkdir(parents=True, exist_ok=True)
+    net = getattr(model, "net", None)
+    if net is None and isinstance(getattr(model, "model", None), torch.nn.Module):
+        net = model.model
+    if isinstance(net, torch.nn.Module):
+        path = fitted_dir / f"{run_id}.pt"
+        torch.save(net.state_dict(), path)
+        return path
+
+    fitted_res = getattr(model, "fitted_res", None)
+    if model.name == "SARIMA":
+        payload: dict[str, Any] = {"kind": "sarima", "diagnostics": model.diagnostics}
+        if fitted_res is not None:
+            payload["params"] = {str(k): float(v) for k, v in fitted_res.params.items()}
+            payload["state_end"] = str(fitted_res.fittedvalues.index[-1])
+        path = fitted_dir / f"{run_id}.json"
+        path.write_bytes(json.dumps(payload, indent=2).encode("utf-8"))
+        return path
+
+    estimator = getattr(model, "model", None)
+    if estimator is not None:
+        path = fitted_dir / f"{run_id}.pkl"
+        with open(path, "wb") as f:
+            pickle.dump(estimator, f, protocol=pickle.HIGHEST_PROTOCOL)
+        return path
+
+    path = fitted_dir / f"{run_id}.json"
+    stub = {"kind": "stateless", "model": model.name}
+    if isinstance(getattr(model, "fallbacks", None), dict):
+        stub["fallbacks"] = model.fallbacks
+    path.write_bytes(json.dumps(stub, indent=2).encode("utf-8"))
+    return path
 
 
 def append_summary_to_csv(summary: RunSummary, csv_path: Path = RUNS_CSV_PATH) -> None:

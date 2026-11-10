@@ -1,315 +1,382 @@
 # Cyber UrbanEV Baseline Benchmark Report (Issue #95)
 
-**Author:** Trần Mạnh Hùng (`@hung00cyber`)  
-**Target Issue:** GitHub Issue #95 (`HungLD9505/adaptive-retention-ev`)  
-**Branch:** `feat/cyber-urbanev-baseline-benchmark`  
-**Execution Date:** 10 November 2026 (Asia/Ho_Chi_Minh)  
-**Revision:** v2 (Post-Review Resolution of Audit Findings)  
-**Status:** Complete Independent Benchmark  
+**Author:** Trần Mạnh Hùng (`@hung00cyber`)
+**Issue / PR:** #95 / #104 (`HungLD9505/adaptive-retention-ev`), branch `feat/cyber-urbanev-baseline-benchmark`
+**Revision:** v3 — second response to the PR #104 review of commit `5f67bd2` (`@Qyroven`)
+**Execution:** 10 November 2026 (Asia/Ho_Chi_Minh), run tag `v3`, local CPU (details in §8)
+**Status:** Revised evidence submitted for peer review. **Not self-declared Done**; #95 stays open until peer approval and integration.
+
+This is an additional, exploratory **Development** study on four historically scoreable UrbanEV/SZH targets. It is not Final evidence, not a fresh held-out selection and not population-wide proof.
 
 ---
 
-## 1. Executive Summary & Scope
+## 1. What changed in v3 and why
 
-This report presents the complete, independent UrbanEV baseline benchmark conducted on the Shenzhen (SZH) cohort under a strict 14-day historical observation budget. The benchmark evaluates 12 distinct forecasting models across 4 Development target stations (`1405`, `2152`, `1153`, `1693`) over the official 90-day Development replay schedule (2022-12-01 to 2023-02-28).
+The first review response (v2, commit `553275a`) addressed the review findings only partly and introduced a new defect. v3 fixes the code, reruns **all 172 rows** under new run IDs (`cyber_v3_*`) and a new output root (`artifacts_v3/`, `runs_v3.csv`), and preserves v1 and v2 unchanged (§9).
 
-Following peer review feedback on PR #104, this revision incorporates comprehensive resolution of all audit findings:
-1. **Real Spatial Node Signals:** `BasicGCNLSTM` ingests genuine, time-aligned 24-hour histories from all 4 stations simultaneously rather than repeating target history across nodes.
-2. **SARIMA State Advance & Gap Preservation:** `SARIMABaseline` preserves regular hourly time indexing with Kalman missing-value support across calendar gaps and advances its forecasting state between weekly refits via Kalman filtering (`append(..., refit=False)`).
-3. **Strict Causal Arrival Guard:** Label decoding and online learning are strictly gated by the replay clock (`datetime.fromisoformat(a) <= current_as_of`).
-4. **Exact Null Metric Accounting:** Evaluated runs with zero scored observations emit explicit `None` / `null` metrics with reason codes rather than misleading `0.0`.
-5. **Byte-Level LF Checksum Contract:** All prediction artifacts and ledger rows are written in binary mode with explicit LF (`\n`) newlines, eliminating OS newline discrepancies.
-6. **Complete Artifact Enumeration & External Handoff:** Checksum manifest enumerates all 172 prediction files, 15 PyTorch source checkpoints, and `runs.csv` (188 verified entries total), published in an external release bundle with independent readback verification.
-
-The benchmark comprises **172 unique model-mode-target-seed rows**:
-- **160 rows** in the primary non-graph matrix:
-  - 4 Statistical models $\times$ 4 targets = 16 rows.
-  - 2 Classical ML models $\times$ 3 seeds (42, 43, 44) $\times$ 4 targets = 24 rows.
-  - 5 Neural backbones $\times$ 2 modes (Target-Only, Transfer) $\times$ 3 seeds $\times$ 4 targets = 120 rows.
-- **12 rows** in the spatial comparator matrix (Basic GCN-LSTM $\times$ 3 seeds $\times$ 4 targets), reported separately.
-
-All executions were performed independently by `@hung00cyber` with own versioned code, configuration, checkpoints, prediction outputs, and SHA-256 manifests. Original v1 artifacts are archived in `historical_v1/`.
+| Review finding | v2 state (`553275a`) | v3 fix | Evidence |
+|---|---|---|---|
+| Label-arrival guard | Clock gate added, but labels were applied **after** the next prediction. Every real label arrives exactly at origin + 24 h, so every learner was delayed by one extra day. All 136 learner rows changed versus v1. | `runner.py` scores and updates every label that has fully arrived (`all 24 available_at <= as_of`) **before** predicting the current origin. The forecast for an origin is still saved before its own label exists. | Tests `test_label_arriving_at_next_origin_is_used_before_that_prediction`, `test_label_arriving_one_hour_after_next_origin_is_not_used`, `test_delayed_label_arrival_guard`; v1/v2/v3 comparison in §6 |
+| Zero-score metrics | Fixed (null MAE/RMSE plus reason) | Kept; `verify_results` also rejects metrics on unscored origins | `test_zero_scored_runs_handling` |
+| SARIMA state/horizon/gaps | `predict()` mutated the state with NaN gaps; the next `update()` then hit an overlapping index and failed silently, freezing the state until the weekly refit (v2 SARIMA MAE 12.88) | Regular hourly index. `predict()` is read-only and forecasts from the end of the filtered state to the origin's horizon (last 24 of `steps`). Daily `append(refit=False)` with NaN gaps. Weekly refit on the last 336 h. Fit/advance failures and fallback forecasts are counted and exported. | Three SARIMA regression tests. v3 diagnostics: 37 fits, **0** fit failures, **0** advance failures, **0** fallback forecasts across the 4 rows |
+| Graph inputs | Distinct histories, but the graph contained **only the four targets**, which #95 rules out ("four targets are scored nodes, not an instruction to build a four-node graph"). Missing lookups silently became zeros. | Locked node rule (§3.3): 4 targets + 3 nearest Development-role supports each (16 nodes). Final/Source stations excluded. Supports contribute only their origin-time `x_hist`. Missing support histories are counted. | `graph_lock.json`, `test_graph_node_selection_uses_nearest_development_supports`, `test_gcn_lstm_reads_support_histories_from_lookup` |
+| Byte-level hashing | Fixed (binary LF writes) | Kept. Manifest keys are repo-relative paths. The verifier fails on any CRLF text artifact. | `test_binary_hash_contract`; §9 verification |
+| Artifact handoff | Release `v0.9.5-cyber-benchmark-v2` holds v2 outputs only. No fitted target estimators; manifest built from flawed v2 runs. | All 172 end-of-replay fitted target states saved (`fitted/`). Environment, code SHA-256s, input hashes, execution log, graph lock, pilot record and readback tables are in one manifest (367 entries). v3 bundle prepared (§9). | `artifacts_v3/manifest.json` |
+| Overwriting evidence | `--all` deleted `runs.csv` before running | `--all` refuses to run if the run tag already has a ledger or forecasts | `test_full_benchmark_refuses_to_overwrite_existing_ledger` |
+| Statistical claims | Pooled t-tests over 245 station-origins (ignoring serial and station dependence). Differences disagreed with the summary table. SD range excluded TimeXer. "Necessary / if and only if" wording. | Station-first paired common-origin differences with a 7-day moving-block bootstrap within each station. Claims restated as conditional Development evidence (§4–5). | `readback/paired_differences.csv` |
 
 ---
 
-## 2. Experimental Invariants & Data Accounting
+## 2. Inputs and accounting
 
-### 2.1 Authenticated Input Metadata
+- **Input root:** `data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-14d/`.
+- **Input files:** SHA-256 recomputed on 10 Nov 2026. All five data files match the hashes recorded in the input's own `manifest.json`:
 
-The benchmark strictly conforms to the authenticated inputs at `data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-14d/`:
-- **Source Population:** Exactly **65,888** eligible 24-to-24 Source examples loaded from `training.jsonl` (verified against historical records, with zero arbitrary truncation).
-- **Target Stations & 14-Day Initial Budgets:**
-  - `1405`: 4 initial trainable prefix examples, $s_{\text{p95}} = 43.8667\text{ kWh}$.
-  - `2152`: 12 initial trainable prefix examples, $s_{\text{p95}} = 42.0000\text{ kWh}$.
-  - `1153`: 13 initial trainable prefix examples, $s_{\text{p95}} = 56.0000\text{ kWh}$.
-  - `1693`: 13 initial trainable prefix examples, $s_{\text{p95}} = 14.0000\text{ kWh}$.
+| File | SHA-256 |
+|---|---|
+| `training.jsonl` | `eadb4bb38d0e3dce1eded428ba4d806346cefc4e09840fa65814670edfd0999c` |
+| `forecasts.jsonl` | `d67ba54632b850bf183bc6f0df345f0de060a3907a11e27ef01c9b75edfcb6e8` |
+| `labels.jsonl` | `64707cfe755767e0e0b76bab8bb6066bab5a60acef8b30133c573c8cf659015f` |
+| `schedule.jsonl` | `eaa88e7e861eb5d70d42b1c0e114de5fff1a3b621a78d635613e278151de143e` |
+| `entities.jsonl` | `e7c9dd4cb0b6f95cdfb1a0939fcadbc69edd1af6e9fb0fa30c861c4d7a38953e` |
+| `manifest.json` | `66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9` |
 
-### 2.2 Replay Calendar & Gated Scoring Accounting
+  **Correction:** the hash `0efdfaa7…` posted in the earlier #95 update does not match these bytes, and its origin cannot be traced. The value above replaces it.
 
-For each target station over the 90-day Development schedule:
-- **Scheduled Days:** 90 calendar days per station ($4 \times 90 = 360\text{ total scheduled days}$).
-- **Issued Forecasts:**
-  - Station `1405`: 90 issued days (0 skipped).
-  - Stations `2152`, `1153`, `1693`: 59 issued days each (31 days skipped due to `skipped_all_missing_history`).
-  - Total issued forecasts = $90 + 3 \times 59 = 267\text{ issued days}$.
-- **Scored Days (Forecast Issued AND Arrived Label Complete):**
-  - Station `1405`: 89 scored days (1 incomplete label day on 2023-01-22).
-  - Stations `2152`, `1153`, `1693`: 52 scored days each (7 incomplete label days).
-  - Total scored days = $89 + 3 \times 52 = 245\text{ scored days}$.
-- **Unscored Accounting:** Exactly $360 - 245 = 115\text{ unscored days}$ (93 missing history + 22 incomplete labels). Every unscored origin is preserved as a verified null; no imputation or label leaking occurred.
-
----
-
-## 3. Model Architecture & Protocol Definitions
-
-### 3.1 Feature Space & Information Boundaries
-- **Historical Window ($X_{\text{hist}}$):** $\mathbb{R}^{24 \times 7}$ containing hourly normalized energy, temporal encodings ($\sin/\cos$ for hour-of-day and day-of-week), and validity mask.
-- **Future Known Calendar ($C_{\text{future}}$):** $\mathbb{R}^{24 \times 5}$ containing $\sin/\cos$ calendar features for the 24 forecast hours.
-- **Output ($Y$):** $\mathbb{R}^{24}$ non-negative hourly energy values. Evaluation is strictly in original units ($\text{kWh}$) after unscaling by $s_{\text{p95}}$.
-
-### 3.2 Model Specifications
-
-1. **Daily Naive:** Causal baseline predicting same-hour energy from previous day ($y_{t, h} = X_{\text{hist}}[h, 0]$). If masked/missing, falls back to available history mean, then zero.
-2. **Seasonal Naive:** Causal weekly naive predicting same-hour energy from 7 days prior ($168\text{h}$ lag). Fallback order: weekly lag $\to$ daily lag ($24\text{h}$) $\to$ available history mean $\to$ zero.
-3. **Ridge Regression:** Multi-output linear regression with L2 regularization ($\alpha = 1.0$) on flattened $288$-dimensional features ($168\text{ historical} + 120\text{ calendar}$). Fitted on target initial prefix, with weekly expanding-window refit. Outputs clipped at zero.
-4. **SARIMA:** Univariate $\text{SARIMAX}(1, 0, 1)(1, 0, 0)_{24}$ fit on available hourly sequence (up to 336 hours history) with bounded optimization (`maxiter=15`). Fitted initially and refit weekly; between weekly refits, state is advanced daily via Kalman filter (`append(..., refit=False)`), preserving hourly DatetimeIndex across calendar gaps.
-5. **Random Forest:** Multi-output regressor with 100 trees, maximum depth 10, seeded across {42, 43, 44}. Ingests 288 flattened features with weekly expanding-window refit.
-6. **XGBoost:** Gradient boosted tree ensemble with 50 estimators, depth 5, learning rate 0.1, native multi-output regression. Seeded across {42, 43, 44} with weekly expanding-window refit.
-7. **MLP / FCNN:** 2-layer perceptron: $\text{Linear}(288 \to 128) \to \text{ReLU} \to \text{Linear}(128 \to 64) \to \text{ReLU} \to \text{Linear}(64 + 120 \to 64) \to \text{ReLU} \to \text{Linear}(64 \to 24) \to \text{Softplus}$.
-8. **GRU (Canonical Backbone):** 2-layer GRU ($\text{hidden}=64$) encoding $X_{\text{hist}} \to h_{24} \in \mathbb{R}^{64}$, concatenated with flattened $C_{\text{future}}$ into MLP head ($64 \to 24$) with Softplus.
-9. **LSTM:** 2-layer LSTM ($\text{hidden}=64$) encoding $X_{\text{hist}} \to h_{24} \in \mathbb{R}^{64}$, concatenated with flattened $C_{\text{future}}$ into MLP head with Softplus.
-10. **TCN (Temporal Convolutional Network):** 3 residual blocks with causal dilated 1D convolutions (kernel size 3, dilations 1, 2, 4; receptive field = 29 hours $> 24\text{h}$). Final time step latent vector $\in \mathbb{R}^{64}$ fed to calendar-conditioned MLP head.
-11. **TimeXer Architecture Adaptation:** Implements endogenous-exogenous cross-attention adapted for compact 24-step horizon. Endogenous series ($24 \times 7$) is projected to embedding dimension $D=64$ via linear series patching. Exogenous calendar features ($24 \times 5$) are embedded into $D=64$ calendar tokens. Endogenous self-attention block is followed by endogenous-query / exogenous-key cross-attention and FFN, pooled and projected to 24 hourly outputs with Softplus.
-12. **Basic GCN-LSTM (Spatial Comparator):** Spatial graph convolutional network ($A_{\text{norm}} X_t W$) coupled with node-level LSTM across time steps. Spatial adjacency $A$ is computed from `station_distance.csv` in `UrbanEVDataset.zip` using Gaussian kernel thresholding:
-    $$\tilde{A}_{ij} = \exp\left(-\frac{d_{ij}^2}{\sigma^2}\right), \quad A_{\text{norm}} = D^{-1/2} (A + I) D^{-1/2}$$
-    At each origin, the model receives a true $[1, 24, N, 7]$ multi-node tensor populated with each station's actual time-aligned historical records, zero-masked when stations have missing history.
-
-### 3.3 Training & Adaptation Protocol
-- **Source Pretraining:** 3 epochs on all 65,888 Source examples with PyTorch DataLoader (`batch_size=256`, Adam optimizer, `lr=1e-3`, L1 loss). Checkpoints saved per backbone/seed (15 total source trajectories).
-- **Target-Only Mode:** Initialized with random seeded weights, adapted for 3 epochs on target initial prefix (`batch_size=4`, `lr=5e-4`), followed by 1 epoch online adaptation per newly arrived complete day.
-- **Transfer Mode ($\lambda=0$):** Initialized from matching Source backbone/seed checkpoint, fine-tuned for 3 epochs on target initial prefix, followed by 1 epoch online update per arrived complete day.
+  **Not verified:** the distribution ZIP (catalog `DATA-v1-20261019.json`, SHA-256 `2b8d1a47…`) was not re-downloaded or re-hashed for v3. Only the extracted files present locally were checked.
+- **Source population:** 65,888 Source examples (`role == "source"` in `training.jsonl`), no truncation.
+- **Targets and initial budgets:** 14-day prefix; trainable counts 1405 = 4, 2152 = 12, 1153 = 13, 1693 = 13; p95 scales 43.867 / 42.0 / 56.0 / 14.0 kWh.
+- **Calendar:** 90 scheduled origins per target (360 in total).
+  - Issued: 267 (1405: 90; 2152/1153/1693: 59 each, with 31 `skipped_all_missing_history`).
+  - Scored: 245 (1405: 89; others: 52 each).
+  - Unscored: 115 nulls (93 missing history + 22 incomplete labels).
+  - Every row has identical coverage, so all models are compared on the same origins.
+- **Label timing:** in all 57,330 label records, the last `available_at` is exactly origin + 24 h.
 
 ---
 
-## 4. Comprehensive Benchmark Results
+## 3. Protocol and model definitions (as executed in v3)
 
-### 4.1 Overall Performance Summary (Non-Graph Matrix: 160 Rows)
+### 3.1 Information boundaries
+- Predictors see `x_hist` [24×7] (energy, hour/day encodings, validity) and `c_future` [24×5] (known calendar) only.
+- Labels are decoded only when they have fully arrived; scoring uses original kWh.
+- Tree and linear models use the same 288 flattened values.
 
-| Model | Mode | Scored Rows | Mean MAE (kWh) | Mean RMSE (kWh) | Param Count | Wall Time / Run (s) |
-|---|---|---:|---:|---:|---:|---:|
-| **Daily Naive** | Target-Only | 4 | 7.0763 | 9.5713 | 0 | 0.0031 |
-| **Seasonal Naive** | Target-Only | 4 | 8.4631 | 11.1458 | 0 | 0.0371 |
-| **Ridge** | Target-Only | 4 | 6.0589 | 8.0729 | 6,936 | 0.0583 |
-| **SARIMA** | Target-Only | 4 | 12.8808 | 15.8189 | 4 | 4.0597 |
-| **Random Forest** | Target-Only | 12 | 5.8672 | 7.7341 | 204,700 | 1.7649 |
-| **XGBoost** | Target-Only | 12 | 6.6335 | 8.9998 | 3,150 | 3.5602 |
-| **MLP** | Target-Only | 12 | 8.8028 | 10.8960 | 43,288 | 0.1134 |
-| **MLP** | Transfer ($\lambda=0$) | 12 | 5.5328 | 7.3137 | 43,288 | 1.1504 |
-| **GRU** | Target-Only | 12 | 9.0687 | 11.1210 | 52,376 | 0.8135 |
-| **GRU** | Transfer ($\lambda=0$) | 12 | **5.3381** | **7.1417** | 52,376 | 8.0693 |
-| **LSTM** | Target-Only | 12 | 9.0686 | 11.1129 | 65,368 | 0.2726 |
-| **LSTM** | Transfer ($\lambda=0$) | 12 | 5.3604 | 7.2253 | 65,368 | 4.6554 |
-| **TCN** | Target-Only | 12 | 8.2280 | 10.2710 | 77,080 | 0.5214 |
-| **TCN** | Transfer ($\lambda=0$) | 12 | 5.3668 | 7.2414 | 77,080 | 5.5456 |
-| **TimeXer** | Target-Only | 12 | 8.2352 | 10.2497 | 66,072 | 0.3408 |
-| **TimeXer** | Transfer ($\lambda=0$) | 12 | 5.6164 | 7.5321 | 66,072 | 5.4813 |
+### 3.2 Model configurations (`config.py`, run tag v3)
 
----
+| Model | Configuration |
+|---|---|
+| Daily Naive | Same hour of the previous day from `x_hist`; masked → history mean → 0 |
+| Seasonal Naive | 168 h lag → 24 h lag → history mean → 0 (fallback counts exported) |
+| Ridge | α = 1.0, multi-output, refit after every arrived complete day (expanding window), clipped at 0 |
+| SARIMA | SARIMAX(1,0,1)(1,0,0)₂₄, `maxiter = 15`, weekly refit on the last 336 h; see §1 |
+| Random Forest | 100 trees, depth 10, weekly expanding refit, seeds 42/43/44 |
+| XGBoost | 50 trees, depth 5, learning rate 0.1, weekly expanding refit, seeds 42/43/44. **XGBoost is deterministic for this configuration (no row/column subsampling): the three seeds give identical forecasts.** |
+| Neural (MLP/GRU/LSTM/TCN/TimeXer) | Normalized-MAE objective, λ = 0.<br>Source: Adam, lr 1e-3, batch 256, **3 epochs**, last-epoch checkpoint.<br>Target: 3 adaptation epochs (lr 5e-4, batch 4), then 1 update epoch per arrived complete day.<br>Target-only starts from random seeded weights; transfer starts from the matching backbone/seed Source checkpoint with a fresh optimizer. |
 
-### 4.2 Isolating Transfer Benefit: Within-Backbone Comparison
+**Configuration history, disclosed:**
+1. **v1 config differed from the v1 report.** The v1 rows were executed with XGBoost `n_estimators = 100` and SARIMA `maxiter = 25` (commits `eac4ecc`/`5f67bd2`), while the v1 report stated 50 and 15. Commit `553275a` changed the code to 50/15. v2 and v3 executed with 50/15. This was a post-hoc change to match the report text, not a tuning outcome.
+2. **Deviations from the #95 starting recipe:**
+   - Source training uses 3 epochs with only the final checkpoint, not "up to 10 epochs with checkpoints at 1/3/10".
+   - No hyperparameter tuning was run for any model. All settings were fixed by the author before the v1 execution.
+   - No pre-execution protocol-lock record exists, and none has been reconstructed retrospectively.
+   - Selection and evaluation both use these known Development targets.
 
-A core mandate of Issue #95 is isolating the transfer benefit strictly **within** each neural architecture, eliminating architecture/initialization confounders.
+### 3.3 Basic GCN-LSTM node/edge lock (`artifacts_v3/graph_lock.json`)
+- **Nodes (16):** the 4 scored targets plus, for each target, the 3 nearest **Development-role** stations in `station_distance.csv` (raw UrbanEV ZIP). Final-role and Source-role stations are excluded.
 
-| Backbone | Target-Only MAE (kWh) | Transfer MAE (kWh) | Absolute $\Delta$ (kWh) | **Error Reduction (%)** | Target-Only RMSE (kWh) | Transfer RMSE (kWh) | RMSE Reduction (%) |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| **GRU** | 9.0687 | 5.3381 | -3.7306 | **-41.14%** | 11.1210 | 7.1417 | -35.78% |
-| **LSTM** | 9.0686 | 5.3604 | -3.7082 | **-40.89%** | 11.1129 | 7.2253 | -34.98% |
-| **MLP** | 8.8028 | 5.5328 | -3.2700 | **-37.15%** | 10.8960 | 7.3137 | -32.88% |
-| **TCN** | 8.2280 | 5.3668 | -2.8612 | **-34.77%** | 10.2710 | 7.2414 | -29.49% |
-| **TimeXer** | 8.2352 | 5.6164 | -2.6188 | **-31.79%** | 10.2497 | 7.5321 | -26.51% |
+| Target | Support nodes (distance) |
+|---|---|
+| 1405 | 1398 (659 m), 1439 (799 m), 1417 (869 m) |
+| 2152 | 2153 (0 m, co-located), 2120 (639 m), 2173 (877 m) |
+| 1153 | 1140 (342 m), 1169 (426 m), 1165 (482 m) |
+| 1693 | 1723 (758 m), 1836 (2,431 m), 1810 (2,523 m) |
 
-**Key Takeaways:**
-- Every neural architecture demonstrates a substantial **31.79% to 41.14% error reduction** when initialized with Source pretraining compared to target-only learning.
-- In the low-data Target-Only regime (4 to 13 initial days), deep neural networks suffer severely from data scarcity, achieving MAEs of 8.23 - 9.07 kWh.
-- Pretraining on 65,888 Source samples provides robust inductive temporal priors that transfer effectively across charging stations, bringing error down to ~5.34 - 5.62 kWh.
+- **Edges:** Gaussian kernel `exp(-(d/σ)²)`, with σ = SD of positive pairwise distances among the 16 nodes, plus self-loops, symmetric-normalized.
+- **Node inputs:**
+  - The target node uses its own `x_hist`.
+  - Each support node uses its own `x_hist` at the same origin, which is available at that origin by construction.
+  - Support labels are never decoded or trained on.
+  - A missing support history is all-zero, including the validity channel. This applied to **5,490 of 32,490 support lookups (16.9 %)**, mainly the supports' own `skipped_all_missing_history` days.
+- **Training:** one model per target/seed, trained only on that target's prefix and arrived labels; no Source graph, no transfer.
+- **Network:** GCN (7→32) per hour → LSTM (64) on the target node → calendar head; 38,744 parameters.
 
----
-
-### 4.3 Matched Neural Backbone Comparison (Under Transfer)
-
-Comparing backbones when all architectures are initialized from Source pretraining:
-1. **GRU (5.3381 kWh MAE, 7.1417 kWh RMSE):** Achieves the lowest error among all evaluated models.
-2. **LSTM (5.3604 kWh MAE, 7.2253 kWh RMSE):** Performs nearly identically to GRU (+0.0223 kWh MAE difference, statistically indistinguishable), requiring 25% more parameters (65,368 vs 52,376).
-3. **TCN (5.3668 kWh MAE, 7.2414 kWh RMSE):** Delivers competitive accuracy (+0.0287 kWh MAE difference from GRU) via dilated causal convolutions, proving recurrent gating is not strictly required if causal temporal receptive field is preserved.
-4. **MLP (5.5328 kWh MAE, 7.3137 kWh RMSE):** Trails GRU by +0.1947 kWh, demonstrating sequence-aware temporal structures slightly outperform unstructured feedforward architectures even after pretraining.
-5. **TimeXer (5.6164 kWh MAE, 7.5321 kWh RMSE):** Performs reliably (+0.2783 kWh MAE difference from GRU), but cross-attention over short 24-step horizons does not outperform compact recurrent/convolutional encoders.
-
----
-
-### 4.4 Classical ML vs Neural Networks & Paired Significance Analysis
-
-Across the 245 common scored origins, we perform formal paired t-tests evaluating pairwise differences against the leading GRU Transfer baseline:
-
-| Model Pair | Mean MAE Diff (kWh) | Paired t-stat | p-value | Significant at $\alpha=0.05$ |
-| :--- | :--- | :--- | :--- | :--- |
-| **GRU Transfer vs LSTM (Transfer)** | +0.0149 | 0.285 | $7.756 \times 10^{-1}$ | **No (Indistinguishable)** |
-| **GRU Transfer vs TCN (Transfer)** | +0.0406 | 0.635 | $5.257 \times 10^{-1}$ | **No (Indistinguishable)** |
-| **GRU Transfer vs MLP (Transfer)** | +0.1680 | 1.802 | $7.281 \times 10^{-2}$ | **No (Indistinguishable at $\alpha=0.05$)** |
-| **GRU Transfer vs TimeXer (Transfer)** | +0.3220 | 4.240 | $3.169 \times 10^{-5}$ | **Yes (p < 0.05)** |
-| **GRU Transfer vs Random Forest (Target-Only)** | +0.5345 | 3.063 | $2.436 \times 10^{-3}$ | **Yes (p < 0.05)** |
-| **GRU Transfer vs Daily Naive (Target-Only)** | +1.6124 | 7.084 | $1.490 \times 10^{-11}$ | **Yes (p < 0.05)** |
-| **GRU Transfer vs Basic GCN-LSTM (Target-Only)**| +1.8973 | 8.894 | $1.350 \times 10^{-16}$ | **Yes (p < 0.05)** |
-| **GRU Transfer vs SARIMA (Target-Only)** | +7.3033 | 14.315 | $3.749 \times 10^{-34}$ | **Yes (p < 0.05)** |
-
-**Scientific Interpretation & Qualification:**
-- **Statistical Indistinguishability:** GRU, LSTM, and TCN under transfer form an equivalence cluster ($p > 0.50$). While GRU records the nominal minimum, claims of GRU superiority over LSTM or TCN are not statistically supported.
-- **Development Regime Findings:** Within the 4 evaluated Development target stations, transfer pretraining is necessary for deep neural networks to outperform classical ML baselines (Random Forest). In small-sample target-only settings, Random Forest (5.8672 kWh) decisively outperforms all target-only neural models (8.2280 - 9.0687 kWh). These findings constitute conditional empirical evidence within the 4 Development stations rather than an unconstrained universal law.
+### 3.4 TimeXer adapter vs the reference architecture
+The adapter keeps TimeXer's core idea (endogenous tokens querying exogenous tokens through cross-attention) but differs from the [official implementation](https://github.com/thuml/TimeXer) in the following ways:
+1. **Tokens:** one token per hour (24 endogenous tokens from a linear 7→64 projection), not patch tokens. The v2 report's "linear series patching" description was wrong.
+2. **No global token:** there is no learnable global endogenous token.
+3. **Exogenous tokens:** the 5 calendar features are embedded per future hour (24 tokens), not as variate-level series tokens.
+4. **Positional embedding and pooling:** a single positional embedding is shared by both token sets, and the output is a mean-pooled endogenous representation concatenated with the flattened calendar into an MLP head (Softplus).
+5. **Size and comparison:** one block, 4 heads, D = 64. Results are for this adapter, not a reproduction of published TimeXer.
 
 ---
 
-### 4.5 Station-by-Station Breakdown (MAE in kWh)
+## 4. Results — non-graph matrix (160 rows)
 
-| Model | Mode | Station 1153 ($s=56.0$) | Station 1405 ($s=43.9$) | Station 1693 ($s=14.0$) | Station 2152 ($s=42.0$) | Overall Mean |
-|---|---|---:|---:|---:|---:|---:|
-| **Daily Naive** | Target-Only | 11.1941 | 6.9545 | 2.9083 | 7.2482 | 7.0763 |
-| **Seasonal Naive** | Target-Only | 12.5791 | 8.5471 | 4.5807 | 8.1456 | 8.4631 |
-| **Ridge** | Target-Only | 8.1567 | 6.5483 | 3.0181 | 6.5124 | 6.0589 |
-| **SARIMA** | Target-Only | 23.2826 | 12.0070 | 4.3756 | 11.8579 | 12.8808 |
-| **Random Forest** | Target-Only | 7.8646 | 6.6145 | 2.8932 | 6.0963 | 5.8672 |
-| **XGBoost** | Target-Only | 8.7023 | 7.4645 | 3.1673 | 7.1997 | 6.6335 |
-| **MLP** | Target-Only | 10.9375 | 9.3357 | 4.9472 | 9.9907 | 8.8028 |
-| **MLP** | Transfer | 7.4175 | 6.0670 | 2.4419 | 6.2048 | 5.5328 |
-| **GRU** | Target-Only | 11.3466 | 9.3589 | 4.9745 | 10.5948 | 9.0687 |
-| **GRU** | Transfer | 6.9222 | 6.0491 | **2.4241** | 5.9571 | **5.3381** |
-| **LSTM** | Target-Only | 10.9835 | 9.7056 | 4.9353 | 10.6500 | 9.0686 |
-| **LSTM** | Transfer | **6.8347** | **6.0229** | 2.4794 | 6.1045 | 5.3604 |
-| **TCN** | Target-Only | 10.5324 | 8.9427 | 4.7834 | 8.6535 | 8.2280 |
-| **TCN** | Transfer | 6.9154 | 6.1570 | 2.5446 | **5.8501** | 5.3668 |
-| **TimeXer** | Target-Only | 10.5280 | 8.6043 | 4.7473 | 9.0614 | 8.2352 |
-| **TimeXer** | Transfer | 7.2265 | 6.6166 | 2.4787 | 6.1440 | 5.6164 |
+All MAE/RMSE values are in kWh, **station-first**: the mean over seeds within a station, then the unweighted mean over the 4 stations. Each row is scored on 245 common origins. Source: `readback/station_first_summary.csv`.
+
+| Model | Mode | Rows | MAE | RMSE | Params |
+|---|---|---:|---:|---:|---:|
+| Daily Naive | Target-only | 4 | 7.0763 | 9.5713 | 0 |
+| Seasonal Naive | Target-only | 4 | 8.4631 | 11.1458 | 0 |
+| Ridge | Target-only | 4 | 5.9339 | 7.9214 | 6,936 |
+| SARIMA | Target-only | 4 | 6.5799 | 9.0473 | 4 |
+| Random Forest | Target-only | 12 | 5.8008 | 7.6669 | 204,700 (node bound) |
+| XGBoost | Target-only | 12 | 6.4847 | 8.7584 | 3,150 (node bound) |
+| MLP | Target-only | 12 | 8.6711 | 10.7580 | 43,288 |
+| MLP | Transfer | 12 | 5.5196 | 7.3081 | 43,288 |
+| GRU | Target-only | 12 | 8.9406 | 10.9920 | 52,376 |
+| GRU | Transfer | 12 | 5.3150 | 7.1238 | 52,376 |
+| LSTM | Target-only | 12 | 8.9360 | 10.9821 | 65,368 |
+| LSTM | Transfer | 12 | 5.3356 | 7.1980 | 65,368 |
+| TCN | Target-only | 12 | 8.0734 | 10.1041 | 77,080 |
+| TCN | Transfer | 12 | 5.3447 | 7.2246 | 77,080 |
+| TimeXer | Target-only | 12 | 8.1209 | 10.1265 | 66,072 |
+| TimeXer | Transfer | 12 | 5.5823 | 7.5034 | 66,072 |
+
+### 4.1 Station breakdown (MAE, kWh)
+
+| Model | Mode | 1153 | 1405 | 1693 | 2152 |
+|---|---|---:|---:|---:|---:|
+| Daily Naive | Target-only | 11.1941 | 6.9545 | 2.9083 | 7.2482 |
+| Seasonal Naive | Target-only | 12.5791 | 8.5471 | 4.5807 | 8.1456 |
+| Ridge | Target-only | 8.0154 | 6.4952 | 2.8275 | 6.3975 |
+| SARIMA | Target-only | 9.5332 | 7.5622 | 2.7450 | 6.4791 |
+| Random Forest | Target-only | 7.7293 | 6.5237 | 2.8634 | 6.0867 |
+| XGBoost | Target-only | 8.4153 | 7.2621 | 3.1350 | 7.1265 |
+| MLP | Target-only | 10.8564 | 9.1603 | 4.8879 | 9.7797 |
+| MLP | Transfer | 7.4025 | 6.0169 | 2.4219 | 6.2373 |
+| GRU | Target-only | 11.2578 | 9.1836 | 4.9203 | 10.4007 |
+| GRU | Transfer | 6.9232 | 6.0020 | 2.3914 | 5.9435 |
+| LSTM | Target-only | 10.8937 | 9.5191 | 4.8728 | 10.4583 |
+| LSTM | Transfer | 6.8540 | 5.9732 | 2.4183 | 6.0968 |
+| TCN | Target-only | 10.4311 | 8.7457 | 4.6928 | 8.4239 |
+| TCN | Transfer | 6.9476 | 6.0806 | 2.4889 | 5.8617 |
+| TimeXer | Target-only | 10.4671 | 8.4389 | 4.7008 | 8.8770 |
+| TimeXer | Transfer | 7.2402 | 6.5018 | 2.4465 | 6.1407 |
+
+### 4.2 Paired common-origin analysis
+
+For each pair, the per-origin difference in seed-averaged daily MAE (comparator minus reference) is computed on origins scored by both. It is averaged within each station, then across the 4 stations.
+
+The 95 % interval is a 7-day moving-block bootstrap within each station (10,000 replicates, rng seed 20261110). Stations are held fixed: with four Development targets, between-station uncertainty is **not** estimable and is not included. Intervals therefore describe the uncertainty over origins for **these four stations only**. An interval containing 0 shows only that this study cannot separate the two models; it is not evidence of equivalence.
+
+**Transfer benefit within each backbone** (target-only minus transfer; positive = transfer better):
+
+| Backbone | Δ MAE | 95 % CI | Stations favouring transfer |
+|---|---:|---|---:|
+| MLP | +3.151 | [+2.315, +3.854] | 4/4 |
+| GRU | +3.626 | [+2.731, +4.369] | 4/4 |
+| LSTM | +3.600 | [+2.706, +4.389] | 4/4 |
+| TCN | +2.729 | [+2.000, +3.309] | 4/4 |
+| TimeXer | +2.539 | [+1.702, +3.135] | 4/4 |
+
+**Matched backbones and other baselines vs GRU transfer** (comparator minus GRU transfer; positive = GRU transfer lower MAE):
+
+| Comparator | Δ MAE | 95 % CI | Stations favouring GRU transfer |
+|---|---:|---|---:|
+| LSTM transfer | +0.021 | [−0.076, +0.107] | 2/4 |
+| TCN transfer | +0.030 | [−0.128, +0.135] | 3/4 |
+| MLP transfer | +0.205 | [+0.009, +0.382] | 4/4 |
+| TimeXer transfer | +0.267 | [+0.098, +0.452] | 4/4 |
+| Random Forest target-only | +0.486 | [+0.086, +0.834] | 4/4 |
+| Ridge target-only | +0.619 | [+0.124, +0.886] | 4/4 |
+| XGBoost target-only | +1.170 | [+0.716, +1.519] | 4/4 |
+| SARIMA target-only | +1.265 | [+0.812, +1.738] | 4/4 |
+| Daily Naive target-only | +1.761 | [+1.386, +2.249] | 4/4 |
+| Basic GCN-LSTM target-only (spatial, §5) | +1.814 | [+1.287, +2.280] | 4/4 |
+| Seasonal Naive target-only | +3.148 | [+2.592, +3.669] | 4/4 |
+
+### 4.3 Interpretation (conditional Development evidence)
+- **Transfer benefit:** on these four targets, Source initialization lowered MAE for every backbone, at every station, by 2.5–3.6 kWh (about 31–41 %).
+- **Backbone choice under transfer:**
+  - GRU has the lowest nominal MAE, but this study cannot separate it from LSTM or TCN (intervals include 0; LSTM is lower than GRU at 2 of 4 stations).
+  - MLP and TimeXer transfer are higher than GRU at all four stations. The MLP interval's lower bound (+0.009) is close to 0.
+  - **No GRU superiority claim is made.**
+- **Classical vs neural:** among target-only models, Random Forest (5.80) and Ridge (5.93) are lowest, and every target-only neural model is higher (8.07–8.94).
+  - The GRU-transfer vs Random-Forest gap mixes architecture, Source data and training regime, so it says nothing about architecture alone (#95).
+  - This study does not establish that transfer is *necessary* for neural models to beat classical baselines in general. That claim from v2 is withdrawn.
+
+### 4.4 Seed variability (`readback/seed_variability.csv`)
+
+Sample SD (n = 3) of the seed-level station-first MAE, in kWh:
+
+| Model | Target-only SD | Transfer SD |
+|---|---:|---:|
+| MLP | 0.128 | 0.096 |
+| GRU | 0.447 | 0.061 |
+| LSTM | 0.201 | 0.057 |
+| TCN | 0.092 | 0.067 |
+| TimeXer | 0.218 | 0.205 |
+| Random Forest | 0.007 | — |
+| XGBoost | 0.000 (deterministic) | — |
+| Basic GCN-LSTM | 0.116 | — |
+
+The transfer-mode SD range is **0.057–0.205 kWh**, which includes TimeXer (0.205). With n = 3, these SDs are imprecise.
 
 ---
 
-### 4.6 Stochastic Seed Variability (Seeds 42, 43, 44)
+## 5. Spatial comparator — Basic GCN-LSTM (12 rows, reported separately)
 
-| Model | Mode | Seed 42 MAE | Seed 43 MAE | Seed 44 MAE | Mean MAE | Seed Std Dev |
-|---|---|---:|---:|---:|---:|---:|
-| **Random Forest** | Target-Only | 5.8842 | 5.8466 | 5.8707 | 5.8672 | $\pm 0.0190$ |
-| **XGBoost** | Target-Only | 6.6335 | 6.6335 | 6.6335 | 6.6335 | $\pm 0.0000$ |
-| **MLP** | Target-Only | 8.7698 | 8.6912 | 8.9473 | 8.8028 | $\pm 0.1312$ |
-| **MLP** | Transfer | 5.6227 | 5.3929 | 5.5828 | 5.5328 | $\pm 0.1228$ |
-| **GRU** | Target-Only | 9.1891 | 8.5663 | 9.4507 | 9.0687 | $\pm 0.4544$ |
-| **GRU** | Transfer | 5.3390 | 5.4071 | 5.2683 | 5.3381 | $\pm 0.0694$ |
-| **LSTM** | Target-Only | 9.1291 | 9.2378 | 8.8388 | 9.0686 | $\pm 0.2063$ |
-| **LSTM** | Transfer | 5.4046 | 5.2940 | 5.3826 | 5.3604 | $\pm 0.0586$ |
-| **TCN** | Target-Only | 8.2164 | 8.3239 | 8.1437 | 8.2280 | $\pm 0.0906$ |
-| **TCN** | Transfer | 5.4276 | 5.3931 | 5.2796 | 5.3668 | $\pm 0.0774$ |
-| **TimeXer** | Target-Only | 8.2557 | 8.0093 | 8.4407 | 8.2352 | $\pm 0.2164$ |
-| **TimeXer** | Transfer | 5.8519 | 5.5205 | 5.4770 | 5.6164 | $\pm 0.2051$ |
+| Station | Seed 42 | Seed 43 | Seed 44 | Mean MAE |
+|---|---:|---:|---:|---:|
+| 1153 | 9.7551 | 9.8535 | 9.6599 | 9.7562 |
+| 1405 | 8.0528 | 7.9101 | 7.7266 | 7.8965 |
+| 1693 | 3.4484 | 3.4642 | 3.5336 | 3.4820 |
+| 2152 | 7.5781 | 7.5031 | 7.0608 | 7.3806 |
+| **Station-first** | 7.2086 | 7.1827 | 6.9952 | **7.1288** (RMSE 9.3308) |
 
-**Seed Consistency Analysis:**
-- Across transfer neural models, standard deviation spans $\sigma \in [0.0586, 0.2051]\text{ kWh}$.
-- Recurrent (LSTM $\sigma=0.0586$, GRU $\sigma=0.0694$) and convolutional (TCN $\sigma=0.0774$) models exhibit high stability across seeds.
-- TimeXer shows higher sensitivity across initialization seeds ($\sigma = 0.2051\text{ kWh}$), reflecting the optimization dynamics of multi-head cross-attention over short temporal patches.
+- The graph model uses extra spatial information (support-node histories) that the non-graph models do not receive, so it is not part of the backbone comparison.
+- Its MAE (7.13) is lower than the target-only recurrent/MLP networks (8.67–8.94) in this study, but higher than Ridge, Random Forest, SARIMA and Daily Naive. It is 1.81 kWh above GRU transfer (CI [+1.29, +2.28]).
+- No paired test of graph vs target-only neural models was run. This report makes no causal claim that spatial message passing improves forecasts, and the v2 "significantly outperforming" wording is withdrawn.
+- Results depend on the locked K = 3 rule and the zero-masking of 16.9 % of support histories.
 
 ---
 
-## 5. Spatial Comparator Benchmark: Basic GCN-LSTM (12 Rows)
+## 6. Arrival-guard demonstration: did the historical scores change?
 
-Graph results are reported in this isolated section as the model ingests spatial cross-station distance dependencies from `station_distance.csv`.
+Comparison of all 172 rows by model/mode/station/seed, ignoring the run-tag prefix (`historical_v1/runs_v1.csv`, `historical_v2/runs_v2.csv`, `runs_v3.csv`):
 
-### 5.1 Spatial Setup
-- **Nodes:** Development target stations {1405, 2152, 1153, 1693} with geographical distances from `UrbanEVDataset.zip`.
-- **Adjacency Matrix:** Normalized Laplacian $A_{\text{norm}} = D^{-1/2} (A + I) D^{-1/2}$ with Gaussian kernel thresholding.
-- **Multi-Node Historical Inputs:** At each replay origin, each node receives the genuine time-aligned 24-hour history from its corresponding station, with zero-masking for missing history origins.
-- **Model:** GCN spatial layer ($32\text{ dims}$) + node-level LSTM ($64\text{ dims}$) + calendar head ($64 \to 24$) with Softplus ($38,744\text{ parameters}$).
+| Model group | Rows | v3 = v1 (exact, 6 d.p.) | v3 = v2 | Max \|v2 − v3\| MAE |
+|---|---:|---:|---:|---:|
+| Daily / Seasonal Naive (no learning) | 8 | 8 | 8 | 0 |
+| Ridge, Random Forest, all 10 neural mode groups | 136 | **136** | 0 | 0.240 |
+| XGBoost (config 100 → 50 trees after v1) | 12 | 0 | 0 | 0.287 |
+| SARIMA (code fixed) | 4 | 0 | 0 | 13.749 |
+| Basic GCN-LSTM (graph fixed) | 12 | 0 | 0 | 0.229 |
 
-### 5.2 Spatial Results Table
+What the comparison shows:
+- **v3 equals v1:** for every learner whose model code did not change, the corrected guard reproduces the v1 scores exactly. On the real inputs, v1's update timing therefore did not use any label before its arrival time.
+- **v2 differed:** v2's ordering lagged every update by one day, which changed all 136 learner rows. **v2 scores are superseded and must not be cited.**
+- **Synthetic fixture:** the reviewer's delayed-label case (a label arriving after the next origin) is now covered by tests.
 
-| Target Station | Seed | Scheduled Days | Issued Days | Scored Days | MAE (kWh) | RMSE (kWh) | Wall Time (s) |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| **1153** | 42 | 90 | 59 | 52 | 9.7952 | 12.2046 | 0.36s |
-| **1153** | 43 | 90 | 59 | 52 | 9.9053 | 12.4392 | 0.35s |
-| **1153** | 44 | 90 | 59 | 52 | 9.6771 | 12.2214 | 0.44s |
-| **1405** | 42 | 90 | 90 | 89 | 8.1624 | 10.4859 | 0.62s |
-| **1405** | 43 | 90 | 90 | 89 | 8.0652 | 10.4056 | 0.61s |
-| **1405** | 44 | 90 | 90 | 89 | 7.8913 | 10.1132 | 0.61s |
-| **1693** | 42 | 90 | 59 | 52 | 3.5188 | 5.3186 | 0.35s |
-| **1693** | 43 | 90 | 59 | 52 | 3.4932 | 5.2921 | 0.39s |
-| **1693** | 44 | 90 | 59 | 52 | 3.5533 | 5.4081 | 0.35s |
-| **2152** | 42 | 90 | 59 | 52 | 7.8070 | 10.1021 | 0.39s |
-| **2152** | 43 | 90 | 59 | 52 | 7.4847 | 9.7358 | 0.42s |
-| **2152** | 44 | 90 | 59 | 52 | 7.2732 | 9.5634 | 0.35s |
+---
 
-### 5.3 Spatial Comparator Summary
+## 7. Execution cost (v3, measured)
 
-| Target Station | Mean MAE (kWh) | Std Dev MAE | Mean RMSE (kWh) | Param Count | Avg Replay Time (s) |
+Mean seconds per row from `runs_v3.csv`:
+- Inference and update are summed over the 90-day replay.
+- "Source" is the recorded Source wall time for the backbone/seed, amortized over 4 targets.
+- `total` is replay wall time plus amortized Source time plus adaptation time.
+- Timers do not overlap.
+
+| Model / mode | Source (amortized) | Adapt | Inference | Update/refit | Total |
 |---|---:|---:|---:|---:|---:|
-| **1153** | 9.7925 | $\pm 0.1142$ | 12.2884 | 38,744 | 0.38s |
-| **1405** | 8.0396 | $\pm 0.1373$ | 10.3349 | 38,744 | 0.61s |
-| **1693** | 3.5218 | $\pm 0.0301$ | 5.3396 | 38,744 | 0.36s |
-| **2152** | 7.5216 | $\pm 0.2688$ | 9.8004 | 38,744 | 0.39s |
-| **Overall** | **7.2189** | $\pm 0.1122$ | **9.4408** | **38,744** | **0.44s** |
+| Daily Naive | — | — | 0.0009 | 0.0002 | 0.003 |
+| Seasonal Naive | — | — | 0.0321 | 0.0023 | 0.037 |
+| Ridge | — | — | 0.0088 | 0.0482 | 0.060 |
+| SARIMA | — | — | 0.1656 | 2.3587 | 2.528 |
+| Random Forest | — | — | 1.1238 | 0.6876 | 1.817 |
+| XGBoost | — | — | 0.0587 | 3.6204 | 3.685 |
+| MLP target-only / transfer | — / 1.043 | 0.013 / 0.013 | 0.015 / 0.014 | 0.074 / 0.072 | 0.107 / 1.147 |
+| GRU target-only / transfer | — / 7.261 | 0.095 / 0.098 | 0.102 / 0.102 | 0.602 / 0.594 | 0.807 / 8.061 |
+| LSTM target-only / transfer | — / 4.360 | 0.032 / 0.033 | 0.044 / 0.042 | 0.165 / 0.156 | 0.248 / 4.596 |
+| TCN target-only / transfer | — / 5.038 | 0.045 / 0.045 | 0.083 / 0.084 | 0.212 / 0.217 | 0.346 / 5.391 |
+| TimeXer target-only / transfer | — / 5.148 | 0.045 / 0.041 | 0.062 / 0.063 | 0.245 / 0.248 | 0.359 / 5.507 |
+| Basic GCN-LSTM | — | in construction | 0.1109 | 0.3000 | 0.418 |
 
-**Spatial Findings:**
-1. **Target-Only Spatial Gain:** When supplied with genuine multi-node historical signals, Basic GCN-LSTM achieves an overall MAE of **7.2189 kWh**, significantly outperforming Target-Only single-station neural networks (GRU: **9.0687 kWh**, LSTM: **9.0686 kWh**, MLP: **8.8028 kWh**, TCN: **8.2280 kWh**). Spatial message passing regularizes local station predictions in the low-data target-only regime.
-2. **Transfer Pretraining Remains Superior:** GCN-LSTM without pretraining trails Source-pretrained transfer models (**GRU Transfer 5.3381 kWh**). Cross-station spatial convolution over 4 stations does not replace the statistical advantage of pretraining on 65,888 diverse charging instances.
+- **Source trajectories:** 15 trajectories, recorded wall seconds per checkpoint (3 seeds each):
+  - MLP: 4.0–4.5
+  - GRU: 27.4–30.0
+  - LSTM: 17.2–17.7
+  - TCN: 19.6–20.9
+  - TimeXer: 19.6–22.0
 
----
+  The checkpoints were trained during the v1 execution and **reused unchanged** by v2 and v3. Their SHA-256s are logged in `execution_log.jsonl`, and the training code is unchanged since v1.
+- **End-to-end:** the 172-row v3 replay took 181.4 s with Source reused. Process peak working set was 776 MiB.
+- **Memory (pilot, per model):** `pilot/pilot_record.json` records, for each of the 17 pilot model/mode configurations on 1405 / seed 42:
+  - the tracemalloc peak (Python/NumPy heap only: 0.8–88.5 MiB; SARIMA highest);
+  - the process working set (334–567 MiB).
 
-## 6. Execution Costs & Runtime Boundaries
-
-All experiments were executed on an Intel CPU under Windows (Python 3.12, PyTorch 2.14 CPU):
-
-| Model Category | Pretraining Wall Time | Adaptation Time / Station | 90-Day Inference Time | Daily Update Time | Total Replay Wall Time |
-|---|---:|---:|---:|---:|---:|
-| **Daily Naive** | 0.00s | 0.00s | 0.0008s | 0.0002s | **0.003s** |
-| **Seasonal Naive** | 0.00s | 0.00s | 0.0316s | 0.0023s | **0.037s** |
-| **Ridge** | 0.00s | 0.00s | 0.0084s | 0.0466s | **0.058s** |
-| **SARIMA** | 0.00s | 0.00s | 2.5000s | 1.5500s | **4.060s** |
-| **Random Forest** | 0.00s | 0.00s | 1.1000s | 0.6500s | **1.765s** |
-| **XGBoost** | 0.00s | 0.00s | 0.0650s | 3.4900s | **3.560s** |
-| **MLP (Target-Only)** | 0.00s | 0.0183s | 0.0214s | 0.0737s | **0.113s** |
-| **MLP (Transfer)** | 4.17s (1.04s amortized) | 0.0201s | 0.0223s | 0.0680s | **1.150s** |
-| **GRU (Target-Only)** | 0.00s | 0.1579s | 0.1772s | 0.4784s | **0.814s** |
-| **GRU (Transfer)** | 29.04s (7.26s amortized) | 0.1536s | 0.1860s | 0.4700s | **8.069s** |
-| **LSTM (Target-Only)**| 0.00s | 0.0417s | 0.0593s | 0.1716s | **0.273s** |
-| **LSTM (Transfer)** | 17.44s (4.36s amortized) | 0.0432s | 0.0598s | 0.1924s | **4.655s** |
-| **TCN (Target-Only)** | 0.00s | 0.0635s | 0.1184s | 0.3395s | **0.521s** |
-| **TCN (Transfer)** | 20.15s (5.04s amortized) | 0.0618s | 0.1192s | 0.3246s | **5.546s** |
-| **TimeXer (Target-Only)**| 0.00s | 0.0620s | 0.0798s | 0.1990s | **0.341s** |
-| **TimeXer (Transfer)**| 20.59s (5.15s amortized) | 0.0597s | 0.0890s | 0.1826s | **5.481s** |
-| **Basic GCN-LSTM** | 0.00s | 0.00s | 0.1144s | 0.3221s | **0.437s** |
-
-- Full 172-row execution suite completes in **3.33 minutes** with pre-saved source checkpoints (~5 minutes if pretraining from scratch).
+  The PyTorch CPU allocator is not tracked by tracemalloc, and the working set is a process-level figure, so per-model neural memory is **not** isolated.
+- **Pilot status:** all 17 pilot configurations completed with no failures. The pilot was run after the code fixes and before the v3 full run. It verifies execution and gates only and was not used for model selection.
 
 ---
 
-## 7. Adverse Findings, Null Cases & Scientific Limitations
+## 8. Environment and code identity
 
-1. **Empirical Verification of Arrival Guard Invariance:** An exhaustive scan across all target stations verified that **zero complete labels arrive after the next scheduled origin** (`delayed_past_next == 0` for stations 1405, 2152, 1153, 1693). Gating label arrival by the replay clock enforces mathematical causality without altering historical evaluation scores.
-2. **Exploratory Development Limitation:** These 4 Development target stations were selected based on historical data availability. Results constitute conditional Development evidence rather than population-wide proof across unobserved stations.
-3. **Missing History Nulls:** Target stations 2152, 1153, and 1693 possess 31 days with missing history (`skipped_all_missing_history`). Forecasts were cleanly not issued, and no labels were decoded or imputed for these origins.
-4. **Incomplete Ground Truth Days:** Exactly 22 target days experienced sensor dropouts (`file_valid` incomplete). These days were withheld from scoring across all models, ensuring exact common-origin parity.
-5. **Target-Only Deep Learning Failure:** Without pretraining, deep neural networks fail to compete with classical Random Forest (5.8672 kWh) and Ridge (6.0589 kWh) under scarce initial data budgets.
-
----
-
-## 8. Artifact Provenance, SHA-256 Checksums & Readback Evidence
-
-- **Primary Metrics Ledger:** `experiments/member_studies/cyber_baselines/runs.csv` (172 rows, LF newline format).
-- **Artifact Manifest:** `experiments/member_studies/cyber_baselines/artifacts/manifest.json` (**188 verified entries**: 172 predictions, 15 PyTorch source checkpoints, 1 runs.csv).
-- **Preserved Historical Evidence:** Archived in `experiments/member_studies/cyber_baselines/historical_v1/` (`runs_v1.csv` and `manifest_v1.json`).
-- **Independent Verification Tool:** Run `python -m experiments.member_studies.cyber_baselines.verify_results --paired` to verify all 188 checksums, recompute metrics from raw prediction bytes, and generate paired statistical tests.
-- **External Immutable Release Bundle:** Full bundle containing all predictions, checkpoints, configs, and readback code published at GitHub Release `v0.9.5-cyber-benchmark-v2`:  
-  `https://github.com/HungLD9505/adaptive-retention-ev/releases/tag/v0.9.5-cyber-benchmark-v2`
+`artifacts_v3/environment.json` records:
+- **Machine:** Windows 11 (10.0.26300), Intel64 Family 6 Model 154, 12 torch threads.
+- **Software:** Python 3.12.10, numpy 2.5.4, pandas 3.1.1, torch 2.14.1+cpu, scikit-learn 1.9.1, xgboost 3.4.1, statsmodels 0.15.0.
+- **Input:** the input `manifest.json` SHA-256.
+- **Code identity:** the SHA-256 of every executed study source file. The run was executed from uncommitted changes on top of `553275a`, so the code hashes, not the base commit, identify the executed code. The v3 commit contains byte-identical `.py` files, and `verify_results` users can recompute those hashes.
+- **Platform caveat:** this is a local CPU run, not the external compute environment #95 asks for. The full replay is short (3 minutes), but the run should be read with that caveat.
 
 ---
 
-## 9. Quality Gates & Acceptance Verification
+## 9. Artifacts, preservation and readback
 
-- **Linting:** `python -m ruff check experiments/member_studies/cyber_baselines tests/test_cyber_baselines.py` $\to$ **All checks passed!**
-- **Formatting:** `python -m ruff format --check .` $\to$ **100% compliant**.
-- **Unit & Regression Testing:** `python -m unittest tests.test_cyber_baselines` $\to$ **13 tests passed in 2.31s (OK)**.
-- **Manifest Audit:** All 188 files verified with binary SHA-256 match and strict LF newlines.
-- **Ownership Notice:** Conducted independently by `@hung00cyber`. Companion Issue #96 owned by `@huuduc32`.
+**v3 (current), in `experiments/member_studies/cyber_baselines/`:**
+
+Tracked in Git:
+- `runs_v3.csv` (172 rows)
+- `artifacts_v3/manifest.json` (367 SHA-256 entries)
+- `artifacts_v3/environment.json`
+- `artifacts_v3/execution_log.jsonl`
+- `artifacts_v3/graph_lock.json`
+- `artifacts_v3/pilot/pilot_record.json` and `pilot_runs.csv`
+- `artifacts_v3/readback/{station_first_summary,seed_variability,paired_differences}.csv`
+
+Outside Git (bundle only):
+- 172 per-origin forecast files (`*_predictions.json`, with labels, availability-based scoring and model diagnostics)
+- 172 fitted target states (`fitted/`: neural/GCN `state_dict`s, pickled RF/XGBoost/Ridge estimators, SARIMA parameters and diagnostics, naive stubs)
+- `readback/daily_errors.csv`
+- the 15 Source checkpoints
+
+**External bundle:** `cyber_baselines_bundle_v3.zip`, with members at their repo-relative paths. It is to be attached to a **new** release tag `v0.9.5-cyber-benchmark-v3` and must not replace the v2 release. Its SHA-256 and link will be posted on #95 and PR #104 once published.
+
+**Preserved prior evidence (unchanged bytes):**
+- `historical_v1/runs_v1.csv`, `historical_v1/manifest_v1.json`
+- `historical_v2/runs_v2.csv` (SHA-256 `9e429c2c…7099`), `historical_v2/manifest_v2.json` (`27b835c1…6e36`), moved with `git mv`
+- release `v0.9.5-cyber-benchmark-v2` (v2 forecasts; superseded, see §6)
+
+**Independent readback** (from a checkout plus the extracted bundle):
+
+```
+python -m experiments.member_studies.cyber_baselines.verify_results --readback
+```
+
+Result on 10 Nov 2026:
+- all 367 manifest entries match on-disk bytes, with LF-only text;
+- every daily and run-level MAE/RMSE and every coverage count for the 172 ledger rows was recomputed from the stored forecasts and labels and matches the ledger (≤ 5e-6 kWh);
+- the readback tables were regenerated.
+
+The readback uses the producer's own code. A reviewer-side reimplementation is still needed for independent verification.
+
+---
+
+## 10. Quality gates (run 10 Nov 2026, repo `.venv`, Python 3.12.10)
+
+| README check | Result |
+|---|---|
+| `python -m tools.sources list` | exit 0 |
+| `python -m tools.check_release` | exit 0 |
+| `python -m unittest discover -s tests` | **FAILED:** 915 run, 1 failure, 2 errors, 4 skipped |
+| `python -m unittest discover -s experiments/fixed_adaptation` | 9 passed |
+| `python -m unittest discover -s experiments/confidence_controller` | 12 passed |
+| `python -m ruff check .` | passed |
+| `python -m ruff format --check .` | passed (530 files) |
+
+The full-suite failures are in tests this PR does not touch:
+- `test_hung_proxy_calibration` (calibration identity mismatch)
+- `test_hung_final_candidate_jobset` (plan/job drift)
+- `test_release_check` symlink test (`WinError 1314`: Windows symlink privilege)
+
+The branch differs from `dev` only in Cyber files and `.gitignore`. These failures are reported, not attributed to this PR, and not fixed here. The checkout is a OneDrive-synced Windows working copy, not a clean CI checkout.
+
+Cyber tests: `python -m unittest tests.test_cyber_baselines` → **23 passed**, including 10 new regression tests in v3. These tests are fixtures, not evidence of model effectiveness.
+
+---
+
+## 11. Limitations and open items
+1. **Not a held-out result:** four historically selected Development targets, so the study is exploratory and conditional. No Final or population claim is made.
+2. **No tuning and no locks:** there was no tuning budget, no pre-execution lock record, and only 3 Source epochs with the last checkpoint, so the backbones may be under-trained to different degrees.
+3. **Stations:** stations are fixed in all intervals, and n = 3 seeds.
+4. **Graph:** results depend on the K = 3 support rule, and 16.9 % of support histories were zero-masked.
+5. **Compute and memory:** local CPU execution, and memory is not isolated per neural model.
+6. **Pending:**
+   - publication of the v3 bundle;
+   - agreement of a common protocol/result schema with #96 (`@huuduc32`);
+   - peer approval on the revised head.
+
+   #95 remains open.

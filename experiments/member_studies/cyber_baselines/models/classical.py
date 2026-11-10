@@ -106,7 +106,18 @@ class RidgeBaseline(BaseForecaster):
 
 
 class SARIMABaseline(BaseForecaster):
-    """SARIMA baseline with calendar gap preservation, Kalman state advance, and weekly refit."""
+    """SARIMA baseline on a regular hourly index with origin-relative forecasting.
+
+    Protocol (locked for run tag v3):
+    - The observed series lives on a regular hourly DatetimeIndex; calendar gaps and
+      incomplete days stay as NaN and are handled by the Kalman filter, never concatenated away.
+    - Parameters are re-estimated on the most recent 336 hours every ``refit_interval``
+      complete-label updates. Between refits, the fitted state is advanced with every newly
+      arrived complete day via ``append(refit=False)``.
+    - ``predict`` never mutates state: it forecasts from the end of the filtered state up to the
+      requested origin's horizon and returns the final 24 hours (origin-relative horizon).
+    - Failed fits/advances and fallback forecasts are counted and exported as diagnostics.
+    """
 
     def __init__(
         self,
@@ -126,13 +137,19 @@ class SARIMABaseline(BaseForecaster):
         self.step_count = 0
         self.last_fit_status = "unfitted"
         self.fit_error: str | None = None
+        self.fit_attempts = 0
+        self.fit_failures = 0
+        self.advance_failures = 0
+        self.fallback_forecasts = 0
+        self.model_forecasts = 0
+        self.fallback_reasons: dict[str, int] = {}
 
         if initial_records:
             for rec in initial_records:
                 timestamps = self._extract_timestamps(rec)
                 y_scaled = rec.get("y_scaled", [])
                 if len(y_scaled) == len(timestamps):
-                    for t, v in zip(timestamps, y_scaled, strict=False):
+                    for t, v in zip(timestamps, y_scaled, strict=True):
                         self.hourly_dict[t] = float(v)
             self._fit()
 
@@ -146,126 +163,128 @@ class SARIMABaseline(BaseForecaster):
 
     @property
     def diagnostics(self) -> dict[str, Any]:
-        """Surface fitting status and error diagnostics for auditability."""
+        """Surface fitting status, failures and fallback usage for auditability."""
         return {
             "last_fit_status": self.last_fit_status,
             "fit_error": self.fit_error,
             "step_count": self.step_count,
             "total_hourly_points": len(self.hourly_dict),
+            "fit_attempts": self.fit_attempts,
+            "fit_failures": self.fit_failures,
+            "advance_failures": self.advance_failures,
+            "model_forecasts": self.model_forecasts,
+            "fallback_forecasts": self.fallback_forecasts,
+            "fallback_reasons": dict(self.fallback_reasons),
         }
 
     def _extract_timestamps(self, record: dict[str, Any]) -> list[Any]:
-        """Extract continuous hourly timestamps from record, with synthetic fallback."""
+        """Extract the 24 hourly horizon timestamps of a forecast record."""
         fc = record.get("forecast", record)
         labels = fc.get("future_labels")
         if HAS_PANDAS and labels and len(labels) == 24:
-            return [pd.to_datetime(t) for t in labels]
+            return [pd.Timestamp(t) for t in labels]
         if HAS_PANDAS and "origin" in fc:
-            base = pd.to_datetime(fc["origin"])
+            base = pd.Timestamp(fc["origin"])
             return [base + pd.Timedelta(hours=h) for h in range(24)]
-        if HAS_PANDAS:
-            base = pd.Timestamp("2022-11-01 00:00:00") + pd.Timedelta(hours=len(self.hourly_dict))
-            return [base + pd.Timedelta(hours=h) for h in range(24)]
-        return list(range(len(self.hourly_dict), len(self.hourly_dict) + 24))
+        raise ValueError("SARIMA record has neither future_labels nor origin timestamps")
+
+    def _state_end(self) -> Any:
+        return self.fitted_res.fittedvalues.index[-1]
+
+    def _observed_series(self, start: Any, end: Any) -> Any:
+        """Observed values on a regular hourly grid [start, end]; unobserved hours are NaN."""
+        idx = pd.date_range(start=start, end=end, freq="h")
+        return pd.Series(self.hourly_dict, dtype=float).reindex(idx)
 
     def _fit(self) -> None:
-        """Full parameter optimization on active recent history (up to 336 hours = 14 days)."""
+        """Re-estimate parameters on the most recent 336 hours (14 days) of the hourly grid."""
         if not HAS_STATSMODELS or not HAS_PANDAS or not self.hourly_dict:
             return
+        self.fit_attempts += 1
+        max_t = max(self.hourly_dict)
+        start = max(min(self.hourly_dict), max_t - pd.Timedelta(hours=335))
+        active_series = self._observed_series(start, max_t)
 
-        min_t = min(self.hourly_dict.keys())
-        max_t = max(self.hourly_dict.keys())
-        full_idx = pd.date_range(start=min_t, end=max_t, freq="h")
-        s = pd.Series(self.hourly_dict).reindex(full_idx)
-        active_series = s.iloc[-336:]
+        if active_series.notna().sum() < 48:
+            self.last_fit_status = "insufficient_data"
+            self.fit_failures += 1
+            self._advance_state()
+            return
+        try:
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                mod = SARIMAX(
+                    active_series,
+                    order=self.order,
+                    seasonal_order=self.seasonal_order,
+                    enforce_stationarity=False,
+                    enforce_invertibility=False,
+                )
+                self.fitted_res = mod.fit(disp=False, maxiter=self.maxiter)
+            self.last_fit_status = "ok"
+            self.fit_error = None
+        except Exception as e:  # noqa: BLE001 - surfaced through diagnostics
+            self.last_fit_status = "failed"
+            self.fit_error = str(e)
+            self.fit_failures += 1
+            # Keep previous parameters but bring the filtered state up to the newest data
+            self._advance_state()
 
-        # Must have at least 48 valid non-null observations
-        if active_series.dropna().shape[0] >= 48:
-            try:
-                with warnings.catch_warnings():
-                    warnings.simplefilter("ignore")
-                    mod = SARIMAX(
-                        active_series,
-                        order=self.order,
-                        seasonal_order=self.seasonal_order,
-                        enforce_stationarity=False,
-                        enforce_invertibility=False,
-                    )
-                    self.fitted_res = mod.fit(disp=False, maxiter=self.maxiter)
-                    self.last_fit_status = "ok"
-                    self.fit_error = None
-            except Exception as e:
-                self.last_fit_status = "failed"
-                self.fit_error = str(e)
-                # Note: preserve previous fitted_res if present to prevent silent degradation
+    def _advance_state(self) -> None:
+        """Filter every observed hour after the current state end (gaps as NaN), no refit."""
+        if self.fitted_res is None or not self.hourly_dict:
+            return
+        last_t = self._state_end()
+        max_t = max(self.hourly_dict)
+        if max_t <= last_t:
+            return
+        new_s = self._observed_series(last_t + pd.Timedelta(hours=1), max_t)
+        try:
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                self.fitted_res = self.fitted_res.append(new_s, refit=False)
+        except Exception as e:  # noqa: BLE001 - surfaced through diagnostics
+            self.advance_failures += 1
+            self.fit_error = f"advance_failed: {e}"
+
+    def _fallback(self, record: dict[str, Any], reason: str) -> list[float]:
+        self.fallback_forecasts += 1
+        self.fallback_reasons[reason] = self.fallback_reasons.get(reason, 0) + 1
+        x_hist = record.get("x_hist", [])
+        return [row[0] if len(row) >= 7 and row[-1] > 0.5 else 0.0 for row in x_hist]
 
     def predict(self, record: dict[str, Any]) -> list[float]:
-        """Predict 24 hours, advancing across any missing calendar gaps if needed."""
-        x_hist = record.get("x_hist", [])
-        if self.fitted_res is not None and HAS_PANDAS:
-            try:
-                target_timestamps = self._extract_timestamps(record)
-                if (
-                    hasattr(self.fitted_res, "fittedvalues")
-                    and isinstance(self.fitted_res.fittedvalues.index, pd.DatetimeIndex)
-                    and len(target_timestamps) == 24
-                ):
-                    last_t = self.fitted_res.fittedvalues.index[-1]
-                    target_start = target_timestamps[0]
-                    # Fill calendar gap with NaNs in Kalman filter
-                    if target_start > last_t + pd.Timedelta(hours=1):
-                        gap_idx = pd.date_range(
-                            start=last_t + pd.Timedelta(hours=1),
-                            end=target_start - pd.Timedelta(hours=1),
-                            freq="h",
-                        )
-                        if len(gap_idx) > 0:
-                            gap_s = pd.Series(np.nan, index=gap_idx)
-                            with warnings.catch_warnings():
-                                warnings.simplefilter("ignore")
-                                self.fitted_res = self.fitted_res.append(gap_s, refit=False)
-
-                fc = self.fitted_res.forecast(steps=24)
-                return np.maximum(0.0, np.asarray(fc, dtype=float)).tolist()
-            except Exception as e:
-                self.fit_error = f"predict_failed: {e}"
-
-        # Fallback to recent 24h from visible history
-        fallback = [row[0] if len(row) >= 7 and row[-1] > 0.5 else 0.0 for row in x_hist]
-        return fallback
+        """Forecast the record's 24-hour horizon relative to the end of the filtered state."""
+        if self.fitted_res is None or not HAS_PANDAS:
+            return self._fallback(record, "unfitted")
+        try:
+            target_timestamps = self._extract_timestamps(record)
+            last_t = self._state_end()
+            steps = int((target_timestamps[-1] - last_t) / pd.Timedelta(hours=1))
+            if steps < 24:
+                return self._fallback(record, "horizon_overlaps_state")
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                fc = np.asarray(self.fitted_res.forecast(steps=steps), dtype=float)[-24:]
+            if not np.all(np.isfinite(fc)):
+                return self._fallback(record, "non_finite_forecast")
+            self.model_forecasts += 1
+            return np.maximum(0.0, fc).tolist()
+        except Exception as e:  # noqa: BLE001 - surfaced through diagnostics
+            self.fit_error = f"predict_failed: {e}"
+            return self._fallback(record, "predict_exception")
 
     def update(self, record: dict[str, Any], y_scaled: list[float]) -> dict[str, Any]:
-        """Incorporate newly arrived complete day. Refit weekly; advance Kalman state daily."""
+        """Add a newly arrived complete day; refit weekly, otherwise advance the state."""
         timestamps = self._extract_timestamps(record)
-        for t, v in zip(timestamps, y_scaled, strict=False):
+        for t, v in zip(timestamps, y_scaled, strict=True):
             self.hourly_dict[t] = float(v)
 
         self.step_count += 1
-        # Weekly refit or initial fit if unfitted
         if self.step_count % self.refit_interval == 0 or self.fitted_res is None:
             self._fit()
         else:
-            # Daily state advance between refits without re-estimating parameters
-            if self.fitted_res is not None and HAS_PANDAS:
-                try:
-                    last_t = self.fitted_res.fittedvalues.index[-1]
-                    new_start = timestamps[0]
-                    if new_start > last_t + pd.Timedelta(hours=1):
-                        gap_idx = pd.date_range(
-                            start=last_t + pd.Timedelta(hours=1),
-                            end=new_start - pd.Timedelta(hours=1),
-                            freq="h",
-                        )
-                        gap_s = pd.Series(np.nan, index=gap_idx)
-                        new_s = pd.concat([gap_s, pd.Series(y_scaled, index=timestamps)])
-                    else:
-                        new_s = pd.Series(y_scaled, index=timestamps)
-
-                    with warnings.catch_warnings():
-                        warnings.simplefilter("ignore")
-                        self.fitted_res = self.fitted_res.append(new_s, refit=False)
-                except Exception as e:
-                    self.fit_error = f"daily_advance_failed: {e}"
+            self._advance_state()
 
         return {
             "status": self.last_fit_status,

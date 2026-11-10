@@ -16,6 +16,7 @@ from experiments.member_studies.cyber_baselines.config import BenchmarkConfig
 from experiments.member_studies.cyber_baselines.data import TargetReplayData
 from experiments.member_studies.cyber_baselines.models.base import BaseForecaster
 from experiments.member_studies.cyber_baselines.models.classical import (
+    HAS_PANDAS,
     HAS_SKLEARN,
     HAS_STATSMODELS,
     HAS_XGBOOST,
@@ -215,10 +216,10 @@ class TestCyberBaselines(unittest.TestCase):
             )
 
             model = MockStatefulForecaster()
-            runner.run_replay(model, replay_data)
+            summary = runner.run_replay(model, replay_data)
 
             # Check exported predictions
-            preds_file = cfg.output_dir / "cyber_mockstateful_target_only_1405_det_predictions.json"
+            preds_file = cfg.output_dir / f"{summary.run_id}_predictions.json"
             self.assertTrue(preds_file.is_file())
             with open(preds_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -234,6 +235,95 @@ class TestCyberBaselines(unittest.TestCase):
                 0.0,
                 "Premature learning detected: model updated before label availability clock!",
             )
+
+    def _two_origin_replay(self, label1_available_at: str) -> TargetReplayData:
+        origin1 = "2022-12-01T00:00:00+08:00"
+        origin2 = "2022-12-02T00:00:00+08:00"
+        labels = {
+            origin1: {
+                "origin": origin1,
+                "file_valid": [True] * 24,
+                "available_at": [label1_available_at] * 24,
+                "energy_kwh": [10.0] * 24,
+            },
+            origin2: {
+                "origin": origin2,
+                "file_valid": [True] * 24,
+                "available_at": ["2022-12-03T00:00:00+08:00"] * 24,
+                "energy_kwh": [10.0] * 24,
+            },
+        }
+        forecasts = {
+            o: {"origin": o, "x_hist": [[0.0] * 7] * 24, "c_future": [[0.0] * 5] * 24}
+            for o in (origin1, origin2)
+        }
+        schedule = [
+            {"origin": o, "status": "created", "identity": ["urbanev", "SZH", "1405"]}
+            for o in (origin1, origin2)
+        ]
+        return TargetReplayData(
+            entity_id="1405",
+            p95_scale=1.0,
+            initial_trainable_count=0,
+            initial_records=[],
+            schedule=schedule,
+            forecasts=forecasts,
+            labels=labels,
+        )
+
+    def test_label_arriving_at_next_origin_is_used_before_that_prediction(self) -> None:
+        """A label whose last hour arrives exactly at the next origin is causally usable there.
+
+        All real UrbanEV labels arrive at origin + 24h, so updating only after the next
+        prediction would silently delay every model by one extra day (v2 defect).
+        """
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            cfg = BenchmarkConfig(
+                output_dir=Path(tmp_dir), runs_csv_path=Path(tmp_dir) / "runs.csv"
+            )
+            replay = self._two_origin_replay("2022-12-02T00:00:00+08:00")
+            summary = BenchmarkRunner(cfg).run_replay(MockStatefulForecaster(), replay)
+            data = json.loads((cfg.output_dir / f"{summary.run_id}_predictions.json").read_text())
+            day1, day2 = data["daily_results"]
+            # Day 1 forecast was saved before its own label (predict-before-label) ...
+            self.assertEqual(day1["predictions_kwh"][0], 0.0)
+            # ... and the Day 1 label, arrived at Day 2 00:00, updated the model before Day 2.
+            self.assertEqual(day2["predictions_kwh"][0], 99.0)
+            self.assertEqual(summary.scored_days, 2)
+
+    def test_label_arriving_one_hour_after_next_origin_is_not_used(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            cfg = BenchmarkConfig(
+                output_dir=Path(tmp_dir), runs_csv_path=Path(tmp_dir) / "runs.csv"
+            )
+            replay = self._two_origin_replay("2022-12-02T01:00:00+08:00")
+            summary = BenchmarkRunner(cfg).run_replay(MockStatefulForecaster(), replay)
+            data = json.loads((cfg.output_dir / f"{summary.run_id}_predictions.json").read_text())
+            self.assertEqual(data["daily_results"][1]["predictions_kwh"][0], 0.0)
+            # Still scored once the replay clock passes its arrival
+            self.assertEqual(summary.scored_days, 2)
+
+    def test_run_ids_carry_run_tag(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            cfg = BenchmarkConfig(
+                run_tag="vtest",
+                output_dir=Path(tmp_dir),
+                runs_csv_path=Path(tmp_dir) / "runs.csv",
+            )
+            replay = self._two_origin_replay("2022-12-02T00:00:00+08:00")
+            summary = BenchmarkRunner(cfg).run_replay(DailyNaive(), replay)
+            self.assertTrue(summary.run_id.startswith("cyber_vtest_daily_naive_"))
+
+    def test_full_benchmark_refuses_to_overwrite_existing_ledger(self) -> None:
+        from experiments.member_studies.cyber_baselines.cli import run_full_benchmark
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            csv_path = Path(tmp_dir) / "runs.csv"
+            csv_path.write_text("existing evidence\n", encoding="utf-8")
+            cfg = BenchmarkConfig(output_dir=Path(tmp_dir), runs_csv_path=csv_path)
+            with self.assertRaises(FileExistsError):
+                run_full_benchmark(cfg)
+            self.assertEqual(csv_path.read_text(encoding="utf-8"), "existing evidence\n")
 
     def test_zero_scored_runs_handling(self) -> None:
         """Finding 4: Runs with zero scored days must return None metrics, not misleading 0.0."""
@@ -352,6 +442,139 @@ class TestCyberBaselines(unittest.TestCase):
             np.allclose(pred4, pred5),
             "SARIMA failed to advance forecasting state between weekly refits!",
         )
+
+    def _sarima_fixture(self) -> tuple[Any, Any]:
+        import pandas as pd
+
+        base = pd.Timestamp("2022-11-20 00:00:00+08:00")
+        initial = []
+        for day in range(4):
+            day_t = base + pd.Timedelta(days=day)
+            initial.append(
+                {
+                    "origin": day_t.isoformat(),
+                    "future_labels": [
+                        (day_t + pd.Timedelta(hours=h)).isoformat() for h in range(24)
+                    ],
+                    "x_hist": [[0.5] * 7] * 24,
+                    "y_scaled": [float(np.sin(h / 24 * 2 * np.pi) + 1.2) for h in range(24)],
+                }
+            )
+        return base, initial
+
+    def _day_record(self, base: Any, day: int) -> dict[str, Any]:
+        import pandas as pd
+
+        day_t = base + pd.Timedelta(days=day)
+        return {
+            "origin": day_t.isoformat(),
+            "future_labels": [(day_t + pd.Timedelta(hours=h)).isoformat() for h in range(24)],
+            "x_hist": [[0.5] * 7] * 24,
+        }
+
+    @unittest.skipUnless(HAS_STATSMODELS and HAS_PANDAS, "statsmodels/pandas not installed")
+    def test_sarima_predict_does_not_mutate_state_and_uses_origin_horizon(self) -> None:
+        base, initial = self._sarima_fixture()
+        sarima = SARIMABaseline(initial_records=initial, maxiter=5)
+        state_end = sarima.fitted_res.fittedvalues.index[-1]
+
+        # Origin 1 day ahead of the filtered state vs 2 days ahead (missing day in between)
+        near = sarima.predict(self._day_record(base, 4))
+        far = sarima.predict(self._day_record(base, 5))
+        self.assertEqual(sarima.fitted_res.fittedvalues.index[-1], state_end)
+        expected_far = np.maximum(0.0, np.asarray(sarima.fitted_res.forecast(steps=48))[-24:])
+        np.testing.assert_allclose(far, expected_far)
+        expected_near = np.maximum(0.0, np.asarray(sarima.fitted_res.forecast(steps=24)))
+        np.testing.assert_allclose(near, expected_near)
+        self.assertEqual(sarima.diagnostics["fallback_forecasts"], 0)
+
+    @unittest.skipUnless(HAS_STATSMODELS and HAS_PANDAS, "statsmodels/pandas not installed")
+    def test_sarima_update_after_calendar_gap_keeps_hourly_index(self) -> None:
+        import pandas as pd
+
+        base, initial = self._sarima_fixture()
+        sarima = SARIMABaseline(initial_records=initial, maxiter=5, refit_interval=7)
+        # Day 4 label never arrives (incomplete); day 5 arrives -> 24 NaN hours in between
+        sarima.update(self._day_record(base, 5), [2.0] * 24)
+        diag = sarima.diagnostics
+        self.assertEqual(diag["advance_failures"], 0, diag)
+        idx = sarima.fitted_res.fittedvalues.index
+        self.assertEqual(idx[-1], base + pd.Timedelta(days=5, hours=23))
+        self.assertEqual(len(idx), 6 * 24, "calendar gap must stay on the hourly index")
+        self.assertTrue(np.isnan(np.asarray(sarima.fitted_res.model.endog)[4 * 24 : 5 * 24]).all())
+
+    @unittest.skipUnless(HAS_STATSMODELS and HAS_PANDAS, "statsmodels/pandas not installed")
+    def test_sarima_failed_or_unfitted_forecasts_are_counted(self) -> None:
+        sarima = SARIMABaseline()  # no history -> cannot fit
+        sarima.predict(self.mock_record)
+        self.assertEqual(sarima.diagnostics["fallback_forecasts"], 1)
+        self.assertEqual(sarima.diagnostics["fallback_reasons"], {"unfitted": 1})
+
+    def test_runner_exports_model_diagnostics(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            cfg = BenchmarkConfig(
+                output_dir=Path(tmp_dir), runs_csv_path=Path(tmp_dir) / "runs.csv"
+            )
+            replay = self._two_origin_replay("2022-12-02T00:00:00+08:00")
+            summary = BenchmarkRunner(cfg).run_replay(SARIMABaseline(), replay)
+            data = json.loads((cfg.output_dir / f"{summary.run_id}_predictions.json").read_text())
+            self.assertIn("model_diagnostics", data)
+            self.assertGreaterEqual(data["model_diagnostics"]["fallback_forecasts"], 1)
+
+    def test_graph_node_selection_uses_nearest_development_supports(self) -> None:
+        import zipfile
+
+        from experiments.member_studies.cyber_baselines.data import (
+            STATION_DISTANCE_CSV,
+            load_all_targets_history_lookup,
+            select_graph_nodes,
+        )
+
+        ids = ["T1", "D1", "D2", "D3", "F1"]
+        pos = {"T1": 0.0, "D1": 100.0, "D2": 300.0, "D3": 900.0, "F1": 10.0}
+        roles = {"T1": "development", "D1": "development", "D2": "development",
+                 "D3": "development", "F1": "final"}  # fmt: skip
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp = Path(tmp_dir)
+            lines = ["ID," + ",".join(ids)]
+            lines += [a + "," + ",".join(str(abs(pos[a] - pos[b])) for b in ids) for a in ids]
+            raw_zip = tmp / "raw.zip"
+            with zipfile.ZipFile(raw_zip, "w") as z:
+                z.writestr(STATION_DISTANCE_CSV, "\n".join(lines) + "\n")
+            with open(tmp / "entities.jsonl", "w", encoding="utf-8") as f:
+                for s, r in roles.items():
+                    f.write(json.dumps({"identity": ["urbanev", "SZH", s], "role": r}) + "\n")
+
+            node_ids, lock = select_graph_nodes(raw_zip, tmp, ("T1",), support_k=2)
+            # Closest station F1 is Final-role and must be excluded
+            self.assertEqual(node_ids, ["D1", "D2", "T1"])
+            self.assertEqual([n["station_id"] for n in lock["neighbors"]["T1"]], ["D1", "D2"])
+
+            origin = "2022-12-01T00:00:00+08:00"
+            with open(tmp / "training.jsonl", "w", encoding="utf-8") as f:
+                f.write("")
+            with open(tmp / "forecasts.jsonl", "w", encoding="utf-8") as f:
+                for s, role in (("D1", "development"), ("F1", "final")):
+                    rec = {"role": role, "identity": ["urbanev", "SZH", s], "origin": origin,
+                           "x_hist": [[1.0] * 7] * 24}  # fmt: skip
+                    f.write(json.dumps(rec) + "\n")
+            lookup = load_all_targets_history_lookup(tmp, ["D1", "F1"])
+            self.assertIn(("D1", origin), lookup)
+            self.assertNotIn(("F1", origin), lookup, "Final-role histories must never be read")
+
+    def test_gcn_lstm_reads_support_histories_from_lookup(self) -> None:
+        node_ids = ["N1", "T1"]
+        origin = "2022-12-01T00:00:00+08:00"
+        rec = {"origin": origin, "x_hist": [[1.0] * 7] * 24, "c_future": [[0.1] * 5] * 24}
+        low = BasicGCNLSTM(node_ids, np.full((2, 2), 0.5), "T1", seed=1,
+                           history_lookup={("N1", origin): [[1.0] * 7] * 24})  # fmt: skip
+        high = BasicGCNLSTM(node_ids, np.full((2, 2), 0.5), "T1", seed=1,
+                            history_lookup={("N1", origin): [[40.0] * 7] * 24})  # fmt: skip
+        self.assertGreater(np.max(np.abs(np.subtract(low.predict(rec), high.predict(rec)))), 1e-4)
+        self.assertEqual(low.diagnostics["missing_support_histories"], 0)
+        missing = BasicGCNLSTM(node_ids, np.full((2, 2), 0.5), "T1", seed=1)
+        missing.predict(rec)
+        self.assertEqual(missing.diagnostics["missing_support_histories"], 1)
 
     def test_gcn_lstm_distinct_node_signals(self) -> None:
         """Finding 1: GCN-LSTM must receive and aggregate distinct multi-node histories."""

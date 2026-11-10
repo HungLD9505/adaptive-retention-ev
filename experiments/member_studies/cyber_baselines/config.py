@@ -10,9 +10,14 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 INPUT_ROOT = REPO_ROOT / "data" / "inputs" / "issue18-input-handoff-v1-20261019" / "urbanev-SZH-14d"
 RAW_ZIP_PATH = REPO_ROOT / "data" / "raw" / "urbanev" / "official_2026_05_11" / "UrbanEVDataset.zip"
 
-OUTPUT_DIR = REPO_ROOT / "experiments" / "member_studies" / "cyber_baselines" / "artifacts"
-CHECKPOINT_DIR = REPO_ROOT / "experiments" / "member_studies" / "cyber_baselines" / "checkpoints"
-RUNS_CSV_PATH = REPO_ROOT / "experiments" / "member_studies" / "cyber_baselines" / "runs.csv"
+STUDY_DIR = REPO_ROOT / "experiments" / "member_studies" / "cyber_baselines"
+
+# Versioned execution identity. v1 (initial) and v2 (first review response) are preserved
+# under historical_v1/ and historical_v2/; every new execution writes to a fresh tag/root.
+RUN_TAG = "v3"
+OUTPUT_DIR = STUDY_DIR / f"artifacts_{RUN_TAG}"
+CHECKPOINT_DIR = STUDY_DIR / "checkpoints"
+RUNS_CSV_PATH = STUDY_DIR / f"runs_{RUN_TAG}.csv"
 REPORT_PATH = REPO_ROOT / "docs" / "reports" / "member-cyber-baselines.md"
 
 # Development target stations and their fixed initial budgets & scalers
@@ -40,6 +45,9 @@ TARGET_METADATA = {
         "p95_scale": 14.0,
     },
 }
+
+# Basic GCN-LSTM node rule: scored targets + K nearest development-role support stations each
+GRAPH_SUPPORT_K = 3
 
 # Seeds for stochastic models
 BENCHMARK_SEEDS = (42, 43, 44)
@@ -88,6 +96,9 @@ class ClassicalHyperparameters:
 class BenchmarkConfig:
     """Full benchmark configuration."""
 
+    run_tag: str = RUN_TAG
+    save_fitted: bool = False
+    graph_support_k: int = GRAPH_SUPPORT_K
     input_root: Path = INPUT_ROOT
     raw_zip_path: Path = RAW_ZIP_PATH
     output_dir: Path = OUTPUT_DIR

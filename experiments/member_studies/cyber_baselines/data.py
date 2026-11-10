@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import csv
+import io
 import json
 import zipfile
 from dataclasses import dataclass
@@ -9,7 +11,6 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-import pandas as pd
 import torch
 from torch.utils.data import TensorDataset
 
@@ -145,17 +146,80 @@ def load_target_replay_data(
     )
 
 
-def load_all_targets_history_lookup(
+STATION_DISTANCE_CSV = "UrbanEVDataset/20220901-20230228_station-raw/station_distance.csv"
+
+
+def _read_distance_rows(raw_zip_path: Path) -> tuple[list[str], dict[str, list[str]]]:
+    with zipfile.ZipFile(raw_zip_path) as z:
+        with z.open(STATION_DISTANCE_CSV) as f:
+            reader = csv.reader(io.TextIOWrapper(f, encoding="utf-8"))
+            header = next(reader)
+            id_idx = header.index("ID")
+            rows = {str(row[id_idx]): row for row in reader}
+    return header, rows
+
+
+def select_graph_nodes(
+    raw_zip_path: Path = RAW_ZIP_PATH,
     input_root: Path = INPUT_ROOT,
     target_ids: tuple[str, ...] = TARGET_IDS,
+    support_k: int = 3,
+) -> tuple[list[str], dict[str, Any]]:
+    """Lock the GCN-LSTM node set: scored targets plus their K nearest Development supports.
+
+    Locked rule (run tag v3):
+    - Candidate support nodes are other ``development``-role entities in ``entities.jsonl``
+      that appear in ``station_distance.csv``. Final-role and Source-role stations are excluded
+      (no Final data is touched; Source stations have no replay-window histories).
+    - For each scored target, the ``support_k`` nearest candidates by geographic distance
+      (ties broken by station ID) are added. Node order is sorted station ID.
+    - Support nodes contribute only their predictor-visible 24h ``x_hist`` at the same origin;
+      their labels are never decoded or trained on.
+    """
+    roles: dict[str, str] = {}
+    with open(input_root / "entities.jsonl", "r", encoding="utf-8") as f:
+        for line in f:
+            e = json.loads(line)
+            roles[str(e["identity"][2])] = e["role"]
+
+    header, rows = _read_distance_rows(raw_zip_path)
+    col = {c: i for i, c in enumerate(header)}
+    targets = [str(t) for t in target_ids]
+    candidates = sorted(
+        s for s, r in roles.items() if r == "development" and s in col and s not in targets
+    )
+
+    lock: dict[str, Any] = {
+        "rule": f"targets + {support_k} nearest development-role stations per target",
+        "distance_source": STATION_DISTANCE_CSV,
+        "excluded_roles": ["final", "source"],
+        "support_k": support_k,
+        "neighbors": {},
+    }
+    nodes = set(targets)
+    for t in targets:
+        row = rows[t]
+        ranked = sorted((float(row[col[c]]), c) for c in candidates)[:support_k]
+        lock["neighbors"][t] = [{"station_id": c, "distance_m": d} for d, c in ranked]
+        nodes.update(c for _, c in ranked)
+
+    node_ids = sorted(nodes)
+    lock["node_ids"] = node_ids
+    return node_ids, lock
+
+
+def load_all_targets_history_lookup(
+    input_root: Path = INPUT_ROOT,
+    station_ids: tuple[str, ...] | list[str] = TARGET_IDS,
 ) -> dict[tuple[str, str], list[list[float]]]:
-    """Load time-aligned 24h history lookup for all targets.
+    """Load time-aligned predictor-visible 24h histories for graph nodes.
 
     Returns mapping: (station_id, origin_iso) -> x_hist [24, 7]
-    Populated from training.jsonl (initial prefixes) and forecasts.jsonl (replay origins).
+    Populated from development-role records in training.jsonl (initial prefixes) and
+    forecasts.jsonl (replay origins). Final-role records are never read into the lookup.
     """
     lookup: dict[tuple[str, str], list[list[float]]] = {}
-    target_set = set(target_ids)
+    station_set = {str(s) for s in station_ids}
 
     # 1. From training.jsonl (development records)
     with open(input_root / "training.jsonl", "r", encoding="utf-8") as f:
@@ -164,15 +228,17 @@ def load_all_targets_history_lookup(
             if rec.get("role") == "development":
                 fc = rec["forecast"]
                 tid = str(fc["identity"][2])
-                if tid in target_set:
+                if tid in station_set:
                     lookup[(tid, fc["origin"])] = fc["x_hist"]
 
     # 2. From forecasts.jsonl
     with open(input_root / "forecasts.jsonl", "r", encoding="utf-8") as f:
         for line in f:
             r = json.loads(line)
+            if r.get("role") != "development":
+                continue
             tid = str(r["identity"][2])
-            if tid in target_set:
+            if tid in station_set:
                 lookup[(tid, r["origin"])] = r["x_hist"]
 
     return lookup
@@ -187,20 +253,14 @@ def load_distance_matrix(
 
     Constructs normalized spatial adjacency matrix A_hat = D^{-1/2} A D^{-1/2}
     where A_ij = exp(-d_ij^2 / sigma^2) with self-loops.
+    Uses Python standard csv module to ensure zero external dependency.
     """
-    with zipfile.ZipFile(raw_zip_path) as z:
-        inner_path = "UrbanEVDataset/20220901-20230228_station-raw/station_distance.csv"
-        with z.open(inner_path) as f:
-            df = pd.read_csv(f)
-
-    # Filter for target nodes
-    sub_df = df[df["ID"].astype(str).isin(target_ids)].copy()
-    sub_df["ID"] = sub_df["ID"].astype(str)
-    sub_df = sub_df.sort_values("ID")
-    node_ids = list(sub_df["ID"])
-
-    # Extract distances between these nodes
-    dist_matrix = sub_df[node_ids].to_numpy(dtype=float)
+    node_ids = sorted({str(t) for t in target_ids})
+    header, rows = _read_distance_rows(raw_zip_path)
+    col = {c: i for i, c in enumerate(header)}
+    dist_matrix = np.array(
+        [[float(rows[a][col[b]]) for b in node_ids] for a in node_ids], dtype=float
+    )
 
     if sigma is None:
         # Standard deviation of nonzero off-diagonal distances
