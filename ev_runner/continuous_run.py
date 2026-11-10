@@ -192,6 +192,7 @@ def execute(
     prepared_replay: Replay | None = None,
     approved_targets: tuple[str, ...] = ("1405", "2152", "1153", "1693"),
     source_initialization: bool = True,
+    approved_history_days: tuple[int, ...] = (14,),
 ) -> dict:
     invocation_started = time.perf_counter()
     initial, online, rule = validate_study(config, approved_targets=approved_targets)
@@ -199,7 +200,7 @@ def execute(
         raise ValueError("Random target initialization requires fixed zero retention")
     if (
         entity_id not in config["targets"]
-        or inputs.config["history_days"] != 14
+        or inputs.config["history_days"] not in approved_history_days
         or inputs.target_role != "development"
     ):
         raise ValueError("Wrong Development target or history budget")
