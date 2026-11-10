@@ -173,6 +173,10 @@ def verify(phase, output_name):
     command = [sys.executable, '-m', 'tools.issue99_persistent_verify', '--root', str(RESULT), '--inputs', str(STAGE / 'inputs'), '--protocol', str(RESULT / 'protocol-lock.json'), '--output', str(RESULT / output_name), '--phase', phase]
     print('INDEPENDENT_VERIFICATION', phase, flush=True)
     subprocess.run(command, cwd=CODE, check=True)
+    result = json.loads((RESULT / output_name).read_text())
+    print('VERIFICATION_RESULT', phase, json.dumps({key: value for key, value in result.items() if key != 'run_rows'}, allow_nan=False), flush=True)
+    for row in result.get('run_rows', []):
+        print('VERIFIED_CELL', phase, json.dumps({key: row[key] for key in ('run_id', 'mae_kwh', 'scored_days', 'wall_seconds', 'persistent') if key in row}, allow_nan=False), flush=True)
 experiment('pilot')
 verify('pilot', 'pilot-independent-verification.json')
 experiment('calibration_reference')
@@ -188,6 +192,7 @@ if gate['go_to_later'] and verification['status'] == 'PASS' and verification['ga
     verify('evaluation', 'later-independent-verification.json')
 else:
     print('LATER_STOPPED_BY_REGISTERED_GATE', flush=True)
+subprocess.run([sys.executable, '-m', 'tools.issue99_persistent_report', '--root', str(RESULT), '--inputs', str(STAGE / 'inputs'), '--protocol', str(RESULT / 'protocol-lock.json'), '--output', str(ROOT / 'report')], cwd=CODE, check=True)
 """
     report = """import hashlib, json
 from pathlib import Path
@@ -246,8 +251,14 @@ def main() -> None:
     if len(json.dumps(value, ensure_ascii=False).encode("utf-8")) >= 950_000:
         raise ValueError("Embedded notebook exceeds the Kaggle source-size safety limit")
     with args.output.open("x", encoding="utf-8") as stream:
-        json.dump(value, stream, ensure_ascii=False, indent=1)
-        stream.write("\n")
+        if args.output.suffix == ".py":
+            stream.write("# Commit-pinned Kaggle Script; generated without local execution.\n")
+            for cell in value["cells"]:
+                if cell["cell_type"] == "code":
+                    stream.write("".join(cell["source"]) + "\n\n")
+        else:
+            json.dump(value, stream, ensure_ascii=False, indent=1)
+            stream.write("\n")
     print(
         json.dumps(
             {
