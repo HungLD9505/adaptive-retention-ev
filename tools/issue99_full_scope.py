@@ -186,14 +186,31 @@ def execute_group(index: int, lock_path: str, base_path: str, output_path: str) 
             if set(old_fixed["rows"]) != set(old_adaptive["rows"]):
                 raise ValueError("Historical adaptive and Fixed masks differ")
             config = lock["method_configs"][str(seed)]["fixed_retention"]
-            fast = run_fast(
-                inputs,
-                replay,
-                group["sources"][str(seed)],
-                base,
-                config,
-                folder / f"fast-{target}-{seed}",
-            )
+            fast_path = folder / f"fast-{target}-{seed}"
+            previous = Path(lock["reuse_fast"]["root"]) / folder.name / fast_path.name
+            reused = (previous / "run.json").exists()
+            if reused:
+                saved = json.loads((previous / "run.json").read_text())
+                expected_config = json.loads(json.dumps(config))
+                expected_config["method"] = {
+                    "name": "rolling_target",
+                    "lambda": 0.0,
+                    "window_days": 7,
+                }
+                expected_config["state_retention"] = "latest"
+                if (
+                    saved["binding"]["config"] != expected_config
+                    or saved["binding"]["followup_lock_sha256"] != lock["reuse_fast"]["lock_sha256"]
+                    or saved["binding"]["input"]
+                    != inputs.binding("target", target, group["sources"][str(seed)]["sha256"])
+                ):
+                    raise ValueError("Partial-run expert does not match registered reuse")
+                fast_path = previous
+                fast = read_vectors(fast_path, replay)
+            else:
+                fast = run_fast(
+                    inputs, replay, group["sources"][str(seed)], base, config, fast_path
+                )
             stable = {
                 o: {"as_of": r["as_of"], "prediction": r["vectors"][0]}
                 for o, r in old_fixed["rows"].items()
@@ -220,7 +237,7 @@ def execute_group(index: int, lock_path: str, base_path: str, output_path: str) 
                         24,
                         tuple(x / replay.scale for x in r["mae"]),
                         replay.scale_id,
-                        tuple(r["sha256"] for _ in r["mae"]),
+                        tuple(r["prediction_ids"]),
                     )
                     for o, r in sorted(old_adaptive["rows"].items())
                 ]
@@ -255,6 +272,9 @@ def execute_group(index: int, lock_path: str, base_path: str, output_path: str) 
                 "target": target,
                 "seed": seed,
                 "scored_days": len(stable),
+                "fast_path": str(fast_path),
+                "fast_reused": reused,
+                "fast_report_sha256": digest(fast_path / "run.json"),
                 "cell": mixture,
                 "arms": arms,
                 "wall_seconds": time.perf_counter() - before,

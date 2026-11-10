@@ -46,7 +46,7 @@ class FullScopeTests(unittest.TestCase):
             tick = folder / "tick-0000"
             tick.mkdir()
             origin = "2020-01-01T00:00:00"
-            forecast = {"origin": origin, "predictions": [[1.0] * 24]}
+            forecast = {"origin": origin, "predictions": [[1.0] * 24], "prediction_ids": ["id1"]}
             path = tick / "forecasts.json"
             path.write_text(json.dumps(forecast))
             event = {
@@ -77,6 +77,9 @@ class FullScopeTests(unittest.TestCase):
                 labels=lambda origin, as_of: outcome,
             )
             self.assertEqual(historical_vectors(record, replay)["mae"], 2)
+            self.assertEqual(
+                historical_vectors(record, replay)["rows"][origin]["prediction_ids"], ["id1"]
+            )
             outcome.status = "pending"
             with self.assertRaises(ValueError):
                 historical_vectors(record, replay)

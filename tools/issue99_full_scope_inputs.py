@@ -90,6 +90,7 @@ def historical_vectors(record: dict, replay: Replay) -> dict:
                 "mae": mae.tolist(),
                 "active_mae": float(mae[active]),
                 "sha256": sha,
+                "prediction_ids": forecast["prediction_ids"],
             }
     if len(rows) != report["scored_days"]:
         raise ValueError("Historical score coverage mismatch")
