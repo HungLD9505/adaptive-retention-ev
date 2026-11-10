@@ -146,3 +146,51 @@ at approximately 20–30 minute intervals without starting duplicate experiments
 Draft PR #113 already exists; the remaining empirical work is to observe the
 Version 4 run, independently verify its saved pilot and Calibration artifacts,
 apply the locked gate, and run/report Later only if that gate passes.
+
+## Executed Kaggle result (2026-11-11)
+
+The later pinned package at commit `b2ab78b` completed the six-run pilot and
+48-run Calibration matrix. The independent verifier passed. The registered
+Calibration promotion gate **failed**, so the notebook did not dispatch the
+48 Later runs. The new controller's Calibration result is exploratory
+Development evidence, not an independent Final result.
+
+- Runtime root: `/kaggle/working/issue99-persistent-b2ab78ba`.
+- Protocol SHA-256:
+  `f0443273e12eac8c0f8311e4e7b7ba2abd7bdc2a616a74d688bea442fcd96acb`.
+- Embedded package SHA-256:
+  `97cf995e84decb5e7725a7e5f5216a1281ae86df49a57e4983dd07e2c6c7faf0`.
+- Kaggle runtime: Python 3.13.16, PyTorch 2.11 with CUDA 13.0, T4 GPU.
+- Focused tests: 26 passed in 14.36 seconds. Ruff was unavailable in this
+  Kaggle runtime, and the embedded package lacked the README files needed by
+  `check_release`; full README and Ruff checks had passed separately in CI
+  run `42858352451` at `c0ef72c`.
+- Pilot: zero accepted candidate blocks; the real Persistent trajectories
+  matched Fixed in the pilot. This does not imply an improvement.
+
+| Calibration method | Macro MAE (kWh) |
+| --- | ---: |
+| λ=0 | 5.443630217787778 |
+| Fixed | 5.331705633298364 |
+| Immediate controller | 5.318961684341266 |
+| Persistent controller | 5.331587155372982 |
+
+Persistent improved over Fixed by only `0.00011847792538244306` kWh macro MAE,
+below the locked `0.01` kWh promotion threshold. Its total invocation wall-time
+ratio to Fixed was `1.6138442882175836`. Only seed 42 improved on the
+four-target seed macro; only target 1153/seed 42 ended at λ `0.898445` instead
+of the initial `0.798445`. All other persistent runs kept the initial λ.
+Historical Fixed baseline comparison matched all 12 Calibration cells and both
+macro values exactly (reported delta zero); this is comparability evidence,
+not a replacement for the new saved-run verification.
+
+The execution history must remain distinct: the queued Version 4 at commit
+`087b7ee` was cancelled for interactive use. A subsequent `087b7ee` attempt
+failed before training because `ev_baselines` was absent from the package; the
+`3c6b3c7` attempt failed before training because of a protocol trailing comma.
+Both packaging failures were fixed by the executed `b2ab78b` package. Preserve
+their job records and outputs; do not count them as negative model results.
+
+Next work is to preserve the Kaggle outputs and hashes in the repository report,
+independently document the failed gate and PR review status, and avoid a Later
+run under this locked protocol. No new local training is required or reported.

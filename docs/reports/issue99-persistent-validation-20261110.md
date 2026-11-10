@@ -82,3 +82,39 @@ and embedded ZIP SHA-256
 It was **Queued** at the last observation. No persistent pilot, Calibration,
 Later, metric, or GPU availability result is available yet. The full path and
 session details are recorded in `issue99-persistent-kaggle-handoff-20261110.md`.
+
+## Kaggle executed pilot and Calibration (2026-11-11)
+
+The final package at commit `b2ab78b` completed six pilot runs and all 48
+Calibration cells under protocol SHA-256
+`f0443273e12eac8c0f8311e4e7b7ba2abd7bdc2a616a74d688bea442fcd96acb`.
+The output root is `/kaggle/working/issue99-persistent-b2ab78ba`; package
+SHA-256 is
+`97cf995e84decb5e7725a7e5f5216a1281ae86df49a57e4983dd07e2c6c7faf0`.
+The Kaggle runtime recorded Python 3.13.16, Torch 2.11/CUDA 13.0 and T4.
+
+The focused 26 tests passed in 14.36 seconds. The Kaggle environment did not
+have Ruff installed, and the small embedded package did not contain the README
+files for `check_release`; therefore those two checks did not pass inside this
+Kaggle run. The full Windows and Ubuntu CI at `c0ef72c` separately passed
+Ruff and all README checks in run `42858352451`. No local model execution is
+claimed.
+
+Independent saved-vector/arrived-label verification reported **PASS** for the
+executed matrix. The registered Calibration gate reported **FAIL**, with
+Persistent macro MAE `5.331587155372982` kWh versus Fixed
+`5.331705633298364` kWh: improvement `0.00011847792538244306` kWh, below
+the required `0.01` kWh. The Persistent/Fixed wall ratio was
+`1.6138442882175836`; only seed 42 improved at the seed macro level. Pilot
+accepted no candidate blocks, leaving the real trajectory equal to Fixed.
+Only target 1153/seed 42 ended Calibration with λ `0.898445` rather than
+`0.798445`; the others remained at the initial value. The gate therefore
+prohibited Later execution; no Later MAE exists for this package.
+
+The 12 historical Fixed Calibration cell deltas and the Fixed and immediate
+macro deltas were reported as zero against the new runs. The failed interactive
+`087b7ee` package (missing `ev_baselines`) and `3c6b3c7` package (protocol
+trailing comma) stopped before training, and are packaging errors, not
+empirical controller outcomes. The earlier queued Version 4 was cancelled for
+interactive use. Full result tables and artifact hashes belong in the separate
+main results report, not this validation ledger.
