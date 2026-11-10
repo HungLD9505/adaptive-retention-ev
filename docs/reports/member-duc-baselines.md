@@ -23,7 +23,7 @@ TimeXer Transfer recorded the lowest pilot MAE and RMSE at 5.9383 kWh and 7.4540
 - **Inputs and targets** — The historical tensor is `[24, 7]`, the known future calendar is `[24, 5]` and the forecast has 24 hourly outputs. The runner converts normalized predictions to kWh using the target scale.
 - **Coverage per successful pilot row** — 90 scheduled origins, 59 issued forecasts and 52 scored origins. The other 38 comprise 31 origins without usable history and seven issued forecasts without complete labels. These are station-origin counts per replay. The same calendar repeats across models. [Prepared inputs][data] · [Report 1][report1] · [Non-spatial pilot ledger][non] · [Spatial pilot ledger][spatial]
 
-The runner saves the forecast for an origin, keeps it pending until the replay provider reports label availability, then scores and updates using complete labels. Run MAE averages hourly absolute errors over scored days. Run RMSE takes the square root of the mean of the corresponding squared errors. Every scored day contributes 24 hours. A row without scored forecasts has an undefined metric. [Pilot notebook][notebook]
+The runner saves the forecast for an origin, keeps it pending until the replay provider reports label availability, then scores and updates using complete labels. Run MAE averages hourly absolute errors over scored days. Run RMSE takes the square root of the mean of the corresponding squared errors. Every scored day contributes 24 hours. A row without scored forecasts has an undefined metric.
 
 ## 3. Model Architecture & Protocol Definitions
 
@@ -42,7 +42,7 @@ The runner saves the forecast for an origin, keeps it pending until the replay p
 | TimeXer | Official implementation pinned to `76011909357972bd55a27adba2e1be994d81b327`. The adapter moves energy to the final historical channel for MS mode and passes the known future calendar through the auxiliary embedding input. It uses a six-hour patch, model width 32, four heads and one encoder layer. |
 | Basic GCN-LSTM | Fixed symmetric nearest-neighbor graph with self-loops, a 32-channel graph projection and a width-64 LSTM. Each graph node receives its own history. |
 
-The pilot pretrains each neural backbone for one Source epoch with batch size 128. Target-only starts from random weights. Transfer loads the matching Source checkpoint and initializes a fresh target optimizer. Both use three initial target epochs with batch size 16 and one online epoch per arrived eligible example. Neural training uses Adam and normalized MAE with retention weight zero. Ridge, SARIMA, Random Forest and XGBoost attempt refits on a seven-day calendar cadence when new eligible labels exist. SARIMA retains the previous parameters when a refit fails to produce a converged finite candidate. [Pilot notebook][notebook] · [TimeXer reference implementation][timexer]
+The pilot pretrains each neural backbone for one Source epoch with batch size 128. Target-only starts from random weights. Transfer loads the matching Source checkpoint and initializes a fresh target optimizer. Both use three initial target epochs with batch size 16 and one online epoch per arrived eligible example. Neural training uses Adam and normalized MAE with retention weight zero. Ridge, SARIMA, Random Forest and XGBoost attempt refits on a seven-day calendar cadence when new eligible labels exist. SARIMA retains the previous parameters when a refit fails to produce a converged finite candidate. [TimeXer reference implementation][timexer]
 
 ## 4. Comprehensive Pilot Results
 
@@ -144,7 +144,7 @@ The 52 scored origins on one Development station provide a pilot estimate. Seed 
 
 The reviewed notebook SHA identifies the downloaded reference snapshot. Any Colab edits need their own exported snapshot or execution commit before the full benchmark. The prepared ZIP and manifest were independently hashed, and all five manifest-listed artifacts were checked against their byte sizes and SHA-256 values.
 
-The pilot run directories retain forecast and label events in `daily.jsonl`, result summaries, fitted estimators or checkpoints and per-run checksum files. Source trajectories retain checkpoint files and source metadata. A consolidated bundle hash and reviewer read access remain to be verified. [Pilot notebook][notebook] · [Pilot result archive][archive]
+The pilot run directories retain forecast and label events in `daily.jsonl`, result summaries, fitted estimators or checkpoints and per-run checksum files. Source trajectories retain checkpoint files and source metadata. A consolidated bundle hash and reviewer read access remain to be verified. [Pilot result archive][archive]
 
 ## 9. Quality Gates & Acceptance Verification
 
@@ -164,7 +164,6 @@ The pilot conclusions and checklist use the reporting structure of Cyber's hando
 [archive]: https://drive.google.com/drive/folders/1rqfGBYcMDevQBmpA-yR17kgy-K23Hg7U
 [data]: https://drive.google.com/file/d/17pfYqnnSq0Uao2zDNdb8h7GAYfotu_w4/view
 [report1]: https://github.com/HungLD9505/adaptive-retention-ev/blob/dffd16a0b37df336330ef9b9d23056facd388681/adaptive_retention_report_1.pdf
-[notebook]: https://chatgpt.com/library?file_id=libfile_a8a88f1d3a8881918c97e7d230cb3561&account_id=personal
 [non]: https://drive.google.com/file/d/1qZWHtLS61pJgyTJlykwYVZLG8TTpb2Bw/view
 [spatial]: https://drive.google.com/file/d/1GghUP-l5VLyG5chnSnXpabtvIMpmhkdA/view
 [non_folder]: https://drive.google.com/drive/folders/1gMj28h_lIF3mSzPvyTbH7CyWXZril9BT
