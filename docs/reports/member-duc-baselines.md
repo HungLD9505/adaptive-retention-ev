@@ -1,15 +1,15 @@
-# Independent UrbanEV Baseline Benchmark — Pilot Handoff
+# Independent UrbanEV Baseline Benchmark (Issue #96)
 
 **Owner** — Nguyễn Hữu Đức (@huuduc32)  
 **Issue** — #96  
-**Execution date** — 10 November 2026, Vietnam time (UTC+07:00)  
-**Status** — Pilot complete, 17 successful result rows across 12 model families
+**Benchmark status** — Full 172-row evaluation pending  
+**Pilot execution date** — 10 November 2026, Vietnam time (UTC+07:00)
 
 ## 1. Executive Summary & Scope
 
-The pilot covers one UrbanEV Shenzhen Development target, station 2152, with a 14-day initial history budget and a 90-day replay. Stochastic models use seed 42. The pilot yielded 16 successful non-spatial rows and one successful GCN-LSTM row. Five neural backbones ran in both Target-only and Source → full fine-tuning modes.
+Issue #96 evaluates backbone choice and the effect of Source initialization in an independent UrbanEV Shenzhen Development benchmark. The full benchmark compares 12 model families across stations 1405, 2152, 1153 and 1693 under a 14-day initial history budget and a 90-day replay. Stochastic methods use seeds 42, 43 and 44. The required matrix contains 160 non-spatial result rows and 12 spatial result rows. Backbone comparisons use the same evaluation mode and matched scored origins. Transfer comparisons pair Target-only and Source → full fine-tuning within each neural backbone. [Issue #96][issue96]
 
-TimeXer Transfer recorded the lowest pilot MAE and RMSE at 5.9383 kWh and 7.4540 kWh. GRU Transfer ranked third among the five transferred neural backbones by MAE and sixth among the 16 non-spatial configurations. GRU MAE fell from 8.7850 to 6.5227 kWh with Source initialization, a reduction of 25.75%. The complete benchmark has a separate 172-row execution requirement. The result archive reviewed for this handoff contains pilot sessions. [Issue #96][issue96] · [Pilot result archive][archive]
+The available pilot evidence covers station 2152 and seed 42 for stochastic models. It contains 17 successful rows, comprising 16 non-spatial rows and one GCN-LSTM row. TimeXer Transfer recorded the lowest pilot MAE and RMSE at 5.9383 kWh and 7.4540 kWh. GRU Transfer ranked third among the five transferred neural backbones by MAE and sixth among the 16 non-spatial configurations. GRU MAE fell from 8.7850 to 6.5227 kWh with Source initialization, a reduction of 25.75%. [Pilot result archive][archive]
 
 | Scope | Non-spatial rows | Spatial rows | Scored targets | Stochastic seeds |
 |---|---:|---:|---|---|
