@@ -194,3 +194,42 @@ their job records and outputs; do not count them as negative model results.
 Next work is to preserve the Kaggle outputs and hashes in the repository report,
 independently document the failed gate and PR review status, and avoid a Later
 run under this locked protocol. No new local training is required or reported.
+
+Quick Save of Version 5 with Output failed with `502 UploadKernelSessionOutput`.
+The original kernel was still alive at the last observation. This error does
+not erase the already observed metrics, but it means **durable saved Output is
+not yet verified**. Preserve the live kernel and all historical versions while
+investigating another output-preservation route; do not claim the Kaggle Output
+artifact has been archived or locally rehashed.
+
+### Version 6 output-preservation attempt
+
+To reduce the live `/kaggle/working` upload, only **reconstructible duplicate
+input directories** were relocated in three new experiment roots:
+`087b7ee0`, `b2ab78ba`, and `3c6b3c7a`. In each root, `stage/inputs`
+(895,451,840 bytes) and `verified-bundle` (177,449,505 bytes) were moved to
+`/kaggle/temp/issue99-reconstructible-input-copies-b2ab78ba/<rootname>/<same-relative>`.
+The original mounted Kaggle input dataset was unchanged. The relocation map
+is saved at
+`/kaggle/working/issue99-persistent-b2ab78ba/reconstructible-input-relocations.json`.
+The first console command had a newline SyntaxError and made no mutation; a
+corrected single-line command completed the moves. `/kaggle/working` output
+size fell from about 3.1 GiB to 155.5 MiB as displayed by the Kaggle UI;
+the separately reported logical working-file total was 135,540,907 bytes.
+These are different measurements, not an exact unit conversion. **No Source checkpoint/weight,
+run result, committed tick, code or report directory was moved or deleted**.
+For example, the final Persistent 1153/seed 42 state remains at
+`/kaggle/working/issue99-persistent-b2ab78ba/results/calibration/persistent-1153-seed42/tick-0028/state.pt`
+(1,464,155 bytes), alongside `commit.json` (345 bytes), `forecasts.json`
+(6,970 bytes) and `events.jsonl` (3,548 bytes). That `state.pt` SHA-256 was
+`5d631f2dcc4c7197d153d9161602d6bad3466465a12fdd6deedccb4259daeed4`.
+The independent verifier and report-manifest SHA-256 values were unchanged
+after relocation.
+
+`/kaggle/temp` is not durable. Any future replay must reconstruct `stage/inputs`
+from the original attached input ZIP and verify its manifest/file hashes before
+use; the relocated temporary copy is only an upload-size workaround. The
+original `stage/sources` checkpoint files remain in `/kaggle/working`.
+Quick Save Version 6, named `b2ab78b verified54 compact output`, was submitted
+with **Save output this version** and showed **Committing** at the last
+observation. Durable preservation is still pending confirmation.

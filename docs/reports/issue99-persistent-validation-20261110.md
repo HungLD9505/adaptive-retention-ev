@@ -118,3 +118,33 @@ trailing comma) stopped before training, and are packaging errors, not
 empirical controller outcomes. The earlier queued Version 4 was cancelled for
 interactive use. Full result tables and artifact hashes belong in the separate
 main results report, not this validation ledger.
+
+The actual experiment commit `b2ab78b` also passed
+[GitHub Actions run 42862056327](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/42862056327).
+This is a separate remote code/fixture validation result; it does not change
+the failed empirical Calibration gate or authorize Later.
+
+| Job | Main tests | README experiment tests | Other checks |
+| --- | --- | --- | --- |
+| Ubuntu 24.04, `129990518092` | 946 in 75.427 s; OK, 2 skipped | Fixed 9 in 0.799 s; confidence 12 in 0.028 s | Release/README, `pip check`, Ruff and formatting passed |
+| Windows, `129990518649` | 946 in 194.864 s; OK, 4 skipped | Fixed 9 in 1.389 s; confidence 12 in 0.055 s | Release/README, `pip check`, Ruff and formatting passed |
+
+Ruff reported all checks passed and 567 files already formatted. Skipped
+optional tests remain skipped; the CI result is not an empirical MAE result.
+
+At the last output-preservation attempt, Quick Save Version 5 with Output
+failed with `502 UploadKernelSessionOutput`; the original Kaggle kernel was
+still alive. Independent verification had passed inside that runtime, but
+durable saved Output and local artifact-byte verification remain pending.
+
+For the next attempt, only three copies each of reconstructible
+`stage/inputs` (895,451,840 bytes per root) and `verified-bundle`
+(177,449,505 bytes per root) were moved from the new roots `087b7ee0`,
+`b2ab78ba`, and `3c6b3c7a` into `/kaggle/temp`; the mounted original,
+Source weights, run outputs, code and reports were retained in
+`/kaggle/working`. The move map is
+`/kaggle/working/issue99-persistent-b2ab78ba/reconstructible-input-relocations.json`.
+The first attempted console command failed with a SyntaxError before mutation;
+the corrected single-line command completed. `/kaggle/working` shrank from
+about 3.1 GiB to 155.5 MiB. Version 6 was Quick Saved with Output and was
+**Committing** at the last observation; this is not yet a preservation receipt.
