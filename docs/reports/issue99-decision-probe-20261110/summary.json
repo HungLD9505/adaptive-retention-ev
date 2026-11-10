@@ -1,0 +1,235 @@
+{
+  "code": {
+    "commit": "302fb6b00a190c788ba3ffd81268ace52a151e8a",
+    "files": {
+      "ev_inputs/__init__.py": "8969f4448b3ebaf4837498e3fdbf5396304cad7a0deda915e5d349205df65add",
+      "ev_inputs/features.py": "a9bf5fddd64d2641f9b50f9ad8a027e5336e80eb6b6b2a3af267fe4eef91f379",
+      "ev_inputs/hourly_reader.py": "c839af7c27ef9c9bc8013e04016f11e2fd7c0449fc18f4cf5c6e8c0d62b9239a",
+      "ev_inputs/loader.py": "d46f9ae9e0b5431bc3d7c5113eef49afca92db7b165f7a45f98801f625254dd0",
+      "ev_inputs/scaling.py": "dbdc205c0700ca9cdfbf6965c45150be6adb4d9a596dcc5ee7a1134fd831da9b",
+      "ev_inputs/splits.py": "cf52ec982f2c97002b67b7f3bfaacc8aba4bf7ca4143e4e4a771b66c041bf8e0",
+      "ev_inputs/windows.py": "262c78344305227e4772297107bc1a369da6a92767fb3ba72a64f395cd57a94f",
+      "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+      "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+      "ev_models/data.py": "52efbe172ccb6388a5251e143012d7e1548420df499f3af3513c4f5afe1edb38",
+      "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+      "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+      "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+      "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+      "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+      "ev_control/continuous.py": "375851541a96957465fca00227bb718a0c3a654524c37ad4f70d0f81e2b7d8ca",
+      "ev_control/hypergradient.py": "2597ea4343fad02bebfdbb678abcd2c992d7c17bed2f24330fe186930c0cea56",
+      "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+      "ev_runner/continuous.py": "59a72ef0e776ccb7cb76937a54650d5733ae26f4cbacb00fe9b2031536a24a29",
+      "ev_runner/continuous_run.py": "34a55b370eae8d7b3ad1a76ff9cf9a7bb41487628da2d30014858874a3a3bd07",
+      "ev_runner/diagnostics.py": "47a64b9d1e1e79a6652abfe2ad2360f6f303ed397f7d37ff8ec369299f5535ac",
+      "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+      "ev_runner/final_gate.py": "f29bc7e2acb794ae5eb30083bbe7531943f8d6db8c972a01d7871b6e078ed779",
+      "ev_runner/replay.py": "bce437ea37aa12b16d5930004e95258ae9c32926ce635a3daff56968f4206173",
+      "ev_runner/run.py": "d39835a09a26f6d6d598293beee343e4206d3ea16ce0a453cf1c603a54fdaca9",
+      "ev_runner/state.py": "8f922db2a539c08eca80a535cef67bfe38111bc1f43a4f8186c7e1a0c75f222a",
+      "ev_runner/store.py": "718c6813fb2a595e6309c755b0388f8a91bd414ed464b4b1e001dbfbacb10797"
+    }
+  },
+  "script_sha256": "fc8206aba8d6cf65babb4e49ab52704031123700985dc6617ad3def936f021b6",
+  "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+  "scope": "Exploratory calibration, paired one-step diagnostic, continuous parent",
+  "config": {
+    "schema": "issue99-study-v1",
+    "phase": "evaluation",
+    "targets": [
+      "1405",
+      "2152",
+      "1153",
+      "1693"
+    ],
+    "initial_training": {
+      "seed": 42,
+      "epochs": 3,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "online_training": {
+      "seed": 42,
+      "epochs": 1,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "window_rule": {
+      "older_count": 2,
+      "newer_count": 1,
+      "upper_bound": 33.84424612726798,
+      "meta_step_size": 211.29500343057222,
+      "epsilon": 0.001
+    },
+    "initial_lambda": 0.7984450067079901,
+    "cadence": 1,
+    "frozen_lambda": false,
+    "replay_days": 90,
+    "protocol_sha256": "645393d4c7a29b644a00da6251957b4c3bc5dea011c4ba30f0b989ae14532752",
+    "objective_origins": [],
+    "state_retention": "latest",
+    "diagnostic_every": 7
+  },
+  "label_policy": "Score only after replay ends; calibration origins only",
+  "cells": [
+    {
+      "target": "1405",
+      "seed": 42,
+      "source_sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+      "pairs": 23,
+      "mean_mae": {
+        "hold": 5.088229652998542,
+        "follow": 5.08812366333749,
+        "reverse": 5.088400084248185
+      }
+    },
+    {
+      "target": "1405",
+      "seed": 43,
+      "source_sha256": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+      "pairs": 23,
+      "mean_mae": {
+        "hold": 5.457658252316247,
+        "follow": 5.456638552564199,
+        "reverse": 5.458714566798799
+      }
+    },
+    {
+      "target": "1405",
+      "seed": 44,
+      "source_sha256": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5",
+      "pairs": 23,
+      "mean_mae": {
+        "hold": 5.1734794902403936,
+        "follow": 5.173358028621377,
+        "reverse": 5.173673298194595
+      }
+    },
+    {
+      "target": "2152",
+      "seed": 42,
+      "source_sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+      "pairs": 25,
+      "mean_mae": {
+        "hold": 6.366730480127926,
+        "follow": 6.368651467946424,
+        "reverse": 6.3660930207232465
+      }
+    },
+    {
+      "target": "2152",
+      "seed": 43,
+      "source_sha256": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+      "pairs": 25,
+      "mean_mae": {
+        "hold": 6.3345111328424935,
+        "follow": 6.333401449442565,
+        "reverse": 6.334266404706852
+      }
+    },
+    {
+      "target": "2152",
+      "seed": 44,
+      "source_sha256": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5",
+      "pairs": 25,
+      "mean_mae": {
+        "hold": 6.418316915177318,
+        "follow": 6.420925142274246,
+        "reverse": 6.416185837105161
+      }
+    },
+    {
+      "target": "1153",
+      "seed": 42,
+      "source_sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+      "pairs": 25,
+      "mean_mae": {
+        "hold": 6.368602082398203,
+        "follow": 6.368505716986126,
+        "reverse": 6.368681939310497
+      }
+    },
+    {
+      "target": "1153",
+      "seed": 43,
+      "source_sha256": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+      "pairs": 25,
+      "mean_mae": {
+        "hold": 6.436135368082257,
+        "follow": 6.435434783233535,
+        "reverse": 6.436848884357345
+      }
+    },
+    {
+      "target": "1153",
+      "seed": 44,
+      "source_sha256": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5",
+      "pairs": 25,
+      "mean_mae": {
+        "hold": 6.4467847398254605,
+        "follow": 6.446838439040713,
+        "reverse": 6.446712652246157
+      }
+    },
+    {
+      "target": "1693",
+      "seed": 42,
+      "source_sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+      "pairs": 25,
+      "mean_mae": {
+        "hold": 3.076309862927325,
+        "follow": 3.0736216069909155,
+        "reverse": 3.077818740479224
+      }
+    },
+    {
+      "target": "1693",
+      "seed": 43,
+      "source_sha256": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+      "pairs": 25,
+      "mean_mae": {
+        "hold": 2.926583592420925,
+        "follow": 2.927898928949072,
+        "reverse": 2.925727254437866
+      }
+    },
+    {
+      "target": "1693",
+      "seed": 44,
+      "source_sha256": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5",
+      "pairs": 25,
+      "mean_mae": {
+        "hold": 3.1155383541637036,
+        "follow": 3.113301040197678,
+        "reverse": 3.1177282171265297
+      }
+    }
+  ],
+  "target_means": {
+    "1405": {
+      "hold": 5.239789131851727,
+      "follow": 5.239373414841022,
+      "reverse": 5.240262649747193
+    },
+    "2152": {
+      "hold": 6.373186176049246,
+      "follow": 6.374326019887746,
+      "reverse": 6.3721817541784205
+    },
+    "1153": {
+      "hold": 6.417174063435307,
+      "follow": 6.416926313086791,
+      "reverse": 6.417414491971333
+    },
+    "1693": {
+      "hold": 3.039477269837318,
+      "follow": 3.038273858712555,
+      "reverse": 3.040424737347873
+    }
+  }
+}
