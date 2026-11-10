@@ -35,5 +35,5 @@ jobs:
       - run: python -m tools.sources list
       - run: python -m unittest discover -s tests -v
       - run: python -m ruff check .
-      - run: python -m ruff format --check .
+      - run: python -m ruff format --diff .
       - run: git diff --check

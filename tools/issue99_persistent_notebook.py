@@ -16,7 +16,6 @@ import subprocess
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
-
 ROOT = Path(__file__).resolve().parents[1]
 DATASET = "/kaggle/input/datasets/hungluongduc/issue99-source10-2798384-scored-inputs-v1"
 OUTER_MANIFEST_SHA256 = "a09f6a03ae5911717fd5afd070e93b52e0a3a066398278dac7b598bfd89ae088"

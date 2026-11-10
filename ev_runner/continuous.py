@@ -11,8 +11,8 @@ from ev_control.persistent import PersistentRule
 from ev_models.model import ForecastGRU
 from ev_models.training import TrainingConfig
 from ev_runner.diagnostics import measure
-from ev_runner.replay import Replay
 from ev_runner.persistent import PersistentCandidate, branch_digests
+from ev_runner.replay import Replay
 from ev_runner.state import Branch, identity, state_digest
 from ev_runner.store import Store
 

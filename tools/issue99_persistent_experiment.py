@@ -24,7 +24,6 @@ from ev_runner.continuous_run import execute
 from ev_runner.replay import Replay
 from tools.issue99_study_support import PreparedInputs
 
-
 TARGETS = ("1405", "2152", "1153", "1693")
 SEEDS = (42, 43, 44)
 METHODS = ("lambda0", "fixed", "immediate", "persistent")
