@@ -57,3 +57,9 @@ Large run roots remain outside Git:
 Calibration's original executed-screen.py is preserved with its recorded script hash. Type annotations and an evaluation option were added before the evaluation invocation; the two registration records identify the respective script hashes. Model-training formulas were unchanged between phases. summary.csv and cells.csv retain full precision, per-cell lambda and per-target outcomes.
 
 Reproduce calibration using python -m tools.issue99_retention_screen with --input, --sources and a new --output directory. Reproduce the later phase with the same arguments plus --calibration-from pointing to the completed calibration directory. Recompute score checks with python -m tools.issue99_retention_verify --input INPUT_ROOT --run RUN_ROOT. The diagram exports method-comparison.png/pdf show later macro MAE with a zero-based axis.
+
+## Validation
+
+The committed implementation passed 940 root tests with two CUDA skips, nine fixed-adaptation tests, twelve confidence-controller tests, Ruff lint/format, release checks and git diff whitespace checks. The three new fixtures check uniform-weight equivalence to the primary penalty, encoder-only L2-SP and reference-gradient isolation, and positive mean-one prefix weights. Both independent real-input score readbacks passed. No external 18-test all-namespace artifact suite or fresh raw archive acquisition was run. The plotted artifact was visually inspected.
+
+Per-seed equal-target later L2-SP minus uniform MAE is −0.137600, −0.028451 and −0.149921 kWh for seeds 42/43/44. These descriptive differences do not supply independent station replication or a significance claim.
