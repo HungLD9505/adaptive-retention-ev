@@ -77,3 +77,37 @@ Finish static review and small commit-bound notebook packaging; run tests and
 README checks on Kaggle; verify baseline reproduction and technical pilot; execute
 Calibration; apply its gate; independently audit and report outputs; push this
 branch and open a dependent PR into `dev`. Do not merge or close #99 automatically.
+
+## Submitted Kaggle version (2026-11-10 16:33 UTC)
+
+The existing notebook accepted **Version 2**, with GPU T4 x2, and displayed
+**Queued**. This confirms submission, not successful execution or a measured MAE.
+Version name: `persistent-v1 bd552cf technical+calibration`.
+
+- Execution commit: `bd552cf0484fe047ed96416f569cc19529bc4111`.
+- Embedded code ZIP SHA-256:
+  `71ca9687ca795f68a2723b992627c3444773d906978dd284df45420ccdccd1bc`.
+- Local upload file:
+  `D:\Đồ Án\.cache\issue99-persistent-lambda\.cache\issue99-persistent-v4.ipynb`
+  (251,021 bytes; 72 packaged files).
+- Expected new Kaggle root: `/kaggle/working/issue99-persistent-bd552cf0`;
+  code, stage and results are separate subdirectories. This path is prepared by
+  the notebook and has not yet been verified as an executed output.
+- Draft PR: <https://github.com/HungLD9505/adaptive-retention-ev/pull/113>.
+
+The first save attempt used a 1,393,917-byte notebook at commit `18bdfa9`.
+Kaggle rejected it: "The kernel source must be less than 1 megabytes in size."
+No run was created by that rejected attempt. The successful submission narrows
+the embedded package to the relevant modules, issue99 tests and configs, while
+preserving committed file hashes. Old local packaging files are retained.
+
+Commands performed locally were Git inspection, commits/push, notebook packaging
+and the code-only verifier checks documented in
+`issue99-persistent-verifier-notes-20261110.md`. No new model or data replay ran
+locally. The packaging attempt at `aab29aa` correctly failed because a formatting
+edit differed from its pinned commit; the edit was committed before repackaging.
+
+Next status check is due around 16:54–17:03 UTC (20–30 minutes after submission).
+Two pre-existing queued jobs were visible before submission: Fixed search v1
+Version 2 and independent pilot audit Version 1, both approximately 21 hours old.
+They were not cancelled or claimed as results of this follow-up.
