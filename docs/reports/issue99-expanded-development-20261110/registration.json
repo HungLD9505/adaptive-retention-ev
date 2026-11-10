@@ -1,0 +1,61 @@
+{
+  "scope": "Additional Development stations, 14d, full 90-day replay; prior exposure uncertain",
+  "script_sha256": "ad30a054fe153f451cd86ce70e4b181921d7e685fcfaa786e65c3bc991bcbb5d",
+  "inventory_sha256": "5ecf4a37d424d90716757c431508599cada189698f477f111e50cc70e9fc25ad",
+  "calibration_results_sha256": "f050b5f841ece3b1f73e8cede65256b8516080e64146215609a20614ced59c30",
+  "targets": [
+    "1691",
+    "2564",
+    "2398",
+    "1114",
+    "1225",
+    "1169",
+    "1885",
+    "1802",
+    "2035",
+    "1836",
+    "1303",
+    "1325"
+  ],
+  "calibration_targets": [
+    "1405",
+    "2152",
+    "1153",
+    "1693"
+  ],
+  "source_paths": {
+    "42": "/Users/quyenmanh/Developer/TFL-EV/runs/issue23-runtime-fair-kaggle-plan-20261027-v2/source-seed42/epoch-10.pt",
+    "43": "/Users/quyenmanh/Developer/TFL-EV/runs/issue23-runtime-fair-kaggle-plan-20261027-v2/source-seed43/epoch-10.pt",
+    "44": "/Users/quyenmanh/Developer/TFL-EV/runs/issue23-runtime-fair-kaggle-plan-20261027-v2/source-seed44/epoch-10.pt"
+  },
+  "source_sha256": {
+    "42": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+    "43": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+    "44": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5"
+  },
+  "fixed_selected_strengths": {
+    "uniform": 1.0,
+    "l2sp": 1.0
+  },
+  "controller_candidates": [
+    {
+      "block_days": 7,
+      "min_valid_days": 5
+    },
+    {
+      "block_days": 14,
+      "min_valid_days": 7
+    },
+    {
+      "block_days": 21,
+      "min_valid_days": 7
+    }
+  ],
+  "controller_unchanged": "levels 0/0.1/1, initial 0.1, confidence bootstrap rule unchanged",
+  "evaluation": "All complete full-replay origins, paired across four methods, macro equal station after equal seed average",
+  "uncertainty": "Descriptive station-paired bootstrap after seed averaging, fixed RNG seed 20261110",
+  "runtime": {
+    "device": "cpu",
+    "torch": "2.11.0"
+  }
+}
