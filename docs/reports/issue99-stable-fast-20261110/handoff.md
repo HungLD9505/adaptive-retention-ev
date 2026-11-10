@@ -151,3 +151,14 @@ The calibration search and evaluation cohort are small and exposed; all results
 are exploratory. The strong Fixed baseline is retained. Any further method search
 must remain explicit and eventually be tested on an untouched cohort; repeated
 selection on this cohort cannot substantiate generalization.
+
+## Final code checks
+
+On implementation commit `7cf9e1a`, the root offline suite passed **961 tests**
+with two CUDA-only skips. Both required experiment suites passed (Fixed adaptation:
+9; confidence controller: 12). Ruff lint and formatting passed for the full checkout
+(581 Python files), and `git diff --check` passed. Source catalog listing succeeded;
+release verification passed 17 report files and 92 historical source pins. No
+separate type checker is configured. The separate external-artifact suite was not
+run; it is not substituted by these fixture checks. Real-run readback is recorded
+above. No peer approval or GitHub CI success is inferred from local checks.
