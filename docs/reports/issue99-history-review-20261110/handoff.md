@@ -52,3 +52,9 @@ External root:
 Reproduce each budget with python -m tools.issue99_history_study, specifying --input-parent, --sources, --inventory, --history-days and a new --output. Run tools.issue99_simple_baselines for the deterministic controls and tools.issue99_history_report for independent aggregate readback. The Source directory contains source-seed42/epoch-10.pt through source-seed44/epoch-10.pt.
 
 The DOCX/PDF were built with the resolved bundled document runtime. Nine pages were rendered and inspected after the final layout update. Tables remain together, the inherited title border was removed, equations and numeric values were checked, and the final PDF text and Word styling were structurally checked. Final document byte identities are in the report artifact manifest. Authoring helpers and initial rendering attempts remain in the external run root.
+
+## Validation results
+
+All 951 root tests passed on the committed study/manuscript tree, with two CUDA skips. Nine fixed-adaptation and twelve confidence-controller tests passed. Ruff lint/format, the release checker and git diff checks passed. The optional all-namespace external-artifact suite was not run. The original frozen PDF was not recompiled.
+
+All eighteen manuscript source/document/figure hashes match artifact-manifest.json. The final Word title has no inherited border. The final nine PDF pages were visually inspected at full-page resolution, and extracted text contains the verified result values and references. The equations are image-rendered from the retained LaTeX source; the document body and tables remain editable in Word.
