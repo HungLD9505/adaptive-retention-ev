@@ -14,6 +14,7 @@ import torch
 from ev_control.continuous import WindowRule
 from ev_models.checkpoint import digest, load_checkpoint, write_json
 from ev_models.data import InputRun
+from ev_models.model import ForecastGRU, ModelConfig
 from ev_models.run import environment
 from ev_models.training import (
     TrainingConfig,
@@ -190,9 +191,12 @@ def execute(
     protocol_path: Path | None = None,
     prepared_replay: Replay | None = None,
     approved_targets: tuple[str, ...] = ("1405", "2152", "1153", "1693"),
+    source_initialization: bool = True,
 ) -> dict:
     invocation_started = time.perf_counter()
     initial, online, rule = validate_study(config, approved_targets=approved_targets)
+    if not source_initialization and (config["initial_lambda"] != 0 or not config["frozen_lambda"]):
+        raise ValueError("Random target initialization requires fixed zero retention")
     if (
         entity_id not in config["targets"]
         or inputs.config["history_days"] != 14
@@ -264,7 +268,11 @@ def execute(
     if device == "cuda":
         torch.cuda.reset_peak_memory_stats()
     seed_everything(initial.seed)
-    target = adapt_model(source)
+    target = (
+        adapt_model(source)
+        if source_initialization
+        else ForecastGRU(ModelConfig(initial.head_width)).to(device)
+    )
     reference = frozen_reference(source)
     optimizer = torch.optim.Adam(target.parameters(), lr=initial.learning_rate)
     prefix_load_started = time.perf_counter()
@@ -304,6 +312,9 @@ def execute(
         "code": code_identity(),
         "initial_adaptation_sha256": state_digest(initial_logs),
     }
+    if not source_initialization:
+        binding["source_initialization"] = False
+        binding["source_weights_used_for_training"] = False
     store = Store(output, binding, resume_from=resume_from)
     with (output / "initial-adaptation.json").open("xb") as stream:
         stream.write(json.dumps(initial_logs, allow_nan=False).encode())
@@ -354,7 +365,11 @@ def execute(
         "schema": "issue99-run-v1",
         "run_id": output.name,
         "phase": config["phase"],
-        "method": "fixed_real_lambda" if config["frozen_lambda"] else "continuous_one_step_adam",
+        "method": "target_only"
+        if not source_initialization
+        else "fixed_real_lambda"
+        if config["frozen_lambda"]
+        else "continuous_one_step_adam",
         "binding": binding,
         "initial_logs": initial_logs,
         "initial_wall_seconds_this_invocation": initial_wall_seconds,
