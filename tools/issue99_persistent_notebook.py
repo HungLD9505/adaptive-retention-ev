@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATASET = "/kaggle/input/datasets/hungluongduc/issue99-source10-2798384-scored-inputs-v1"
 OUTER_MANIFEST_SHA256 = "a09f6a03ae5911717fd5afd070e93b52e0a3a066398278dac7b598bfd89ae088"
 PREFLIGHT_SHA256 = "6bede89694d6d0dfb30fd59ed8b0305d7d374eca932e723e4af690d56ab561f6"
-INCLUDE_DIRS = ("ev_inputs", "ev_models", "ev_control", "ev_runner", "ev_search", "tools", "tests")
+INCLUDE_DIRS = ("ev_inputs", "ev_models", "ev_control", "ev_runner", "ev_search")
 INCLUDE_FILES = (
     "configs/issue99-persistent-protocol-v1.json",
     "docs/reports/issue99-study-20261110/fixed-station-seed.csv",
@@ -41,9 +41,10 @@ def package(commit: str) -> tuple[str, str, dict[str, str]]:
     names = sorted(
         name for name in tracked
         if (name.endswith(".py") and name.split("/", 1)[0] in INCLUDE_DIRS)
+        or (name.startswith(("tools/issue99", "tests/test_issue99")) and name.endswith(".py"))
+        or name in {"tools/__init__.py", "tests/__init__.py", "tools/check_release.py"}
         or name in INCLUDE_FILES
-        or (name.startswith("configs/") and name.endswith(".json"))
-        or name.startswith("tests/fixtures/")
+        or (name.startswith("configs/issue99") and name.endswith(".json"))
         or name in {"pyproject.toml", "requirements-model.txt", "requirements-cuda.txt"}
     )
     required = {
@@ -219,6 +220,8 @@ def main() -> None:
         raise ValueError("Expected full git commit SHA")
     payload, payload_sha, files = package(commit)
     value = notebook(commit, payload, payload_sha, files)
+    if len(json.dumps(value, ensure_ascii=False).encode("utf-8")) >= 950_000:
+        raise ValueError("Embedded notebook exceeds the Kaggle source-size safety limit")
     with args.output.open("x", encoding="utf-8") as stream:
         json.dump(value, stream, ensure_ascii=False, indent=1)
         stream.write("\n")
