@@ -15,4 +15,4 @@ The registered `ev_search.select.select_fixed` function ran interactively on the
 
 An independent read-only check of the published calibration table confirmed the registered 0.05 kWh practical-equivalence rule: trials 4, 5, 8 and 13 are within 0.05 kWh of the best; trial 13 has the smallest λ. No Evaluation or Final outcome was used. The result is exploratory because no untouched Development evaluation set has been established.
 
-The full Kaggle artifact has not been copied into the repository: browser download access was denied, and the user cannot manually download it at present. The saved Kaggle notebooks retain the search, audit and selection outputs; local possession and local hash verification of those outputs remain outstanding.
+At this snapshot, browser download access was denied and the full Kaggle artifact had not been copied into the repository. The saved Kaggle notebooks retain the search, audit and selection outputs; local possession and local hash verification of those outputs remain outstanding.

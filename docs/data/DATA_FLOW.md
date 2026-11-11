@@ -292,7 +292,7 @@ This guide explains the existing implementation. It does not change Report 1, ad
 
 ## 8. PR history and reading map
 
-Use this index to find the explanation attached to each contributing PR slice. Older PRs describe their own snapshots; their fixture counts, trial failures or pending-policy wording are not the current handoff status. The user-selected policy and shared snapshot originated in PR #36; the integration report records their subsequent combined verification and the lead-directed disposition without independent peer approval. These are reading links, not a second execution plan.
+Use this index to find the explanation attached to each contributing PR slice. Older PRs describe their own snapshots; their fixture counts, trial failures or pending-policy wording are not the current handoff status. The team-selected policy and shared snapshot originated in PR #36; the integration report records their subsequent combined verification and the lead-directed disposition without independent peer approval. These are reading links, not a second execution plan.
 
 | PR | Scope | Read first |
 | --- | --- | --- |

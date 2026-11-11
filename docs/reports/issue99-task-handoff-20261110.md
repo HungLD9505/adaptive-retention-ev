@@ -1,6 +1,6 @@
-# Issue #99 task handoff — paths, run evidence and next actions
+# Issue #99 technical handoff — paths, run evidence and next actions
 
-Snapshot checked on **10 November 2026** (Asia/Ho Chi Minh City). Start here for a later task; follow the linked files for full precision. This record distinguishes bytes held in this Windows worktree from results read only on Kaggle or reported from another machine. No historical archive, checkpoint or run was overwritten.
+Snapshot checked on **10 November 2026** (Asia/Ho Chi Minh City). This snapshot indexes the execution paths and linked full-precision evidence. This record distinguishes bytes held in this Windows worktree from results read only on Kaggle or reported from another machine. No historical archive, checkpoint or run was overwritten.
 
 ## Repository and status
 
@@ -12,7 +12,7 @@ Snapshot checked on **10 November 2026** (Asia/Ho Chi Minh City). Start here for
 | [PR #102](https://github.com/HungLD9505/adaptive-retention-ev/pull/102) | Open; broader, different protocol. HEAD `71234eb1b217203f81425c44facbd8ccb83ed8be`, CI [run 42705043476](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/42705043476) succeeded. Its metrics must not be pooled with PR #100. |
 | [PR #103](https://github.com/HungLD9505/adaptive-retention-ev/pull/103) | Merged verifier hardening into PR #102 HEAD. The preserved raw archive has **not** been rerun through that hardened verifier in this workspace. |
 
-The owner waived an additional review-permission stop in this task. `AGENTS.md` and `docs/WORKFLOW.md` still describe the repository integration process; no PR or issue was merged/closed here. Do not use Final or already inspected Evaluation outcomes to select λ or controller settings. All current #99 outcome claims are exploratory Development evidence.
+The team lead authorized execution without an additional approval checkpoint. `AGENTS.md` and `docs/WORKFLOW.md` still describe the repository integration process; no PR or issue was merged/closed here. Do not use Final or already inspected Evaluation outcomes to select λ or controller settings. All current #99 outcome claims are exploratory Development evidence.
 
 ## Tracked files to read or run
 
@@ -45,7 +45,7 @@ All local paths below are within `D:\Đồ Án\.cache\issue99-retention-audit`
 | `.cache/issue99-comparison-stage-local-v2-preview/` | Staged `code/`, `inputs/`, `sources/seed{42,43,44}/epoch-10.pt`, `runtime.json` for local inspection. Source checkpoint SHAs: seed 42 `a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b`; 43 `2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f`; 44 `6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5`. |
 | `.cache/issue99-audit-extracted/` | Separately extracted seed 42/43/44 epoch-10 checkpoints from the local audit; preserve. |
 
-Local gate **PASS**: ZIP hashes/CRC, five 7-day and 14-day input files, strict checkpoint/model/Adam/latent metadata, and 65,888 Source training rows compared in order. The Source population identity was `c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760`. The four targets 1405/2152/1153/1693 have 90 scheduled days; full-replay issued/scored counts later measured were 90/89 for 1405 and 59/52 for the other three. The input status is `technical_success_with_coverage_limits`; underlying publisher raw physical lineage was not reaudited in this task.
+Local gate **PASS**: ZIP hashes/CRC, five 7-day and 14-day input files, strict checkpoint/model/Adam/latent metadata, and 65,888 Source training rows compared in order. The Source population identity was `c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760`. The four targets 1405/2152/1153/1693 have 90 scheduled days; full-replay issued/scored counts later measured were 90/89 for 1405 and 59/52 for the other three. The input status is `technical_success_with_coverage_limits`; underlying publisher raw physical lineage was not reaudited during this review.
 
 ## Saved Kaggle executions and outputs
 
