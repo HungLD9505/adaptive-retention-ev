@@ -1,6 +1,6 @@
 # Issue #99 unified integration review candidate
 
-**Status: prepared for user and peer review; not merged into dev or main.**
+**Status: prepared for team and peer review; not merged into dev or main.**
 The branch starts at dev `dffd16a0b37df336330ef9b9d23056facd388681`.
 No experiment was rerun or relabelled as execution of the integrated code.
 
@@ -106,7 +106,7 @@ independent regression cases. Keeping their history reviewable is the reason
 for avoiding a mechanical split in this integration; reviewer agreement on
 these existing sizes remains required.
 
-After user review, any dev merge needs the repository's normal peer approval.
+After team review, any dev merge needs the repository's normal peer approval.
 Updating main requires a separately reviewed promotion and explicit instruction.
 Do not close covered PRs/issues or delete active branches before actual integration
 and acceptance; preserve unpublished branches and unmerged work.

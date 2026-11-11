@@ -4,7 +4,7 @@ Profile: **`charged-hourly-v1-local-naive`**. Issue #17 Step 5; input consumers 
 
 ## Accepted research scope — October 17, 2026
 
-The user/team lead accepted **UrbanEV primary + all six standard CHARGED cities supplementary** with publisher-processing limitations. AMS/JHB/LOA/MEL/SPO provide additional geographic coverage; SZH is analyzed separately as a later-period Shenzhen release with extensive coordinate overlap with UrbanEV. Do not aggregate SZH into a headline independent external-validation score. Do not pool UrbanEV/CHARGED for pretraining or silently remove any city/site.
+The team lead accepted **UrbanEV primary + all six standard CHARGED cities supplementary** with publisher-processing limitations. AMS/JHB/LOA/MEL/SPO provide additional geographic coverage; SZH is analyzed separately as a later-period Shenzhen release with extensive coordinate overlap with UrbanEV. Do not aggregate SZH into a headline independent external-validation score. Do not pool UrbanEV/CHARGED for pretraining or silently remove any city/site.
 
 This accepts the bounded research scope, **not** a certificate of clean/original observations, independent physical entities, strict-online causality or readiness of model inputs. Each city's source/development/final reference split remains separate, subject to #18 review. Raw bytes are immutable. All-zero site counts over the entire 183 days are diagnostics, never an exclusion rule.
 

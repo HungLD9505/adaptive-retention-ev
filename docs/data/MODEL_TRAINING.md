@@ -31,7 +31,7 @@ retention branch and matches ordinary source-initialized fine-tuning.
 Install Python 3.12, `requirements-dev.txt` and `requirements-model.txt`. Colab's actual
 Python/PyTorch/CUDA/device and pip freeze must be retained if its runtime differs.
 CPU CI installs the pinned PyTorch CPU wheel. Local tests use tiny independent fixtures;
-actual Source/Development training is run on Colab, not on the user's laptop.
+actual Source/Development training is run on Colab, rather than on a local workstation.
 
 Use [the notebook](../../notebooks/issue19_development.ipynb). It accepts a Git bundle
 of this branch, so private repository access does not require tokens in notebook code.

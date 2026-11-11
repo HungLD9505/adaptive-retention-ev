@@ -1,7 +1,7 @@
 # Independent UrbanEV/SZH Baseline Benchmark — Hữu Đức (#96)
 
 **Owner:** Nguyễn Hữu Đức (`@huuduc32`)\
-**Status:** 172/172 result rows and reviewer artifact/per-origin audit passed. Exploratory Development scope accepted at the user's direction; final merge review pending.\
+**Status:** 172/172 result rows and reviewer artifact/per-origin audit passed. Exploratory Development scope accepted by the team lead; final merge review pending.\
 **Execution date:** 11 November 2026, Vietnam time (session `benchmark-20261111-003045-e3e4e0`).\
 **Scope:** UrbanEV Shenzhen **Development** benchmark only. This report supersedes the earlier one-station pilot document in PR #111.
 
@@ -42,7 +42,7 @@ This section records **the protocols actually executed**; it was prepared **afte
 
 **Current agreement boundary:** both owners completed the **row-count scope** under a comparable broad benchmark design. There is **no evidence of prospective mutual sign-off** on the exact implementation, tuning or checkpoint-selection protocol before these particular scored runs. Neither run retroactively satisfies that missing lock; this is a documented acceptance gap, not a claim that the executed results are invalid.
 
-**Scope decision — 11 November 2026:** At the user's explicit direction, accept PR #114 / issue #96 as a fixed-recipe exploratory Development study. The prospective joint protocol and architecture-specific tuning requirements are waived for this handoff, with the executed differences disclosed above. Any future harmonized/tuned study requires a separately registered prospective protocol. Final peer approval and CI on the latest revision are required before merge into `dev`; close #96 after merge and final checklist reconciliation.
+**Scope decision — 11 November 2026:** The team lead accepted PR #114 / issue #96 as a fixed-recipe exploratory Development study. The prospective joint protocol and architecture-specific tuning requirements are waived for this handoff, with the executed differences disclosed above. Any future harmonized/tuned study requires a separately registered prospective protocol. Final peer approval and CI on the latest revision are required before merge into `dev`; close #96 after merge and final checklist reconciliation.
 
 ### Replay availability (per model configuration on each station)
 

@@ -116,3 +116,10 @@ Offline fixtures establish software behavior, not forecasting superiority.
 
 See the [contribution workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md)
 for repository changes.
+
+## Research team
+
+- [HungLD9505](https://github.com/HungLD9505)
+- [Qyroven](https://github.com/Qyroven)
+- [hung00cyber](https://github.com/hung00cyber)
+- [huuduc32](https://github.com/huuduc32)

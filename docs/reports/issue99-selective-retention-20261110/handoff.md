@@ -14,7 +14,7 @@ Each entry averages seeds 42/43/44. L2-SP still harms 1693 relative to lambda ze
 
 ## Separate method experiment
 
-The user authorized alternative retention implementations. This branch adds experimental tools and leaves the primary loss and Report 1 method intact. All arms reuse the same existing two-layer GRU Source10 checkpoints, 14-day target prefix, three initial adaptation epochs, one online epoch per complete arrival, model learning rate 0.001, complete 24→24 labels, deterministic CPU execution and causal runner.
+This separate experiment evaluates alternative retention implementations while preserving the primary loss and Report 1 method. All arms reuse the same existing two-layer GRU Source10 checkpoints, 14-day target prefix, three initial adaptation epochs, one online epoch per complete arrival, model learning rate 0.001, complete 24→24 labels, deterministic CPU execution and causal runner.
 
 Uniform penalty is the existing mean square latent displacement after dividing by source standard deviation plus 0.001. Selective penalty multiplies each of the 64 squared normalized displacements by a prefix-derived weight with mean one. To derive weights, ablate each source latent coordinate to zero in the source prediction on the predeployment target prefix. Take the positive increase in prefix forecast MAE, normalize to mean one, then mix 90% importance with 10% uniform weight. If all positive effects vanish, use uniform weights. Weights stay frozen throughout adaptation and replay. The uniform mixing fraction is an engineering choice; its robustness was not searched.
 

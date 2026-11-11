@@ -2,11 +2,11 @@
 
 ## Delivered scope
 
-The owner's request was to finish baseline verification, integrate the new
-controller formula, full results and visuals into the teacher-review paper, and
-publish the work to Git for the joint retention owners. This handoff relates to
-#99 and depends on PR #112. It does not merge any implementation or replace the
-frozen primary report.
+This release combines baseline verification, the new controller formula, full
+results and scientific figures in the teacher-review manuscript. The supporting
+code, tables and verification records are versioned with the manuscript. This
+handoff relates to #99 and depends on PR #112. The frozen primary report remains
+a separate research snapshot.
 
 The new review version is [here](../../../report/teacher-review-20261111/README.md):
 eleven pages, twelve equation images with maintained LaTeX, six scientific figures,
@@ -43,17 +43,17 @@ substitution remain separate from artifact/metric correctness; this handoff does
 not approve or close #95.
 
 Duc reviewed head: `ecbc4595a9616f7a7fa42679e595947d3832f6d5`, PR #114;
-PR #111 is superseded pilot history. This task recomputed all 172 ledger rows into
+PR #111 is superseded pilot history. All 172 ledger rows were recomputed into
 station-equal summaries. The current ledgers, session and executed notebook are
 byte-identical to audited revision `a2a7b6d`. Therefore the existing published
 [737-file reviewer readback](https://github.com/HungLD9505/adaptive-retention-ev/pull/114#issuecomment-6783698688)
-is reused with explicit attribution; this task does not claim another download
-or independent reexecution of those 737 files. That audit verified all daily
+is reused with explicit attribution; no additional download or independent
+reexecution of those 737 files was performed. That audit verified all daily
 metrics, label eligibility, common origins, Source bindings and 147 finite tensor
 checkpoints. Current CI passes in run
 [42950550735](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/42950550735).
 The explicitly recorded fixed-recipe exploratory scope decision is preserved;
-this task neither approves a merge nor closes #96.
+merge approval and closure of #96 remain separate review decisions.
 
 Audit outputs: [baseline-verification.json](baseline-verification.json),
 [provenance](baseline-provenance.json), [Cyber means](cyber-summary.csv),
@@ -129,5 +129,5 @@ audit evidence and new reproducibility tools are pushed on
 `docs/99-teacher-review-complete`. Its ancestry includes PR #112 and the preceding
 retention/history-study work. `dev` and `main` were not modified or merged.
 Large data, models, and reader ZIPs stay outside Git; the committed small tables
-and manifests are reviewable without them. Both retention owners can inspect the
-same branch and the linked #99 PR; this task did not send anyone a direct message.
+and manifests are reviewable without them. Both retention owners have a common
+review source in the branch and linked #99 PR.

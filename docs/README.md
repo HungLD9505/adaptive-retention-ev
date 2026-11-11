@@ -1,6 +1,6 @@
 # Documentation
 
-Start from the question you want to answer, rather than a dated progress file.
+The index below links the research findings, technical contracts and supporting evidence.
 
 | Question | Entry point |
 |---|---|
