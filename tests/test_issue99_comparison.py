@@ -13,7 +13,9 @@ from ev_runner.continuous_run import code_identity as continuous_code_identity
 from ev_runner.replay import Labels
 from ev_runner.run import runtime_code as discrete_code_identity
 from ev_search.comparison import event_hashes, execute_job, plan_jobs
-from ev_search.comparison_verify import _scores, _verify_full_horizon, verify_matrix
+from ev_search.comparison_verify import _scores, _verify_commit_chain, _verify_full_horizon
+from ev_search.comparison_verify import verify_matrix as verify_matrix_core
+from ev_search.protocol import canonical_sha256
 
 TARGETS = ("1405", "2152", "1153", "1693")
 
@@ -52,6 +54,7 @@ def fixtures(root, *, fixed=0.5, initial=0.5):
     protocol_path.write_text(
         json.dumps(
             {
+                "schema": "issue99-protocol-v1",
                 "status": "locked_owner_approved",
                 "owner_authorization": "fixture-approved",
                 "input_manifest_sha256": "a" * 64,
@@ -97,6 +100,22 @@ def fixtures(root, *, fixed=0.5, initial=0.5):
         "controller": {"seed": 42},
         "development_entities": list(TARGETS),
     }
+    protocol_data = json.loads(protocol_path.read_text())
+    protocol_data.update(
+        fixed_search_config_sha256="c" * 64,
+        evaluation_study_template_sha256=canonical_sha256(study),
+        calibration_study_template_sha256=canonical_sha256({"phase": "calibration"}),
+        code_commit=continuous_code_identity()["commit"],
+    )
+    protocol_path.write_text(json.dumps(protocol_data))
+    protocol_data = json.loads(protocol_path.read_text())
+    protocol_data.update(
+        fixed_search_config_sha256="c" * 64,
+        evaluation_study_template_sha256=canonical_sha256(study),
+        calibration_study_template_sha256=canonical_sha256({"phase": "calibration"}),
+        code_commit=continuous_code_identity()["commit"],
+    )
+    protocol_path.write_text(json.dumps(protocol_data))
     lock_path = root / "lock.json"
     lock_path.write_text(
         json.dumps(
@@ -104,6 +123,8 @@ def fixtures(root, *, fixed=0.5, initial=0.5):
                 "schema": "issue99-comparison-lock-v1",
                 "status": "locked_owner_approved",
                 "protocol_sha256": digest(protocol_path),
+                "fixed_search_config_sha256": "c" * 64,
+                "code_commit": continuous_code_identity()["commit"],
                 "selected_fixed_lambda": fixed,
                 "controller_initial_lambda": initial,
                 "study_template": study,
@@ -116,6 +137,14 @@ def fixtures(root, *, fixed=0.5, initial=0.5):
         source = root / f"seed-{seed}.pt"
         source.write_text(str(seed))
         sources[str(seed)] = {"path": str(source), "sha256": digest(source)}
+    protocol_data = json.loads(protocol_path.read_text())
+    protocol_data["source_checkpoint_sha256"] = {
+        seed: source["sha256"] for seed, source in sources.items()
+    }
+    protocol_path.write_text(json.dumps(protocol_data))
+    lock_data = json.loads(lock_path.read_text())
+    lock_data["protocol_sha256"] = digest(protocol_path)
+    lock_path.write_text(json.dumps(lock_data))
     (root / "source-bindings.json").write_text(json.dumps(sources))
     (root / "audit.json").write_text(
         json.dumps(
@@ -135,7 +164,47 @@ def fixtures(root, *, fixed=0.5, initial=0.5):
     return protocol_path, lock_path, sources
 
 
+def verify_fixture_matrix(
+    jobs: list[dict],
+    output_root: Path,
+    inputs: FakeInputs,
+    protocol_path: Path,
+    lock_path: Path,
+    **kwargs,
+) -> dict:
+    """Supply the independent Source audit fixture; negative tests may override it."""
+    kwargs.setdefault("source_audit_path", protocol_path.parent / "audit.json")
+    kwargs.setdefault("source_audit_sha256", digest(protocol_path.parent / "audit.json"))
+    return verify_matrix_core(jobs, output_root, inputs, protocol_path, lock_path, **kwargs)
+
+
 class ComparisonTests(unittest.TestCase):
+    def test_hash_consistent_truncated_comparison_fails_horizon(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            run = Path(temporary)
+            binding = {"config": {"state_retention": "all"}}
+            (run / "binding.json").write_text(json.dumps(binding))
+            previous = "0" * 64
+            for index in range(2):
+                tick = run / f"tick-{index:04d}"
+                tick.mkdir()
+                for name in ("state.pt", "events.jsonl", "forecasts.json"):
+                    (tick / name).write_bytes(b"fixture")
+                commit = {
+                    "index": index,
+                    "previous": previous,
+                    "files": {
+                        name: digest(tick / name)
+                        for name in ("state.pt", "events.jsonl", "forecasts.json")
+                    },
+                }
+                (tick / "commit.json").write_text(json.dumps(commit))
+                previous = digest(tick / "commit.json")
+            report = {"binding": binding, "commit_chain": previous, "scheduled_days": 1}
+            _verify_commit_chain(run, report)
+            with self.assertRaisesRegex(ValueError, "declared horizon"):
+                _verify_full_horizon(run, FakeReplay(None, "1405", 90))
+
     def test_truncated_run_fails_full_horizon(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -158,7 +227,7 @@ class ComparisonTests(unittest.TestCase):
                 source["sha256"] = "f" * 64
             (root / "source-bindings.json").write_text(json.dumps(sources))
             with self.assertRaisesRegex(ValueError, "trusted local audit"):
-                verify_matrix(
+                verify_fixture_matrix(
                     jobs,
                     root / "runs",
                     inputs,
@@ -170,7 +239,7 @@ class ComparisonTests(unittest.TestCase):
             audit_sha = digest(root / "audit.json")
             (root / "audit.json").write_text((root / "audit.json").read_text() + " ")
             with self.assertRaisesRegex(ValueError, "audit bytes changed"):
-                verify_matrix(
+                verify_fixture_matrix(
                     jobs,
                     root / "runs",
                     inputs,
@@ -235,6 +304,24 @@ class ComparisonTests(unittest.TestCase):
                 all(job["reuse_job_id"] is None for job in jobs if job["method"] == "frozen_lambda")
             )
 
+    def test_verifier_rejects_job_origin_and_lock_config_tampering(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            protocol, lock, sources = fixtures(root)
+            jobs = plan_jobs(FakeInputs(), protocol, lock, sources)
+            changed_origins = json.loads(json.dumps(jobs))
+            changed_origins[0]["evaluation_origins"] = ["2023-01-04T00:00:00+08:00"]
+            with self.assertRaisesRegex(ValueError, "evaluation origins differ"):
+                verify_fixture_matrix(changed_origins, root / "runs", FakeInputs(), protocol, lock)
+            changed_config = json.loads(json.dumps(jobs))
+            changed_config[0]["config"]["initial_lambda"] = 0.2
+            with self.assertRaisesRegex(ValueError, "authenticated selection lock"):
+                verify_fixture_matrix(changed_config, root / "runs", FakeInputs(), protocol, lock)
+            changed_source = json.loads(json.dumps(jobs))
+            changed_source[0]["source_sha256"] = "0" * 64
+            with self.assertRaisesRegex(ValueError, "Source checkpoint differs"):
+                verify_fixture_matrix(changed_source, root / "runs", FakeInputs(), protocol, lock)
+
     def test_reject_final_input_and_changed_lock(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -248,6 +335,23 @@ class ComparisonTests(unittest.TestCase):
             lock.write_text(json.dumps(lock_data))
             with self.assertRaisesRegex(ValueError, "matching owner-locked"):
                 plan_jobs(FakeInputs(), protocol, lock, sources)
+
+    def test_reject_comparison_selection_search_study_or_code_drift(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            protocol, lock, sources = fixtures(root)
+            original = json.loads(lock.read_text())
+            for change, message in (
+                ({"fixed_search_config_sha256": "d" * 64}, "Fixed search JSON file"),
+                ({"code_commit": "0" * 40}, "selection code commit"),
+                (
+                    {"study_template": {**original["study_template"], "cadence": 2}},
+                    "Canonical evaluation study",
+                ),
+            ):
+                lock.write_text(json.dumps({**original, **change}))
+                with self.assertRaisesRegex(ValueError, message):
+                    plan_jobs(FakeInputs(), protocol, lock, sources)
 
     def test_execute_exact_alias_checks_binding_and_preserves_source_run(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -388,7 +492,7 @@ class ComparisonTests(unittest.TestCase):
                     )
                     saved_path.write_text(json.dumps(saved))
             with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
-                result = verify_matrix(
+                result = verify_fixture_matrix(
                     jobs,
                     output,
                     inputs,
@@ -423,7 +527,7 @@ class ComparisonTests(unittest.TestCase):
             paths[2].write_text(json.dumps(saved))
             with self.assertRaisesRegex(ValueError, "selection lock"):
                 with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
-                    verify_matrix(
+                    verify_fixture_matrix(
                         forged_jobs,
                         output,
                         inputs,
@@ -438,7 +542,7 @@ class ComparisonTests(unittest.TestCase):
             victim.write_text(victim.read_text().replace("2.0", "3.0"))
             with self.assertRaisesRegex(ValueError, "stream hash changed"):
                 with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
-                    verify_matrix(
+                    verify_fixture_matrix(
                         jobs,
                         output,
                         inputs,
@@ -467,7 +571,7 @@ class ComparisonTests(unittest.TestCase):
             job_path.write_text(json.dumps(saved))
             with self.assertRaisesRegex(ValueError, "score differs from forecast and labels"):
                 with mock.patch("ev_search.comparison_verify.Replay", FakeReplay):
-                    verify_matrix(
+                    verify_fixture_matrix(
                         jobs,
                         output,
                         inputs,

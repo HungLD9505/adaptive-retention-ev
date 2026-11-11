@@ -13,6 +13,7 @@ from ev_runner.continuous_run import execute
 from ev_runner.replay import Replay
 from ev_search.fixed import FixedSearchConfig
 from ev_search.ledger import FixedLedger, run_bounded_search
+from ev_search.protocol import canonical_sha256, require_scored_bindings
 
 TARGETS = ("1405", "2152", "1153", "1693")
 SEEDS = (42, 43, 44)
@@ -60,19 +61,26 @@ class FixedMatrixEvaluator:
         output: Path,
         *,
         device: str,
+        search_config_sha256: str,
     ) -> None:
         self.inputs = inputs
         self.protocol_path = protocol_path
         self.protocol = json.loads(protocol_path.read_text())
         self.protocol_sha256 = digest(protocol_path)
+        self.search_config_sha256 = search_config_sha256
         self.study_template = study_template
         self.sources = sources
         self.output = output
         self.device = device
         if set(sources) != {str(seed) for seed in SEEDS}:
             raise ValueError("Exactly three Source10 seed bindings required")
-        if self.protocol.get("status") != "locked_owner_approved":
-            raise ValueError("Fixed search requires owner-locked protocol")
+        if self.protocol.get("schema") != "issue99-execution-protocol-v1":
+            require_scored_bindings(
+                self.protocol,
+                study_template,
+                fixed_search_config_sha256=search_config_sha256,
+                phase="calibration",
+            )
         if (
             study_template.get("phase") != "calibration"
             or study_template.get("frozen_lambda") is not True
@@ -81,6 +89,14 @@ class FixedMatrixEvaluator:
         self.replays = {target: Replay(inputs, target, 90) for target in TARGETS}
 
     def __call__(self, weight: float, role: str, trial: int) -> dict:
+        if digest(self.protocol_path) != self.protocol_sha256:
+            raise ValueError("Locked protocol changed after Fixed evaluator construction")
+        require_scored_bindings(
+            self.protocol,
+            self.study_template,
+            fixed_search_config_sha256=self.search_config_sha256,
+            phase="calibration",
+        )
         trial_root = self.output / f"trial-{trial:04d}"
         trial_root.mkdir(exist_ok=False)
         rows = []
@@ -144,14 +160,22 @@ def main() -> None:
     study = json.loads(args.study_template.read_text())
     sources = json.loads(args.sources.read_text())
     evaluator = FixedMatrixEvaluator(
-        inputs, args.protocol, study, sources, args.output, device=args.device
+        inputs,
+        args.protocol,
+        study,
+        sources,
+        args.output,
+        device=args.device,
+        search_config_sha256=digest(args.search_config),
     )
     binding = {
         "schema": "issue99-fixed-calibration-binding-v1",
         "input_manifest_sha256": inputs.sha256,
         "source_population_sha256": inputs.source_hash,
         "protocol_sha256": evaluator.protocol_sha256,
-        "study_template_sha256": digest(args.study_template),
+        "calibration_study_template_sha256": canonical_sha256(study),
+        "fixed_search_config_sha256": digest(args.search_config),
+        "code_commit": runner_code_identity()["commit"],
         "sources": {seed: source["sha256"] for seed, source in sources.items()},
         "code_files": {
             str(path.relative_to(ROOT)): digest(path)

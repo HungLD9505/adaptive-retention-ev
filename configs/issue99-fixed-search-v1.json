@@ -1,0 +1,16 @@
+{
+  "positive_lower": 0.001,
+  "positive_upper": 2.0,
+  "maximum_upper": 8.0,
+  "expansion_factor": 2.0,
+  "boundary_fraction": 0.15,
+  "maximum_expansions": 2,
+  "bo_trials": 8,
+  "initial_lambdas": [0.001, 0.01, 0.1, 1.0, 2.0],
+  "sensitivity_points": 7,
+  "acquisition_grid_points": 129,
+  "kernel_length": 1.0,
+  "signal_std": 0.1,
+  "noise_std": 0.01,
+  "expected_improvement_jitter": 0.005
+}

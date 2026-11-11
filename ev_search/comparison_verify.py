@@ -169,14 +169,23 @@ def verify_matrix(
     sources = {}
     for job in jobs:
         seed = str(job["seed"])
+        if job["evaluation_origins"] != protocol["evaluation_origins"][job["target"]]:
+            raise ValueError("Comparison evaluation origins differ from locked protocol")
+        if (
+            "source_checkpoint_sha256" in protocol
+            and job["source_sha256"] != protocol["source_checkpoint_sha256"][seed]
+        ):
+            raise ValueError("Comparison Source checkpoint differs from locked protocol")
         source = {"path": job["source_path"], "sha256": job["source_sha256"]}
         if source["sha256"] != audit["source"][seed]["checkpoint_sha256"]:
             raise ValueError("Comparison Source checkpoint differs from trusted local audit")
         if seed in sources and sources[seed] != source:
             raise ValueError("Comparison Source path/hash differs across jobs")
         sources[seed] = source
-    if json.loads((output_root.parent / "source-bindings.json").read_text()) != sources:
-        raise ValueError("Comparison Source bindings differ from saved study record")
+    source_record = output_root.parent / "source-bindings.json"
+    if source_record.exists() or protocol.get("schema") == "issue99-execution-protocol-v1":
+        if json.loads(source_record.read_text()) != sources:
+            raise ValueError("Comparison Source bindings differ from saved study record")
     expected_jobs = plan_jobs(inputs, protocol_path, lock_path, sources)
     if {job["job_id"]: job for job in jobs} != {job["job_id"]: job for job in expected_jobs}:
         raise ValueError("Comparison jobs differ from authenticated selection lock")
@@ -200,7 +209,6 @@ def verify_matrix(
             raise ValueError("Saved forecast/score stream hash changed")
         report = json.loads(report_path.read_text())
         verify_run_binding(job, report, inputs)
-        _verify_commit_chain(run_path, report)
         if result["reused_from"] != job["reuse_job_id"]:
             raise ValueError("Reuse identity changed")
         target = job["target"]

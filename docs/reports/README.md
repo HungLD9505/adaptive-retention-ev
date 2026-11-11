@@ -20,6 +20,7 @@ The report PDFs and exact tables live under [report/](../../report/README.md).
 | Diagnostic studies | [Fixed adaptation](member-duc-retention.md), [Confidence controller](member-cyber-controller.md) |
 | Data and input handoff | [Data integration](data-integration.md), [inputs](input-handoff.md) |
 | Software and package validation | [Verification reference](main-readiness-20261102.md), [machine-readable checks](release-curation-20261102-v1.json) |
+| Issue #99 Source10 studies and handoff | [Task handoff](issue99-task-handoff-20261110.md), [controller follow-up](issue99-controller-followup-20261110.md) |
 
 Earlier progress snapshots, temporary recovery notes and superseded report drafts
 are preserved at tag `archive/pre-doc-curation-20261102`, commit

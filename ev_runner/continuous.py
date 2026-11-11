@@ -7,9 +7,11 @@ from datetime import datetime, timedelta
 import torch
 
 from ev_control.continuous import ArrivedWindow, WindowRule, decide
+from ev_control.diagnostics import DiagnosticConfig
+from ev_control.diagnostics import measure as measure_control_diagnostics
 from ev_models.model import ForecastGRU
 from ev_models.training import TrainingConfig
-from ev_runner.diagnostics import measure
+from ev_runner.diagnostics import measure as measure_loss_gradient
 from ev_runner.replay import Replay
 from ev_runner.state import Branch, identity, state_digest
 from ev_runner.store import Store
@@ -34,6 +36,7 @@ class ContinuousRunner:
         device: str,
         cadence: int,
         frozen_lambda: bool = False,
+        diagnostics: DiagnosticConfig | None = None,
     ) -> None:
         if not 0 <= initial_lambda <= rule.upper_bound or cadence < 1:
             raise ValueError("Invalid initial lambda or cadence")
@@ -46,6 +49,7 @@ class ContinuousRunner:
         )
         self.current_lambda, self.device, self.cadence = initial_lambda, device, cadence
         self.frozen_lambda = frozen_lambda
+        self.diagnostics = diagnostics
         self.window = ArrivedWindow()
         self.pending: list[dict] = []
         self.next_at = replay.start
@@ -53,6 +57,8 @@ class ContinuousRunner:
         self.actual_steps = 0
         self.virtual_steps = 0
         self.cost = {"inference_seconds": 0.0, "actual_update_seconds": 0.0, "meta_seconds": 0.0}
+        if diagnostics is not None:
+            self.cost["diagnostics_seconds"] = 0.0
         self.source_state_sha256 = state_digest(reference.state_dict())
         if store.restored is not None:
             self.restore(store.restored)
@@ -89,6 +95,8 @@ class ContinuousRunner:
         self.actual_steps = value["actual_steps"]
         self.virtual_steps = value["virtual_steps"]
         self.cost = value["cost"]
+        if self.diagnostics is not None and "diagnostics_seconds" not in self.cost:
+            raise ValueError("Diagnostics cost missing on resume")
 
     def _arrivals(self, as_of: datetime, events: list[dict]) -> None:
         waiting = []
@@ -131,6 +139,30 @@ class ContinuousRunner:
                 record=record,
             )
             self.arrivals += 1
+            if self.diagnostics is not None and self.arrivals % self.diagnostics.cadence == 0:
+                self.synchronize()
+                started = time.perf_counter()
+                diagnostics = measure_control_diagnostics(
+                    self.branch.model,
+                    self.reference,
+                    self.latent_scale,
+                    [record],
+                    weight=self.current_lambda,
+                    retention_epsilon=self.training.epsilon,
+                    epsilon_g=self.diagnostics.epsilon_g,
+                    device=self.device,
+                )
+                self.synchronize()
+                self.cost["diagnostics_seconds"] += time.perf_counter() - started
+                events.append(
+                    {
+                        "event": "retention_diagnostics",
+                        "origin": issued["origin"],
+                        "as_of": as_of.isoformat(),
+                        "arrival_index": self.arrivals,
+                        **diagnostics,
+                    }
+                )
             if not self.frozen_lambda and self.arrivals % self.cadence == 0:
                 selected = self.window.select(as_of, self.rule)
                 if selected is None:
@@ -165,7 +197,7 @@ class ContinuousRunner:
             if diagnostic_every and self.arrivals % diagnostic_every == 0:
                 self.synchronize()
                 diagnostic_started = time.perf_counter()
-                diagnostic = measure(
+                diagnostic = measure_loss_gradient(
                     self.branch.model,
                     self.reference,
                     self.latent_scale,

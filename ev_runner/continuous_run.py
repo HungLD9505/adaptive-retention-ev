@@ -12,6 +12,7 @@ from pathlib import Path
 import torch
 
 from ev_control.continuous import WindowRule
+from ev_control.diagnostics import DiagnosticConfig
 from ev_models.checkpoint import digest, load_checkpoint, write_json
 from ev_models.data import InputRun
 from ev_models.model import ForecastGRU, ModelConfig
@@ -98,7 +99,7 @@ def validate_study(
         "objective_origins",
     }
     if (
-        set(config) - {"state_retention", "diagnostic_every"} != required
+        set(config) - {"state_retention", "diagnostic_every", "diagnostics"} != required
         or config["schema"] != "issue99-study-v1"
     ):
         raise ValueError("Invalid issue #99 study config")
@@ -111,6 +112,17 @@ def validate_study(
         or diagnostic_every < 0
     ):
         raise ValueError("Invalid diagnostic cadence")
+    if "diagnostics" in config:
+        if "diagnostic_every" in config:
+            raise ValueError("Choose one registered diagnostic profile")
+        if not isinstance(config["diagnostics"], dict) or set(config["diagnostics"]) != {
+            "cadence",
+            "epsilon_g",
+        }:
+            raise ValueError("Invalid diagnostic config")
+        DiagnosticConfig(**config["diagnostics"])
+    elif config["phase"] != "pilot" and "diagnostic_every" not in config:
+        raise ValueError("Scored execution needs registered diagnostics")
     if config["phase"] not in {"pilot", "calibration", "evaluation"}:
         raise ValueError("Unknown study phase")
     if config["phase"] != "pilot" and not config["protocol_sha256"]:
@@ -216,6 +228,11 @@ def execute(
             "owner_authorization"
         ):
             raise ValueError("Scored execution requires recorded owner authorization")
+        if "diagnostics" in config:
+            if config["diagnostics"] != protocol.get("diagnostics"):
+                raise ValueError("Diagnostics differ from reviewed protocol")
+        elif config["diagnostic_every"] != protocol.get("resources", {}).get("diagnostic_every"):
+            raise ValueError("Diagnostics differ from reviewed protocol")
         calibration = validate_origin_boundary(
             protocol,
             entity_id,
@@ -335,6 +352,7 @@ def execute(
         device=device,
         cadence=config["cadence"],
         frozen_lambda=config["frozen_lambda"],
+        diagnostics=DiagnosticConfig(**config["diagnostics"]) if "diagnostics" in config else None,
     )
     if stop_after_ticks is not None and stop_after_ticks < 1:
         raise ValueError("stop_after_ticks must be positive")
