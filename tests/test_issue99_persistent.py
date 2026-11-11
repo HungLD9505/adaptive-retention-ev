@@ -371,6 +371,7 @@ class PersistentTests(unittest.TestCase):
         mismatched["persistent_rule"]["max_abs_lambda_step"] = 0.2
         with self.assertRaisesRegex(ValueError, "locked protocol"):
             validate_controller_protocol(mismatched, protocol)
+        config["diagnostics"] = {"cadence": 7, "epsilon_g": 1e-12}
         config["phase"] = "evaluation"
         config["protocol_sha256"] = "a" * 64
         config["objective_origins"] = ["2022-12-01T00:00:00+00:00"]

@@ -284,7 +284,10 @@ class ContinuousRunner:
                     events.append(
                         {"event": "meta_decision", "origin": issued["origin"], **decision}
                     )
-            diagnostic_every = self.store.binding.get("config", {}).get("diagnostic_every", 0)
+            bound_config = self.store.binding.get("config", {})
+            diagnostic_every = (
+                bound_config.get("diagnostic_every", 0) if isinstance(bound_config, dict) else 0
+            )
             if diagnostic_every and self.arrivals % diagnostic_every == 0:
                 self.synchronize()
                 diagnostic_started = time.perf_counter()

@@ -171,14 +171,14 @@ def verify_matrix(
         seed = str(job["seed"])
         if job["evaluation_origins"] != protocol["evaluation_origins"][job["target"]]:
             raise ValueError("Comparison evaluation origins differ from locked protocol")
+        source = {"path": job["source_path"], "sha256": job["source_sha256"]}
+        if source["sha256"] != audit["source"][seed]["checkpoint_sha256"]:
+            raise ValueError("Comparison Source checkpoint differs from trusted local audit")
         if (
             "source_checkpoint_sha256" in protocol
             and job["source_sha256"] != protocol["source_checkpoint_sha256"][seed]
         ):
             raise ValueError("Comparison Source checkpoint differs from locked protocol")
-        source = {"path": job["source_path"], "sha256": job["source_sha256"]}
-        if source["sha256"] != audit["source"][seed]["checkpoint_sha256"]:
-            raise ValueError("Comparison Source checkpoint differs from trusted local audit")
         if seed in sources and sources[seed] != source:
             raise ValueError("Comparison Source path/hash differs across jobs")
         sources[seed] = source

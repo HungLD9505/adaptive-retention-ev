@@ -48,6 +48,11 @@ class DiagnosticTests(unittest.TestCase):
         del pilot["diagnostics"]
         with self.assertRaises(ValueError):
             validate_study(pilot)
+        pilot["diagnostic_every"] = 7
+        validate_study(pilot)
+        pilot["diagnostics"] = {"cadence": 7, "epsilon_g": 1e-12}
+        with self.assertRaisesRegex(ValueError, "one registered diagnostic profile"):
+            validate_study(pilot)
 
     def test_zero_at_identical_source_and_invariant_state(self):
         torch.manual_seed(42)
