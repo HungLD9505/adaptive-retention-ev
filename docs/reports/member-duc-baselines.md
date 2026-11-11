@@ -1,7 +1,7 @@
 # Independent UrbanEV/SZH Baseline Benchmark — Hữu Đức (#96)
 
 **Owner:** Nguyễn Hữu Đức (`@huuduc32`)  
-**Status:** Execution ledger complete (172/172 successful result rows); independent per-origin artifact audit and peer review remain pending.  
+**Status:** 172/172 result rows and reviewer artifact/per-origin audit passed. Exploratory Development scope accepted at the user's direction; final merge review pending.  
 **Execution date:** 11 November 2026, Vietnam time (session `benchmark-20261111-003045-e3e4e0`).  
 **Scope:** UrbanEV Shenzhen **Development** benchmark only. This report supersedes the earlier one-station pilot document in PR #111.
 
@@ -9,9 +9,9 @@
 
 The current Colab notebook and the independently produced `runs.csv` and `runs_graph.csv` report **160/160 non-spatial + 12/12 graph = 172/172 successful rows** for all 12 model families. These rows cover stations **1405, 2152, 1153 and 1693** over a 90-day Development replay. Stochastic methods were run with seeds **42, 43 and 44**, while deterministic baselines were not artificially repeated.
 
-For the **station-equal, seed-averaged MAE** used below, the lowest transferred-neural MAE is **5.1979 kWh (timexer)**. TCN Transfer, GRU Transfer and LSTM Transfer are close, at **5.3027**, **5.3157**, and **5.3168 kWh**, respectively. This does **not** establish statistical superiority. All 60 station-and-seed-aligned within-backbone Transfer comparisons show a lower reported aggregate MAE than Target-only, but exact common-origin forecast pairing has not yet been independently replay-verified.
+For the **station-equal, seed-averaged MAE** used below, the lowest transferred-neural MAE is **5.1979 kWh (timexer)**. TCN Transfer, GRU Transfer and LSTM Transfer are close, at **5.3027**, **5.3157**, and **5.3168 kWh**, respectively. This does **not** establish statistical superiority. All 60 station-and-seed-aligned within-backbone Transfer comparisons show a lower reported aggregate MAE than Target-only, and the reviewer has verified exact common scored-origin identities within each station.
 
-The full ledger can be inspected in [non-spatial CSV](https://drive.google.com/file/d/1EHQbIoVZfGAcDxavvFJ-nyqUaEv3ZevJ/view), [graph CSV](https://drive.google.com/file/d/17d7cFrohLGbtyLKBS_ZDvWvgURBqteeV/view), and the [session root](https://drive.google.com/drive/folders/19Gb0oQ0f8DC1p4Trl85aD7uDzp0HqFRr). **Drive currently reports these research artifacts as not shared**; external reviewer access must be granted separately. Copies of the two small ledgers and the notebook snapshot are committed under `experiments/member_studies/duc_baselines/` in this PR.
+The full ledger can be inspected in [non-spatial CSV](https://drive.google.com/file/d/1EHQbIoVZfGAcDxavvFJ-nyqUaEv3ZevJ/view), [graph CSV](https://drive.google.com/file/d/17d7cFrohLGbtyLKBS_ZDvWvgURBqteeV/view), and the [session root](https://drive.google.com/drive/folders/19Gb0oQ0f8DC1p4Trl85aD7uDzp0HqFRr). Reviewer access is resolved, as confirmed by the linked audit below. Copies of the two small ledgers and the notebook snapshot are committed under `experiments/member_studies/duc_baselines/` in this PR.
 
 ## Dataset, provenance and execution contract
 
@@ -31,18 +31,18 @@ This section records **the protocols actually executed**; it was prepared **afte
 | Protocol dimension | Commonalities / observed difference | Consequence |
 |---|---|---|
 | Data & task | Both use the same UrbanEV/SZH prepared 14-day Development input manifest `66c82dd3…`; 65,888 Source examples; 24-hour history → next 24 hourly kWh demand; 4 targets 1405/2152/1153/1693. Both report target prefix trainable counts 4/12/13/13. | Broad input/task comparability, not an independent data collection. |
-| Evaluation matrix | Both report 160 non-graph + 12 graph rows, 90 scheduled days per target, seeds 42/43/44 for stochastic configurations, and station-first MAE/RMSE. Both report 1405 coverage 90/90/89 and other targets 90/59/52. | Same *aggregate* result schema and target coverage; Duc's per-origin equality against Cyber and independent event readback remain unverified. |
+| Evaluation matrix | Both report 160 non-graph + 12 graph rows, 90 scheduled days per target, seeds 42/43/44 for stochastic configurations, and station-first MAE/RMSE. Both report 1405 coverage 90/90/89 and other targets 90/59/52. | Same aggregate result schema and target coverage. Duc's independent event readback and within-study common-origin audit passed. Cross-author per-origin equivalence remains unverified. |
 | Source / adaptation | Both describe 3 Source epochs, fixed last checkpoint, 3 target-adaptation epochs, online update 1 epoch, batch sizes 256/4, LR 0.001/0.0005, `lambda=0`. | Shared fixed training recipe. However, neither run documents the requirement's planned comparable architecture-specific tuning or a prospective mutual protocol lock. The #95 issue's up-to-10-epoch checkpoints (1/3/10) were a **starting recipe**, not executed as written. |
 | Classical methods | Ridge α=1.0 and daily refit; RF 100 trees, depth 10, weekly refit; XGBoost 50 trees, depth 5, LR 0.1, weekly refit. | Nominal major hyperparameters agree for the identified Cyber v3 and Duc run. Different library versions / implementation details still require equivalence audit. |
 | SARIMA | Both have nominal SARIMAX (1,0,1) × (1,0,0,24), maximum 15 optimizer iterations, 336-hour history and 7-day refit. Duc's code uses an initial single-order candidate, then filters the up-to-origin series with fitted parameters before forecasting; Cyber v3 documents explicit daily state advancement and diagnostics. | Do **not** infer identical SARIMA replay execution or score comparability from matching nominal orders. The earlier pilot's multi-order description does not describe this completed run. |
 | GRU/LSTM/MLP/TCN | GRU and LSTM share nominal 2-layer width-64 baselines, but wrapper/prediction implementation should still be verified. Duc MLP uses 168→128→64 encoder, whereas Cyber's report lists a different parameter count; Duc TCN uses four 64-channel causal residual blocks and is smaller than Cyber's reported TCN. | Similar model family labels are **not** architecture-matched ablations in every case. |
 | TimeXer | Duc uses official TimeXer at `76011909357972bd55a27adba2e1be994d81b327`: patch length 6, model width 32, four heads, one encoder, MS energy-channel reordering and Softplus. Cyber v3 uses a **custom** hour-token cross-attention adapter (width 64, no global token, no patching). | The two `TimeXer` results are **materially different implementations**; no head-to-head architecture claim or replication claim. |
 | Spatial GCN-LSTM | Both score 4 targets and include 3 Development-role support stations per target (16 graph nodes) with fixed geographical adjacency and separate graph results. Specific graph adaptation, edge handling, missing-support history and evidence checks require audit. | Spatial results are not a matched-information comparison with non-graph models. |
-| Execution / evidence | Duc ran on Colab CPU (Python 3.13.18; torch 2.14.1+cpu), Cyber v3 on Windows CPU (Python 3.12.10; torch 2.14.1+cpu). Cyber v3 has reviewer-side per-origin/readback evidence; Duc currently has committed ledgers and an immutable executed notebook snapshot but reviewer access to the complete Drive artifact set remains blocked. | Numerical differences conflate model choices, environment and potentially replay details; do not rank the two authors' results as if they were paired replications. |
+| Execution / evidence | Duc ran on Colab CPU (Python 3.13.18; torch 2.14.1+cpu), Cyber v3 on Windows CPU (Python 3.12.10; torch 2.14.1+cpu). Cyber v3 has reviewer-side per-origin/readback evidence; Duc now also has reviewer-confirmed access and complete artifact/per-origin readback. | Numerical differences conflate model choices, environment and potentially replay details; do not rank the two authors' results as if they were paired replications. |
 
 **Current agreement boundary:** both owners completed the **row-count scope** under a comparable broad benchmark design. There is **no evidence of prospective mutual sign-off** on the exact implementation, tuning or checkpoint-selection protocol before these particular scored runs. Neither run retroactively satisfies that missing lock; this is a documented acceptance gap, not a claim that the executed results are invalid.
 
-**Decision needed from the issue owners/reviewer/lead:** either (A) explicitly accept the two independent fixed-recipe studies as narrower **exploratory Development evidence**, with protocol differences and unverified pairing disclosed; or (B) define and approve a **new prospective** common protocol (exact model implementations, tuning budget, graph/input features, source checkpoints, event/availability timing and source/result schema), then produce **separate versioned** matched-protocol reruns and readback. **No change to #95, historical outputs, Final data, or the existing 172 row scores is authorized by this report.** Issue #96 remains open pending the review's evidence-access and independent artifact checks.
+**Scope decision — 11 November 2026:** At the user's explicit direction, accept PR #114 / issue #96 as a fixed-recipe exploratory Development study. The prospective joint protocol and architecture-specific tuning requirements are waived for this handoff, with the executed differences disclosed above. Any future harmonized/tuned study requires a separately registered prospective protocol. Final peer approval and CI on the latest revision are required before merge into `dev`; close #96 after merge and final checklist reconciliation.
 
 ### Replay availability (per model configuration on each station)
 
@@ -53,7 +53,7 @@ This section records **the protocols actually executed**; it was prepared **afte
 | 1153 | 90 | 59 | 52 |
 | 1693 | 90 | 59 | 52 |
 
-Within each station the ledger has identical scheduled/issued/scored counts across models. Across all 172 result rows, there are **15,480 scheduled**, **11,481 issued**, and **10,535 scored row-days**. These sums repeat the same target calendar for many model configurations; they are *not* unique calendar days. Daily/per-origin forecasts have not yet been exhaustively rehashed or independently rescored here.
+Within each station the ledger has identical scheduled/issued/scored counts across models. Across all 172 result rows, there are **15,480 scheduled**, **11,481 issued**, and **10,535 scored row-days**. These sums repeat the same target calendar for many model configurations; they are *not* unique calendar days. The reviewer independently rescored all daily/run metrics and verified run-manifest hashes.
 
 ## Main non-spatial results
 
@@ -90,7 +90,7 @@ These are the results of **this** benchmark run, not Cyber's PR #104; do not int
 | tcn | 7.8415 | 5.3027 | 32.38% | 12/12 |
 | timexer | 7.0224 | 5.1979 | 25.98% | 12/12 |
 
-A positive percentage here is computed as `(Target-only MAE − Transfer MAE) / Target-only MAE × 100` using the **station-equal averages** above. The individual `transfer_pairs.csv` provides **60 station-and-seed-aligned aggregate comparisons**. Equal issued/scored counts alone do not prove identical underlying scored origin IDs; strict per-origin paired error differences, uncertainty estimates and confidence intervals remain pending. The observed improvements are exploratory Development evidence, not a Final test or a negative-transfer guarantee in new stations.
+A positive percentage here is computed as `(Target-only MAE − Transfer MAE) / Target-only MAE × 100` using the **station-equal averages** above. The individual `transfer_pairs.csv` provides **60 station-and-seed-aligned aggregate comparisons**. The reviewer verified exact common scored-origin identities and confirmed all 60 within-backbone improvements. Uncertainty estimates and confidence intervals remain uncomputed. The observed improvements are exploratory Development evidence, not a Final test or a negative-transfer guarantee in new stations.
 
 ## Spatial comparator (separate)
 
@@ -102,13 +102,15 @@ The graph benchmark has **12/12** successful target/seed rows. It uses a fixed g
 
 ## Validation, limitations and open acceptance gates
 
+**Reviewer audit:** [Qyroven's audit receipt](https://github.com/HungLD9505/adaptive-retention-ev/pull/114#issuecomment-6783698688) confirms 737 files / 161,061,658 bytes downloaded, 532 run-manifest entries and 15 Source hashes matched, 172 runs / 252,840 hourly predictions independently rescored, causal event ordering and arrival eligibility checked, exact common scored origins verified, and 147 tensor checkpoints safely loaded with finite weights. All 60 within-backbone Transfer pairs improved. These findings are attributed to the reviewer audit.
+
 **Checked now:** the native Colab notebook has executed cells through the final 172/172 assertion; the two newly read Drive ledgers contain exactly **160** and **12** rows, all with `status=ok` and nonempty numeric MAE/RMSE; model/mode/station/seed group counts and station coverage were rechecked for this report. The reported summary tables were **recomputed from these ledgers**, without importing Cyber's numbers.
 
-**Not yet checked:** full independent per-origin reconstruction of every metric, strict forecast-before-label and matched-origin identity audit, fresh hashes/readback of every trained checkpoint and daily event file, all `sha256.json` contents, exact archived executable environment/commit alignment, local execution of repository README tests, and independent peer review. A `status=ok` row documents a completed job but is not by itself full scientific acceptance.
+**Audit limits:** full training reproduction, upstream raw-data audit and bootstrap superiority analysis were not performed. Joblib estimators were hashed but not deserialized. Exact environment reproduction remains unverified. Local README checks were not run for this documentation update. CI run 42885607831 passed on the audited revision; the documentation revision needs its own final CI/review.
 
 **Selection and generalization limitations:** this four-target cohort was already inspected and chosen using known Development coverage. The notebook records Cyber v3 as a scheduling reference, but independent implementation choices, model details, graph setup and runtime can still differ. Do not claim a strict same-protocol numerical replication of Cyber PR #104, a population-wide GRU winner, a clean held-out model-selection result or any improvement of the frozen primary Final method.
 
-**Artifact access:** source Drive run root is currently owner-only, so reviewer readback requires permission changes by the owner. Git contains the lightweight result ledgers, session metadata and notebook snapshot; the numerous checkpoint/event artifacts remain on Drive.
+**Artifact access:** reviewer access to the Drive run root was confirmed through authenticated download of all 737 files. Git contains the lightweight result ledgers, session metadata and notebook snapshot; the numerous checkpoint/event artifacts remain on Drive.
 
 **Input identities recorded in session (not freshly rehashed by this report):**
 - Prepared input ZIP SHA-256: `2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7`.
