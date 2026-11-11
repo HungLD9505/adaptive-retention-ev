@@ -1,0 +1,217 @@
+{
+  "schema": "issue99-local-audit-v1",
+  "status": "PASS",
+  "inputs": {
+    "zip_sha256": "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7",
+    "budgets": {
+      "7": {
+        "manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "run_id": "urbanev-SZH-7d",
+        "status": "technical_success_with_coverage_limits",
+        "file_sha256": {
+          "forecasts.jsonl": "0668ad08794d96f7b4f3c8b399f487bb8b0fd96a83ea695711db15f13fafeeb7",
+          "labels.jsonl": "de1353e8c93f61f2ccf904cf81ae8481b2be978c37964bc175b514581ccb13cc",
+          "training.jsonl": "ce230356f23fe05c7a68f5e8a35e3c1284375f02f537dece89558ad107ef388c",
+          "entities.jsonl": "179d4de2765dbd8593c94b347b15654a3d220202a314ad286cd26828977636fd",
+          "schedule.jsonl": "311609cfb4ac4af0f892c0833b2f4f8796bd1de67731e0447090ef63c8fad61c"
+        }
+      },
+      "14": {
+        "manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+        "run_id": "urbanev-SZH-14d",
+        "status": "technical_success_with_coverage_limits",
+        "file_sha256": {
+          "forecasts.jsonl": "d67ba54632b850bf183bc6f0df345f0de060a3907a11e27ef01c9b75edfcb6e8",
+          "labels.jsonl": "64707cfe755767e0e0b76bab8bb6066bab5a60acef8b30133c573c8cf659015f",
+          "training.jsonl": "eadb4bb38d0e3dce1eded428ba4d806346cefc4e09840fa65814670edfd0999c",
+          "entities.jsonl": "e7c9dd4cb0b6f95cdfb1a0939fcadbc69edd1af6e9fb0fa30c861c4d7a38953e",
+          "schedule.jsonl": "eaa88e7e861eb5d70d42b1c0e114de5fff1a3b621a78d635613e278151de143e"
+        }
+      }
+    },
+    "source_rows_equal_excluding_input_run_id": 65888,
+    "source_rows_canonical_sha256": "ac2100fa11a33fd4784073ebfb6e60e99f11ef84cd6a5b7f7123d115bc56c61b",
+    "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+    "targets": {
+      "1405": {
+        "prefix": 4,
+        "scheduled": 90,
+        "created": 90,
+        "statuses": {
+          "created": 90
+        }
+      },
+      "2152": {
+        "prefix": 12,
+        "scheduled": 90,
+        "created": 59,
+        "statuses": {
+          "created": 59,
+          "skipped_all_missing_history": 31
+        }
+      },
+      "1153": {
+        "prefix": 13,
+        "scheduled": 90,
+        "created": 59,
+        "statuses": {
+          "created": 59,
+          "skipped_all_missing_history": 31
+        }
+      },
+      "1693": {
+        "prefix": 13,
+        "scheduled": 90,
+        "created": 59,
+        "statuses": {
+          "created": 59,
+          "skipped_all_missing_history": 31
+        }
+      }
+    },
+    "labels": {
+      "1405": {
+        "complete": 89,
+        "incomplete": 1
+      },
+      "2152": {
+        "complete": 52,
+        "incomplete": 38
+      },
+      "1153": {
+        "complete": 52,
+        "incomplete": 38
+      },
+      "1693": {
+        "complete": 52,
+        "incomplete": 38
+      }
+    },
+    "source_manifest_population_identity_equal": true
+  },
+  "source": {
+    "42": {
+      "zip_sha256": "ed9ae3be074332a987b2964fa46b441c4bf696e94219dc218d1cb8b2561d7924",
+      "checkpoint_sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+      "input_binding": {
+        "schema": "ev-checkpoint-input-binding-v1",
+        "feature_schema": "ev-input-v1",
+        "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "input_run_id": "urbanev-SZH-7d",
+        "dataset_id": "urbanev",
+        "city_id": "SZH",
+        "stage": "source",
+        "entity_id": null,
+        "history_days": null,
+        "scale_id": null,
+        "source_checkpoint_sha256": null
+      },
+      "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+      "training_config": {
+        "seed": 42,
+        "epochs": 10,
+        "batch_size": 64,
+        "learning_rate": 0.001,
+        "epsilon": 0.001,
+        "head_width": 64
+      },
+      "code": {
+        "commit": "ff42ea944bf05b4b77e2b730edf500b1fee6e851",
+        "dirty": false,
+        "files": {
+          "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+          "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+          "ev_models/data.py": "b030861a59ef9d549db4f96404f43ac38525dcb61acbd7a02c77b5eea2380660",
+          "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+          "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+          "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227"
+        }
+      },
+      "latent_scale_min": 0.2180452197790146,
+      "latent_scale_max": 0.8020832538604736,
+      "optimizer_parameters": 12
+    },
+    "43": {
+      "zip_sha256": "ab1711327555c7f30c383e8e85fdd47358b3e7cc1b85b34f625f381b67b3ef50",
+      "checkpoint_sha256": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+      "input_binding": {
+        "schema": "ev-checkpoint-input-binding-v1",
+        "feature_schema": "ev-input-v1",
+        "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "input_run_id": "urbanev-SZH-7d",
+        "dataset_id": "urbanev",
+        "city_id": "SZH",
+        "stage": "source",
+        "entity_id": null,
+        "history_days": null,
+        "scale_id": null,
+        "source_checkpoint_sha256": null
+      },
+      "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+      "training_config": {
+        "seed": 43,
+        "epochs": 10,
+        "batch_size": 64,
+        "learning_rate": 0.001,
+        "epsilon": 0.001,
+        "head_width": 64
+      },
+      "code": {
+        "commit": "ff42ea944bf05b4b77e2b730edf500b1fee6e851",
+        "dirty": false,
+        "files": {
+          "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+          "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+          "ev_models/data.py": "b030861a59ef9d549db4f96404f43ac38525dcb61acbd7a02c77b5eea2380660",
+          "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+          "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+          "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227"
+        }
+      },
+      "latent_scale_min": 0.25395312905311584,
+      "latent_scale_max": 0.8297989368438721,
+      "optimizer_parameters": 12
+    },
+    "44": {
+      "zip_sha256": "f07904e93e27b0d9d79a27f6b9cd64d33310d1d100f070aecd0d841f25561656",
+      "checkpoint_sha256": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5",
+      "input_binding": {
+        "schema": "ev-checkpoint-input-binding-v1",
+        "feature_schema": "ev-input-v1",
+        "input_manifest_sha256": "fd1b5d1767e94a3e5c6f62447d446e1f13859b823c5fe14c51b5055d8e67169c",
+        "input_run_id": "urbanev-SZH-7d",
+        "dataset_id": "urbanev",
+        "city_id": "SZH",
+        "stage": "source",
+        "entity_id": null,
+        "history_days": null,
+        "scale_id": null,
+        "source_checkpoint_sha256": null
+      },
+      "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+      "training_config": {
+        "seed": 44,
+        "epochs": 10,
+        "batch_size": 64,
+        "learning_rate": 0.001,
+        "epsilon": 0.001,
+        "head_width": 64
+      },
+      "code": {
+        "commit": "ff42ea944bf05b4b77e2b730edf500b1fee6e851",
+        "dirty": false,
+        "files": {
+          "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+          "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+          "ev_models/data.py": "b030861a59ef9d549db4f96404f43ac38525dcb61acbd7a02c77b5eea2380660",
+          "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+          "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+          "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227"
+        }
+      },
+      "latent_scale_min": 0.19112242758274078,
+      "latent_scale_max": 0.8274626731872559,
+      "optimizer_parameters": 12
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "schema": "issue99-comparison-lock-v1",
+  "status": "locked_owner_approved",
+  "protocol_sha256": "645393d4c7a29b644a00da6251957b4c3bc5dea011c4ba30f0b989ae14532752",
+  "selected_fixed_lambda": 0.7984450067079901,
+  "controller_initial_lambda": 0.7984450067079901,
+  "study_template": {
+    "schema": "issue99-study-v1",
+    "phase": "evaluation",
+    "targets": [
+      "1405",
+      "2152",
+      "1153",
+      "1693"
+    ],
+    "initial_training": {
+      "seed": 42,
+      "epochs": 3,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "online_training": {
+      "seed": 42,
+      "epochs": 1,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "window_rule": {
+      "older_count": 2,
+      "newer_count": 1,
+      "upper_bound": 33.84424612726798,
+      "meta_step_size": 211.29500343057222,
+      "epsilon": 0.001
+    },
+    "initial_lambda": 0.7984450067079901,
+    "cadence": 1,
+    "frozen_lambda": false,
+    "replay_days": 90,
+    "protocol_sha256": "645393d4c7a29b644a00da6251957b4c3bc5dea011c4ba30f0b989ae14532752",
+    "objective_origins": [],
+    "state_retention": "latest",
+    "diagnostic_every": 7
+  },
+  "discrete_config": {
+    "controller": {
+      "lambda_low": 0.1,
+      "lambda_high": 1.0,
+      "initial_lambda": 0.1,
+      "block_days": 14,
+      "min_valid_days": 7,
+      "delta": 0.0,
+      "alpha": 0.05,
+      "segment_days": 3,
+      "resamples": 2000,
+      "seed": 42
+    },
+    "initial_training": {
+      "seed": 42,
+      "epochs": 3,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "online_training": {
+      "seed": 42,
+      "epochs": 1,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "development_entities": [
+      "1405",
+      "2152",
+      "1153",
+      "1693"
+    ],
+    "replay_days": 90,
+    "state_retention": "latest",
+    "method": {
+      "name": "adaptive"
+    }
+  },
+  "owner_authorization": "2026-11-10 user explicitly directs completion without waiting for Hung review; execution authorization only, not scientific peer approval or permission to merge."
+}
