@@ -30,3 +30,10 @@ primary historical scientific source is preserved at tag
 `evidence/primary-final-20261027-v2`, commit
 `61c32328d9829a69037dca629f727b4863015122`. Later verifier hardening does not replace
 or relabel the report's frozen run outputs.
+
+## Current teacher review version
+
+[11 November integrated manuscript](teacher-review-20261111/README.md) includes
+verified independent baseline evidence, the Fixed-share formula, all 21 historical
+groups, scientific figures and explicit ensemble/controller ablations. This is a
+separate exploratory review version; the frozen release files above are preserved.

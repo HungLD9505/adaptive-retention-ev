@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "pdf_pages": 11,
+  "docx_tables": 4,
+  "table_row_counts": [
+    4,
+    14,
+    8,
+    22
+  ],
+  "equations": 12,
+  "scientific_figures": 6,
+  "inline_images": 18,
+  "full_scope_groups": 21,
+  "full_scope_units": 810,
+  "null_units": 9,
+  "markdown_docx_tables_exact": true,
+  "original_group_values_unchanged": true,
+  "visual_review": "All 11 pages inspected; final pages 1-10 byte-identical to initial reviewed PNGs, final page 11 inspected again",
+  "pdf_matches_docx_render_sha256": "5ba37a6b9664a0946064c31805c7973ae15327a1309dec63c61902ca88d75ce8",
+  "delivered_pdf_sha256": "5ba37a6b9664a0946064c31805c7973ae15327a1309dec63c61902ca88d75ce8"
+}

@@ -16,6 +16,7 @@ The report PDFs and exact tables live under [report/](../../report/README.md).
 | Calibrated training and 7/14/28-day review manuscript | [History handoff](issue99-history-review-20261110/handoff.md), [baseline audit](issue99-history-review-20261110/baseline-audit.json), [teacher-review manuscript](../../report/teacher-review-20261110/README.md) |
 | Stable/fast expert fusion follow-up | [Negative-result handoff](issue99-stable-fast-20261110/handoff.md), [verified scores](issue99-stable-fast-20261110/verification.json) |
 | Full historical-cohort controller follow-up | [810-unit / 21-group handoff](issue99-full-scope-20261110/handoff.md), [full-precision groups](issue99-full-scope-20261110/group-results.csv), [verification](issue99-full-scope-20261110/verification.json) |
+| Integrated teacher review 11 November | [Baseline and manuscript handoff](issue99-teacher-review-20261111/handoff.md), [current paper](../../report/teacher-review-20261111/README.md) |
 | Diagnostic studies | [Fixed adaptation](member-duc-retention.md), [Confidence controller](member-cyber-controller.md) |
 | Data and input handoff | [Data integration](data-integration.md), [inputs](input-handoff.md) |
 | Software and package validation | [Verification reference](main-readiness-20261102.md), [machine-readable checks](release-curation-20261102-v1.json) |

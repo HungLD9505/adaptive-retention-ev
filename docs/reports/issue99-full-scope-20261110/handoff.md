@@ -184,3 +184,14 @@ The corrected dispatch reused **273** completed compatible experts and produced 
 ## Code validation
 
 On implementation commit `4159233`, the root offline suite passed **966 tests**, with two CUDA-only skips. Fixed-adaptation and confidence-controller suites passed **9** and **12** tests. All five targeted follow-up tests pass, including zero-prefix initialization, identity authentication, null/equal-station weighting and independently causal mixture arithmetic. Ruff lint and formatting pass across 586 Python files; release verification passes 17 reports and 92 historical source pins. Source catalog listing and diff checks pass. No separate type checker is configured. The separate external-artifact suite was not run; real follow-up artifacts were checked by the readback above. Local success does not imply CI/peer approval.
+
+## Comparator semantics clarification 11 November 2026
+
+The original archived adaptive stream reforks all candidate states from its selected
+state every fourteen days (`ev_runner/engine.py`, `Runner.boundary`). The seven-day
+mean/confidence readbacks keep those archived trajectories fixed and only change
+which saved candidate forecast is output. Their 10/21 and 9/21 counts describe
+shadow output selection on that original forked stream, not a new end-to-end
+seven-day training/refork controller. The stable/fast trajectories, fusion results,
+18/21 and 12/21 comparisons are unaffected. The current review manuscript states
+this explicitly in Appendix A.
