@@ -1,8 +1,8 @@
 # Independent UrbanEV/SZH Baseline Benchmark — Hữu Đức (#96)
 
-**Owner:** Nguyễn Hữu Đức (`@huuduc32`)  
-**Status:** 172/172 result rows and reviewer artifact/per-origin audit passed. Exploratory Development scope accepted at the user's direction; final merge review pending.  
-**Execution date:** 11 November 2026, Vietnam time (session `benchmark-20261111-003045-e3e4e0`).  
+**Owner:** Nguyễn Hữu Đức (`@huuduc32`)\
+**Status:** 172/172 result rows and reviewer artifact/per-origin audit passed. Exploratory Development scope accepted at the user's direction; final merge review pending.\
+**Execution date:** 11 November 2026, Vietnam time (session `benchmark-20261111-003045-e3e4e0`).\
 **Scope:** UrbanEV Shenzhen **Development** benchmark only. This report supersedes the earlier one-station pilot document in PR #111.
 
 ## Executive summary
