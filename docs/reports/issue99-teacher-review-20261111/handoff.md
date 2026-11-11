@@ -111,3 +111,23 @@ Large archives, states and QA page images stay outside Git. No raw archive was
 modified, freshly downloaded or rechecked upstream. The manuscript and all
 scientific figures are versioned; no unreviewed change is made to Report 1,
 `dev` or `main`. Validation results and the published PR are recorded below.
+
+## Final validation and Git publication
+
+Implementation commit `2714ecb723307684f93c4adaaf0c58d73ae18e1e` passed the
+root offline suite: **969 tests**, two CUDA-only skips. Fixed-adaptation and
+confidence-controller suites passed **9** and **12** tests. Ruff lint and format
+checks passed across **595 Python files**, as did source catalog listing and
+`git diff --check`. Release verification preserved **17 report assets and 92
+historical source pins**. No separate type checker is configured. The separate
+18-test external-artifact suite was not run; actual baseline artifact readback
+has the explicit independent/reused scopes above. Local success is not a claim
+that the new PR's CI or peer approval has already passed.
+
+All current review source, figures, final PDF/DOCX, numerical companion tables,
+audit evidence and new reproducibility tools are pushed on
+`docs/99-teacher-review-complete`. Its ancestry includes PR #112 and the preceding
+retention/history-study work. `dev` and `main` were not modified or merged.
+Large data, models, and reader ZIPs stay outside Git; the committed small tables
+and manifests are reviewable without them. Both retention owners can inspect the
+same branch and the linked #99 PR; this task did not send anyone a direct message.
