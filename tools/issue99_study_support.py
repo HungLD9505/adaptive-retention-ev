@@ -17,7 +17,16 @@ class PreparedInputs(InputRun):
     label energy stays in the original delayed provider and is never cached here.
     """
 
-    def __init__(self, root: Path, sha256: str) -> None:
+    def __init__(
+        self,
+        root: Path,
+        sha256: str,
+        *,
+        targets: tuple[str, ...] = ("1405", "2152", "1153", "1693"),
+    ) -> None:
+        if not targets or len(set(targets)) != len(targets):
+            raise ValueError("Nonempty unique Development target allowlist required")
+        self.targets = frozenset(targets)
         self._verified: dict[str, tuple[int, int, int, int]] = {}
         self._rows: dict[tuple, list[dict]] = {}
         super().__init__(root, sha256)
@@ -45,8 +54,8 @@ class PreparedInputs(InputRun):
             self._verified[name] = stamp
 
     def _selected_rows(self, name: str, role: str, entity_id: str | None) -> Iterator[dict]:
-        if role != "development" or entity_id not in {"1405", "2152", "1153", "1693"}:
-            raise ValueError("Prepared study cache is restricted to four Development targets")
+        if role != "development" or entity_id not in self.targets:
+            raise ValueError("Prepared study cache is restricted to declared Development targets")
         self.verify(name)
         key = (name, role, entity_id)
         if key not in self._rows:

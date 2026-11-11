@@ -1,0 +1,43 @@
+{
+  "cyber": {
+    "issue": 95,
+    "pr": 104,
+    "head": "5f67bd225f0fe340393a6d73bcc03363144d2561",
+    "rows": 172,
+    "unique_rows": 172,
+    "recomputed_ledger_mae": {
+      "Basic GCN-LSTM/target_only": 7.1318445,
+      "Daily Naive/target_only": 7.07626925,
+      "GRU/target_only": 8.940609,
+      "GRU/transfer": 5.315023583333334,
+      "LSTM/target_only": 8.935971166666667,
+      "LSTM/transfer": 5.335575166666667,
+      "MLP/target_only": 8.671093416666666,
+      "MLP/transfer": 5.519647166666667,
+      "Random Forest/target_only": 5.80077625,
+      "Ridge/target_only": 5.93392325,
+      "SARIMA/target_only": 8.04600625,
+      "Seasonal Naive/target_only": 8.46311125,
+      "TCN/target_only": 8.073387166666667,
+      "TCN/transfer": 5.344701166666667,
+      "TimeXer/target_only": 8.120937416666667,
+      "TimeXer/transfer": 5.582311083333333,
+      "XGBoost/target_only": 6.522029
+    },
+    "status": "Changes requested; ledger consistency verified, full forecast/checkpoint authenticity unresolved",
+    "verified_code_findings": [
+      "Graph repeats one target history across all nodes",
+      "SARIMA fitted state advances only during refit",
+      "Runner checks label availability non-null but not arrival <= forecast/update time",
+      "Empty score set returns zero metrics"
+    ],
+    "artifact_scope": "Repo provides ledger and prediction-file manifest; external prediction/checkpoint bundle not accessible through submitted links inspected",
+    "review_url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/104#pullrequestreview-5838725837"
+  },
+  "duc": {
+    "issue": 96,
+    "status": "Open issue with zero comments; no matching baseline branch or PR found in current repository inventory",
+    "limit": "This is repository evidence only; unpushed work is unknown"
+  },
+  "paper_use": "GRU remains the controlled backbone. Cyber ledger is provisional and excluded from main validated model-ranking claims."
+}

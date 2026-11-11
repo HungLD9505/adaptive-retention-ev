@@ -1,0 +1,242 @@
+{
+  "status": "passed",
+  "verified_saved_scores": 11691,
+  "fixed_bank_level": 1.0,
+  "macro_mae": {
+    "mean_only": 3.2922362920521895,
+    "confidence_gate": 3.2862796365879308,
+    "mean_only_fixed_start": 3.290432249950872,
+    "confidence_gate_fixed_start": 3.2799160009649637,
+    "source_finetune": 3.304604868203713,
+    "fixed_bank": 3.2669999266187126,
+    "target_only": 5.462869920945507
+  },
+  "station_means": {
+    "1691": {
+      "mean_only": 7.613923228724244,
+      "confidence_gate": 7.589646211111563,
+      "mean_only_fixed_start": 7.596749360458539,
+      "confidence_gate_fixed_start": 7.530992691697979,
+      "source_finetune": 7.679396713441743,
+      "fixed_bank": 7.528496458902265,
+      "target_only": 11.878506726519658
+    },
+    "2564": {
+      "mean_only": 5.532364447659689,
+      "confidence_gate": 5.511634986180714,
+      "mean_only_fixed_start": 5.545427774613857,
+      "confidence_gate_fixed_start": 5.530216599291468,
+      "source_finetune": 5.555360534226627,
+      "fixed_bank": 5.541131148269592,
+      "target_only": 8.283137923941366
+    },
+    "2398": {
+      "mean_only": 5.980540426036718,
+      "confidence_gate": 5.970464454472732,
+      "mean_only_fixed_start": 5.967418807388996,
+      "confidence_gate_fixed_start": 5.970723276873744,
+      "source_finetune": 6.000065034253013,
+      "fixed_bank": 5.913396212794424,
+      "target_only": 8.38513972970294
+    },
+    "1114": {
+      "mean_only": 3.552139273738787,
+      "confidence_gate": 3.5253324612901467,
+      "mean_only_fixed_start": 3.566057898268344,
+      "confidence_gate_fixed_start": 3.5298638278488994,
+      "source_finetune": 3.570899861147294,
+      "fixed_bank": 3.528524557927178,
+      "target_only": 6.981374564492593
+    },
+    "1225": {
+      "mean_only": 4.607420332909945,
+      "confidence_gate": 4.580404000187637,
+      "mean_only_fixed_start": 4.607665786578577,
+      "confidence_gate_fixed_start": 4.569889510388117,
+      "source_finetune": 4.586903318467354,
+      "fixed_bank": 4.551294606851795,
+      "target_only": 6.777815281409514
+    },
+    "1169": {
+      "mean_only": 3.509189260174736,
+      "confidence_gate": 3.5150608294801695,
+      "mean_only_fixed_start": 3.499471201834826,
+      "confidence_gate_fixed_start": 3.483982236400106,
+      "source_finetune": 3.4714444106803515,
+      "fixed_bank": 3.5250424086245373,
+      "target_only": 5.326664175123611
+    },
+    "1885": {
+      "mean_only": 2.7564988457567394,
+      "confidence_gate": 2.7536299945537217,
+      "mean_only_fixed_start": 2.7554129483173533,
+      "confidence_gate_fixed_start": 2.750233045566078,
+      "source_finetune": 2.7366675422657756,
+      "fixed_bank": 2.695473633286767,
+      "target_only": 4.803684029861834
+    },
+    "1802": {
+      "mean_only": 1.603959938769152,
+      "confidence_gate": 1.6030594252878212,
+      "mean_only_fixed_start": 1.6006456929436073,
+      "confidence_gate_fixed_start": 1.59546908892856,
+      "source_finetune": 1.6041270770503804,
+      "fixed_bank": 1.5864291569871272,
+      "target_only": 4.300615487467312
+    },
+    "2035": {
+      "mean_only": 2.5357787422836897,
+      "confidence_gate": 2.550772630329781,
+      "mean_only_fixed_start": 2.5368036567083525,
+      "confidence_gate_fixed_start": 2.571661776364742,
+      "source_finetune": 2.6064970381796244,
+      "fixed_bank": 2.5347203967866205,
+      "target_only": 4.363614794557027
+    },
+    "1836": {
+      "mean_only": 1.2929715482862139,
+      "confidence_gate": 1.2985377003257812,
+      "mean_only_fixed_start": 1.2874844085415715,
+      "confidence_gate_fixed_start": 1.289147008914685,
+      "source_finetune": 1.3040015361545996,
+      "fixed_bank": 1.281594169166701,
+      "target_only": 2.441269056255889
+    },
+    "1303": {
+      "mean_only": 7.693729558969218e-08,
+      "confidence_gate": 7.693729558969218e-08,
+      "mean_only_fixed_start": 7.72467704229869e-08,
+      "confidence_gate_fixed_start": 7.72467704229869e-08,
+      "source_finetune": 4.436136980846136e-09,
+      "fixed_bank": 1.2618889890326648e-07,
+      "target_only": 0.2131529455640235
+    },
+    "1325": {
+      "mean_only": 0.5220493833490644,
+      "confidence_gate": 0.5368128688978048,
+      "mean_only_fixed_start": 0.5220493865096788,
+      "confidence_gate_fixed_start": 0.5368128720584192,
+      "source_finetune": 0.5398953481416503,
+      "fixed_bank": 0.5178962436386424,
+      "target_only": 1.799464336450319
+    }
+  },
+  "contrasts": [
+    {
+      "method": "source_finetune",
+      "baseline": "target_only",
+      "delta_kwh": -2.158265052741794,
+      "stations_improved": 12,
+      "lower": -2.5058628125221323,
+      "upper": -1.8271843267359067
+    },
+    {
+      "method": "fixed_bank",
+      "baseline": "target_only",
+      "delta_kwh": -2.1958699943267943,
+      "stations_improved": 12,
+      "lower": -2.5563367185408126,
+      "upper": -1.859031210127692
+    },
+    {
+      "method": "confidence_gate",
+      "baseline": "mean_only",
+      "delta_kwh": -0.00595665546425872,
+      "stations_improved": 7,
+      "lower": -0.010969904580934864,
+      "upper": -0.00020742397181572325
+    },
+    {
+      "method": "confidence_gate",
+      "baseline": "fixed_bank",
+      "delta_kwh": 0.01927970996921813,
+      "stations_improved": 4,
+      "lower": 0.004843370482157506,
+      "upper": 0.03247028941369181
+    },
+    {
+      "method": "mean_only",
+      "baseline": "fixed_bank",
+      "delta_kwh": 0.02523636543347685,
+      "stations_improved": 3,
+      "lower": 0.009086277101966737,
+      "upper": 0.040522098064902694
+    },
+    {
+      "method": "confidence_gate_fixed_start",
+      "baseline": "mean_only_fixed_start",
+      "delta_kwh": -0.010516248985908305,
+      "stations_improved": 7,
+      "lower": -0.02106260258805419,
+      "upper": -0.00044310636032286364
+    },
+    {
+      "method": "confidence_gate_fixed_start",
+      "baseline": "fixed_bank",
+      "delta_kwh": 0.012916074346251083,
+      "stations_improved": 3,
+      "lower": 0.0007714288639067824,
+      "upper": 0.02545828533348729
+    },
+    {
+      "method": "mean_only_fixed_start",
+      "baseline": "fixed_bank",
+      "delta_kwh": 0.023432323332159388,
+      "stations_improved": 2,
+      "lower": 0.00850497080343194,
+      "upper": 0.037511446164344125
+    }
+  ],
+  "gate_audit": {
+    "accepted_beneficial": 56,
+    "accepted_harmful": 37,
+    "rejected_beneficial": 72,
+    "rejected_harmful": 56,
+    "no_future_labels": 0,
+    "no_recommendation": 211
+  },
+  "lower_retention_recommendations_with_future_labels": 108,
+  "lower_retention_beneficial": 61,
+  "prefix_strata": {
+    "0": {
+      "mean_only": 6.375609367473551,
+      "confidence_gate": 6.357248550588337,
+      "mean_only_fixed_start": 6.369865314153798,
+      "confidence_gate_fixed_start": 6.3439775226210635,
+      "source_finetune": 6.4116074273071275,
+      "fixed_bank": 6.327674606655427,
+      "target_only": 9.515594793387988
+    },
+    "1": {
+      "mean_only": 3.889582955607823,
+      "confidence_gate": 3.8735990969859846,
+      "mean_only_fixed_start": 3.891064962227249,
+      "confidence_gate_fixed_start": 3.8612451915457076,
+      "source_finetune": 3.8764158634316668,
+      "fixed_bank": 3.868287191134504,
+      "target_only": 6.361951340341906
+    },
+    "2": {
+      "mean_only": 2.298745842269861,
+      "confidence_gate": 2.302487350057108,
+      "mean_only_fixed_start": 2.297620765989771,
+      "confidence_gate_fixed_start": 2.30578797028646,
+      "source_finetune": 2.315763885831927,
+      "fixed_bank": 2.2722077290201717,
+      "target_only": 4.489304770628724
+    },
+    "3": {
+      "mean_only": 0.6050070028575246,
+      "confidence_gate": 0.611783548720294,
+      "mean_only_fixed_start": 0.6031779574326736,
+      "confidence_gate_fixed_start": 0.6086533194066249,
+      "source_finetune": 0.614632296244129,
+      "fixed_bank": 0.5998301796647474,
+      "target_only": 1.4846287794234103
+    }
+  },
+  "scope": "Normalized-score common-bank causal selection; exposed Development; target-only matched adaptation budget, no convergence tuning",
+  "original_registration_sha256": "512029f92dc3bd64959c6132e741f0c6aa2edfb47aef9198f0a550cf7065c1df",
+  "readback_script_sha256": "36a310b7c2df3dce2fefc7116f6fad9d0f49f0fc0ef6be950ee09ae294ed3ddc",
+  "policy_script_sha256": "7cecc27aa2f674ac785f0f2f7b51bf57209786d434bad6f4b247eb6e326610bf"
+}

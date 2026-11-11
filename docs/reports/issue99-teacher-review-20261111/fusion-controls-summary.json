@@ -1,0 +1,171 @@
+{
+  "scope": "Posthoc diagnostic controls; no parameter selection or new training",
+  "verified_cell_count": 810,
+  "groups": [
+    {
+      "namespace": "charged-AMS",
+      "history_days": 7,
+      "equal_weight": 6.13100358040891,
+      "share_only": 6.131011732544563,
+      "fixed_share": 6.130952143180108
+    },
+    {
+      "namespace": "charged-AMS",
+      "history_days": 14,
+      "equal_weight": 6.132184216708288,
+      "share_only": 6.132188968047159,
+      "fixed_share": 6.1321296764976925
+    },
+    {
+      "namespace": "charged-AMS",
+      "history_days": 28,
+      "equal_weight": 6.134379462354486,
+      "share_only": 6.1343303785841785,
+      "fixed_share": 6.1342500951035905
+    },
+    {
+      "namespace": "charged-JHB",
+      "history_days": 7,
+      "equal_weight": 1.2206183783524387,
+      "share_only": 1.2204590707065504,
+      "fixed_share": 1.2179044012742837
+    },
+    {
+      "namespace": "charged-JHB",
+      "history_days": 14,
+      "equal_weight": 1.230156941558174,
+      "share_only": 1.2297201326635208,
+      "fixed_share": 1.2269226407578584
+    },
+    {
+      "namespace": "charged-JHB",
+      "history_days": 28,
+      "equal_weight": 1.1936973852306794,
+      "share_only": 1.1933585876871415,
+      "fixed_share": 1.1924369695862063
+    },
+    {
+      "namespace": "charged-LOA",
+      "history_days": 7,
+      "equal_weight": 1.281214729235499,
+      "share_only": 1.2813227738318052,
+      "fixed_share": 1.2803461801817169
+    },
+    {
+      "namespace": "charged-LOA",
+      "history_days": 14,
+      "equal_weight": 1.2897865324815916,
+      "share_only": 1.2899607437849003,
+      "fixed_share": 1.2888874152366256
+    },
+    {
+      "namespace": "charged-LOA",
+      "history_days": 28,
+      "equal_weight": 1.2769552834611841,
+      "share_only": 1.277000577637109,
+      "fixed_share": 1.2759179123767064
+    },
+    {
+      "namespace": "charged-MEL",
+      "history_days": 7,
+      "equal_weight": 51.659478046761116,
+      "share_only": 51.64777830038802,
+      "fixed_share": 51.64427488301563
+    },
+    {
+      "namespace": "charged-MEL",
+      "history_days": 14,
+      "equal_weight": 52.30147650377147,
+      "share_only": 52.26948844432756,
+      "fixed_share": 52.264933703868245
+    },
+    {
+      "namespace": "charged-MEL",
+      "history_days": 28,
+      "equal_weight": 52.233686563698065,
+      "share_only": 52.198560884604454,
+      "fixed_share": 52.193403684834365
+    },
+    {
+      "namespace": "charged-SPO",
+      "history_days": 7,
+      "equal_weight": 1.927204982831881,
+      "share_only": 1.9258389386992136,
+      "fixed_share": 1.9234246836920306
+    },
+    {
+      "namespace": "charged-SPO",
+      "history_days": 14,
+      "equal_weight": 1.8902696996448978,
+      "share_only": 1.8886034675366035,
+      "fixed_share": 1.8869237124124745
+    },
+    {
+      "namespace": "charged-SPO",
+      "history_days": 28,
+      "equal_weight": 1.9162015914479362,
+      "share_only": 1.9144295566130745,
+      "fixed_share": 1.9125747950504093
+    },
+    {
+      "namespace": "charged-SZH",
+      "history_days": 7,
+      "equal_weight": 85.97873584983594,
+      "share_only": 85.92450753699624,
+      "fixed_share": 85.91660339727228
+    },
+    {
+      "namespace": "charged-SZH",
+      "history_days": 14,
+      "equal_weight": 85.24400285542728,
+      "share_only": 85.19721413215659,
+      "fixed_share": 85.19072283928185
+    },
+    {
+      "namespace": "charged-SZH",
+      "history_days": 28,
+      "equal_weight": 84.92973654442999,
+      "share_only": 84.87179918285184,
+      "fixed_share": 84.86478560992346
+    },
+    {
+      "namespace": "urbanev-SZH",
+      "history_days": 7,
+      "equal_weight": 8.113057133473749,
+      "share_only": 8.112639511135404,
+      "fixed_share": 8.111110057858353
+    },
+    {
+      "namespace": "urbanev-SZH",
+      "history_days": 14,
+      "equal_weight": 8.004117600873004,
+      "share_only": 8.002888285973745,
+      "fixed_share": 8.001586074816935
+    },
+    {
+      "namespace": "urbanev-SZH",
+      "history_days": 28,
+      "equal_weight": 7.954427826000019,
+      "share_only": 7.9529739760762626,
+      "fixed_share": 7.951246430280732
+    }
+  ],
+  "initial_weight": 0.4307815378871372,
+  "share": 0.1,
+  "adaptive_below_control": {
+    "equal_weight": 21,
+    "share_only": 21
+  },
+  "percent_reduction_ranges": {
+    "equal_weight": [
+      0.0008389691528805336,
+      0.2629177376521396
+    ],
+    "share_only": [
+      0.0009668904493248524,
+      0.22749012814835493
+    ]
+  },
+  "source_summary_sha256": "393eb8843172607494f937d994cda77a2c8637a0c1d5591c1af23dc53d833e17",
+  "script_sha256": "d929c522ddaf63118e69810d2ff4067b9bf1f4e37e293768dcf38571a36efc9d"
+}

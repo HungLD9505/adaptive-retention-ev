@@ -14,6 +14,7 @@ import torch
 from ev_control.continuous import WindowRule
 from ev_models.checkpoint import digest, load_checkpoint, write_json
 from ev_models.data import InputRun
+from ev_models.model import ForecastGRU, ModelConfig
 from ev_models.run import environment
 from ev_models.training import (
     TrainingConfig,
@@ -79,7 +80,9 @@ def objective_summary(scores: list[dict], origins: list[str], minimum_scored: in
     }
 
 
-def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, WindowRule]:
+def validate_study(
+    config: dict, *, approved_targets: tuple[str, ...] = ("1405", "2152", "1153", "1693")
+) -> tuple[TrainingConfig, TrainingConfig, WindowRule]:
     required = {
         "schema",
         "phase",
@@ -120,8 +123,12 @@ def validate_study(config: dict) -> tuple[TrainingConfig, TrainingConfig, Window
         raise ValueError("Invalid objective origins")
     if config["phase"] != "pilot" and not config["objective_origins"]:
         raise ValueError("Scored phase needs declared objective origins")
-    if config["targets"] != ["1405", "2152", "1153", "1693"]:
-        raise ValueError("Issue #99 uses the declared four targets")
+    if (
+        not approved_targets
+        or len(set(approved_targets)) != len(approved_targets)
+        or config["targets"] != list(approved_targets)
+    ):
+        raise ValueError("Issue #99 targets differ from the explicit approved cohort")
     if config["replay_days"] != 90 or not isinstance(config["frozen_lambda"], bool):
         raise ValueError("Issue #99 requires 90-day replay and explicit frozen flag")
     if (
@@ -183,10 +190,19 @@ def execute(
     stop_after_ticks: int | None = None,
     protocol_path: Path | None = None,
     prepared_replay: Replay | None = None,
+    approved_targets: tuple[str, ...] = ("1405", "2152", "1153", "1693"),
+    source_initialization: bool = True,
+    approved_history_days: tuple[int, ...] = (14,),
 ) -> dict:
     invocation_started = time.perf_counter()
-    initial, online, rule = validate_study(config)
-    if entity_id not in config["targets"] or inputs.config["history_days"] != 14:
+    initial, online, rule = validate_study(config, approved_targets=approved_targets)
+    if not source_initialization and (config["initial_lambda"] != 0 or not config["frozen_lambda"]):
+        raise ValueError("Random target initialization requires fixed zero retention")
+    if (
+        entity_id not in config["targets"]
+        or inputs.config["history_days"] not in approved_history_days
+        or inputs.target_role != "development"
+    ):
         raise ValueError("Wrong Development target or history budget")
     if device not in ("cpu", "cuda") or (device == "cuda" and not torch.cuda.is_available()):
         raise ValueError("Requested device unavailable")
@@ -253,7 +269,11 @@ def execute(
     if device == "cuda":
         torch.cuda.reset_peak_memory_stats()
     seed_everything(initial.seed)
-    target = adapt_model(source)
+    target = (
+        adapt_model(source)
+        if source_initialization
+        else ForecastGRU(ModelConfig(initial.head_width)).to(device)
+    )
     reference = frozen_reference(source)
     optimizer = torch.optim.Adam(target.parameters(), lr=initial.learning_rate)
     prefix_load_started = time.perf_counter()
@@ -293,6 +313,9 @@ def execute(
         "code": code_identity(),
         "initial_adaptation_sha256": state_digest(initial_logs),
     }
+    if not source_initialization:
+        binding["source_initialization"] = False
+        binding["source_weights_used_for_training"] = False
     store = Store(output, binding, resume_from=resume_from)
     with (output / "initial-adaptation.json").open("xb") as stream:
         stream.write(json.dumps(initial_logs, allow_nan=False).encode())
@@ -343,7 +366,11 @@ def execute(
         "schema": "issue99-run-v1",
         "run_id": output.name,
         "phase": config["phase"],
-        "method": "fixed_real_lambda" if config["frozen_lambda"] else "continuous_one_step_adam",
+        "method": "target_only"
+        if not source_initialization
+        else "fixed_real_lambda"
+        if config["frozen_lambda"]
+        else "continuous_one_step_adam",
         "binding": binding,
         "initial_logs": initial_logs,
         "initial_wall_seconds_this_invocation": initial_wall_seconds,

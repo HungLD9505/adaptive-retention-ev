@@ -25,6 +25,7 @@ class StudySupportTests(unittest.TestCase):
             inputs.root = root
             inputs._verified = {}
             inputs._rows = {}
+            inputs.targets = frozenset({"1405", "2152", "1153", "1693"})
             inputs.manifest = {
                 "files": {
                     "training.jsonl": {"size_bytes": 8, "sha256": digest(root / "training.jsonl")}
