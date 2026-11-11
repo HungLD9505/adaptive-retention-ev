@@ -1,0 +1,458 @@
+{
+  "environment": {
+    "recorded_at_vn": "2026-11-10T23:26:33+07:00",
+    "run_tag": "v3",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "torch_threads": 12,
+    "packages": {
+      "numpy": "2.5.4",
+      "pandas": "3.1.1",
+      "torch": "2.14.1+cpu",
+      "sklearn": "1.9.1",
+      "xgboost": "3.4.1",
+      "statsmodels": "0.15.0"
+    },
+    "git": {
+      "commit": "553275a82cbc4039fb340407c7030d1c00e32466",
+      "branch": "feat/cyber-urbanev-baseline-benchmark",
+      "dirty_paths": [
+        "M .gitignore",
+        " M experiments/member_studies/cyber_baselines/cli.py",
+        " M experiments/member_studies/cyber_baselines/config.py",
+        " M experiments/member_studies/cyber_baselines/data.py",
+        "R  experiments/member_studies/cyber_baselines/artifacts/manifest.json -> experiments/member_studies/cyber_baselines/historical_v2/manifest_v2.json",
+        "R  experiments/member_studies/cyber_baselines/runs.csv -> experiments/member_studies/cyber_baselines/historical_v2/runs_v2.csv",
+        " M experiments/member_studies/cyber_baselines/models/classical.py",
+        " M experiments/member_studies/cyber_baselines/models/graph.py",
+        " M experiments/member_studies/cyber_baselines/runner.py",
+        " M experiments/member_studies/cyber_baselines/verify_results.py",
+        " M tests/test_cyber_baselines.py",
+        "?? experiments/member_studies/cyber_baselines/artifacts_v3/"
+      ]
+    },
+    "input_manifest": {
+      "path": "data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-14d/manifest.json",
+      "sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9"
+    },
+    "config": {
+      "run_tag": "v3",
+      "save_fitted": false,
+      "graph_support_k": 3,
+      "input_root": "C:\\Users\\ADMIN\\OneDrive\\Documents\\GitHub\\adaptive-retention-ev\\data\\inputs\\issue18-input-handoff-v1-20261019\\urbanev-SZH-14d",
+      "raw_zip_path": "C:\\Users\\ADMIN\\OneDrive\\Documents\\GitHub\\adaptive-retention-ev\\data\\raw\\urbanev\\official_2026_05_11\\UrbanEVDataset.zip",
+      "output_dir": "C:\\Users\\ADMIN\\OneDrive\\Documents\\GitHub\\adaptive-retention-ev\\experiments\\member_studies\\cyber_baselines\\artifacts_v3\\pilot",
+      "checkpoint_dir": "C:\\Users\\ADMIN\\OneDrive\\Documents\\GitHub\\adaptive-retention-ev\\experiments\\member_studies\\cyber_baselines\\checkpoints",
+      "runs_csv_path": "C:\\Users\\ADMIN\\OneDrive\\Documents\\GitHub\\adaptive-retention-ev\\experiments\\member_studies\\cyber_baselines\\artifacts_v3\\pilot\\pilot_runs.csv",
+      "targets": [
+        "1405",
+        "2152",
+        "1153",
+        "1693"
+      ],
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "training_hp": {
+        "source_batch_size": 256,
+        "source_epochs": 3,
+        "source_lr": 0.001,
+        "target_batch_size": 4,
+        "target_adapt_epochs": 3,
+        "target_adapt_lr": 0.0005,
+        "target_update_epochs": 1,
+        "target_update_lr": 0.0005
+      },
+      "classical_hp": {
+        "ridge_alpha": 1.0,
+        "rf_n_estimators": 100,
+        "rf_max_depth": 10,
+        "xgb_n_estimators": 50,
+        "xgb_max_depth": 5,
+        "xgb_lr": 0.1,
+        "sarima_order": [
+          1,
+          0,
+          1
+        ],
+        "sarima_seasonal_order": [
+          1,
+          0,
+          0,
+          24
+        ],
+        "sarima_maxiter": 15
+      }
+    },
+    "command": [
+      "C:\\Users\\ADMIN\\OneDrive\\Documents\\GitHub\\adaptive-retention-ev\\experiments\\member_studies\\cyber_baselines\\cli.py",
+      "--pilot"
+    ]
+  },
+  "graph_lock": {
+    "rule": "targets + 3 nearest development-role stations per target",
+    "distance_source": "UrbanEVDataset/20220901-20230228_station-raw/station_distance.csv",
+    "excluded_roles": [
+      "final",
+      "source"
+    ],
+    "support_k": 3,
+    "neighbors": {
+      "1405": [
+        {
+          "station_id": "1398",
+          "distance_m": 659.207893504112
+        },
+        {
+          "station_id": "1439",
+          "distance_m": 799.068301480097
+        },
+        {
+          "station_id": "1417",
+          "distance_m": 869.454194665872
+        }
+      ],
+      "2152": [
+        {
+          "station_id": "2153",
+          "distance_m": 0.0
+        },
+        {
+          "station_id": "2120",
+          "distance_m": 639.141708298183
+        },
+        {
+          "station_id": "2173",
+          "distance_m": 877.46666893032
+        }
+      ],
+      "1153": [
+        {
+          "station_id": "1140",
+          "distance_m": 341.924009941264
+        },
+        {
+          "station_id": "1169",
+          "distance_m": 425.884327837279
+        },
+        {
+          "station_id": "1165",
+          "distance_m": 481.926098883652
+        }
+      ],
+      "1693": [
+        {
+          "station_id": "1723",
+          "distance_m": 757.629970895458
+        },
+        {
+          "station_id": "1836",
+          "distance_m": 2430.7022975383
+        },
+        {
+          "station_id": "1810",
+          "distance_m": 2522.73203563703
+        }
+      ]
+    },
+    "node_ids": [
+      "1140",
+      "1153",
+      "1165",
+      "1169",
+      "1398",
+      "1405",
+      "1417",
+      "1439",
+      "1693",
+      "1723",
+      "1810",
+      "1836",
+      "2120",
+      "2152",
+      "2153",
+      "2173"
+    ],
+    "adjacency": "Gaussian kernel exp(-(d/sigma)^2), sigma=std(positive distances), +I, D^-1/2 A D^-1/2",
+    "history_records_loaded": 1241
+  },
+  "note": "tracemalloc tracks Python/NumPy heap only (not PyTorch's CPU allocator); process peak working set is cumulative over the pilot process lifetime.",
+  "runs": [
+    {
+      "model": "Daily Naive",
+      "mode": "target_only",
+      "station_id": "1405",
+      "seed": null,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 0.04011619999073446,
+      "tracemalloc_peak_mib": 0.8656654357910156,
+      "working_set_mib": 333.9609375,
+      "peak_working_set_mib": 518.55859375,
+      "run_id": "cyber_v3_daily_naive_target_only_1405_det",
+      "scored_days": 89,
+      "mae_kwh": 6.954515774257671,
+      "param_count": 0
+    },
+    {
+      "model": "Seasonal Naive",
+      "mode": "target_only",
+      "station_id": "1405",
+      "seed": null,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 0.49398490000749007,
+      "tracemalloc_peak_mib": 0.9487438201904297,
+      "working_set_mib": 334.19140625,
+      "peak_working_set_mib": 518.55859375,
+      "run_id": "cyber_v3_seasonal_naive_target_only_1405_det",
+      "scored_days": 89,
+      "mae_kwh": 8.54708962671612,
+      "param_count": 0
+    },
+    {
+      "model": "Ridge",
+      "mode": "target_only",
+      "station_id": "1405",
+      "seed": null,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 0.2680598999722861,
+      "tracemalloc_peak_mib": 1.1201114654541016,
+      "working_set_mib": 339.0,
+      "peak_working_set_mib": 518.55859375,
+      "run_id": "cyber_v3_ridge_target_only_1405_det",
+      "scored_days": 89,
+      "mae_kwh": 6.495220245684923,
+      "param_count": 6936
+    },
+    {
+      "model": "SARIMA",
+      "mode": "target_only",
+      "station_id": "1405",
+      "seed": null,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 8.257323099998757,
+      "tracemalloc_peak_mib": 88.5257740020752,
+      "working_set_mib": 383.18359375,
+      "peak_working_set_mib": 518.55859375,
+      "run_id": "cyber_v3_sarima_target_only_1405_det",
+      "scored_days": 89,
+      "mae_kwh": 7.562165842386982,
+      "param_count": 4
+    },
+    {
+      "model": "Random Forest",
+      "mode": "target_only",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 9.389386700000614,
+      "tracemalloc_peak_mib": 1.4144210815429688,
+      "working_set_mib": 349.68359375,
+      "peak_working_set_mib": 518.55859375,
+      "run_id": "cyber_v3_random_forest_target_only_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 6.519996011620589,
+      "param_count": 204700
+    },
+    {
+      "model": "XGBoost",
+      "mode": "target_only",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 5.098965899960604,
+      "tracemalloc_peak_mib": 1.1207904815673828,
+      "working_set_mib": 474.3515625,
+      "peak_working_set_mib": 518.55859375,
+      "run_id": "cyber_v3_xgboost_target_only_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 7.262137152184393,
+      "param_count": 3150
+    },
+    {
+      "model": "MLP",
+      "mode": "target_only",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 4.518023999989964,
+      "tracemalloc_peak_mib": 61.35531234741211,
+      "working_set_mib": 551.01171875,
+      "peak_working_set_mib": 588.6484375,
+      "run_id": "cyber_v3_mlp_target_only_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 9.25152565087593,
+      "param_count": 43288
+    },
+    {
+      "model": "MLP",
+      "mode": "transfer",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 0.31915130000561476,
+      "tracemalloc_peak_mib": 1.101790428161621,
+      "working_set_mib": 553.30078125,
+      "peak_working_set_mib": 588.6484375,
+      "run_id": "cyber_v3_mlp_transfer_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 6.202801443450239,
+      "param_count": 43288
+    },
+    {
+      "model": "GRU",
+      "mode": "target_only",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 1.2052384999697097,
+      "tracemalloc_peak_mib": 0.8128519058227539,
+      "working_set_mib": 554.1640625,
+      "peak_working_set_mib": 588.6484375,
+      "run_id": "cyber_v3_gru_target_only_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 9.190265602136867,
+      "param_count": 52376
+    },
+    {
+      "model": "GRU",
+      "mode": "transfer",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 1.2178648000117391,
+      "tracemalloc_peak_mib": 0.8133430480957031,
+      "working_set_mib": 555.0625,
+      "peak_working_set_mib": 588.6484375,
+      "run_id": "cyber_v3_gru_transfer_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 5.951486957867596,
+      "param_count": 52376
+    },
+    {
+      "model": "LSTM",
+      "mode": "target_only",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 0.5279720000107773,
+      "tracemalloc_peak_mib": 0.8073968887329102,
+      "working_set_mib": 563.52734375,
+      "peak_working_set_mib": 588.6484375,
+      "run_id": "cyber_v3_lstm_target_only_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 9.703471651746566,
+      "param_count": 65368
+    },
+    {
+      "model": "LSTM",
+      "mode": "transfer",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 0.545216900005471,
+      "tracemalloc_peak_mib": 0.8090753555297852,
+      "working_set_mib": 563.98828125,
+      "peak_working_set_mib": 588.6484375,
+      "run_id": "cyber_v3_lstm_transfer_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 5.995179167316212,
+      "param_count": 65368
+    },
+    {
+      "model": "TCN",
+      "mode": "target_only",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 0.7794590999837965,
+      "tracemalloc_peak_mib": 0.8918609619140625,
+      "working_set_mib": 565.8125,
+      "peak_working_set_mib": 588.6484375,
+      "run_id": "cyber_v3_tcn_target_only_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 8.445815273675748,
+      "param_count": 77080
+    },
+    {
+      "model": "TCN",
+      "mode": "transfer",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 0.7737528000143357,
+      "tracemalloc_peak_mib": 0.8743553161621094,
+      "working_set_mib": 565.2890625,
+      "peak_working_set_mib": 588.6484375,
+      "run_id": "cyber_v3_tcn_transfer_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 6.080129890592289,
+      "param_count": 77080
+    },
+    {
+      "model": "TimeXer",
+      "mode": "target_only",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 0.918875899980776,
+      "tracemalloc_peak_mib": 0.8398942947387695,
+      "working_set_mib": 565.51171875,
+      "peak_working_set_mib": 588.6484375,
+      "run_id": "cyber_v3_timexer_target_only_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 8.714404847099447,
+      "param_count": 66072
+    },
+    {
+      "model": "TimeXer",
+      "mode": "transfer",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 0.9376141999964602,
+      "tracemalloc_peak_mib": 0.8524990081787109,
+      "working_set_mib": 565.58984375,
+      "peak_working_set_mib": 588.6484375,
+      "run_id": "cyber_v3_timexer_transfer_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 7.195421148424541,
+      "param_count": 66072
+    },
+    {
+      "model": "Basic GCN-LSTM",
+      "mode": "target_only",
+      "station_id": "1405",
+      "seed": 42,
+      "status": "ok",
+      "error": null,
+      "wall_seconds_incl_construction": 1.0608670000219718,
+      "tracemalloc_peak_mib": 0.8359546661376953,
+      "working_set_mib": 567.33203125,
+      "peak_working_set_mib": 588.6484375,
+      "run_id": "cyber_v3_basic_gcn_lstm_target_only_1405_seed42",
+      "scored_days": 89,
+      "mae_kwh": 8.052825586648703,
+      "param_count": 38744
+    }
+  ]
+}
