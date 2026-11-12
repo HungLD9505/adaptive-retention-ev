@@ -5,11 +5,16 @@ Select `main.tex` and pdfLaTeX in Overleaf. Local verification uses Tectonic 0.1
 the Overleaf web editor itself was not exercised.
 
 Figure 1 is a restrained native LaTeX/TikZ system figure: white background,
-flat tensor/GRU/forecast graphics, consistent typography and light blue/red
+native side-view EV/charger symbols, flat tensor/GRU/forecast graphics,
+consistent typography and light blue/red
 categorical accents. All seven figures are vector; there are no raster images
 or rendered equation images in the reader. Titles are short and descriptions
 are in the body. Comparison tables bold the best displayed values within their
 stated scope.
+
+Figure 1 is built directly from editable TikZ paths and LaTeX text, including
+every vehicle, charger, connector and formula. No PNG is needed to compile or
+edit this figure; the standalone PNG supplied for review is only a preview.
 
 ## Source files
 

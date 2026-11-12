@@ -15,31 +15,45 @@
  \draw[black!50,line width=.5pt] (\xx,9.2)--++(\ww,0);
  \node[anchor=west,font=\small\bfseries,inner sep=0] at (\xx,9.55) {\tt};
 }
-% A small context mark and schematic sequence sheets, not decorative scenery.
-\draw[black!55,line width=.6pt] (.25,7.9) rectangle (.65,8.65);
-\draw[black!55] (.32,8.38) rectangle (.58,8.55);
-\draw[black!55] (.65,8.45)--(.82,8.45)--(.82,8.05)--(.72,8.05);
-\draw[black!55] (.18,7.85)--(.73,7.85);
-\foreach \off in {.18,.09,0}{
- \draw[draw=black!30,fill=white] (1.08+\off,7.95+\off) rectangle (3.02+\off,8.6+\off);
-}
-\draw[FlowBlue,line width=.6pt] plot coordinates {(1.17,8.12)(1.30,8.22)(1.43,8.15)(1.56,8.37)(1.69,8.25)(1.82,8.28)(1.95,8.17)(2.08,8.39)(2.21,8.30)(2.34,8.35)(2.47,8.21)(2.60,8.28)(2.87,8.24)};
-\node[note] at (1.7,8.95) {Hourly source history};
-\node[box,text width=2.65cm,minimum height=.9cm] (source) at (1.7,6.65)
- {\textbf{Source forecaster}\\Two-layer GRU, width 64};
-\draw[flow] (1.7,7.92)--(source.north);
+% Flat side-view EV and charger pictograms, built entirely from native paths.
+\tikzset{pics/chargingcar/.style={code={
+ \path[draw=black!60,fill=FlowBlue!6,line width=.5pt,rounded corners=.7pt]
+ (0,.13)--(0,.29)--(.18,.34)--(.33,.51)--(.82,.51)--(1.01,.34)--(1.17,.29)--(1.22,.13)--cycle;
+ \path[draw=black!45,fill=white,line width=.4pt]
+ (.27,.34)--(.39,.46)--(.58,.46)--(.58,.34)--cycle;
+ \path[draw=black!45,fill=white,line width=.4pt]
+ (.65,.46)--(.78,.46)--(.92,.34)--(.65,.34)--cycle;
+ \draw[black!45,line width=.4pt] (.63,.30)--(.63,.17);
+ \draw[draw=black!65,fill=white,line width=.6pt] (.24,.11) circle (.10);
+ \draw[draw=black!65,fill=white,line width=.6pt] (.98,.11) circle (.10);
+ \path[draw=black!60,fill=white,line width=.5pt] (1.38,0) rectangle (1.68,.68);
+ \path[draw=black!45,fill=FlowBlue!10,line width=.4pt] (1.43,.47) rectangle (1.62,.59);
+ \draw[black!60,line width=.5pt] (1.38,.42)--(1.28,.42)--(1.28,.27)--(1.20,.27);
+ \draw[black!40,line width=.4pt] (-.05,-.03)--(1.76,-.03);
+}}}
+\pic[shift={(.08,8.12)},scale=.82] {chargingcar};
+\pic[shift={(1.83,8.12)},scale=.82] {chargingcar};
+\node[note] at (1.7,8.98) {Source entities};
+\draw[draw=black!30,fill=white] (.25,7.08) rectangle (3.15,7.65);
+\draw[FlowBlue,line width=.6pt] plot coordinates {(.39,7.20)(.60,7.32)(.81,7.24)(1.02,7.47)(1.23,7.35)(1.44,7.39)(1.65,7.24)(1.86,7.48)(2.07,7.37)(2.28,7.42)(2.49,7.29)(2.70,7.36)(2.99,7.31)};
+\node[note] at (1.7,7.86) {Hourly source history};
+\node[box,text width=2.65cm,minimum height=.9cm] (source) at (1.7,6.1)
+ {\textbf{Source forecaster}\\2 layers, width 64};
+\draw[flow] (1.7,7.08)--(source.north);
 \node[box,text width=2.65cm,minimum height=.85cm] (frozen) at (1.7,4.65)
  {\textbf{Frozen encoder}\\$z_s(X_t)$, fixed latent scales $s$};
 \draw[flow] (source.south)--node[note,right]{freeze}(frozen.north);
 \node[note,anchor=east] (same) at (.03,4.65) {$X_t$};
 \draw[flow] (same.east)--(frozen.west);
 % Independent history and future-calendar inputs with explicit head bypass.
-\node[box,text width=2.35cm,minimum height=.65cm] (history) at (5.65,8.55)
- {History $X_t$\\$24\times7$\\7 / 14 / 28 days};
+\pic[shift={(4.2,8.12)},scale=.83] {chargingcar};
+\node[note] at (4.9,9.02) {Target entity};
+\node[box,text width=2.1cm,minimum height=.65cm] (history) at (7.0,8.55)
+ {History $X_t$\\$24\times7$\\$7/14/28$ days};
 \node[box,text width=2.6cm,minimum height=.65cm] (calendar) at (9.8,8.55)
  {Future calendar $C_t$\\$24\times5$};
 \node[note,text width=4.4cm] at (6.8,7.35) {Initialize both from $\theta_s$\\3 prefix epochs if eligible};
-\draw[flow,dashed,draw=black!45,bridge] (source.east)--(3.85,6.65)--(3.85,7.35)--(4.2,7.35);
+\draw[flow,dashed,draw=black!45,bridge] (source.east)--(3.85,6.1)--(3.85,7.35)--(4.2,7.35);
 % The two model rows have restrained, categorical color washes.
 \path[draw=FlowBlue!55,fill=FlowBlue!3,line width=.5pt] (4.75,4.75) rectangle (11.8,6.95);
 \path[draw=FlowRed!50,fill=FlowRed!3,line width=.5pt] (4.75,2.2) rectangle (11.8,4.25);
@@ -59,7 +73,7 @@
 }
 \node[note] at (10.78,6.6) {$\hat y_{S,t}$};
 \node[note] at (10.78,3.9) {$\hat y_{F,t}$};
-\draw[flow] (history.south)--(5.65,7.9)--(4.45,7.9)--(4.45,5.8)--(5.15,5.8);
+\draw[flow] (history.south)--(7.0,7.9)--(4.45,7.9)--(4.45,5.8)--(5.15,5.8);
 \draw[flow] (4.45,5.8)--(4.45,3.1)--(5.15,3.1);
 \fill[black!70] (4.45,5.8) circle (1.1pt);
 \draw[flow] (calendar.south)--(9.8,7.9)--(9.6,7.9)--(9.6,6.5)--(8.5,6.5)--(8.5,6.36);

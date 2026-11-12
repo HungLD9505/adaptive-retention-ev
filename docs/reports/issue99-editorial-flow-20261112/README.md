@@ -27,3 +27,22 @@ Standalone vector PDF/PNG, source ZIP, compile logs and the previous reader are
 retained at `/Users/quyenmanh/Developer/TFL-EV/runs/issue99-editorial-flow-20261112-v7`.
 The original template bytes are unchanged. This revision is published to the
 existing PR #116 review branch without merge or updates to main/dev.
+
+## Flat EV/charger symbols
+
+At the owner's request, the current Figure 1 includes flat side-view vehicles
+and chargers for both source and target context. Every icon is a native TikZ
+path in the same source as the connectors, text and equations. There is no
+imported bitmap, perspective rendering or post-export image assembly. These
+symbols indicate charging context, not a measured count of physical sites.
+
+[flat-ev-audit.json](flat-ev-audit.json) preserves the fresh table/source-identity
+checks. The reader remains 16 pages with zero raster images. The changed third
+page and standalone figure were inspected; the other fifteen page PNGs are
+byte-identical to the previously inspected reader. No overfull boxes, unresolved
+references or missing characters are present. The 14-file ZIP independently
+rebuilds matching text on all sixteen pages. Its SHA-256 is
+`5f99cbb84cbfee51ea1b143664e6e9e5a9943db9541e539948074d88a50ac4ff`.
+Standalone preview PDF/PNG and source ZIP are retained at
+`/Users/quyenmanh/Developer/TFL-EV/runs/issue99-flat-ev-flow-20261112-v8`.
+No method code, result window, raw data or trained artifact changes.
