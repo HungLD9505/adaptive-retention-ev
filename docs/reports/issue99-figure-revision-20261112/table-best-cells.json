@@ -1,0 +1,148 @@
+{
+  "2": [
+    {
+      "row": 4,
+      "column": 1,
+      "value": "5.8008"
+    },
+    {
+      "row": 7,
+      "column": 2,
+      "value": "5.3150"
+    },
+    {
+      "row": 4,
+      "column": 3,
+      "value": "5.8204"
+    },
+    {
+      "row": 11,
+      "column": 4,
+      "value": "5.1979"
+    }
+  ],
+  "3": [
+    {
+      "row": 4,
+      "column": 1,
+      "value": "3.3186"
+    },
+    {
+      "row": 4,
+      "column": 2,
+      "value": "3.2670"
+    },
+    {
+      "row": 6,
+      "column": 3,
+      "value": "3.3140"
+    }
+  ],
+  "4": [
+    {
+      "row": 0,
+      "column": 2,
+      "value": "8.0400"
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "value": "7.9758"
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "value": "7.9159"
+    },
+    {
+      "row": 3,
+      "column": 4,
+      "value": "6.1294"
+    },
+    {
+      "row": 4,
+      "column": 4,
+      "value": "6.1305"
+    },
+    {
+      "row": 5,
+      "column": 4,
+      "value": "6.1331"
+    },
+    {
+      "row": 6,
+      "column": 5,
+      "value": "1.2179"
+    },
+    {
+      "row": 7,
+      "column": 5,
+      "value": "1.2269"
+    },
+    {
+      "row": 8,
+      "column": 5,
+      "value": "1.1924"
+    },
+    {
+      "row": 9,
+      "column": 5,
+      "value": "1.2803"
+    },
+    {
+      "row": 10,
+      "column": 5,
+      "value": "1.2889"
+    },
+    {
+      "row": 11,
+      "column": 5,
+      "value": "1.2759"
+    },
+    {
+      "row": 12,
+      "column": 4,
+      "value": "51.6384"
+    },
+    {
+      "row": 13,
+      "column": 4,
+      "value": "52.2222"
+    },
+    {
+      "row": 14,
+      "column": 4,
+      "value": "52.1444"
+    },
+    {
+      "row": 15,
+      "column": 5,
+      "value": "1.9234"
+    },
+    {
+      "row": 16,
+      "column": 5,
+      "value": "1.8869"
+    },
+    {
+      "row": 17,
+      "column": 5,
+      "value": "1.9126"
+    },
+    {
+      "row": 18,
+      "column": 4,
+      "value": "85.7026"
+    },
+    {
+      "row": 19,
+      "column": 4,
+      "value": "85.0301"
+    },
+    {
+      "row": 20,
+      "column": 4,
+      "value": "84.6675"
+    }
+  ]
+}

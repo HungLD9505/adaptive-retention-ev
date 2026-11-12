@@ -6,8 +6,8 @@ No experiment was rerun or relabelled as execution of the integrated code.
 
 ## Current reader manuscript
 
-The [Overleaf-style PDF](../../../report/overleaf-review-20261112/source-retention-review.pdf)
-and [LaTeX project](../../../report/overleaf-review-20261112/README.md) are the
+The [Overleaf-style PDF](../../../report/overleaf-review-20261112-v2/adaptive-transfer-learning-ev.pdf)
+and [LaTeX project](../../../report/overleaf-review-20261112-v2/README.md) are the
 current reader version. The original two-column template now includes the new
 stable/fast GRU pipeline, native LaTeX equations, short figure titles and eight
 scientific references. Figure explanations are separate body paragraphs.
