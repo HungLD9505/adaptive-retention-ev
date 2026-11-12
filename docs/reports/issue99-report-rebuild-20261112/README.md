@@ -85,3 +85,24 @@ was not rerun for this documentation change.
 
 No PR is merged and neither `dev` nor `main` is modified by publication on the
 existing review branch.
+
+## Clean-checkout verification and publication
+
+At report commit `45a9de0e477b90a29fc75f9fcae90629f0f6636f`, the clean-checkout
+root suite ran 1,041 tests in 42.133 seconds: PASS, with 12 documented skips.
+This confirms the earlier failure was the dirty-worktree provenance gate; no
+implementation, test expectation or fixture was changed. This final receipt is
+an additional documentation-only commit.
+
+The final source ZIP SHA-256 is
+`300e328141fafaab9c273922d913083fdc4a73b6e8ebc764a49cfdb603a69e6a`.
+All source-manifest asset and evidence hashes were rechecked. After the final
+source whitespace cleanup, all 16 rendered page PNGs were byte-identical to the
+visually inspected reader. The extracted final ZIP rebuilt matching page texts
+with no overfull boxes or unresolved references. The source class/style retain
+their original whitespace; other added/changed files pass `git diff --check`.
+
+Publication uses the existing `chore/99-integration-review` branch and
+[PR #116](https://github.com/HungLD9505/adaptive-retention-ev/pull/116) to `dev`.
+Latest-head CI and peer approval remain separate from these local checks. The
+reader is a review artifact; no merge is performed.
