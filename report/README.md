@@ -1,7 +1,7 @@
 # Research manuscript sources
 
-Current reader version: [Overleaf-style PDF](overleaf-review-20261112-v2/adaptive-transfer-learning-ev.pdf)
-and [LaTeX project](overleaf-review-20261112-v2/README.md). It follows the original
+Current reader version: [Overleaf-style PDF](overleaf-review-20261112-v3/adaptive-transfer-learning-ev.pdf)
+and [LaTeX project](overleaf-review-20261112-v3/README.md). It follows the original
 Springer Nature two-column layout, includes the current causal pipeline, and uses
 short figure titles with explanations in the body. Select `main.tex` in Overleaf.
 

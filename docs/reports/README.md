@@ -6,6 +6,7 @@ The report PDFs and exact tables live under [report/](../../report/README.md).
 
 | Evidence | Read first |
 |---|---|
+| Current manuscript method, numerical and layout audit | [Full audit](issue99-manuscript-audit-20261112/README.md), [current reader](../../report/overleaf-review-20261112-v3/README.md) |
 | Primary frozen Final and its limits | [Final handoff](issue23-final-complete-handoff-20261029.md) |
 | Primary vs separate supporting evidence | [Joint synthesis](issue23-joint-evidence-synthesis-20261030.md) and [full-precision record](issue23-joint-evidence-synthesis-20261030-v1.json) |
 | Posthoc interpretation and report consistency | [Retention analysis](issue23-retention-posthoc-20261031.md), [Report 1 audit](issue23-manuscript-report1-review-20261031.md) |

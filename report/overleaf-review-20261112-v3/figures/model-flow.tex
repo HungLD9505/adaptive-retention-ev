@@ -1,0 +1,32 @@
+\definecolor{FlowBlue}{HTML}{2166AC}
+\definecolor{FlowRed}{HTML}{B2182B}
+\begin{tikzpicture}[x=1.12cm,y=0.79cm,>=Latex,
+  every node/.style={font=\footnotesize,align=center},
+  box/.style={draw=black!35,rounded corners=2pt,fill=white,line width=.6pt,inner sep=7pt},
+  flow/.style={->,line width=.75pt,draw=black!65},
+  ref/.style={->,dashed,line width=.75pt,draw=FlowBlue}]
+\node[box,text width=7.2cm,minimum height=.95cm,draw=FlowBlue!60,fill=FlowBlue!7] (source) at (7,9)
+ {\textbf{Source pretraining}\\[-1pt]Established entities in one namespace $\rightarrow$ GRU checkpoint $\theta_s$ and latent scales $s$};
+\node[box,text width=4.0cm,minimum height=.9cm] (input) at (7,7)
+ {\textbf{Permitted target inputs}\\[-1pt]$X_t\in\mathbb R^{24\times7}$, $C_t\in\mathbb R^{24\times5}$};
+\node[box,text width=5.0cm,minimum height=1.35cm,draw=FlowBlue!65,fill=FlowBlue!9] (stable) at (3.8,4.7)
+ {\textbf{Stable expert}\\[2pt]GRU encoder + calendar head\\$\lambda_S=1$, $L_S=F+R$\\Newly arrived day};
+\node[box,text width=5.0cm,minimum height=1.35cm,draw=FlowRed!60,fill=FlowRed!7] (fast) at (10.2,4.7)
+ {\textbf{Fast expert}\\[2pt]GRU encoder + calendar head\\$\lambda_F=0$, $L_F=F$\\Last 7 calendar days};
+\node[box,text width=5.0cm,minimum height=.85cm,draw=FlowBlue!65,fill=FlowBlue!9] (mix) at (7,2.5)
+ {\textbf{Adaptive forecast mixture}\\$\hat y_t=w_t\hat y_{S,t}+(1-w_t)\hat y_{F,t}$};
+\node[font=\small] (out) at (7,.9) {\textbf{Persist the next 24-hour energy forecast}\\[-1pt]No future energy labels enter this prediction};
+\draw[flow] ([xshift=-3.584cm]source.south) -- (stable.north);
+\draw[flow] ([xshift=3.584cm]source.south) -- (fast.north);
+\node[fill=white,font=\footnotesize,inner sep=2pt] at (3.8,7.8) {initialize};
+\node[fill=white,font=\footnotesize,inner sep=2pt] at (10.2,7.8) {initialize};
+\draw[flow] (input.south) -- (7,6.1) -| ([xshift=1.4cm]stable.north);
+\draw[flow] (7,6.1) -| ([xshift=-1.4cm]fast.north);
+\draw[ref] (source.west) -- (.5,9) -- (.5,4.7) -- (stable.west);
+\node[fill=white,text width=1.1cm,font=\footnotesize,inner sep=2pt] at (.5,6.8) {frozen\\reference\\for $R$};
+\draw[flow] (stable.south) -- (3.8,2.5) -- (mix.west);
+\draw[flow] (fast.south) -- (10.2,2.5) -- (mix.east);
+\node[fill=white,font=\footnotesize,inner sep=2pt] at (3.8,3.2) {$\hat y_{S,t}$};
+\node[fill=white,font=\footnotesize,inner sep=2pt] at (10.2,3.2) {$\hat y_{F,t}$};
+\draw[flow] (mix.south) -- (out.north);
+\end{tikzpicture}

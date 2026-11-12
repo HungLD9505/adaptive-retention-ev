@@ -6,12 +6,14 @@ No experiment was rerun or relabelled as execution of the integrated code.
 
 ## Current reader manuscript
 
-The [Overleaf-style PDF](../../../report/overleaf-review-20261112-v2/adaptive-transfer-learning-ev.pdf)
-and [LaTeX project](../../../report/overleaf-review-20261112-v2/README.md) are the
+The [Overleaf-style PDF](../../../report/overleaf-review-20261112-v3/adaptive-transfer-learning-ev.pdf)
+and [LaTeX project](../../../report/overleaf-review-20261112-v3/README.md) are the
 current reader version. The original two-column template now includes the new
-stable/fast GRU pipeline, native LaTeX equations, short figure titles and eight
-scientific references. Figure explanations are separate body paragraphs.
-Numerical tables and result plots are unchanged. Prior Word layouts and the
+stable/fast GRU method and causal feedback diagrams, native LaTeX equations, short
+figure titles and nine scientific references. Figure explanations are separate
+body paragraphs. Result values remain unchanged; the complete table adds Fast-only
+and all plots are redrawn. The full audit is in
+[the manuscript handoff](../issue99-manuscript-audit-20261112/README.md). Prior Word layouts and the
 11 November artifact identities remain historical snapshots.
 
 ## Integration snapshot references
@@ -81,7 +83,9 @@ universal GRU winner. Source3 baseline and Source10 retention recipes are distin
 The additional persistent lambda pilot and Calibration matrix are exploratory
 Development evidence; the failed gate did not authorize a Later matrix.
 
-The PDF/DOCX and all 32 manuscript manifest entries are byte-identical to #115.
+At the initial integration snapshot, the PDF/DOCX and all 32 manuscript manifest
+entries were byte-identical to #115. Subsequent reader revisions are separately
+versioned and have their own manifests.
 No fresh data download, new long training, new Final run or raw-archive check was
 performed during integration. Prior audit receipts keep their stated boundaries.
 
