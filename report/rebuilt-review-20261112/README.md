@@ -39,3 +39,18 @@ revision. The full 21-group historical table remains in the main results.
 The source-only ZIP contains compilation inputs plus this README; it excludes
 the reader, manifest and QA files. See the current [visual revision handoff](../../docs/reports/issue99-editorial-flow-20261112/README.md)
 and the earlier [evidence-based rewrite](../../docs/reports/issue99-report-rebuild-20261112/README.md).
+
+## End-to-end evidence check
+
+The [claim-to-evidence register](../../docs/reports/issue99-report-e2e-evidence-20261112/claim-evidence.md)
+links every prose entry and labeled equation/table/figure to the reviewed source
+set, with exact manuscript lines and SHA-256 identities in the companion JSON.
+It distinguishes observed results, code definitions, engineering choices,
+literature precedents and interpretations. See the
+[verification handoff](../../docs/reports/issue99-report-e2e-evidence-20261112/README.md)
+for fresh arithmetic, saved-cell readback, checks and remaining limits.
+
+The E2E review corrected the baseline recipe description: the three-epoch,
+0.0005 target learning-rate recipe applies to nonspatial neural models.
+GCN--LSTM uses five initial epochs and learning rate 0.001. Reported results and
+both approved native flow diagrams are unchanged.

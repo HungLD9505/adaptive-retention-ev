@@ -209,7 +209,7 @@ The decisive control is static fusion with the same stable and fast forecasts an
 
 \section{Experimental design and metrics}
 \subsection{Baseline and training-budget controls}
-Each independent baseline implementation contains 172 unique model--mode--entity--seed records: 160 nonspatial and 12 spatial. Deterministic methods are not duplicated with artificial seed replicates. Neural Source pretraining uses three epochs. Target adaptation uses three epochs, batch size four and learning rate 0.0005, followed by one online epoch per eligible arrival. The two implementations are reported separately.
+Each implementation has 172 unique model--mode--entity--seed records: 160 nonspatial and 12 spatial; deterministic methods have no artificial seed replicates. Nonspatial neural models use three Source epochs, three target epochs (batch four; learning rate 0.0005), and one online epoch per eligible arrival. GCN--LSTM instead uses five initial epochs, learning rate 0.001 and single-example steps. Classical methods have separate fitting/refitting rules. Implementations are reported separately.
 
 The subsequent GRU study reuses Source epoch 10 and calibrates initial target epochs over $\{3,10,30,100,300\}$. The objective uses the first 28 scheduled origins of the four calibration entities, with equal entity and seed weights. The declared extension to 900 epochs is unused because no 300-epoch candidate wins. Target-only selects 30/100/100 epochs across 7/14/28 days; Source-initialized models select 3/3/10. The learning rate is 0.001. The twelve additional entities then evaluate these recipes.
 
@@ -371,7 +371,7 @@ The fusion extension provides the broadest historical win count, but changes the
 \subsection{When source influence should be reduced}
 A lower stable-expert weight means less contribution from that source-retaining forecast relative to the recent-window forecast. It is a predictor-level statement. A lower lambda means less explicit latent constraint during training. It is an optimization-level statement. Neither is a direct measurement of how much source information remains in the network.
 
-The executed controllers use retrospective evidence to make future decisions. A completed block may be unrepresentative of the next block, and a current local validation gradient may poorly predict the next training trajectory. These mechanisms explain why plausible update rules can fail to improve a carefully calibrated constant. They are interpretations of the observed pattern, not newly verified causal explanations of each loss.
+The executed controllers use retrospective evidence to make future decisions. A completed block may be unrepresentative of the next block, and a current local validation gradient may poorly predict the next training trajectory. These are possible reasons why plausible update rules can fail to improve a carefully calibrated constant. They are interpretations of the observed pattern, not newly verified causal explanations of each loss.
 
 \section{Limitations and reproducibility}
 The baseline sample is small, recipes are fixed rather than equally optimized, and spatial support changes the information set. The coefficient diagnostics use four previously inspected entities in one namespace. The twelve-entity study expands Development coverage but still reuses an inspected data environment. The historical mixture comparison revisits previously exposed entities and dates. None is an untouched prospective confirmation.

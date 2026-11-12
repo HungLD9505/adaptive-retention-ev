@@ -1,0 +1,63 @@
+{
+  "cyber": {
+    "rows_recomputed": 172,
+    "source_better_in_paired_neural_cells": 60
+  },
+  "duc": {
+    "rows_recomputed": 172,
+    "source_better_in_paired_neural_cells": 60
+  },
+  "history": {
+    "rows_recomputed": 612,
+    "metrics": "All 42 MAE/RMSE aggregate values match",
+    "epoch_and_fixed_selection": "Recorded minima checked; no new search"
+  },
+  "historical": {
+    "unit_rows_recomputed": 810,
+    "scored_days": 67293,
+    "null_units_retained": 9,
+    "group_means_recomputed": 147,
+    "lower_than_fixed": {
+      "old_fixed": 0,
+      "old_adaptive": 9,
+      "fast_only": 16,
+      "static_mix": 18,
+      "fixed_share": 18,
+      "mean7": 10,
+      "confidence7": 9
+    },
+    "adaptive_lower_than_static": 12,
+    "posthoc_controls": {
+      "equal_weight": {
+        "wins": 21,
+        "minimum_reduction_percent": 0.0008389691528950203,
+        "maximum_reduction_percent": 0.26291773765212156
+      },
+      "share_only": {
+        "wins": 21,
+        "minimum_reduction_percent": 0.0009668904493103685,
+        "maximum_reduction_percent": 0.22749012814833688
+      }
+    }
+  },
+  "source_files": {
+    "docs/reports/issue99-full-scope-20261110/cells.csv": "8553ff3cf47dfd444e5d86e57f7f7895d5f9919d783707b45a87fafb3ac987c1",
+    "docs/reports/issue99-full-scope-20261110/group-results.csv": "fc8858772128fcd52c440c4b73015937585a14a59a86d7cf1d98d5027f5036ea",
+    "docs/reports/issue99-full-scope-20261110/verification.json": "3b8bcc9a4240a20e8449207920d35dd69ff1d8e81d6670df7c0aad67076cc135",
+    "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json": "05b40ad7b9b4f3d2c63124610b4a92895dca7a88ba82c12d2260ca06bf5b5a4f",
+    "docs/reports/issue99-history-review-20261110/14d-selection-lock.json": "f9daaa61dc2d7362ee2cf0d46b03fbc04f3ecd1f041636dcbac48867a4fe4da9",
+    "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json": "2953feb24d32f1247719aa7541eaa19dc29f7dec90a0490a70ad6e2fbfe76609",
+    "docs/reports/issue99-history-review-20261110/28d-selection-lock.json": "af03002ec01ad5552b350b838745674debfc29e48233b13dd1b19f1c9bd251ec",
+    "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json": "a330ead07d57618533a761e891bacadd2ba188e037b51e1a7012b3e541ec0caf",
+    "docs/reports/issue99-history-review-20261110/7d-selection-lock.json": "879c84fdaf17e66feec88a423fa405032ca38550760f3b54a53b22ca0b0fbab8",
+    "docs/reports/issue99-history-review-20261110/cells.csv": "3751f2427ae9783ae82f2fd0da1e5963120deba4d38a1190df60d7a3fb1a4f1c",
+    "docs/reports/issue99-history-review-20261110/verified-summary.json": "3049b2ceca7025db293e871e4c8a4604dad909f7567e150231cbf04ec477dc99",
+    "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv": "2d3f5bd4030a46c1332426df0ffbd941d475b420912bcea18039ad672b640f11",
+    "docs/reports/issue99-teacher-review-20261111/duc-summary.csv": "4923b754702e6866291cef596813e0869e13c531f6f3003a7cba31f85ee17d54",
+    "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv": "30578d6a07295f77a9f974b19dc11cefc39d1b5a86a6729b031dc28bb4b1abb7",
+    "experiments/member_studies/cyber_baselines/runs_v3.csv": "ec01c134066586721faa600bffafd8d459b13f5d8eb3967af7881fcd94e670d1",
+    "experiments/member_studies/duc_baselines/runs.csv": "bcda78d79351ab17fd4225c168ce5511783f4507781a8c5146ff150e597cf95a",
+    "experiments/member_studies/duc_baselines/runs_graph.csv": "695a4f2adfd0f5ee8c5c636b8efb8665201a60fbdc0ff160c326a060492786ae"
+  },
+  "verification_boundary": "Fresh independent arithmetic on committed ledgers and group summaries; not new model training, raw-archive verification or a new private-artifact readback."
+}

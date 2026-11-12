@@ -1,7 +1,7 @@
 {
-  "schema": "rewritten-report-flow-spacing-v6",
+  "schema": "rewritten-report-e2e-evidence-v7",
   "date": "2026-11-12",
-  "evidence_code_basis": "d92fbe71280c8c6707f8db040fe01f84b5af204b",
+  "evidence_code_basis": "7d0e47d1d904b8ba8656b9292db516055533847f",
   "scope": "Report rewrite and saved-evidence comparison; no new training or held-out test",
   "compiler": "Tectonic 0.17.0; original sn-jnl two-column template",
   "pages": 16,
@@ -18,8 +18,8 @@
     "ev_runner/diagnostics.py": "47a64b9d1e1e79a6652abfe2ad2360f6f303ed397f7d37ff8ec369299f5535ac"
   },
   "assets": {
-    "README.md": "4d450b9d89e778c8954df78d6a2e21762309e822f2bb94f65aadbbd78a714dd8",
-    "adaptive-transfer-learning-ev.pdf": "f2fa17ee1203b79af71066a3e9acb75b6047a81a8ae433dd0ffe46be3db69720",
+    "README.md": "830a1b2531456189e3dea324df15c12a3a38db1d86ba25f0b418d1b018ba1d23",
+    "adaptive-transfer-learning-ev.pdf": "95220c64ff5dc8daadf926a4717795413861ab16bced5d20c5586225e1727d35",
     "figures/backbones.pdf": "ff5334a515886dedf62c82cddf0c36333efb7e6092c0b4132ed9fc4a79bd8d63",
     "figures/calibration.pdf": "d3d7541533e85deb20b4ed5846544bb9cc9c396889129ef6025a38f8021a5dfa",
     "figures/cohort-comparisons.pdf": "017ba01347f30a50a98cd0ec70f4f3ce7317482e893f0a927742a138b79e6610",
@@ -27,7 +27,7 @@
     "figures/fixed-evidence.pdf": "2240507a3b55871b8f4770919f1d68e3309a992574d9f70267953d0e987a46a0",
     "figures/retention-flow.tex": "537fe33889107de40f5b57778e0e2f74502af3bc18090737fe041870989dc6d5",
     "figures/trajectories.pdf": "540d9c2024bbb90b8c4eff1966ec71100e080023cdd52925c954dcd4d43ba2ac",
-    "main.tex": "203442ef341410259c76fdfbfcec830584cd46097b484c98572b42512c8fb82d",
+    "main.tex": "9402666a907ff1971c33f1768fae71fc8fa9eaf95783674073fdc52901e8a7d1",
     "model-equations.tex": "b400d4b271f7f9a6c6896d261cde9dbde837e00cbb5a38939afcafd527785d38",
     "references.bib": "1f2416b5973b7a044ac9023f11819abc56c58c21fcff6987ff422d0396ff656e",
     "sn-jnl.cls": "36d0c3273a59d48dc6a9c7b080dfa1ec50dc10229d8751568d1f2e490ffa5ecc",
@@ -53,5 +53,12 @@
     "native_system_flow": 1,
     "native_historical_flow": 1,
     "vector_result_plots": 5
-  }
+  },
+  "claim_evidence": {
+    "claim-evidence.json": "9238516c3c282293275c9f5f29f81bb40e6279671b9bec07165e3bcc042e41a4",
+    "claim-evidence.csv": "1fa901f4f89fdfb7bbd94e1dd6601fb44aecf2dd3b32aec228a250c9e11d98de",
+    "claim-evidence.md": "33c7ca272a563e4ead65fd5fca54eb622328c152f441dd805c0acb39946f413c",
+    "literature-check.md": "4f7e0282a3cad7f19fa4fb438757162d664dc00cbc15336b13d56c9a2b7ee144"
+  },
+  "verification": "Fresh 344 baseline and 612 Development ledger rows, 810 saved cells rehashed, independent mixture replay, 21 fixed trials, 60 Later cells, 12 persistent transcribed cells, original intervals and 142 trace rows; see E2E handoff."
 }

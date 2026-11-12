@@ -1,0 +1,17 @@
+{
+  "pages": 16,
+  "extracted_zip_pages_text_match": 16,
+  "overfull_or_undefined_or_missing_glyph": false,
+  "embedded_raster_images": 0,
+  "fresh_rendered_pages": 16,
+  "pixel_changed_pages_from_approved_v9": [
+    9,
+    10,
+    13
+  ],
+  "visual_review": "Flow page3 and changed pages9,10,13 inspected; other13 pages pixel-identical to previously reviewed v9.",
+  "compiler_warning": "Normal underfull box warnings remain; not claimed warning-free.",
+  "source_zip_sha256": "4720392144f1ae81f314338defcba72d658887fc644a4fda35b08137dc0decb0",
+  "reader_pdf_sha256": "95220c64ff5dc8daadf926a4717795413861ab16bced5d20c5586225e1727d35",
+  "overleaf_web_ui_tested": false
+}
