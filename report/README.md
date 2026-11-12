@@ -5,6 +5,12 @@ and [LaTeX project](overleaf-review-20261112-v3/README.md). It follows the origi
 Springer Nature two-column layout, includes the current causal pipeline, and uses
 short figure titles with explanations in the body. Select `main.tex` in Overleaf.
 
+Interpret controller results with the [method/cohort audit](../docs/reports/issue99-controller-identity-audit-20261112/README.md):
+Table 3 is the twelve-entity common-bank selector study; the 18/21 result belongs
+to the two-GRU mixture on the historical cohort. Its update controls forecast
+weights, with no bootstrap/LCB gate. Alignment with the original confidence-based
+retention proposal remains a scientific scope question, not a formatting fix.
+
 ## Original frozen report
 
 This is the canonical LaTeX source for the report delivered on 31 October 2026.
