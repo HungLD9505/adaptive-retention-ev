@@ -1,0 +1,83 @@
+\definecolor{FlowBlue}{HTML}{2166AC}
+\definecolor{FlowRed}{HTML}{B2182B}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,
+ every node/.style={font=\footnotesize,align=center},
+ panel/.style={draw=black!22,rounded corners=3pt,fill=black!1,line width=.6pt},
+ box/.style={draw=black!35,rounded corners=2pt,fill=white,inner sep=6pt,line width=.6pt},
+ flow/.style={->,draw=black!65,line width=.8pt},
+ reference/.style={->,draw=FlowBlue,dashed,line width=.8pt},
+ feedback/.style={->,draw=FlowRed,line width=.85pt}]
+% Three method stages; the lower lane explicitly separates later feedback.
+\path[panel,fill=FlowBlue!3] (0,2.9) rectangle (4.3,10.2);
+\path[panel] (4.9,2.9) rectangle (11.0,10.2);
+\path[panel,fill=FlowBlue!3] (12.0,2.9) rectangle (17.4,10.2);
+\node[anchor=west,font=\small\bfseries] at (.15,9.85) {(a) Source reference};
+\node[anchor=west,font=\small\bfseries] at (5.05,9.85) {(b) Target experts};
+\node[anchor=west,font=\small\bfseries] at (12.15,9.85) {(c) Adaptive fusion};
+% Native vector charging-station pictograms, used only as contextual icons.
+\foreach \cx in {0.75,1.55,2.35}{
+ \draw[draw=FlowBlue!70,fill=white,rounded corners=1pt] (\cx,8.65) rectangle +(0.38,.65);
+ \path[fill=FlowBlue!15] (\cx+.07,9.03) rectangle +(0.24,.18);
+ \draw[draw=FlowBlue!70,line width=.7pt] (\cx+.38,9.05) -- +(0.15,0) -- +(0.15,-.36) -- +(0.08,-.36);
+ \draw[draw=black!40] (\cx-.08,8.62)--+(0.58,0);
+}
+\node[font=\scriptsize,align=left,anchor=west] at (2.95,8.98) {Established\\entities};
+\node[box,text width=3.3cm] (history) at (2.15,7.9) {\textbf{Hourly source history}\\One dataset namespace};
+\node[box,text width=3.3cm,fill=FlowBlue!7,draw=FlowBlue!60] (source) at (2.15,6.45)
+ {\textbf{Source pretraining}\\Two-layer GRU, width 64\\Source epoch 10};
+\node[box,text width=3.3cm] (frozen) at (2.15,4.25)
+ {\textbf{Frozen reference}\\Encoder $\theta_s$ and latent scales $s$\\$z_s(X_t)=h(X_t;\theta_s)$};
+\draw[flow] (history)--(source);
+\draw[reference] (source)--node[right,font=\scriptsize]{freeze}(frozen);
+% Inputs enter the common expert module, not the source pretraining population.
+\node[box,text width=4.9cm] (inputs) at (7.95,8.95)
+ {\textbf{Target inputs}\\$X_t\!:24\!\times\!7$ history; $C_t\!:24\!\times\!5$ calendar\\Initial history: 7 / 14 / 28 days};
+\node[font=\footnotesize\bfseries] at (7.95,7.55) {Two Source-initialized GRUs};
+\node[font=\scriptsize] at (7.95,7.12) {3 prefix epochs when complete examples exist};
+\node[box,text width=4.5cm,minimum height=1.35cm,fill=FlowBlue!8,draw=FlowBlue!70] (stable) at (7.95,5.9)
+ {\textbf{Stable expert}\\GRU + calendar head $\rightarrow\hat y_{S,t}$\\$\lambda_S=1$, $L_S=F+R$};
+\node[box,text width=4.5cm,minimum height=1.35cm,fill=FlowRed!6,draw=FlowRed!65] (fast) at (7.95,3.95)
+ {\textbf{Fast expert}\\GRU + calendar head $\rightarrow\hat y_{F,t}$\\$\lambda_F=0$, $L_F=F$};
+\draw[flow] (inputs.south)--(7.95,8.32)--(5.35,8.32)--(5.35,5.9)--(stable.west);
+\draw[flow] (5.35,5.9)--(5.35,3.95)--(fast.west);\fill[black!65] (5.35,5.9) circle (1pt);
+\node[font=\scriptsize] at (7.95,8.04) {Both use the same $X_t,C_t$};
+\draw[flow] (source.east)--(4.55,6.45)--(4.55,7.55)--(5.25,7.55);
+\node[fill=white,font=\scriptsize,inner sep=1pt] at (4.55,6.93) {copy $\theta_s$};
+\draw[reference,preaction={draw=white,line width=3pt}] (frozen.east)--(4.72,4.25)--(4.72,4.95)--(6.6,4.95)--([xshift=-1.35cm]stable.south);
+\node[font=\scriptsize,fill=white,inner sep=1pt] at (4.7,4.6) {$R(X_t)$};
+\node[font=\scriptsize] at (14.7,9.25) {Initial stable weight $w_0\approx0.4308$};
+% Both expert forecasts feed soft fusion, never a winner-take-all switch.
+\node[box,text width=4.15cm,minimum height=1.1cm,fill=FlowBlue!8,draw=FlowBlue!65] (mix) at (14.7,8.05)
+ {\textbf{24-hour fused forecast}\\$\hat y_t=w_t\hat y_{S,t}+(1-w_t)\hat y_{F,t}$};
+\draw[flow] (stable.east)--(11.25,5.9)--(11.25,8.28)--([yshift=.23cm]mix.west);
+\draw[flow] (fast.east)--(11.65,3.95)--(11.65,7.82)--([yshift=-.23cm]mix.west);
+\node[box,text width=4.15cm] (saved) at (14.7,5.6)
+ {\textbf{Persist issued forecasts}\\Fused output and both expert outputs\\Before their labels are available};
+\draw[flow] (mix)--(saved);
+\node[font=\scriptsize,text width=4.15cm] at (14.7,3.83)
+ {Only complete earlier feedback may affect the next origin.};
+% The observed-label source is independent of the prediction archive.
+\node[box,text width=3.3cm,draw=FlowRed!65,fill=FlowRed!5] (labels) at (2.15,1.12)
+ {\textbf{Observed labels}\\Complete earlier day $y_d$\\Available by the current origin};
+\path[panel,fill=FlowRed!2] (4.9,-.05) rectangle (17.4,2.55);
+\node[anchor=west,font=\footnotesize\bfseries] at (5.08,2.3) {Delayed feedback};
+\node[anchor=east,font=\scriptsize] at (17.22,2.3) {$d<t$; labels available by $t$};
+\node[box,text width=4.5cm] (train) at (7.95,1.02)
+ {\textbf{Update both experts}\\Stable: 1 epoch on the arrived day\\Fast: 1 epoch on the last 7 calendar days};
+\node[box,text width=4.4cm,draw=FlowBlue!65,fill=FlowBlue!7] (weight) at (14.7,1.02)
+ {\textbf{Update the stable weight}\\[2pt]
+ {\scriptsize $a_k=\operatorname{logit}(w_k)-0.1(\ell_{S,d}-\ell_{F,d})$}\\[2pt]
+ $w_{k+1}=0.1+0.8\sigma(a_k)$\\
+ $w_{k+1}\in[0.1,0.9]$};
+\draw[feedback] (labels.east)--(4.5,1.12)--(4.5,-.55)--(7.95,-.55)--(train.south);
+\draw[feedback] (7.95,-.55)--(14.7,-.55)--(weight.south);
+\node[font=\scriptsize,fill=white,inner sep=1pt] at (11.4,-.55) {same arrived labels};
+\draw[flow] (saved.west)--(11.9,5.6)--(11.9,1.02)--(weight.west);
+\node[font=\scriptsize,fill=white,rotate=90,inner sep=2pt] at (11.9,3.25) {saved expert forecasts};
+\draw[feedback,dashed] (train.north)--(7.95,2.94);
+\draw[feedback,dashed] (weight.east)--(17.8,1.02)--(17.8,8.05)--(mix.east);
+\node[font=\scriptsize,fill=white,rotate=90,inner sep=2pt] at (17.8,5.25) {weight for the next forecast};
+\node[font=\scriptsize,anchor=west] at (.1,-1.05)
+ {Normalized feedback loss: $\ell_{e,d}=\operatorname{MAE}(\hat y_{e,d},y_d)/c_i$.
+ Both expert $\lambda$ values remain fixed; the controller changes $w$.};
+\end{tikzpicture}

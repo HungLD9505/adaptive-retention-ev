@@ -3,7 +3,8 @@
 Current reader: [rewritten report](rebuilt-review-20261112/adaptive-transfer-learning-ev.pdf)
 and [Overleaf source](rebuilt-review-20261112/README.md). This report integrates the
 completed baseline, retention and fusion evidence, with native equations, editable
-flows, all 21 historical groups in the main results and separate experiment scopes.
+flows, all 21 historical groups in the main results and separate experiment scopes. Figure 1 now integrates the new stable/fast system
+and its delayed-feedback loop; the historical selector is separately labeled.
 
 The original confidence-gated retention selector and the later two-GRU fusion
 are different mechanisms. Fusion wins 18/21 against single Fixed; matched static

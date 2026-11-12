@@ -22,6 +22,12 @@ These questions require different controls. A comparison against target-only tra
 
 The empirical analysis separates confidence-guided retention, continuous-coefficient adaptation and two-expert forecast fusion. Its contributions are a controlled assessment of transfer after target-training calibration, measured fixed-coefficient sensitivity, and matched comparisons that distinguish retention decisions from forecast complementarity. The evidence includes both favorable and adverse outcomes: strong transfer gains, conditional retention-selection gains, and broader historical gains from complementary forecasts with a smaller, mixed weighting increment.
 
+\begin{figure*}[t]
+\centering\resizebox{\textwidth}{!}{\input{figures/system-flow.tex}}
+\caption{End-to-end adaptive transfer forecasting.}\label{fig:model}
+\end{figure*}
+Figure~\ref{fig:model} summarizes the two-expert forecasting system and its delayed-feedback loop. Source weights initialize both target GRUs; a separate frozen encoder supplies the stable expert's latent penalty. Both experts use the same permitted history and known future calendar. Their forecasts are fused, persisted and later paired with complete observed labels. Expert training and forecast-weight updates affect subsequent predictions only. The historical confidence-based coefficient selector is a separate comparator, described in Section~\ref{sec:retention}.
+
 \section{Background and methodological rationale}
 \subsection{Forecasting backbones}
 A recurrent encoder summarizes historical sequences through a hidden state. GRU gates control the integration of the current input and the previous hidden state \cite{cho2014}. We use the standard PyTorch recurrence \cite{pytorch211}; no custom GRU layer or gate is proposed. The backbone choice keeps the retention experiments tied to one established implementation, so changes in forecast quality can be examined without simultaneously redesigning the network.
@@ -118,11 +124,11 @@ Figure~\ref{fig:fixed} shows all 21 measured coefficients. Zero is displayed sep
 
 For example, recorded representative coefficients near 0.000390, 0.474980 and 8.163598 have median gradient ratios about 0.000922, 0.559958 and 7.234187, respectively. Their Calibration MAEs are 5.444004, 5.361266 and 5.371132 kWh. These are measured examples of distinct local behavior. They are not continuous regime boundaries, and the calibration-selected 0.798445 is kept separate from representative-point selection.
 
-\section{Adaptive retention mechanisms}
+\section{Adaptive retention mechanisms}\label{sec:retention}
 \subsection{Confidence-gated block selection}
 \begin{figure*}[t]
 \centering\input{figures/retention-flow.tex}
-\caption{Confidence-guided retention and trained-state continuation.}\label{fig:retention}
+\caption{Historical confidence-guided retention selection.}\label{fig:retention}
 \end{figure*}
 Figure~\ref{fig:retention} shows the original retention controller. It begins each 14-day block by cloning the selected model and Adam state into three branches, one per retention coefficient. All branches forecast causally and train on the same eligible data. Only the active branch supplies the deployed forecast. At the next boundary, complete arrived daily errors within the block are paired.
 
@@ -163,10 +169,7 @@ Only an accepted scalar coefficient transfers to the real branch. Candidate weig
 
 \section{Adaptive fusion of two retention experts}
 \subsection{Complementary trajectories}
-\begin{figure*}[t]
-\centering\input{figures/model-flow.tex}
-\caption{Stable and fast GRUs with adaptive forecast fusion.}\label{fig:model}
-\end{figure*}
+
 
 The fusion extension in Figure~\ref{fig:model} retains two Source10-initialized GRUs. The stable expert is the historical Fixed model: $\lambda_S=1$, three initial target epochs when complete prefix examples exist, learning rate 0.001, and one online epoch on each newly arrived complete daily example. Its authenticated recorded forecasts are reused.
 
@@ -193,12 +196,7 @@ w_{k+1}&=(1-\alpha)p_k+\alpha(1-p_k)\\
 \end{aligned}\label{eq:fixedshare}\end{equation}
 The implementation uses equivalent log-odds arithmetic. Calibration selects $w_0=0.4307815378871372$, $\eta=0.1$ and $\alpha=0.1$. Updated weights consequently lie in $[0.1,0.9]$. This bound follows from sharing, not from a lambda search. No complete feedback means no weight update; elapsed time alone does not decay the weight.
 
-\begin{figure*}[t]
-\centering\input{figures/feedback-flow.tex}
-\caption{Delayed feedback for expert training and weighting.}\label{fig:feedback}
-\end{figure*}
-
-Figure~\ref{fig:feedback} separates model training from loss feedback. Expert losses refer to forecasts issued before the labels, even though the expert models also learn from the newly eligible observations. The current origin is forecast only after eligible earlier feedback has been processed.
+The lower lane of Figure~\ref{fig:model} separates model training from loss feedback. Expert losses use the saved forecasts issued before the labels, while both experts also train on newly eligible observations. The current origin is forecast only after earlier eligible feedback has been processed. Initial weight is $w_0=0.4307815378871372$; all displayed update coefficients are the calibrated values already used in the completed experiment.
 
 This controller adjusts $w$, not $\lambda$. It has no bootstrap acceptance gate. Mixing two nonlinear predictors is not equivalent to training one model at coefficient $w$, and a normalized exponential weight is not confidence evidence of future benefit. Fixed-share is an established online-learning rule \cite{herbster1998}; its original guarantees are not claimed here for these unbounded energy losses and adapting GRUs.
 
@@ -410,5 +408,6 @@ The two fourteen-day-history traces use seed 42. Within JHB and UrbanEV separate
 \backmatter
 \setlength{\bibsep}{0.4em}
 \balance
+\renewcommand{\bibfont}{\fontsize{9.5}{11.4}\selectfont}
 \bibliography{references}
 \end{document}
