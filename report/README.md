@@ -1,15 +1,18 @@
 # Research manuscript sources
 
-Current reader version: [Overleaf-style PDF](overleaf-review-20261112-v3/adaptive-transfer-learning-ev.pdf)
-and [LaTeX project](overleaf-review-20261112-v3/README.md). It follows the original
-Springer Nature two-column layout, includes the current causal pipeline, and uses
-short figure titles with explanations in the body. Select `main.tex` in Overleaf.
+Current reader: [rewritten report](rebuilt-review-20261112/adaptive-transfer-learning-ev.pdf)
+and [Overleaf source](rebuilt-review-20261112/README.md). This report integrates the
+completed baseline, retention and fusion evidence, with native equations, editable
+flows, all 21 historical groups in the main results and separate experiment scopes.
 
-Interpret controller results with the [method/cohort audit](../docs/reports/issue99-controller-identity-audit-20261112/README.md):
-Table 3 is the twelve-entity common-bank selector study; the 18/21 result belongs
-to the two-GRU mixture on the historical cohort. Its update controls forecast
-weights, with no bootstrap/LCB gate. Alignment with the original confidence-based
-retention proposal remains a scientific scope question, not a formatting fix.
+The original confidence-gated retention selector and the later two-GRU fusion
+are different mechanisms. Fusion wins 18/21 against single Fixed; matched static
+fusion also wins 18/21, and adaptive weights beat static in 12/21. The rewritten
+report presents these comparisons alongside the positive and negative coefficient
+studies, rather than attributing every gain to one retention controller.
+
+See the [rewrite verification](../docs/reports/issue99-report-rebuild-20261112/README.md)
+and the [method/cohort audit](../docs/reports/issue99-controller-identity-audit-20261112/README.md).
 
 ## Original frozen report
 

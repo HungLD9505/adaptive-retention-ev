@@ -1,0 +1,51 @@
+{
+  "schema": "rewritten-report-v1",
+  "date": "2026-11-12",
+  "evidence_code_basis": "e96f250e9aa850031386cb4f0948f6aaba450dae",
+  "scope": "Report rewrite and saved-evidence comparison; no new training or held-out test",
+  "compiler": "Tectonic 0.17.0; original sn-jnl two-column template",
+  "pages": 16,
+  "source_evidence_sha256": {
+    "docs/reports/issue99-full-scope-20261110/group-results.csv": "fc8858772128fcd52c440c4b73015937585a14a59a86d7cf1d98d5027f5036ea",
+    "docs/reports/issue99-history-review-20261110/cells.csv": "3751f2427ae9783ae82f2fd0da1e5963120deba4d38a1190df60d7a3fb1a4f1c",
+    "docs/reports/issue99-study-20261110/method-summary.csv": "45b1189b29295f758abb4c94223b9877758352be8d91841ee082609aba582388",
+    "docs/reports/issue99-study-20261110/fixed-trials.csv": "5c15e7fd02429746ae35431be8d388f1a3da12255c8fe5f1c7571313179c3fe9",
+    "docs/reports/issue99-study-20261110/protocol-lock.json": "645393d4c7a29b644a00da6251957b4c3bc5dea011c4ba30f0b989ae14532752",
+    "docs/reports/issue99-controller-identity-audit-20261112/identity-audit.json": "95d3a59da80a6f2fb07de361a299d660724a86b79e9e7ddfbd86e26779a920f5",
+    "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+    "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+    "ev_control/expert_mix.py": "46ac24ef0713881c94d7edfff5eec4ab74036e291963bc6b0a4ed8cdc66216f2",
+    "ev_runner/diagnostics.py": "47a64b9d1e1e79a6652abfe2ad2360f6f303ed397f7d37ff8ec369299f5535ac"
+  },
+  "assets": {
+    "README.md": "9da31ec293d12e225115045e89d8942456efe5fc403c7706934279e80cd2eb1e",
+    "adaptive-transfer-learning-ev.pdf": "6b8433aaf93cb390f5cba365329d7c8d056b4545c0f31461642a1d0356211327",
+    "figures/backbones.pdf": "ff5334a515886dedf62c82cddf0c36333efb7e6092c0b4132ed9fc4a79bd8d63",
+    "figures/calibration.pdf": "d3d7541533e85deb20b4ed5846544bb9cc9c396889129ef6025a38f8021a5dfa",
+    "figures/cohort-comparisons.pdf": "017ba01347f30a50a98cd0ec70f4f3ce7317482e893f0a927742a138b79e6610",
+    "figures/feedback-flow.tex": "206b80c2750d79f80879f55cfc8a8208abd44ad5028b26674d21c0f978ca8ce9",
+    "figures/fixed-evidence.pdf": "2240507a3b55871b8f4770919f1d68e3309a992574d9f70267953d0e987a46a0",
+    "figures/model-flow.tex": "129759a9d9b3ea85b8d0269877997e5d842f28989e299e789172fcd6420dec85",
+    "figures/retention-flow.tex": "537fe33889107de40f5b57778e0e2f74502af3bc18090737fe041870989dc6d5",
+    "figures/trajectories.pdf": "540d9c2024bbb90b8c4eff1966ec71100e080023cdd52925c954dcd4d43ba2ac",
+    "main.tex": "dd37525ebf513efc932059ee808946f1e46890889f9f2f2b0ddac27a3b835522",
+    "model-equations.tex": "b400d4b271f7f9a6c6896d261cde9dbde837e00cbb5a38939afcafd527785d38",
+    "references.bib": "1f2416b5973b7a044ac9023f11819abc56c58c21fcff6987ff422d0396ff656e",
+    "sn-jnl.cls": "36d0c3273a59d48dc6a9c7b080dfa1ec50dc10229d8751568d1f2e490ffa5ecc",
+    "sn-mathphys-num.bst": "b3a7c7fbcc1e7f9619de634fcea2f5bb7a245818a5942bc576e40ea001633332",
+    "tables/baselines.tex": "9c5c7f713c08cc39185d20896825a77f0cacb91dca84f50f8605d2f771fbecbc"
+  },
+  "figure_provenance": {
+    "fixed-evidence.pdf": "All 21 rows of docs/reports/issue99-study-20261110/fixed-trials.csv; zero reference and selected measured coefficient",
+    "other_vector_figures": "Unchanged verified vector assets from overleaf-review-20261112-v3; generation code tools/issue99_manuscript_figures.py",
+    "retention-flow.tex": "ev_control/confidence.py and ev_runner/engine.py block clone/selection/continuation",
+    "model-flow.tex": "ev_models/model.py and tools/issue99_full_scope.py stable/fast definitions",
+    "feedback-flow.tex": "ev_control/expert_mix.py delayed earlier-complete saved-forecast feedback"
+  },
+  "limits": [
+    "No new training or raw archive authentication",
+    "No untouched test claim",
+    "Overleaf web UI not exercised; extracted source ZIP compilation checked separately",
+    "Offline fixtures do not establish effectiveness"
+  ]
+}
