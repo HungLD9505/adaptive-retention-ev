@@ -1,8 +1,11 @@
-# Supervisor report source
+# Research manuscript sources
 
-Current research manuscript: [PDF](teacher-review-20261112/source-retention-review.pdf)
-and [editable Word equations](teacher-review-20261112/source-retention-review.docx).
-The original frozen report below remains a separate snapshot.
+Current reader version: [Overleaf-style PDF](overleaf-review-20261112/source-retention-review.pdf)
+and [LaTeX project](overleaf-review-20261112/README.md). It follows the original
+Springer Nature two-column layout, includes the current causal pipeline, and uses
+short figure titles with explanations in the body. Select `main.tex` in Overleaf.
+
+## Original frozen report
 
 This is the canonical LaTeX source for the report delivered on 31 October 2026.
 It supersedes the earlier thesis outline in PR #54.
@@ -35,7 +38,7 @@ primary historical scientific source is preserved at tag
 `61c32328d9829a69037dca629f727b4863015122`. Later verifier hardening does not replace
 or relabel the report's frozen run outputs.
 
-## Current teacher review version
+## Earlier review drafts
 
 [11 November integrated manuscript](teacher-review-20261111/README.md) includes
 verified independent baseline evidence, the Fixed-share formula, all 21 historical

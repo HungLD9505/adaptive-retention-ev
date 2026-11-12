@@ -6,11 +6,13 @@ No experiment was rerun or relabelled as execution of the integrated code.
 
 ## Current reader manuscript
 
-The [12 November PDF](../../../report/teacher-review-20261112/source-retention-review.pdf)
-and [Word file](../../../report/teacher-review-20261112/source-retention-review.docx)
-replace the reader-facing 11 November version. They use native Word equations
-and scientific references only; operational evidence remains in the handoffs below.
-The 11 November artifact identities and integration checks remain historical snapshots.
+The [Overleaf-style PDF](../../../report/overleaf-review-20261112/source-retention-review.pdf)
+and [LaTeX project](../../../report/overleaf-review-20261112/README.md) are the
+current reader version. The original two-column template now includes the new
+stable/fast GRU pipeline, native LaTeX equations, short figure titles and eight
+scientific references. Figure explanations are separate body paragraphs.
+Numerical tables and result plots are unchanged. Prior Word layouts and the
+11 November artifact identities remain historical snapshots.
 
 ## Integration snapshot references
 
