@@ -7,7 +7,7 @@ The report PDFs and exact tables live under [report/](../../report/README.md).
 | Evidence | Read first |
 |---|---|
 | Controller identity and apparently conflicting results | [Method/cohort audit](issue99-controller-identity-audit-20261112/README.md), [fresh arithmetic](issue99-controller-identity-audit-20261112/identity-audit.json) |
-| Current manuscript method, numerical and layout audit | [Full audit](issue99-manuscript-audit-20261112/README.md), [current reader](../../report/overleaf-review-20261112-v3/README.md) |
+| Current manuscript method, numerical and layout audit | [E2E evidence verification](issue99-report-e2e-evidence-20261112/README.md), [claim register](issue99-report-e2e-evidence-20261112/claim-evidence.md), [current reader](../../report/rebuilt-review-20261112/README.md) |
 | Primary frozen Final and its limits | [Final handoff](issue23-final-complete-handoff-20261029.md) |
 | Primary vs separate supporting evidence | [Joint synthesis](issue23-joint-evidence-synthesis-20261030.md) and [full-precision record](issue23-joint-evidence-synthesis-20261030-v1.json) |
 | Posthoc interpretation and report consistency | [Retention analysis](issue23-retention-posthoc-20261031.md), [Report 1 audit](issue23-manuscript-report1-review-20261031.md) |
@@ -18,7 +18,7 @@ The report PDFs and exact tables live under [report/](../../report/README.md).
 | Calibrated training and 7/14/28-day review manuscript | [History handoff](issue99-history-review-20261110/handoff.md), [baseline audit](issue99-history-review-20261110/baseline-audit.json), [teacher-review manuscript](../../report/teacher-review-20261110/README.md) |
 | Stable/fast expert fusion follow-up | [Negative-result handoff](issue99-stable-fast-20261110/handoff.md), [verified scores](issue99-stable-fast-20261110/verification.json) |
 | Full historical-cohort controller follow-up | [810-unit / 21-group handoff](issue99-full-scope-20261110/handoff.md), [full-precision groups](issue99-full-scope-20261110/group-results.csv), [verification](issue99-full-scope-20261110/verification.json) |
-| Integrated teacher review 11 November | [Baseline and manuscript handoff](issue99-teacher-review-20261111/handoff.md), [current paper](../../report/teacher-review-20261111/README.md) |
+| Integrated teacher review 11 November | [Baseline and manuscript handoff](issue99-teacher-review-20261111/handoff.md), [historical review version](../../report/teacher-review-20261111/README.md) |
 | Diagnostic studies | [Fixed adaptation](member-duc-retention.md), [Confidence controller](member-cyber-controller.md) |
 | Data and input handoff | [Data integration](data-integration.md), [inputs](input-handoff.md) |
 | Software and package validation | [Verification reference](main-readiness-20261102.md), [machine-readable checks](release-curation-20261102-v1.json) |

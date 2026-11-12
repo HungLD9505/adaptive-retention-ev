@@ -1,56 +1,39 @@
 # Adaptive Transfer Learning for Cold-Start Electric Vehicle Charging Demand Forecasting
 
-Current report: 16 pages in the original Springer Nature two-column template.
-Select `main.tex` and pdfLaTeX in Overleaf. Local verification uses Tectonic 0.17.0;
-the Overleaf web editor itself was not exercised.
+The current manuscript is a 16-page Springer Nature two-column report with native
+LaTeX equations, seven vector figures, seven tables and nine scientific references.
+Comparison tables emphasize the best displayed values within each stated scope.
 
-Figure 1 is a restrained native LaTeX/TikZ system figure: white background,
-native side-view EV/charger symbols, flat tensor/GRU/forecast graphics,
-consistent typography and light blue/red
-categorical accents. All seven figures are vector; there are no raster images
-or rendered equation images in the reader. Titles are short and descriptions
-are in the body. Comparison tables bold the best displayed values within their
-stated scope.
+## Build
 
-Figure 1 is built directly from editable TikZ paths and LaTeX text, including
-every vehicle, charger, connector and formula. No PNG is needed to compile or
-edit this figure; the standalone PNG supplied for review is only a preview.
+Import the source files into Overleaf, select `main.tex` and use pdfLaTeX.
+Local compilation and extracted-source verification use Tectonic 0.17.0.
+The Overleaf web editor has not been tested.
 
-Connector endpoints use node boundaries, with explicit arrowhead dimensions.
-Layer spacing and off-route labels keep connectors clear of text; the third
-page is re-rendered and checked after figure edits.
+Both system flows use editable TikZ paths and text. Five result plots are vector
+PDFs. No raster images or rendered equation images are required.
 
-## Source files
+## Files
 
-- `main.tex`, `model-equations.tex`, `tables/baselines.tex`: text, native mathematics and tables.
-- `references.bib`: nine scientific references.
-- `figures/editorial-system-flow.tex`: editable E2E system figure.
-- `figures/retention-flow.tex`: separate historical confidence selector.
-- `figures/*.pdf`: five vector result plots.
-- `sn-jnl.cls`, `sn-mathphys-num.bst`: unchanged original template files.
+- `main.tex`, `model-equations.tex`, `tables/baselines.tex`: manuscript, mathematics and tables.
+- `references.bib`: scientific bibliography.
+- `figures/editorial-system-flow.tex`: stable/fast forecasting and delayed-feedback flow.
+- `figures/retention-flow.tex`: historical confidence-guided retention selector.
+- `figures/*.pdf`: measured result plots.
+- `sn-jnl.cls`, `sn-mathphys-num.bst`: original template files.
 - `adaptive-transfer-learning-ev.pdf`: compiled reader.
-- `artifact-manifest.json`: asset, evidence and verification identities.
+- `artifact-manifest.json`: report and evidence identities.
 
-The report distinguishes the original retention selector, common-bank selection,
-continuous/persistent coefficient updates and the stable/fast fusion extension.
-All numerical evidence and experimental scopes are unchanged by this visual
-revision. The full 21-group historical table remains in the main results.
+## Evidence and interpretation
 
-The source-only ZIP contains compilation inputs plus this README; it excludes
-the reader, manifest and QA files. See the current [visual revision handoff](../../docs/reports/issue99-editorial-flow-20261112/README.md)
-and the earlier [evidence-based rewrite](../../docs/reports/issue99-report-rebuild-20261112/README.md).
-
-## End-to-end evidence check
+The report separates historical retention selection, common-bank output selection,
+continuous/persistent coefficient updates and stable/fast forecast fusion. Their
+cohorts, training recipes and evaluation windows remain distinct. All 21 historical
+group means appear in the main results.
 
 The [claim-to-evidence register](../../docs/reports/issue99-report-e2e-evidence-20261112/claim-evidence.md)
-links every prose entry and labeled equation/table/figure to the reviewed source
-set, with exact manuscript lines and SHA-256 identities in the companion JSON.
-It distinguishes observed results, code definitions, engineering choices,
-literature precedents and interpretations. See the
-[verification handoff](../../docs/reports/issue99-report-e2e-evidence-20261112/README.md)
-for fresh arithmetic, saved-cell readback, checks and remaining limits.
-
-The E2E review corrected the baseline recipe description: the three-epoch,
-0.0005 target learning-rate recipe applies to nonspatial neural models.
-GCN--LSTM uses five initial epochs and learning rate 0.001. Reported results and
-both approved native flow diagrams are unchanged.
+provides manuscript locations, source files, SHA-256 identities and interpretation
+limits. The [E2E verification record](../../docs/reports/issue99-report-e2e-evidence-20261112/README.md)
+documents numerical readback, saved-output checks, package compilation and
+remaining limitations. These checks do not constitute independent retraining or
+an untouched prospective evaluation.

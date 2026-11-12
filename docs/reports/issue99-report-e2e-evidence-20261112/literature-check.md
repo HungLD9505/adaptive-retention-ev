@@ -1,7 +1,6 @@
 # Primary-reference check — 12 November 2026
 
-The manuscript has nine scientific references. None is a repository contributor
-or an authoring-tool acknowledgement. Papers support the stated precedent;
+The manuscript has nine scientific references. Papers support the stated precedent;
 project losses, thresholds, grids and results require project evidence.
 
 | Reference | Primary locator checked | Supported use and boundary |

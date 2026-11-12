@@ -1,7 +1,7 @@
 {
   "schema": "rewritten-report-e2e-evidence-v7",
   "date": "2026-11-12",
-  "evidence_code_basis": "7d0e47d1d904b8ba8656b9292db516055533847f",
+  "evidence_code_basis": "2c5967efccb5eb37576086f2cbedd8448b8bade4",
   "scope": "Report rewrite and saved-evidence comparison; no new training or held-out test",
   "compiler": "Tectonic 0.17.0; original sn-jnl two-column template",
   "pages": 16,
@@ -18,7 +18,7 @@
     "ev_runner/diagnostics.py": "47a64b9d1e1e79a6652abfe2ad2360f6f303ed397f7d37ff8ec369299f5535ac"
   },
   "assets": {
-    "README.md": "830a1b2531456189e3dea324df15c12a3a38db1d86ba25f0b418d1b018ba1d23",
+    "README.md": "c27ee6b458c063a867e10697a0a7837153aa92837eee2483abfd9dd94fb9e92a",
     "adaptive-transfer-learning-ev.pdf": "95220c64ff5dc8daadf926a4717795413861ab16bced5d20c5586225e1727d35",
     "figures/backbones.pdf": "ff5334a515886dedf62c82cddf0c36333efb7e6092c0b4132ed9fc4a79bd8d63",
     "figures/calibration.pdf": "d3d7541533e85deb20b4ed5846544bb9cc9c396889129ef6025a38f8021a5dfa",
@@ -58,7 +58,7 @@
     "claim-evidence.json": "9238516c3c282293275c9f5f29f81bb40e6279671b9bec07165e3bcc042e41a4",
     "claim-evidence.csv": "1fa901f4f89fdfb7bbd94e1dd6601fb44aecf2dd3b32aec228a250c9e11d98de",
     "claim-evidence.md": "33c7ca272a563e4ead65fd5fca54eb622328c152f441dd805c0acb39946f413c",
-    "literature-check.md": "4f7e0282a3cad7f19fa4fb438757162d664dc00cbc15336b13d56c9a2b7ee144"
+    "literature-check.md": "44cdcee306293b09cd886039c279854463ef0e7dc158ac7285e96365e92aa432"
   },
   "verification": "Fresh 344 baseline and 612 Development ledger rows, 810 saved cells rehashed, independent mixture replay, 21 fixed trials, 60 Later cells, 12 persistent transcribed cells, original intervals and 142 trace rows; see E2E handoff."
 }

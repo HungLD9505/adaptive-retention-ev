@@ -2,8 +2,7 @@
 
 ## Delivered change
 
-The owner clarified that the request was to rewrite the report from completed
-results and evidence, not choose or implement another research method. The new
+The report synthesizes completed results and their supporting evidence. The
 [reader](../../../report/rebuilt-review-20261112/adaptive-transfer-learning-ev.pdf)
 and [Overleaf project](../../../report/rebuilt-review-20261112/README.md) replace
 the current-reader links. Existing reports, raw inputs, checkpoints, run outputs,
@@ -19,10 +18,8 @@ misrepresented as continuous regime boundaries.
 
 Eight figures comprise three native TikZ flows and five vector plots. Equations
 are native LaTeX. Captions remain short and explanations stay in the body.
-Blue-white-red comparison colors follow the owner reference. Table minima are
-bold within the stated scope. Scientific references contain no repository-member
-or assistant contributor entries. No generic page titles, Studio publishing
-instructions or conversational authoring text are introduced.
+Comparison plots use a blue-white-red scale. Table minima are bold within the
+stated scope. The bibliography contains scientific sources.
 
 ## Evidence identity and conclusions
 

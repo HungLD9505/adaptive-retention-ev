@@ -6,19 +6,19 @@ No experiment was rerun or relabelled as execution of the integrated code.
 
 ## Current reader manuscript
 
-The [Overleaf-style PDF](../../../report/overleaf-review-20261112-v3/adaptive-transfer-learning-ev.pdf)
-and [LaTeX project](../../../report/overleaf-review-20261112-v3/README.md) are the
+The [Overleaf-style PDF](../../../report/rebuilt-review-20261112/adaptive-transfer-learning-ev.pdf)
+and [LaTeX project](../../../report/rebuilt-review-20261112/README.md) are the
 current reader version. The original two-column template now includes the new
 stable/fast GRU method and causal feedback diagrams, native LaTeX equations, short
 figure titles and nine scientific references. Figure explanations are separate
 body paragraphs. Result values remain unchanged; the complete table adds Fast-only
 and all plots are redrawn. The full audit is in
-[the manuscript handoff](../issue99-manuscript-audit-20261112/README.md). Prior Word layouts and the
+[the E2E evidence record](../issue99-report-e2e-evidence-20261112/README.md). Prior Word layouts and the
 11 November artifact identities remain historical snapshots.
 
 ## Integration snapshot references
 
-1. [Current manuscript PDF](../../../report/teacher-review-20261111/source-retention-review.pdf)
+1. [11 November manuscript snapshot](../../../report/teacher-review-20261111/source-retention-review.pdf)
    and [editable Word file](../../../report/teacher-review-20261111/source-retention-review.docx).
 2. [Manuscript, baseline audits and scientific limitations](../issue99-teacher-review-20261111/handoff.md).
 3. [Integration inventory](integration-inventory.json): exact included heads and local checks.
