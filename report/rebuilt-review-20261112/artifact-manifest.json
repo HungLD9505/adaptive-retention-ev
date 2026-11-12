@@ -1,7 +1,7 @@
 {
-  "schema": "rewritten-report-system-flow-v2",
+  "schema": "rewritten-report-illustrated-flow-v3",
   "date": "2026-11-12",
-  "evidence_code_basis": "be20ef03698fab5c2f71d60dc91ec8a18c5965a5",
+  "evidence_code_basis": "8ddcdf43e453a81c6b98ae468905e45d73949f5d",
   "scope": "Report rewrite and saved-evidence comparison; no new training or held-out test",
   "compiler": "Tectonic 0.17.0; original sn-jnl two-column template",
   "pages": 16,
@@ -18,16 +18,17 @@
     "ev_runner/diagnostics.py": "47a64b9d1e1e79a6652abfe2ad2360f6f303ed397f7d37ff8ec369299f5535ac"
   },
   "assets": {
-    "README.md": "eb6d88b8449c909b21e747204c598a4710a103b0b2f022e43901c97b0cb83639",
-    "adaptive-transfer-learning-ev.pdf": "3162012e50a15383f9cda0390f9405ef96b4b542bbe3a3a26996556b74ef8d12",
+    "README.md": "26e29186969b7bfd9eb3b837323f4d1338f98a7c37ba5707fed0e4622ec68955",
+    "adaptive-transfer-learning-ev.pdf": "e964be1a70e775942c997f70f84aa4319e89f68cd8e5455948e84817fb726a66",
     "figures/backbones.pdf": "ff5334a515886dedf62c82cddf0c36333efb7e6092c0b4132ed9fc4a79bd8d63",
     "figures/calibration.pdf": "d3d7541533e85deb20b4ed5846544bb9cc9c396889129ef6025a38f8021a5dfa",
     "figures/cohort-comparisons.pdf": "017ba01347f30a50a98cd0ec70f4f3ce7317482e893f0a927742a138b79e6610",
     "figures/fixed-evidence.pdf": "2240507a3b55871b8f4770919f1d68e3309a992574d9f70267953d0e987a46a0",
+    "figures/illustrated-system-artwork-v1.png": "969a90827a4a53b94cc57164b47083601622b337aa49a93f8e0985214b0a19e8",
+    "figures/illustrated-system-flow.tex": "012a3c8a7de60e9f4130b6bddd3f3ff7b59e686efa3051abc9358c77c71a4a3a",
     "figures/retention-flow.tex": "537fe33889107de40f5b57778e0e2f74502af3bc18090737fe041870989dc6d5",
-    "figures/system-flow.tex": "b68bd7f1009ff8df630d7ebdaf5562083741206fc74e2cbc5623c732e3cd42ac",
     "figures/trajectories.pdf": "540d9c2024bbb90b8c4eff1966ec71100e080023cdd52925c954dcd4d43ba2ac",
-    "main.tex": "edd021fb5183b4b02b00b93f6bb826143d975e8ac8483f88c39d033011c60859",
+    "main.tex": "8dbce925e314dfd8a368090ea2a47ef589bcae542a72a03c69da1c3b17b1ad91",
     "model-equations.tex": "b400d4b271f7f9a6c6896d261cde9dbde837e00cbb5a38939afcafd527785d38",
     "references.bib": "1f2416b5973b7a044ac9023f11819abc56c58c21fcff6987ff422d0396ff656e",
     "sn-jnl.cls": "36d0c3273a59d48dc6a9c7b080dfa1ec50dc10229d8751568d1f2e490ffa5ecc",
@@ -38,7 +39,8 @@
     "fixed-evidence.pdf": "All 21 rows of docs/reports/issue99-study-20261110/fixed-trials.csv; zero reference and selected measured coefficient",
     "other_vector_figures": "Unchanged verified vector assets from overleaf-review-20261112-v3; generation code tools/issue99_manuscript_figures.py",
     "retention-flow.tex": "ev_control/confidence.py and ev_runner/engine.py block clone/selection/continuation",
-    "system-flow.tex": "Integrated E2E Figure 1: source initialization and frozen reference, stable/fast experts, saved forecasts, independent complete earlier labels, model updates and Fixed-share log-odds weight update. ev_control/expert_mix.py and tools/issue99_full_scope.py; no bootstrap gate in this system."
+    "illustrated-system-flow.tex": "Native vector wiring: X_t to both encoders; known C_t to both prediction heads; copied source parameters to both full forecasters; frozen reference and stable latent to stable retention; separate delayed model and weight feedback. Derived from ev_models/model.py, ev_control/expert_mix.py and existing stable/fast runner.",
+    "illustrated-system-artwork-v1.png": "Built-in image_gen illustration layer, referenced to the owner-supplied visual style. Connections are maintained separately in TikZ; schematic traces are not experimental data. Prompts and native preview retained in the external issue99-illustrated-flow-20261112-v6 delivery."
   },
   "limits": [
     "No new training or raw archive authentication",
@@ -47,5 +49,12 @@
     "Offline fixtures do not establish effectiveness"
   ],
   "scientific_figures": 7,
-  "native_tikz_flows": 2
+  "native_tikz_flows": 2,
+  "embedded_raster_images": 1,
+  "figure_layers": {
+    "illustrated_artwork": 1,
+    "native_tikz_wiring": true,
+    "native_historical_flow": 1,
+    "vector_result_plots": 5
+  }
 }

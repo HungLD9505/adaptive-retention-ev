@@ -23,10 +23,10 @@ These questions require different controls. A comparison against target-only tra
 The empirical analysis separates confidence-guided retention, continuous-coefficient adaptation and two-expert forecast fusion. Its contributions are a controlled assessment of transfer after target-training calibration, measured fixed-coefficient sensitivity, and matched comparisons that distinguish retention decisions from forecast complementarity. The evidence includes both favorable and adverse outcomes: strong transfer gains, conditional retention-selection gains, and broader historical gains from complementary forecasts with a smaller, mixed weighting increment.
 
 \begin{figure*}[t]
-\centering\resizebox{\textwidth}{!}{\input{figures/system-flow.tex}}
+\centering\resizebox{\textwidth}{!}{\input{figures/illustrated-system-flow.tex}}
 \caption{End-to-end adaptive transfer forecasting.}\label{fig:model}
 \end{figure*}
-Figure~\ref{fig:model} summarizes the two-expert forecasting system and its delayed-feedback loop. Source weights initialize both target GRUs; a separate frozen encoder supplies the stable expert's latent penalty. Both experts use the same permitted history and known future calendar. Their forecasts are fused, persisted and later paired with complete observed labels. Expert training and forecast-weight updates affect subsequent predictions only. The historical confidence-based coefficient selector is a separate comparator, described in Section~\ref{sec:retention}.
+Figure~\ref{fig:model} summarizes the two-expert forecasting system and its delayed-feedback loop. Source weights, including the encoder and prediction head, initialize both target GRUs; a separate frozen encoder supplies the stable expert's latent penalty. Both experts use the same permitted history and known future calendar. Their forecasts are fused, persisted and later paired with complete observed labels. Expert training and forecast-weight updates affect subsequent predictions only. The frozen reference is evaluated on the same historical input $X_t$. Charging sites, GRU block icons and time traces are schematic illustrations; the traces are not measured results or confidence intervals. The historical confidence-based coefficient selector is a separate comparator, described in Section~\ref{sec:retention}.
 
 \section{Background and methodological rationale}
 \subsection{Forecasting backbones}
