@@ -4,6 +4,8 @@ import argparse
 import re
 from pathlib import Path
 
+import latex2mathml.converter
+import mathml2omml
 from docx import Document
 from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT, WD_TABLE_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -12,6 +14,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
 from docx.text.paragraph import Paragraph
+from lxml import etree
 from PIL import Image
 
 parser = argparse.ArgumentParser(__doc__)
@@ -116,7 +119,9 @@ while i < len(lines):
         i += 1
         continue
     if line.startswith("## "):
-        doc.add_paragraph(line[3:], "Heading 1")
+        paragraph = doc.add_paragraph(line[3:], "Heading 1")
+        if line[3:] == "References":
+            paragraph.paragraph_format.page_break_before = True
         i += 1
         continue
     if line.startswith("### "):
@@ -125,8 +130,42 @@ while i < len(lines):
         continue
     if line.startswith("$$"):
         equation += 1
-        image_paragraph(root / f"figures/equation-{equation}.png", line.strip("$"), 6.25)
-        doc.paragraphs[-1].paragraph_format.keep_with_next = False
+        mathml = latex2mathml.converter.convert(line.removeprefix("$$").removesuffix("$$"))
+        omml = mathml2omml.convert(mathml).replace(
+            "<m:oMath>",
+            '<m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math">',
+            1,
+        )
+        paragraph = doc.add_paragraph()
+        paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        paragraph.paragraph_format.space_before = Pt(4)
+        paragraph.paragraph_format.space_after = Pt(7)
+        math = etree.fromstring(omml.encode())
+        namespaces = {"m": "http://schemas.openxmlformats.org/officeDocument/2006/math"}
+        for nary in math.findall(".//m:nary", namespaces):
+            properties = nary.find("m:naryPr", namespaces)
+            for limit in ("sub", "sup"):
+                value = nary.find("m:" + limit, namespaces)
+                if value is not None and not "".join(value.itertext()).strip():
+                    hidden = OxmlElement("m:" + limit + "Hide")
+                    hidden.set(qn("m:val"), "1")
+                    properties.append(hidden)
+        for upper in math.findall(".//m:limUpp", namespaces):
+            limit = upper.find("m:lim", namespaces)
+            if limit is not None and "".join(limit.itertext()) == "^":
+                accent = OxmlElement("m:acc")
+                properties = OxmlElement("m:accPr")
+                character = OxmlElement("m:chr")
+                character.set(qn("m:val"), "\u0302")
+                properties.append(character)
+                accent.append(properties)
+                accent.append(upper.find("m:e", namespaces))
+                upper.getparent().replace(upper, accent)
+        for accent in math.findall(".//m:accPr/m:chr", namespaces):
+            if accent.get(qn("m:val")) == "^":
+                accent.set(qn("m:val"), "\u0302")
+        doc.paragraphs[-2].paragraph_format.keep_with_next = True
+        paragraph._p.append(math)
         i += 1
         continue
     match = re.fullmatch(r"!\[([^\]]*)\]\(([^\)]+)\)", line)

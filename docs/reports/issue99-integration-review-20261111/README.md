@@ -4,7 +4,15 @@
 The branch starts at dev `dffd16a0b37df336330ef9b9d23056facd388681`.
 No experiment was rerun or relabelled as execution of the integrated code.
 
-## Read these first
+## Current reader manuscript
+
+The [12 November PDF](../../../report/teacher-review-20261112/source-retention-review.pdf)
+and [Word file](../../../report/teacher-review-20261112/source-retention-review.docx)
+replace the reader-facing 11 November version. They use native Word equations
+and scientific references only; operational evidence remains in the handoffs below.
+The 11 November artifact identities and integration checks remain historical snapshots.
+
+## Integration snapshot references
 
 1. [Current manuscript PDF](../../../report/teacher-review-20261111/source-retention-review.pdf)
    and [editable Word file](../../../report/teacher-review-20261111/source-retention-review.docx).

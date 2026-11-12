@@ -37,8 +37,11 @@ def finish(fig: plt.Figure, path: Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(__doc__)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--full-run", type=Path, required=True)
+    parser.add_argument("--full-run", type=Path)
+    parser.add_argument("--baseline-only", action="store_true")
     args = parser.parse_args()
+    if args.full_run is None and not args.baseline_only:
+        parser.error("--full-run is required unless --baseline-only is selected")
     out = args.output / "figures"
     out.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update(
@@ -50,12 +53,6 @@ def main() -> None:
             "axes.spines.right": False,
         }
     )
-    for name in ("epoch-selection", "history-comparison"):
-        for suffix in ("png", "pdf"):
-            shutil.copyfile(
-                ROOT / f"report/teacher-review-20261110/figures/{name}.{suffix}",
-                out / f"{name}.{suffix}",
-            )
     baseline = ROOT / "docs/reports/issue99-teacher-review-20261111"
     figures = []
     fig, axes = plt.subplots(1, 2, figsize=(10, 3.4), sharey=True)
@@ -79,11 +76,7 @@ def main() -> None:
             x,
             ["MLP", "GRU", "LSTM", "TCN", "Custom\nattention" if author == "cyber" else "TimeXer"],
         )
-        ax.set_title(
-            "Cyber independent implementation"
-            if author == "cyber"
-            else "Duc independent implementation"
-        )
+        ax.set_title("Implementation A" if author == "cyber" else "Implementation B")
         ax.set_ylim(0, 10)
         ax.grid(axis="y", alpha=0.2)
         ax.set_axisbelow(True)
@@ -91,6 +84,14 @@ def main() -> None:
     axes[1].legend(fontsize=11)
     fig.tight_layout()
     finish(fig, out / "backbone-benchmarks")
+    if args.baseline_only:
+        return
+    for name in ("epoch-selection", "history-comparison"):
+        for suffix in ("png", "pdf"):
+            shutil.copyfile(
+                ROOT / f"report/teacher-review-20261110/figures/{name}.{suffix}",
+                out / f"{name}.{suffix}",
+            )
     groups = json.loads(
         (ROOT / "docs/reports/issue99-full-scope-20261110/verification.json").read_text()
     )["groups"]

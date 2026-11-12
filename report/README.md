@@ -1,5 +1,9 @@
 # Supervisor report source
 
+Current research manuscript: [PDF](teacher-review-20261112/source-retention-review.pdf)
+and [editable Word equations](teacher-review-20261112/source-retention-review.docx).
+The original frozen report below remains a separate snapshot.
+
 This is the canonical LaTeX source for the report delivered on 31 October 2026.
 It supersedes the earlier thesis outline in PR #54.
 

@@ -6,7 +6,8 @@ When should a target model retain knowledge from its source, and when should it
 adapt? This research repository implements and evaluates fixed and adaptive
 source-retention strategies under causal 24→24 forecasting.
 
-[**Report**](report/Adaptive_Retention_Report.pdf) ·
+[**Current manuscript**](report/teacher-review-20261112/source-retention-review.pdf) ·
+[**Original report**](report/Adaptive_Retention_Report.pdf) ·
 [**Supplement**](report/Adaptive_Retention_Supplement.pdf) ·
 [**System diagrams**](docs/diagrams/README.md) ·
 [**Documentation**](docs/README.md) ·

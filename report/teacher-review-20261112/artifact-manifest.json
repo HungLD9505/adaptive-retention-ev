@@ -1,0 +1,67 @@
+{
+  "schema": "reader-manuscript-artifacts-v2",
+  "checks": {
+    "native_word_equations": 12,
+    "equation_images": 0,
+    "scientific_figures": 6,
+    "tables": 4,
+    "scientific_or_dataset_references": 8,
+    "pdf_pages": 11,
+    "latex_equations_identical_to_prior_version": true,
+    "all_table_body_cells_identical_to_prior_version": true,
+    "repo_person_names_or_pr_links_in_reader_manuscript": false,
+    "visual_review": "All final pages inspected. Final pages 1-9 match inspected v3 images byte-for-byte; final pages 10-11 inspected after reference pagination change.",
+    "renderer": "Bundled LibreOffice via document skill render_docx.py",
+    "native_math_converters": {
+      "latex2mathml": "3.81.1",
+      "mathml2omml": "0.0.2"
+    }
+  },
+  "build_sources": {
+    "tools/issue99_review_docx.py": "642b1cc143761f0cd588e60330a7b37c8241d8254a09050fb5f99a6b6e18d4c7",
+    "tools/issue99_review_figures.py": "d9bc1bcf31a63a71e62f835b64ac7d13ca1adc9e307dce61c286dc44da8f6594",
+    "requirements-document-math.txt": "411a7093361a23a64b85f3f8542f94f235a2c01e63b06fe671d5f2e0d3d3917b"
+  },
+  "files": {
+    "README.md": {
+      "bytes": 1425,
+      "sha256": "26b02432cae731dfb8f655a129c0437eb12f6178480e11d9ffaf814527c2b81a"
+    },
+    "figures/backbone-benchmarks.png": {
+      "bytes": 70657,
+      "sha256": "7b4ae55378415c8e50b702693d42d9ce318f7c89c31eb90b3f3a532ffb1948ce"
+    },
+    "figures/controller-trajectories.png": {
+      "bytes": 275353,
+      "sha256": "18450e958c5f30cbf4bdaac62a0aa055629f7d17be42434aaea014341ea32f33"
+    },
+    "figures/epoch-selection.png": {
+      "bytes": 166403,
+      "sha256": "7e53741fdfbb20878bfd34d36aa11a40d6c27f0e9143f53b8a90f1107bb496eb"
+    },
+    "figures/full-scope-gains.png": {
+      "bytes": 247582,
+      "sha256": "9d71490c3ce1d87601567ba83149ce223dbc739f2fc758d3fcecb95633975853"
+    },
+    "figures/history-comparison.png": {
+      "bytes": 74670,
+      "sha256": "198e10a32c2ff0fb56be3c5ab2c3f8bcf1686482376990e74f43187ea3d9de5c"
+    },
+    "figures/incremental-controller.png": {
+      "bytes": 194562,
+      "sha256": "434476bac36ba8cc1314036efa353ed2e03381edb1582e0e13a7f0fc2b434713"
+    },
+    "manuscript.md": {
+      "bytes": 31309,
+      "sha256": "cc33c72acdfd7315d0a000de7f69ea625c0e26f2964928a21313065756b7e87a"
+    },
+    "source-retention-review.docx": {
+      "bytes": 1006167,
+      "sha256": "9a4dbf1d2999f0f6c2d5223c33f4f44cefe459f1b1b0a6acf888b791d9f2e6b8"
+    },
+    "source-retention-review.pdf": {
+      "bytes": 1229842,
+      "sha256": "639f76828b2a0c11776387fd381a97be802f22fd5edcd0628e6e1bd361e6a5ea"
+    }
+  }
+}
