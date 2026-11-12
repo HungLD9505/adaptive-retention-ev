@@ -1,12 +1,12 @@
 \definecolor{FlowBlue}{HTML}{2166AC}
 \definecolor{FlowRed}{HTML}{B2182B}
-\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,
+\begin{tikzpicture}[x=1cm,y=1cm,>={Latex[length=1.35mm,width=.9mm]},
  every node/.style={font=\footnotesize,align=center},
  box/.style={draw=black!40,fill=white,inner sep=5pt,line width=.5pt},
- flow/.style={->,draw=black!70,line width=.6pt},
+ flow/.style={->,draw=black!70,line width=.6pt,shorten >=.7pt,shorten <=.7pt},
  bridge/.style={preaction={draw=white,line width=2pt,-}},
- ref/.style={->,draw=FlowBlue,dashed,line width=.65pt},
- update/.style={->,draw=FlowRed,line width=.65pt},
+ ref/.style={flow,draw=FlowBlue,dashed,line width=.65pt},
+ update/.style={flow,draw=FlowRed,line width=.65pt},
  note/.style={font=\scriptsize,fill=white,inner sep=1pt}]
 % White ground, quiet separators and a single typographic hierarchy.
 \draw[black!18] (3.65,2.25)--(3.65,9.05);
@@ -33,87 +33,90 @@
 }}}
 \pic[shift={(.08,8.12)},scale=.82] {chargingcar};
 \pic[shift={(1.83,8.12)},scale=.82] {chargingcar};
-\node[note] at (1.7,8.98) {Source entities};
+\node[note] at (1.7,8.95) {Source entities};
 \draw[draw=black!30,fill=white] (.25,7.08) rectangle (3.15,7.65);
 \draw[FlowBlue,line width=.6pt] plot coordinates {(.39,7.20)(.60,7.32)(.81,7.24)(1.02,7.47)(1.23,7.35)(1.44,7.39)(1.65,7.24)(1.86,7.48)(2.07,7.37)(2.28,7.42)(2.49,7.29)(2.70,7.36)(2.99,7.31)};
 \node[note] at (1.7,7.86) {Hourly source history};
-\node[box,text width=2.65cm,minimum height=.9cm] (source) at (1.7,6.1)
+% Connectors terminate at actual node boundaries, not guessed coordinates.
+\node[box,text width=2.65cm,minimum height=.9cm] (source) at (1.7,6.3)
  {\textbf{Source forecaster}\\2 layers, width 64};
 \draw[flow] (1.7,7.08)--(source.north);
 \node[box,text width=2.65cm,minimum height=.85cm] (frozen) at (1.7,4.65)
  {\textbf{Frozen encoder}\\$z_s(X_t)$, fixed latent scales $s$};
-\draw[flow] (source.south)--node[note,right]{freeze}(frozen.north);
-\node[note,anchor=east] (same) at (.03,4.65) {$X_t$};
+\draw[flow] (source.south)--node[note,anchor=west,xshift=3pt,pos=.5] (freeze-label) {freeze}(frozen.north);
+\node[note,anchor=east] (same) at (-.25,4.65) {$X_t$};
 \draw[flow] (same.east)--(frozen.west);
-% Independent history and future-calendar inputs with explicit head bypass.
+% Input cards have two lines and stay clear of the section rule above.
 \pic[shift={(4.2,8.12)},scale=.83] {chargingcar};
-\node[note] at (4.9,9.02) {Target entity};
-\node[box,text width=2.1cm,minimum height=.65cm] (history) at (7.0,8.55)
- {History $X_t$\\$24\times7$\\$7/14/28$ days};
-\node[box,text width=2.6cm,minimum height=.65cm] (calendar) at (9.8,8.55)
- {Future calendar $C_t$\\$24\times5$};
-\node[note,text width=4.4cm] at (6.8,7.35) {Initialize both from $\theta_s$\\3 prefix epochs if eligible};
-\draw[flow,dashed,draw=black!45,bridge] (source.east)--(3.85,6.1)--(3.85,7.35)--(4.2,7.35);
-% The two model rows have restrained, categorical color washes.
+\node[note] (target-label) at (4.9,8.95) {Target entity};
+\node[box,text width=2.8cm,inner sep=3pt,minimum height=.75cm] (history) at (7.3,8.55)
+ {History $X_t$: $24\times7$\\$7/14/28$ days};
+\node[box,text width=2.4cm,inner sep=3pt,minimum height=.75cm] (calendar) at (10.3,8.55)
+ {Known $C_t$: $24\times5$\\Future calendar};
+\node[note,text width=4.3cm,inner sep=2pt] (initialise) at (6.95,7.35)
+ {Initialize both from $\theta_s$\\3 prefix epochs if eligible};
+\draw[flow,dashed,draw=black!45,bridge] (source.east)--(3.85,6.3)--(3.85,7.35)--(initialise.west);
 \path[draw=FlowBlue!55,fill=FlowBlue!3,line width=.5pt] (4.75,4.75) rectangle (11.8,6.95);
 \path[draw=FlowRed!50,fill=FlowRed!3,line width=.5pt] (4.75,2.2) rectangle (11.8,4.25);
-\node[anchor=west,font=\footnotesize\bfseries,text=FlowBlue] at (4.9,6.72) {Stable: $\lambda_S=1$};
-\node[anchor=west,font=\footnotesize\bfseries,text=FlowRed] at (4.9,4.02) {Fast: $\lambda_F=0$};
-% Two explicit GRU layers per encoder; icons do not introduce new cells.
-\foreach \yy/\cc in {5.8/FlowBlue,3.1/FlowRed}{
- \node[box,text width=1.0cm,minimum height=.33cm,inner sep=2pt,draw=\cc!65,fill=white] (lower\yy) at (5.7,\yy) {GRU};
- \node[box,text width=1.0cm,minimum height=.33cm,inner sep=2pt,draw=\cc!65,fill=white] (upper\yy) at (5.7,\yy+.52) {GRU};
- \draw[flow] (5.7,\yy+.21)--(5.7,\yy+.31);
- \node[box,text width=1.25cm,minimum height=.65cm] (head\yy) at (8.5,\yy+.2) {Calendar\\head};
- \draw[flow] (6.25,\yy+.52)--(6.75,\yy+.52)--(6.75,\yy+.2)--(7.82,\yy+.2);
- \node[note] at (7.15,\yy+.42) {$h_{24}$};
- \draw[draw=black!30,fill=white] (10.0,\yy-.2) rectangle (11.55,\yy+.6);
- \draw[\cc,line width=.7pt] plot coordinates {(10.10,\yy+.02)(10.23,\yy+.12)(10.36,\yy+.04)(10.49,\yy+.30)(10.62,\yy+.20)(10.75,\yy+.23)(10.88,\yy+.09)(11.01,\yy+.28)(11.14,\yy+.20)(11.42,\yy+.24)};
- \draw[flow,bridge] (9.18,\yy+.2)--(10.0,\yy+.2);
+\node[anchor=west,font=\footnotesize\bfseries,text=FlowBlue] (stable-title) at (4.9,6.72) {Stable: $\lambda_S=1$};
+\node[anchor=west,font=\footnotesize\bfseries,text=FlowRed] (fast-title) at (4.9,4.08) {Fast: $\lambda_F=0$};
+% Wider layer separation leaves a visible shaft as well as the arrowhead.
+\foreach \id/\low/\up/\hy/\cc in {stable/5.55/6.25/5.9/FlowBlue,fast/2.95/3.65/3.3/FlowRed}{
+ \node[box,text width=1.0cm,minimum height=.38cm,inner sep=2.5pt,draw=\cc!65] (\id-lower) at (5.7,\low) {GRU};
+ \node[box,text width=1.0cm,minimum height=.38cm,inner sep=2.5pt,draw=\cc!65] (\id-upper) at (5.7,\up) {GRU};
+ \draw[flow] (\id-lower.north)--(\id-upper.south);
+ \node[box,text width=1.25cm,minimum height=.78cm,inner sep=3pt] (\id-head) at (8.5,\hy) {Calendar\\head};
+ \draw[flow] (\id-upper.east)--(7.35,\up)--(7.35,\hy)--(\id-head.west);
+ \node[note] (\id-hidden-label) at (6.92,\up-.23) {$h_{24}$};
+ \coordinate (\id-out) at (11.55,\hy);
+ \draw[draw=black!30,fill=white] (10.0,\hy-.4) rectangle (11.55,\hy+.4);
+ \draw[\cc,line width=.7pt] plot coordinates {(10.10,\hy-.18)(10.23,\hy-.08)(10.36,\hy-.16)(10.49,\hy+.1)(10.62,\hy)(10.75,\hy+.03)(10.88,\hy-.11)(11.01,\hy+.08)(11.14,\hy)(11.42,\hy+.04)};
+ \draw[flow] (\id-head.east)--(10.0,\hy);
 }
-\node[note] at (10.78,6.6) {$\hat y_{S,t}$};
-\node[note] at (10.78,3.9) {$\hat y_{F,t}$};
-\draw[flow] (history.south)--(7.0,7.9)--(4.45,7.9)--(4.45,5.8)--(5.15,5.8);
-\draw[flow] (4.45,5.8)--(4.45,3.1)--(5.15,3.1);
-\fill[black!70] (4.45,5.8) circle (1.1pt);
-\draw[flow] (calendar.south)--(9.8,7.9)--(9.6,7.9)--(9.6,6.5)--(8.5,6.5)--(8.5,6.36);
-\draw[flow,bridge] (9.6,6.5)--(9.6,3.8)--(8.5,3.8)--(8.5,3.66);
-\fill[black!70] (9.6,6.5) circle (1.1pt);
-\node[box,draw=FlowBlue!55,inner sep=3pt,text width=2.3cm] (retention) at (6.15,5.08) {$L_S=F+R$};
-\draw[flow] (6.25,6.32)--(6.65,6.32)--(6.65,5.29);
-\draw[ref,bridge] (frozen.east)--(4.03,4.65)--(4.03,5.08)--(retention.west);
-\node[note,text=FlowBlue] at (3.95,5.38) {$z_s,s$};
-\node[note] at (6.15,2.55) {$L_F=F$};
-% Forecasts are combined, issued and saved before their own labels arrive.
+\node[note] (stable-output-label) at (10.78,6.58) {$\hat y_{S,t}$};
+\node[note] (fast-output-label) at (10.78,3.95) {$\hat y_{F,t}$};
+\draw[flow] (history.south)--(7.3,7.85)--(4.45,7.85)--(4.45,5.55)--(stable-lower.west);
+\draw[flow] (4.45,5.55)--(4.45,2.95)--(fast-lower.west);
+\fill[black!70] (4.45,5.55) circle (1.1pt);
+% Future calendars bypass the encoders. Crossing wires have no junction dot.
+\draw[flow] (calendar.south)--(10.3,7.85)--(9.65,7.85)--(9.65,6.65)--(8.5,6.65)--(stable-head.north);
+\draw[flow,bridge] (9.65,6.65)--(9.65,3.95)--(8.5,3.95)--(fast-head.north);
+\fill[black!70] (9.65,6.65) circle (1.1pt);
+\node[box,draw=FlowBlue!55,inner sep=3pt,text width=2.3cm] (retention) at (6.15,5.03) {$L_S=F+R$};
+\coordinate (latent-tap) at (6.48,6.25);
+\fill[black!70] (latent-tap) circle (.9pt);
+\draw[flow] (latent-tap)--([xshift=.33cm]retention.north);
+\draw[ref,bridge] (frozen.east)--(4.03,4.65)--(4.03,5.03)--(retention.west);
+\node[note] (fast-loss-label) at (6.15,2.5) {$L_F=F$};
+% All functional boxes are connected by anchors, with text off the routes.
 \node[box,text width=4.0cm,minimum height=.65cm] (mix) at (15.1,7.65)
  {$\hat y_t=w_t\hat y_{S,t}+(1-w_t)\hat y_{F,t}$};
-\draw[flow] (11.55,6.0)--(12.0,6.0)--(12.0,7.84)--([yshift=.19cm]mix.west);
-\draw[flow] (11.55,3.3)--(12.16,3.3)--(12.16,7.46)--([yshift=-.19cm]mix.west);
-\draw[draw=black!30] (13.4,6.12) rectangle (16.8,6.85);
+\draw[flow] (stable-out)--(12.0,5.9)--(12.0,7.84)--([yshift=.19cm]mix.west);
+\draw[flow] (fast-out)--(12.16,3.3)--(12.16,7.46)--([yshift=-.19cm]mix.west);
+\draw[draw=black!30] (13.4,5.95) rectangle (16.8,6.95);
 \draw[FlowBlue,line width=.7pt] plot coordinates {(13.53,6.3)(13.8,6.49)(14.07,6.38)(14.34,6.58)(14.61,6.45)(14.88,6.51)(15.15,6.39)(15.42,6.55)(15.69,6.47)(15.96,6.58)(16.57,6.5)};
-\node[note] at (15.1,5.9) {24-hour forecast};
-\draw[flow] (mix.south)--(15.1,6.85);
+\node[note] (forecast-label) at (15.1,6.10) {24-hour forecast};
+\draw[flow] (mix.south)--(15.1,6.95);
 \node[box,text width=4.0cm,minimum height=.5cm] (save) at (15.1,5.15) {Save issued $\hat y_S,\hat y_F,\hat y$};
-\draw[flow] (15.1,5.72)--(save.north);
+\draw[flow] (15.1,5.95)--(save.north);
 \node[box,text width=3.3cm,minimum height=.6cm] (score) at (15.1,3.95)
  {\textbf{Score saved forecasts}\\$\ell_{e,d}=\operatorname{MAE}(\hat y_{e,d},y_d)/c_i$};
 \draw[flow] (save.south)--(score.north);
 \node[box,text width=4.0cm,minimum height=.5cm] (labels) at (15.1,2.6) {Complete earlier labels $y_d$};
 \draw[flow] (labels.north)--(score.south);
-\node[box,text width=4.0cm,minimum height=.9cm,draw=FlowBlue!55] (weight) at (15.1,1.12)
+\node[box,text width=4.0cm,minimum height=1.0cm,draw=FlowBlue!55] (weight) at (15.1,1.35)
  {Exponential loss + Fixed-share\\$w^+=0.1+0.8p\in[0.1,0.9]$};
-\draw[flow] (score.east)--(17.35,3.95)--(17.35,1.12)--(weight.east);
-\node[note] at (15.1,.35) {$w_0=0.4308$, $\eta=\alpha=0.1$};
-\draw[update] (weight.west)--(12.55,1.12)--(12.55,-.2)--(17.8,-.2)--(17.8,8.55)--(15.1,8.55)--(mix.north);
-\node[note,rotate=90,text=FlowRed] at (17.8,5.5) {next forecast};
-% Delayed training updates are separate from the forecast-weight update.
+\draw[flow] (score.east)--(17.55,3.95)--(17.55,1.35)--(weight.east);
+\node[note] (weight-parameters) at (15.1,.35) {$w_0=0.4308$, $\eta=\alpha=0.1$};
+\draw[update] (weight.west)--(12.55,1.35)--(12.55,-.2)--(17.9,-.2)--(17.9,8.55)--(15.1,8.55)--(mix.north);
+\node[note,rotate=90,text=FlowRed] (weight-return-label) at (17.55,6.1) {next forecast};
 \draw[black!25] (0,1.95)--(11.8,1.95);
 \node[box,text width=2.8cm,minimum height=.65cm] (arrived) at (1.7,1.05)
  {Arrived $y_d$\\24 valid hours; $d<t$};
 \node[box,text width=7.2cm,minimum height=.65cm] (train) at (7.8,1.05)
  {\textbf{Update the two forecasters}\\Stable: arrived day; Fast: last 7 calendar days\\One epoch per complete arrival};
 \draw[flow] (arrived.east)--(train.west);
-\draw[update,draw=FlowBlue,bridge] (6.3,1.57)--(6.3,1.8)--(4.25,1.8)--(4.25,4.55)--(7.2,4.55)--(7.2,4.75);
-\draw[update] (9.3,1.57)--(9.3,2.2);
-\node[note,anchor=west] at (0,.05) {Schematic traces; fixed expert $\lambda$ values; adaptive forecast weight $w$.};
+\draw[update,draw=FlowBlue,bridge] (train.north west)--(4.05,1.8)--(4.05,4.5)--(7.2,4.5)--(7.2,4.75);
+\draw[update] ([xshift=1.5cm]train.north)--(9.3,2.2);
+\node[note,anchor=west] (trace-note) at (0,.05) {Schematic traces; fixed expert $\lambda$ values; adaptive forecast weight $w$.};
 \end{tikzpicture}

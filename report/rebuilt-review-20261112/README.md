@@ -16,6 +16,10 @@ Figure 1 is built directly from editable TikZ paths and LaTeX text, including
 every vehicle, charger, connector and formula. No PNG is needed to compile or
 edit this figure; the standalone PNG supplied for review is only a preview.
 
+Connector endpoints use node boundaries, with explicit arrowhead dimensions.
+Layer spacing and off-route labels keep connectors clear of text; the third
+page is re-rendered and checked after figure edits.
+
 ## Source files
 
 - `main.tex`, `model-equations.tex`, `tables/baselines.tex`: text, native mathematics and tables.

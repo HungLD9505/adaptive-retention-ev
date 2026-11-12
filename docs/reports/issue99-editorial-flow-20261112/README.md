@@ -46,3 +46,30 @@ rebuilds matching text on all sixteen pages. Its SHA-256 is
 Standalone preview PDF/PNG and source ZIP are retained at
 `/Users/quyenmanh/Developer/TFL-EV/runs/issue99-flat-ev-flow-20261112-v8`.
 No method code, result window, raw data or trained artifact changes.
+
+## Connector and label spacing correction
+
+The owner identified crowded arrowheads and labels. Connectors now terminate at
+actual TikZ node boundaries, use explicit 1.35 mm arrowheads and endpoint padding,
+and leave larger gaps between encoder layers. Hidden-state labels, the frozen
+input label, freeze annotation, controller parameters and rotated return-loop
+label occupy spaces separate from connector routes. Forecast captions sit inside
+their plot card rather than across a vertical connector. The flat EV symbols are
+preserved.
+
+[spacing-audit.json](spacing-audit.json) rechecks the numerical tables and source
+identities. [text-collision-screen.json](text-collision-screen.json) records a
+geometry screen: the revised standalone figure has zero axis-aligned strokes
+crossing inset character boxes. This screen complements visual inspection; it
+is not a complete diagonal-arrowhead or rendering-occlusion test. The revised
+standalone figure and report page 3 were inspected. All fifteen other page PNGs
+are byte-identical to the preceding inspected reader. The PDF still has sixteen
+pages, seven vector figures and no raster images, overfull boxes or unresolved
+references. Method code and empirical evidence are unchanged.
+
+The 14-file source ZIP independently rebuilds matching text on all sixteen pages.
+SHA-256: `b93bd650cfe4444cebd5e03c02221657216e70e07eea857e2fd3cc27eb840008`.
+Delivery root: `/Users/quyenmanh/Developer/TFL-EV/runs/issue99-flow-spacing-20261112-v9`.
+It retains previews, compile logs, numerical/geometry screen scripts and the
+previous reader. Frozen release and whitespace checks pass; no model training or
+root-suite rerun accompanies this diagram-only correction.

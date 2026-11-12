@@ -1,7 +1,7 @@
 {
-  "schema": "rewritten-report-flat-ev-flow-v5",
+  "schema": "rewritten-report-flow-spacing-v6",
   "date": "2026-11-12",
-  "evidence_code_basis": "5056d1e18100c6a563a8877f50e98896cef6b74b",
+  "evidence_code_basis": "d92fbe71280c8c6707f8db040fe01f84b5af204b",
   "scope": "Report rewrite and saved-evidence comparison; no new training or held-out test",
   "compiler": "Tectonic 0.17.0; original sn-jnl two-column template",
   "pages": 16,
@@ -18,12 +18,12 @@
     "ev_runner/diagnostics.py": "47a64b9d1e1e79a6652abfe2ad2360f6f303ed397f7d37ff8ec369299f5535ac"
   },
   "assets": {
-    "README.md": "81e249f273a55d45b4f6e658e2ece8c1bf7fec1ddde157e79341f99aacf5a847",
-    "adaptive-transfer-learning-ev.pdf": "96678b8268bf99dbb98c798e2eba5c9f7a194ca522ccc1059fd8f37916835a9f",
+    "README.md": "4d450b9d89e778c8954df78d6a2e21762309e822f2bb94f65aadbbd78a714dd8",
+    "adaptive-transfer-learning-ev.pdf": "f2fa17ee1203b79af71066a3e9acb75b6047a81a8ae433dd0ffe46be3db69720",
     "figures/backbones.pdf": "ff5334a515886dedf62c82cddf0c36333efb7e6092c0b4132ed9fc4a79bd8d63",
     "figures/calibration.pdf": "d3d7541533e85deb20b4ed5846544bb9cc9c396889129ef6025a38f8021a5dfa",
     "figures/cohort-comparisons.pdf": "017ba01347f30a50a98cd0ec70f4f3ce7317482e893f0a927742a138b79e6610",
-    "figures/editorial-system-flow.tex": "9ccb8d8d3b0c805ef52e135619a9cc93ad58de16db4cf009b374427fa9bb6bc3",
+    "figures/editorial-system-flow.tex": "d73a467ed5fee2aef67f3026cee38934d9038112257d8b2b22ad44df1f5a5e5b",
     "figures/fixed-evidence.pdf": "2240507a3b55871b8f4770919f1d68e3309a992574d9f70267953d0e987a46a0",
     "figures/retention-flow.tex": "537fe33889107de40f5b57778e0e2f74502af3bc18090737fe041870989dc6d5",
     "figures/trajectories.pdf": "540d9c2024bbb90b8c4eff1966ec71100e080023cdd52925c954dcd4d43ba2ac",
@@ -38,7 +38,7 @@
     "fixed-evidence.pdf": "All 21 rows of docs/reports/issue99-study-20261110/fixed-trials.csv; zero reference and selected measured coefficient",
     "other_vector_figures": "Unchanged verified vector assets from overleaf-review-20261112-v3; generation code tools/issue99_manuscript_figures.py",
     "retention-flow.tex": "ev_control/confidence.py and ev_runner/engine.py block clone/selection/continuation",
-    "editorial-system-flow.tex": "Native TikZ paths and LaTeX text, including flat side-view EV/charger symbols at source and target, hourly source history, two-layer GRUs, calendar-head bypass and separate delayed model/weight feedback. No imported artwork. Native paths remain individually editable."
+    "editorial-system-flow.tex": "Native TikZ paths/text, flat EV/charger symbols. Node-anchored connector endpoints, explicit 1.35mm arrowheads, separated GRU layers and off-path labels. Same standard forecasters, calendar-head bypass, frozen reference and delayed model/weight updates."
   },
   "limits": [
     "No new training or raw archive authentication",
