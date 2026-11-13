@@ -1,0 +1,73 @@
+{
+  "schema": "bounded-weighting-registration-v1",
+  "authorization": "One bounded last attempt authorized by the project owner; stop if development gate fails. No merge/main update.",
+  "development_cells": {
+    "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue99-stable-fast-20261110-v1/results.json",
+    "sha256": "24081f36d7b1541975c4dfebd476469be798a558d5fa01f5fc19d86900582623",
+    "prior_verification_path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue99-stable-fast-20261110-v1/readback-v3/verification.json",
+    "prior_verification_sha256": "652f084897bb6ac66375a09b01935851ab5af3357edc1fb72cd36bbed6e0d691"
+  },
+  "development_ids": [
+    "1114",
+    "1169",
+    "1225",
+    "1303",
+    "1325",
+    "1691",
+    "1802",
+    "1836",
+    "1885",
+    "2035",
+    "2398",
+    "2564"
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "history_days": 14,
+  "scheduled_origins": 90,
+  "initial_weight": 0.4307815378871372,
+  "candidates": [
+    "no_share",
+    "decreasing_share",
+    "adahedge",
+    "ftl"
+  ],
+  "candidate_definitions": {
+    "no_share": "Legacy eta=0.1, alpha=0; initial legacy prior retained",
+    "decreasing_share": "Legacy eta=0.1; alpha_k=1/(k+1), k begins at one arrived feedback; engineering ablation, not a claimed optimal switching schedule",
+    "adahedge": "Uniform initial expert prior; eta=ln(2)/cumulative mixability gap, infinity before nonzero gap; recalculate cumulative exponential weights after each arrived feedback event. Paper equations 8-9 and Figure 1; arrival-order adapter without a delay-free guarantee.",
+    "ftl": "Uniform on the cumulative arrived-loss leaders, exact tie averaging; allows endpoint forecasts"
+  },
+  "controls": [
+    "fixed",
+    "fast",
+    "static",
+    "equal",
+    "legacy",
+    "loss_free_share"
+  ],
+  "selection": "Minimum equal-seed/equal-entity MAE across exactly four candidates; declared candidate order breaks exact ties",
+  "proceed_gate": "Selected candidate MAE must be strictly lower than Fixed, static and legacy in the old Development aggregate. If not, stop this attempt without training a new cohort.",
+  "oracle": "Hindsight per-entity static and daily expert oracle; diagnostic only, excluded from selection and deployment.",
+  "confirmation_if_proceed": "Separate committed new-ID/cohort/objective lock before any selected vector; at most ten IDs per eligible namespace; exclude all prior recorded uses and issue121 additional exposure. Primary both 97.5% intervals lower endpoints >0 for adaptive vs Fixed/static, same equal-namespace, 7-day calendar/entity 10000 bootstrap; no replacement or repeat search.",
+  "limits": [
+    "Development candidate comparison is exploratory and not confirmation",
+    "Previously exposed issue119 cohort is excluded from candidate selection",
+    "Same saved experts; no new backbone, source pretraining or lambda update",
+    "Delayed feedback adapter does not inherit the paper guarantee automatically"
+  ],
+  "paper": {
+    "url": "https://jmlr.org/papers/v15/rooij14a.html",
+    "formula_locations": "Equations (8)-(9), Figure 1; AdaHedge and FTL",
+    "no_novelty_claim": true
+  },
+  "code_sha256": {
+    "ev_control/weighting_followup.py": "2391c6499a488e10587f25139a82948f1f62aea69cd81fd5a74cd81319fd6e03",
+    "tools/weighting_development.py": "0bbf80053c642c3afca13c291c3a6dc1400ffd236ec0d0f3eef0b058aa113c9c",
+    "ev_control/expert_mix.py": "46ac24ef0713881c94d7edfff5eec4ab74036e291963bc6b0a4ed8cdc66216f2"
+  },
+  "base_commit": "5399050f2ca8aff9b21e59b57e402bd13942f829"
+}
