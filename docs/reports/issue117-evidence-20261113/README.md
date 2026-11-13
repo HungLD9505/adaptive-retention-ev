@@ -132,6 +132,18 @@ script/module SHA-256 values in the analysis/inventory receipts; publication
 commits preserve those exact source bytes. The earlier `v1` output attempt is
 preserved separately and produced no scientific result.
 
+## Completed checks
+
+On clean commit `7fc0e9ced8eec1c2e25ad32cad776a8d7a78707a`, the root
+suite passed 1,053 tests in 39.533 seconds with 12 skips. Fixed-adaptation and
+confidence-controller suites passed 9 and 12 tests. Ruff lint/format passed
+(682 files); source listing and frozen release checks passed (17 assets / 92 pins).
+The 18-file extracted source package independently compiled to 20 matching page
+texts. The final PDF has no embedded rasters, overfull boxes, missing characters
+or unresolved references; ordinary underfull warnings remain. All pages were
+rendered and visually reviewed. See [checks.json](checks.json) and
+[report-check.json](report-check.json) for exact boundaries and byte identities.
+
 ## Verification boundary
 
 New independent fixtures cover paired estimands, common-calendar identity,
