@@ -2119,7 +2119,7 @@
       "file": "report/confirmation-review-20261113/main.tex",
       "line": 398,
       "section": "Locked new-identifier evaluation",
-      "text": "Within the fourteen-day Development partition, eligibility required ready preparation, at least one complete initial training example and absence from these execution/registration exclusions. A fixed SHA-256 ranking selected up to ten identifiers per namespace; all eligible identifiers were selected where fewer remained. The resulting 46 identifiers comprise ten each in UrbanEV/SZH, CHARGED/AMS, LOA and SZH; four in MEL; and one each in JHB and SPO. The protocol, full cohort, Source10 identities, input hashes, code hashes and acceptance rule were committed before any selected forecast or label vector was decoded. No identifier was subsequently replaced.",
+      "text": "Within the fourteen-day Development partition, eligibility required ready preparation, at least one complete initial training example and absence from these execution/registration exclusions. A fixed SHA-256 ranking selected up to ten identifiers per namespace; all eligible identifiers were selected where fewer remained. The resulting 46 identifiers comprise ten each in UrbanEV/SZH, CHARGED/AMS, LOA and SZH; four in MEL; and one each in JHB and SPO. The protocol, full cohort, Source10 identities, input hashes, code hashes and acceptance rule were committed before any selected forecast or label vector was decoded. No identifier was subsequently replaced. A subsequent review supplement inspected all five JSONL blobs reachable from the original audited exact pinned refs, including records omitted by the initial extension filter. No selected identifier occurs in a structured target declaration in those blobs; incidental digit matches in timestamps, file sizes and hashes are not target uses. The supplement is retrospective and does not alter the original audit receipt or lock.",
       "status": [
         "verified",
         "inferred"
@@ -2133,7 +2133,9 @@
         "docs/reports/issue119-confirmation-20261113/entity-results.csv",
         "docs/reports/issue119-confirmation-20261113/independent-verification.json",
         "docs/reports/issue119-confirmation-20261113/execution.json",
-        "docs/reports/issue119-confirmation-20261113/completion.json"
+        "docs/reports/issue119-confirmation-20261113/completion.json",
+        "docs/reports/issue121-jsonl-review-20261113/original-ref-jsonl.json",
+        "docs/reports/issue121-jsonl-review-20261113/practical-win-diagnostic.json"
       ],
       "scope": "Locked new-identifier evidence; interpretation and audit-scope limitations remain explicit.",
       "inherited_claim": null
@@ -2239,7 +2241,7 @@
       "file": "report/confirmation-review-20261113/main.tex",
       "line": 415,
       "section": "Locked new-identifier evaluation",
-      "text": "Adaptive has lower group MAE than Fixed in five of seven namespaces and lower group MAE than static in five. It improves Fixed by 7.79\\% in SPO but worsens it by 8.00\\% in UrbanEV. Relative to static, the largest improvement is 1.43\\% in UrbanEV; SPO worsens by 0.53\\%. At identifier level, adaptive is lower than Fixed in 35 of 46 cases and lower than static in 28. These counts describe the selected sample and are not significance tests.",
+      "text": "Adaptive has lower group MAE than Fixed in five of seven namespaces and lower group MAE than static in five. It improves Fixed by 7.79\\% in SPO but worsens it by 8.00\\% in UrbanEV. Relative to static, the largest improvement is 1.43\\% in UrbanEV; SPO worsens by 0.53\\%. At identifier level, adaptive is lower than Fixed in 35 of 46 cases and lower than static in 28. These counts describe the selected sample and are not significance tests. Four of the 35 strict wins against Fixed are AMS identifiers 1889, 617, 2366 and 1733; each improves by only $1.43\\times10^{-9}$ kWh. They are numerical-scale differences, not practically meaningful gains. A posthoc absolute tolerance of $10^{-6}$ kWh leaves 31 of 46 gains against Fixed; the locked primary analysis remains unchanged.",
       "status": [
         "verified",
         "inferred"
@@ -2253,7 +2255,9 @@
         "docs/reports/issue119-confirmation-20261113/entity-results.csv",
         "docs/reports/issue119-confirmation-20261113/independent-verification.json",
         "docs/reports/issue119-confirmation-20261113/execution.json",
-        "docs/reports/issue119-confirmation-20261113/completion.json"
+        "docs/reports/issue119-confirmation-20261113/completion.json",
+        "docs/reports/issue121-jsonl-review-20261113/original-ref-jsonl.json",
+        "docs/reports/issue121-jsonl-review-20261113/practical-win-diagnostic.json"
       ],
       "scope": "Locked new-identifier evidence; interpretation and audit-scope limitations remain explicit.",
       "inherited_claim": null
@@ -3331,9 +3335,11 @@
     "tools/issue99_history_study.py": "fce128e9604fff17703824f987afe2ded692d597a7662b0cd834b755f8df7cab",
     "tools/issue99_manuscript_figures.py": "677e9bf55c45cad7daf21d0cbbd534f090551d49aa2297bd414d2d1f77e10d20",
     "tools/issue99_stable_fast.py": "9dbffcf3d01cf2f030727bd235d229764cc0bd2664e31d0fe511b0d73f73abb0",
-    "tools/issue99_study.py": "7da43b20db2b3652dadb1db86b4e9bec3cabdb6783b3fe56b40f51c4061ac859"
+    "tools/issue99_study.py": "7da43b20db2b3652dadb1db86b4e9bec3cabdb6783b3fe56b40f51c4061ac859",
+    "docs/reports/issue121-jsonl-review-20261113/original-ref-jsonl.json": "9f8d56005d31e0db62d1b8257cdd734df77c32dc9cc523278ce71aaa0a98f8df",
+    "docs/reports/issue121-jsonl-review-20261113/practical-win-diagnostic.json": "03358feba23114cf81c1f49d9cc5d8280b67cea75d5a1fce2dfb845d47896fc3"
   },
   "inherited_register_sha256": "6db418086943f33fece4a9409992aa61343e14767f7ef6d3d1e63f7693f89485",
-  "report_source_sha256": "ba4e6c5c405f0fea56d4e3221ac958dea04d9bf1e9fb2f15db59f1b4de8589b0",
+  "report_source_sha256": "243e7d4fe65a99775967c4de3072f3799d34b42ee8a42e553d311fe868b3d242",
   "scope": "Unchanged historical paragraphs inherit existing evidence. New and modified confirmation paragraphs map to the committed pre-outcome protocol and authenticated run receipts. Verified values and bounded interpretations are distinguished from universal untouched-data claims."
 }

@@ -47,6 +47,13 @@ CITIES = {
     "SÃO PAULO": "SPO",
     "SHENZHEN": "SZH",
 }
+PREPARED_ARTIFACTS = {
+    "entities.jsonl",
+    "schedule.jsonl",
+    "forecasts.jsonl",
+    "training.jsonl",
+    "labels.jsonl",
+}
 
 
 def namespace_of(value: dict, inherited: str | None, locator: str) -> str | None:
@@ -145,6 +152,27 @@ def extract(data: bytes, locator: str) -> set[tuple[str, str]]:
         )
     ):
         return set()
+    if locator.endswith(".jsonl"):
+        found = set()
+        for index, line in enumerate(data.decode("utf-8").splitlines(), 1):
+            if not line.strip():
+                continue
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError as error:
+                raise ValueError(f"Malformed JSONL at {locator}:{index}") from error
+            if not isinstance(row, dict):
+                raise ValueError(f"Expected JSONL object at {locator}:{index}")
+            # Persisted execution records may identify the target only in a run ID.
+            run_id = row.get("run_id")
+            if isinstance(run_id, str) and (
+                match := re.search(r"_([0-9]+)_(?:det|(?:seed)?(?:42|43|44))$", run_id)
+            ):
+                found.add((namespace_of(row, None, locator) or "*", match[1]))
+            if "identity" in row and "role" not in row and "stage" not in row:
+                row = {**row, "role": "target"}
+            found |= target_ids(row, locator)
+        return found
     text = data.decode("utf-8", errors="replace")
     if locator.endswith(".csv"):
         reader = csv.DictReader(io.StringIO(text))
@@ -196,19 +224,19 @@ def audit(repository: Path, local_runs: Path, output: Path) -> dict:
         if len(fields) != 2:
             continue
         oid, path = fields
-        if not path.startswith(
+        if Path(path).suffix != ".jsonl" and not path.startswith(
             ("docs/", "reports/", "report/", "configs/", "handoff/", "notebooks/", "experiments/")
         ):
             continue
         if (
-            Path(path).suffix not in {".json", ".csv", ".ipynb", ".md"}
+            Path(path).suffix not in {".json", ".jsonl", ".csv", ".ipynb", ".md"}
             or "/tests/" in path
             or "fixture" in path.lower()
         ):
             continue
         candidates.append((oid, path))
     evidence = defaultdict(set)
-    inspected, skipped, failures = [], [], []
+    inspected, skipped, failures, prepared_paths = [], [], [], []
     process = subprocess.Popen(
         ["git", "cat-file", "--batch"],
         cwd=repository,
@@ -279,12 +307,20 @@ def audit(repository: Path, local_runs: Path, output: Path) -> dict:
         if directory_id and ns:
             evidence[ns, directory_id[1]].add("local-directory:" + str(here))
         for name in files:
+            if name in PREPARED_ARTIFACTS and "/data/inputs/" in (here / name).as_posix():
+                # Preparation is not target execution. Never decode these value arrays.
+                prepared_paths.append(str(here / name))
+                continue
             cell = re.fullmatch(r"cell-([0-9]+)-(?:42|43|44)\.json", name)
             if cell and ns:
                 evidence[ns, cell[1]].add("local-cell-path:" + str(here / name))
-            if name not in metadata_names and not (
-                name.endswith(".json")
-                and any(s in name for s in ("ledger", "execution-lock", "cohort"))
+            if (
+                name not in metadata_names
+                and not name.endswith(".jsonl")
+                and not (
+                    name.endswith(".json")
+                    and any(s in name for s in ("ledger", "execution-lock", "cohort"))
+                )
             ):
                 continue
             path = here / name
@@ -329,6 +365,7 @@ def audit(repository: Path, local_runs: Path, output: Path) -> dict:
         "ambiguous_namespace_ids": sum(r["namespace"] == "*" for r in rows),
         "skipped": skipped,
         "read_failures": failures,
+        "prepared_artifacts_not_opened": prepared_paths,
         "exclusions_sha256": digest(output / "exclusions.json"),
         "scan_manifest_sha256": digest(output / "scan-manifest.json"),
         "scope": "All fetched reachable refs plus local run metadata; conservative execution/allowlist declarations include attempted and planned uses; station catalogues and explicit metadata-only disposition files are not model executions. No new target vector is decoded. Unrecorded remote/human inspection and physical ID aliases remain unverified.",

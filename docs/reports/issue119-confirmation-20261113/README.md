@@ -95,6 +95,8 @@ contrast (nominal 97.5% percentile intervals; approximate conditional coverage).
 | Single Fixed lambda 1 | +0.6653 | [−3.6209, +3.3176] | 5/7 | 35/46 |
 | Matched static fusion | +0.3610 | [−0.0449, +0.8399] | 5/7 | 28/46 |
 
+Four of the 35 strict wins against Fixed (AMS IDs 1889, 617, 2366 and 1733) are only about 1.43e-9 kWh each. They are numerical-scale differences, not practical gains. A **posthoc** 1e-6 kWh absolute tolerance leaves 31/46 gains against Fixed; the strict count and locked primary analysis remain unchanged. The [JSONL review supplement](../issue121-jsonl-review-20261113/README.md) closes the original Git-extension omission.
+
 Both intervals include zero. Three-day sensitivity also includes zero:
 [−2.7635, +3.2716] against Fixed and [−0.0276, +0.7623] against static.
 For fourteen-day blocks, two out of 10,000 replicates are undefined in each
