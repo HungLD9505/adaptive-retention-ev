@@ -44,3 +44,11 @@ GitHub CI and peer approval are separate. No autonomous merge/main update occurs
 ## Peer-review guard correction
 
 The review at `9f927dc` correctly identified that runtime `assert` statements disappeared under optimized Python. Every plain assertion in `tools/weighting_verify.py` is replaced with an explicit exception. Four subprocess regressions exercise normal Python and `python -O`; corrupted inputs return failure and do not create a receipt. The tests reproduced the old bypass before the fix and pass after it. An optimized readback of the unchanged real artifacts passes with the same 144 candidate cells and failed progression condition. `verifier-guard-review.json` preserves the regression outcome, updated code/receipt fingerprints and unchanged source-result identities. The final full-suite results are recorded in the PR. No models, forecasts, experimental decisions or manuscript/PDF bytes change in this correction.
+
+On clean hardening commit `b9fa4a8`, the full suite ran **1,081 tests with 12
+skips and no failures** in 49.397 seconds. Fixed-adaptation (9), confidence
+controller (12), Ruff lint/format (703 files), source listing, release check and
+diff check passed. Canonical Git-blob bindings match the working artifacts; the
+manuscript PDF is byte-identical to the reviewed `9f927dc` version. This later
+record supersedes the earlier root-suite count for the verifier implementation,
+while preserving the registered experiment and its stopping decision.
