@@ -1,0 +1,1059 @@
+{
+  "schema": "new-entity-confirmation-lock-v1",
+  "study_id": "new-entity-confirmation-20261113-v1",
+  "execution_authorized": true,
+  "authorization": "2026-11-13: explicit instruction to audit prior use, lock a cohort and execute adaptive versus Fixed and static confirmation; no merge authorization.",
+  "implementation_commit": "ea88718d9020e662fb7f353921a01bb5d72dc1db",
+  "executed_code_sha256": {
+    "ev_inputs/__init__.py": "8969f4448b3ebaf4837498e3fdbf5396304cad7a0deda915e5d349205df65add",
+    "ev_inputs/features.py": "a9bf5fddd64d2641f9b50f9ad8a027e5336e80eb6b6b2a3af267fe4eef91f379",
+    "ev_inputs/hourly_reader.py": "c839af7c27ef9c9bc8013e04016f11e2fd7c0449fc18f4cf5c6e8c0d62b9239a",
+    "ev_inputs/loader.py": "d46f9ae9e0b5431bc3d7c5113eef49afca92db7b165f7a45f98801f625254dd0",
+    "ev_inputs/scaling.py": "dbdc205c0700ca9cdfbf6965c45150be6adb4d9a596dcc5ee7a1134fd831da9b",
+    "ev_inputs/splits.py": "cf52ec982f2c97002b67b7f3bfaacc8aba4bf7ca4143e4e4a771b66c041bf8e0",
+    "ev_inputs/windows.py": "262c78344305227e4772297107bc1a369da6a92767fb3ba72a64f395cd57a94f",
+    "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+    "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+    "ev_models/data.py": "52efbe172ccb6388a5251e143012d7e1548420df499f3af3513c4f5afe1edb38",
+    "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+    "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+    "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+    "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+    "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+    "ev_control/continuous.py": "375851541a96957465fca00227bb718a0c3a654524c37ad4f70d0f81e2b7d8ca",
+    "ev_control/diagnostics.py": "57a325916806bc22be0fd98b87804573e30236b9553439136e3f72d0187570fa",
+    "ev_control/expert_mix.py": "46ac24ef0713881c94d7edfff5eec4ab74036e291963bc6b0a4ed8cdc66216f2",
+    "ev_control/hypergradient.py": "2597ea4343fad02bebfdbb678abcd2c992d7c17bed2f24330fe186930c0cea56",
+    "ev_control/persistent.py": "e1da1a24350f45145b3467744a1189f399f85bb2b4fb92a8de3a7b25f23ab648",
+    "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+    "ev_runner/continuous.py": "9c4d524e9e3cf77f07fc3218249dab038189d5c4a953afee378de76b86b89941",
+    "ev_runner/continuous_run.py": "05aed29ddf7f85869d5a9099c89a6a4256d4804e25688e70c95f4efe77d2ddbc",
+    "ev_runner/diagnostics.py": "47a64b9d1e1e79a6652abfe2ad2360f6f303ed397f7d37ff8ec369299f5535ac",
+    "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+    "ev_runner/final_gate.py": "f29bc7e2acb794ae5eb30083bbe7531943f8d6db8c972a01d7871b6e078ed779",
+    "ev_runner/persistent.py": "70bc49c5cb426f8322a512779f63e8b3680de428ce3e534a0f0f1392c108ff18",
+    "ev_runner/replay.py": "bce437ea37aa12b16d5930004e95258ae9c32926ce635a3daff56968f4206173",
+    "ev_runner/run.py": "01152272a68d97cf8c3fd163f8a1f42e9de1d6c085931e961e2b8cf8bee3e3ee",
+    "ev_runner/state.py": "8f922db2a539c08eca80a535cef67bfe38111bc1f43a4f8186c7e1a0c75f222a",
+    "ev_runner/store.py": "718c6813fb2a595e6309c755b0388f8a91bd414ed464b4b1e001dbfbacb10797",
+    "tools/confirmation_run.py": "153717acd0a4e92e220736ab5c073e6c346ec15dbe1e8b22602beb1afba17e9e",
+    "tools/confirmation_summary.py": "4addc8ca3f234e4941fe243ce18cd260c52ca66ba635e86169a378c6ad31f7bd",
+    "tools/confirmation_lock.py": "4954eb97a274df1e3b8363e4b15eccdee7cc2b922379b2bd2518bb74ca628508",
+    "tools/data_use_history.py": "974ec0cb31938dea8e75cae8be3b001c16c848991869d975a006316ca87a04bf",
+    "tools/issue99_stable_fast.py": "9dbffcf3d01cf2f030727bd235d229764cc0bd2664e31d0fe511b0d73f73abb0",
+    "tools/issue99_study_support.py": "fada7ff2c95c8113f364edcdc815964e09c66d56a1b7fb6895a89207dc6c47c9",
+    "tools/issue99_confidence_readback.py": "36a310b7c2df3dce2fefc7116f6fad9d0f49f0fc0ef6be950ee09ae294ed3ddc"
+  },
+  "history_audit_sha256": "8149a00aa1242b5129cee6867d7a07c1b46242054414a838fd82ab94bb488a4f",
+  "history_exclusions_sha256": "df6f383c9dda452092860b3e06e30be22c416dec7d909f32341e1744737fede3",
+  "historical_recipe_lock_sha256": "b783a7a5b212ec1c5958f6500f4d8689ba6ec2ef301accdf4a096a6fcd117f51",
+  "history_scope": "No prior execution/registered target declaration in 107 fetched refs and audited local run metadata; ambiguous IDs excluded globally. Preparation/catalogue metadata alone does not count as model execution. This is a recorded-use boundary, not universal absence of unrecorded/human inspection.",
+  "selection": {
+    "rule": "Lexicographic SHA256 of compact JSON [study_id, namespace, entity_id], then entity ID",
+    "cap_per_namespace": 10,
+    "when_fewer": "Use all eligible IDs",
+    "future_outcomes_used": false,
+    "replacement_after_execution": false
+  },
+  "history_days": 14,
+  "scheduled_days": 90,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "recipe": {
+    "initial_weight": 0.4307815378871372,
+    "eta": 0.1,
+    "share": 0.1,
+    "stable_lambda": 1.0,
+    "fast_lambda": 0.0,
+    "fast_window_days": 7,
+    "initial_epochs": 3,
+    "online_epochs": 1,
+    "learning_rate": 0.001,
+    "batch_size": 64
+  },
+  "evaluation": {
+    "aggregate": "Equal-namespace mean of percentage MAE reduction, after equal seed and equal scored-entity means within each namespace",
+    "comparators": [
+      "fixed",
+      "static"
+    ],
+    "family_alpha": 0.05,
+    "alpha_per_comparison": 0.025,
+    "primary_block_days": 7,
+    "block_days": [
+      3,
+      7,
+      14
+    ],
+    "resamples": 10000,
+    "seed": 20261113,
+    "primary_success": "No unscored selected target, and both primary lower percentage interval endpoints > 0. Report point estimates regardless; do not discard invalid replicates or switch to a favorable profile.",
+    "missingness": "90 scheduled local dates; use only complete labels on matched origins. Keep null targets and no replacement. Any undefined bootstrap replicate makes that entire interval unavailable."
+  },
+  "groups": [
+    {
+      "namespace": "charged-AMS",
+      "selected_ids": [
+        "1889",
+        "477",
+        "1036",
+        "617",
+        "634",
+        "2366",
+        "1740",
+        "1952",
+        "1398",
+        "1733"
+      ],
+      "selected_metadata": [
+        {
+          "entity_id": "1889",
+          "rank_sha256": "0025eb1908e7ec0c4b880e70ddcef619e347d20bdabc58cf52f8b4cc11f6b6d0",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "477",
+          "rank_sha256": "00401ec66bb73a034ecf694d4a8d4754b864d57c9ad3008fb4a50923d43f9a43",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1036",
+          "rank_sha256": "00f67d3bd31a9fd465db4a80c5861998cd171bf6e00506d06faf8dfa96eca295",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "617",
+          "rank_sha256": "01c2daa9cc076f5188edb6137d1b5d4d30953f64b65f0dc0956c960e00499ef3",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "634",
+          "rank_sha256": "03ebeefb1a67c1ce5d77de4def1b226f57a531560e1f01daa128e28ff6a96788",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2366",
+          "rank_sha256": "04f588b8200fc46d56948be2b9638d3b02dcdfa22b2229d57694bfc323a3a052",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1740",
+          "rank_sha256": "0570982b1c05a8453cd4fcdf87bd59b0b77fca1e60f0569e50def823d5d65b39",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1952",
+          "rank_sha256": "057b7498f22425ffbf04d0b5b957c0a874720a7ca7c0af70a07dc3f40e89dc73",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1398",
+          "rank_sha256": "0591005aef4dc11fbdacb1e42ad63c7017f2b8f65307ca6e97b71b9926fe87c1",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1733",
+          "rank_sha256": "05ec026eb01642444b7db2707d77a8c0f840e3e3baaa668493ffa8097232021c",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ],
+      "deployment": "2023-07-01T00:00:00",
+      "input_manifest_sha256": "ad041d1ee3eb6f379abfc3fb2abae6939df1b29e802b121aef6db10863045b9a",
+      "entities_sha256": "5490ec7a29bb7c58ae4c4e4835a9468ebc2266c180945b1e5b7c7390071fa090",
+      "source_population_sha256": "3427446906cdc0bc0a46064c9e70ed83bc878960c20983858782ad4c67ed8e86",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed42/epoch-10.pt",
+          "sha256": "a368c3ebabeb9cb91180ff01ee41b271dbbdf888b610083834bbc75a5b2eda2d",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed42/run.json",
+          "producer_report_sha256": "2abbead943374f95dde00f1e93b96e0119b2d86fb93566af9c8abddc708b6c2f"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed43/epoch-10.pt",
+          "sha256": "14053287dbc260984dba17d2948dae26533b516aa16e3e3b25e74c3ab212e660",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed43/run.json",
+          "producer_report_sha256": "6ab6cc2a8d81baab9306f5779f8893ca85d13ffaaa8e9b47a54a0dbda0942dab"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed44/epoch-10.pt",
+          "sha256": "2354032b5314bbfcf81d5572474fe1513506d90e36abd1b36e5c6b82e37d35b7",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-AMS/seed44/run.json",
+          "producer_report_sha256": "33af9965a54f89307cb8fff3f892d84f0ce3ae5fec483f6e7e4a6eb5b4a45378"
+        }
+      }
+    },
+    {
+      "namespace": "charged-JHB",
+      "selected_ids": [
+        "21"
+      ],
+      "selected_metadata": [
+        {
+          "entity_id": "21",
+          "rank_sha256": "848fd510b6ff2444566669f15aabd4112e9e4d1a3659a10e979c3214f5295fc8",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ],
+      "deployment": "2023-07-01T00:00:00",
+      "input_manifest_sha256": "27bc5b4779a02213fd84dd2c87290b38b35616563f2281e37eed16e3afed98fb",
+      "entities_sha256": "3450814c3ed7ed6b32e5a1ce7bc951bfd3f94356ceaeb8f0eb6a7b0a7d718765",
+      "source_population_sha256": "2d5fd56a9d0d23570dec6199465ebea628069207f96fee54c79370e9894762a4",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed42/epoch-10.pt",
+          "sha256": "73b1d6b8a2d4466d83b5cf207d161dc0c101adfd02af3515a56c960b230009eb",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed42/run.json",
+          "producer_report_sha256": "9e36aeb5a267a3896ff20ec15a6e139675749015bc1fc14c5f8c91eda36adb5a"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed43/epoch-10.pt",
+          "sha256": "86e40cce4414876fa319e0f74a76996d6f3f0ad72d89bd98d53cdedcb7c0439e",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed43/run.json",
+          "producer_report_sha256": "1d60849f487ac7c8e0fee4d9be5bcfcf445331bfa21ad887ab5bb1dfb18ab1c2"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed44/epoch-10.pt",
+          "sha256": "e0deaabf8f9d8e63341ddc99d69e2eb2b5b7225a968fa5e53e4cabc595dc96c1",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-JHB/seed44/run.json",
+          "producer_report_sha256": "459b04fcbb8d86cb1c9e66340f22d888e0ac3eb52c34260861e87d673cdc3e3f"
+        }
+      }
+    },
+    {
+      "namespace": "charged-LOA",
+      "selected_ids": [
+        "190",
+        "29",
+        "152",
+        "71",
+        "227",
+        "81",
+        "149",
+        "151",
+        "188",
+        "181"
+      ],
+      "selected_metadata": [
+        {
+          "entity_id": "190",
+          "rank_sha256": "08fcc09faf531392e14a350831353e16e746333e27522a9e68bc3485cdda5c19",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "29",
+          "rank_sha256": "23870ccfa0792f0df3e5f262780687b5bb2f27c0e67b1e5a06897db6aa951aa4",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "152",
+          "rank_sha256": "246c8bd3b48da067d1be2bd2ba0bd3fc8205cf5379302a22db7d4242f9b800b7",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "71",
+          "rank_sha256": "2be83230febc9fa987d084bd37e93758ddfb3adfc5c342d323c303ff98a5a195",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "227",
+          "rank_sha256": "33c6632bc958799048f94c7e4c94799a2de407fa83cd7c20f39db90d67bee748",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "81",
+          "rank_sha256": "3a375f3147675b8c7fbf76fa0e4e4e8d19274fb014a839b8585700d8f79701fa",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "149",
+          "rank_sha256": "3bc7efa3e4655f938e0dcf75ce67f129c34506564befe2ffa2730311445b4ea0",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "151",
+          "rank_sha256": "3d76cfb1fa2cab7254c5997d96ba8a73287d2a894ce23ee84384435681125ce6",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "188",
+          "rank_sha256": "406547cbe09e369a122b845031220294eb2e0d367b572b91035a5460fab5639e",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "181",
+          "rank_sha256": "40e1ffc528e660d307ed6091117f20047217972371a77b9165b3805aaefe7043",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ],
+      "deployment": "2023-07-01T00:00:00",
+      "input_manifest_sha256": "de2b529b207a20378976e5fa84564c3b4ab5826ae1795047fb17dc6023e3b55c",
+      "entities_sha256": "6d8618337c22c256f0aad71c6622d87a0f623fe947ae2380622bdd43537cf8f6",
+      "source_population_sha256": "51532d0be90e457363e53008b5b292ed8f1c3a8be387da54746a38821dc981f6",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed42/epoch-10.pt",
+          "sha256": "ca703dc98859cefc8ac9145a97970c0b0c2f083eb07fcc39d56fd417d3d1b419",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed42/run.json",
+          "producer_report_sha256": "7cd3f25b65f22172111ffa5aeb3b09c48255ac168be945ff02486b87053021a9"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed43/epoch-10.pt",
+          "sha256": "31ee68e5ed021f4318b9fc1a239c30a914c8d2c8f3b40fabe2462cca43538086",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed43/run.json",
+          "producer_report_sha256": "2fd4201eac0f2c7b807e4bf24627c128df0f475f6a70f75f7557e0b624094b2d"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed44/epoch-10.pt",
+          "sha256": "1549235c7bbb948005bdd970cb4a04d8527639f5f5d22bffa44ff3143dd47b8e",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-LOA/seed44/run.json",
+          "producer_report_sha256": "5443c14f9f9db3ea6bab72ec8e4938366553a30411162a8ec0f830e005a5d5d7"
+        }
+      }
+    },
+    {
+      "namespace": "charged-MEL",
+      "selected_ids": [
+        "47",
+        "51",
+        "61",
+        "13"
+      ],
+      "selected_metadata": [
+        {
+          "entity_id": "47",
+          "rank_sha256": "3173cd6136a35940fda826fa3d56baf47babd0abfb50a34a5c58964bace6adad",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "51",
+          "rank_sha256": "5d3ce0930805521c0dc8ce1d74e36b6211531f129b2c7c4c2110810d24ab4c74",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "61",
+          "rank_sha256": "d2ba308c97cdea45905a187bf8fb2c29aec90d418ebb7ff57343d8bcda5d8065",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "13",
+          "rank_sha256": "df0a84e94c9f4ac9303af920993d5ff2aef7d7d04f0f506828d346dd2ff6385e",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ],
+      "deployment": "2023-07-01T00:00:00",
+      "input_manifest_sha256": "d68bfc4fbbe3092be9edb26d90ffe643b526528ef64aed0a4ab8a4b56228f2de",
+      "entities_sha256": "d4d40e2018c3b597105f9f720e69288c9b0f646a754e0013241fe2071bf53a51",
+      "source_population_sha256": "b06e8b7e62ab6ffa4a4185761c6f1d6c4fbbdd0ec42c7e89933440a1997dc6c6",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed42/epoch-10.pt",
+          "sha256": "5eb1778e3a9df10699fd614cffb8b37d667e541db6608d3d417054c2c9770c4c",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed42/run.json",
+          "producer_report_sha256": "c452d79bf80691582b8b6d330dbd8f4f9149bf72468fb0ec31a032375371b777"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed43/epoch-10.pt",
+          "sha256": "11782c2f2cb773ec5c98745520f9e98dc899b510dd60fabf3bd2f25b2ba12bb0",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed43/run.json",
+          "producer_report_sha256": "fd980a2c0df7a161e73eec07751291f3e3b014539ce9a4fa575dd7cd995e9e09"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed44/epoch-10.pt",
+          "sha256": "f0be6ac27d6d635ad4bb869ef6f32551985d8ea4a10c664ff637b6dbe9844de1",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-MEL/seed44/run.json",
+          "producer_report_sha256": "4035a30a62e1a41a7a570ae7198281b851f48956f6d1b0a374cb7da5c7efe52e"
+        }
+      }
+    },
+    {
+      "namespace": "charged-SPO",
+      "selected_ids": [
+        "44"
+      ],
+      "selected_metadata": [
+        {
+          "entity_id": "44",
+          "rank_sha256": "7423f8d988399a3c719acc9309bc1ba8d09214e3ce2c149603fd8fb57b64e476",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ],
+      "deployment": "2023-07-01T00:00:00",
+      "input_manifest_sha256": "83b9f000e325ad4465a6263aadd862f4ac112d94e4940467da241c6747f63570",
+      "entities_sha256": "e0539f225cb4f3bf87f7ce49fc3f08c57afb4ca42f66a39629eda1eb6fe9af6a",
+      "source_population_sha256": "49f762797667fd7952cd766a61fe66ed20afebd6d893ca995eef9689875b4d1e",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed42/epoch-10.pt",
+          "sha256": "6e096dd5c74582b725777c1b1af3009fd2fb9af7d5e140a05e6abbe61ebd7376",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed42/run.json",
+          "producer_report_sha256": "738ca442f7986549818ca222aa3ea4f68ac3b03d9740cce503c36d2512b42258"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed43/epoch-10.pt",
+          "sha256": "75f93b6b39d8223cba3ee6c95ab8509a3f4749359d645a6f3b5cf9ca1f19388f",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed43/run.json",
+          "producer_report_sha256": "b80346a18cf207b291b30668683e718e915bab75e505f39595219e5f13fd990c"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed44/epoch-10.pt",
+          "sha256": "18003c08b4741cc5c40228a5f2c40efb89aa9c4f4597759b6b1d1a4e83df5b0a",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SPO/seed44/run.json",
+          "producer_report_sha256": "7b7affaf17d06c497f7ff0501ead70ef7921d72d16db49594172daee9f74dab8"
+        }
+      }
+    },
+    {
+      "namespace": "charged-SZH",
+      "selected_ids": [
+        "449",
+        "1155",
+        "907",
+        "217",
+        "132",
+        "840",
+        "111",
+        "55",
+        "79",
+        "2"
+      ],
+      "selected_metadata": [
+        {
+          "entity_id": "449",
+          "rank_sha256": "008f78fa1c9438bd6556c0a715d3139ed6837456c7433887771523de8b3c5a50",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1155",
+          "rank_sha256": "024376cfffc59ab22df6688bb90d66113b91fd04b6d7a8afd69d95df3c16eb6d",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "907",
+          "rank_sha256": "04645b47f5f2d089793fdca767693d3bfe333bec0f15697679a67bda991706c7",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "217",
+          "rank_sha256": "0654e553f19f604439cad510e7bf7ba9e6997ceb8a506ac7c55b7311a48184d8",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "132",
+          "rank_sha256": "07ff7a0382cd607f51fc74226743f58e866f3cf3e8737db872d0e561693c4b62",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "840",
+          "rank_sha256": "084dff04def17d68b3844d13ff139bb0655331642a13486b204108f7bc7db8e0",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "111",
+          "rank_sha256": "0a20d7b88627ca23a593f8ce81de1ea2a314d3d0d48770fa9d0c34da356f509e",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "55",
+          "rank_sha256": "0a8ebfdfd03f902d9eea0a10f5a28b4f85a0dab1e5bfb4d5e45d98ba58e9ae81",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "79",
+          "rank_sha256": "0b056ce1198d9b8438adb3ead5308d2fb7c84b184542465c12eb93f5b8bcb0f4",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2",
+          "rank_sha256": "0e4b07458ee0e70bab4e783ba8a9394876f31383bba859dc3d25b036237ad703",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ],
+      "deployment": "2023-07-01T00:00:00",
+      "input_manifest_sha256": "82f962287c897d5ddade229da891e60829181ca2314380c5a8eb104c082a429f",
+      "entities_sha256": "21929ab0208cc3bc6c1fbf88a96c0c6084c54d87a06a2140a38d097879e00b59",
+      "source_population_sha256": "a9ca26f2c47ecdfddb6c7bbaba65439861135634b993b90005dc2e27a2c892c7",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed42/epoch-10.pt",
+          "sha256": "c8da9be3701c65c3cf96edd5f979ff2457beaeaba7611459568d7b3e0e53352a",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed42/run.json",
+          "producer_report_sha256": "c80b1eb715bdfd2da367fa32a2fd666e289606765b80282130ea2e7289d24227"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed43/epoch-10.pt",
+          "sha256": "6b3fde03bf169d81d252a62d3cd15323493e165a9fa92bbaa869a369d7efffee",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed43/run.json",
+          "producer_report_sha256": "c3767cb2f3526b8552274f486c502a275814045f15894be3405fb4c85a33eabe"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed44/epoch-10.pt",
+          "sha256": "6b7c8aec3f7f017628f298f766a53d49d16c1f6de174a7a897d080d7db5c0c4b",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/charged-SZH/seed44/run.json",
+          "producer_report_sha256": "4e2243e04a8e3547e8eed090817fe9a9daf572eee797e516c411ca70b8db4115"
+        }
+      }
+    },
+    {
+      "namespace": "urbanev-SZH",
+      "selected_ids": [
+        "1112",
+        "1309",
+        "2127",
+        "1146",
+        "2254",
+        "2305",
+        "2454",
+        "1192",
+        "2082",
+        "1839"
+      ],
+      "selected_metadata": [
+        {
+          "entity_id": "1112",
+          "rank_sha256": "0057ece24d2f616cc34a54df2c2846f2d2d9461f7aa45220d4022b822b1a3f2c",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1309",
+          "rank_sha256": "023d8572c35d4a6b48fe7899bc3ce2d3f2c27797403b66df32a4fd8c9de5f0a9",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2127",
+          "rank_sha256": "035be2f48d6c3823d171fefcfddeb10c64d6ab50241ae839c7b496520b419a03",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1146",
+          "rank_sha256": "04c513d884807b1ccf5b195f838c35989255077cc017d3ec67e04164d178bd5d",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2254",
+          "rank_sha256": "089e3a02a8333f51b04e3928d6caffc64b688e7142a2ad8d326399e3a5b27bc3",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2305",
+          "rank_sha256": "0a43e709be1006bfbe0755d614a44742e7c729464deb756bcfe12d0f6149bd62",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2454",
+          "rank_sha256": "0af24b65830074bf1450d32592b23896e8fc5b3d23fa6c2dd8c2219ea977efc9",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1192",
+          "rank_sha256": "0b10501f87fe6d36ef7c008469ce833d2a783f1570573ca818dcdd746b7cad98",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2082",
+          "rank_sha256": "0bcadb4dcde6931a6a696fafa5ed4d9d82f1da04fb93a9ea0d1c8e11e9f4e418",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1839",
+          "rank_sha256": "0c0c25cf8d8b78274b25d9c78a58eda706763828b0af02d3baeeae522d8374bc",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ],
+      "deployment": "2022-12-01T00:00:00+08:00",
+      "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+      "entities_sha256": "e7c9dd4cb0b6f95cdfb1a0939fcadbc69edd1af6e9fb0fa30c861c4d7a38953e",
+      "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+      "sources": {
+        "42": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed42/epoch-10.pt",
+          "sha256": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed42/run.json",
+          "producer_report_sha256": "744147de06aa6acc6d55b6bba430c647bfc55fa1294e8a15f4a00e21afcaf0a9"
+        },
+        "43": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed43/epoch-10.pt",
+          "sha256": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed43/run.json",
+          "producer_report_sha256": "fbb9b12cb7d4061d5d1ab660a1584203769fa0e0dff9825891226bf3a6265309"
+        },
+        "44": {
+          "path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed44/epoch-10.pt",
+          "sha256": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5",
+          "producer_report_path": "runs/issue23-final-preparation-20261027-v1/sources/urbanev-SZH/seed44/run.json",
+          "producer_report_sha256": "62a1a6db7b004286b6ff6cdc0faa836f3c14e263cc490184794a31ea5b9b2321"
+        }
+      }
+    }
+  ],
+  "unavailable_namespaces": [],
+  "metadata_inventory": [
+    {
+      "namespace": "charged-AMS",
+      "eligible_unmatched_development": 450,
+      "selected": [
+        {
+          "entity_id": "1889",
+          "rank_sha256": "0025eb1908e7ec0c4b880e70ddcef619e347d20bdabc58cf52f8b4cc11f6b6d0",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "477",
+          "rank_sha256": "00401ec66bb73a034ecf694d4a8d4754b864d57c9ad3008fb4a50923d43f9a43",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1036",
+          "rank_sha256": "00f67d3bd31a9fd465db4a80c5861998cd171bf6e00506d06faf8dfa96eca295",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "617",
+          "rank_sha256": "01c2daa9cc076f5188edb6137d1b5d4d30953f64b65f0dc0956c960e00499ef3",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "634",
+          "rank_sha256": "03ebeefb1a67c1ce5d77de4def1b226f57a531560e1f01daa128e28ff6a96788",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2366",
+          "rank_sha256": "04f588b8200fc46d56948be2b9638d3b02dcdfa22b2229d57694bfc323a3a052",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1740",
+          "rank_sha256": "0570982b1c05a8453cd4fcdf87bd59b0b77fca1e60f0569e50def823d5d65b39",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1952",
+          "rank_sha256": "057b7498f22425ffbf04d0b5b957c0a874720a7ca7c0af70a07dc3f40e89dc73",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1398",
+          "rank_sha256": "0591005aef4dc11fbdacb1e42ad63c7017f2b8f65307ca6e97b71b9926fe87c1",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1733",
+          "rank_sha256": "05ec026eb01642444b7db2707d77a8c0f840e3e3baaa668493ffa8097232021c",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "namespace": "charged-JHB",
+      "eligible_unmatched_development": 1,
+      "selected": [
+        {
+          "entity_id": "21",
+          "rank_sha256": "848fd510b6ff2444566669f15aabd4112e9e4d1a3659a10e979c3214f5295fc8",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "namespace": "charged-LOA",
+      "eligible_unmatched_development": 38,
+      "selected": [
+        {
+          "entity_id": "190",
+          "rank_sha256": "08fcc09faf531392e14a350831353e16e746333e27522a9e68bc3485cdda5c19",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "29",
+          "rank_sha256": "23870ccfa0792f0df3e5f262780687b5bb2f27c0e67b1e5a06897db6aa951aa4",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "152",
+          "rank_sha256": "246c8bd3b48da067d1be2bd2ba0bd3fc8205cf5379302a22db7d4242f9b800b7",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "71",
+          "rank_sha256": "2be83230febc9fa987d084bd37e93758ddfb3adfc5c342d323c303ff98a5a195",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "227",
+          "rank_sha256": "33c6632bc958799048f94c7e4c94799a2de407fa83cd7c20f39db90d67bee748",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "81",
+          "rank_sha256": "3a375f3147675b8c7fbf76fa0e4e4e8d19274fb014a839b8585700d8f79701fa",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "149",
+          "rank_sha256": "3bc7efa3e4655f938e0dcf75ce67f129c34506564befe2ffa2730311445b4ea0",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "151",
+          "rank_sha256": "3d76cfb1fa2cab7254c5997d96ba8a73287d2a894ce23ee84384435681125ce6",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "188",
+          "rank_sha256": "406547cbe09e369a122b845031220294eb2e0d367b572b91035a5460fab5639e",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "181",
+          "rank_sha256": "40e1ffc528e660d307ed6091117f20047217972371a77b9165b3805aaefe7043",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "namespace": "charged-MEL",
+      "eligible_unmatched_development": 4,
+      "selected": [
+        {
+          "entity_id": "47",
+          "rank_sha256": "3173cd6136a35940fda826fa3d56baf47babd0abfb50a34a5c58964bace6adad",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "51",
+          "rank_sha256": "5d3ce0930805521c0dc8ce1d74e36b6211531f129b2c7c4c2110810d24ab4c74",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "61",
+          "rank_sha256": "d2ba308c97cdea45905a187bf8fb2c29aec90d418ebb7ff57343d8bcda5d8065",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "13",
+          "rank_sha256": "df0a84e94c9f4ac9303af920993d5ff2aef7d7d04f0f506828d346dd2ff6385e",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "namespace": "charged-SPO",
+      "eligible_unmatched_development": 1,
+      "selected": [
+        {
+          "entity_id": "44",
+          "rank_sha256": "7423f8d988399a3c719acc9309bc1ba8d09214e3ce2c149603fd8fb57b64e476",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "namespace": "charged-SZH",
+      "eligible_unmatched_development": 268,
+      "selected": [
+        {
+          "entity_id": "449",
+          "rank_sha256": "008f78fa1c9438bd6556c0a715d3139ed6837456c7433887771523de8b3c5a50",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1155",
+          "rank_sha256": "024376cfffc59ab22df6688bb90d66113b91fd04b6d7a8afd69d95df3c16eb6d",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "907",
+          "rank_sha256": "04645b47f5f2d089793fdca767693d3bfe333bec0f15697679a67bda991706c7",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "217",
+          "rank_sha256": "0654e553f19f604439cad510e7bf7ba9e6997ceb8a506ac7c55b7311a48184d8",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "132",
+          "rank_sha256": "07ff7a0382cd607f51fc74226743f58e866f3cf3e8737db872d0e561693c4b62",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "840",
+          "rank_sha256": "084dff04def17d68b3844d13ff139bb0655331642a13486b204108f7bc7db8e0",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "111",
+          "rank_sha256": "0a20d7b88627ca23a593f8ce81de1ea2a314d3d0d48770fa9d0c34da356f509e",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "55",
+          "rank_sha256": "0a8ebfdfd03f902d9eea0a10f5a28b4f85a0dab1e5bfb4d5e45d98ba58e9ae81",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "79",
+          "rank_sha256": "0b056ce1198d9b8438adb3ead5308d2fb7c84b184542465c12eb93f5b8bcb0f4",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2",
+          "rank_sha256": "0e4b07458ee0e70bab4e783ba8a9394876f31383bba859dc3d25b036237ad703",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "namespace": "urbanev-SZH",
+      "eligible_unmatched_development": 248,
+      "selected": [
+        {
+          "entity_id": "1112",
+          "rank_sha256": "0057ece24d2f616cc34a54df2c2846f2d2d9461f7aa45220d4022b822b1a3f2c",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1309",
+          "rank_sha256": "023d8572c35d4a6b48fe7899bc3ce2d3f2c27797403b66df32a4fd8c9de5f0a9",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2127",
+          "rank_sha256": "035be2f48d6c3823d171fefcfddeb10c64d6ab50241ae839c7b496520b419a03",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1146",
+          "rank_sha256": "04c513d884807b1ccf5b195f838c35989255077cc017d3ec67e04164d178bd5d",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2254",
+          "rank_sha256": "089e3a02a8333f51b04e3928d6caffc64b688e7142a2ad8d326399e3a5b27bc3",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2305",
+          "rank_sha256": "0a43e709be1006bfbe0755d614a44742e7c729464deb756bcfe12d0f6149bd62",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2454",
+          "rank_sha256": "0af24b65830074bf1450d32592b23896e8fc5b3d23fa6c2dd8c2219ea977efc9",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1192",
+          "rank_sha256": "0b10501f87fe6d36ef7c008469ce833d2a783f1570573ca818dcdd746b7cad98",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "2082",
+          "rank_sha256": "0bcadb4dcde6931a6a696fafa5ed4d9d82f1da04fb93a9ea0d1c8e11e9f4e418",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        },
+        {
+          "entity_id": "1839",
+          "rank_sha256": "0c0c25cf8d8b78274b25d9c78a58eda706763828b0af02d3baeeae522d8374bc",
+          "role": "development",
+          "initial_trainable": 13,
+          "status": "ready"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "New entity IDs relative to audited recorded uses; unrecorded remote/human exposure cannot be excluded",
+    "Same historical dates, data releases and namespace-specific Source10 models; not new-city or future-period validation",
+    "Development role is retained; no frozen Final gate is bypassed",
+    "Dataset IDs do not certify physical-site uniqueness or cross-dataset alias freedom",
+    "Some namespaces may have only one eligible entity; interval interpretation remains conditional and exploratory at that scale",
+    "Expert forecasts are durably stored before labels; mixture forecasts are evaluated by offline causal feedback replay",
+    "Percentile/Bonferroni intervals are approximate under selected cohorts, nonstationarity and circular calendar seams"
+  ]
+}
