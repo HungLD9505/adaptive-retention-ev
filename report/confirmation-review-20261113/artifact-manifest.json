@@ -36,7 +36,7 @@
   "evidence_sha256": {
     "docs/reports/issue119-confirmation-20261113/independent-verification.json": "43eede75b77af3465565ef1c0c63989d4d6c4576e40038673247bfb8998f26ff",
     "docs/reports/issue119-confirmation-20261113/history-exclusions-index.json": "79003b0b100469590dfb84b8f1bde5a4587b685fb3401424d394c6e676d0b8e8",
-    "docs/reports/issue119-confirmation-20261113/claim-evidence.json": "b28506b34bda0b13ababbd4309b3d8edd0035027bb5ffc2daa774e87a609dae8",
+    "docs/reports/issue119-confirmation-20261113/claim-evidence.json": "fdbac4f2fbd55250e9fa044fcf17d5349984b257db5205646d98a15f89b7f239",
     "docs/reports/issue119-confirmation-20261113/history-audit.json": "8149a00aa1242b5129cee6867d7a07c1b46242054414a838fd82ab94bb488a4f",
     "docs/reports/issue119-confirmation-20261113/results.json": "ee27f90362d63e3333386cb8e4b889e13610e2c4f1c5152e7fad3d011dbe9439",
     "docs/reports/issue119-confirmation-20261113/authenticated-cells.csv": "d12797a86c198a1c4d16ed11f7e90ff3d5cb9e5f28a29112d1fb2946656373d9",
@@ -49,7 +49,7 @@
     "docs/reports/issue121-jsonl-review-20261113/practical-win-diagnostic.json": "03358feba23114cf81c1f49d9cc5d8280b67cea75d5a1fce2dfb845d47896fc3",
     "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv": "28b912feb3f24aee5535075d2a6f2de5470861f30083afa532ece87d31ec736b",
     "docs/reports/issue123-bounded-weighting-20261113/source-readback.json": "652f084897bb6ac66375a09b01935851ab5af3357edc1fb72cd36bbed6e0d691",
-    "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv": "4c7c2c795d6f6c5000473f20d7f781fd97c13ab74dafd8cb8df051b9bfcd8565",
+    "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv": "06970a9dd18ad27c0961e819d620e01d75ee418ecccf1b21a1550f8051ddfddc",
     "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json": "4dc13e29855c1543421c3811bb088fedaf05c450adafd36048822827f67fc433",
     "docs/reports/issue123-bounded-weighting-20261113/results.json": "8c687ea256b1c25016997536916bb5c933de9fc577740d9377445ed592c840f6",
     "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv": "8e44f0c592bcd21ac5e5201eacdc88aa36b511cc911795ac74615caea3b96bbf",
