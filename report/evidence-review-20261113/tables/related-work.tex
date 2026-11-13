@@ -1,0 +1,13 @@
+\begin{table*}[t]
+\centering\footnotesize
+\caption{Related EV transfer studies and comparison scope.}\label{tab:related}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{.16\textwidth}>{\raggedright\arraybackslash}p{.25\textwidth}>{\raggedright\arraybackslash}p{.25\textwidth}X@{}}\toprule
+Study & Forecasting scope / target data & Transfer or adaptation mechanism & Relation to this study\\\midrule
+Narayana Gowda et al.\ \cite{gowda2026} & Aggregate EV load; 10/20 target days & Pretraining, fine-tuning and MAML & Direct limited-history transfer precedent\\
+Zafar et al.\ \cite{zafar2025} & Next-day profiles; 98 target training days & Cluster-specific BiLSTM transfer & Source specialization; different target budget\\
+Ali et al.\ \cite{ali2024} & Site forecasts; two weeks / one month & Multi-quantile TCN with inductive transfer & Predictive intervals, distinct from method-comparison uncertainty\\
+Wang et al.\ \cite{wang2025federated} & EV demand; history budget not established here & MMD clustering and federated Transformer transfer & Domain adaptation under a different privacy/training architecture\\
+Qu et al.\ \cite{qu2024chatev} & Charging demand; reduced training-data fractions & Text-based LLM forecasting and meta-learning & Few-shot alternative; different representation and compute\\
+This study & Entity-level 24-hour energy; 7/14/28 days & Latent retention, causal selection and forecast fusion & Matched Fixed/static controls separate decision and mixture benefits\\
+\bottomrule\end{tabularx}
+\end{table*}

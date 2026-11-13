@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\centering\small
+\caption{Independent baseline MAE (kWh; lower is better).}\label{tab:baselines}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrr@{}}\toprule
+& \multicolumn{2}{c}{Implementation A} & \multicolumn{2}{c}{Implementation B}\\\cmidrule(lr){2-3}\cmidrule(l){4-5}
+Model & Target only & Transfer & Target only & Transfer\\\midrule
+Daily naive & 7.0763 & -- & 7.0757 & --\\
+Weekly naive & 8.4631 & -- & 8.4631 & --\\
+Ridge & 5.9339 & -- & 5.9339 & --\\
+SARIMA & 6.5799 & -- & 6.6771 & --\\
+Random forest & \textbf{5.8008} & -- & \textbf{5.8204} & --\\
+XGBoost & 6.4847 & -- & 6.4613 & --\\
+MLP & 8.6711 & 5.5196 & 8.6855 & 5.4753\\
+GRU & 8.9406 & \textbf{5.3150} & 8.9239 & 5.3157\\
+LSTM & 8.9360 & 5.3356 & 8.9565 & 5.3168\\
+TCN & 8.0734 & 5.3447 & 7.8415 & 5.3027\\
+Custom attention & 8.1209 & 5.5823 & -- & --\\
+Official TimeXer & -- & -- & 7.0224 & \textbf{5.1979}\\
+GCN--LSTM (spatial) & 7.1288 & -- & 7.1790 & --\\
+\bottomrule\end{tabular*}
+\end{table*}

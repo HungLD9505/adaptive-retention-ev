@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "group_point_contrasts_checked": 42,
+  "primary_bootstrap_intervals_reproduced_by_scalar_oracle": 42,
+  "replicates_per_comparison": 5000,
+  "calendar_profiles_checked": 126,
+  "undefined_profiles_per_segment_length": 6,
+  "inventory_rows_checked": 5962,
+  "exposure_unresolved_metadata_eligible": 2170,
+  "certified_untouched": 0,
+  "boundary": "Independent arithmetic on recorded results; no training, unseen-cohort certification or corrected significance claim."
+}

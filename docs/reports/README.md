@@ -7,7 +7,7 @@ The report PDFs and exact tables live under [report/](../../report/README.md).
 | Evidence | Read first |
 |---|---|
 | Controller identity and apparently conflicting results | [Method/cohort audit](issue99-controller-identity-audit-20261112/README.md), [fresh arithmetic](issue99-controller-identity-audit-20261112/identity-audit.json) |
-| Current manuscript method, numerical and layout audit | [E2E evidence verification](issue99-report-e2e-evidence-20261112/README.md), [claim register](issue99-report-e2e-evidence-20261112/claim-evidence.md), [current reader](../../report/rebuilt-review-20261112/README.md) |
+| Current manuscript method, numerical and layout audit | [Evidence strengthening](issue117-evidence-20261113/README.md), [claim register](issue117-evidence-20261113/claim-evidence.json), [current reader](../../report/evidence-review-20261113/README.md) |
 | Primary frozen Final and its limits | [Final handoff](issue23-final-complete-handoff-20261029.md) |
 | Primary vs separate supporting evidence | [Joint synthesis](issue23-joint-evidence-synthesis-20261030.md) and [full-precision record](issue23-joint-evidence-synthesis-20261030-v1.json) |
 | Posthoc interpretation and report consistency | [Retention analysis](issue23-retention-posthoc-20261031.md), [Report 1 audit](issue23-manuscript-report1-review-20261031.md) |
