@@ -1,0 +1,41 @@
+{
+  "complete_groups": [
+    {
+      "namespace": "charged-JHB",
+      "cells": 3,
+      "manifest_sha256": "13219536a85b961a8a9fe9a67af6b172d17bca2b88cb96ef2f7135a059e23b55"
+    },
+    {
+      "namespace": "charged-MEL",
+      "cells": 12,
+      "manifest_sha256": "46c9ab50e884129ba0026f86bdfd7809044aa25bc4e38403e15dfa0cd40aa4e1"
+    },
+    {
+      "namespace": "charged-SPO",
+      "cells": 3,
+      "manifest_sha256": "9ab7085c10ad89ac650d9692dcaef32c5b01d172cbed56789171b06c81d70a4e"
+    },
+    {
+      "namespace": "charged-LOA",
+      "cells": 30,
+      "manifest_sha256": "40f34dd6658d74494a84dd2ceb8df0b77805b19ed81521d041c4870d328c60aa"
+    },
+    {
+      "namespace": "charged-AMS",
+      "cells": 30,
+      "manifest_sha256": "c7acb08ca3891d0bd1fa07dd8ad98ce91da9221efcec4860fb153a8c950e9b4f"
+    },
+    {
+      "namespace": "charged-SZH",
+      "cells": 30,
+      "manifest_sha256": "24e8e5a64c119e8ce1a3d5b357100e0eb1b7fcf7e204cb433034e7e88bd686b7"
+    },
+    {
+      "namespace": "urbanev-SZH",
+      "cells": 30,
+      "manifest_sha256": "3ab265588e88335fd703a99fd5266f6431bde9f55bf24f2b1f59d178e67363ce"
+    }
+  ],
+  "failures": [],
+  "complete": true
+}
