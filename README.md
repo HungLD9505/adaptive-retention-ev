@@ -52,7 +52,7 @@ A separately locked fourteen-day evaluation covers 46 new Development identifier
 relative to the checked execution history. Adaptive reduces equal-namespace MAE
 by 0.67% against single Fixed and 0.36% against matched static, but both primary
 intervals include zero: the dual-comparator confirmation criterion is not met.
-See the [new-identifier evidence](docs/reports/issue119-confirmation-20261113/README.md).
+See the [new-identifier evidence](docs/reports/issue119-confirmation-20261113/README.md). A subsequent bounded Development weighting replay improves slightly on legacy/static but fails to beat Fixed and stops; see the [follow-up](docs/reports/issue123-bounded-weighting-20261113/README.md).
 
 ## Reproduce and inspect
 

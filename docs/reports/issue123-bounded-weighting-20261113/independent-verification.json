@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "source_cells": 36,
+  "candidate_cells": 144,
+  "decimal_precision": 50,
+  "max_weight_difference": 1.1714934577966574e-13,
+  "max_prediction_difference_kwh": 7.194245199571014e-14,
+  "protocol_sha256": "383b5794ab9a62083eb06c6bd5c95f2a8ea7681813c9038071bccef3699668f3",
+  "results_sha256": "8c687ea256b1c25016997536916bb5c933de9fc577740d9377445ed592c840f6",
+  "saved_candidate_cells_sha256": "9577ca0947eba7fab4af81ac05277c78a5e056773373e32e90804de96f81c820",
+  "verifier_sha256": "ee6f63ddaf9b724d6330cc1c182e0407df13561902e442f4edd1dd8b97d95614",
+  "source_verification_sha256": "652f084897bb6ac66375a09b01935851ab5af3357edc1fb72cd36bbed6e0d691",
+  "stop_rule_reproduced": true,
+  "limits": "Conditional replay on already exposed Development inputs; independent arithmetic is not an effectiveness or delay-free regret guarantee. Fresh source readback is recorded separately."
+}

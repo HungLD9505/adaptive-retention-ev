@@ -1,7 +1,7 @@
 # Adaptive Transfer Learning for Cold-Start Electric Vehicle Charging Demand Forecasting
 
-The 13 November confirmation review contains 22 pages, native equations, eight
-vector figures, eleven tables and fifteen scientific references. It preserves
+The 13 November confirmation review contains 23 pages, native equations, eight
+vector figures, twelve tables and sixteen scientific references. It preserves
 the historical studies and adds a separately labelled, locked 46-identifier
 evaluation against single Fixed and matched static fusion.
 
@@ -27,3 +27,10 @@ reproduction commands. The
 maps inherited and new text to source-backed evidence. The artifact manifest
 records source/build identities. Checkpoints and large run artifacts stay outside
 Git. Source ZIP packages include compilation inputs and this README only.
+
+The separately registered bounded weighting study replays four candidates on the
+old twelve-ID Development sample. AdaHedge improves slightly on legacy/static
+but remains worse than Fixed, failing the progression gate. No new cohort is
+trained and the experimental candidate is not promoted. See the
+[stopping decision](../../docs/reports/issue123-bounded-weighting-20261113/README.md)
+and [JSONL/practical-win review supplement](../../docs/reports/issue121-jsonl-review-20261113/README.md).
