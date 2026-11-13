@@ -138,3 +138,9 @@ The verifier is supplied by the follow-up PR head; execution code remains the
 registered bytes. Large cell vectors, complete logs and all attempt receipts
 remain under external `runs/issue123-bounded-weighting-20261113-v1`. The raw
 archives are not freshly checked or modified. No merge or main update occurs.
+
+## Review: optimization-safe verifier guards
+
+[HungLD9505's final review](https://github.com/HungLD9505/adaptive-retention-ev/pull/124#pullrequestreview-5889414743) supports the stopping conclusion and requests hardening of the independent verifier. Its plain Python assertions disappeared under `python -O`, allowing a corrupted selected method or proceed flag to produce a passing receipt. All such guards now raise explicit exceptions, including source/prior hashes, protocol and cell identities, candidate MAE/aggregates, selection and the proceed gate. A malformed input fails before receipt creation in both interpreter modes.
+
+Four regression tests cover valid receipts in normal/optimized Python and corrupt hashes, protocol identity, cell matrix/identity, candidate MAE, aggregate means, selected method and proceed flag. The pre-fix regression reproduced the bypass. The complete real-data readback was then repeated with `python -O`: the same 36 source and 144 candidate cells reproduce the same stop decision and numerical differences. The refreshed receipt records optimization level 1; prior receipts remain in the external run history and earlier Git commits. Protocol, predictions and result hashes are unchanged. This is verification of existing artifacts, not another candidate experiment.

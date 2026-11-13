@@ -3,6 +3,7 @@
 import argparse
 import json
 import math
+import sys
 from datetime import datetime
 from decimal import Decimal, localcontext
 from pathlib import Path
@@ -86,19 +87,24 @@ def verify(protocol_path: Path, output: Path, receipt_path: Path) -> dict:
     """Check original identity, old controls, all candidate predictions and stop rule."""
     protocol = json.loads(protocol_path.read_text())
     source = Path(protocol["development_cells"]["path"])
-    assert digest(source) == protocol["development_cells"]["sha256"]
+    if digest(source) != protocol["development_cells"]["sha256"]:
+        raise ValueError("Development source fingerprint mismatch")
     prior = Path(protocol["development_cells"]["prior_verification_path"])
-    assert digest(prior) == protocol["development_cells"]["prior_verification_sha256"]
+    if digest(prior) != protocol["development_cells"]["prior_verification_sha256"]:
+        raise ValueError("Prior verification fingerprint mismatch")
     original = {(r["target"], r["seed"]): r for r in json.loads(source.read_text())}
     rows = json.loads((output / "cells.json").read_text())
     result = json.loads((output / "results.json").read_text())
-    assert result["protocol_sha256"] == digest(protocol_path)
-    assert {(r["target"], r["seed"]) for r in rows} == set(original) and len(rows) == 36
+    if result["protocol_sha256"] != digest(protocol_path):
+        raise ValueError("Protocol fingerprint mismatch")
+    if {(r["target"], r["seed"]) for r in rows} != set(original) or len(rows) != 36:
+        raise ValueError("Source-cell matrix mismatch")
     maximum_weight_gap = maximum_prediction_gap = 0.0
     entries = []
     for row in rows:
         old = original[row["target"], row["seed"]]
-        assert old["cell"] == row["cell"]
+        if old["cell"] != row["cell"]:
+            raise ValueError("Source-cell identity mismatch")
         for name, old_name in [
             ("fixed", "stable_fixed"),
             ("fast", "fast_only"),
@@ -126,7 +132,8 @@ def verify(protocol_path: Path, output: Path, receipt_path: Path) -> dict:
             np.testing.assert_allclose(predictions, saved["predictions_kwh"], rtol=1e-9, atol=1e-8)
             daily = abs(predictions - labels).mean(1)
             np.testing.assert_allclose(daily, saved["daily_mae"], rtol=1e-9, atol=1e-8)
-            assert math.isclose(float(daily.mean()), saved["mae"], rel_tol=1e-9, abs_tol=1e-8)
+            if not math.isclose(float(daily.mean()), saved["mae"], rel_tol=1e-9, abs_tol=1e-8):
+                raise ValueError("Candidate MAE mismatch")
             entries.append(
                 dict(target=row["target"], seed=row["seed"], method=method, mae=saved["mae"])
             )
@@ -137,14 +144,18 @@ def verify(protocol_path: Path, output: Path, receipt_path: Path) -> dict:
                 for t in protocol["development_ids"]
             ]
         )
-        assert math.isclose(mean, result["means"][method], abs_tol=1e-12)
+        if not math.isclose(mean, result["means"][method], abs_tol=1e-12):
+            raise ValueError("Candidate aggregate mismatch")
     selected = min(
         protocol["candidates"], key=lambda m: (result["means"][m], protocol["candidates"].index(m))
     )
-    assert selected == result["selected"]
-    assert result["proceed_to_new_cohort"] == all(
+    if selected != result["selected"]:
+        raise ValueError("Selected method mismatch")
+    expected_gate = all(
         result["means"][selected] < result["means"][name] for name in ["fixed", "static", "legacy"]
     )
+    if result["proceed_to_new_cohort"] is not expected_gate:
+        raise ValueError("Proceed gate mismatch")
     receipt = dict(
         status="passed",
         source_cells=36,
@@ -158,6 +169,7 @@ def verify(protocol_path: Path, output: Path, receipt_path: Path) -> dict:
         verifier_sha256=digest(Path(__file__)),
         source_verification_sha256=digest(prior),
         stop_rule_reproduced=True,
+        python_optimization=sys.flags.optimize,
         limits="Conditional replay on already exposed Development inputs; independent arithmetic is not an effectiveness or delay-free regret guarantee. Fresh source readback is recorded separately.",
     )
     with receipt_path.open("x") as stream:

@@ -3581,14 +3581,14 @@
     "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv": "28b912feb3f24aee5535075d2a6f2de5470861f30083afa532ece87d31ec736b",
     "docs/reports/issue123-bounded-weighting-20261113/source-readback.json": "652f084897bb6ac66375a09b01935851ab5af3357edc1fb72cd36bbed6e0d691",
     "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv": "06970a9dd18ad27c0961e819d620e01d75ee418ecccf1b21a1550f8051ddfddc",
-    "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json": "4dc13e29855c1543421c3811bb088fedaf05c450adafd36048822827f67fc433",
+    "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json": "5d00c5ddf81b7b6450b28f8fc708e2f67558a68c7fb7a522510c7038ee850ed4",
     "docs/reports/issue123-bounded-weighting-20261113/results.json": "8c687ea256b1c25016997536916bb5c933de9fc577740d9377445ed592c840f6",
     "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv": "8e44f0c592bcd21ac5e5201eacdc88aa36b511cc911795ac74615caea3b96bbf",
     "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json": "8a2259f985a2d1ca6735686a4f073bbf74a16bece3690615bed687c6c8eb5838",
     "configs/issue123/development-registration-v1.json": "383b5794ab9a62083eb06c6bd5c95f2a8ea7681813c9038071bccef3699668f3",
     "ev_control/weighting_followup.py": "2391c6499a488e10587f25139a82948f1f62aea69cd81fd5a74cd81319fd6e03",
     "tools/weighting_development.py": "0bbf80053c642c3afca13c291c3a6dc1400ffd236ec0d0f3eef0b058aa113c9c",
-    "tools/weighting_verify.py": "ee6f63ddaf9b724d6330cc1c182e0407df13561902e442f4edd1dd8b97d95614"
+    "tools/weighting_verify.py": "6a5f6be4f389a7b599a30e99f5c8098064d6a9c8b016455844c99129455a08c8"
   },
   "inherited_register_sha256": "6db418086943f33fece4a9409992aa61343e14767f7ef6d3d1e63f7693f89485",
   "report_source_sha256": "210bea11c729ed8d5cecc9cdb77ca131ec64097f74bab9af88814bc57a778ea9",

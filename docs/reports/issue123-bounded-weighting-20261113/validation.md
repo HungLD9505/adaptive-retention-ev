@@ -40,3 +40,7 @@ retraining and prospective generalization were not exercised.
 The source recipe is unchanged; passing implementation checks does not upgrade
 the failed Development progression gate or the earlier confirmation result.
 GitHub CI and peer approval are separate. No autonomous merge/main update occurs.
+
+## Peer-review guard correction
+
+The review at `9f927dc` correctly identified that runtime `assert` statements disappeared under optimized Python. Every plain assertion in `tools/weighting_verify.py` is replaced with an explicit exception. Four subprocess regressions exercise normal Python and `python -O`; corrupted inputs return failure and do not create a receipt. The tests reproduced the old bypass before the fix and pass after it. An optimized readback of the unchanged real artifacts passes with the same 144 candidate cells and failed progression condition. `verifier-guard-review.json` preserves the regression outcome, updated code/receipt fingerprints and unchanged source-result identities. The final full-suite results are recorded in the PR. No models, forecasts, experimental decisions or manuscript/PDF bytes change in this correction.

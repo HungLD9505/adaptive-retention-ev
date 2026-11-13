@@ -36,7 +36,7 @@
   "evidence_sha256": {
     "docs/reports/issue119-confirmation-20261113/independent-verification.json": "43eede75b77af3465565ef1c0c63989d4d6c4576e40038673247bfb8998f26ff",
     "docs/reports/issue119-confirmation-20261113/history-exclusions-index.json": "79003b0b100469590dfb84b8f1bde5a4587b685fb3401424d394c6e676d0b8e8",
-    "docs/reports/issue119-confirmation-20261113/claim-evidence.json": "fdbac4f2fbd55250e9fa044fcf17d5349984b257db5205646d98a15f89b7f239",
+    "docs/reports/issue119-confirmation-20261113/claim-evidence.json": "2c141553a1311188f117c7081a6b999dcf92099c5251b08e415eb1bdf246fb28",
     "docs/reports/issue119-confirmation-20261113/history-audit.json": "8149a00aa1242b5129cee6867d7a07c1b46242054414a838fd82ab94bb488a4f",
     "docs/reports/issue119-confirmation-20261113/results.json": "ee27f90362d63e3333386cb8e4b889e13610e2c4f1c5152e7fad3d011dbe9439",
     "docs/reports/issue119-confirmation-20261113/authenticated-cells.csv": "d12797a86c198a1c4d16ed11f7e90ff3d5cb9e5f28a29112d1fb2946656373d9",
@@ -50,14 +50,15 @@
     "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv": "28b912feb3f24aee5535075d2a6f2de5470861f30083afa532ece87d31ec736b",
     "docs/reports/issue123-bounded-weighting-20261113/source-readback.json": "652f084897bb6ac66375a09b01935851ab5af3357edc1fb72cd36bbed6e0d691",
     "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv": "06970a9dd18ad27c0961e819d620e01d75ee418ecccf1b21a1550f8051ddfddc",
-    "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json": "4dc13e29855c1543421c3811bb088fedaf05c450adafd36048822827f67fc433",
+    "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json": "5d00c5ddf81b7b6450b28f8fc708e2f67558a68c7fb7a522510c7038ee850ed4",
     "docs/reports/issue123-bounded-weighting-20261113/results.json": "8c687ea256b1c25016997536916bb5c933de9fc577740d9377445ed592c840f6",
     "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv": "8e44f0c592bcd21ac5e5201eacdc88aa36b511cc911795ac74615caea3b96bbf",
     "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json": "8a2259f985a2d1ca6735686a4f073bbf74a16bece3690615bed687c6c8eb5838",
     "configs/issue123/development-registration-v1.json": "383b5794ab9a62083eb06c6bd5c95f2a8ea7681813c9038071bccef3699668f3",
     "ev_control/weighting_followup.py": "2391c6499a488e10587f25139a82948f1f62aea69cd81fd5a74cd81319fd6e03",
     "tools/weighting_development.py": "0bbf80053c642c3afca13c291c3a6dc1400ffd236ec0d0f3eef0b058aa113c9c",
-    "tools/weighting_verify.py": "ee6f63ddaf9b724d6330cc1c182e0407df13561902e442f4edd1dd8b97d95614"
+    "tools/weighting_verify.py": "6a5f6be4f389a7b599a30e99f5c8098064d6a9c8b016455844c99129455a08c8",
+    "docs/reports/issue123-bounded-weighting-20261113/verifier-guard-review.json": "119394acbea1657616c50b684f0489e3a27b8756243a0a47d882ebd697267f93"
   },
   "limits": [
     "Prespecified dual-comparator criterion not met",
