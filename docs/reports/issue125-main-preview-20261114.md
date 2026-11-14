@@ -53,7 +53,28 @@ There is no new experiment or assistant contributor attribution.
   outcome is recorded in the PR after the clean-checkout run.
 
 Main was `17823b38bcc75bb2dbfb1ff527fb4bd8fa7ec49d` at preparation. The
-[main comparison](https://github.com/HungLD9505/adaptive-retention-ev/compare/main...docs/125-main-preview)
+[main comparison](https://github.com/HungLD9505/adaptive-retention-ev/compare/17823b38bcc75bb2dbfb1ff527fb4bd8fa7ec49d...ab1bca2f39ee4234369f75bacb2e47c3c9b251c7)
 shows the complete proposed contents; the documentation PR targets dev. Review
 and promotion are separate from the already completed research merges. No main
 merge, new tag or release is performed by this handoff.
+
+## Completed validation and review
+
+On clean presentation commit `ab1bca2`, the root suite ran **1,081 tests**,
+with **12 skips and no failures** in 41.277 seconds. Fixed-adaptation (9),
+confidence-controller (12), Ruff lint/format (704 files), source listing, release
+and diff checks passed. The existing optional-dependency/CUDA/input preflight
+skips are retained; no expected fixture/hash is changed. The post-merge dev CI
+run at `fc52e07` completed successfully.
+
+A read-only three-way merge preview against the recorded main head completed
+without conflicts and produced the exact presentation tree. Main is not an
+ancestor of this branch, so later promotion should preserve both histories
+through the normal reviewed merge rather than assume a fast-forward. No main
+ref was written. Subsequent closeout text changes do not alter the landing page,
+frozen manuscript, code or numerical evidence.
+
+Presentation PR: [#126](https://github.com/HungLD9505/adaptive-retention-ev/pull/126),
+targeting dev, with HungLD9505 requested as reviewer. The commit-bound comparison
+above preserves the tested layout snapshot even after working-branch cleanup.
+The reviewed main presentation can be checked before any promotion decision.
