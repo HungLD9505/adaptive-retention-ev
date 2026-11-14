@@ -1,0 +1,62 @@
+\chapter{Theoretical Background}\label{chap:theoretical_background}
+
+\section{Fundamental Concepts}
+
+Consider a station at midnight after seven days of recorded demand. Its initial training history covers a week. To forecast the coming day, the model reads the most recent 24 hourly observations and uses calendar features already known for the next 24 hours. Each output is the energy in kWh for one future hour. The local hour is known when the forecast is issued. The energy delivered during that hour becomes known later. A daily forecast can therefore be scored in full only after all 24 hourly outcomes have arrived.
+
+Transfer learning uses observations from established locations, the source, to initialize a model for the station of interest, the target. Fine-tuning then adjusts that model using eligible target examples. A target-only model learns from the same local data starting from a random initialization. This comparison gives negative transfer a precise meaning: using source information increases target error relative to learning without it under comparable conditions~\cite{wang2019negative}. Two source-initialized models with different errors can both improve on target-only training. Their relative performance answers a separate question about how to adapt after transfer.
+
+\section{Mathematical or Theoretical Basis}
+
+\subsection{Gated recurrent units}
+A gated recurrent unit processes one feature vector $x_\tau$ at a time \cite{cho2014}. Given the previous hidden state $h_{\tau-1}$, the reset gate $r_\tau$ controls its contribution to the candidate state $n_\tau$. The update gate $z_\tau$ determines how much of the previous state carries forward. With learned weights $W$, biases $b$, sigmoid $\sigma$ and elementwise multiplication $\odot$, the PyTorch implementation uses the following recurrence \cite{pytorch211}.
+\begingroup\small
+\begin{equation}\begin{aligned}
+r_\tau&=\sigma(W_{ir}x_\tau+b_{ir}+W_{hr}h_{\tau-1}+b_{hr}),\\
+z_\tau&=\sigma(W_{iz}x_\tau+b_{iz}+W_{hz}h_{\tau-1}+b_{hz}),
+\end{aligned}\label{eq:gates}\end{equation}
+\endgroup
+\begin{equation}\begin{aligned}
+n_\tau&=\tanh\!\left(W_{in}x_\tau+b_{in}\right.\\
+&\qquad\left.+r_\tau\odot(W_{hn}h_{\tau-1}+b_{hn})\right),\\
+h_\tau&=(1-z_\tau)\odot n_\tau+z_\tau\odot h_{\tau-1}.
+\end{aligned}\label{eq:hidden}\end{equation}
+
+For a single coordinate, an update gate close to one carries the previous value into the next hour. A gate close to zero replaces it with the candidate value. The final hidden state summarizes the observed window for the forecast head. These gates act between hours within a window. Source retention acts during training, when the same window is passed through the frozen source encoder and the current target encoder.
+
+\subsection{Forecast error and source retention}
+
+For a complete day $d$, let $y_{d,q}$ and $\hat y_{d,q}$ be the observed and predicted energy in hour $q$. The daily mean absolute error is
+\begin{equation}
+e_d=\frac{1}{24}\sum_{q=1}^{24}|y_{d,q}-\hat y_{d,q}|.
+\end{equation}
+An error of 2 kWh above the observation and an error of 2 kWh below it contribute equally. Evaluation uses physical units. During training the forecast loss uses energy normalized by the target scale so that the scale of the series is accounted for explicitly.
+
+Li et al.\ used pretrained parameters as a reference when fine-tuning a network~\cite{li2018}. The objective studied here uses a reference in representation space. In its simplest form the objective is
+\begin{equation}
+L=F+\lambda R.
+\end{equation}
+Here $F$ is the normalized forecast loss and $R$ measures the scaled squared distance between the source and target encodings of the same input. The coefficient $\lambda$ sets the cost of that distance. At $\lambda=0$, training starts from the transferred weights and follows the forecast loss alone. A larger coefficient assigns more cost to a given departure. The actual change in the encoder also depends on the gradients of both terms. Chapter~4 defines the coordinate scales and the full batch objective.
+
+\section{Existing Frameworks and Algorithms}\label{sec:exist_frameworks_algorithms}
+
+Online transfer methods can revise the use of earlier models as target observations accumulate. For example, McKay et al.\ studied transfer between domains that both receive streaming data~\cite{mckay2020botl}. Here the source encoder remains frozen. Table~\ref{tab:algorithms} identifies the decision that can change at the target and the evidence available for making it.
+
+\begin{table}[htbp]\centering\small
+\caption{Retention selection and forecast weighting.}\label{tab:algorithms}
+\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}\toprule
+Method & Decision & Evidence and timing\\\midrule
+Fixed retention & Keep one training coefficient & Set before evaluation by the study protocol or calibration.\\
+Past MAE & Select a coefficient trajectory & Rank candidates by errors on completed days at a decision boundary.\\
+Confidence rule & Keep or switch the active candidate & Compare paired daily errors at the boundary using a lower bound on improvement.\\
+Static fusion & Combine two forecasts at a constant weight & Choose the weight on calibration data before evaluation.\\
+Adaptive fusion & Update the two forecast weights & Use observed expert errors after complete feedback arrives.\\\bottomrule
+\end{tabularx}\end{table}
+
+In fusion, both experts forecast the same hour. If their predictions are 8 and 12 kWh, equal weights give 10 kWh. Raising the first weight to three quarters gives 9 kWh, even with both forecasts held fixed. This arithmetic illustrates why a static mixture is the direct control for adaptive weighting. The online update in Chapter~4 draws on the fixed-share approach to tracking experts~\cite{herbster1998}. By contrast, changing $\lambda$ affects what an expert learns at its next training step.
+
+\section{Limitations and Research Motivation}
+
+For each completed day, subtract the challenger's error from the active model's error. Positive differences favour the challenger. Pairing exposes both models to the same demand, yet a run of unusually busy days can influence several successive differences.
+
+A moving-block bootstrap resamples short runs of observations together to preserve local dependence~\cite{kunsch1989}. Each resample gives a mean paired difference. The historical controller requires enough complete days and a positive lower quantile of these means before switching. Whether this predicts an advantage on subsequent days must be tested on forecasts issued after the decision. Chapter~3 describes how the hourly records determine when each forecast can be scored.

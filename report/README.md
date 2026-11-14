@@ -1,5 +1,9 @@
 # Research manuscripts
 
+## Capstone thesis for team review
+
+[Read the 42-page thesis](AIP491-G10-thesis/main.pdf) · [Download the Overleaf project](AIP491-G10-thesis/AIP491-G10-Overleaf.zip)
+
 ## Reviewed manuscript
 
 **Adaptive Transfer Learning for Cold-Start Electric Vehicle Charging Demand Forecasting**

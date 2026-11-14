@@ -1,0 +1,14 @@
+\definecolor{FlowBlue}{HTML}{2166AC}
+\definecolor{FlowRed}{HTML}{B2182B}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\footnotesize,align=center},
+box/.style={draw=black!40,rounded corners=2pt,fill=white,inner sep=6pt,text width=3.5cm,minimum height=1.1cm},
+flow/.style={->,draw=black!65,line width=.7pt}]
+\node[box,fill=FlowBlue!7,draw=FlowBlue!65] (start) at (0,0) {\textbf{Selected trained state}\\Model and Adam moments};
+\node[box,fill=FlowBlue!7,draw=FlowBlue!65] (fork) at (5.2,0) {\textbf{Clone at block start}\\$\lambda\in\{0,0.1,1\}$};
+\node[box] (pred) at (10.4,0) {\textbf{Predict and learn}\\Three causal branches};
+\node[box] (labels) at (10.4,-2.8) {\textbf{Complete arrived errors}\\Paired within the 14-day block};
+\node[box,fill=FlowRed!6,draw=FlowRed!65] (decision) at (5.2,-2.8) {\textbf{Bootstrap lower bounds}\\$n\ge7$ paired days\\Switch only if $L_c>0$};
+\node[box,fill=FlowBlue!7,draw=FlowBlue!65] (carry) at (0,-2.8) {\textbf{Carry selected branch}\\Keep its trained model and Adam};
+\draw[flow] (start)--(fork);\draw[flow] (fork)--(pred);\draw[flow] (pred)--(labels);
+\draw[flow] (labels)--(decision);\draw[flow] (decision)--(carry);\draw[flow] (carry)--(start);
+\end{tikzpicture}

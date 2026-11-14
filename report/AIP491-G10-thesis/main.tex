@@ -1,0 +1,102 @@
+
+\documentclass[12pt,a4paper]{report}
+
+% ---------- Encoding & Language ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[english]{datetime2}
+
+% ---------- Page Geometry & Spacing ----------
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{setspace}
+\onehalfspacing
+
+% ---------- Figures, Tables, Math ----------
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{amsmath, amssymb}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\usepackage{algorithm}
+\usepackage{algpseudocode} % If using algorithmic pseudocode syntax
+
+\setlist[itemize]{nosep,leftmargin=*}    % compact lists inside cells
+\newcolumntype{R}[1]{>{\RaggedLeft\arraybackslash}p{#1}} % right + top aligned column
+\setlength{\arrayrulewidth}{0.4pt}       % border thickness (adjust if needed)
+\renewcommand{\arraystretch}{1.05}       % row height (optional)
+
+% ---------- Lists & Formatting ----------
+\usepackage{enumitem}
+\setlist{leftmargin=2em}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    pdfauthor={AIP491 G10},
+    pdftitle={Adaptive Transfer Learning for Cold-Start Electric Vehicle Charging Demand Forecasting},
+}
+
+% ---------- Typography & Hyphenation ----------
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage[none]{hyphenat} % disable automatic word hyphenation globally
+\sloppy % relax justification rules to reduce overfull boxes
+
+% ---------- Custom Commands ----------
+\newcommand{\todo}[1]{\textbf{\color{red}[TODO: #1]}}
+
+% ---------- frame of title page ----------
+\usepackage{tikz}
+\newcommand{\pageframe}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[line width=0.8pt]
+      ([xshift=1cm,yshift=-1cm]current page.north west)
+      rectangle
+      ([xshift=-1cm,yshift=1cm]current page.south east);
+  \end{tikzpicture}%
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[line width=0.8pt]
+      ([xshift=1.1cm,yshift=-1.1cm]current page.north west)
+      rectangle
+      ([xshift=-1.1cm,yshift=1.1cm]current page.south east);
+  \end{tikzpicture}%
+}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\input{Preamble/titlepage}
+\hypersetup{pageanchor=true}
+%\input{Preamble/acknowledgement}
+\input{Preamble/abstract}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+
+\input{Chapters/Chapter 01 - Introduction}
+\input{Chapters/Chapter 02 - Theoretical Background}
+\input{Chapters/Chapter 03 - Data processing}
+\input{Chapters/Chapter 04 - Methodology}
+\input{Chapters/Chapter 05 - Result analysis}
+\input{Chapters/Chapter 06 - Conclusion}
+% ---------- References ----------
+\appendix
+\input{Chapters/Appendix - Continuous retention}
+
+\bibliographystyle{IEEEtran}
+\renewcommand{\bibname}{References}
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{References}
+\bibliography{references}
+
+\end{document}
