@@ -8,10 +8,10 @@
 [LaTeX and Overleaf source](confirmation-review-20261113/README.md) ·
 [Evidence index](../docs/reports/README.md)
 
-The reviewed version contains **23 pages, native equations, eight vector figures,
-twelve tables and sixteen scientific references**. Its source and PDF remain
-frozen at the reviewed research snapshot. The documentation landing page does
-not change the manuscript or experimental outcomes.
+The manuscript reports the forecasting task, GRU and retention formulations,
+baseline comparisons, historical fusion results, locked 46-ID evaluation and
+bounded weighting study. Its source, figures, tables and PDF are preserved at
+the reviewed research snapshot.
 
 | Study | Evidence and conclusion |
 |---|---|

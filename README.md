@@ -14,12 +14,12 @@
 
 When does knowledge from established charging locations remain useful for a
 low-history target, and when should its influence decrease? We study source
-initialization, latent retention, retention selection and adaptive fusion as
-separate contributions to forecasting performance.
+initialization, latent retention, retention selection and adaptive fusion,
+using separate controls to assess each mechanism.
 
-The reviewed manuscript contains **23 pages, native equations, eight vector
-figures, twelve tables and sixteen scientific references**. Earlier reports and
-executed evidence remain available through the [report index](report/README.md).
+The [paper](report/confirmation-review-20261113/adaptive-transfer-learning-ev.pdf)
+presents the methods, experiments and uncertainty analysis. Earlier reports and
+supporting evidence are available through the [report index](report/README.md).
 
 | Setting | Protocol |
 |---|---|
@@ -33,17 +33,18 @@ executed evidence remain available through the [report index](report/README.md).
 
 | Evidence scope | Observed result | Interpretation |
 |---|---|---|
-| [Calibrated transfer, 12 Development IDs](docs/reports/issue99-history-review-20261110/handoff.md) | Source fine-tuning reduces MAE by **29.8–33.4%** versus calibrated target-only training across the three history budgets. | Supports transfer under the measured protocol. GRU is a competitive backbone; a universal model winner is unestablished. |
+| [Calibrated transfer, 12 Development IDs](docs/reports/issue99-history-review-20261110/handoff.md) | Source fine-tuning reduces MAE by **29.8–33.4%** versus calibrated target-only training across the three history budgets. | Supports transfer under the tested protocol. Separate backbone comparisons support GRU as a compact, competitive choice, with no model best in every comparison. |
 | [Historical retention selection](report/Adaptive_Retention_Report.pdf) | Confidence-guided retention beats Fixed in **9/21** namespace–history groups. | Retention-selection gains are conditional. |
 | [Historical two-expert fusion](docs/reports/issue99-full-scope-20261110/handoff.md) | Adaptive and matched static fusion each beat single Fixed in **18/21** groups. Adaptive beats static in **12/21** and loses in nine. | Complementary forecasts explain much of the gain; the additional weighting benefit is mixed. |
-| [Locked 46-ID evaluation, 14-day history](docs/reports/issue119-confirmation-20261113/README.md) | Adaptive mean percentage reductions across seven namespaces: **0.6653% vs Fixed**, **0.3610% vs static**. Both primary intervals include zero. | The prespecified dual-comparator confirmation criterion **was not met**. Numerical-scale wins remain qualified. |
-| [Bounded weighting replay, 12 exposed Development IDs](docs/reports/issue123-bounded-weighting-20261113/README.md) | Best new candidate AdaHedge: 3.284880 kWh MAE; single Fixed: **3.267000**. | The progression gate **failed**; the study stops without new-cohort training or model promotion. |
+| [Locked 46-ID evaluation, 14-day history](docs/reports/issue119-confirmation-20261113/README.md) | Adaptive mean percentage reductions across seven namespaces: **0.6653% vs Fixed**, **0.3610% vs static**. Both primary intervals include zero. | Superiority to both controls **was not confirmed**. Four strict identifier-level wins against Fixed are approximately 1.43 × 10⁻⁹ kWh and have no practical significance. |
+| [Bounded weighting replay, 12 previously evaluated Development IDs](docs/reports/issue123-bounded-weighting-20261113/README.md) | Best new candidate AdaHedge: 3.284880 kWh MAE; single Fixed: **3.267000**. | AdaHedge improves on the original adaptive/static mixtures but remains worse than Fixed, so the prespecified criterion for further evaluation **was not met**. |
 
 The 21 historical groups reuse identifiers, seeds and history windows; they are
 descriptive aggregates. The 46 IDs are new relative to the audited recorded uses,
 with unresolved unrecorded exposure and physical-site aliases. Shared historical
-dates, unequal compute and external large artifacts limit generalization and
-independent reproduction. See the [evidence limits](RELEASE_SCOPE.md) and
+dates and unequal computational budgets limit generalization and fair cost
+comparisons. Full reproduction also requires the separately stored run artifacts.
+See the [evidence limits](RELEASE_SCOPE.md) and
 [reviewed manuscript](report/confirmation-review-20261113/adaptive-transfer-learning-ev.pdf).
 
 ## Method and implementation

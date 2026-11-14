@@ -78,3 +78,16 @@ Presentation PR: [#126](https://github.com/HungLD9505/adaptive-retention-ev/pull
 targeting dev, with HungLD9505 requested as reviewer. The commit-bound comparison
 above preserves the tested layout snapshot even after working-branch cleanup.
 The reviewed main presentation can be checked before any promotion decision.
+
+## Promotion completed
+
+The preceding sections record the preparation state. After the project owner's
+explicit promotion instruction, HungLD9505 approved both #126 and #127 at
+`ce3cd7ddf7253e65426943b36543ed499a2b9993`; Ubuntu and Windows CI passed.
+[PR #126](https://github.com/HungLD9505/adaptive-retention-ev/pull/126) merged
+into dev as `eb035bccaa07b7cc4913e75a7e75b98c5afc4b0b`, followed by
+[PR #127](https://github.com/HungLD9505/adaptive-retention-ev/pull/127) into main
+as `0cab33388ec015992bd4d008404ab302945094ec`.
+Both target trees were verified to match the reviewed head exactly, and the
+manuscript PDF retained the SHA-256 above. Issue #125 is completed and its
+working branch has been removed. No experiment or scientific conclusion changed.
