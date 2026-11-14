@@ -1,0 +1,28 @@
+{
+  "schema": "weighting-verifier-review-hardening-v1",
+  "review_url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/124#pullrequestreview-5889414743",
+  "previous_head": "9f927dc48e130261887c18fc70c3b71e2edf4ad8",
+  "change": "Replace optimization-removable assert statements with explicit ValueError guards; receipt records Python optimization level.",
+  "regression_before": {
+    "tests": 4,
+    "failed_subtests": 13
+  },
+  "regression_after": {
+    "tests": 4,
+    "failed_subtests": 0
+  },
+  "optimized_real_readback": {
+    "python_optimization": 1,
+    "source_cells": 36,
+    "candidate_cells": 144,
+    "stop_rule_reproduced": true,
+    "receipt_sha256": "5d00c5ddf81b7b6450b28f8fc708e2f67558a68c7fb7a522510c7038ee850ed4"
+  },
+  "unchanged": {
+    "protocol_sha256": "383b5794ab9a62083eb06c6bd5c95f2a8ea7681813c9038071bccef3699668f3",
+    "results_sha256": "8c687ea256b1c25016997536916bb5c933de9fc577740d9377445ed592c840f6",
+    "saved_candidate_cells_sha256": "9577ca0947eba7fab4af81ac05277c78a5e056773373e32e90804de96f81c820"
+  },
+  "new_experiment_run": false,
+  "verifier_sha256": "6a5f6be4f389a7b599a30e99f5c8098064d6a9c8b016455844c99129455a08c8"
+}

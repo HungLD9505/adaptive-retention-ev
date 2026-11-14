@@ -6,7 +6,7 @@
       "file": "report/confirmation-review-20261113/main.tex",
       "line": 14,
       "section": "Abstract",
-      "text": "\\abstract{Limited target history makes it difficult to forecast demand at a charging location and to determine how strongly a transferred model should retain its source representation. We study 24-hour energy forecasting from 24 hours of observations, with initial target histories of 7, 14 and 28 days. The experiments distinguish source initialization, latent-retention regularization, retention selection and adaptive forecast fusion. Independent baseline implementations support transfer and a competitive standard GRU backbone. On twelve additional UrbanEV Development entities, source fine-tuning reduces MAE by 29.8--33.4\\% relative to calibrated target-only training. Confidence-guided retention has conditional benefits: the original selector beats fixed retention in 9 of 21 historical namespace--history groups; a separate common-bank selector beats its calibrated fixed comparator at 28-day history but loses at 7 and 14 days. A later-window four-target study slightly favors discrete selection over calibrated fixed retention, while its continuous hypergradient controller is worse. A subsequent two-GRU fusion system beats single fixed retention in 18 of 21 historical groups. A matched static fusion also wins 18 groups; adaptive weighting improves on static fusion in 12 and worsens nine. These results support source transfer and complementary adaptation trajectories, while limiting the claim that adaptation of the retention decision itself consistently improves forecasting. Posthoc entity and shared-calendar resampling further qualify the weighting increment. The historical follow-ups are exploratory. A subsequently locked fourteen-day evaluation on 46 additional identifiers across seven namespaces yields equal-namespace MAE reductions of 0.67\\% versus single Fixed and 0.36\\% versus matched static fusion. Both prespecified uncertainty intervals include zero, so this evaluation does not confirm superiority to both controls.}",
+      "text": "\\abstract{Limited target history makes it difficult to forecast demand at a charging location and to determine how strongly a transferred model should retain its source representation. We study 24-hour energy forecasting from 24 hours of observations, with initial target histories of 7, 14 and 28 days. The experiments distinguish source initialization, latent-retention regularization, retention selection and adaptive forecast fusion. Independent baseline implementations support transfer and a competitive standard GRU backbone. On twelve additional UrbanEV Development entities, source fine-tuning reduces MAE by 29.8--33.4\\% relative to calibrated target-only training. Confidence-guided retention has conditional benefits: the original selector beats fixed retention in 9 of 21 historical namespace--history groups; a separate common-bank selector beats its calibrated fixed comparator at 28-day history but loses at 7 and 14 days. A later-window four-target study slightly favors discrete selection over calibrated fixed retention, while its continuous hypergradient controller is worse. A subsequent two-GRU fusion system beats single fixed retention in 18 of 21 historical groups. A matched static fusion also wins 18 groups; adaptive weighting improves on static fusion in 12 and worsens nine. These results support source transfer and complementary adaptation trajectories, while limiting the claim that adaptation of the retention decision itself consistently improves forecasting. Posthoc entity and shared-calendar resampling further qualify the weighting increment. The historical follow-ups are exploratory. A subsequently locked fourteen-day evaluation on 46 additional identifiers across seven namespaces yields equal-namespace MAE reductions of 0.67\\% versus single Fixed and 0.36\\% versus matched static fusion. Both prespecified uncertainty intervals include zero, so this evaluation does not confirm superiority to both controls. A further bounded Development study finds a small AdaHedge improvement over legacy weighting but fails its progression condition against single Fixed.}",
       "status": [
         "verified",
         "inferred"
@@ -21,7 +21,18 @@
         "docs/reports/issue119-confirmation-20261113/independent-verification.json",
         "docs/reports/issue119-confirmation-20261113/execution.json",
         "docs/reports/issue119-confirmation-20261113/completion.json",
-        "docs/reports/issue117-evidence-20261113/claim-evidence.json"
+        "docs/reports/issue117-evidence-20261113/claim-evidence.json",
+        "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/source-readback.json",
+        "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json",
+        "docs/reports/issue123-bounded-weighting-20261113/results.json",
+        "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json",
+        "configs/issue123/development-registration-v1.json",
+        "ev_control/weighting_followup.py",
+        "tools/weighting_development.py",
+        "tools/weighting_verify.py"
       ],
       "scope": "Locked new-identifier evidence; interpretation and audit-scope limitations remain explicit.",
       "inherited_claim": null
@@ -2337,7 +2348,7 @@
     {
       "id": "P090",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 425,
+      "line": 452,
       "section": "What the results establish",
       "text": "The strongest repeated finding concerns source initialization. Both independent neural baseline implementations favor transfer in every paired entity--seed cell, and the calibrated twelve-entity study retains roughly 30\\% improvement over target-only training. This provides a reason to study transfer for short-history targets under the tested protocol. It does not mean every source will help every new location.",
       "status": [
@@ -2371,7 +2382,7 @@
     {
       "id": "P091",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 427,
+      "line": 454,
       "section": "What the results establish",
       "text": "The backbone evidence supports GRU as a controlled, competitive and compact implementation. It also records a stronger official TimeXer result in one implementation. Selecting GRU for the retention analysis is therefore justified by its competitiveness and manageable standard architecture, not by asserting that all alternative models lose.",
       "status": [
@@ -2405,7 +2416,7 @@
     {
       "id": "P092",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 429,
+      "line": 456,
       "section": "What the results establish",
       "text": "For the original source-retention question, the evidence is conditional. Confidence-based selection can improve some comparisons, including the 28-day common-bank result and the four-target discrete Later result. It does not consistently improve on the relevant Fixed comparator. A local hypergradient supplies an explicit continuous update formula but does not produce a better Later aggregate in the completed study.",
       "status": [
@@ -2439,7 +2450,7 @@
     {
       "id": "P093",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 431,
+      "line": 458,
       "section": "What the results establish",
       "text": "The fusion extension provides the broadest historical win count, but changes the mechanism. It retains both source-initialized trajectories and adjusts their forecast contribution. It cannot demonstrate that a single model has discovered the optimal source-retention coefficient or that confidence gating produced eighteen wins. Its matched static control shows how much improvement already comes from combining complementary errors.",
       "status": [
@@ -2473,7 +2484,7 @@
     {
       "id": "P094",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 434,
+      "line": 461,
       "section": "When source influence should be reduced",
       "text": "A lower stable-expert weight means less contribution from that source-retaining forecast relative to the recent-window forecast. It is a predictor-level statement. A lower lambda means less explicit latent constraint during training. It is an optimization-level statement. Neither is a direct measurement of how much source information remains in the network.",
       "status": [
@@ -2497,7 +2508,7 @@
     {
       "id": "P095",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 436,
+      "line": 463,
       "section": "When source influence should be reduced",
       "text": "The executed controllers use retrospective evidence to make future decisions. A completed block may be unrepresentative of the next block, and a current local validation gradient may poorly predict the next training trajectory. These are possible reasons why plausible update rules can fail to improve a carefully calibrated constant. They are interpretations of the observed pattern, not newly verified causal explanations of each loss.",
       "status": [
@@ -2521,7 +2532,7 @@
     {
       "id": "P096",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 439,
+      "line": 466,
       "section": "Limitations and reproducibility",
       "text": "The baseline sample is small, recipes are fixed rather than equally optimized, and spatial support changes the information set. The coefficient diagnostics use four previously inspected entities in one namespace. The twelve-entity study expands Development coverage but still reuses an inspected data environment. The historical mixture comparison revisits previously exposed entities and dates. None is an untouched prospective confirmation.",
       "status": [
@@ -2549,7 +2560,7 @@
     {
       "id": "P097",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 441,
+      "line": 468,
       "section": "Limitations and reproducibility",
       "text": "The units and groups are dependent. Three seeds share the same entity data; histories overlap; missingness changes scored coverage. Win counts and mean reductions do not by themselves provide confidence intervals or significance. Original bootstrap decision evidence concerns completed blocks and offers no across-block sequential safety guarantee.",
       "status": [
@@ -2577,7 +2588,7 @@
     {
       "id": "P098",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 443,
+      "line": 470,
       "section": "Limitations and reproducibility",
       "text": "Costs differ between one branch, three reforked branches, differentiable virtual updates and two continuously trained experts. The persistent follow-up records its own 1.614-fold cost, but total source pretraining, all exploration and end-to-end costs are not jointly measured across every study. Equal-cost superiority is unestablished.",
       "status": [
@@ -2605,7 +2616,7 @@
     {
       "id": "P099",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 445,
+      "line": 472,
       "section": "Limitations and reproducibility",
       "text": "Metric readbacks, file identities, matched scoring origins and model/code bindings support artifact correctness. The historical fusion audit checks 810 saved-cell hashes and independently reconstructs 66,492 consumed feedback events and 67,293 scored vectors per arm. Baseline A has an independent saved-output and label readback; baseline B reuses its published audit on unchanged ledgers. These checks do not constitute full retraining reproduction, physical issuance-time verification, reconstruction of every historical bootstrap draw, or fresh authentication of publisher raw archives.",
       "status": [
@@ -2633,7 +2644,7 @@
     {
       "id": "P100",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 447,
+      "line": 474,
       "section": "Limitations and reproducibility",
       "text": "Reproducibility materials include full-precision result ledgers, configuration locks, method implementations and saved-output verification receipts. A companion source manifest identifies the inputs to the reported tables and figures. Checkpoints and large run artifacts are retained separately from the manuscript source.",
       "status": [
@@ -2661,7 +2672,7 @@
     {
       "id": "new-449",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 450,
+      "line": 477,
       "section": "Limitations and reproducibility",
       "text": "The earlier metadata-only eligibility inventory was a preliminary screening, not a certification of untouched data. The expanded history audit, locked cohort and completed execution in Section~\\ref{sec:confirmation} supersede that screening for the new-identifier evaluation. The two single-identifier namespaces and reuse of source models and historical dates limit population and temporal generalization. Frozen parameters prevent outcome-driven retuning in this execution; they do not make the retained historical recipes universally optimal or equalize single- and two-expert compute.",
       "status": [
@@ -2686,9 +2697,9 @@
     {
       "id": "new-452",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 453,
+      "line": 480,
       "section": "Conclusion",
-      "text": "Transferred GRU forecasting remains competitive after stronger target-only calibration, with 29.8--33.4\\% lower Development MAE from source fine-tuning. Confidence-guided retention offers conditional improvements rather than consistent superiority to Fixed; the completed continuous-coefficient study does not beat its calibrated Fixed Later result. Two-GRU adaptive fusion beats single Fixed in 18 of 21 historical groups, but static fusion does so as well. The adaptive increment wins twelve groups and loses nine, while all three UrbanEV groups still favor single Fixed. The completed evidence supports transfer and complementary adaptation trajectories, and identifies the retention decision itself as the more limited contribution requiring stronger independent confirmation. The subsequently locked 46-identifier evaluation does not meet its dual-comparator criterion: adaptive has small positive average reductions against Fixed and static, but both primary intervals include zero.",
+      "text": "Transferred GRU forecasting remains competitive after stronger target-only calibration, with 29.8--33.4\\% lower Development MAE from source fine-tuning. Confidence-guided retention offers conditional improvements rather than consistent superiority to Fixed; the completed continuous-coefficient study does not beat its calibrated Fixed Later result. Two-GRU adaptive fusion beats single Fixed in 18 of 21 historical groups, but static fusion does so as well. The adaptive increment wins twelve groups and loses nine, while all three UrbanEV groups still favor single Fixed. The completed evidence supports transfer and complementary adaptation trajectories, and identifies the retention decision itself as the more limited contribution requiring stronger independent confirmation. The subsequently locked 46-identifier evaluation does not meet its dual-comparator criterion: adaptive has small positive average reductions against Fixed and static, but both primary intervals include zero. The bounded weighting study likewise stops after a small improvement over legacy/static fails to beat single Fixed.",
       "status": [
         "verified",
         "inferred"
@@ -2703,7 +2714,18 @@
         "docs/reports/issue119-confirmation-20261113/independent-verification.json",
         "docs/reports/issue119-confirmation-20261113/execution.json",
         "docs/reports/issue119-confirmation-20261113/completion.json",
-        "docs/reports/issue117-evidence-20261113/claim-evidence.json"
+        "docs/reports/issue117-evidence-20261113/claim-evidence.json",
+        "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/source-readback.json",
+        "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json",
+        "docs/reports/issue123-bounded-weighting-20261113/results.json",
+        "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json",
+        "configs/issue123/development-registration-v1.json",
+        "ev_control/weighting_followup.py",
+        "tools/weighting_development.py",
+        "tools/weighting_verify.py"
       ],
       "scope": "Locked new-identifier evidence; interpretation and audit-scope limitations remain explicit.",
       "inherited_claim": null
@@ -2711,7 +2733,7 @@
     {
       "id": "P104",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 462,
+      "line": 489,
       "section": "Initial-training calibration",
       "text": "Figure~\\ref{fig:calibration} contains every declared initial-epoch candidate. Stars indicate selected measured candidates, not global optima. The target-only and source-initialized panels use the same MAE scale. The curves use four calibration entities; the main transfer table uses twelve additional entities. This separation prevents target-only undertraining from being used as the sole explanation for the transfer advantage.",
       "status": [
@@ -2732,7 +2754,7 @@
     {
       "id": "P105",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 469,
+      "line": 496,
       "section": "Recorded forecast-weight examples",
       "text": "The two fourteen-day-history traces use seed 42. Within JHB and UrbanEV separately, the upper median of seed-averaged percentage gain among entities with Fixed MAE above $10^{-4}$ kWh selects JHB entity 13 and UrbanEV entity 1272. This documented rule supplies a favorable and an adverse namespace example; it is not a search for the most attractive trajectory. Individual signs need not match namespace means. Dates denote forecast origins, and cumulative errors use scored origins only. Separate error axes preserve each entity's energy scale.",
       "status": [
@@ -2754,7 +2776,7 @@
     {
       "id": "P106",
       "file": "report/confirmation-review-20261113/main.tex",
-      "line": 474,
+      "line": 501,
       "section": "All-history paired intervals",
       "text": "Table~\\ref{tab:uncertaintyall} reports point reductions and marginal paired-entity percentile intervals on all 21 groups. Positive reductions favor adaptive fusion. Entity samples are shared between the two arms within each comparison. History budgets reuse entities and dates and are analyzed separately. The companion evidence contains all 126 calendar-block sensitivity profiles, including undefined intervals and the full entity-effect ledger.",
       "status": [
@@ -2766,6 +2788,188 @@
       ],
       "scope": "Posthoc source-backed analysis; no new training, multiplicity-corrected significance or untouched-cohort certification.",
       "inherited_claim": "P106"
+    },
+    {
+      "id": "followup-425",
+      "file": "report/confirmation-review-20261113/main.tex",
+      "line": 425,
+      "section": "Bounded Development weighting study",
+      "text": "A subsequent diagnostic tests whether the legacy sharing rule obscures useful expert selection. With identical arrived expert losses, its update becomes $w_{k+1}=0.1+0.8w_k$, which attracts the weight to one-half. In the recorded 46-ID execution, the UrbanEV stable weight ranges from 0.4308 to 0.5237, with mean 0.4959. This observation motivates an ablation; it does not establish that sharing causes the complete performance gap.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "sources": [
+        "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/source-readback.json",
+        "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json",
+        "docs/reports/issue123-bounded-weighting-20261113/results.json",
+        "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json",
+        "configs/issue123/development-registration-v1.json",
+        "ev_control/weighting_followup.py",
+        "tools/weighting_development.py",
+        "tools/weighting_verify.py"
+      ],
+      "scope": "Previously exposed Development diagnostic; failed registered progression condition; no new cohort execution or claim of superiority.",
+      "inherited_claim": null
+    },
+    {
+      "id": "followup-427",
+      "file": "report/confirmation-review-20261113/main.tex",
+      "line": 427,
+      "section": "Bounded Development weighting study",
+      "text": "Before inspecting candidate outputs, a committed registration fixes four alternatives, the old twelve-entity UrbanEV Development sample, paired seeds and a progression condition. No issue119 confirmation entity enters selection. The two trained experts and their saved forecasts remain unchanged. Candidate selection minimizes equal-entity/seed MAE; progression to a new locked cohort requires the selected candidate to improve on single Fixed, original static and legacy adaptive together. The 36 expert pairs yield 144 candidate replays, without new neural training.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "sources": [
+        "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/source-readback.json",
+        "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json",
+        "docs/reports/issue123-bounded-weighting-20261113/results.json",
+        "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json",
+        "configs/issue123/development-registration-v1.json",
+        "ev_control/weighting_followup.py",
+        "tools/weighting_development.py",
+        "tools/weighting_verify.py"
+      ],
+      "scope": "Previously exposed Development diagnostic; failed registered progression condition; no new cohort execution or claim of superiority.",
+      "inherited_claim": null
+    },
+    {
+      "id": "followup-429",
+      "file": "report/confirmation-review-20261113/main.tex",
+      "line": 429,
+      "section": "Bounded Development weighting study",
+      "text": "The fixed-rate ablations use $\\eta=0.1$: no sharing, or sharing $\\alpha_k=1/(k+1)$ at complete arrived-feedback event $k\\geq1$. The latter is a declared engineering schedule, not an optimal switching-rate claim. The two other candidates are AdaHedge and Follow-the-Leader (FTL), with uniform initial priors \\cite{rooij2014}. For arrived cumulative expert losses $L_{k-1,e}$ and cumulative mixability gap $\\Delta_{k-1}$, AdaHedge uses",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "sources": [
+        "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/source-readback.json",
+        "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json",
+        "docs/reports/issue123-bounded-weighting-20261113/results.json",
+        "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json",
+        "configs/issue123/development-registration-v1.json",
+        "ev_control/weighting_followup.py",
+        "tools/weighting_development.py",
+        "tools/weighting_verify.py"
+      ],
+      "scope": "Previously exposed Development diagnostic; failed registered progression condition; no new cohort execution or claim of superiority.",
+      "inherited_claim": null
+    },
+    {
+      "id": "followup-437",
+      "file": "report/confirmation-review-20261113/main.tex",
+      "line": 437,
+      "section": "Bounded Development weighting study",
+      "text": "When $\\Delta_{k-1}=0$, the infinite-rate limit is computed from differences of cumulative mix losses; equal-loss leaders share weight uniformly. FTL always uses uniform weight on cumulative-loss leaders and can issue a pure expert forecast. The replay processes only earlier origins with complete arrived labels, in availability/origin order. Its virtual Hedge gap follows that arrival sequence, so the original delay-free regret guarantee is not asserted. These rules update forecast weights, not retention coefficients. The fixed-rate ablations retain the legacy initial prior, while AdaHedge/FTL use their uniform definitions; this is not an isolated learning-rate comparison.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "sources": [
+        "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/source-readback.json",
+        "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json",
+        "docs/reports/issue123-bounded-weighting-20261113/results.json",
+        "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json",
+        "configs/issue123/development-registration-v1.json",
+        "ev_control/weighting_followup.py",
+        "tools/weighting_development.py",
+        "tools/weighting_verify.py"
+      ],
+      "scope": "Previously exposed Development diagnostic; failed registered progression condition; no new cohort execution or claim of superiority.",
+      "inherited_claim": null
+    },
+    {
+      "id": "followup-444",
+      "file": "report/confirmation-review-20261113/main.tex",
+      "line": 444,
+      "section": "Bounded Development weighting study",
+      "text": "Table~\\ref{tab:weightfollowup} retains all declared candidates and controls. AdaHedge is the best new candidate: MAE 3.284880 versus 3.291048 for legacy adaptive and 3.303021 for original static. The reductions are 0.1874\\% and 0.5492\\%, respectively. Single Fixed remains better at 3.267000; AdaHedge is 0.5473\\% worse. It therefore fails the registered progression condition. No additional cohort training, candidate search or replacement follows this outcome, and the current recipe is not promoted to this experimental candidate.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "sources": [
+        "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/source-readback.json",
+        "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json",
+        "docs/reports/issue123-bounded-weighting-20261113/results.json",
+        "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json",
+        "configs/issue123/development-registration-v1.json",
+        "ev_control/weighting_followup.py",
+        "tools/weighting_development.py",
+        "tools/weighting_verify.py"
+      ],
+      "scope": "Previously exposed Development diagnostic; failed registered progression condition; no new cohort execution or claim of superiority.",
+      "inherited_claim": null
+    },
+    {
+      "id": "followup-446",
+      "file": "report/confirmation-review-20261113/main.tex",
+      "line": 446,
+      "section": "Bounded Development weighting study",
+      "text": "A hindsight static weight fitted separately to each entity/seed gives mean MAE 3.255453; selecting the lower-error expert separately for every day gives 3.090950. Both inspect future outcomes and are diagnostic only. The daily expert oracle benchmarks endpoint selection rather than the best possible convex mixture. Forecast complementarity does not establish that past loss predicts which expert will help next. Removing share alone gives MAE 3.302131, worse than legacy adaptive, so the one-half attraction is not by itself a sufficient explanation or remedy.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "sources": [
+        "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/source-readback.json",
+        "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json",
+        "docs/reports/issue123-bounded-weighting-20261113/results.json",
+        "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json",
+        "configs/issue123/development-registration-v1.json",
+        "ev_control/weighting_followup.py",
+        "tools/weighting_development.py",
+        "tools/weighting_verify.py"
+      ],
+      "scope": "Previously exposed Development diagnostic; failed registered progression condition; no new cohort execution or claim of superiority.",
+      "inherited_claim": null
+    },
+    {
+      "id": "followup-448",
+      "file": "report/confirmation-review-20261113/main.tex",
+      "line": 448,
+      "section": "Bounded Development weighting study",
+      "text": "Fresh original-input readback authenticates 108 fast calibration/evaluation runs, 4,734 rolling updates and 10,656 forecast-day vectors across the four original arms. A separate 50-digit calculation reproduces all 144 candidate cells, with maximum forecast difference below $7.20\\times10^{-14}$ kWh, and verifies aggregation and the stopping decision. These checks establish recorded arithmetic and replay consistency, not generalization. The bounded study records a small Development improvement over legacy/static and a remaining gap to single Fixed; it does not upgrade the failed seven-namespace confirmation.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "sources": [
+        "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/source-readback.json",
+        "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json",
+        "docs/reports/issue123-bounded-weighting-20261113/results.json",
+        "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json",
+        "configs/issue123/development-registration-v1.json",
+        "ev_control/weighting_followup.py",
+        "tools/weighting_development.py",
+        "tools/weighting_verify.py"
+      ],
+      "scope": "Previously exposed Development diagnostic; failed registered progression condition; no new cohort execution or claim of superiority.",
+      "inherited_claim": null
     }
   ],
   "equations_tables_figures": [
@@ -3242,6 +3446,42 @@
         "docs/reports/issue119-confirmation-20261113/execution.json",
         "docs/reports/issue119-confirmation-20261113/completion.json"
       ]
+    },
+    {
+      "label": "eq:adahedge",
+      "file": "report/confirmation-review-20261113/main.tex",
+      "line": 1,
+      "sources": [
+        "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/source-readback.json",
+        "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json",
+        "docs/reports/issue123-bounded-weighting-20261113/results.json",
+        "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json",
+        "configs/issue123/development-registration-v1.json",
+        "ev_control/weighting_followup.py",
+        "tools/weighting_development.py",
+        "tools/weighting_verify.py"
+      ]
+    },
+    {
+      "label": "tab:weightfollowup",
+      "file": "report/confirmation-review-20261113/tables/weighting-followup.tex",
+      "line": 1,
+      "sources": [
+        "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/source-readback.json",
+        "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json",
+        "docs/reports/issue123-bounded-weighting-20261113/results.json",
+        "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv",
+        "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json",
+        "configs/issue123/development-registration-v1.json",
+        "ev_control/weighting_followup.py",
+        "tools/weighting_development.py",
+        "tools/weighting_verify.py"
+      ]
     }
   ],
   "source_sha256": {
@@ -3337,9 +3577,20 @@
     "tools/issue99_stable_fast.py": "9dbffcf3d01cf2f030727bd235d229764cc0bd2664e31d0fe511b0d73f73abb0",
     "tools/issue99_study.py": "7da43b20db2b3652dadb1db86b4e9bec3cabdb6783b3fe56b40f51c4061ac859",
     "docs/reports/issue121-jsonl-review-20261113/original-ref-jsonl.json": "9f8d56005d31e0db62d1b8257cdd734df77c32dc9cc523278ce71aaa0a98f8df",
-    "docs/reports/issue121-jsonl-review-20261113/practical-win-diagnostic.json": "03358feba23114cf81c1f49d9cc5d8280b67cea75d5a1fce2dfb845d47896fc3"
+    "docs/reports/issue121-jsonl-review-20261113/practical-win-diagnostic.json": "03358feba23114cf81c1f49d9cc5d8280b67cea75d5a1fce2dfb845d47896fc3",
+    "docs/reports/issue123-bounded-weighting-20261113/hindsight-diagnostics.csv": "28b912feb3f24aee5535075d2a6f2de5470861f30083afa532ece87d31ec736b",
+    "docs/reports/issue123-bounded-weighting-20261113/source-readback.json": "652f084897bb6ac66375a09b01935851ab5af3357edc1fb72cd36bbed6e0d691",
+    "docs/reports/issue123-bounded-weighting-20261113/entity-mae.csv": "06970a9dd18ad27c0961e819d620e01d75ee418ecccf1b21a1550f8051ddfddc",
+    "docs/reports/issue123-bounded-weighting-20261113/independent-verification.json": "5d00c5ddf81b7b6450b28f8fc708e2f67558a68c7fb7a522510c7038ee850ed4",
+    "docs/reports/issue123-bounded-weighting-20261113/results.json": "8c687ea256b1c25016997536916bb5c933de9fc577740d9377445ed592c840f6",
+    "docs/reports/issue123-bounded-weighting-20261113/development-mae.csv": "8e44f0c592bcd21ac5e5201eacdc88aa36b511cc911795ac74615caea3b96bbf",
+    "docs/reports/issue123-bounded-weighting-20261113/sharing-diagnostic.json": "8a2259f985a2d1ca6735686a4f073bbf74a16bece3690615bed687c6c8eb5838",
+    "configs/issue123/development-registration-v1.json": "383b5794ab9a62083eb06c6bd5c95f2a8ea7681813c9038071bccef3699668f3",
+    "ev_control/weighting_followup.py": "2391c6499a488e10587f25139a82948f1f62aea69cd81fd5a74cd81319fd6e03",
+    "tools/weighting_development.py": "0bbf80053c642c3afca13c291c3a6dc1400ffd236ec0d0f3eef0b058aa113c9c",
+    "tools/weighting_verify.py": "6a5f6be4f389a7b599a30e99f5c8098064d6a9c8b016455844c99129455a08c8"
   },
   "inherited_register_sha256": "6db418086943f33fece4a9409992aa61343e14767f7ef6d3d1e63f7693f89485",
-  "report_source_sha256": "243e7d4fe65a99775967c4de3072f3799d34b42ee8a42e553d311fe868b3d242",
+  "report_source_sha256": "210bea11c729ed8d5cecc9cdb77ca131ec64097f74bab9af88814bc57a778ea9",
   "scope": "Unchanged historical paragraphs inherit existing evidence. New and modified confirmation paragraphs map to the committed pre-outcome protocol and authenticated run receipts. Verified values and bounded interpretations are distinguished from universal untouched-data claims."
 }

@@ -7,6 +7,7 @@ The report PDFs and exact tables live under [report/](../../report/README.md).
 | Evidence | Read first |
 |---|---|
 | Controller identity and apparently conflicting results | [Method/cohort audit](issue99-controller-identity-audit-20261112/README.md), [fresh arithmetic](issue99-controller-identity-audit-20261112/identity-audit.json) |
+| Bounded weighting replay and stopping decision | [Development outcomes](issue123-bounded-weighting-20261113/README.md), [JSONL and numerical-win review](issue121-jsonl-review-20261113/README.md) |
 | Locked new-identifier confirmation | [46-ID results and verification](issue119-confirmation-20261113/README.md), [current reader](../../report/confirmation-review-20261113/README.md) |
 | Historical manuscript method, numerical and layout audit | [Evidence strengthening](issue117-evidence-20261113/README.md), [claim register](issue117-evidence-20261113/claim-evidence.json), [historical reader](../../report/evidence-review-20261113/README.md) |
 | Primary frozen Final and its limits | [Final handoff](issue23-final-complete-handoff-20261029.md) |
