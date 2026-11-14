@@ -1,0 +1,94 @@
+{
+  "schema": "controller-identity-audit-v1",
+  "created_at": "2026-11-12T03:59:53.451311+00:00",
+  "code_commit": "45d975d186064416bf84d4c2f5d3637693cd8ac2",
+  "acceptance_scope": "Method identity, cohort/window separation and fresh saved-result arithmetic; no retraining, raw-archive audit or untouched-test claim.",
+  "historical": {
+    "units": 810,
+    "group_count": 21,
+    "original_retention_selector_below_fixed": 9,
+    "static_mixture_below_fixed": 18,
+    "adaptive_mixture_below_fixed": 18,
+    "adaptive_mixture_below_static": 12,
+    "adaptive_vs_fixed_by_scope": {
+      "UrbanEV": {
+        "lower": 0,
+        "higher": 3
+      },
+      "CHARGED": {
+        "lower": 18,
+        "higher": 0
+      }
+    }
+  },
+  "common_bank_12_entity_development": {
+    "7": {
+      "fixed_bank": 3.31862274055091,
+      "confidence_gate": 3.3233938701215853,
+      "mean_only": 3.3234162556792857,
+      "confidence_minus_fixed_percent": 0.143768362470853
+    },
+    "14": {
+      "fixed_bank": 3.2669999266187126,
+      "confidence_gate": 3.2754791955099143,
+      "mean_only": 3.290432249950873,
+      "confidence_minus_fixed_percent": 0.25954297770607315
+    },
+    "28": {
+      "fixed_bank": 3.348210059895877,
+      "confidence_gate": 3.3139667418263326,
+      "mean_only": 3.3252000779696584,
+      "confidence_minus_fixed_percent": -1.0227350571489935
+    }
+  },
+  "stable_fast_12_entity_14d": {
+    "stable_fixed": 3.2669999266187126,
+    "fast_only": 3.4198799774019424,
+    "static_mix": 3.303020734429099,
+    "fixed_share": 3.291048172930262
+  },
+  "continuous_lambda_four_target_later": {
+    "lambda0": 4.868597442981762,
+    "fixed": 4.803054026032908,
+    "discrete": 4.798258889937379,
+    "continuous": 4.806223253115665,
+    "frozen_lambda": 4.803054026032908
+  },
+  "persistent_lambda_four_target_calibration": {
+    "fixed": 5.331705633298364,
+    "immediate": 5.318961684341266,
+    "persistent": 5.331587155372982
+  },
+  "persistent_macro_gain_kwh": 0.00011847792538244306,
+  "source_sha256": {
+    "docs/reports/issue99-full-scope-20261110/cells.csv": "8553ff3cf47dfd444e5d86e57f7f7895d5f9919d783707b45a87fafb3ac987c1",
+    "docs/reports/issue99-full-scope-20261110/group-results.csv": "fc8858772128fcd52c440c4b73015937585a14a59a86d7cf1d98d5027f5036ea",
+    "docs/reports/issue99-history-review-20261110/cells.csv": "3751f2427ae9783ae82f2fd0da1e5963120deba4d38a1190df60d7a3fb1a4f1c",
+    "docs/reports/issue99-stable-fast-20261110/verification.json": "652f084897bb6ac66375a09b01935851ab5af3357edc1fb72cd36bbed6e0d691",
+    "docs/reports/issue99-study-20261110/method-summary.csv": "45b1189b29295f758abb4c94223b9877758352be8d91841ee082609aba582388",
+    "docs/reports/issue99-persistent-calibration-cells-20261111.csv": "f741d9680cb5d31be1e8c002f8c05d803c34e371c24ab3db189a1fc3d4571a6a",
+    "ev_control/expert_mix.py": "46ac24ef0713881c94d7edfff5eec4ab74036e291963bc6b0a4ed8cdc66216f2",
+    "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+    "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+    "tools/issue99_history_study.py": "fce128e9604fff17703824f987afe2ded692d597a7662b0cd834b755f8df7cab",
+    "tools/issue99_full_scope.py": "d20a252d4d8207434435f0a06541d4717ea0fc9e9a06a77e04d9d0d9fc616656",
+    "report/overleaf-review-20261112-v3/main.tex": "6b273e6e3300d9d8a95df906e7db1b6b1ce8f36e856286265f6ebaea36c0bea3"
+  },
+  "runtime_seconds": 0.02923495788127184,
+  "mix_controller_interface": {
+    "positional_parameters": [
+      "weight",
+      "stable_loss",
+      "fast_loss"
+    ],
+    "keyword_parameters": [
+      "eta",
+      "share"
+    ],
+    "explicit_confidence_interval_gate": false,
+    "updated_quantity": "mixture weight w, not retention coefficient lambda"
+  },
+  "executed_mix_code_identity_matches_lock": true,
+  "discrete_later_gain_kwh": 0.004795136095529173,
+  "discrete_later_gain_percent": 0.09983514800248303
+}

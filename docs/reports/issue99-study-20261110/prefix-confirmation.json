@@ -1,0 +1,174 @@
+{
+  "status": "PASS",
+  "scope": "Fresh locked evaluation reruns reproduce selected calibration-prefix forecasts; no later-outcome tuning.",
+  "rows": [
+    {
+      "method": "fixed",
+      "target": "1405",
+      "seed": 42,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "fixed",
+      "target": "1405",
+      "seed": 43,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "fixed",
+      "target": "1405",
+      "seed": 44,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "fixed",
+      "target": "2152",
+      "seed": 42,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "fixed",
+      "target": "2152",
+      "seed": 43,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "fixed",
+      "target": "2152",
+      "seed": 44,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "fixed",
+      "target": "1153",
+      "seed": 42,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "fixed",
+      "target": "1153",
+      "seed": 43,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "fixed",
+      "target": "1153",
+      "seed": 44,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "fixed",
+      "target": "1693",
+      "seed": 42,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "fixed",
+      "target": "1693",
+      "seed": 43,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "fixed",
+      "target": "1693",
+      "seed": 44,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "continuous",
+      "target": "1405",
+      "seed": 42,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "continuous",
+      "target": "1405",
+      "seed": 43,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "continuous",
+      "target": "1405",
+      "seed": 44,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "continuous",
+      "target": "2152",
+      "seed": 42,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "continuous",
+      "target": "2152",
+      "seed": 43,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "continuous",
+      "target": "2152",
+      "seed": 44,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "continuous",
+      "target": "1153",
+      "seed": 42,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "continuous",
+      "target": "1153",
+      "seed": 43,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "continuous",
+      "target": "1153",
+      "seed": 44,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "continuous",
+      "target": "1693",
+      "seed": 42,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "continuous",
+      "target": "1693",
+      "seed": 43,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    },
+    {
+      "method": "continuous",
+      "target": "1693",
+      "seed": 44,
+      "forecasts_confirmed": 28,
+      "maximum_absolute_normalized_prediction_difference": 0.0
+    }
+  ]
+}

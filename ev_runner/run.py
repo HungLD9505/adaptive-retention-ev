@@ -38,13 +38,22 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def runtime_code() -> dict:
-    return {
-        "commit": subprocess.check_output(
+    marker = ROOT / ".issue99-code-commit"
+    if marker.exists():
+        commit = marker.read_text(encoding="ascii").strip()
+        if len(commit) != 40 or any(char not in "0123456789abcdef" for char in commit):
+            raise ValueError("Invalid verified package commit marker")
+        dirty = False
+    else:
+        commit = subprocess.check_output(
             ["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True
-        ).strip(),
-        "dirty": bool(
+        ).strip()
+        dirty = bool(
             subprocess.check_output(["git", "-C", str(ROOT), "status", "--porcelain"], text=True)
-        ),
+        )
+    return {
+        "commit": commit,
+        "dirty": dirty,
         "files": {
             str(p.relative_to(ROOT)): digest(p)
             for folder in ("ev_models", "ev_control", "ev_runner", "ev_baselines")
@@ -66,9 +75,17 @@ def execute(
     stop_after_ticks: int | None = None,
     ensemble_sources: tuple[tuple[Path, str], ...] = (),
     prepared_replay: Replay | None = None,
+    cpu_development_diagnostic: bool = False,
 ) -> dict:
     config = json.loads(json.dumps(config, allow_nan=False))
-    if device != "cuda" or not torch.cuda.is_available():
+    permitted_cpu = (
+        cpu_development_diagnostic
+        and device == "cpu"
+        and inputs.target_role == "development"
+        and inputs.config["history_days"] == 14
+        and config.get("method", {}).get("name") == "adaptive"
+    )
+    if not permitted_cpu and (device != "cuda" or not torch.cuda.is_available()):
         raise ValueError(
             "Real Development replay requires CUDA/Colab; local tests use independent fixtures"
         )
@@ -349,8 +366,8 @@ def execute(
         "audit_steps": runner.audit_steps,
         "cost": runner.cost,
         "elapsed_seconds": time.perf_counter() - started,
-        "gpu_peak_allocated_bytes": torch.cuda.max_memory_allocated(),
-        "gpu_peak_reserved_bytes": torch.cuda.max_memory_reserved(),
+        "gpu_peak_allocated_bytes": torch.cuda.max_memory_allocated() if device == "cuda" else None,
+        "gpu_peak_reserved_bytes": torch.cuda.max_memory_reserved() if device == "cuda" else None,
         "pending_days": len(runner.pending),
         "ticks": store.count,
         "commit_chain": store.previous,

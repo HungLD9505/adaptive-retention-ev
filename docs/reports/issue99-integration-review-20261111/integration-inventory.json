@@ -1,0 +1,180 @@
+{
+  "schema": "issue99-integration-review-v1",
+  "status": "review_candidate_not_merged",
+  "branch": "chore/99-integration-review",
+  "base_dev": "dffd16a0b37df336330ef9b9d23056facd388681",
+  "verified_implementation_commit": "c243748bfe34dfbe919c0bf27587f92b340562fc",
+  "main_untouched": "17823b38bcc75bb2dbfb1ff527fb4bd8fa7ec49d",
+  "included_pr_heads": [
+    {
+      "baseRefName": "dev",
+      "headRefName": "docs/99-teacher-review-complete",
+      "headRefOid": "d88a9765974a393925ca06c916eceae728629e2f",
+      "number": 115,
+      "reviewDecision": "",
+      "title": "docs: deliver verified baselines and complete expert-fusion review manuscript",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/115",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "feat/duc-urbanev-benchmark-results-20261111",
+      "headRefOid": "ecbc4595a9616f7a7fa42679e595947d3832f6d5",
+      "number": 114,
+      "reviewDecision": "CHANGES_REQUESTED",
+      "title": "feat(benchmark): Huu Duc independent 172-row UrbanEV results and report (#96)",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/114",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "feat/99-persistent-lambda",
+      "headRefOid": "a0550f3d5cb9df2690e48204cafb7458b95c9d25",
+      "number": 113,
+      "reviewDecision": "",
+      "title": "feat(issue99): evaluate \u03bb-only persistent controller on Kaggle (gate failed)",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/113",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "feat/99-full-scope-controller",
+      "headRefOid": "8cf00ee3ca48f65064209943d2b9ce67476ed44c",
+      "number": 112,
+      "reviewDecision": "",
+      "title": "research: evaluate expert fusion across the full historical EV cohort",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/112",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "feat/99-stable-fast-controller",
+      "headRefOid": "7e9b0249e7efd6700b62339a34fd1cc397adf47e",
+      "number": 110,
+      "reviewDecision": "",
+      "title": "research: test stable-fast GRU fusion against strong Fixed retention",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/110",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "feat/99-review-manuscript-history-study",
+      "headRefOid": "671ce224fbf037cd6861443a444c97a25acc2ef9",
+      "number": 109,
+      "reviewDecision": "",
+      "title": "feat: calibrate training across history budgets and deliver review manuscript (#99)",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/109",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "feat/99-transfer-confidence-evidence",
+      "headRefOid": "d7ce1f3c9c35b854e8df7ab8dafd976c9791c2c0",
+      "number": 108,
+      "reviewDecision": "",
+      "title": "feat: measure transfer benefit and isolate confidence-gated selection (#99)",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/108",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "feat/99-expanded-development",
+      "headRefOid": "8c7a5126c31f9b553d466d61e05b3266b5e0759c",
+      "number": 107,
+      "reviewDecision": "",
+      "title": "feat: verify retention on twelve additional Development stations (#99)",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/107",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "feat/99-selective-retention-screen",
+      "headRefOid": "6e74aee1c9a314f39453197f2e819f14a35034ac",
+      "number": 106,
+      "reviewDecision": "",
+      "title": "feat: compare selective latent retention and encoder L2-SP (#99)",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/106",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "feat/99-retention-decision-probe",
+      "headRefOid": "1e95551c989d2a9774110a065e06b47c2dea4be2",
+      "number": 105,
+      "reviewDecision": "",
+      "title": "feat: diagnose paired retention controller decisions (#99)",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/105",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "feat/cyber-urbanev-baseline-benchmark",
+      "headRefOid": "1e4c8e17ecbfc14b32ca1ce38775baf74a7da95f",
+      "number": 104,
+      "reviewDecision": "CHANGES_REQUESTED",
+      "title": "feat(baselines): complete independent UrbanEV benchmark (#95)",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/104",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "feat/99-complete-retention-study",
+      "headRefOid": "71234eb1b217203f81425c44facbd8ccb83ed8be",
+      "number": 102,
+      "reviewDecision": "",
+      "title": "feat: complete and verify fixed/continuous retention study",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/102",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "fix/99-qyroven-clean-test-environment",
+      "headRefOid": "aaf863e84fd457259f5b5b14a1238353c563405d",
+      "number": 101,
+      "reviewDecision": "",
+      "title": "fix: make retention tests reproducible and record verified pilot evidence",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/101",
+      "included_by_ancestry": true
+    },
+    {
+      "baseRefName": "dev",
+      "headRefName": "feat/continuous-retention-99",
+      "headRefOid": "c33c6228c7f7cca586cb5e8c4f4070280429c362",
+      "number": 100,
+      "reviewDecision": "",
+      "title": "feat: audit Source10 and prototype continuous retention for #99",
+      "url": "https://github.com/HungLD9505/adaptive-retention-ev/pull/100",
+      "included_by_ancestry": true
+    }
+  ],
+  "manuscript_manifest_sha256": "7d92f2fbc8caca73f5168f992a354a0b9d8d9c815c59ceabaa4b2286645fd4cd",
+  "manuscript_files_verified": 32,
+  "validation": {
+    "root": {
+      "tests": 1041,
+      "skipped": 12,
+      "status": "passed"
+    },
+    "fixed_adaptation": {
+      "tests": 9,
+      "status": "passed"
+    },
+    "confidence_controller": {
+      "tests": 12,
+      "status": "passed"
+    },
+    "issue99_focused": {
+      "tests": 115,
+      "skipped": 2,
+      "status": "passed"
+    },
+    "ruff_lint": "passed",
+    "ruff_format_files": 654,
+    "release_report_files": 17,
+    "historical_source_pins": 92,
+    "fresh_raw_download": false,
+    "new_training": false,
+    "ci": "pending_new_pr",
+    "peer_approval": "pending"
+  }
+}

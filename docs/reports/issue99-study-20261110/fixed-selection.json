@@ -1,0 +1,10 @@
+{
+  "selected_lambda": 0.7984450067079901,
+  "mae_kwh": 5.331705633298364,
+  "lambda0_mae_kwh": 5.443630217787778,
+  "controller_upper_bound": 33.84424612726798,
+  "upper_boundary_unresolved": false,
+  "finite_trials": 21,
+  "all_trials": 21,
+  "selected_trial": 11
+}

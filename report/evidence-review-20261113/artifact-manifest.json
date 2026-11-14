@@ -1,0 +1,68 @@
+{
+  "schema": "ev-evidence-review-20261113-v1",
+  "title": "Adaptive Transfer Learning for Cold-Start Electric Vehicle Charging Demand Forecasting",
+  "base_commit": "b7ae4a756d64eb1f3a8bfb0e9f9ff1a7368e2723",
+  "scope": "Posthoc uncertainty, direct related work and outcome-blind metadata inventory; no method change or confirmation training",
+  "pages": 20,
+  "vector_figures": 8,
+  "native_tikz_flows": 2,
+  "tables": 10,
+  "scientific_references": 15,
+  "embedded_raster_images": 0,
+  "assets": {
+    "sn-jnl.cls": "36d0c3273a59d48dc6a9c7b080dfa1ec50dc10229d8751568d1f2e490ffa5ecc",
+    "references.bib": "ed25d0a5332b85039335a831fde0153da16be8cc913387e47eb177a6a5e226af",
+    "main.tex": "9d538e5109c0c4d25d48c6f7d3caab6ad5427dd8e7afc88edbaaede1e20d17c1",
+    "README.md": "acc4df031861cdeeefb79433ea62a961dbc30c3e16485ce453e04dbe306aa13f",
+    "model-equations.tex": "b400d4b271f7f9a6c6896d261cde9dbde837e00cbb5a38939afcafd527785d38",
+    "sn-mathphys-num.bst": "b3a7c7fbcc1e7f9619de634fcea2f5bb7a245818a5942bc576e40ea001633332",
+    "adaptive-transfer-learning-ev.pdf": "0effc907132b0def127be5e6babe3f94cdeb9d5c16848e7aec24a1d003164060",
+    "tables/related-work.tex": "d769f02db3cf02d6925e90d70b6d704aa708b556b24e110ce5fb092d60298681",
+    "tables/uncertainty-all.tex": "1673fd9d8fb145cbf18bc109fd502c1f86e5711f4ba7191048fc35e233fd766c",
+    "tables/baselines.tex": "9c5c7f713c08cc39185d20896825a77f0cacb91dca84f50f8605d2f771fbecbc",
+    "tables/uncertainty-14d.tex": "ff484ac199f266c0398e91d651ee1ed11d6b46e26c083b0b8fb27f98949ecfb2",
+    "figures/retention-flow.tex": "537fe33889107de40f5b57778e0e2f74502af3bc18090737fe041870989dc6d5",
+    "figures/editorial-system-flow.tex": "d73a467ed5fee2aef67f3026cee38934d9038112257d8b2b22ad44df1f5a5e5b",
+    "figures/backbones.pdf": "ff5334a515886dedf62c82cddf0c36333efb7e6092c0b4132ed9fc4a79bd8d63",
+    "figures/cohort-comparisons.pdf": "017ba01347f30a50a98cd0ec70f4f3ce7317482e893f0a927742a138b79e6610",
+    "figures/fixed-evidence.pdf": "2240507a3b55871b8f4770919f1d68e3309a992574d9f70267953d0e987a46a0",
+    "figures/trajectories.pdf": "540d9c2024bbb90b8c4eff1966ec71100e080023cdd52925c954dcd4d43ba2ac",
+    "figures/fusion-uncertainty.pdf": "ed4aeefb89805402ec8faeea1fe1b8764d19081dff12e53763a32ffcbd13aa34",
+    "figures/calibration.pdf": "d3d7541533e85deb20b4ed5846544bb9cc9c396889129ef6025a38f8021a5dfa"
+  },
+  "evidence_sha256": {
+    "analysis-profile.json": "51f2e068b8cd28972d0c14112561fb849ff9ae1403e5adee548a70bfb8a0c758",
+    "summary.json": "9da6d2e24789091b890acd38ba7a90de0d66d10ac4d6f15ca35d865f7a4fed8c",
+    "entity-intervals.json": "9bfe9e0a59d7416790060609157fb7e7f1ac9e79fa65bd90ae44f3492d2b3b94",
+    "calendar-sensitivity.json": "09428dc430bda0295c2d8912b55923e230eb0a9cd8c92e573c347a12fa661bc9",
+    "entity-effects.csv": "cca1f4465bfa99f18f0fe5998d0113cf17212a3632bd4ec8ae0fd879d68af55e",
+    "cohort-inventory.json": "7e5fdb27497a1a999e01573bc0443081319cd6f1786508253fa766ab1d518fdc",
+    "related-work.md": "661c00b7e416ac8a6687f251c1d2e72f6956391e9658bd06c1fdeed3eeac30ba",
+    "independent-verification.json": "bc916c59a4491fd5b8f354be98b20d061191a9da2a8240754ff4919927f2afcd",
+    "claim-evidence.json": "6db418086943f33fece4a9409992aa61343e14767f7ef6d3d1e63f7693f89485"
+  },
+  "source_code_sha256": {
+    "ev_evaluation/fusion_uncertainty.py": "6ef8e645a7d66277692171161b2c7e210b01b414352388aa921577363498aaff",
+    "tools/fusion_evidence.py": "e1a4f25813a19149e2defabc1e7c925fb8b551791b4019647daae18d6ab9eeab",
+    "tools/confirmation_inventory.py": "afd113b534f23c69ae65aabab1c41bb0739b3c9436031265a9b14a9db3f81609"
+  },
+  "inherited_assets_unchanged": [
+    "model-equations.tex",
+    "tables/baselines.tex",
+    "sn-jnl.cls",
+    "sn-mathphys-num.bst",
+    "figures/editorial-system-flow.tex",
+    "figures/retention-flow.tex",
+    "figures/backbones.pdf",
+    "figures/calibration.pdf",
+    "figures/cohort-comparisons.pdf",
+    "figures/fixed-evidence.pdf",
+    "figures/trajectories.pdf"
+  ],
+  "limits": [
+    "Posthoc marginal intervals; no corrected significance",
+    "Zero certified untouched entities; no confirmation run",
+    "No raw-archive authentication, independent retraining or equal-compute claim",
+    "Overleaf web UI not exercised"
+  ]
+}

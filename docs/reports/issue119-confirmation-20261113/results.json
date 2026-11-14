@@ -1,0 +1,209 @@
+{
+  "schema": "new-entity-confirmation-result-v1",
+  "protocol_sha256": "f5e5eca69f1beb31f8ad4fe7f9963301de555e622e731b5fe1cc98317e77f425",
+  "group_results": [
+    {
+      "namespace": "charged-AMS",
+      "selected_entities": 10,
+      "scored_entities": 10,
+      "fixed": 16.28234036183402,
+      "fast_only": 16.210743565936845,
+      "static": 16.228728892537323,
+      "adaptive": 16.234352743754076,
+      "adaptive_vs_fixed_reduction_percent": 0.2947218705268388,
+      "entities_lower_than_fixed": 8,
+      "adaptive_vs_static_reduction_percent": -0.03465367653864745,
+      "entities_lower_than_static": 2
+    },
+    {
+      "namespace": "charged-JHB",
+      "selected_entities": 1,
+      "scored_entities": 1,
+      "fixed": 8.041002628502605,
+      "fast_only": 8.435637345794861,
+      "static": 7.95436147470548,
+      "adaptive": 7.91467076515124,
+      "adaptive_vs_fixed_reduction_percent": 1.5710959091539378,
+      "entities_lower_than_fixed": 1,
+      "adaptive_vs_static_reduction_percent": 0.4989804609767145,
+      "entities_lower_than_static": 1
+    },
+    {
+      "namespace": "charged-LOA",
+      "selected_entities": 10,
+      "scored_entities": 10,
+      "fixed": 2.0621443998104985,
+      "fast_only": 2.1082225116110704,
+      "static": 2.037060440641223,
+      "adaptive": 2.031695772661924,
+      "adaptive_vs_fixed_reduction_percent": 1.476551649407905,
+      "entities_lower_than_fixed": 7,
+      "adaptive_vs_static_reduction_percent": 0.2633534023963692,
+      "entities_lower_than_static": 9
+    },
+    {
+      "namespace": "charged-MEL",
+      "selected_entities": 4,
+      "scored_entities": 4,
+      "fixed": 10.907254021284686,
+      "fast_only": 11.642504672147286,
+      "static": 11.100171464450348,
+      "adaptive": 11.026704135745561,
+      "adaptive_vs_fixed_reduction_percent": -1.095143784382184,
+      "entities_lower_than_fixed": 2,
+      "adaptive_vs_static_reduction_percent": 0.6618576022908742,
+      "entities_lower_than_static": 4
+    },
+    {
+      "namespace": "charged-SPO",
+      "selected_entities": 1,
+      "scored_entities": 1,
+      "fixed": 8.498509938379236,
+      "fast_only": 7.664418516529523,
+      "static": 7.795614838625998,
+      "adaptive": 7.836763774663507,
+      "adaptive_vs_fixed_reduction_percent": 7.7866139889686545,
+      "entities_lower_than_fixed": 1,
+      "adaptive_vs_static_reduction_percent": -0.527847217818192,
+      "entities_lower_than_static": 0
+    },
+    {
+      "namespace": "charged-SZH",
+      "selected_entities": 10,
+      "scored_entities": 10,
+      "fixed": 4.269804871526075,
+      "fast_only": 4.351170261788306,
+      "static": 4.1675142174093605,
+      "adaptive": 4.157838678586585,
+      "adaptive_vs_fixed_reduction_percent": 2.62227891691622,
+      "entities_lower_than_fixed": 10,
+      "adaptive_vs_static_reduction_percent": 0.23216570641455336,
+      "entities_lower_than_static": 4
+    },
+    {
+      "namespace": "urbanev-SZH",
+      "selected_entities": 10,
+      "scored_entities": 10,
+      "fixed": 7.402269203259275,
+      "fast_only": 8.849628709762793,
+      "static": 8.110604363159965,
+      "adaptive": 7.994376144556602,
+      "adaptive_vs_fixed_reduction_percent": -7.998992268973659,
+      "entities_lower_than_fixed": 6,
+      "adaptive_vs_static_reduction_percent": 1.4330401706104052,
+      "entities_lower_than_static": 8
+    }
+  ],
+  "primary": {
+    "comparisons": {
+      "fixed": {
+        "equal_namespace_reduction_percent": 0.6653037545168026,
+        "interval_percent": [
+          -3.6209339300817462,
+          3.317648912326375
+        ],
+        "invalid_replicates": 0
+      },
+      "static": {
+        "equal_namespace_reduction_percent": 0.36098520690457947,
+        "interval_percent": [
+          -0.044911939303914176,
+          0.839883602040797
+        ],
+        "invalid_replicates": 0
+      }
+    },
+    "namespace_count": 7,
+    "resamples": 10000,
+    "seed": 20261113,
+    "segment_days": 7,
+    "alpha_per_comparison": 0.025,
+    "interpretation": "Prespecified two-comparator family: nominal alpha=.025 per comparison from family alpha=.05; percentile calibration is approximate; conditional on selected namespaces, Source10 and fixed paired seeds. Circular seams and small entity samples limit inference."
+  },
+  "sensitivity": {
+    "3": {
+      "comparisons": {
+        "fixed": {
+          "equal_namespace_reduction_percent": 0.6653037545168026,
+          "interval_percent": [
+            -2.7634650127369627,
+            3.271574226475945
+          ],
+          "invalid_replicates": 0
+        },
+        "static": {
+          "equal_namespace_reduction_percent": 0.36098520690457947,
+          "interval_percent": [
+            -0.027580647496145173,
+            0.762290362414374
+          ],
+          "invalid_replicates": 0
+        }
+      },
+      "namespace_count": 7,
+      "resamples": 10000,
+      "seed": 20261113,
+      "segment_days": 3,
+      "alpha_per_comparison": 0.025,
+      "interpretation": "Prespecified two-comparator family: nominal alpha=.025 per comparison from family alpha=.05; percentile calibration is approximate; conditional on selected namespaces, Source10 and fixed paired seeds. Circular seams and small entity samples limit inference."
+    },
+    "7": {
+      "comparisons": {
+        "fixed": {
+          "equal_namespace_reduction_percent": 0.6653037545168026,
+          "interval_percent": [
+            -3.6209339300817462,
+            3.317648912326375
+          ],
+          "invalid_replicates": 0
+        },
+        "static": {
+          "equal_namespace_reduction_percent": 0.36098520690457947,
+          "interval_percent": [
+            -0.044911939303914176,
+            0.839883602040797
+          ],
+          "invalid_replicates": 0
+        }
+      },
+      "namespace_count": 7,
+      "resamples": 10000,
+      "seed": 20261113,
+      "segment_days": 7,
+      "alpha_per_comparison": 0.025,
+      "interpretation": "Prespecified two-comparator family: nominal alpha=.025 per comparison from family alpha=.05; percentile calibration is approximate; conditional on selected namespaces, Source10 and fixed paired seeds. Circular seams and small entity samples limit inference."
+    },
+    "14": {
+      "comparisons": {
+        "fixed": {
+          "equal_namespace_reduction_percent": 0.6653037545168026,
+          "interval_percent": null,
+          "invalid_replicates": 2
+        },
+        "static": {
+          "equal_namespace_reduction_percent": 0.36098520690457947,
+          "interval_percent": null,
+          "invalid_replicates": 2
+        }
+      },
+      "namespace_count": 7,
+      "resamples": 10000,
+      "seed": 20261113,
+      "segment_days": 14,
+      "alpha_per_comparison": 0.025,
+      "interpretation": "Prespecified two-comparator family: nominal alpha=.025 per comparison from family alpha=.05; percentile calibration is approximate; conditional on selected namespaces, Source10 and fixed paired seeds. Circular seams and small entity samples limit inference."
+    }
+  },
+  "null_targets": [],
+  "dual_comparator_interval_criterion_met": false,
+  "history_scope": "No prior execution/registered target declaration in 107 fetched refs and audited local run metadata; ambiguous IDs excluded globally. Preparation/catalogue metadata alone does not count as model execution. This is a recorded-use boundary, not universal absence of unrecorded/human inspection.",
+  "limits": [
+    "New entity IDs relative to audited recorded uses; unrecorded remote/human exposure cannot be excluded",
+    "Same historical dates, data releases and namespace-specific Source10 models; not new-city or future-period validation",
+    "Development role is retained; no frozen Final gate is bypassed",
+    "Dataset IDs do not certify physical-site uniqueness or cross-dataset alias freedom",
+    "Some namespaces may have only one eligible entity; interval interpretation remains conditional and exploratory at that scale",
+    "Expert forecasts are durably stored before labels; mixture forecasts are evaluated by offline causal feedback replay",
+    "Percentile/Bonferroni intervals are approximate under selected cohorts, nonstationarity and circular calendar seams"
+  ]
+}

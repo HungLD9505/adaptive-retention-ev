@@ -1,0 +1,14 @@
+{
+  "protocol_sha256": "f5e5eca69f1beb31f8ad4fe7f9963301de555e622e731b5fe1cc98317e77f425",
+  "code_commit": "6ef963d00415b79e4075975f3944e716b55005bb",
+  "workers": 3,
+  "environment": {
+    "python": "3.12.13",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "torch": "2.11.0",
+    "cuda": null,
+    "device": "cpu",
+    "device_name": "CPU",
+    "deterministic_algorithms": false
+  }
+}

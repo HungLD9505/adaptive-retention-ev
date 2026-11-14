@@ -1,0 +1,13 @@
+{
+  "fixed_measured_trials": 21,
+  "representative_points_checked": 3,
+  "later_method_cells_checked": 60,
+  "persistent_transcribed_cells_checked": 12,
+  "original_fixed_contrast_intervals": {
+    "finite_include_zero": 18,
+    "undefined_urbanev": 3
+  },
+  "trace_rows_checked": 142,
+  "trace_selection": "Upper median seed-averaged gain, fixed 14d and seed42; IDs13 and1272 verified",
+  "scope": "Fresh arithmetic on recorded ledgers and authenticated saved forecast cells; no retraining or new confidence intervals."
+}

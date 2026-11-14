@@ -137,7 +137,7 @@ Decisions affect future forecasts only; never reselect past predictions after ob
 
 UrbanEV station-level data is the planned primary dataset; CHARGED is site-level and currently a benchmark within its own release. Source entities support pretraining; development entities support design/hyperparameter selection; final unseen targets evaluate the locked design. Final-stream labels may support correctly timed online updates, not design revision.
 
-**Research scope accepted by the user/team lead on October 17, 2026:** retain all six standard CHARGED cities as supplementary data. Report AMS/JHB/LOA/MEL/SPO as additional geographic coverage and SZH separately as a later-period Shenzhen release with extensive coordinate overlap with UrbanEV. No independent unseen-location SZH claim, whole-release all-zero site exclusion, or pooled UrbanEV/CHARGED pretraining is authorized. This accepts bounded use with upstream-processing limits; it does not certify clean/original data, strict-online readiness or implementation/input acceptance. See the [CHARGED hourly/QC profile](data/CHARGED_HOURLY_CONTRACT.md).
+**Research scope accepted by the team lead on October 17, 2026:** retain all six standard CHARGED cities as supplementary data. Report AMS/JHB/LOA/MEL/SPO as additional geographic coverage and SZH separately as a later-period Shenzhen release with extensive coordinate overlap with UrbanEV. No independent unseen-location SZH claim, whole-release all-zero site exclusion, or pooled UrbanEV/CHARGED pretraining is authorized. This accepts bounded use with upstream-processing limits; it does not certify clean/original data, strict-online readiness or implementation/input acceptance. See the [CHARGED hourly/QC profile](data/CHARGED_HOURLY_CONTRACT.md).
 
 Reference settings for input implementation are entity-hash splits of 60/20/20, separate CHARGED splits per city, `X_hist[24,7]`, `C_future[24,5]`, and `Y[24]`. Use p95 scaling from the permitted prefix, separate missing-X masks, and no filling of Y. Calendar information is known in advance; do not add unavailable weather/price features. Reference deployment dates are UrbanEV 2022-12-01 and CHARGED 2023-07-01 under the published clock. These settings require implementation, protocol review, and verification before use in experiments.
 
@@ -213,7 +213,7 @@ Foundation handoff: [FOUNDATION_REPORT](FOUNDATION_REPORT.md). Its local results
 | `docs/reports/`, PRs, and run IDs | Implementation evidence and phase handoffs. |
 | [README](../README.md) | Entry point and links to these sources. |
 
-ChatGPT supports theory, literature, and critique; Codex supports inspection, implementation, testing, and technical documentation; GitHub versions work for team review. Discussion conclusions become team decisions only after being recorded in the appropriate document and reviewed.
+Team members are responsible for research decisions, implementation, validation and documentation. GitHub records changes for peer review. Research decisions require supporting evidence and a reviewed record in the relevant document.
 
 **After completing a stage:** record code/run IDs, checks, and conclusion scope in the PR/report under WORKFLOW; update the matching status row/link in Master Flow in the same PR. Maintain one current plan once agreed. Do not copy entire result tables/logs into this flow. Reviewers must check evidence before assigning Implemented/Verified. Learning progress records who discussed what; it is not technical acceptance.
 

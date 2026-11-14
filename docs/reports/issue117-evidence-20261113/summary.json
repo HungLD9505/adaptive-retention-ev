@@ -1,0 +1,68 @@
+{
+  "cells_rehashed": 810,
+  "null_units": [
+    [
+      "urbanev-SZH",
+      7,
+      "2193",
+      42
+    ],
+    [
+      "urbanev-SZH",
+      7,
+      "2193",
+      43
+    ],
+    [
+      "urbanev-SZH",
+      7,
+      "2193",
+      44
+    ],
+    [
+      "urbanev-SZH",
+      14,
+      "2193",
+      42
+    ],
+    [
+      "urbanev-SZH",
+      14,
+      "2193",
+      43
+    ],
+    [
+      "urbanev-SZH",
+      14,
+      "2193",
+      44
+    ],
+    [
+      "urbanev-SZH",
+      28,
+      "2193",
+      42
+    ],
+    [
+      "urbanev-SZH",
+      28,
+      "2193",
+      43
+    ],
+    [
+      "urbanev-SZH",
+      28,
+      "2193",
+      44
+    ]
+  ],
+  "groups": 21,
+  "primary_comparisons": 42,
+  "calendar_sensitivity_comparisons": 126,
+  "elapsed_seconds": 9.853255832800642,
+  "primary_interval_excludes_zero": {
+    "fixed": 14,
+    "static_mix": 8
+  },
+  "limits": "Exploratory marginal intervals on selected entities; no test-set novelty or simultaneous significance. All source pretraining, expert training and model-selection compute are not jointly measured."
+}

@@ -1,0 +1,54 @@
+{
+  "schema": "report-e2e-checks-v1",
+  "basis_commit": "7d0e47d1d904b8ba8656b9292db516055533847f",
+  "run_id": "issue99-report-e2e-20261112-v10",
+  "run_directory": "/Users/quyenmanh/Developer/TFL-EV/runs/issue99-report-e2e-20261112-v10",
+  "python_tests": "3.12.13; /tmp/ev-retention99-review-env/bin/python",
+  "root_tests": {
+    "run": 1041,
+    "skipped": 12,
+    "status": "PASS",
+    "seconds": 37.041,
+    "checkout": "Clean tracked basis before manuscript-only changes"
+  },
+  "fixed_tests": {
+    "run": 9,
+    "status": "PASS"
+  },
+  "confidence_tests": {
+    "run": 12,
+    "status": "PASS"
+  },
+  "ruff_lint": "PASS",
+  "ruff_format": {
+    "status": "PASS",
+    "files": 671
+  },
+  "release": {
+    "status": "PASS",
+    "report_assets": 17,
+    "historical_pins": 92
+  },
+  "source_catalog": "PASS; listing only",
+  "git_diff_check": "PASS",
+  "full_retraining": false,
+  "fresh_raw_archive_check": false,
+  "external_artifact_test_suite_rerun": false,
+  "overleaf_browser_tested": false,
+  "logs_sha256": {
+    "root-tests.log": "28fdd30dcecfa6dc8850af478e6e687146d50d1ce7cd05fbf628da2a80f8daeb",
+    "fixed-tests.log": "48a07a5b523507b6dbd797e4b2b51727eb14a05a707fbb7d8e8339fe360ae079",
+    "confidence-tests.log": "0cc802ea7dea33c9d5f3d7fd4ac3ab09753f59c986d3ececf2876b9ba7f59c71",
+    "release.log": "d927c9f16a2f14910ff7512bdfa4b389e76e3a562e6648f40c563a2fd4b0fcf3",
+    "sources.log": "7a248fbf44ed1660f5ab58818d569a987ac1eece1fc746400f224b9bcef47823",
+    "compile.log": "76d6541766665e9508d10948163bbc26953b69ea8b04c3825e71d647c9e5ebfa",
+    "zip-rebuild.log": "b598bde4586de2b6e112b05bb373420ebf894bb9ddb8bf6cee98e0d5eb9f29f2"
+  },
+  "audit_scripts_sha256": {
+    "ledger-readback.py": "4fc8b5e1835648b086da50f6bd17ba2b2523bce3f8d66dd1088f2b89cd6cf3bc",
+    "saved-mixture-readback.py": "a3c41b49aea8dad4a3c06363e05124b715954447225de062590a93529787ec1e",
+    "supplementary-checks.py": "f7acc9cf9336837a363ff33f21d9a9ca838c191d071fffeb4979c3bab1ff1d0c",
+    "numeric-audit.py": "07da4291fc49f7462f7a7652b5fdf471270139bd2216d4fc472014449ddf3ad9",
+    "build-evidence.py": "df6b0deaffaa9d3aa760948369e0ac8fb648cbdbf439ee1101c1e88b2fb23151"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "retained_checkpoints_read_back": 384,
+  "gru_model_states_loaded_strictly": 408,
+  "scope": "Latest-only snapshots, strict architecture and finite model/Adam tensors; byte commitments and forecast metrics are verified separately. No research-effectiveness claim."
+}

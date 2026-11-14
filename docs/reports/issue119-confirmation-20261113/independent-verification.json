@@ -1,0 +1,569 @@
+{
+  "status": "passed",
+  "counts": {
+    "cells": 138,
+    "expert_runs": 276,
+    "committed_ticks": 25392,
+    "expert_scored_days": 23688,
+    "checkpoints": 276
+  },
+  "verifier_sha256": "4e154f6fc0fd67604541f7c71d99b68c9f147f5d6a47ba9bc5757103069825a9",
+  "protocol_sha256": "f5e5eca69f1beb31f8ad4fe7f9963301de555e622e731b5fe1cc98317e77f425",
+  "results_sha256": "ee27f90362d63e3333386cb8e4b889e13610e2c4f1c5152e7fad3d011dbe9439",
+  "authenticated_cells": [
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1889-42.json",
+      "sha256": "33d0f845002783f41594011dbb2fda187d0bf946fab5d78c7993684132b51ad1"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1889-43.json",
+      "sha256": "0c1813291b411beb2c322330ca8f49a2e026948d348a39d44068bc71e41e9833"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1889-44.json",
+      "sha256": "2d24a4a807fea6b26f729f7f89e5db7ed5a7fa08d67bb93fe12f9df786431056"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-477-42.json",
+      "sha256": "6fa43c48ea2375a67e3c9f2d71c23986cd21f56455b87309391bbc43842e0544"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-477-43.json",
+      "sha256": "20a037e8c8ff58a32221b0b1b281485d0e58af2252b3f95fd7b39835fd6a9830"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-477-44.json",
+      "sha256": "d5ed086002007d8f551f33dccec4821e0ce7bb7af7e5cb04bde051863947f6b8"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1036-42.json",
+      "sha256": "82d4a01ec9ff9db6387eaa42b72025f2175b1411349279fd4ffbf8c741f41676"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1036-43.json",
+      "sha256": "a14f74eda6a44c1a2728a9eb3acd8733d1873fa332a71479e5562c4a36c7cfbc"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1036-44.json",
+      "sha256": "e5570197fca4556a58d03b42f697449b8942cb11a504c951de8d84bb18afc2d9"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-617-42.json",
+      "sha256": "c4804fc2b2224086564e20ec5fdd77f68a4e69e42c3047e66aeb212871b0e936"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-617-43.json",
+      "sha256": "586e7f9938343e7fc21a75038bec70c197a187b34f8af91e13888e56acb496d7"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-617-44.json",
+      "sha256": "fb740f44c6031158f2cedd8cfc0e5f3179731e57970d9cfe17258c570ef24bc9"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-634-42.json",
+      "sha256": "0a1fb4218d5df4d075c465311bf2a44e18866fe9a95b63ca3222098626a74643"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-634-43.json",
+      "sha256": "b1c423c6f309d8b43804e44c449fdf8adf3d350ff83f6eb6be31d6ec843ff0ac"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-634-44.json",
+      "sha256": "35124f794e3dc6ab5c397ffa524a2c22ca47d0662751a28b1de0d427fc4bcb50"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-2366-42.json",
+      "sha256": "dc08eadb223ee55575ed58e88b139bc489bbf3fe2a681e6dc4675938efbedc75"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-2366-43.json",
+      "sha256": "c02a7eb1387ed72d0747d3b2910850c9277cece22be729a724a7951cfa23f418"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-2366-44.json",
+      "sha256": "a509cbd7155a805986d2c2380b4081046ab4318065b80153fcaa3aedf6a26c96"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1740-42.json",
+      "sha256": "eb8dfbeadc722c8cce48f55ecae36bde45932655972d8ec61680f2d3fe6b283c"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1740-43.json",
+      "sha256": "ca08429420538a96c65f183982ccb07f7f213c90ed891281b8f577e54d38a17d"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1740-44.json",
+      "sha256": "9ddaae2f380c317b1fa8476914f4e921ae6776702c3f770fa2dcbd88a4f53176"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1952-42.json",
+      "sha256": "af2078b0cb18d0c1de1b56b1301f660f968780ec57d119cd5edaf6b7b302ce6a"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1952-43.json",
+      "sha256": "d949200d82b989fe636b88c43ffdd13c405a897169648082e396f500c49fc502"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1952-44.json",
+      "sha256": "e57e983c203d5f4de046cee03d02a6057f05fa8e4d641e9027f3caa2caaadfbb"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1398-42.json",
+      "sha256": "a0dac3e8e1210026a9ec6cd40dcf855d47639fda1642272c9f1fe7f30586e263"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1398-43.json",
+      "sha256": "e59ff4d19179bcda8a081d1429902ab8ab6183b6e614d5d94cf4df765202426f"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1398-44.json",
+      "sha256": "d6efff9896fedf4ee9c9114187ea312176480732976a8f0c8e936187bbc61d25"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1733-42.json",
+      "sha256": "eae076a796ee2c221d32d3a77cd5ee98b22e0a0c8b6acbfaa36dbfebe8e4ddde"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1733-43.json",
+      "sha256": "48862391f2a4dfd92ac606c81aed3c40c9441acc8cf68c9826116a4d35e9a118"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-AMS/cell-1733-44.json",
+      "sha256": "3da610ec232cd1f6cd479f3aa9b931ce12919052bbc5c8290812cb7ec771b8a9"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-JHB/cell-21-42.json",
+      "sha256": "68c3a4f28ab560f3e5794b1388e58b7280c05b96160a0f7c08d519e2862af5ea"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-JHB/cell-21-43.json",
+      "sha256": "ab000e84f3422219e219f529e349478450e0504da0f7772a549f0eda6959b646"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-JHB/cell-21-44.json",
+      "sha256": "6b95583bfde3deecf2999793da326b512957be52731b12a4fd53c698a81050d7"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-190-42.json",
+      "sha256": "99929189a103716b9bb43960e041d094fbc48ba665cbe2e8e76301f3f8908fba"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-190-43.json",
+      "sha256": "ec68da7153f20a8b21b976f149c8f6e4f01ff9d51e1ccb9a99b211cb13e8caf8"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-190-44.json",
+      "sha256": "d102a993b0888d93541e53736230808922413feadcf5d0aa361138e400081376"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-29-42.json",
+      "sha256": "55e310ebc361258bb79e623c0143094be288e77669f4b7fd5e459a86a1c102f0"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-29-43.json",
+      "sha256": "bb13b3519b2d3c1a205a8d31fe264fd5335eee92b97caec705f41489a7ccdc07"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-29-44.json",
+      "sha256": "130d5f5b83b34ff13429b5d90e951f71a79d676317e41924ecf1fbb92171a44d"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-152-42.json",
+      "sha256": "9d5c536048ac9c4561865ada1f9f415f64b5dc781ead8d35ca18a837f403d5ad"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-152-43.json",
+      "sha256": "9a2d8c9f59ceb4691f9db9b8b0f80f9097668fe8e50d9b2111aeb3f3186fc7b7"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-152-44.json",
+      "sha256": "a748521b64c530b8445ddb54a5a2c44ad5e3ec7ea609e7a55424648be11580dd"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-71-42.json",
+      "sha256": "b0bad29e8fd9ba651a365e000547914b3f2d4979be7d72a548f50f0ec6a4a796"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-71-43.json",
+      "sha256": "d64e9e71c0f789bdefb48046aae7240e102cdbc55891f06f366e76cef7992d26"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-71-44.json",
+      "sha256": "e3a35d0ffc2b60f1d3858df325e5fb495752b3e6ff5e697aaa5b48dc6b3d5837"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-227-42.json",
+      "sha256": "2c3483e61a315ac93be9e8d833a59f12319b639be8a8a7fda0b6e6a9825b17c7"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-227-43.json",
+      "sha256": "6ed738603a4e23fe17d087f1511e7503b0f3f43dfbb5ee3bdd7a37e90e8e0f46"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-227-44.json",
+      "sha256": "9c4cdf68d15b0095c0b95fe6acc75581d135dd37612b0b6ad815b36bcc0c8135"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-81-42.json",
+      "sha256": "bbcb57638513784fcaaa90ac211df7a453dd9603adce381013b1b9aa3e8507ca"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-81-43.json",
+      "sha256": "dfd1a5ad3a6489aa3140724be3cf176b500006c6a827efbaf99f397a8da9c56b"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-81-44.json",
+      "sha256": "3ea4362c7e3b4a68c431dcdbc3f3a4ef7375c232a51a889e235189c69184d51f"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-149-42.json",
+      "sha256": "f1e06d4ef5f6d2539818749c08188db182eea8624a0685016dcffa751ac97018"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-149-43.json",
+      "sha256": "c49ade5b994398ba3cb5cb5921b2157b897215b38cb401201b704dddb8d66d81"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-149-44.json",
+      "sha256": "2bda8f6a23ea7ed9f9f8525aaa98ef1d6d699854af23f8eb4837549f9c4961f8"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-151-42.json",
+      "sha256": "13444d4217316304c654654a1bc18a3ba9ce0dad0fd15799eb1966e8dda3515e"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-151-43.json",
+      "sha256": "c8c9e6079a93446ddaa1252471bb971bd1cab7834f6fe817c09c03a3b53ebc2e"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-151-44.json",
+      "sha256": "91fdabc888b7e8f3be581f05cc91c07f840bbde8f3df9aaa7290707153ba28ea"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-188-42.json",
+      "sha256": "e7cec5a7e85cc7ba3de7dbfd6db353f19871c6b077fab8ffdca3bfe25902016e"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-188-43.json",
+      "sha256": "3489b319f5ea98c30521cc8d370cbef45e70e3eaf5745b1b7e02b61685232779"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-188-44.json",
+      "sha256": "fdd65abc8b735f25df41ce82f1e91590bf3ada9f49da17ae5826bc4e00b2520c"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-181-42.json",
+      "sha256": "ccadadf897604a40d6da917b55ca74e9816b55662b4b2167fdbcc5fad3eff5b6"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-181-43.json",
+      "sha256": "a8196cceac7a5428b39e5f68b6517ff37ca893303e7a7108336ab77f5f2c5880"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-LOA/cell-181-44.json",
+      "sha256": "23957a524d28d2d52ae44ed37545b538177dd738c1a56b1f22bc6e0a1eb39cd5"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-MEL/cell-47-42.json",
+      "sha256": "5cbb52d6a15408a0e52f03c13e178c343f4ce0772f30a101c6f16551807973af"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-MEL/cell-47-43.json",
+      "sha256": "3f7f959854f6c4bbbf0f9435572a79d739349c9b89370d5f032f727ba1416414"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-MEL/cell-47-44.json",
+      "sha256": "01cc1a41156784166ed459d269dee4b5f7392f024625e4e9d201901f862388c3"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-MEL/cell-51-42.json",
+      "sha256": "7c86180f9f2a56ebcfc1494881640585baa5fb85336f504779a94a5cff50f84b"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-MEL/cell-51-43.json",
+      "sha256": "b29250b30e07afbf352d3164c0478352bbeec51242c44dce19b0278366f615eb"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-MEL/cell-51-44.json",
+      "sha256": "d9337b1e8b0338d91ecdf0f761eda534582a89b53dddc80c6f8308dceaec8052"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-MEL/cell-61-42.json",
+      "sha256": "fcbdf9a34285037d923fe8b40c061d54b6672ed961f08f9aabeb3adad6a0d277"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-MEL/cell-61-43.json",
+      "sha256": "36ac00250f1188cba1b7eb0047b0ea61574ef1f3dfd1e4c22ba557709912b38a"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-MEL/cell-61-44.json",
+      "sha256": "5a8d0a48ddd01020454d3a32ccf8072260b25870e82e80665791b96cfaef51ea"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-MEL/cell-13-42.json",
+      "sha256": "645bdb5952e095b13ae9e8fe0bc6d1f0e73b56eafcb0cf9a8553f0930cdfc5c4"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-MEL/cell-13-43.json",
+      "sha256": "3a35eb4baee2cc52f9deb3243fb3245c3567f4e556064c3a6f225317ac1bcc7e"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-MEL/cell-13-44.json",
+      "sha256": "fd71b15d4042ffea2c73d536856ca21883a9eb6c71f787091f2e4390fd424cc0"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SPO/cell-44-42.json",
+      "sha256": "d41e551eda9907b84a451863fb6090677222f1646cfdab72b21d1601f5094782"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SPO/cell-44-43.json",
+      "sha256": "db7fdfc3de837910ea8d83f1d7612bd152f4d82f1bea52614aab9af2b8ec5bde"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SPO/cell-44-44.json",
+      "sha256": "d0bcc60f409650e887cde864eae3ccb3eab535af1c6440a4b1e0ab0fd20c02e6"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-449-42.json",
+      "sha256": "60f00bb75437120966dffaaa9c226bb2db0ba42c193281fb6376ade99f5e2a9d"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-449-43.json",
+      "sha256": "1539e3665c052becae1dff7965e9608a962d1ac51d90c807c787de569911b19d"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-449-44.json",
+      "sha256": "3d3d9769b7ea8fa2f8744c78ebddcd6891b82db20e261e93c05030627b6d5470"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-1155-42.json",
+      "sha256": "a50d7f1c635dff107dfe6e149022a3a322a623c1adc37d1533fe687f89ef1529"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-1155-43.json",
+      "sha256": "561b74e14c73891c35eddfa63d001671944a9bd0fd317c419b4cf4935b3d8983"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-1155-44.json",
+      "sha256": "b7c6b75981dcf06cce06327d8837b20ece76cc44d4fd46f42e842dae295386cd"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-907-42.json",
+      "sha256": "06d520f0fcd113582f4857c8fe57a6c17a8f462a73633036aced9aefdb29a1f9"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-907-43.json",
+      "sha256": "06a02806378da80f57b71291ae337e67278f7511c5c1766ffbcdf6952b77053d"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-907-44.json",
+      "sha256": "216902091d8fa17c7871023881c53bebda49995362a463d737b139a9a394551f"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-217-42.json",
+      "sha256": "e18fb3c03abb3e9cc8abc3a085969b681a28346c2a605ee5897d36dd29943904"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-217-43.json",
+      "sha256": "bb6a507a844c48c00b709a13bcc650b1dac3a22399efb26bed67e94fcbd38972"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-217-44.json",
+      "sha256": "7f741c809982373b2c7aecce582a184f646122869f58f9b8f7474f1e643deff0"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-132-42.json",
+      "sha256": "94fb75ca84ee9b33cd599419be6521f20f1078633eaacce1172ce05fb2cb5da8"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-132-43.json",
+      "sha256": "4624699e7f620b8f301b05fe2c0c4f8d1a4bbddb06ffa63ae1dbd302d33cd77d"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-132-44.json",
+      "sha256": "0642ab11e1e9c5acea8ce3599f41d20e095b5306c3d9d631e1739cda5695b594"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-840-42.json",
+      "sha256": "f07a57984521c6e8875a01dd68f214a1615f9278114e298574dd176ccc1dccbd"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-840-43.json",
+      "sha256": "9a9be01f387ff63a17cdafe78549b813a52b097c2aafaf15f392dedb46fb4534"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-840-44.json",
+      "sha256": "6b1ce4e80ecb895b8e66c22198cc892558ecbe02e9e78156b00bd3abbf00fc7a"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-111-42.json",
+      "sha256": "65701511d9f30072582595d021ba202dc5db136bab00d7d089e04ea299215498"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-111-43.json",
+      "sha256": "fea2db0a5c4b39db0902f4cd6126e9fe571d319277b0fdb6da6febdf6e781304"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-111-44.json",
+      "sha256": "a92dbd00f65bb0bd3015d4c21d41f651de6cef6f853e80759dd1effb0e32ff31"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-55-42.json",
+      "sha256": "b7c97d5c74457776c364609a7b125afa187d9efde47a8ebbfd7f42551af73993"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-55-43.json",
+      "sha256": "2d8542cf097f027a387e918f8194acbb7307b634a634006a50172d73fbb968d1"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-55-44.json",
+      "sha256": "29574de6c16049869c13cb52bc10f597000c932866a05c52b630aeb786e6f71c"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-79-42.json",
+      "sha256": "8bf0d0038f1bc52512d7d98e103e9878f59bfab6159c5016938361336d4cc72b"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-79-43.json",
+      "sha256": "99ce4edd524d44a4215bf82758d364d11a5a2d1dc2b523af2cf3a0985882b080"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-79-44.json",
+      "sha256": "44f3e2834f623937e567dc24c7c23b823226c347af5e3eee3ef00cf99126b602"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-2-42.json",
+      "sha256": "a2173e88a04eb8e42cf97deaa2810c063ef00fc509dc4cb40da0c85f7f2a14a8"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-2-43.json",
+      "sha256": "432cafbafb9323e3ca1aed43a403b1539a19f46b377ccc240c79791ed1ee0476"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/charged-SZH/cell-2-44.json",
+      "sha256": "1c6a59e2ca448b08b277d4738a3e69257eccac5015fba320a7dcf60d20a37e09"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1112-42.json",
+      "sha256": "aae73d535f444e245bdbaf212688e12e8a42f9c0bfcc98849460dc1135189ea7"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1112-43.json",
+      "sha256": "dda5e7d472a478bd5a414d2a80e4141805035c3024b7ea936b5f6390bc8dbe48"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1112-44.json",
+      "sha256": "a000871d23861cc54347e4f6d3a19bc4b0e3b457c1e9209c2b78369351771687"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1309-42.json",
+      "sha256": "69be80eed57b03ea3eb2258636c0fca7286327431e1a82b457904daa381e562c"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1309-43.json",
+      "sha256": "2b054e8727ba8538793496a3b760cbe2abf91adfb286fad3d6f0330636c77bbd"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1309-44.json",
+      "sha256": "36860e38c1fb8277761c4ff9afd3cdde01f3fe9dd2074ca84abaeb5f5a9e4065"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2127-42.json",
+      "sha256": "7c171c1a9c69b74eee76131047a3b1e246b72436197ac31c40e8a675e8c370b2"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2127-43.json",
+      "sha256": "13fc0d1e6940a0f1031d67f729f9db2f0e34472ff4d4dd3c71000738b0ae44ca"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2127-44.json",
+      "sha256": "bc11d99823bb7e323da10f96c54f1a2027f4c6f452ba3c7d8d65e405cedaf50a"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1146-42.json",
+      "sha256": "ac2085f98040a463fb0a11f500babfb59ffb833f18f817019980749ca94e6cb0"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1146-43.json",
+      "sha256": "740f9180d28162d802ba125ce02583f90175b30c6e7c1a75fa6cd82c9ffbc7b7"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1146-44.json",
+      "sha256": "e722f9002d1b625748f8fffbed00f4180d4c27a9c2c3b5e4f69d43f4f70d24cb"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2254-42.json",
+      "sha256": "1a807cc693417be74bdb3bb5f1e676138981690c2738fc54817768813e3cdbd9"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2254-43.json",
+      "sha256": "a0d0ff9ca1aa2804eddbec4664665e5a49177fc723d6a33580f2f964298df151"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2254-44.json",
+      "sha256": "b613dcee57b03d964e9bdb478d24ef6b12d971e9454d3dc4d34548baa460a616"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2305-42.json",
+      "sha256": "c6f7aa5e1a45b7fdc111021ce71e8616fd6813130a3cf40ce9c8162160bf32c1"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2305-43.json",
+      "sha256": "9e8ec5815f7e78c31709631ef58e461cc4c03a11e1c983ce8d2601a3e692797b"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2305-44.json",
+      "sha256": "14ac39372590fe59279cdbf06c03793cc71c4d40c1293f023d57cdbbd2d24342"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2454-42.json",
+      "sha256": "08ac6c794e88b567c35d56d2afe3c297e6585cd3b9a9fb5a5c48a98123b91dde"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2454-43.json",
+      "sha256": "3a37c86e38858938c9d026d31be6f90c92a0a3af69e8c9e830a18a6db4596fac"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2454-44.json",
+      "sha256": "712b6a4899de9c64e3e24d3f6057707b59d6fb1d648b3c5c438bac4b78b4b242"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1192-42.json",
+      "sha256": "ca2d012bc63d6197b67fc733835f8eec62b000e3748b63298249e0bee43dc541"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1192-43.json",
+      "sha256": "a20f6d31db693100d09b313316ed9a252475c324088040e703b33211c3a9a816"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1192-44.json",
+      "sha256": "4745ef3eb79bf3430cda20cf2ae44445252c8c3f28d8e4002d8d8edf4cef54c3"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2082-42.json",
+      "sha256": "5b7d993f96eccc5d20ee027d1989f234aa6ba29f2507906372adbb0f91f319a7"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2082-43.json",
+      "sha256": "391b932471ae2daf06261e0fb5a6ccc3c1f28367b5cddde5a94421b4393bf3af"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-2082-44.json",
+      "sha256": "b66205a838017b07d23f17c38b643fefbe290eb0a21ccc46734d2bc57446c3e0"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1839-42.json",
+      "sha256": "8120cd5915de9d7a074dd1e89670c6cfe041a3203a346cd44c18d2bcd17a45d7"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1839-43.json",
+      "sha256": "aeb8a7e47524e75667c54a7f254e4cdf627ad81688a9cfedfe2771b593f1619f"
+    },
+    {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue119-confirmation-20261113-v2/execution-v1/urbanev-SZH/cell-1839-44.json",
+      "sha256": "7fbb7a79a53a36644a6a3f19fead63f5a4bb2f4c97b0c25701e76b83aef4a2d2"
+    }
+  ],
+  "scope": "Original selected labels and arrival clocks; all saved expert prediction/score hashes and tick chains; latest full checkpoints; independent exponential mixing and calendar-count bootstrap arithmetic.",
+  "limits": "Software replay, not physical deployment. Historical state bytes pruned by declared latest policy cannot be rehashed; their commitments remain. Previously prepared inputs, not fresh raw archive validation. No independent external dataset or physical-site alias guarantee."
+}

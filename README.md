@@ -1,63 +1,76 @@
-# Adaptive Retention
+<h1 align="center">Adaptive Transfer Learning for Cold-Start<br>Electric Vehicle Charging Demand Forecasting</h1>
 
-**Low-history EV charging demand forecasting with GRU transfer learning.**
+<p align="center">GRU transfer forecasting with limited target history, explicit source retention and online expert weighting.</p>
 
-When should a target model retain knowledge from its source, and when should it
-adapt? This research repository implements and evaluates fixed and adaptive
-source-retention strategies under causal 24→24 forecasting.
+<p align="center">
+  <a href="report/confirmation-review-20261113/adaptive-transfer-learning-ev.pdf"><strong>Read the paper</strong></a> ·
+  <a href="report/confirmation-review-20261113/README.md">LaTeX source</a> ·
+  <a href="docs/reports/README.md">Results &amp; evidence</a> ·
+  <a href="data/README.md">Data setup</a> ·
+  <a href="#reproduce">Reproduce</a>
+</p>
 
-[**Report**](report/Adaptive_Retention_Report.pdf) ·
-[**Supplement**](report/Adaptive_Retention_Supplement.pdf) ·
-[**System diagrams**](docs/diagrams/README.md) ·
-[**Documentation**](docs/README.md) ·
-[**Data**](data/README.md)
+## Research question
 
-| Forecast task | Initial target history | Evaluation | Backbone |
-|---|---|---|---|
-| Past 24 hours → next 24 hours | 7 / 14 / 28 days | 90-day prequential replay | GRU |
+When does knowledge from established charging locations remain useful for a
+low-history target, and when should its influence decrease? We study source
+initialization, latent retention, retention selection and adaptive fusion as
+separate contributions to forecasting performance.
 
-## System overview
+The reviewed manuscript contains **23 pages, native equations, eight vector
+figures, twelve tables and sixteen scientific references**. Earlier reports and
+executed evidence remain available through the [report index](report/README.md).
 
-![Primary research system](docs/diagrams/system.svg)
+| Setting | Protocol |
+|---|---|
+| Forecast | Previous 24 hourly observations → next 24 hourly energy values |
+| Data | UrbanEV/SZH and six CHARGED city namespaces |
+| Initial target history | 7, 14 or 28 days, simulated on existing dataset identifiers |
+| Evaluation | 90 scheduled daily origins; scoring and updates require complete arrived labels |
+| Core model | Source-initialized GRU with a frozen source reference for latent retention |
 
-The diagram shows how prepared inputs, model training, replay, verification and
-reporting connect. Detailed views:
+## Findings
 
-- [Data pipeline: UrbanEV/CHARGED preparation and separated labels](docs/data/DATA_FLOW.md).
-- [Adaptive mechanism: forecast, observe, update and select](docs/data/CONTROLLER_CONTRACT.md).
+| Evidence scope | Observed result | Interpretation |
+|---|---|---|
+| [Calibrated transfer, 12 Development IDs](docs/reports/issue99-history-review-20261110/handoff.md) | Source fine-tuning reduces MAE by **29.8–33.4%** versus calibrated target-only training across the three history budgets. | Supports transfer under the measured protocol. GRU is a competitive backbone; a universal model winner is unestablished. |
+| [Historical retention selection](report/Adaptive_Retention_Report.pdf) | Confidence-guided retention beats Fixed in **9/21** namespace–history groups. | Retention-selection gains are conditional. |
+| [Historical two-expert fusion](docs/reports/issue99-full-scope-20261110/handoff.md) | Adaptive and matched static fusion each beat single Fixed in **18/21** groups. Adaptive beats static in **12/21** and loses in nine. | Complementary forecasts explain much of the gain; the additional weighting benefit is mixed. |
+| [Locked 46-ID evaluation, 14-day history](docs/reports/issue119-confirmation-20261113/README.md) | Adaptive mean percentage reductions across seven namespaces: **0.6653% vs Fixed**, **0.3610% vs static**. Both primary intervals include zero. | The prespecified dual-comparator confirmation criterion **was not met**. Numerical-scale wins remain qualified. |
+| [Bounded weighting replay, 12 exposed Development IDs](docs/reports/issue123-bounded-weighting-20261113/README.md) | Best new candidate AdaHedge: 3.284880 kWh MAE; single Fixed: **3.267000**. | The progression gate **failed**; the study stops without new-cohort training or model promotion. |
 
+The 21 historical groups reuse identifiers, seeds and history windows; they are
+descriptive aggregates. The 46 IDs are new relative to the audited recorded uses,
+with unresolved unrecorded exposure and physical-site aliases. Shared historical
+dates, unequal compute and external large artifacts limit generalization and
+independent reproduction. See the [evidence limits](RELEASE_SCOPE.md) and
+[reviewed manuscript](report/confirmation-review-20261113/adaptive-transfer-learning-ev.pdf).
 
-## Results and interpretation
+## Method and implementation
 
-The primary frozen execution covers **810 units / 11,340 method cells**, seven
-namespaces and three seeds. Null outcomes remain explicit.
+Retention selection changes the training coefficient **λ**. Two-expert fusion
+keeps the stable/fast coefficients fixed and changes their forecast weights
+**w**. The paper reports both mechanisms and their matched controls separately.
 
-| Comparison | Aggregates with lower Adaptive mean MAE |
-|---|---:|
-| Adaptive vs Target-only | 18 / 21 |
-| Adaptive vs Fixed retention | 9 / 21 |
+![Implementation overview: inputs, model training, causal replay, saved artifacts and verification](docs/diagrams/system.svg)
 
-The 21 cells are dataset-group/history aggregates, not independent replications or
-significance counts. The source-based Adaptive pipeline has lower error than Target-only in many
-evaluated settings; its retention-selection mechanism does not consistently beat
-Fixed. Read the [report](report/Adaptive_Retention_Report.pdf),
-[paired evidence and limitations](docs/reports/issue23-joint-evidence-synthesis-20261030.md)
-and [full-precision tables](report/full-results.csv).
+[Data pipeline](docs/data/DATA_FLOW.md) ·
+[Retention/controller contract](docs/data/CONTROLLER_CONTRACT.md) ·
+[Causal replay](docs/data/PREQUENTIAL_RUNNER.md) ·
+[Detailed diagrams](docs/diagrams/README.md)
 
-Evaluation scope, coverage and comparisons are documented in the report and
-supplement. Results from experiments with different settings are reported separately.
+## Reproduce
 
-## Reproduce and inspect
-
-Use **Python 3.12** in a new environment. A full Git checkout with retained
-history/tags is required for provenance checks. No raw-data download, GPU or
-credentials are needed for the offline checks.
+Use **Python 3.12** and a complete Git checkout with retained history and tags.
+The offline checks use fixtures and require no raw-data download, GPU or
+credentials.
 
 ```sh
 python3.12 -m venv .venv
 # macOS/Linux:
 source .venv/bin/activate
-# Windows PowerShell instead: .venv\Scripts\Activate.ps1
+# Windows PowerShell:
+# .venv\Scripts\Activate.ps1
 python -m pip install -r requirements-dev.txt -r requirements-model.txt
 python -m tools.sources list
 python -m tools.check_release
@@ -69,50 +82,33 @@ python -m ruff format --check .
 git diff --check
 ```
 
-Tests use fixtures; CUDA checks skip when unavailable. Some provenance tests need a
-clean tracked checkout. The [18 external-artifact tests](tests/artifact/README.md)
-require original trained artifacts and are invoked separately. Offline test success
-does not reproduce training or prove research effectiveness.
+Some provenance checks require a clean tracked checkout. Optional execution
+conditions produce explicit skips. The [external-artifact checks](tests/artifact/README.md)
+require original run files and are invoked separately. Passing fixtures verifies
+software behavior; it does not reproduce training or establish forecasting
+superiority.
 
-For actual data, follow the [download and checksum instructions](data/README.md)
-and [shared snapshot guide](docs/data/DATA_DOWNLOADS.md). Data, checkpoints,
-environments and large runs are excluded from Git. Preserve their bytes and
-verify identities locally; historical checksums alone do not prove a fresh download.
+For real data, use the [download and checksum guide](data/README.md) and
+[identified shared snapshot](docs/data/DATA_DOWNLOADS.md). Keep datasets,
+checkpoints, environments and large runs outside Git. Reproduce each study from
+its own code, input, configuration and artifact identities; the original primary
+execution is retained at `evidence/primary-final-20261027-v2`.
 
-## Repository map
+## Repository guide
 
-| Directory | Contents |
+| Path | Contents |
 |---|---|
-| `ev_inputs/` | Dataset-role assignment, feature encoding, scaling, time windows and input loading |
-| `ev_models/` | GRU architecture, forecast and retention losses, training and model checkpoints |
-| `ev_control/` | Paired-error bootstrap calculations and retention-selection rules |
-| `ev_runner/` | Forecast scheduling, label-availability checks, online updates, state persistence and resume |
-| `ev_baselines/` | Forecasting baselines and ablation policies |
-| `ev_evaluation/` | Error metrics, paired comparisons, uncertainty, cost accounting and artifact verification |
-| `experiments/` | Experiment-specific training, adaptation, replay and evaluation modules |
-| `tools/` | Command-line programs for data processing, experiment execution and verification |
-| `configs/` | Data-processing settings, experiment parameters and execution locks |
-| `data/` | Source catalog, download references and dataset release manifests; dataset files are excluded from Git |
-| `notebooks/` | Notebooks for inspecting inputs and invoking model, replay and evaluation workflows |
-| `tests/` | Offline fixtures, regression checks and separately invoked artifact checks |
-| `report/` | Report and supplement PDFs, LaTeX source, figures and numerical result tables |
-| `docs/` | Data definitions, algorithm contracts, diagrams, usage instructions and evidence references |
+| `ev_inputs/` | Entity roles, features, scaling and 24→24 input windows |
+| `ev_models/` | GRU, forecast/retention losses, training and checkpoints |
+| `ev_control/` | Retention selection and expert-weighting rules |
+| `ev_runner/` | Delayed-label replay, updates, saved state and resume |
+| `ev_baselines/`, `ev_evaluation/` | Forecasting controls, metrics, paired comparisons and verification |
+| `experiments/`, `tools/`, `configs/`, `notebooks/` | Study entry points, CLIs, execution locks and notebooks |
+| `report/` | Current and historical manuscripts, editable source, figures and result tables |
+| `docs/`, `data/`, `tests/` | Contracts/evidence, source and distribution catalogues, regression/artifact checks |
 
-For experiment entry points, see [experiments/README.md](experiments/README.md).
-For input/output contracts, see the [documentation index](docs/README.md).
-
-## Reproducing the reported results
-
-The reported primary results belong to source tag
-`evidence/primary-final-20261027-v2`. Use the identified source, data, configuration
-and artifact hashes when reproducing a recorded experiment. The current verifier
-checkout is not a replacement for that original execution environment.
-
-[Report 1](adaptive_retention_report_1.pdf) defines the method. The
-[evidence index](docs/reports/README.md) links results to their validation records;
-[RELEASE_SCOPE.md](RELEASE_SCOPE.md) states coverage and unresolved limitations,
-including incomplete full compute accounting and unverified diagnostic results.
-Offline fixtures establish software behavior, not forecasting superiority.
-
-See the [contribution workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md)
-for repository changes.
+[Documentation](docs/README.md) ·
+[Experiment entry points](experiments/README.md) ·
+[Report 1 method reference](adaptive_retention_report_1.pdf) ·
+[Contribution workflow](docs/WORKFLOW.md) ·
+[Working rules](AGENTS.md)

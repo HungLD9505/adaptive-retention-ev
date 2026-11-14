@@ -1,0 +1,29 @@
+{
+  "schema": "fusion-evidence-profile-v1",
+  "scope": "Posthoc uncertainty on inspected historical cohort; no new training or confirmation",
+  "code_commit": "b7ae4a756d64eb1f3a8bfb0e9f9ff1a7368e2723",
+  "script_sha256": "e1a4f25813a19149e2defabc1e7c925fb8b551791b4019647daae18d6ab9eeab",
+  "analysis_sha256": "6ef8e645a7d66277692171161b2c7e210b01b414352388aa921577363498aaff",
+  "input_manifest_sha256": "07cadb033297b71e7736fc5e2ee5d626023cefd9381eb0c8aa926e1224dd4a44",
+  "execution_lock_sha256": "98b0d3e14fa49404aca2fa1ed95e7ed6924d2b6cc39562474bbbdd71ce76e7d3",
+  "resamples": 5000,
+  "seed": 20261113,
+  "alpha": 0.05,
+  "block_sensitivity_days": [
+    3,
+    7,
+    14
+  ],
+  "seeds_averaged_not_resampled": [
+    42,
+    43,
+    44
+  ],
+  "estimand": "Mean seed-averaged daily MAE within entity, then equal entities within namespace/history",
+  "percentage": "100*(mean reference MAE - mean adaptive MAE)/mean reference MAE; not mean entity percentages",
+  "calendar": "90 scheduled local dates; missing dates stay NaN; common circular draws across entities and arms",
+  "runtime": {
+    "python": "3.12.13",
+    "numpy": "2.3.3"
+  }
+}

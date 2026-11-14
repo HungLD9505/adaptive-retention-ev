@@ -1,0 +1,21 @@
+{
+  "schema": "bounded-weighting-development-v1",
+  "protocol_sha256": "383b5794ab9a62083eb06c6bd5c95f2a8ea7681813c9038071bccef3699668f3",
+  "means": {
+    "adahedge": 3.2848797209197866,
+    "decreasing_share": 3.290691768706313,
+    "equal": 3.2910546475399585,
+    "fast": 3.4198799774019424,
+    "fixed": 3.266999926618712,
+    "ftl": 3.2907272002695387,
+    "legacy": 3.2910481729302625,
+    "loss_free_share": 3.2912386083704903,
+    "no_share": 3.302130913261209,
+    "static": 3.303020734429099
+  },
+  "selected": "adahedge",
+  "proceed_to_new_cohort": false,
+  "reason": "Proceed only if selected candidate has lower equal-entity/seed MAE than Fixed, static and legacy; otherwise stop without new cohort execution.",
+  "oracle_scope": "Hindsight diagnostics only; unavailable for deployment or selection",
+  "cells": 36
+}

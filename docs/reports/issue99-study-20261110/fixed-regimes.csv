@@ -1,0 +1,4 @@
+observed_error_direction,local_gradient_category,sampled_min_lambda,sampled_max_lambda,measured_points,representative_evaluated_lambda,representative_calibration_mae_kwh,representative_median_gradient_ratio,qualification
+higher_observed_MAE,forecast_gradient_larger,0.00038784551748388815,0.027635577984134792,5,0.000390006000682659,5.444004376641461,0.0009217881865475651,Sample support only; may be disconnected; no continuous boundary or significance claim
+lower_observed_MAE,forecast_gradient_larger,0.0014834762590239473,1.0,10,0.47497972217617374,5.361266497002104,0.5599582182531077,Sample support only; may be disconnected; no continuous boundary or significance claim
+lower_observed_MAE,retention_gradient_larger,1.9691478593636766,33.84424612726798,5,8.163597541114282,5.3711318339760385,7.234187007995037,Sample support only; may be disconnected; no continuous boundary or significance claim

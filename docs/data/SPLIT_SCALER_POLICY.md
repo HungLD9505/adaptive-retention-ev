@@ -1,6 +1,6 @@
 # Entity split and prefix scaler — implementation proposal
 
-Issue [#18](https://github.com/HungLD9505/adaptive-retention-ev/issues/18), fixture-only slice. These algorithms are **proposed for peer review**, not an accepted experimental protocol or official dataset partition. Report 1 §7 remains authoritative. The user authorized this slice while the contract and producer PRs await review.
+Issue [#18](https://github.com/HungLD9505/adaptive-retention-ev/issues/18), fixture-only slice. These algorithms are **proposed for peer review**, not an accepted experimental protocol or official dataset partition. Report 1 §7 remains authoritative. This authorized implementation slice remains separate from acceptance of the contract and producer PRs, which await review.
 
 ## References and implementation boundary
 

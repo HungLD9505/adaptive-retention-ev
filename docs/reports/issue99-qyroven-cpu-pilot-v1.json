@@ -1,0 +1,372 @@
+{
+  "schema": "issue99-qyroven-bounded-cpu-pilot-v1",
+  "scope": "Implementation and hypergradient-scale diagnostics only; no scored objective, calibrated domain, optimal meta step, held-out performance or T4 timing. Diagnostic lambda0=1, U=10, eta=.01, A=2,V=1 are probe settings, not selected study settings.",
+  "code_commit": "96cd96e23194475a0cb9c8fee92cff09f6463975",
+  "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+  "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+  "device": "cpu",
+  "torch_version": "2.11.0",
+  "python_version": "3.12.13 (main, Jul 18 2026, 16:55:18) [Clang 22.1.3 ]",
+  "torch_threads": 1,
+  "ticks_per_cell": 10,
+  "matrix_wall_seconds": 11.47255554201547,
+  "rows": [
+    {
+      "seed": 42,
+      "entity": "1405",
+      "issued_days": 10,
+      "scored_days": 8,
+      "actual_steps": 8,
+      "virtual_steps": 6,
+      "controller_decisions": 6,
+      "final_lambda": 0.9999938396937794,
+      "invocation_wall_seconds": 1.4120323749957606,
+      "cost_seconds": {
+        "inference_seconds": 0.003865374717861414,
+        "actual_update_seconds": 0.03858970815781504,
+        "meta_seconds": 0.06489825097378343
+      },
+      "mae_kwh": null,
+      "hypergradients": [
+        4.790034290635958e-05,
+        -0.0003140670305583626,
+        -0.0005004787817597389,
+        -3.17205922328867e-05,
+        0.0005061469273641706,
+        0.000908249756321311
+      ],
+      "lambda_min": 0.9999938396937794,
+      "lambda_max": 1.0000079836606164,
+      "bound_hits": 0,
+      "run_json_sha256": "474e0bd89a5cc0ba7895446288929e3876d4f6d8d7926ecc5118258a882ffcdf"
+    },
+    {
+      "seed": 42,
+      "entity": "2152",
+      "issued_days": 10,
+      "scored_days": 9,
+      "actual_steps": 9,
+      "virtual_steps": 7,
+      "controller_decisions": 7,
+      "final_lambda": 0.9999901998843779,
+      "invocation_wall_seconds": 0.9072164170211181,
+      "cost_seconds": {
+        "inference_seconds": 0.003841790952719748,
+        "actual_update_seconds": 0.043459417996928096,
+        "meta_seconds": 0.07137245882768184
+      },
+      "mae_kwh": null,
+      "hypergradients": [
+        3.6185516364639625e-05,
+        0.00036851383629254997,
+        0.0002465416328050196,
+        -0.0008088927716016769,
+        0.0006914931582286954,
+        0.0007851942791603506,
+        -0.00033902408904396
+      ],
+      "lambda_min": 0.9999868096434874,
+      "lambda_max": 1.0000015765178614,
+      "bound_hits": 0,
+      "run_json_sha256": "9bf4722931fd6e422a663b0db719b1bc273d0ce2871c0f341d23d38013b63d0b"
+    },
+    {
+      "seed": 42,
+      "entity": "1153",
+      "issued_days": 10,
+      "scored_days": 9,
+      "actual_steps": 9,
+      "virtual_steps": 7,
+      "controller_decisions": 7,
+      "final_lambda": 1.0000478355660012,
+      "invocation_wall_seconds": 1.0126532090362161,
+      "cost_seconds": {
+        "inference_seconds": 0.0039002079283818603,
+        "actual_update_seconds": 0.04430125211365521,
+        "meta_seconds": 0.07343620911706239
+      },
+      "mae_kwh": null,
+      "hypergradients": [
+        -0.0012240707874298096,
+        4.626782174455002e-05,
+        -0.001530791400000453,
+        -0.0003104931674897671,
+        -0.00014410824223887175,
+        -0.00026646273909136653,
+        -0.0013538980856537819
+      ],
+      "lambda_min": 1.0,
+      "lambda_max": 1.0000478355660012,
+      "bound_hits": 0,
+      "run_json_sha256": "bdf91ef75d543d1233a8be222bc029e1a7b3a76cd3a8dbc9030ea6378282e4cc"
+    },
+    {
+      "seed": 42,
+      "entity": "1693",
+      "issued_days": 10,
+      "scored_days": 9,
+      "actual_steps": 9,
+      "virtual_steps": 7,
+      "controller_decisions": 7,
+      "final_lambda": 0.9999318017040436,
+      "invocation_wall_seconds": 0.9245775000890717,
+      "cost_seconds": {
+        "inference_seconds": 0.004017707891762257,
+        "actual_update_seconds": 0.04433529102243483,
+        "meta_seconds": 0.07298241811804473
+      },
+      "mae_kwh": null,
+      "hypergradients": [
+        6.0167657522924856e-09,
+        1.6905423763091676e-06,
+        3.006192850207867e-09,
+        0.002784701995551586,
+        0.002585555426776409,
+        0.0021642919164150953,
+        -0.0007164193084463477
+      ],
+      "lambda_min": 0.9999246375109592,
+      "lambda_max": 1.0,
+      "bound_hits": 0,
+      "run_json_sha256": "c2e7e5952759a2a7d908139d7659b2456aea2dde4c611a2b40ff4f0640691944"
+    },
+    {
+      "seed": 43,
+      "entity": "1405",
+      "issued_days": 10,
+      "scored_days": 8,
+      "actual_steps": 8,
+      "virtual_steps": 6,
+      "controller_decisions": 6,
+      "final_lambda": 0.999993935887469,
+      "invocation_wall_seconds": 0.881344458903186,
+      "cost_seconds": {
+        "inference_seconds": 0.0038684578612446785,
+        "actual_update_seconds": 0.038580124150030315,
+        "meta_seconds": 0.062066998914815485
+      },
+      "mae_kwh": null,
+      "hypergradients": [
+        -0.0005636375863105059,
+        -0.0004020133928861469,
+        7.818885205779225e-05,
+        0.0008651245734654367,
+        0.0005012732581235468,
+        0.00012747554865200073
+      ],
+      "lambda_min": 0.999993935887469,
+      "lambda_max": 1.000009656509792,
+      "bound_hits": 0,
+      "run_json_sha256": "57b2d65aed549c1b2216aa8fae0c5606b7fe266966e81a26378d8f19b1188a06"
+    },
+    {
+      "seed": 43,
+      "entity": "2152",
+      "issued_days": 10,
+      "scored_days": 9,
+      "actual_steps": 9,
+      "virtual_steps": 7,
+      "controller_decisions": 7,
+      "final_lambda": 0.9999996471808117,
+      "invocation_wall_seconds": 0.8893142079468817,
+      "cost_seconds": {
+        "inference_seconds": 0.003852916299365461,
+        "actual_update_seconds": 0.043783750967122614,
+        "meta_seconds": 0.07223412615712732
+      },
+      "mae_kwh": null,
+      "hypergradients": [
+        0.0019744178280234337,
+        0.0006194916786625981,
+        0.00014764901425223798,
+        -0.0005261626793071628,
+        -0.0012637116014957428,
+        0.0004244407173246145,
+        -0.0013408430386334658
+      ],
+      "lambda_min": 0.9999725844147906,
+      "lambda_max": 1.0,
+      "bound_hits": 0,
+      "run_json_sha256": "3cef4a60a43e9f50bc8b4836fc4dd6d8412d07ca1372d4dc1d6efccabf3ae755"
+    },
+    {
+      "seed": 43,
+      "entity": "1153",
+      "issued_days": 10,
+      "scored_days": 9,
+      "actual_steps": 9,
+      "virtual_steps": 7,
+      "controller_decisions": 7,
+      "final_lambda": 1.0000189039147336,
+      "invocation_wall_seconds": 0.890999999945052,
+      "cost_seconds": {
+        "inference_seconds": 0.003940957132726908,
+        "actual_update_seconds": 0.043685708893463016,
+        "meta_seconds": 0.07156499789562076
+      },
+      "mae_kwh": null,
+      "hypergradients": [
+        8.010782767087221e-05,
+        1.289230931433849e-05,
+        -0.0016169048612937331,
+        3.52782299160026e-05,
+        1.2179209079477005e-05,
+        -1.6471807612106204e-05,
+        -0.00039747238042764366
+      ],
+      "lambda_min": 0.9999990699986302,
+      "lambda_max": 1.0000189039147336,
+      "bound_hits": 0,
+      "run_json_sha256": "3f3e22b0347a4b5e06141a96b367cb31b578afd340f91b1b204db501952ff594"
+    },
+    {
+      "seed": 43,
+      "entity": "1693",
+      "issued_days": 10,
+      "scored_days": 9,
+      "actual_steps": 9,
+      "virtual_steps": 7,
+      "controller_decisions": 7,
+      "final_lambda": 0.9999585338099359,
+      "invocation_wall_seconds": 0.9076436250470579,
+      "cost_seconds": {
+        "inference_seconds": 0.004264290211722255,
+        "actual_update_seconds": 0.046928957919590175,
+        "meta_seconds": 0.07896549976430833
+      },
+      "mae_kwh": null,
+      "hypergradients": [
+        8.716737283975817e-06,
+        0.0014323185896500945,
+        1.0714165910030715e-07,
+        0.0009304424747824669,
+        0.0011062445119023323,
+        0.00043844469473697245,
+        0.00023034485639072955
+      ],
+      "lambda_min": 0.9999585338099359,
+      "lambda_max": 1.0,
+      "bound_hits": 0,
+      "run_json_sha256": "bb16a304eed9adf47ff377259b5bc74363759ec5c858dcde241cd277f512f249"
+    },
+    {
+      "seed": 44,
+      "entity": "1405",
+      "issued_days": 10,
+      "scored_days": 8,
+      "actual_steps": 8,
+      "virtual_steps": 6,
+      "controller_decisions": 6,
+      "final_lambda": 1.0000138018393774,
+      "invocation_wall_seconds": 0.9246851669158787,
+      "cost_seconds": {
+        "inference_seconds": 0.003906584111973643,
+        "actual_update_seconds": 0.039399041910655797,
+        "meta_seconds": 0.06214683421421796
+      },
+      "mae_kwh": null,
+      "hypergradients": [
+        1.6931648133322597e-05,
+        -9.601689816918224e-05,
+        -0.0006639101775363088,
+        -0.00017145230958703905,
+        -0.0009377106325700879,
+        0.000471974432002753
+      ],
+      "lambda_min": 0.9999998306835187,
+      "lambda_max": 1.0000185215836974,
+      "bound_hits": 0,
+      "run_json_sha256": "f71cfb22ffd094bcfd750ec9a6d09c7a244422525791f4261e41f219303f12a5"
+    },
+    {
+      "seed": 44,
+      "entity": "2152",
+      "issued_days": 10,
+      "scored_days": 9,
+      "actual_steps": 9,
+      "virtual_steps": 7,
+      "controller_decisions": 7,
+      "final_lambda": 0.9999957435528994,
+      "invocation_wall_seconds": 0.9009100419934839,
+      "cost_seconds": {
+        "inference_seconds": 0.003924961085431278,
+        "actual_update_seconds": 0.043633710010908544,
+        "meta_seconds": 0.07204770715907216
+      },
+      "mae_kwh": null,
+      "hypergradients": [
+        0.0009861876023933291,
+        -0.00017094373470172286,
+        0.0003004991449415684,
+        -0.0005293936119414866,
+        0.0003895974368788302,
+        -0.0005766173708252609,
+        2.6315243303542957e-05
+      ],
+      "lambda_min": 0.9999888425698736,
+      "lambda_max": 1.0,
+      "bound_hits": 0,
+      "run_json_sha256": "cedf5cd9721baf835f61879e635de21517aa8ff4d056bdd089cb49252f32adef"
+    },
+    {
+      "seed": 44,
+      "entity": "1153",
+      "issued_days": 10,
+      "scored_days": 9,
+      "actual_steps": 9,
+      "virtual_steps": 7,
+      "controller_decisions": 7,
+      "final_lambda": 1.0000144176802312,
+      "invocation_wall_seconds": 0.8920930420281366,
+      "cost_seconds": {
+        "inference_seconds": 0.0038443770026788116,
+        "actual_update_seconds": 0.04367033299058676,
+        "meta_seconds": 0.07150791701860726
+      },
+      "mae_kwh": null,
+      "hypergradients": [
+        -0.00017340622434858233,
+        8.157678530551493e-05,
+        -0.0016416874714195728,
+        8.708876703167334e-05,
+        -3.5514622140908614e-06,
+        0.000219717068830505,
+        -1.150548632722348e-05
+      ],
+      "lambda_min": 1.0,
+      "lambda_max": 1.0000173351691046,
+      "bound_hits": 0,
+      "run_json_sha256": "efbf9f768f8ebdaa42d8fd03f96fd3e64d53bd1da28b947d4878b2ed2e79c85f"
+    },
+    {
+      "seed": 44,
+      "entity": "1693",
+      "issued_days": 10,
+      "scored_days": 9,
+      "actual_steps": 9,
+      "virtual_steps": 7,
+      "controller_decisions": 7,
+      "final_lambda": 0.9999792280353414,
+      "invocation_wall_seconds": 0.8877629999769852,
+      "cost_seconds": {
+        "inference_seconds": 0.0037749179173260927,
+        "actual_update_seconds": 0.042903001070953906,
+        "meta_seconds": 0.07138287485577166
+      },
+      "mae_kwh": null,
+      "hypergradients": [
+        -6.799191254458492e-08,
+        -4.673499631735467e-08,
+        -2.6082695114837406e-08,
+        0.00023088241869118065,
+        5.83685675792367e-07,
+        0.002083499450236559,
+        -0.00023762827913742512
+      ],
+      "lambda_min": 0.99997685175255,
+      "lambda_max": 1.000000001408096,
+      "bound_hits": 0,
+      "run_json_sha256": "0218eb2ec677ef0cfd942ee83b2e24129d4b987d7fda08f9c075e721d0110ade"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "pairs": 294,
+  "follow_prediction_matches_actual_replay_exactly": true,
+  "source_checksums": [
+    "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+    "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5",
+    "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b"
+  ],
+  "wins_follow_vs_hold": 153,
+  "projected_pairs": 21,
+  "python": "3.12.13",
+  "script_sha256": "fc8206aba8d6cf65babb4e49ab52704031123700985dc6617ad3def936f021b6",
+  "torch": "2.11.0"
+}

@@ -1,0 +1,641 @@
+{
+  "status": "passed",
+  "verified_neural_scores": 31968,
+  "histories": [
+    {
+      "history_days": 7,
+      "mae": {
+        "confidence_gate": 3.323393870121585,
+        "daily_naive": 5.090611978911579,
+        "fixed_bank": 3.3186227405509103,
+        "mean_only": 3.3234162556792857,
+        "source_finetune": 3.367094863231507,
+        "target_only": 5.052070875690103,
+        "weekly_naive": 6.077297831130466
+      },
+      "rmse": {
+        "confidence_gate": 5.232693184877619,
+        "daily_naive": 7.3988007104711455,
+        "fixed_bank": 5.235835036746536,
+        "mean_only": 5.222961000072947,
+        "source_finetune": 5.247809340080005,
+        "target_only": 6.938969463795388,
+        "weekly_naive": 8.424454935764187
+      },
+      "station_means": {
+        "1691": {
+          "confidence_gate": 7.579347925879603,
+          "daily_naive": 10.888888953260725,
+          "fixed_bank": 7.573066737299011,
+          "mean_only": 7.584394065159078,
+          "source_finetune": 7.759469288520006,
+          "target_only": 11.808337641607102,
+          "weekly_naive": 14.36177883456266
+        },
+        "2564": {
+          "confidence_gate": 5.523180970052998,
+          "daily_naive": 9.613657530512048,
+          "fixed_bank": 5.513443055328899,
+          "mean_only": 5.503991100496485,
+          "source_finetune": 5.581776640452314,
+          "target_only": 8.249385512576422,
+          "weekly_naive": 10.13838735225501
+        },
+        "2398": {
+          "confidence_gate": 5.924397151064657,
+          "daily_naive": 9.580169780176552,
+          "fixed_bank": 5.904060769321371,
+          "mean_only": 5.960757114340832,
+          "source_finetune": 6.034438555063143,
+          "target_only": 7.96783337224957,
+          "weekly_naive": 9.898842595208343
+        },
+        "1114": {
+          "confidence_gate": 3.562851845889817,
+          "daily_naive": 4.4852953985497725,
+          "fixed_bank": 3.598759308805535,
+          "mean_only": 3.617991585634684,
+          "source_finetune": 3.665866525913319,
+          "target_only": 5.803971551549407,
+          "weekly_naive": 6.005696006910585
+        },
+        "1225": {
+          "confidence_gate": 4.7248854136060645,
+          "daily_naive": 7.537059306628745,
+          "fixed_bank": 4.751465442028726,
+          "mean_only": 4.733978846862616,
+          "source_finetune": 4.761256126779609,
+          "target_only": 7.09587413402761,
+          "weekly_naive": 8.880408652829258
+        },
+        "1169": {
+          "confidence_gate": 3.747413452537289,
+          "daily_naive": 5.287393160317586,
+          "fixed_bank": 3.738422023976099,
+          "mean_only": 3.75764060326914,
+          "source_finetune": 3.810355163404074,
+          "target_only": 5.356150795578254,
+          "weekly_naive": 5.894097223587365
+        },
+        "1885": {
+          "confidence_gate": 2.781054623087765,
+          "daily_naive": 4.440354940138848,
+          "fixed_bank": 2.798918144078574,
+          "mean_only": 2.775434410774448,
+          "source_finetune": 2.7928475554805527,
+          "target_only": 4.424026010725661,
+          "weekly_naive": 5.830632716234495
+        },
+        "1802": {
+          "confidence_gate": 1.6154528354157829,
+          "daily_naive": 2.5880015436927835,
+          "fixed_bank": 1.5939832224113966,
+          "mean_only": 1.6041968777956281,
+          "source_finetune": 1.5927106357897778,
+          "target_only": 3.9089254520217502,
+          "weekly_naive": 4.204320988113082
+        },
+        "2035": {
+          "confidence_gate": 2.5931422222306852,
+          "daily_naive": 3.465162038831844,
+          "fixed_bank": 2.5488860692546544,
+          "mean_only": 2.5328376333485907,
+          "source_finetune": 2.5695380579808393,
+          "target_only": 3.6155537161907247,
+          "weekly_naive": 4.332060185603704
+        },
+        "1836": {
+          "confidence_gate": 1.2885878460440414,
+          "daily_naive": 1.9537927353770554,
+          "fixed_bank": 1.2791524288872032,
+          "mean_only": 1.2853484256867267,
+          "source_finetune": 1.3039124478990916,
+          "target_only": 1.373111512607735,
+          "weekly_naive": 2.007545405899325
+        },
+        "1303": {
+          "confidence_gate": 7.44880998979497e-08,
+          "daily_naive": 0.008525149190110827,
+          "fixed_bank": 1.0395573998599834e-07,
+          "mean_only": 7.44880998979497e-08,
+          "source_finetune": 4.3947654421393576e-09,
+          "target_only": 0.006287571781599621,
+          "weekly_naive": 0.0
+        },
+        "1325": {
+          "confidence_gate": 0.540412081162221,
+          "daily_naive": 1.2390432102628692,
+          "fixed_bank": 0.5233155812637093,
+          "mean_only": 0.5244243302950988,
+          "source_finetune": 0.5329673571005845,
+          "target_only": 1.0153932373654067,
+          "weekly_naive": 1.3738040123617754
+        }
+      },
+      "contrasts": [
+        {
+          "method": "source_finetune",
+          "baseline": "target_only",
+          "delta_kwh": -1.6849760124585962,
+          "percent_reduction": 33.35218475588848,
+          "stations_improved": 12,
+          "lower": -1.9990663490649125,
+          "upper": -1.385864989795151
+        },
+        {
+          "method": "fixed_bank",
+          "baseline": "target_only",
+          "delta_kwh": -1.7334481351391928,
+          "percent_reduction": 34.31163532325558,
+          "stations_improved": 12,
+          "lower": -2.0557878306529243,
+          "upper": -1.434198317017781
+        },
+        {
+          "method": "confidence_gate",
+          "baseline": "mean_only",
+          "delta_kwh": -2.2385557700843606e-05,
+          "percent_reduction": 0.0006735706868674546,
+          "stations_improved": 5,
+          "lower": -0.01140133590239925,
+          "upper": 0.011421038895845389
+        },
+        {
+          "method": "confidence_gate",
+          "baseline": "fixed_bank",
+          "delta_kwh": 0.004771129570674493,
+          "percent_reduction": -0.14376836247082603,
+          "stations_improved": 4,
+          "lower": -0.004723483652508648,
+          "upper": 0.014145787778649176
+        },
+        {
+          "method": "mean_only",
+          "baseline": "fixed_bank",
+          "delta_kwh": 0.004793515128375336,
+          "percent_reduction": -0.1444429060827681,
+          "stations_improved": 5,
+          "lower": -0.004854116563866259,
+          "upper": 0.01503909299557337
+        }
+      ],
+      "chosen": {
+        "target_only": {
+          "epochs": 30,
+          "calibration_mae": 8.123379813312203,
+          "curve": {
+            "3": 9.28671388475343,
+            "10": 8.700427703958242,
+            "30": 8.123379813312203,
+            "100": 8.473745832563148,
+            "300": 8.880180784951815
+          },
+          "upper_boundary_unresolved": false
+        },
+        "source_finetune": {
+          "epochs": 3,
+          "calibration_mae": 5.394184308751133,
+          "curve": {
+            "3": 5.394184308751133,
+            "10": 5.561014982999236,
+            "30": 5.87237203684765,
+            "100": 6.075207247807871,
+            "300": 6.2083257921326895
+          },
+          "upper_boundary_unresolved": false
+        }
+      },
+      "fixed_level": 1.0,
+      "retrospective_constant_bank_means": {
+        "0.0": 3.367094863231507,
+        "0.1": 3.3412701015088326,
+        "1.0": 3.31862274055091
+      },
+      "original_summary_sha256": "cacf24c43e98de5bf680edaaa467c61f720d2dccc5b5e157e766dc464bffe052"
+    },
+    {
+      "history_days": 14,
+      "mae": {
+        "confidence_gate": 3.2754791955099143,
+        "daily_naive": 5.090611976944676,
+        "fixed_bank": 3.2669999266187126,
+        "mean_only": 3.290432249950872,
+        "source_finetune": 3.304604868203713,
+        "target_only": 4.83407066843322,
+        "weekly_naive": 6.077297834483512
+      },
+      "rmse": {
+        "confidence_gate": 5.1177137270099635,
+        "daily_naive": 7.398800693441356,
+        "fixed_bank": 5.125502622408179,
+        "mean_only": 5.1279232653538935,
+        "source_finetune": 5.121125581681102,
+        "target_only": 6.765874696056279,
+        "weekly_naive": 8.424454936550507
+      },
+      "station_means": {
+        "1691": {
+          "confidence_gate": 7.530992691697979,
+          "daily_naive": 10.888888930975016,
+          "fixed_bank": 7.528496458902265,
+          "mean_only": 7.596749360458541,
+          "source_finetune": 7.679396713441741,
+          "target_only": 11.575379505013236,
+          "weekly_naive": 14.361778874543264
+        },
+        "2564": {
+          "confidence_gate": 5.530216599291468,
+          "daily_naive": 9.613657439786083,
+          "fixed_bank": 5.541131148269592,
+          "mean_only": 5.545427774613857,
+          "source_finetune": 5.555360534226627,
+          "target_only": 7.516034919464204,
+          "weekly_naive": 10.138387351410325
+        },
+        "2398": {
+          "confidence_gate": 5.970723276873744,
+          "daily_naive": 9.580169768471817,
+          "fixed_bank": 5.913396212794424,
+          "mean_only": 5.967418807388996,
+          "source_finetune": 6.000065034253013,
+          "target_only": 7.716738676906917,
+          "weekly_naive": 9.898842589132757
+        },
+        "1114": {
+          "confidence_gate": 3.5298638278488994,
+          "daily_naive": 4.485295369983586,
+          "fixed_bank": 3.5285245579271773,
+          "mean_only": 3.566057898268344,
+          "source_finetune": 3.5708998611472946,
+          "target_only": 5.3315630434740156,
+          "weekly_naive": 6.005696003212682
+        },
+        "1225": {
+          "confidence_gate": 4.569889510388117,
+          "daily_naive": 7.5370593591589214,
+          "fixed_bank": 4.551294606851795,
+          "mean_only": 4.607665786578576,
+          "source_finetune": 4.586903318467354,
+          "target_only": 6.916703914579835,
+          "weekly_naive": 8.880408653633719
+        },
+        "1169": {
+          "confidence_gate": 3.483982236400106,
+          "daily_naive": 5.2873932436805955,
+          "fixed_bank": 3.5250424086245373,
+          "mean_only": 3.499471201834826,
+          "source_finetune": 3.471444410680352,
+          "target_only": 4.51013673550202,
+          "weekly_naive": 5.894097239804541
+        },
+        "1885": {
+          "confidence_gate": 2.699653667254793,
+          "daily_naive": 4.440354933925431,
+          "fixed_bank": 2.695473633286767,
+          "mean_only": 2.7554129483173533,
+          "source_finetune": 2.7366675422657756,
+          "target_only": 4.870532299341402,
+          "weekly_naive": 5.8306327100869755
+        },
+        "1802": {
+          "confidence_gate": 1.59546908892856,
+          "daily_naive": 2.5880015436927835,
+          "fixed_bank": 1.5864291569871272,
+          "mean_only": 1.6006456929436073,
+          "source_finetune": 1.6041270770503804,
+          "target_only": 3.611567835884673,
+          "weekly_naive": 4.204320988113082
+        },
+        "2035": {
+          "confidence_gate": 2.568999489215432,
+          "daily_naive": 3.465162038831844,
+          "fixed_bank": 2.5347203967866205,
+          "mean_only": 2.5368036567083525,
+          "source_finetune": 2.6064970381796244,
+          "target_only": 3.680147351883413,
+          "weekly_naive": 4.332060185603704
+        },
+        "1836": {
+          "confidence_gate": 1.289147008914685,
+          "daily_naive": 1.9537927353770554,
+          "fixed_bank": 1.281594169166701,
+          "mean_only": 1.2874844085415715,
+          "source_finetune": 1.3040015361545996,
+          "target_only": 1.3058037670290006,
+          "weekly_naive": 2.007545405899325
+        },
+        "1303": {
+          "confidence_gate": 7.72467704229869e-08,
+          "daily_naive": 0.008525149190110827,
+          "fixed_bank": 1.261888989032665e-07,
+          "mean_only": 7.72467704229869e-08,
+          "source_finetune": 4.436136980846136e-09,
+          "target_only": 0.0005327402063126066,
+          "weekly_naive": 0.0
+        },
+        "1325": {
+          "confidence_gate": 0.5368128720584192,
+          "daily_naive": 1.2390432102628692,
+          "fixed_bank": 0.5178962436386424,
+          "mean_only": 0.5220493865096788,
+          "source_finetune": 0.5398953481416504,
+          "target_only": 0.9737072319136217,
+          "weekly_naive": 1.3738040123617754
+        }
+      },
+      "contrasts": [
+        {
+          "method": "source_finetune",
+          "baseline": "target_only",
+          "delta_kwh": -1.5294658002295076,
+          "percent_reduction": 31.639293364431218,
+          "stations_improved": 12,
+          "lower": -1.890303828508668,
+          "upper": -1.204051961619973
+        },
+        {
+          "method": "fixed_bank",
+          "baseline": "target_only",
+          "delta_kwh": -1.5670707418145078,
+          "percent_reduction": 32.417207966105586,
+          "stations_improved": 12,
+          "lower": -1.940564572374905,
+          "upper": -1.235289464490138
+        },
+        {
+          "method": "confidence_gate",
+          "baseline": "mean_only",
+          "delta_kwh": -0.014953054440957736,
+          "percent_reduction": 0.45444042925305617,
+          "stations_improved": 7,
+          "lower": -0.028509043076536542,
+          "upper": -0.002006231582332079
+        },
+        {
+          "method": "confidence_gate",
+          "baseline": "fixed_bank",
+          "delta_kwh": 0.008479268891201652,
+          "percent_reduction": -0.2595429777060799,
+          "stations_improved": 3,
+          "lower": -0.0028913621603502524,
+          "upper": 0.020447155766405982
+        },
+        {
+          "method": "mean_only",
+          "baseline": "fixed_bank",
+          "delta_kwh": 0.023432323332159388,
+          "percent_reduction": -0.7172428484383662,
+          "stations_improved": 2,
+          "lower": 0.008212276483067875,
+          "upper": 0.03723755581897396
+        }
+      ],
+      "chosen": {
+        "target_only": {
+          "epochs": 100,
+          "calibration_mae": 8.138066158572185,
+          "curve": {
+            "3": 9.60352888511716,
+            "10": 8.783662090627752,
+            "30": 8.168160641229244,
+            "100": 8.138066158572185,
+            "300": 8.432751648750664
+          },
+          "upper_boundary_unresolved": false
+        },
+        "source_finetune": {
+          "epochs": 3,
+          "calibration_mae": 5.443627361534285,
+          "curve": {
+            "3": 5.443627361534285,
+            "10": 5.449210315465161,
+            "30": 5.841077025566604,
+            "100": 6.331724651325268,
+            "300": 6.5306107702034835
+          },
+          "upper_boundary_unresolved": false
+        }
+      },
+      "fixed_level": 1.0,
+      "retrospective_constant_bank_means": {
+        "0.0": 3.3046048682037124,
+        "0.1": 3.285213668869141,
+        "1.0": 3.266999926618713
+      },
+      "original_summary_sha256": "7452d46477b5d8ce4332c222d021417cd9180d21558c9b7602327e0603a84a4a"
+    },
+    {
+      "history_days": 28,
+      "mae": {
+        "confidence_gate": 3.313966741826334,
+        "daily_naive": 5.090611973791939,
+        "fixed_bank": 3.348210059895878,
+        "mean_only": 3.3252000779696584,
+        "source_finetune": 3.348210059895878,
+        "target_only": 4.769686995836598,
+        "weekly_naive": 6.0772978304464615
+      },
+      "rmse": {
+        "confidence_gate": 5.120886400348589,
+        "daily_naive": 7.398800703949131,
+        "fixed_bank": 5.156153451974763,
+        "mean_only": 5.1410261697985895,
+        "source_finetune": 5.156153451974763,
+        "target_only": 6.710060882033279,
+        "weekly_naive": 8.424454932306883
+      },
+      "station_means": {
+        "1691": {
+          "confidence_gate": 7.732195423712007,
+          "daily_naive": 10.888889007116607,
+          "fixed_bank": 7.92299595683086,
+          "mean_only": 7.820608996741733,
+          "source_finetune": 7.92299595683086,
+          "target_only": 11.522112743691553,
+          "weekly_naive": 14.361778833923271
+        },
+        "2564": {
+          "confidence_gate": 5.637980188059944,
+          "daily_naive": 9.61365735865382,
+          "fixed_bank": 5.721113895116834,
+          "mean_only": 5.5684999730523925,
+          "source_finetune": 5.721113895116834,
+          "target_only": 7.531669965942118,
+          "weekly_naive": 10.1383873441659
+        },
+        "2398": {
+          "confidence_gate": 5.923155970279072,
+          "daily_naive": 9.580169787594219,
+          "fixed_bank": 6.019931866008157,
+          "mean_only": 5.9459544523613355,
+          "source_finetune": 6.019931866008157,
+          "target_only": 7.607754459067002,
+          "weekly_naive": 9.89884259544678
+        },
+        "1114": {
+          "confidence_gate": 3.5288820031029964,
+          "daily_naive": 4.48529539491453,
+          "fixed_bank": 3.502017276963187,
+          "mean_only": 3.5706897721031567,
+          "source_finetune": 3.502017276963187,
+          "target_only": 4.9996232820884,
+          "weekly_naive": 6.005696006388124
+        },
+        "1225": {
+          "confidence_gate": 4.727833239508026,
+          "daily_naive": 7.5370593591589214,
+          "fixed_bank": 4.7394397108241675,
+          "mean_only": 4.740950600759809,
+          "source_finetune": 4.7394397108241675,
+          "target_only": 6.388114812406457,
+          "weekly_naive": 8.880408653633719
+        },
+        "1169": {
+          "confidence_gate": 3.4725317632190467,
+          "daily_naive": 5.287393160317586,
+          "fixed_bank": 3.4643580350675798,
+          "mean_only": 3.486189165182536,
+          "source_finetune": 3.4643580350675798,
+          "target_only": 4.508795832827729,
+          "weekly_naive": 5.894097223587365
+        },
+        "1885": {
+          "confidence_gate": 2.7032685858665175,
+          "daily_naive": 4.440354940138848,
+          "fixed_bank": 2.6976295328225164,
+          "mean_only": 2.713892805706634,
+          "source_finetune": 2.6976295328225164,
+          "target_only": 5.188573667129096,
+          "weekly_naive": 5.830632716234495
+        },
+        "1802": {
+          "confidence_gate": 1.681824564020028,
+          "daily_naive": 2.5880015436927835,
+          "fixed_bank": 1.7153228170404766,
+          "mean_only": 1.6694236455575509,
+          "source_finetune": 1.7153228170404766,
+          "target_only": 3.452594578080637,
+          "weekly_naive": 4.204320988113082
+        },
+        "2035": {
+          "confidence_gate": 2.515974366143368,
+          "daily_naive": 3.465162038831844,
+          "fixed_bank": 2.545457534787577,
+          "mean_only": 2.5327006471205324,
+          "source_finetune": 2.545457534787577,
+          "target_only": 3.7092766269766897,
+          "weekly_naive": 4.332060185603704
+        },
+        "1836": {
+          "confidence_gate": 1.3106878615811273,
+          "daily_naive": 1.9537927353770554,
+          "fixed_bank": 1.3106878615811273,
+          "mean_only": 1.324200548991717,
+          "source_finetune": 1.3106878615811273,
+          "target_only": 1.305791435870149,
+          "weekly_naive": 2.007545405899325
+        },
+        "1303": {
+          "confidence_gate": 7.565534398781794e-07,
+          "daily_naive": 0.008525149444180072,
+          "fixed_bank": 7.565534398781794e-07,
+          "mean_only": 7.565534398781794e-07,
+          "source_finetune": 7.565534398781794e-07,
+          "target_only": 0.05058994229420511,
+          "weekly_naive": 0.0
+        },
+        "1325": {
+          "confidence_gate": 0.5332661798704206,
+          "daily_naive": 1.2390432102628692,
+          "fixed_bank": 0.5395654751546023,
+          "mean_only": 0.529289571505061,
+          "source_finetune": 0.5395654751546023,
+          "target_only": 0.9713466036651495,
+          "weekly_naive": 1.3738040123617754
+        }
+      },
+      "contrasts": [
+        {
+          "method": "source_finetune",
+          "baseline": "target_only",
+          "delta_kwh": -1.4214769359407202,
+          "percent_reduction": 29.80231065857173,
+          "stations_improved": 11,
+          "lower": -1.7452982437619935,
+          "upper": -1.1340520274121857
+        },
+        {
+          "method": "fixed_bank",
+          "baseline": "target_only",
+          "delta_kwh": -1.4214769359407202,
+          "percent_reduction": 29.80231065857173,
+          "stations_improved": 11,
+          "lower": -1.7518887373094405,
+          "upper": -1.132609856837598
+        },
+        {
+          "method": "confidence_gate",
+          "baseline": "mean_only",
+          "delta_kwh": -0.011233336143324557,
+          "percent_reduction": 0.33782436785528847,
+          "stations_improved": 8,
+          "lower": -0.029650293635011784,
+          "upper": 0.00831316161484478
+        },
+        {
+          "method": "confidence_gate",
+          "baseline": "fixed_bank",
+          "delta_kwh": -0.03424331806954406,
+          "percent_reduction": 1.0227350571489817,
+          "stations_improved": 7,
+          "lower": -0.049737180432907896,
+          "upper": -0.020786647591334615
+        },
+        {
+          "method": "mean_only",
+          "baseline": "fixed_bank",
+          "delta_kwh": -0.023009981926219503,
+          "percent_reduction": 0.6872323275599699,
+          "stations_improved": 6,
+          "lower": -0.037366959151770546,
+          "upper": -0.008450429067462075
+        }
+      ],
+      "chosen": {
+        "target_only": {
+          "epochs": 100,
+          "calibration_mae": 7.886133689970239,
+          "curve": {
+            "3": 9.489955198057919,
+            "10": 8.73316530674626,
+            "30": 8.008374044572495,
+            "100": 7.886133689970239,
+            "300": 8.357191851340936
+          },
+          "upper_boundary_unresolved": false
+        },
+        "source_finetune": {
+          "epochs": 10,
+          "calibration_mae": 5.3061492645452395,
+          "curve": {
+            "3": 5.356895951924208,
+            "10": 5.3061492645452395,
+            "30": 5.88247202577868,
+            "100": 6.288887463345252,
+            "300": 6.550914074710653
+          },
+          "upper_boundary_unresolved": false
+        }
+      },
+      "fixed_level": 0.0,
+      "retrospective_constant_bank_means": {
+        "0.0": 3.348210059895877,
+        "0.1": 3.3253755448521636,
+        "1.0": 3.292500653412958
+      },
+      "original_summary_sha256": "922d874b23ad63ffc7a1f06f7266b1eeefd88926eee25734206d658bc370cd89"
+    }
+  ],
+  "paired_origins_match_across_all_methods_and_budgets": true,
+  "seed_days_per_history": 2664
+}

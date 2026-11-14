@@ -1,0 +1,543 @@
+{
+  "schema": "issue99-paired-verification-v1",
+  "protocol_sha256": "645393d4c7a29b644a00da6251957b4c3bc5dea011c4ba30f0b989ae14532752",
+  "targets": {
+    "1405": {
+      "lambda0": 5.386140078524817,
+      "fixed": 5.235165512365591,
+      "discrete": 5.283968501878259,
+      "continuous": 5.203826363110836,
+      "frozen_lambda": 5.235165512365591
+    },
+    "2152": {
+      "lambda0": 6.124388787979321,
+      "fixed": 5.981652354949149,
+      "discrete": 6.030499734825541,
+      "continuous": 6.090296175286913,
+      "frozen_lambda": 5.981652354949149
+    },
+    "1153": {
+      "lambda0": 6.532763799081746,
+      "fixed": 6.426777292532148,
+      "discrete": 6.393199417978423,
+      "continuous": 6.393992953127881,
+      "frozen_lambda": 6.426777292532148
+    },
+    "1693": {
+      "lambda0": 1.4310971063411653,
+      "fixed": 1.568620944284742,
+      "discrete": 1.4853679050672932,
+      "continuous": 1.5367775209370274,
+      "frozen_lambda": 1.568620944284742
+    }
+  },
+  "target_rmse_kwh": {
+    "1405": {
+      "lambda0": 7.694992092323873,
+      "fixed": 7.6094808693597615,
+      "discrete": 7.69537414079269,
+      "continuous": 7.600193105729329,
+      "frozen_lambda": 7.6094808693597615
+    },
+    "2152": {
+      "lambda0": 7.867417951412773,
+      "fixed": 7.588072917514141,
+      "discrete": 7.737738835302757,
+      "continuous": 7.74244071147833,
+      "frozen_lambda": 7.588072917514141
+    },
+    "1153": {
+      "lambda0": 9.073895652726412,
+      "fixed": 8.942986211844875,
+      "discrete": 8.946132188577208,
+      "continuous": 8.88067476631924,
+      "frozen_lambda": 8.942986211844875
+    },
+    "1693": {
+      "lambda0": 2.585112321552798,
+      "fixed": 3.0380386118390166,
+      "discrete": 2.84618811360304,
+      "continuous": 2.978089473074892,
+      "frozen_lambda": 3.0380386118390166
+    }
+  },
+  "paired_mae_delta_vs_lambda0_kwh": {
+    "1405": {
+      "lambda0": {
+        "42": 0.0,
+        "43": 0.0,
+        "44": 0.0
+      },
+      "fixed": {
+        "42": -0.0655867549378879,
+        "43": -0.2521858377680708,
+        "44": -0.13515110577171807
+      },
+      "discrete": {
+        "42": -0.18821435833666555,
+        "43": -0.10715070833722784,
+        "44": -0.011149663265781484
+      },
+      "continuous": {
+        "42": -0.14202780648014102,
+        "43": -0.2503262991145574,
+        "44": -0.15458704064724582
+      },
+      "frozen_lambda": {
+        "42": -0.0655867549378879,
+        "43": -0.2521858377680708,
+        "44": -0.13515110577171807
+      }
+    },
+    "2152": {
+      "lambda0": {
+        "42": 0.0,
+        "43": 0.0,
+        "44": 0.0
+      },
+      "fixed": {
+        "42": -0.0009521694521001933,
+        "43": -0.5914452432671258,
+        "44": 0.16418811362870933
+      },
+      "discrete": {
+        "42": -0.14588103791336504,
+        "43": -0.24452406344253141,
+        "44": 0.10873794189455666
+      },
+      "continuous": {
+        "42": 0.0024078605431094857,
+        "43": -0.26512358944476677,
+        "44": 0.16043789082443638
+      },
+      "frozen_lambda": {
+        "42": -0.0009521694521001933,
+        "43": -0.5914452432671258,
+        "44": 0.16418811362870933
+      }
+    },
+    "1153": {
+      "lambda0": {
+        "42": 0.0,
+        "43": 0.0,
+        "44": 0.0
+      },
+      "fixed": {
+        "42": -0.5034977947220671,
+        "43": 0.10430219649064476,
+        "44": 0.08123607858262982
+      },
+      "discrete": {
+        "42": -0.4527344402640754,
+        "43": -0.019235897621121545,
+        "44": 0.053277194575227504
+      },
+      "continuous": {
+        "42": -0.5034381741977709,
+        "43": 0.09168409593779625,
+        "44": -0.004558459601618381
+      },
+      "frozen_lambda": {
+        "42": -0.5034977947220671,
+        "43": 0.10430219649064476,
+        "44": 0.08123607858262982
+      }
+    },
+    "1693": {
+      "lambda0": {
+        "42": 0.0,
+        "43": 0.0,
+        "44": 0.0
+      },
+      "fixed": {
+        "42": 0.01595796267079952,
+        "43": 0.06984926662027302,
+        "44": 0.32676428453965767
+      },
+      "discrete": {
+        "42": 0.01109122752871916,
+        "43": -0.007294831450713746,
+        "44": 0.1590160001003782
+      },
+      "continuous": {
+        "42": 0.0828204465355562,
+        "43": -0.0016345009179745684,
+        "44": 0.23585529817000417
+      },
+      "frozen_lambda": {
+        "42": 0.01595796267079952,
+        "43": 0.06984926662027302,
+        "44": 0.32676428453965767
+      }
+    }
+  },
+  "aggregate_mae_kwh": {
+    "lambda0": 4.868597442981762,
+    "fixed": 4.803054026032908,
+    "discrete": 4.798258889937379,
+    "continuous": 4.806223253115665,
+    "frozen_lambda": 4.803054026032908
+  },
+  "coverage": [
+    {
+      "job_id": "lambda0-1405-seed42",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "lambda0-1405-seed43",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "lambda0-1405-seed44",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "lambda0-2152-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "lambda0-2152-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "lambda0-2152-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "lambda0-1153-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "lambda0-1153-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "lambda0-1153-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "lambda0-1693-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "lambda0-1693-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "lambda0-1693-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "fixed-1405-seed42",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "fixed-1405-seed43",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "fixed-1405-seed44",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "fixed-2152-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "fixed-2152-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "fixed-2152-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "fixed-1153-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "fixed-1153-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "fixed-1153-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "fixed-1693-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "fixed-1693-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "fixed-1693-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "discrete-1405-seed42",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "discrete-1405-seed43",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "discrete-1405-seed44",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "discrete-2152-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "discrete-2152-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "discrete-2152-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "discrete-1153-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "discrete-1153-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "discrete-1153-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "discrete-1693-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "discrete-1693-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "discrete-1693-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "continuous-1405-seed42",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "continuous-1405-seed43",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "continuous-1405-seed44",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "continuous-2152-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "continuous-2152-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "continuous-2152-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "continuous-1153-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "continuous-1153-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "continuous-1153-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "continuous-1693-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "continuous-1693-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "continuous-1693-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "frozen_lambda-1405-seed42",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "frozen_lambda-1405-seed43",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "frozen_lambda-1405-seed44",
+      "issued_days": 90,
+      "scored_days": 89,
+      "evaluation_scored_days": 60
+    },
+    {
+      "job_id": "frozen_lambda-2152-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "frozen_lambda-2152-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "frozen_lambda-2152-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "frozen_lambda-1153-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "frozen_lambda-1153-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "frozen_lambda-1153-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "frozen_lambda-1693-seed42",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "frozen_lambda-1693-seed43",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    },
+    {
+      "job_id": "frozen_lambda-1693-seed44",
+      "issued_days": 59,
+      "scored_days": 52,
+      "evaluation_scored_days": 22
+    }
+  ]
+}

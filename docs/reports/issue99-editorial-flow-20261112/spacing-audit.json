@@ -1,0 +1,37 @@
+{
+  "scope": "Report rewrite and saved-evidence comparison; no new training or held-out test",
+  "baseline_display_cells_checked": 52,
+  "historical_rows_checked": 21,
+  "later_rows_checked": 5,
+  "development_rows_checked": 7,
+  "pages": 16,
+  "embedded_raster_images": 0,
+  "scientific_figures": 7,
+  "native_tikz_flows": 2,
+  "compile_overfull_or_undefined": false,
+  "group_counts": {
+    "original_selector_vs_fixed": 9,
+    "adaptive_vs_fixed": 18,
+    "static_vs_fixed": 18,
+    "adaptive_vs_static": 12
+  },
+  "source_sha256": {
+    "docs/reports/issue99-full-scope-20261110/group-results.csv": "fc8858772128fcd52c440c4b73015937585a14a59a86d7cf1d98d5027f5036ea",
+    "docs/reports/issue99-history-review-20261110/cells.csv": "3751f2427ae9783ae82f2fd0da1e5963120deba4d38a1190df60d7a3fb1a4f1c",
+    "docs/reports/issue99-study-20261110/method-summary.csv": "45b1189b29295f758abb4c94223b9877758352be8d91841ee082609aba582388",
+    "docs/reports/issue99-study-20261110/fixed-trials.csv": "5c15e7fd02429746ae35431be8d388f1a3da12255c8fe5f1c7571313179c3fe9",
+    "docs/reports/issue99-study-20261110/protocol-lock.json": "645393d4c7a29b644a00da6251957b4c3bc5dea011c4ba30f0b989ae14532752",
+    "docs/reports/issue99-controller-identity-audit-20261112/identity-audit.json": "95d3a59da80a6f2fb07de361a299d660724a86b79e9e7ddfbd86e26779a920f5",
+    "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+    "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+    "ev_control/expert_mix.py": "46ac24ef0713881c94d7edfff5eec4ab74036e291963bc6b0a4ed8cdc66216f2",
+    "ev_runner/diagnostics.py": "47a64b9d1e1e79a6652abfe2ad2360f6f303ed397f7d37ff8ec369299f5535ac"
+  },
+  "pdf_sha256": "f2fa17ee1203b79af71066a3e9acb75b6047a81a8ae433dd0ffe46be3db69720",
+  "visual_qa": {
+    "changed_page_inspected": 3,
+    "other_15_page_renders_byte_identical_to_previous_reviewed_reader": true,
+    "standalone_figure_inspected": true
+  },
+  "method_code_and_evidence_hashes_unchanged": true
+}

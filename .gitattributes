@@ -18,3 +18,21 @@ docs/reports/hung-block7-switch-effect-20261030-v1/*.json -text -eol whitespace=
 # Preserve the exact published report CSV bytes (CRLF is part of their fingerprints).
 report/full-results.csv -text -eol whitespace=cr-at-eol
 report/switch-audits.csv -text -eol whitespace=cr-at-eol
+
+# Preserve hash-bound issue99 CSV exports exactly, as with historical reports.
+docs/reports/issue99-study-20261110/*.csv -text -eol whitespace=cr-at-eol
+
+# Kaggle protocol datasets bind exact uploaded CRLF bytes.
+configs/issue99-protocol-locked-v1.json -text -eol whitespace=cr-at-eol
+configs/issue99-protocol-locked-v2.json -text -eol whitespace=cr-at-eol
+
+# Keep the Kaggle comparison lock identical to the uploaded bytes.
+configs/issue99-comparison-lock-v2.json -text -eol whitespace=cr-at-eol
+
+# Keep the Kaggle comparison orchestrator identical to the uploaded bytes.
+tools/issue99_kaggle_comparison_v2.py -text -eol whitespace=cr-at-eol
+
+# Cyber benchmark evidence is hashed byte-for-byte: never convert newlines
+experiments/member_studies/cyber_baselines/runs_v*.csv -text
+experiments/member_studies/cyber_baselines/artifacts_v*/** -text
+experiments/member_studies/cyber_baselines/historical_v*/** -text

@@ -1,4 +1,30 @@
-# Supervisor report source
+# Research manuscripts
+
+## Reviewed manuscript
+
+**Adaptive Transfer Learning for Cold-Start Electric Vehicle Charging Demand Forecasting**
+
+[Read the PDF](confirmation-review-20261113/adaptive-transfer-learning-ev.pdf) ·
+[LaTeX and Overleaf source](confirmation-review-20261113/README.md) ·
+[Evidence index](../docs/reports/README.md)
+
+The reviewed version contains **23 pages, native equations, eight vector figures,
+twelve tables and sixteen scientific references**. Its source and PDF remain
+frozen at the reviewed research snapshot. The documentation landing page does
+not change the manuscript or experimental outcomes.
+
+| Study | Evidence and conclusion |
+|---|---|
+| Transfer, backbones and historical retention/fusion | [Method/cohort audit](../docs/reports/issue99-controller-identity-audit-20261112/README.md); source transfer is supported under the tested protocol, while retention and online-weighting gains are conditional. |
+| Locked 46-ID evaluation | [Results and verification](../docs/reports/issue119-confirmation-20261113/README.md); both primary intervals include zero and the dual-comparator criterion failed. |
+| JSONL/practical-win review | [Audit supplement](../docs/reports/issue121-jsonl-review-20261113/README.md); recorded-use limits and negligible AMS differences remain explicit. |
+| Bounded weighting study | [Stopping decision](../docs/reports/issue123-bounded-weighting-20261113/README.md); AdaHedge remains worse than Fixed and no new cohort or model is promoted. |
+
+Historical fusion results retain both **18/21 adaptive-vs-Fixed wins** and
+**18/21 static-vs-Fixed wins**, with a mixed **12/21 adaptive-vs-static** increment.
+The confidence-guided retention selector is a separate mechanism.
+
+## Original frozen report
 
 This is the canonical LaTeX source for the report delivered on 31 October 2026.
 It supersedes the earlier thesis outline in PR #54.
@@ -30,3 +56,10 @@ primary historical scientific source is preserved at tag
 `evidence/primary-final-20261027-v2`, commit
 `61c32328d9829a69037dca629f727b4863015122`. Later verifier hardening does not replace
 or relabel the report's frozen run outputs.
+
+## Earlier review drafts
+
+[11 November integrated manuscript](teacher-review-20261111/README.md) includes
+verified independent baseline evidence, the Fixed-share formula, all 21 historical
+groups, scientific figures and explicit ensemble/controller ablations. This is a
+separate exploratory review version; the frozen release files above are preserved.

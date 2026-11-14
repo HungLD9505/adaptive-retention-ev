@@ -1,0 +1,41 @@
+{
+  "cyber_review_head": "3d6847b4e043ec6b7b5cbcf4c544e50225b794f7",
+  "cyber_executed_archive_sha256": "5edbea2fe6a4e12d4f4236da9913032ec2848ba9fa885cbb38d4d4cea6f7a2b0",
+  "cyber_ci": "https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/42859382487",
+  "duc_review_head": "ecbc4595a9616f7a7fa42679e595947d3832f6d5",
+  "duc_ci": "https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/42950550735",
+  "duc_reused_artifact_audit": "https://github.com/HungLD9505/adaptive-retention-ev/pull/114#issuecomment-6783698688",
+  "duc_unchanged_artifacts": {
+    "experiments/member_studies/duc_baselines/runs.csv": {
+      "unchanged_since_audited_a2a7b6d": true,
+      "sha256": "bcda78d79351ab17fd4225c168ce5511783f4507781a8c5146ff150e597cf95a"
+    },
+    "experiments/member_studies/duc_baselines/runs_graph.csv": {
+      "unchanged_since_audited_a2a7b6d": true,
+      "sha256": "695a4f2adfd0f5ee8c5c636b8efb8665201a60fbdc0ff160c326a060492786ae"
+    },
+    "experiments/member_studies/duc_baselines/session.json": {
+      "unchanged_since_audited_a2a7b6d": true,
+      "sha256": "043f608db7ff17328f3b007b6d84e284a4fa51c680993a22faadf1b25f984b57"
+    },
+    "experiments/member_studies/duc_baselines/urbanev_szh_benchmark_issue96.ipynb": {
+      "unchanged_since_audited_a2a7b6d": true,
+      "sha256": "3532676068745a7a4c9695b14ac01c635c7ad57147604539ffc4ff935ba5b32e"
+    }
+  },
+  "notes": [
+    "Review published evidence; no baseline PR merge or scientific approval",
+    "Cyber current post-execution optional dependency fix does not alter the archived executed code; archive retains its 13 source-file fingerprints",
+    "Duc external 737-file readback reused after byte comparison, not repeated"
+  ],
+  "reviewer_execution": {
+    "base_commit": "8cf00ee3ca48f65064209943d2b9ce67476ed44c",
+    "binding": "Base commit plus separately hashed uncommitted reviewer script; not a claim that the new script was committed when executed",
+    "script_sha256": "f934dc344d31d87c72802dcd65eb91d8993bac5c00da42a0cdfcfe52be7e2767",
+    "python": "3.12.13",
+    "torch": "2.11.0",
+    "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+    "review_run_id": "issue99-baseline-review-20261111-v1",
+    "scope": "Byte/metric readback and reused Duc acceptance receipt, not model training"
+  }
+}

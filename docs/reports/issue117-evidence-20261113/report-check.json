@@ -1,0 +1,18 @@
+{
+  "old_numeric_table_rows_preserved": 39,
+  "unchanged_inherited_assets": 11,
+  "pages": 20,
+  "embedded_rasters": 0,
+  "overfull_or_unresolved": false,
+  "rendered_and_reviewed_pages": 20,
+  "source_files": 18,
+  "source_zip_sha256": "ca73ce3763114d330cdaa18ab6419f7996e80982e2888b97c2af8b8fd5571bf9",
+  "reader_pdf_sha256": "0effc907132b0def127be5e6babe3f94cdeb9d5c16848e7aec24a1d003164060",
+  "new_analysis": "42 primary contrasts and 126 calendar profiles; protocol/point estimates preserved",
+  "claim_paragraphs": 113,
+  "labeled_objects": 30,
+  "existing_forecast_results_changed": false,
+  "extracted_source_pages_match": 20,
+  "overleaf_web_ui_tested": false,
+  "ordinary_underfull_warnings": true
+}

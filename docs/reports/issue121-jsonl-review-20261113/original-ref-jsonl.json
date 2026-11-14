@@ -1,0 +1,308 @@
+{
+  "schema": "recorded-jsonl-supplement-v1",
+  "prior_audit_sha256": "8149a00aa1242b5129cee6867d7a07c1b46242054414a838fd82ab94bb488a4f",
+  "protocol_sha256": "f5e5eca69f1beb31f8ad4fe7f9963301de555e622e731b5fe1cc98317e77f425",
+  "script_sha256": "444f8f415067412ecd39678218cdd7cc102477a1a8abbce36c885d5ccc6e0b9b",
+  "extractor_sha256": "de1423a3e4160606d78e6cda1d0fc32790688b92f9cb77905f4b23d0afb293c7",
+  "pinned_revision_count": 66,
+  "files": [
+    {
+      "oid": "bafb1e3a3495f1d3d48c79ae507e58b4a6d2831c",
+      "path": "docs/reports/issue99-study-20261110/controller-events.jsonl",
+      "sha256": "63f2545cee3ec4fcf5259637f80342be68d2e3d9c5d16c3182e20db965e842d1",
+      "bytes": 361409,
+      "declarations": [
+        [
+          "urbanev-SZH",
+          "1153"
+        ],
+        [
+          "urbanev-SZH",
+          "1405"
+        ],
+        [
+          "urbanev-SZH",
+          "1693"
+        ],
+        [
+          "urbanev-SZH",
+          "2152"
+        ]
+      ],
+      "selected_numeric_token_hits": [
+        [
+          "charged-JHB",
+          "21"
+        ],
+        [
+          "charged-LOA",
+          "29"
+        ],
+        [
+          "charged-MEL",
+          "13"
+        ],
+        [
+          "charged-SPO",
+          "44"
+        ],
+        [
+          "charged-SZH",
+          "2"
+        ]
+      ],
+      "selected_structured_hits": []
+    },
+    {
+      "oid": "aad98e5791a46f2940c85e8484aa5f04ad6220f4",
+      "path": "experiments/member_studies/cyber_baselines/artifacts_v3/execution_log.jsonl",
+      "sha256": "f31c1c16fac160286d76a735ef56444be10adabfe1122eb10c9de308c5f75941",
+      "bytes": 49204,
+      "declarations": [
+        [
+          "urbanev-SZH",
+          "1153"
+        ],
+        [
+          "urbanev-SZH",
+          "1405"
+        ],
+        [
+          "urbanev-SZH",
+          "1693"
+        ],
+        [
+          "urbanev-SZH",
+          "2152"
+        ]
+      ],
+      "selected_numeric_token_hits": [
+        [
+          "charged-JHB",
+          "21"
+        ],
+        [
+          "charged-LOA",
+          "181"
+        ],
+        [
+          "charged-LOA",
+          "29"
+        ],
+        [
+          "charged-LOA",
+          "71"
+        ],
+        [
+          "charged-MEL",
+          "13"
+        ],
+        [
+          "charged-MEL",
+          "47"
+        ],
+        [
+          "charged-MEL",
+          "51"
+        ],
+        [
+          "charged-SPO",
+          "44"
+        ],
+        [
+          "charged-SZH",
+          "2"
+        ],
+        [
+          "charged-SZH",
+          "55"
+        ]
+      ],
+      "selected_structured_hits": []
+    },
+    {
+      "oid": "fd07c5c4a3f6fd94d880da475605f0dd7c535a23",
+      "path": "docs/reports/evidence/charged-archive-v2/kaggle-jhb-v2-readback-v1.jsonl",
+      "sha256": "79ddb3e70ca5cc3ecf3c2ac63224f4d838550eb1cc1bf63727a30e26bc6e9fd6",
+      "bytes": 9375,
+      "declarations": [],
+      "selected_numeric_token_hits": [
+        [
+          "charged-JHB",
+          "21"
+        ],
+        [
+          "charged-LOA",
+          "29"
+        ],
+        [
+          "charged-LOA",
+          "71"
+        ],
+        [
+          "charged-LOA",
+          "81"
+        ],
+        [
+          "charged-MEL",
+          "13"
+        ],
+        [
+          "charged-MEL",
+          "51"
+        ],
+        [
+          "charged-MEL",
+          "61"
+        ],
+        [
+          "charged-SPO",
+          "44"
+        ],
+        [
+          "charged-SZH",
+          "2"
+        ],
+        [
+          "charged-SZH",
+          "55"
+        ],
+        [
+          "charged-SZH",
+          "79"
+        ]
+      ],
+      "selected_structured_hits": []
+    },
+    {
+      "oid": "dd8cf197a659822cc2241ac13d9cadfe6f8a9c88",
+      "path": "docs/reports/evidence/charged-archive-v2/kaggle-loa-v2-readback-v1.jsonl",
+      "sha256": "7fd81d758cb82b9493bc9e604e8db6b076078369cf82220fa5cd6138943ff3c8",
+      "bytes": 9375,
+      "declarations": [],
+      "selected_numeric_token_hits": [
+        [
+          "charged-JHB",
+          "21"
+        ],
+        [
+          "charged-LOA",
+          "188"
+        ],
+        [
+          "charged-LOA",
+          "29"
+        ],
+        [
+          "charged-LOA",
+          "71"
+        ],
+        [
+          "charged-LOA",
+          "81"
+        ],
+        [
+          "charged-MEL",
+          "13"
+        ],
+        [
+          "charged-MEL",
+          "47"
+        ],
+        [
+          "charged-MEL",
+          "51"
+        ],
+        [
+          "charged-MEL",
+          "61"
+        ],
+        [
+          "charged-SPO",
+          "44"
+        ],
+        [
+          "charged-SZH",
+          "2"
+        ],
+        [
+          "charged-SZH",
+          "449"
+        ],
+        [
+          "charged-SZH",
+          "55"
+        ],
+        [
+          "charged-SZH",
+          "79"
+        ]
+      ],
+      "selected_structured_hits": []
+    },
+    {
+      "oid": "6a8a7e32e0e9cfc9ac439d6fc4bf9357254f00b6",
+      "path": "docs/reports/evidence/charged-archive-v2/kaggle-spo-v2-readback-v1.jsonl",
+      "sha256": "424f40cf3ca56db6df498d868996604308c0e2f438ecb9ea9b2bad5ff82829cb",
+      "bytes": 9375,
+      "declarations": [],
+      "selected_numeric_token_hits": [
+        [
+          "charged-JHB",
+          "21"
+        ],
+        [
+          "charged-LOA",
+          "188"
+        ],
+        [
+          "charged-LOA",
+          "29"
+        ],
+        [
+          "charged-LOA",
+          "71"
+        ],
+        [
+          "charged-LOA",
+          "81"
+        ],
+        [
+          "charged-MEL",
+          "13"
+        ],
+        [
+          "charged-MEL",
+          "47"
+        ],
+        [
+          "charged-MEL",
+          "61"
+        ],
+        [
+          "charged-SPO",
+          "44"
+        ],
+        [
+          "charged-SZH",
+          "2"
+        ],
+        [
+          "charged-SZH",
+          "55"
+        ],
+        [
+          "charged-SZH",
+          "79"
+        ],
+        [
+          "charged-SZH",
+          "907"
+        ]
+      ],
+      "selected_structured_hits": []
+    }
+  ],
+  "structured_selected_overlaps": [],
+  "scope": "All reachable JSONL blobs under the original audit's exact pinned refs, including fixtures; numeric hits are conservative manual-review flags, not proof of exposure. No post-lock refs enter this supplement."
+}

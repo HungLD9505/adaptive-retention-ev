@@ -1,0 +1,30 @@
+{
+  "all_initial_binding_core_hashes_matched": true,
+  "files": {
+    "ev_baselines/__init__.py": "761479b2da6db28d81d2791501660a609ec9d0b271d2aabf1181150ddf3def48",
+    "ev_baselines/naive.py": "50a5842de61779e5b5494b988da8a1d61c8e40c7aeb647354b212812af00a5ef",
+    "ev_baselines/policies.py": "a9ba2e53843b6c93316506a41e001f090b3b361cc717c9929d3e6615e02fbcb0",
+    "ev_baselines/retention.py": "79e6b7338e6d02cf96318dfe014bdff3dcf9f48d86894b09169b4ba69cb526f4",
+    "ev_control/__init__.py": "b454bafe2830b52e1970ca161aeb85468b3ff90906f2952891b74c83d17399f7",
+    "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+    "ev_control/continuous.py": "375851541a96957465fca00227bb718a0c3a654524c37ad4f70d0f81e2b7d8ca",
+    "ev_control/hypergradient.py": "2597ea4343fad02bebfdbb678abcd2c992d7c17bed2f24330fe186930c0cea56",
+    "ev_models/__init__.py": "c58c448b78d6b5598ccdaf0ced846dd375c5de248d025dde847da1386065eb2d",
+    "ev_models/checkpoint.py": "f70de4f5846dd83b8411cb3581f45a4a41b7d5ed86f09395769898bb9166d6ba",
+    "ev_models/data.py": "52efbe172ccb6388a5251e143012d7e1548420df499f3af3513c4f5afe1edb38",
+    "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+    "ev_models/run.py": "e7acd06c518156f351dd47d13366194817cf8fd2a0c04c3d812d05df093298ec",
+    "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+    "ev_runner/__init__.py": "2cce8064f1ad5d5ca950d7bbed649bc1824cedcd19f8c8a4c5c60a3d60e6f36a",
+    "ev_runner/continuous.py": "59a72ef0e776ccb7cb76937a54650d5733ae26f4cbacb00fe9b2031536a24a29",
+    "ev_runner/continuous_run.py": "2e0f830258784c224c4043608225f4651149d56e75da38123c14142dd23c6912",
+    "ev_runner/diagnostics.py": "47a64b9d1e1e79a6652abfe2ad2360f6f303ed397f7d37ff8ec369299f5535ac",
+    "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+    "ev_runner/final_gate.py": "f29bc7e2acb794ae5eb30083bbe7531943f8d6db8c972a01d7871b6e078ed779",
+    "ev_runner/replay.py": "bce437ea37aa12b16d5930004e95258ae9c32926ce635a3daff56968f4206173",
+    "ev_runner/run.py": "01152272a68d97cf8c3fd163f8a1f42e9de1d6c085931e961e2b8cf8bee3e3ee",
+    "ev_runner/state.py": "8f922db2a539c08eca80a535cef67bfe38111bc1f43a4f8186c7e1a0c75f222a",
+    "ev_runner/store.py": "718c6813fb2a595e6309c755b0388f8a91bd414ed464b4b1e001dbfbacb10797"
+  },
+  "note": "Snapshot reconstructs initial loaded core. Later file edits changed target validation/error text only; replay/training formulas unchanged. Script original bytes preserved separately."
+}

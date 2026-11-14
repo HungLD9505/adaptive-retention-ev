@@ -1,0 +1,84 @@
+{
+  "previous": {
+    "axis_aligned_strokes_crossing_inset_character_boxes": 12,
+    "hits": [
+      {
+        "char": "n",
+        "x": 518.53,
+        "top": 143.26,
+        "kind": "vertical"
+      },
+      {
+        "char": "e",
+        "x": 518.53,
+        "top": 139.72,
+        "kind": "vertical"
+      },
+      {
+        "char": "x",
+        "x": 518.53,
+        "top": 135.53,
+        "kind": "vertical"
+      },
+      {
+        "char": "t",
+        "x": 518.53,
+        "top": 132.42,
+        "kind": "vertical"
+      },
+      {
+        "char": "f",
+        "x": 518.53,
+        "top": 127.27,
+        "kind": "vertical"
+      },
+      {
+        "char": "o",
+        "x": 518.53,
+        "top": 123.3,
+        "kind": "vertical"
+      },
+      {
+        "char": "r",
+        "x": 518.53,
+        "top": 120.19,
+        "kind": "vertical"
+      },
+      {
+        "char": "e",
+        "x": 518.53,
+        "top": 116.65,
+        "kind": "vertical"
+      },
+      {
+        "char": "c",
+        "x": 518.53,
+        "top": 113.1,
+        "kind": "vertical"
+      },
+      {
+        "char": "a",
+        "x": 518.53,
+        "top": 109.14,
+        "kind": "vertical"
+      },
+      {
+        "char": "s",
+        "x": 518.53,
+        "top": 105.98,
+        "kind": "vertical"
+      },
+      {
+        "char": "t",
+        "x": 518.53,
+        "top": 102.87,
+        "kind": "vertical"
+      }
+    ]
+  },
+  "revised": {
+    "axis_aligned_strokes_crossing_inset_character_boxes": 0,
+    "hits": []
+  },
+  "scope": "Geometry screen of axis-aligned visible-color strokes against inset character bounding boxes; rotated-label background masking and diagonal arrowheads require visual inspection. Complements standalone/report-size render review."
+}

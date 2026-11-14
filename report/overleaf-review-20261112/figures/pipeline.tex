@@ -1,0 +1,39 @@
+\begin{tikzpicture}[
+  font=\sffamily\footnotesize,
+  box/.style={draw=black!45,rounded corners=2pt,align=center,text width=2.65cm,minimum height=1.05cm,inner sep=5pt,fill=black!3},
+  source/.style={box,fill=blue!7,draw=blue!50!black},
+  stable/.style={box,fill=green!8,draw=green!40!black},
+  fast/.style={box,fill=orange!10,draw=orange!60!black},
+  control/.style={box,fill=blue!7,draw=blue!50!black},
+  flow/.style={-{Stealth[length=2mm]},thick,draw=black!65},
+  feedback/.style={-{Stealth[length=2mm]},thick,dashed,draw=blue!65!black}
+]
+\node[box] (data) at (-5.7,0) {\textbf{UrbanEV / CHARGED}\\Source and target IDs\\separated by role};
+\node[box] (inputs) at (-1.9,0) {\textbf{Hourly inputs}\\masks and prefix scale\\24 h history $\to$ 24 h};
+\node[source] (train) at (1.9,0) {\textbf{Source pretraining}\\two-layer GRU\\within each namespace};
+\node[source] (checkpoint) at (5.7,0) {\textbf{Source checkpoint}\\frozen reference\\latent scales};
+\draw[flow] (data)--(inputs);
+\draw[flow] (inputs)--(train);
+\draw[flow] (train)--(checkpoint);
+\node[box] (target) at (-5.7,-2.9) {\textbf{Target initialization}\\copy Source weights\\7 / 14 / 28-day prefix};
+\node[stable] (stable) at (-1.7,-2.0) {\textbf{Stable GRU}\\retention $\lambda=1$\\one-day online updates};
+\node[fast] (fast) at (-1.7,-3.8) {\textbf{Fast GRU}\\retention $\lambda=0$\\seven-day update window};
+\node[control] (fusion) at (2.0,-2.9) {\textbf{Weighted forecast}\\$\hat y=w\hat y_S+(1-w)\hat y_F$\\current stable weight $w$};
+\node[box] (issued) at (5.7,-2.9) {\textbf{Issue and store}\\24 hourly forecasts\\before future labels};
+\draw[flow] (checkpoint.east)--++(0.35,0)--++(0,-1.05)-| (target.north);
+\draw[flow] (target.east)--++(0.4,0) |- (stable.west);
+\draw[flow] (target.east)--++(0.4,0) |- (fast.west);
+\draw[flow] (stable.east)--(fusion.west);
+\draw[flow] (fast.east)--(fusion.west);
+\draw[flow] (fusion)--(issued);
+\node[box] (labels) at (5.7,-5.8) {\textbf{Label availability gate}\\wait for all 24 labels\\skip incomplete days};
+\node[box] (loss) at (2.0,-5.8) {\textbf{Score saved forecasts}\\scaled daily MAE\\$\ell_{S,d}$ and $\ell_{F,d}$};
+\node[control] (update) at (-1.7,-5.8) {\textbf{Fixed-share controller}\\exponential loss posterior\\then share probability};
+\node[box] (calibration) at (-5.7,-5.8) {\textbf{Development calibration}\\lock $w_0$, $\eta$, $\alpha$\\before cohort replay};
+\draw[flow] (issued)--node[right,font=\sffamily\scriptsize,align=left]{delayed\\feedback}(labels);
+\draw[flow] (labels)--(loss);
+\draw[flow] (loss)--(update);
+\draw[feedback] (calibration)--(update);
+\draw[feedback] (update.north)--(-1.7,-4.8)--(2.0,-4.8)
+  --node[right,font=\sffamily\scriptsize]{$w_{\mathrm{next}}$}(fusion.south);
+\end{tikzpicture}
