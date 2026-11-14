@@ -1,0 +1,25 @@
+{
+  "posthoc": true,
+  "primary_unchanged": true,
+  "tolerances_kwh": {
+    "0": {
+      "fixed": 35,
+      "static": 28
+    },
+    "1e-06": {
+      "fixed": 31,
+      "static": 28
+    },
+    "0.01": {
+      "fixed": 27,
+      "static": 16
+    }
+  },
+  "negligible_ams_ids": [
+    "1889",
+    "617",
+    "2366",
+    "1733"
+  ],
+  "absolute_difference_kwh": 1.4339353796236022e-09
+}

@@ -7,6 +7,22 @@ from tools.data_use_history import extract, target_ids
 
 
 class DataUseHistoryTests(unittest.TestCase):
+    def test_jsonl_keeps_every_execution_record_and_run_id(self):
+        data = b'{"target":"001","namespace":"charged-AMS"}\n{"run_id":"cyber_v3_gru_transfer_1405_42"}\n'
+        self.assertEqual(
+            extract(data, "member_studies/cyber/execution_log.jsonl"),
+            {("charged-AMS", "001"), ("urbanev-SZH", "1405")},
+        )
+
+    def test_jsonl_identity_without_role_is_conservative_but_source_is_skipped(self):
+        data = b'{"identity":["charged","JHB","21"]}\n{"identity":["charged","JHB","22"],"role":"source"}\n'
+        self.assertEqual(extract(data, "execution.jsonl"), {("charged-JHB", "21")})
+
+    def test_malformed_jsonl_cannot_silently_lose_later_records(self):
+        for data in (b'{"target":"1"}\n{"target":', b"[]\n", b"\xff"):
+            with self.assertRaises((ValueError, UnicodeDecodeError)):
+                extract(data, "run.jsonl")
+
     def test_nested_run_binding_is_namespace_specific(self):
         value = {
             "binding": {
