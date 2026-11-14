@@ -1,0 +1,50 @@
+{
+  "scope": "Exploratory same-bank confidence ablation and random target-only, exposed Development",
+  "script_sha256": "dcf52cc789d5f567d28bc890ae6779340d487edfe1b52a0ae2a3d6006d30731f",
+  "input_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+  "inventory_sha256": "5ecf4a37d424d90716757c431508599cada189698f477f111e50cc70e9fc25ad",
+  "targets": [
+    "1691",
+    "2564",
+    "2398",
+    "1114",
+    "1225",
+    "1169",
+    "1885",
+    "1802",
+    "2035",
+    "1836",
+    "1303",
+    "1325"
+  ],
+  "calibration_targets": [
+    "1405",
+    "2152",
+    "1153",
+    "1693"
+  ],
+  "bank_levels": [
+    0.0,
+    0.1,
+    1.0
+  ],
+  "bank_policy": "Independent constant-retention trajectories; selection never changes their training",
+  "controller": {
+    "block_days": 7,
+    "min_valid_days": 5,
+    "segment_days": 3,
+    "resamples": 2000,
+    "alpha": 0.05,
+    "delta": 0,
+    "initial_lambda": 0.1
+  },
+  "comparison": "Same lowest-past-MAE challenger, optional paired-bootstrap LCB>0 gate",
+  "target_only": "Random GRU, 3 prefix epochs + 1 epoch per arrived day, no source-weight initialization or retention",
+  "subgroups": "Four predeclared prefix zero-fraction rank strata from inventory",
+  "selection": "Fixed bank level selected by original-four calibration macro MAE",
+  "source_sha256": {
+    "42": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+    "43": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+    "44": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5"
+  }
+}

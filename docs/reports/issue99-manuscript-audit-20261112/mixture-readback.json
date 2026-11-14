@@ -1,0 +1,11 @@
+{
+  "artifact_files_rehashed": 810,
+  "null_units": 9,
+  "scored_daily_vectors_per_arm": 67293,
+  "delayed_feedback_events_recomputed": 66492,
+  "mixture_predictions_and_errors": "Adaptive, static and Fast-only recomputed from saved expert forecasts and labels",
+  "chronology": "Earlier complete arrivals only, ordered by availability then origin; saved forecasts used before weight updates",
+  "gru_parameters": 52376,
+  "same_head_lstm_parameters": 65368,
+  "boundary": "This is saved-output authentication and fresh mixture arithmetic, not a new raw-data download or retraining of experts."
+}

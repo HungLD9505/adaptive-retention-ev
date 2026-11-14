@@ -1,0 +1,18 @@
+model,mode,mae_kwh
+Basic GCN-LSTM,target_only,7.128839083333332
+Daily Naive,target_only,7.076269249999999
+GRU,target_only,8.940609
+GRU,transfer,5.315023583333334
+LSTM,target_only,8.935971166666667
+LSTM,transfer,5.335575166666666
+MLP,target_only,8.671093416666666
+MLP,transfer,5.519647166666666
+Random Forest,target_only,5.800776249999999
+Ridge,target_only,5.93392325
+SARIMA,target_only,6.57986875
+Seasonal Naive,target_only,8.46311125
+TCN,target_only,8.073387166666667
+TCN,transfer,5.344701166666667
+TimeXer,target_only,8.120937416666665
+TimeXer,transfer,5.582311083333332
+XGBoost,target_only,6.484740749999999

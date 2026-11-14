@@ -12,6 +12,10 @@ extend-exclude = [
     "experiments/supporting_pipeline/kaggle_compact_proof_shard0001_readback_v1.ipynb",
     "experiments/supporting_pipeline/kaggle_compact_proof_group02_v1.ipynb",
     "experiments/supporting_pipeline/kaggle_compact_proof_group02_readback_v1.ipynb",
+    # Immutable, executed Colab #96 notebook: preserve exact provider-snapshot bytes
+    # (SHA-256 3532676068745a7a4c9695b14ac01c635c7ad57147604539ffc4ff935ba5b32e).
+    # Future maintained code is linted separately; this is not a lint pass for the snapshot.
+    "experiments/member_studies/duc_baselines/urbanev_szh_benchmark_issue96.ipynb",
 ]
 
 [tool.ruff.lint]

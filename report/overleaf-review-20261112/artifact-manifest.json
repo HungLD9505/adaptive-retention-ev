@@ -1,0 +1,95 @@
+{
+  "schema": "overleaf-manuscript-artifacts-v1",
+  "checks": {
+    "status": "passed",
+    "template": "original Springer Nature sn-jnl iicol",
+    "pdf_pages": 12,
+    "native_display_equations": 12,
+    "display_expressions_unchanged": true,
+    "table_bodies_unchanged": true,
+    "tables": 4,
+    "scientific_plots_unchanged": 6,
+    "vector_pipeline": true,
+    "pipeline_page": 4,
+    "scientific_references": 8,
+    "short_figure_titles": 7,
+    "maximum_figure_title_lines": 1,
+    "descriptions_in_body_not_captions": true,
+    "overfull_boxes": 0,
+    "unresolved_citations_or_references": 0,
+    "visual_review": "All 12 final pages inspected; unchanged page images matched the inspected preceding render where applicable.",
+    "compiler": "Tectonic 0.17.0",
+    "tex_web_editor_run": false,
+    "source_zip": {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue99-overleaf-delivery-20261112-v1/AIP491-G10-overleaf-20261112.zip",
+      "files": 12,
+      "bytes": 994062,
+      "sha256": "cc25de7fb7dd67503a5d8850651a3df76a398264bb75af029b9335c2504a6b8a",
+      "crc": "passed"
+    },
+    "source_zip_rebuild": {
+      "status": "passed",
+      "pages": 12,
+      "page_text_identical": true,
+      "pdf_byte_identical": false
+    }
+  },
+  "files": {
+    ".gitignore": {
+      "bytes": 75,
+      "sha256": "389e8c098233187fecf1f25de59977ce428a4ebb6cbb8c3a2a8da9dc75b5cece"
+    },
+    "README.md": {
+      "bytes": 1220,
+      "sha256": "2c261722e796b59abd1dbf73117e53d8f4a7be2eb3a5e9b9920cdf78dc1b2fe5"
+    },
+    "figures/backbone-benchmarks.png": {
+      "bytes": 70657,
+      "sha256": "7b4ae55378415c8e50b702693d42d9ce318f7c89c31eb90b3f3a532ffb1948ce"
+    },
+    "figures/controller-trajectories.png": {
+      "bytes": 275353,
+      "sha256": "18450e958c5f30cbf4bdaac62a0aa055629f7d17be42434aaea014341ea32f33"
+    },
+    "figures/epoch-selection.png": {
+      "bytes": 166403,
+      "sha256": "7e53741fdfbb20878bfd34d36aa11a40d6c27f0e9143f53b8a90f1107bb496eb"
+    },
+    "figures/full-scope-gains.png": {
+      "bytes": 247582,
+      "sha256": "9d71490c3ce1d87601567ba83149ce223dbc739f2fc758d3fcecb95633975853"
+    },
+    "figures/history-comparison.png": {
+      "bytes": 74670,
+      "sha256": "198e10a32c2ff0fb56be3c5ab2c3f8bcf1686482376990e74f43187ea3d9de5c"
+    },
+    "figures/incremental-controller.png": {
+      "bytes": 194562,
+      "sha256": "434476bac36ba8cc1314036efa353ed2e03381edb1582e0e13a7f0fc2b434713"
+    },
+    "figures/pipeline.tex": {
+      "bytes": 2740,
+      "sha256": "01c283f36217a539ccb8e0462c9309ab607579ff2d8b983f966441c369dec9c5"
+    },
+    "main.tex": {
+      "bytes": 32113,
+      "sha256": "c9c0d7b0507a8509d223be1aa6e844ec01da8ae362eba60070dd6a502d96b056"
+    },
+    "references.bib": {
+      "bytes": 2723,
+      "sha256": "ef3e94202152d6810222ca48332160831852552c431c286b3b8f6b64e1931270"
+    },
+    "sn-jnl.cls": {
+      "bytes": 55857,
+      "sha256": "36d0c3273a59d48dc6a9c7b080dfa1ec50dc10229d8751568d1f2e490ffa5ecc"
+    },
+    "sn-mathphys-num.bst": {
+      "bytes": 64164,
+      "sha256": "b3a7c7fbcc1e7f9619de634fcea2f5bb7a245818a5942bc576e40ea001633332"
+    },
+    "source-retention-review.pdf": {
+      "bytes": 1150531,
+      "sha256": "321f500252b1b6426512da58b5dd046c93a8bfd439e749f448dccb008a3fc68a"
+    }
+  }
+}

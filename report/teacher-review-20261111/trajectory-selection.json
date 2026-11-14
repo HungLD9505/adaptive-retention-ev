@@ -1,0 +1,20 @@
+[
+  {
+    "namespace": "charged-JHB",
+    "target": "13",
+    "history_days": 14,
+    "seed": 42,
+    "station_seed_averaged_reduction_percent": 44.958154544764206,
+    "cell_sha256": "bb674a03499c85eb2ec5df8fa8f8ad4552b982a38c4081366d9e7793c79c7717",
+    "selection": "Upper median station gain among stable MAE > 1e-4, 14d; fixed seed 42"
+  },
+  {
+    "namespace": "urbanev-SZH",
+    "target": "1272",
+    "history_days": 14,
+    "seed": 42,
+    "station_seed_averaged_reduction_percent": -0.16420309584813458,
+    "cell_sha256": "1f894c314932cbb6e84881dbe484fdd6dd169fa9e3e8fc788e1e31fdd2f98399",
+    "selection": "Upper median station gain among stable MAE > 1e-4, 14d; fixed seed 42"
+  }
+]

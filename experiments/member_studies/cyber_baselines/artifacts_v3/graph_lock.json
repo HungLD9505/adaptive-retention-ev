@@ -1,0 +1,87 @@
+{
+  "rule": "targets + 3 nearest development-role stations per target",
+  "distance_source": "UrbanEVDataset/20220901-20230228_station-raw/station_distance.csv",
+  "excluded_roles": [
+    "final",
+    "source"
+  ],
+  "support_k": 3,
+  "neighbors": {
+    "1405": [
+      {
+        "station_id": "1398",
+        "distance_m": 659.207893504112
+      },
+      {
+        "station_id": "1439",
+        "distance_m": 799.068301480097
+      },
+      {
+        "station_id": "1417",
+        "distance_m": 869.454194665872
+      }
+    ],
+    "2152": [
+      {
+        "station_id": "2153",
+        "distance_m": 0.0
+      },
+      {
+        "station_id": "2120",
+        "distance_m": 639.141708298183
+      },
+      {
+        "station_id": "2173",
+        "distance_m": 877.46666893032
+      }
+    ],
+    "1153": [
+      {
+        "station_id": "1140",
+        "distance_m": 341.924009941264
+      },
+      {
+        "station_id": "1169",
+        "distance_m": 425.884327837279
+      },
+      {
+        "station_id": "1165",
+        "distance_m": 481.926098883652
+      }
+    ],
+    "1693": [
+      {
+        "station_id": "1723",
+        "distance_m": 757.629970895458
+      },
+      {
+        "station_id": "1836",
+        "distance_m": 2430.7022975383
+      },
+      {
+        "station_id": "1810",
+        "distance_m": 2522.73203563703
+      }
+    ]
+  },
+  "node_ids": [
+    "1140",
+    "1153",
+    "1165",
+    "1169",
+    "1398",
+    "1405",
+    "1417",
+    "1439",
+    "1693",
+    "1723",
+    "1810",
+    "1836",
+    "2120",
+    "2152",
+    "2153",
+    "2173"
+  ],
+  "adjacency": "Gaussian kernel exp(-(d/sigma)^2), sigma=std(positive distances), +I, D^-1/2 A D^-1/2",
+  "history_records_loaded": 1241
+}

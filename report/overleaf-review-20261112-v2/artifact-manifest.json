@@ -1,0 +1,92 @@
+{
+  "schema": "overleaf-manuscript-artifacts-v2",
+  "checks": {
+    "pdf_pages": 12,
+    "native_display_equations_unchanged": 12,
+    "tables_with_unchanged_values": 4,
+    "verified_best_cells": 28,
+    "figures": 7,
+    "scientific_references": 8,
+    "visual_review": "All twelve final pages inspected.",
+    "compiler": "Tectonic 0.17.0",
+    "overfull_boxes": 0,
+    "unresolved_references": 0,
+    "overleaf_web_run": false,
+    "raw_download_or_training": false,
+    "illustration": {
+      "mode": "built-in Imagegen",
+      "prompt_path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue99-overleaf-delivery-20261112-v2/illustration-prompt.txt",
+      "prompt_sha256": "b6e6b4c4e5b6d8609061cf1fccc05645199037fff12aea2fe7af0c2da3cbc5c1"
+    },
+    "source_zip": {
+      "path": "/Users/quyenmanh/Developer/TFL-EV/runs/issue99-overleaf-delivery-20261112-v2/AIP491-G10-adaptive-transfer-learning-20261112-v2.zip",
+      "sha256": "f6cbcb8ac738b5e473e002c81bd41198dc600d95db1569702f83bc7e759a6ba0",
+      "files": 12
+    },
+    "source_zip_rebuild": "Passed; all twelve page texts match the reader PDF."
+  },
+  "files": {
+    ".gitignore": {
+      "bytes": 75,
+      "sha256": "389e8c098233187fecf1f25de59977ce428a4ebb6cbb8c3a2a8da9dc75b5cece"
+    },
+    "README.md": {
+      "bytes": 1403,
+      "sha256": "176f39c17640e248228f10281a8a36ea30e63503c68564c4dfae6894c4a46382"
+    },
+    "adaptive-transfer-learning-ev.pdf": {
+      "bytes": 2487773,
+      "sha256": "31d558d8cf516a5b405ff2fcc336ee1de2d2d9be5b80b562e7be51c99c0c9e3b"
+    },
+    "figures/backbone-benchmarks.png": {
+      "bytes": 70657,
+      "sha256": "7b4ae55378415c8e50b702693d42d9ce318f7c89c31eb90b3f3a532ffb1948ce"
+    },
+    "figures/controller-trajectories.png": {
+      "bytes": 275353,
+      "sha256": "18450e958c5f30cbf4bdaac62a0aa055629f7d17be42434aaea014341ea32f33"
+    },
+    "figures/epoch-selection.pdf": {
+      "bytes": 25131,
+      "sha256": "64a1fed8310a3e5344b35d7d48b7882992e51fe9804b128712d07ea55dd677ba"
+    },
+    "figures/flow-illustrated.png": {
+      "bytes": 1767710,
+      "sha256": "e4e469c55aed9dc7445844f83b86f68689be717027607104354150fab64fc15f"
+    },
+    "figures/full-scope-gains.png": {
+      "bytes": 247582,
+      "sha256": "9d71490c3ce1d87601567ba83149ce223dbc739f2fc758d3fcecb95633975853"
+    },
+    "figures/history-comparison.pdf": {
+      "bytes": 34088,
+      "sha256": "51197fc944f58243943f554fe131b49ab8299eabe36b9235ea2439e83001d2e1"
+    },
+    "figures/incremental-controller.png": {
+      "bytes": 194562,
+      "sha256": "434476bac36ba8cc1314036efa353ed2e03381edb1582e0e13a7f0fc2b434713"
+    },
+    "main.tex": {
+      "bytes": 33039,
+      "sha256": "fb0ae476a05d4aad1ba36b06e99490c5ac1d8de0781fcb8ddd5abb223e99d092"
+    },
+    "references.bib": {
+      "bytes": 2723,
+      "sha256": "ef3e94202152d6810222ca48332160831852552c431c286b3b8f6b64e1931270"
+    },
+    "sn-jnl.cls": {
+      "bytes": 55857,
+      "sha256": "36d0c3273a59d48dc6a9c7b080dfa1ec50dc10229d8751568d1f2e490ffa5ecc"
+    },
+    "sn-mathphys-num.bst": {
+      "bytes": 64164,
+      "sha256": "b3a7c7fbcc1e7f9619de634fcea2f5bb7a245818a5942bc576e40ea001633332"
+    }
+  },
+  "numeric_inputs": {
+    "docs/reports/issue99-history-review-20261110/verified-summary.json": "3049b2ceca7025db293e871e4c8a4604dad909f7567e150231cbf04ec477dc99",
+    "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json": "a330ead07d57618533a761e891bacadd2ba188e037b51e1a7012b3e541ec0caf",
+    "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json": "05b40ad7b9b4f3d2c63124610b4a92895dca7a88ba82c12d2260ca06bf5b5a4f",
+    "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json": "2953feb24d32f1247719aa7541eaa19dc29f7dec90a0490a70ad6e2fbfe76609"
+  }
+}

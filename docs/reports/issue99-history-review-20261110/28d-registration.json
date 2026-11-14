@@ -1,0 +1,53 @@
+{
+  "history_days": 28,
+  "input_sha256": "cdd43152bbda3de9f468938262a8bf00e041a9f264cf29051b71d06e788beadd",
+  "script_sha256": "fce128e9604fff17703824f987afe2ded692d597a7662b0cd834b755f8df7cab",
+  "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+  "inventory_sha256": "5ecf4a37d424d90716757c431508599cada189698f477f111e50cc70e9fc25ad",
+  "source_sha256": {
+    "42": "a3d3485d8d9a3e96c0483ab61e659e3a31b0f9bd62cc51ae6b77c0d204920d8b",
+    "43": "2ad6ed33fb7e692eae5f8db6be075ce43564851f70390d19edb4314052a17f5f",
+    "44": "6f475e54768322c5b51f5837d6ce7e863cb9ef6d33aec05b4a1c2468cd0285a5"
+  },
+  "calibration_targets": [
+    "1405",
+    "2152",
+    "1153",
+    "1693"
+  ],
+  "evaluation_targets": [
+    "1691",
+    "2564",
+    "2398",
+    "1114",
+    "1225",
+    "1169",
+    "1885",
+    "1802",
+    "2035",
+    "1836",
+    "1303",
+    "1325"
+  ],
+  "epoch_candidates": [
+    3,
+    10,
+    30,
+    100,
+    300
+  ],
+  "boundary_extension": 900,
+  "selection": "minimum equal-station, equal-seed calibration MAE per initialization; extend 900 if 300 wins",
+  "scope": "Exposed Development, no convergence optimality or untouched holdout claim",
+  "online_epochs": 1,
+  "learning_rate": 0.001,
+  "policy": "Independent common bank, same lowest-past-MAE challenger and optional normalized bootstrap gate; start at calibration Fixed",
+  "controller": {
+    "block_days": 7,
+    "min_valid_days": 5,
+    "segment_days": 3,
+    "resamples": 2000,
+    "alpha": 0.05,
+    "delta": 0.0
+  }
+}

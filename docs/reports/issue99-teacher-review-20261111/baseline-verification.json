@@ -1,0 +1,203 @@
+{
+  "status": "passed",
+  "cyber_manifest_entries": 367,
+  "cyber_executed_code_files": 13,
+  "cyber_post_execution_source_changes": [
+    "experiments/member_studies/cyber_baselines/models/classical.py"
+  ],
+  "cyber_runs": 172,
+  "cyber_daily_scores": 10535,
+  "cyber_hourly_predictions": 252840,
+  "cyber_finite_tensor_files": 147,
+  "cyber_scored_origins": {
+    "1405": 89,
+    "2152": 52,
+    "1153": 52,
+    "1693": 52
+  },
+  "duc_ledger_rows_recomputed": 172,
+  "duc_external_readback": "Reuse published reviewer receipt 6783698688 on unchanged ledgers/session; no new 737-file download",
+  "summaries": {
+    "cyber": [
+      {
+        "model": "Basic GCN-LSTM",
+        "mode": "target_only",
+        "mae_kwh": 7.128839083333332
+      },
+      {
+        "model": "Daily Naive",
+        "mode": "target_only",
+        "mae_kwh": 7.076269249999999
+      },
+      {
+        "model": "GRU",
+        "mode": "target_only",
+        "mae_kwh": 8.940609
+      },
+      {
+        "model": "GRU",
+        "mode": "transfer",
+        "mae_kwh": 5.315023583333334
+      },
+      {
+        "model": "LSTM",
+        "mode": "target_only",
+        "mae_kwh": 8.935971166666667
+      },
+      {
+        "model": "LSTM",
+        "mode": "transfer",
+        "mae_kwh": 5.335575166666666
+      },
+      {
+        "model": "MLP",
+        "mode": "target_only",
+        "mae_kwh": 8.671093416666666
+      },
+      {
+        "model": "MLP",
+        "mode": "transfer",
+        "mae_kwh": 5.519647166666666
+      },
+      {
+        "model": "Random Forest",
+        "mode": "target_only",
+        "mae_kwh": 5.800776249999999
+      },
+      {
+        "model": "Ridge",
+        "mode": "target_only",
+        "mae_kwh": 5.93392325
+      },
+      {
+        "model": "SARIMA",
+        "mode": "target_only",
+        "mae_kwh": 6.57986875
+      },
+      {
+        "model": "Seasonal Naive",
+        "mode": "target_only",
+        "mae_kwh": 8.46311125
+      },
+      {
+        "model": "TCN",
+        "mode": "target_only",
+        "mae_kwh": 8.073387166666667
+      },
+      {
+        "model": "TCN",
+        "mode": "transfer",
+        "mae_kwh": 5.344701166666667
+      },
+      {
+        "model": "TimeXer",
+        "mode": "target_only",
+        "mae_kwh": 8.120937416666665
+      },
+      {
+        "model": "TimeXer",
+        "mode": "transfer",
+        "mae_kwh": 5.582311083333332
+      },
+      {
+        "model": "XGBoost",
+        "mode": "target_only",
+        "mae_kwh": 6.484740749999999
+      }
+    ],
+    "duc": [
+      {
+        "model": "daily_naive",
+        "mode": "target_only",
+        "mae_kwh": 7.075713394197356
+      },
+      {
+        "model": "gcn_lstm",
+        "mode": "spatial",
+        "mae_kwh": 7.1789969969710015
+      },
+      {
+        "model": "gru",
+        "mode": "target_only",
+        "mae_kwh": 8.923852713989643
+      },
+      {
+        "model": "gru",
+        "mode": "transfer",
+        "mae_kwh": 5.315692863378779
+      },
+      {
+        "model": "lstm",
+        "mode": "target_only",
+        "mae_kwh": 8.9564817872501
+      },
+      {
+        "model": "lstm",
+        "mode": "transfer",
+        "mae_kwh": 5.316825260662538
+      },
+      {
+        "model": "mlp",
+        "mode": "target_only",
+        "mae_kwh": 8.685481053459492
+      },
+      {
+        "model": "mlp",
+        "mode": "transfer",
+        "mae_kwh": 5.475284456430547
+      },
+      {
+        "model": "random_forest",
+        "mode": "target_only",
+        "mae_kwh": 5.820420666231326
+      },
+      {
+        "model": "ridge",
+        "mode": "target_only",
+        "mae_kwh": 5.933921504309323
+      },
+      {
+        "model": "sarima",
+        "mode": "target_only",
+        "mae_kwh": 6.677075101799996
+      },
+      {
+        "model": "seasonal_naive",
+        "mode": "target_only",
+        "mae_kwh": 8.463111228539173
+      },
+      {
+        "model": "tcn",
+        "mode": "target_only",
+        "mae_kwh": 7.841549523760195
+      },
+      {
+        "model": "tcn",
+        "mode": "transfer",
+        "mae_kwh": 5.30273775679446
+      },
+      {
+        "model": "timexer",
+        "mode": "target_only",
+        "mae_kwh": 7.022379967569885
+      },
+      {
+        "model": "timexer",
+        "mode": "transfer",
+        "mae_kwh": 5.197934122645854
+      },
+      {
+        "model": "xgboost",
+        "mode": "target_only",
+        "mae_kwh": 6.461313187046835
+      }
+    ]
+  },
+  "limits": [
+    "No full training reproduction or fresh upstream raw archive audit",
+    "Joblib states hashed only",
+    "Cyber export lacks per-score issuance timestamps; current arrival eligibility and submitted code reviewed, no physical execution chronology proof",
+    "Benchmark recipes differ from Source10 retention study; do not pool",
+    "Duc external forecast/checkpoint audit is reused, not newly independently repeated"
+  ]
+}

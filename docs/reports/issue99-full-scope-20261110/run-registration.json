@@ -1,0 +1,15 @@
+{
+  "lock_sha256": "b783a7a5b212ec1c5958f6500f4d8689ba6ec2ef301accdf4a096a6fcd117f51",
+  "code_commit": "41592331c0e093d887b366cc3cd43057c93b1a75",
+  "runtime": {
+    "python": "3.12.13",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "torch": "2.11.0",
+    "cuda": null,
+    "device": "cpu",
+    "device_name": "CPU",
+    "deterministic_algorithms": false
+  },
+  "jobs": 2,
+  "scope": "Owner-authorized follow-up on historical exposed Final cohort; no retuning"
+}

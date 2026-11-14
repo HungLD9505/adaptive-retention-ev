@@ -1,0 +1,91 @@
+{
+  "pilot_notebook_sha256": "976d270b385299d65dfa698a2555e93f94b2cb7e91d6685392e68f14899230e6",
+  "phase": "benchmark",
+  "run_root": "benchmark-20261111-003045-e3e4e0",
+  "git_commit": "dffd16a0b37df336330ef9b9d23056facd388681",
+  "branch": "feat/duc-urbanev-baseline-benchmark",
+  "zip_sha256": "2b8d1a47edebe066543f8f0aec5897c23945edcef62ba10357b1cb95e5ba27c7",
+  "manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+  "input_run": "urbanev-SZH-14d",
+  "source_identity": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+  "targets": [
+    "1405",
+    "2152",
+    "1153",
+    "1693"
+  ],
+  "target_initial_counts": {
+    "1405": 4,
+    "2152": 12,
+    "1153": 13,
+    "1693": 13
+  },
+  "source_count": 65888,
+  "days": 90,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "retention_lambda": 0,
+  "source_epochs": 3,
+  "initial_epochs": 3,
+  "online_epochs": 1,
+  "refits": {
+    "ridge_days": 1,
+    "sarima_days": 7,
+    "sarima_window_hours": 336,
+    "tree_days": 7
+  },
+  "source_batch_size": 256,
+  "source_lr": 0.001,
+  "target_batch_size": 4,
+  "target_lr": 0.0005,
+  "graph_initial_epochs": 5,
+  "graph_lr": 0.001,
+  "source_checkpoint_selection": "fixed final epoch",
+  "timexer_commit": "76011909357972bd55a27adba2e1be994d81b327",
+  "graph_supports": {
+    "1405": [
+      "1398",
+      "1439",
+      "1417"
+    ],
+    "2152": [
+      "2153",
+      "2120",
+      "2173"
+    ],
+    "1153": [
+      "1140",
+      "1169",
+      "1165"
+    ],
+    "1693": [
+      "1723",
+      "1836",
+      "1810"
+    ]
+  },
+  "graph_distance_member": "UrbanEVDataset/20220901-20230228_station-raw/station_distance.csv",
+  "cyber_v3_reference": "0a0df67",
+  "implementation": "Duc pilot lineage; official TimeXer and independent model code",
+  "device": "cpu",
+  "cpu": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+  "cores": 2,
+  "gpu": null,
+  "cuda": null,
+  "python": "3.13.18",
+  "os": "Linux-6.6.159+-x86_64-with-glibc2.39",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "torch": "2.14.1+cpu",
+    "scikit-learn": "1.6.1",
+    "statsmodels": "0.14.5",
+    "xgboost": "3.0.5",
+    "reformer-pytorch": "1.4.4",
+    "einops": "0.8.1",
+    "joblib": "1.6.0"
+  }
+}

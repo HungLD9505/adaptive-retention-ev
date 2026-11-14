@@ -2,7 +2,7 @@
 
 ## Scope and accepted decision
 
-The user accepted UrbanEV primary plus all six standard CHARGED cities as supplementary, with SZH analyzed separately. This decision is recorded in [Research Flow](../MASTER_RESEARCH_FLOW.md) and the [CHARGED hourly/QC contract](../data/CHARGED_HOURLY_CONTRACT.md). It is an acceptance of bounded research scope, not proof of original observations, independent SZH locations, clean data or strict-online causality. Implementation and #18 inputs still require peer review. No PR has been merged by the agent.
+The team lead accepted UrbanEV primary plus all six standard CHARGED cities as supplementary, with SZH analyzed separately. This decision is recorded in [Research Flow](../MASTER_RESEARCH_FLOW.md) and the [CHARGED hourly/QC contract](../data/CHARGED_HOURLY_CONTRACT.md). It is an acceptance of bounded research scope, not proof of original observations, independent SZH locations, clean data or strict-online causality. Implementation and #18 inputs still require peer review. This handoff records no merge action.
 
 This Step 5 branch starts from dev. PRs #25–#28 remain separate review items; no unmerged processing code is imported. It preserves the common nine-column hourly layout while explicitly declaring a CHARGED local-naive clock profile; an offset-only UrbanEV consumer cannot silently treat it as the same clock. No split, scaler, cohort, tensor windows, model or pooled pretraining is implemented.
 

@@ -6,7 +6,8 @@ When should a target model retain knowledge from its source, and when should it
 adapt? This research repository implements and evaluates fixed and adaptive
 source-retention strategies under causal 24→24 forecasting.
 
-[**Report**](report/Adaptive_Retention_Report.pdf) ·
+[**Current manuscript**](report/rebuilt-review-20261112/adaptive-transfer-learning-ev.pdf) ·
+[**Original report**](report/Adaptive_Retention_Report.pdf) ·
 [**Supplement**](report/Adaptive_Retention_Supplement.pdf) ·
 [**System diagrams**](docs/diagrams/README.md) ·
 [**Documentation**](docs/README.md) ·
@@ -116,3 +117,10 @@ Offline fixtures establish software behavior, not forecasting superiority.
 
 See the [contribution workflow](docs/WORKFLOW.md) and [working rules](AGENTS.md)
 for repository changes.
+
+## Research team
+
+- [HungLD9505](https://github.com/HungLD9505)
+- [Qyroven](https://github.com/Qyroven)
+- [hung00cyber](https://github.com/hung00cyber)
+- [huuduc32](https://github.com/huuduc32)

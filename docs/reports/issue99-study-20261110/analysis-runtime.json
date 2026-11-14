@@ -1,0 +1,14 @@
+{
+  "python": "3.12.13 (main, Jul 18 2026, 16:55:18) [Clang 22.1.3 ]",
+  "torch": "2.11.0",
+  "numpy": "2.3.3",
+  "matplotlib": "3.11.2",
+  "device": "cpu",
+  "exporter_source_identity_commit": "d89cbd38efa8593158b9a22313523e3e11e175ad",
+  "identity_basis": "Exporter source bytes match this commit; exact executed training code has its separate 3046d5f identity.",
+  "source_sha256": {
+    "tools/issue99_report.py": "18602fb3dd0fa765ebd43b8a5e20ce8a78007daa2ca6944f3f7f1f26153bd8e9",
+    "tools/issue99_costs.py": "00862123dc08bd1864192b7a5cec779a9d458e96e59385227d609e59eb24c036",
+    "tools/issue99_checkpoint_audit.py": "2194ea852b580106506bce4cdbc61b925a324c59cf8ec550d6ef564041bb6dc3"
+  }
+}

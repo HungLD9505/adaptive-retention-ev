@@ -1,0 +1,109 @@
+{
+  "recorded_at_vn": "2026-11-10T23:27:06+07:00",
+  "run_tag": "v3",
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "machine": "AMD64",
+  "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+  "torch_threads": 12,
+  "packages": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "torch": "2.14.1+cpu",
+    "sklearn": "1.9.1",
+    "xgboost": "3.4.1",
+    "statsmodels": "0.15.0"
+  },
+  "git": {
+    "commit": "553275a82cbc4039fb340407c7030d1c00e32466",
+    "branch": "feat/cyber-urbanev-baseline-benchmark",
+    "dirty_paths": [
+      "M .gitignore",
+      " M experiments/member_studies/cyber_baselines/cli.py",
+      " M experiments/member_studies/cyber_baselines/config.py",
+      " M experiments/member_studies/cyber_baselines/data.py",
+      "R  experiments/member_studies/cyber_baselines/artifacts/manifest.json -> experiments/member_studies/cyber_baselines/historical_v2/manifest_v2.json",
+      "R  experiments/member_studies/cyber_baselines/runs.csv -> experiments/member_studies/cyber_baselines/historical_v2/runs_v2.csv",
+      " M experiments/member_studies/cyber_baselines/models/classical.py",
+      " M experiments/member_studies/cyber_baselines/models/graph.py",
+      " M experiments/member_studies/cyber_baselines/runner.py",
+      " M experiments/member_studies/cyber_baselines/verify_results.py",
+      " M tests/test_cyber_baselines.py",
+      "?? experiments/member_studies/cyber_baselines/artifacts_v3/"
+    ]
+  },
+  "code_sha256": {
+    "experiments/member_studies/cyber_baselines/__init__.py": "d0a671dbd7b0749436e646c7d65f39d9bdc137ef4ac240aafd971eb865357512",
+    "experiments/member_studies/cyber_baselines/cli.py": "56ed1441ca1d05b3398980a4800f81efddba58512252080c5c8863fc58a0a3e1",
+    "experiments/member_studies/cyber_baselines/config.py": "a05470bf239879688f2e62d92db57bf029f6fb6bb3da0eeecb4c8e92f482f821",
+    "experiments/member_studies/cyber_baselines/data.py": "62ef7641cb0914de927a37f880bede7c06e9ac7c9e891ad6f619a289c98bbbc4",
+    "experiments/member_studies/cyber_baselines/models/__init__.py": "06f061a6ecfce32fe76ad025c174d365cd1d03d9fae2f253b1adf7105686eb16",
+    "experiments/member_studies/cyber_baselines/models/base.py": "485c10ce458096a7d507c194a1ff6f527f466ef5fa849b58e582faaf080b28e8",
+    "experiments/member_studies/cyber_baselines/models/classical.py": "d5c76de0ad281df30206602b0b08b324ed45d0738091bd4eb16cf0ab107c253f",
+    "experiments/member_studies/cyber_baselines/models/graph.py": "fe37a7c91f81eacc7cddcb2a0a979fbd8625fb220ea281514960336a02d2f9b3",
+    "experiments/member_studies/cyber_baselines/models/naive.py": "994c63c07edbbb8af4f8aa84f4770894b08225479a7d0a8169a070b1800d0b8b",
+    "experiments/member_studies/cyber_baselines/models/neural.py": "81ad7b561b6881a7470bfe37452ce4277fa649441c1b848e90be6e68ef66bf02",
+    "experiments/member_studies/cyber_baselines/runner.py": "48312b754c96c72a5304fe5cbced098e39d16807f675d70caac16606ee75fd8d",
+    "experiments/member_studies/cyber_baselines/training.py": "9386764ac0cb0037800c643418d49457f35b3818654c9ab5fc333c6d6d0d440b",
+    "experiments/member_studies/cyber_baselines/verify_results.py": "05a70b5df9f6cd771a467c2b94d492c8b8e47b897b00a6a0f4b117d957fc263c"
+  },
+  "input_manifest": {
+    "path": "data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-14d/manifest.json",
+    "sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9"
+  },
+  "config": {
+    "run_tag": "v3",
+    "save_fitted": true,
+    "graph_support_k": 3,
+    "input_root": "C:\\Users\\ADMIN\\OneDrive\\Documents\\GitHub\\adaptive-retention-ev\\data\\inputs\\issue18-input-handoff-v1-20261019\\urbanev-SZH-14d",
+    "raw_zip_path": "C:\\Users\\ADMIN\\OneDrive\\Documents\\GitHub\\adaptive-retention-ev\\data\\raw\\urbanev\\official_2026_05_11\\UrbanEVDataset.zip",
+    "output_dir": "C:\\Users\\ADMIN\\OneDrive\\Documents\\GitHub\\adaptive-retention-ev\\experiments\\member_studies\\cyber_baselines\\artifacts_v3",
+    "checkpoint_dir": "C:\\Users\\ADMIN\\OneDrive\\Documents\\GitHub\\adaptive-retention-ev\\experiments\\member_studies\\cyber_baselines\\checkpoints",
+    "runs_csv_path": "C:\\Users\\ADMIN\\OneDrive\\Documents\\GitHub\\adaptive-retention-ev\\experiments\\member_studies\\cyber_baselines\\runs_v3.csv",
+    "targets": [
+      "1405",
+      "2152",
+      "1153",
+      "1693"
+    ],
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "training_hp": {
+      "source_batch_size": 256,
+      "source_epochs": 3,
+      "source_lr": 0.001,
+      "target_batch_size": 4,
+      "target_adapt_epochs": 3,
+      "target_adapt_lr": 0.0005,
+      "target_update_epochs": 1,
+      "target_update_lr": 0.0005
+    },
+    "classical_hp": {
+      "ridge_alpha": 1.0,
+      "rf_n_estimators": 100,
+      "rf_max_depth": 10,
+      "xgb_n_estimators": 50,
+      "xgb_max_depth": 5,
+      "xgb_lr": 0.1,
+      "sarima_order": [
+        1,
+        0,
+        1
+      ],
+      "sarima_seasonal_order": [
+        1,
+        0,
+        0,
+        24
+      ],
+      "sarima_maxiter": 15
+    }
+  },
+  "command": [
+    "C:\\Users\\ADMIN\\OneDrive\\Documents\\GitHub\\adaptive-retention-ev\\experiments\\member_studies\\cyber_baselines\\cli.py",
+    "--all"
+  ]
+}

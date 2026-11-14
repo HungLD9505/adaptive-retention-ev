@@ -1,10 +1,11 @@
 # Documentation
 
-Start from the question you want to answer, rather than a dated progress file.
+The index below links the research findings, technical contracts and supporting evidence.
 
 | Question | Entry point |
 |---|---|
-| What was studied, and what do the results support? | [Main report](../report/Adaptive_Retention_Report.pdf) and [supplement](../report/Adaptive_Retention_Supplement.pdf) |
+| What does the current followup manuscript report? | [Research manuscript](../report/rebuilt-review-20261112/adaptive-transfer-learning-ev.pdf) |
+| What does the original frozen study report? | [Main report](../report/Adaptive_Retention_Report.pdf) and [supplement](../report/Adaptive_Retention_Supplement.pdf) |
 | How do the components and data flows fit together? | [System, data and replay diagrams](diagrams/README.md) |
 | Where does the data come from, and how is it prepared? | [Data flow](data/DATA_FLOW.md), [UrbanEV](data/URBANEV.md), [CHARGED](data/CHARGED.md) |
 | Which interfaces and causal gates does the code enforce? | [Inputs](data/INPUT_ACCEPTANCE.md), [controller](data/CONTROLLER_CONTRACT.md), [runner](data/PREQUENTIAL_RUNNER.md), [baselines](data/BASELINE_CONTRACT.md) |

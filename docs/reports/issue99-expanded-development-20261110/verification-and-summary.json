@@ -1,0 +1,208 @@
+{
+  "status": "passed",
+  "cells": 144,
+  "scores": 10656,
+  "max_score_difference": 3.552713678800501e-15,
+  "results_sha256": "62212529e30d65b5ac4f4e0f684f1182b89aec3f68b38dfa8c8e57e71ab84ff6",
+  "macro_mae": {
+    "lambda0": 3.304604868203713,
+    "fixed": 3.274848500895116,
+    "l2sp": 3.2720754598543915,
+    "discrete": 3.2813671838226006
+  },
+  "station_means": {
+    "1691": {
+      "lambda0": 7.679396713441743,
+      "fixed": 7.572874827297841,
+      "l2sp": 7.502888981645769,
+      "discrete": 7.60209282817209
+    },
+    "2564": {
+      "lambda0": 5.555360534226627,
+      "fixed": 5.509355111076059,
+      "l2sp": 5.472738299424694,
+      "discrete": 5.52560758354599
+    },
+    "2398": {
+      "lambda0": 6.000065034253013,
+      "fixed": 5.924512791801141,
+      "l2sp": 5.9257621469663375,
+      "discrete": 5.927107235290989
+    },
+    "1114": {
+      "lambda0": 3.570899861147294,
+      "fixed": 3.553616703093764,
+      "l2sp": 3.5944826226150237,
+      "discrete": 3.5511803039344385
+    },
+    "1225": {
+      "lambda0": 4.586903318467354,
+      "fixed": 4.539922862889415,
+      "l2sp": 4.547522725595893,
+      "discrete": 4.590679617649919
+    },
+    "1169": {
+      "lambda0": 3.471444410680352,
+      "fixed": 3.528352093102979,
+      "l2sp": 3.5262736686117093,
+      "discrete": 3.4959490515217833
+    },
+    "1885": {
+      "lambda0": 2.7366675422657756,
+      "fixed": 2.7107456515710973,
+      "l2sp": 2.7328678226997014,
+      "discrete": 2.6929724914209943
+    },
+    "1802": {
+      "lambda0": 1.6041270770503804,
+      "fixed": 1.5920460960122182,
+      "l2sp": 1.5894700627396576,
+      "discrete": 1.5998092951707712
+    },
+    "2035": {
+      "lambda0": 2.6064970381796244,
+      "fixed": 2.5219080982164024,
+      "l2sp": 2.529287446357865,
+      "discrete": 2.557409685947104
+    },
+    "1836": {
+      "lambda0": 1.3040015361545996,
+      "fixed": 1.3048023432449887,
+      "l2sp": 1.3061621267881451,
+      "discrete": 1.3073663399249609
+    },
+    "1303": {
+      "lambda0": 4.436136980846136e-09,
+      "fixed": 3.592120119612186e-08,
+      "l2sp": 4.75349788602562e-08,
+      "discrete": 1.2568120109511655e-07
+    },
+    "1325": {
+      "lambda0": 0.5398953481416503,
+      "fixed": 0.5400453965142843,
+      "l2sp": 0.5374495672729228,
+      "discrete": 0.5262316476109542
+    }
+  },
+  "contrasts": [
+    {
+      "method": "fixed",
+      "baseline": "lambda0",
+      "delta_mae_kwh": -0.029756367308596765,
+      "percent_reduction": 0.9004515969490616,
+      "stations_improved": 8,
+      "stations_worsened": 4,
+      "station_bootstrap_lower": -0.0460253654936425,
+      "station_bootstrap_upper": -0.012530024597733039
+    },
+    {
+      "method": "l2sp",
+      "baseline": "lambda0",
+      "delta_mae_kwh": -0.032529408349321276,
+      "percent_reduction": 0.9843660481866723,
+      "stations_improved": 8,
+      "stations_worsened": 4,
+      "station_bootstrap_lower": -0.05255678441362225,
+      "station_bootstrap_upper": -0.0143802444218283
+    },
+    {
+      "method": "discrete",
+      "baseline": "lambda0",
+      "delta_mae_kwh": -0.023237684381112178,
+      "percent_reduction": 0.7031910109647544,
+      "stations_improved": 8,
+      "stations_worsened": 4,
+      "station_bootstrap_lower": -0.03261181978133116,
+      "station_bootstrap_upper": -0.012747030866184329
+    },
+    {
+      "method": "l2sp",
+      "baseline": "fixed",
+      "delta_mae_kwh": -0.002773041040724511,
+      "percent_reduction": 0.08467692596975263,
+      "stations_improved": 5,
+      "stations_worsened": 7,
+      "station_bootstrap_lower": -0.012742299682552137,
+      "station_bootstrap_upper": 0.007676269041548407
+    },
+    {
+      "method": "discrete",
+      "baseline": "fixed",
+      "delta_mae_kwh": 0.006518682927484587,
+      "percent_reduction": -0.19905296155540728,
+      "stations_improved": 4,
+      "stations_worsened": 8,
+      "station_bootstrap_lower": -0.004965444682681003,
+      "station_bootstrap_upper": 0.018876208143965127
+    }
+  ],
+  "scored_days_per_seed": {
+    "1691": [
+      52,
+      52,
+      52
+    ],
+    "2564": [
+      90,
+      90,
+      90
+    ],
+    "2398": [
+      90,
+      90,
+      90
+    ],
+    "1114": [
+      89,
+      89,
+      89
+    ],
+    "1225": [
+      52,
+      52,
+      52
+    ],
+    "1169": [
+      52,
+      52,
+      52
+    ],
+    "1885": [
+      90,
+      90,
+      90
+    ],
+    "1802": [
+      90,
+      90,
+      90
+    ],
+    "2035": [
+      90,
+      90,
+      90
+    ],
+    "1836": [
+      52,
+      52,
+      52
+    ],
+    "1303": [
+      51,
+      51,
+      51
+    ],
+    "1325": [
+      90,
+      90,
+      90
+    ]
+  },
+  "summed_invocation_seconds": {
+    "lambda0": 30.05556091561448,
+    "fixed": 35.45416179066524,
+    "l2sp": 31.678117203642614,
+    "discrete": 69.98167266568635
+  },
+  "uncertainty_scope": "20,000 paired station bootstrap draws within four prefix sparsity strata, seeds averaged before resampling; exploratory selected-station uncertainty only"
+}

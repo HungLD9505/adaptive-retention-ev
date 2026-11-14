@@ -1,0 +1,115 @@
+{
+  "schema": "issue99-comparison-lock-v1",
+  "status": "locked_owner_approved",
+  "owner_authorization": "Repository owner authorized issue #99 execution without an additional Qyroven review gate; Fixed selection is locked before the exploratory Development comparison.",
+  "protocol_sha256": "f104d8809e04d0cde7d8982efd8146788f32c3c9a1c561ee9309891e6b040eb0",
+  "fixed_search_config_sha256": "7779facbbcf83660f2c84df0ea363c842ec8e6655b02e57cdd65f69bb6ae82b0",
+  "code_commit": "27983845b5d446e3915b0b4353570466f1da23ef",
+  "selected_fixed_lambda": 0.5634538227695682,
+  "controller_initial_lambda": 0.1,
+  "study_template": {
+    "schema": "issue99-study-v1",
+    "phase": "evaluation",
+    "targets": [
+      "1405",
+      "2152",
+      "1153",
+      "1693"
+    ],
+    "initial_training": {
+      "seed": 42,
+      "epochs": 3,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "online_training": {
+      "seed": 42,
+      "epochs": 1,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "window_rule": {
+      "older_count": 1,
+      "newer_count": 1,
+      "upper_bound": 8.0,
+      "meta_step_size": 0.01,
+      "epsilon": 0.001
+    },
+    "initial_lambda": 0.1,
+    "cadence": 1,
+    "frozen_lambda": false,
+    "replay_days": 90,
+    "protocol_sha256": null,
+    "objective_origins": [],
+    "diagnostics": {
+      "cadence": 7,
+      "epsilon_g": 1e-12
+    }
+  },
+  "discrete_config": {
+    "controller": {
+      "lambda_low": 0.1,
+      "lambda_high": 1.0,
+      "initial_lambda": 0.1,
+      "block_days": 14,
+      "min_valid_days": 7,
+      "delta": 0.0,
+      "alpha": 0.05,
+      "segment_days": 3,
+      "resamples": 2000,
+      "seed": 42
+    },
+    "initial_training": {
+      "seed": 42,
+      "epochs": 3,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "online_training": {
+      "seed": 42,
+      "epochs": 1,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "epsilon": 0.001,
+      "head_width": 64
+    },
+    "development_entities": [
+      "1405",
+      "2152",
+      "1153",
+      "1693"
+    ],
+    "replay_days": 90,
+    "state_retention": "latest",
+    "method": {
+      "name": "adaptive"
+    }
+  },
+  "historical_discrete_config_source": {
+    "path": "configs/issue23/final-execution-lock-20261027-v2.json",
+    "sha256": "9c65169cced1506a450fdd7b8a57a69d5a720cac7acaa0dcd1c8ccfd1723ce42",
+    "config_key": "method_configs/42/adaptive"
+  },
+  "selection_evidence": {
+    "schema": "issue99-fixed-selection-v1",
+    "scope": "calibration_only_exploratory",
+    "selected_trial": 13,
+    "selected_fixed_lambda": 0.5634538227695682,
+    "best_calibration_mae_kwh": 5.243579767518362,
+    "practical_equivalence_tolerance_kwh": 0.05,
+    "selection_sha256": "5d7f834ff6ad4c36d328516e24a25ca2968b67fdc1c068b99aa0b0f7750bf3cb",
+    "selection_notebook": "https://www.kaggle.com/code/hungluongduc/issue99-fixed-selection-protocol-v2-v1",
+    "selection_saved_version": 1,
+    "fixed_audit_sha256": "233f893338b41e1ac39da9cd0b79b56ad70fa4c86f024900de4ad6dc8fde991e",
+    "fixed_audit_notebook": "https://www.kaggle.com/code/hungluongduc/issue99-fixed-protocol-v2-independent-audit-e-v1",
+    "fixed_audit_saved_version": 1,
+    "verified_objectives": 14
+  },
+  "evaluation_scope": "exploratory_development_only_no_final"
+}

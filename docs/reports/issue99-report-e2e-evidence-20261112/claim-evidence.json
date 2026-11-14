@@ -1,0 +1,3115 @@
+{
+  "schema": "report-e2e-claim-evidence-v1",
+  "basis_commit": "7d0e47d1d904b8ba8656b9292db516055533847f",
+  "scope": "Paragraph/source coverage with manual method review and fresh arithmetic/readback; coverage is not automatic proof of every sentence. Inferences and unavailable verification are explicitly limited.",
+  "paragraphs": [
+    {
+      "id": "P001",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 10,
+      "section": "Abstract",
+      "text": "\\abstract{Limited target history makes it difficult to forecast demand at a charging location and to determine how strongly a transferred model should retain its source representation. We study 24-hour energy forecasting from 24 hours of observations, with initial target histories of 7, 14 and 28 days. The experiments distinguish source initialization, latent-retention regularization, retention selection and adaptive forecast fusion. Independent baseline implementations support transfer and a competitive standard GRU backbone. On twelve additional UrbanEV Development entities, source fine-tuning reduces MAE by 29.8--33.4\\% relative to calibrated target-only training. Confidence-guided retention has conditional benefits: the original selector beats fixed retention in 9 of 21 historical namespace--history groups; a separate common-bank selector beats its calibrated fixed comparator at 28-day history but loses at 7 and 14 days. A later-window four-target study slightly favors discrete selection over calibrated fixed retention, while its continuous hypergradient controller is worse. A subsequent two-GRU fusion system beats single fixed retention in 18 of 21 historical groups. A matched static fusion also wins 18 groups; adaptive weighting improves on static fusion in 12 and worsens nine. These results support source transfer and complementary adaptation trajectories, while limiting the claim that adaptation of the retention decision itself consistently improves forecasting. All follow-up comparisons are exploratory and do not establish performance on an untouched test cohort.}",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "synthesis",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json"
+      ],
+      "scope": "Empirical summaries are restricted to these executed cohorts. Motivations and research questions are not results; no universal transfer/controller superiority follows."
+    },
+    {
+      "id": "P002",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 15,
+      "section": "Introduction",
+      "text": "A charging location with little recorded history provides few complete examples for a daily forecasting model. Established locations can supply a pretrained model, but their charging patterns need not match those of a target location. Strong source retention may resist useful local adaptation; weak retention may allow a model to forget structure that remains helpful. The research question is therefore not simply whether transfer improves a forecast, but whether observed target errors can guide how source influence is used during adaptation.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "synthesis",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json"
+      ],
+      "scope": "Empirical summaries are restricted to these executed cohorts. Motivations and research questions are not results; no universal transfer/controller superiority follows."
+    },
+    {
+      "id": "P003",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 17,
+      "section": "Introduction",
+      "text": "We investigate this question using UrbanEV and CHARGED charging series \\cite{urbanev2025,charged2025}. Cold start means a limited recorded target prefix of 7, 14 or 28 days. We simulate this restriction on existing dataset identifiers; we do not infer the physical opening date of a charging site. Each daily origin uses the previous 24 hourly bins to predict the next 24 hourly energy values. Missing history is represented explicitly, and updates require complete labels that have already arrived.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "synthesis",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json"
+      ],
+      "scope": "Empirical summaries are restricted to these executed cohorts. Motivations and research questions are not results; no universal transfer/controller superiority follows."
+    },
+    {
+      "id": "P004",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 19,
+      "section": "Introduction",
+      "text": "The investigation has four linked questions. First, does transfer remain useful when target-only training is given a calibrated initial training budget? Second, is GRU a reasonable compact backbone compared with classical, recurrent, convolutional, attention and spatial alternatives? Third, do fixed latent retention and confidence-guided retention selection improve on simple source fine-tuning? Fourth, can adaptive weighting of complementary source-initialized forecasters improve on a single fixed-retention model, and how much of that improvement requires changing the weights?",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "synthesis",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json"
+      ],
+      "scope": "Empirical summaries are restricted to these executed cohorts. Motivations and research questions are not results; no universal transfer/controller superiority follows."
+    },
+    {
+      "id": "P005",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 21,
+      "section": "Introduction",
+      "text": "These questions require different controls. A comparison against target-only training tests the value of source initialization. A comparison against a tuned constant retention coefficient tests the retention decision. A comparison against a static mixture of the same expert forecasts isolates the incremental value of online weighting. Treating all three comparisons as one controller result would misidentify the source of improvement.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "synthesis",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json"
+      ],
+      "scope": "Empirical summaries are restricted to these executed cohorts. Motivations and research questions are not results; no universal transfer/controller superiority follows."
+    },
+    {
+      "id": "P006",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 23,
+      "section": "Introduction",
+      "text": "The empirical analysis separates confidence-guided retention, continuous-coefficient adaptation and two-expert forecast fusion. Its contributions are a controlled assessment of transfer after target-training calibration, measured fixed-coefficient sensitivity, and matched comparisons that distinguish retention decisions from forecast complementarity. The evidence includes both favorable and adverse outcomes: strong transfer gains, conditional retention-selection gains, and broader historical gains from complementary forecasts with a smaller, mixed weighting increment.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "synthesis",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json"
+      ],
+      "scope": "Empirical summaries are restricted to these executed cohorts. Motivations and research questions are not results; no universal transfer/controller superiority follows."
+    },
+    {
+      "id": "P007",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 29,
+      "section": "Introduction",
+      "text": "Figure~\\ref{fig:model} summarizes the two-expert forecasting system and its delayed-feedback loop. Source weights, including the encoder and prediction head, initialize both target GRUs; a separate frozen encoder supplies the stable expert's latent penalty. Both experts use the same permitted history and known future calendar. Their forecasts are fused, persisted and later paired with complete observed labels. Expert training and forecast-weight updates affect subsequent predictions only. The frozen reference is evaluated on the same historical input $X_t$. GRU blocks and time traces are schematic; the traces are not measured results or confidence intervals. The historical confidence-based coefficient selector is a separate comparator, described in Section~\\ref{sec:retention}.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "synthesis",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json"
+      ],
+      "scope": "Empirical summaries are restricted to these executed cohorts. Motivations and research questions are not results; no universal transfer/controller superiority follows."
+    },
+    {
+      "id": "P008",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 33,
+      "section": "Forecasting backbones",
+      "text": "A recurrent encoder summarizes historical sequences through a hidden state. GRU gates control the integration of the current input and the previous hidden state \\cite{cho2014}. We use the standard PyTorch recurrence \\cite{pytorch211}; no custom GRU layer or gate is proposed. The backbone choice keeps the retention experiments tied to one established implementation, so changes in forecast quality can be examined without simultaneously redesigning the network.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "literature_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "GRU convention is PyTorch-specific. TimeXer and spatial information sets are distinguished; citations motivate families, not the project ranking."
+    },
+    {
+      "id": "P009",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 35,
+      "section": "Forecasting backbones",
+      "text": "Classical lag-based predictors, tree ensembles, recurrent networks, temporal convolutions and attention provide different inductive biases. The completed baseline work includes these families rather than assuming that a recurrent model must win. The official TimeXer adapter \\cite{wang2024timexer} is distinguished from a custom attention adapter because their tokenization and construction differ. A spatial GCN--LSTM uses additional support histories and therefore does not receive exactly the same information as a single-entity forecaster.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "literature_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "GRU convention is PyTorch-specific. TimeXer and spatial information sets are distinguished; citations motivate families, not the project ranking."
+    },
+    {
+      "id": "P010",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 38,
+      "section": "Transfer and explicit retention",
+      "text": "Source initialization and explicit source regularization are different mechanisms. Initialization sets the starting model parameters. Regularization changes subsequent optimization. Work on $L^2$-SP \\cite{li2018} illustrates regularization toward a pretrained parameter reference. Our implementation instead penalizes displacement of the target's latent representation from a frozen source encoder, after coordinate-wise scaling. This particular penalty and the EV replay protocol are study choices, not a consequence of that paper.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "definition_and_literature",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "L2-SP is a parameter-reference precedent. It does not specify our latent penalty, lambda values, or EV effectiveness."
+    },
+    {
+      "id": "P011",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 40,
+      "section": "Transfer and explicit retention",
+      "text": "A nonzero retention coefficient can help when source features remain useful, but its effect depends on the scale of both losses and their gradients. The coefficient is not a percentage of knowledge retained. Removing the explicit penalty also does not undo transferred initialization. These distinctions matter when interpreting both the zero-retention comparator and the fast expert used later.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "definition_and_literature",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "L2-SP is a parameter-reference precedent. It does not specify our latent penalty, lambda values, or EV effectiveness."
+    },
+    {
+      "id": "P012",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 43,
+      "section": "Adaptive decisions and evidence",
+      "text": "The original controller uses paired target forecast errors and dependence-aware block resampling, motivated by the bootstrap literature \\cite{kunsch1989}. A later diagnostic updates a continuous coefficient using a one-step validation hypergradient, following the broader rationale of gradient-based hyperparameter optimization \\cite{luketina2016}. The two-expert extension instead applies an exponential-loss and Fixed-share update \\cite{herbster1998} to forecast weights.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "definition_and_literature",
+      "sources": [
+        "ev_control/confidence.py",
+        "ev_control/hypergradient.py",
+        "ev_control/expert_mix.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Published principles are distinguished from project choices. No performance theorem is transferred to this replay."
+    },
+    {
+      "id": "P013",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 45,
+      "section": "Adaptive decisions and evidence",
+      "text": "These are three different decision mechanisms. A bootstrap lower bound concerns a completed block of paired errors. A validation hypergradient is a local sensitivity of a forecast loss after a virtual optimizer step. An expert posterior is an algorithmic normalized weight; it is not a confidence interval for future improvement. Neither the resampling literature nor the online-learning literature establishes that these particular EV implementations will outperform fixed retention.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "definition_and_literature",
+      "sources": [
+        "ev_control/confidence.py",
+        "ev_control/hypergradient.py",
+        "ev_control/expert_mix.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Published principles are distinguished from project choices. No performance theorem is transferred to this replay."
+    },
+    {
+      "id": "P014",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 49,
+      "section": "Inputs, labels and missingness",
+      "text": "For entity $i$ and daily origin $t$, the historical tensor is $X_{i,t}\\in\\mathbb R^{24\\times7}$. Channels are scaled hourly energy, sine and cosine of hour, sine and cosine of weekday, weekend status and an observation mask. The separate future-calendar tensor $C_{i,t}\\in\\mathbb R^{24\\times5}$ contains the known calendar channels for the forecast day. It contains no future energy or weather measurements.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "implementation",
+      "sources": [
+        "ev_inputs/features.py",
+        "ev_inputs/scaling.py",
+        "ev_inputs/windows.py",
+        "ev_inputs/splits.py",
+        "ev_inputs/loader.py",
+        "ev_runner/replay.py",
+        "ev_models/model.py",
+        "ev_models/training.py"
+      ],
+      "scope": "Prepared feature and eligibility semantics verified in code; upstream raw-data causality is not authenticated here."
+    },
+    {
+      "id": "P015",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 51,
+      "section": "Inputs, labels and missingness",
+      "text": "A positive energy scale $c_i$ is fitted from the permitted target prefix and is fixed during replay. Labels and model predictions are normalized for training; evaluation returns to kWh. A missing historical energy value is represented by zero together with mask zero, while an observed zero has mask one. The mask is an input feature, not an instruction that automatically suppresses the gradients of a missing historical position.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "implementation",
+      "sources": [
+        "ev_inputs/features.py",
+        "ev_inputs/scaling.py",
+        "ev_inputs/windows.py",
+        "ev_inputs/splits.py",
+        "ev_inputs/loader.py",
+        "ev_runner/replay.py",
+        "ev_models/model.py",
+        "ev_models/training.py"
+      ],
+      "scope": "Prepared feature and eligibility semantics verified in code; upstream raw-data causality is not authenticated here."
+    },
+    {
+      "id": "P016",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 53,
+      "section": "Inputs, labels and missingness",
+      "text": "Target labels are never filled. A training or scoring example requires a complete 24-hour future label vector. Consequently 90 scheduled daily forecast origins do not guarantee 90 scored days. Missingness can also leave very few complete examples in an apparently long prefix. Initial adaptation performs zero optimizer steps when no eligible prefix examples exist, preserving the initialized model rather than creating artificial labels.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "implementation",
+      "sources": [
+        "ev_inputs/features.py",
+        "ev_inputs/scaling.py",
+        "ev_inputs/windows.py",
+        "ev_inputs/splits.py",
+        "ev_inputs/loader.py",
+        "ev_runner/replay.py",
+        "ev_models/model.py",
+        "ev_models/training.py"
+      ],
+      "scope": "Prepared feature and eligibility semantics verified in code; upstream raw-data causality is not authenticated here."
+    },
+    {
+      "id": "P017",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 56,
+      "section": "Causal replay",
+      "text": "At each origin the runner processes eligible earlier label arrivals, applies any due decision, and then issues and stores the current forecast. A forecast's own labels cannot influence its issued prediction. Complete earlier arrivals are processed in availability order and then origin order. Missing or incomplete days contribute neither a partial-day error nor a model update. A replay may flush final arrivals for diagnostics after the last issued forecast; such decisions are not retroactively credited to earlier predictions.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "implementation",
+      "sources": [
+        "ev_inputs/features.py",
+        "ev_inputs/scaling.py",
+        "ev_inputs/windows.py",
+        "ev_inputs/splits.py",
+        "ev_inputs/loader.py",
+        "ev_runner/replay.py",
+        "ev_runner/engine.py",
+        "ev_runner/continuous.py",
+        "ev_control/expert_mix.py",
+        "docs/reports/issue99-study-20261110/local-byte-verification.json"
+      ],
+      "scope": "Availability is enforced in replay. This is not physical real-time issuance verification or proof that IDs are distinct physical sites."
+    },
+    {
+      "id": "P018",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 58,
+      "section": "Causal replay",
+      "text": "Source pretraining and target adaptation remain within one dataset namespace. Source and target identifiers are disjoint in the prepared split. This does not certify that every identifier denotes a distinct physical site across releases or datasets. We therefore use \\emph{entity} for a selected dataset identifier and reserve site-level interpretations for cases with adequate metadata.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "implementation",
+      "sources": [
+        "ev_inputs/features.py",
+        "ev_inputs/scaling.py",
+        "ev_inputs/windows.py",
+        "ev_inputs/splits.py",
+        "ev_inputs/loader.py",
+        "ev_runner/replay.py",
+        "ev_runner/engine.py",
+        "ev_runner/continuous.py",
+        "ev_control/expert_mix.py",
+        "docs/reports/issue99-study-20261110/local-byte-verification.json"
+      ],
+      "scope": "Availability is enforced in replay. This is not physical real-time issuance verification or proof that IDs are distinct physical sites."
+    },
+    {
+      "id": "P019",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 74,
+      "section": "Experimental scopes",
+      "text": "Table~\\ref{tab:scopes} defines the denominator for every result. The four benchmark/calibration entities are 1405, 2152, 1153 and 1693. At 14 days they have 4, 12, 13 and 13 complete prefix examples. Both baseline implementations have 65,888 eligible Source examples, but train their own neural Source models for three epochs.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "recorded_protocol_and_arithmetic",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-history-review-20261110/source-record-counts.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Counts refer to prepared IDs, examples and recorded scored origins. Namespaces/history groups are not cities or independent replications."
+    },
+    {
+      "id": "P020",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 76,
+      "section": "Experimental scopes",
+      "text": "The twelve additional Development entities are 1691, 2564, 2398, 1114, 1225, 1169, 1885, 1802, 2035, 1836, 1303 and 1325, selected across four prefix zero-fraction strata. Each history budget supplies 888 scored entity-days per seed, with 51--90 complete scored days per entity. These entities evaluate calibrated recipes; they are not the full historical cohort.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "recorded_protocol_and_arithmetic",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-history-review-20261110/source-record-counts.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Counts refer to prepared IDs, examples and recorded scored origins. Namespaces/history groups are not cities or independent replications."
+    },
+    {
+      "id": "P021",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 78,
+      "section": "Experimental scopes",
+      "text": "The historical cohort includes UrbanEV/SZH and CHARGED/AMS, JHB, LOA, MEL, SPO and SZH. Seven namespaces, three histories and seeds 42, 43 and 44 yield 21 namespace--history groups and $90\\times3\\times3=810$ units. There are seven namespace-specific Source models per seed, or 21 Source checkpoints; target models are then adapted separately for each entity/history/seed. UrbanEV entity 2193 remains unscored in all nine units. Coverage is 67,293 scored daily vectors per compared mixture arm, with nine null units retained explicitly.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "recorded_protocol_and_arithmetic",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-history-review-20261110/source-record-counts.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Counts refer to prepared IDs, examples and recorded scored origins. Namespaces/history groups are not cities or independent replications."
+    },
+    {
+      "id": "P022",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 80,
+      "section": "Experimental scopes",
+      "text": "The original cohort was called Final in the historical execution. Reusing it after inspecting results does not create another untouched test set. The follow-up results in this report are exploratory. Later is a named chronological objective in the four-target diagnostic, not a synonym for an independent test cohort.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "recorded_protocol_and_arithmetic",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-history-review-20261110/source-record-counts.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Counts refer to prepared IDs, examples and recorded scored origins. Namespaces/history groups are not cities or independent replications."
+    },
+    {
+      "id": "P023",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 86,
+      "section": "Architecture and latent state",
+      "text": "Here $h(x;\\theta)$ is a model output: the final hidden state of the last GRU layer. It is neither a raw observation nor a target label. Future-calendar features are concatenated after historical encoding; the retention term constrains the historical encoder representation, not the complete calendar-aware prediction head.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "id": "P024",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 89,
+      "section": "Optimization meaning",
+      "text": "For the absolute forecast loss, the derivative with respect to a nonzero prediction residual is its sign, divided by the number of averaged elements. At zero the loss is nonsmooth; the implemented automatic differentiation uses the zero subgradient. Standard backpropagation then propagates this signal through the Softplus head and GRU. No differentiability of a discrete retention decision is required for training its candidate models.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "id": "P025",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 91,
+      "section": "Optimization meaning",
+      "text": "In the retention term, division by $s_k+0.001$ occurs before squaring. Small-scale latent coordinates can therefore contribute strongly to the penalty. The source parameters and population standard deviations are frozen; only target parameters receive the target update. Forecast error and retention displacement are different quantities, so selecting a coefficient by minimizing $F+\\lambda R$ across different coefficients would not be a valid forecasting comparison. Calibration selects by forecast MAE alone.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "id": "P026",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 95,
+      "section": "Historical fixed recipes",
+      "text": "Historical fixed retention uses a constant $\\lambda=1$. The original selector considers $\\{0,0.1,1\\}$ and starts from a common target adaptation at $\\lambda=0.1$. These are the executed historical settings. They are not presented as three universal weak, medium and strong knowledge-retention percentages.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "executed_configuration",
+      "sources": [
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-history-review-20261110/7d-selection-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-selection-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-selection-lock.json"
+      ],
+      "scope": "Fixed comparators differ between historical and calibrated-bank studies; lambda zero preserves source initialization."
+    },
+    {
+      "id": "P027",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 97,
+      "section": "Historical fixed recipes",
+      "text": "The twelve-entity Development study uses independent trajectories at the same three coefficients but selects its Fixed comparator on the four calibration entities. It selects $\\lambda=1,1,0$ for 7-, 14- and 28-day prefixes. Thus its Fixed row is not identical to the historical fixed-one recipe. A zero coefficient in that row still retains Source initialization.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "executed_configuration",
+      "sources": [
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-history-review-20261110/7d-selection-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-selection-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-selection-lock.json"
+      ],
+      "scope": "Fixed comparators differ between historical and calibrated-bank studies; lambda zero preserves source initialization."
+    },
+    {
+      "id": "P028",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 100,
+      "section": "Expanded fixed-coefficient diagnostic",
+      "text": "The four-target coefficient study evaluates 21 real coefficients, including zero, using a finite Gaussian-process/expected-improvement search on positive log coefficients plus a coverage sensitivity grid. Acquisition is maximized approximately on 4,097 numeric grid points. Calibration averages forecast MAE equally across entities and paired seeds on the first 28 scheduled origins:",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "measured_calibration",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-study-20261110/fixed-regimes.csv",
+        "docs/reports/issue99-study-20261110/fixed-diagnostics.csv",
+        "tools/issue99_study.py"
+      ],
+      "scope": "Best measured candidate only. Domain multipliers, surrogate and acquisition-grid settings are engineering choices; sampled regimes are not continuous thresholds."
+    },
+    {
+      "id": "P029",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 107,
+      "section": "Expanded fixed-coefficient diagnostic",
+      "text": "The positive search interval is derived from prefix-only gradient-balance coefficients after three unregularized target epochs: its lower endpoint is 0.01 times the minimum measured balance coefficient, and its upper endpoint is 100 times the maximum. These factors deliberately span weak to dominant local penalty gradients; they are engineering coverage choices. Zero is evaluated separately. A declared upper-bound expansion rule is available, but the selected solution does not leave an unresolved boundary.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "measured_calibration",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-study-20261110/fixed-regimes.csv",
+        "docs/reports/issue99-study-20261110/fixed-diagnostics.csv",
+        "tools/issue99_study.py"
+      ],
+      "scope": "Best measured candidate only. Domain multipliers, surrogate and acquisition-grid settings are engineering choices; sampled regimes are not continuous thresholds."
+    },
+    {
+      "id": "P030",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 109,
+      "section": "Expanded fixed-coefficient diagnostic",
+      "text": "The selected value is $\\lambda^*=0.798445006708$, with Calibration MAE 5.331705633 kWh versus 5.443630218 at zero. It is best among measured candidates, not a proven global optimum.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "measured_calibration",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-study-20261110/fixed-regimes.csv",
+        "docs/reports/issue99-study-20261110/fixed-diagnostics.csv",
+        "tools/issue99_study.py"
+      ],
+      "scope": "Best measured candidate only. Domain multipliers, surrogate and acquisition-grid settings are engineering choices; sampled regimes are not continuous thresholds."
+    },
+    {
+      "id": "P031",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 111,
+      "section": "Expanded fixed-coefficient diagnostic",
+      "text": "To characterize sampled behavior, the study records the local encoder-gradient ratio",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "measured_calibration",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-study-20261110/fixed-regimes.csv",
+        "docs/reports/issue99-study-20261110/fixed-diagnostics.csv",
+        "tools/issue99_study.py"
+      ],
+      "scope": "Best measured candidate only. Domain multipliers, surrogate and acquisition-grid settings are engineering choices; sampled regimes are not continuous thresholds."
+    },
+    {
+      "id": "P032",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 116,
+      "section": "Expanded fixed-coefficient diagnostic",
+      "text": "Values below or above one indicate which measured gradient norm is larger locally. They do not imply that the vectors align, that their effects add constructively, or that their norm ratio determines future forecast error.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "measured_calibration",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-study-20261110/fixed-regimes.csv",
+        "docs/reports/issue99-study-20261110/fixed-diagnostics.csv",
+        "tools/issue99_study.py"
+      ],
+      "scope": "Best measured candidate only. Domain multipliers, surrogate and acquisition-grid settings are engineering choices; sampled regimes are not continuous thresholds."
+    },
+    {
+      "id": "P033",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 123,
+      "section": "Expanded fixed-coefficient diagnostic",
+      "text": "Figure~\\ref{fig:fixed} shows all 21 measured coefficients. Zero is displayed separately because a logarithmic axis cannot contain it. The positive domain reaches 33.8442461273. Some measured points with forecast-dominated gradients have higher Calibration error than zero; other points in that same gradient category have lower error. Retention-dominated sampled points also have lower error than zero. Thus a simple coefficient threshold does not divide useful and harmful transfer.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "measured_calibration",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-study-20261110/fixed-regimes.csv",
+        "docs/reports/issue99-study-20261110/fixed-diagnostics.csv",
+        "tools/issue99_study.py"
+      ],
+      "scope": "Best measured candidate only. Domain multipliers, surrogate and acquisition-grid settings are engineering choices; sampled regimes are not continuous thresholds."
+    },
+    {
+      "id": "P034",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 125,
+      "section": "Expanded fixed-coefficient diagnostic",
+      "text": "For example, recorded representative coefficients near 0.000390, 0.474980 and 8.163598 have median gradient ratios about 0.000922, 0.559958 and 7.234187, respectively. Their Calibration MAEs are 5.444004, 5.361266 and 5.371132 kWh. These are measured examples of distinct local behavior. They are not continuous regime boundaries, and the calibration-selected 0.798445 is kept separate from representative-point selection.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "measured_calibration",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-study-20261110/fixed-regimes.csv",
+        "docs/reports/issue99-study-20261110/fixed-diagnostics.csv",
+        "tools/issue99_study.py"
+      ],
+      "scope": "Best measured candidate only. Domain multipliers, surrogate and acquisition-grid settings are engineering choices; sampled regimes are not continuous thresholds."
+    },
+    {
+      "id": "P035",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 133,
+      "section": "Confidence-gated block selection",
+      "text": "Figure~\\ref{fig:retention} shows the original retention controller. It begins each 14-day block by cloning the selected model and Adam state into three branches, one per retention coefficient. All branches forecast causally and train on the same eligible data. Only the active branch supplies the deployed forecast. At the next boundary, complete arrived daily errors within the block are paired.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_executed_configuration",
+      "sources": [
+        "ev_control/confidence.py",
+        "ev_runner/engine.py",
+        "docs/reports/issue99-study-20261110/controller-lock.json"
+      ],
+      "scope": "Formula, shared draws, tie and trained-state continuation match the implementation. No sequential or next-block improvement guarantee."
+    },
+    {
+      "id": "P036",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 135,
+      "section": "Confidence-gated block selection",
+      "text": "For challenger $c$ against active branch $a$, define",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_executed_configuration",
+      "sources": [
+        "ev_control/confidence.py",
+        "ev_runner/engine.py",
+        "docs/reports/issue99-study-20261110/controller-lock.json"
+      ],
+      "scope": "Formula, shared draws, tie and trained-state continuation match the implementation. No sequential or next-block improvement guarantee."
+    },
+    {
+      "id": "P037",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 141,
+      "section": "Confidence-gated block selection",
+      "text": "Positive differences favor the challenger. Resamples concatenate noncircular overlapping segments of three chronological valid daily observations, trimming to the original valid-day count. Both challengers use identical sampled indices. The 0.025 tail implements the specified two-challenger adjustment with interval parameter 0.05. Quantiles are linearly interpolated.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_executed_configuration",
+      "sources": [
+        "ev_control/confidence.py",
+        "ev_runner/engine.py",
+        "docs/reports/issue99-study-20261110/controller-lock.json"
+      ],
+      "scope": "Formula, shared draws, tie and trained-state continuation match the implementation. No sequential or next-block improvement guarantee."
+    },
+    {
+      "id": "P038",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 143,
+      "section": "Confidence-gated block selection",
+      "text": "If fewer than seven complete days are available, or no challenger has $L_c>0$, the active branch is retained. Otherwise the controller selects the greatest qualifying lower bound, breaking exact ties by proximity to the current coefficient and then ascending coefficient order. The selected \\emph{trained} model and optimizer continue forward, and are cloned again at the new block start. Keeping the active branch does not restore its block-start weights.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_executed_configuration",
+      "sources": [
+        "ev_control/confidence.py",
+        "ev_runner/engine.py",
+        "docs/reports/issue99-study-20261110/controller-lock.json"
+      ],
+      "scope": "Formula, shared draws, tie and trained-state continuation match the implementation. No sequential or next-block improvement guarantee."
+    },
+    {
+      "id": "P039",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 145,
+      "section": "Confidence-gated block selection",
+      "text": "This mechanism updates a discrete retention choice and the continuation state, not the GRU architecture or Adam learning rate. The lower bound summarizes completed-block evidence; it does not guarantee a beneficial next block. Removing missing days compresses calendar gaps in the controller's valid-observation sequence. Repeated decisions, dependent samples and nonstationarity limit any confidence interpretation.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_executed_configuration",
+      "sources": [
+        "ev_control/confidence.py",
+        "ev_runner/engine.py",
+        "docs/reports/issue99-study-20261110/controller-lock.json"
+      ],
+      "scope": "Formula, shared draws, tie and trained-state continuation match the implementation. No sequential or next-block improvement guarantee."
+    },
+    {
+      "id": "P040",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 148,
+      "section": "Common-bank online selection",
+      "text": "The separate twelve-entity study trains independent constant-coefficient trajectories instead of reforking a chosen state every block. Its past-MAE selector and confidence selector choose outputs from this same bank, starting from the calibration-selected Fixed trajectory. The confidence variant uses seven-day blocks, at least five complete days, segment length three, 2,000 resamples and the same zero-margin principle.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "implementation_and_result",
+      "sources": [
+        "tools/issue99_history_study.py",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-selection-lock.json"
+      ],
+      "scope": "Output selection from independent trajectories differs from historical reforked model training."
+    },
+    {
+      "id": "P041",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 150,
+      "section": "Common-bank online selection",
+      "text": "This matched bank compares two output-selection rules. It is not a rerun of the original 14-day model-reforking procedure. Likewise, seven-day shadow selection over archived historical predictions does not establish what seven-day reforked training would have produced.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "implementation_and_result",
+      "sources": [
+        "tools/issue99_history_study.py",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-selection-lock.json"
+      ],
+      "scope": "Output selection from independent trajectories differs from historical reforked model training."
+    },
+    {
+      "id": "P042",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 153,
+      "section": "Continuous validation hypergradient",
+      "text": "The four-target diagnostic changes a real-valued coefficient on one target branch. From current real parameters and Adam moments it creates a virtual update using two older complete arrived days $A$. A newer complete arrived day $V$, not yet used in real training, supplies forecast-only validation loss:",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_executed_configuration",
+      "sources": [
+        "ev_control/hypergradient.py",
+        "ev_control/continuous.py",
+        "ev_runner/continuous.py",
+        "docs/reports/issue99-study-20261110/controller-selection.json",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "One virtual Adam step from a fixed real starting state, not differentiation through the entire online history. U and step-size selection are project choices."
+    },
+    {
+      "id": "P043",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 161,
+      "section": "Continuous validation hypergradient",
+      "text": "Previous parameters and moments are fixed starting state for this local derivative. The differentiable virtual Adam step uses bias-corrected moments and does not mutate the real optimizer. After the decision, real training consumes the newly arrived example; the next forecast uses only permitted data.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_executed_configuration",
+      "sources": [
+        "ev_control/hypergradient.py",
+        "ev_control/continuous.py",
+        "ev_runner/continuous.py",
+        "docs/reports/issue99-study-20261110/controller-selection.json",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "One virtual Adam step from a fixed real starting state, not differentiation through the entire online history. U and step-size selection are project choices."
+    },
+    {
+      "id": "P044",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 163,
+      "section": "Continuous validation hypergradient",
+      "text": "Calibration selects $U=33.8442461273$, $\\lambda_0=0.798445006708$, $\\eta_\\lambda=211.295003431$ and a cadence of one complete arrival among six declared recipes. The coefficient step size differs from the model learning rate 0.001. Adam uses betas $(0.9,0.999)$ and optimizer epsilon $10^{-8}$, separate from retention epsilon 0.001. The controller upper bound is the smallest measured coefficient above the selected Fixed value that is harmful relative to zero; if none is measured, it uses the largest finite tested coefficient. Here the fallback gives the stated upper endpoint. Step sizes are scaled from a calibration-prefix hypergradient pilot and selected across three nominal step fractions and two cadences. The projection interval is a study-specific bounded domain, not a paper-established EV constant or a measured claim that every value in it is useful.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_executed_configuration",
+      "sources": [
+        "ev_control/hypergradient.py",
+        "ev_control/continuous.py",
+        "ev_runner/continuous.py",
+        "docs/reports/issue99-study-20261110/controller-selection.json",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "One virtual Adam step from a fixed real starting state, not differentiation through the entire online history. U and step-size selection are project choices."
+    },
+    {
+      "id": "P045",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 166,
+      "section": "Persistent scalar-only follow-up",
+      "text": "A later Calibration execution tests a persistent shadow branch. Its candidate coefficient is restricted to a neighborhood of the calibrated Fixed anchor, approximately $[0.548445,1.048445]$, and its per-proposal coefficient change is clipped to 0.1. Acceptance requires five complete paired outcomes, mean candidate-minus-real MAE below $-0.01$ kWh, at least four wins and no paired harm above 0.05 kWh. A block expires after nine issued days without sufficient pairs.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "executed_followup",
+      "sources": [
+        "docs/reports/issue99-persistent-results-20261111.md",
+        "ev_control/persistent.py",
+        "ev_runner/continuous.py",
+        "docs/reports/issue99-persistent-calibration-cells-20261111.csv"
+      ],
+      "scope": "Kaggle-reported saved-run audit and transcribed cells. No fresh local persistent checkpoint readback or Later execution."
+    },
+    {
+      "id": "P046",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 168,
+      "section": "Persistent scalar-only follow-up",
+      "text": "Only an accepted scalar coefficient transfers to the real branch. Candidate weights, Adam state and RNG are not transplanted. This is different from the historical selector's trained-state continuation. Its preregistered Calibration promotion criterion determines whether a Later study proceeds; unsuccessful promotion is reported as such.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "executed_followup",
+      "sources": [
+        "docs/reports/issue99-persistent-results-20261111.md",
+        "ev_control/persistent.py",
+        "ev_runner/continuous.py",
+        "docs/reports/issue99-persistent-calibration-cells-20261111.csv"
+      ],
+      "scope": "Kaggle-reported saved-run audit and transcribed cells. No fresh local persistent checkpoint readback or Later execution."
+    },
+    {
+      "id": "P047",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 174,
+      "section": "Complementary trajectories",
+      "text": "The fusion extension in Figure~\\ref{fig:model} retains two Source10-initialized GRUs. The stable expert is the historical Fixed model: $\\lambda_S=1$, three initial target epochs when complete prefix examples exist, learning rate 0.001, and one online epoch on each newly arrived complete daily example. Its authenticated recorded forecasts are reused.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "implementation_and_executed_configuration",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "docs/reports/issue99-stable-fast-20261110/summary.json"
+      ],
+      "scope": "Stable and fast differ in retention and update memory. Their lambda values stay fixed; training updates the full forecasters."
+    },
+    {
+      "id": "P048",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 176,
+      "section": "Complementary trajectories",
+      "text": "The fast expert uses $\\lambda_F=0$, the same three initial epochs and learning rate, and one online epoch over available complete examples in the seven calendar days ending at the arrived example's forecast origin. The window may include permitted prefix examples, contains at most seven complete daily examples, and fits one optimizer step. It never includes labels that have not arrived.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "implementation_and_executed_configuration",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "docs/reports/issue99-stable-fast-20261110/summary.json"
+      ],
+      "scope": "Stable and fast differ in retention and update memory. Their lambda values stay fixed; training updates the full forecasters."
+    },
+    {
+      "id": "P049",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 178,
+      "section": "Complementary trajectories",
+      "text": "The experts differ in both retention and update memory. A gain from combining them therefore cannot be attributed solely to different coefficients. Both start from Source; the fast expert is not target-only. Their coefficients remain constant throughout fusion.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "implementation_and_executed_configuration",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "docs/reports/issue99-stable-fast-20261110/summary.json"
+      ],
+      "scope": "Stable and fast differ in retention and update memory. Their lambda values stay fixed; training updates the full forecasters."
+    },
+    {
+      "id": "P050",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 181,
+      "section": "Weight update",
+      "text": "For stable weight $w_t$, the issued 24-hour forecast is",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Exponential update followed by share-to-other. Weight w is not lambda or a confidence probability. Fresh independent reconstruction checks the recorded events."
+    },
+    {
+      "id": "P051",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 185,
+      "section": "Weight update",
+      "text": "When complete labels for an earlier forecast day $d$ arrive, use the saved pre-update expert forecasts to compute",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Exponential update followed by share-to-other. Weight w is not lambda or a confidence probability. Fresh independent reconstruction checks the recorded events."
+    },
+    {
+      "id": "P052",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 190,
+      "section": "Weight update",
+      "text": "Feedback-event index $k$ is distinct from forecast-origin index $t$. The update is",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Exponential update followed by share-to-other. Weight w is not lambda or a confidence probability. Fresh independent reconstruction checks the recorded events."
+    },
+    {
+      "id": "P053",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 197,
+      "section": "Weight update",
+      "text": "The implementation uses equivalent log-odds arithmetic. Calibration selects $w_0=0.4307815378871372$, $\\eta=0.1$ and $\\alpha=0.1$. Updated weights consequently lie in $[0.1,0.9]$. This bound follows from sharing, not from a lambda search. No complete feedback means no weight update; elapsed time alone does not decay the weight.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Exponential update followed by share-to-other. Weight w is not lambda or a confidence probability. Fresh independent reconstruction checks the recorded events."
+    },
+    {
+      "id": "P054",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 199,
+      "section": "Weight update",
+      "text": "The lower lane of Figure~\\ref{fig:model} separates model training from loss feedback. Expert losses use the saved forecasts issued before the labels, while both experts also train on newly eligible observations. The current origin is forecast only after earlier eligible feedback has been processed. Initial weight is $w_0=0.4307815378871372$; all displayed update coefficients are the calibrated values already used in the completed experiment.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Exponential update followed by share-to-other. Weight w is not lambda or a confidence probability. Fresh independent reconstruction checks the recorded events."
+    },
+    {
+      "id": "P055",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 201,
+      "section": "Weight update",
+      "text": "This controller adjusts $w$, not $\\lambda$. It has no bootstrap acceptance gate. Mixing two nonlinear predictors is not equivalent to training one model at coefficient $w$, and a normalized exponential weight is not confidence evidence of future benefit. Fixed-share is an established online-learning rule \\cite{herbster1998}; its original guarantees are not claimed here for these unbounded energy losses and adapting GRUs.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Exponential update followed by share-to-other. Weight w is not lambda or a confidence probability. Fresh independent reconstruction checks the recorded events."
+    },
+    {
+      "id": "P056",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 204,
+      "section": "Calibration and matched fusion controls",
+      "text": "Four calibration entities and seeds 42--44 compare fast windows of 3, 7 and 14 days with learning rates 0.001 and 0.003. For each pair, a static stable weight minimizes equal-cell Calibration MAE on $[0,1]$ via the weighted-median solution of the convex absolute-error objective. This selects the seven-day, 0.001 recipe and the initial weight above.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "executed_calibration",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-summary.json"
+      ],
+      "scope": "Finite grid and weighted-median calibration. Equal-weight/loss-free controls are explicitly posthoc; no global optimum or independent confirmation."
+    },
+    {
+      "id": "P057",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 206,
+      "section": "Calibration and matched fusion controls",
+      "text": "Nine weight-controller candidates cross $\\eta\\in\\{0.1,1,10\\}$ and $\\alpha\\in\\{0.001,0.01,0.1\\}$. Calibration selects the final settings before their historical full-scope comparison. The same recipe is carried to all namespaces and histories without per-namespace recalibration. These bounded engineering grids do not establish global optimality.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "executed_calibration",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-summary.json"
+      ],
+      "scope": "Finite grid and weighted-median calibration. Equal-weight/loss-free controls are explicitly posthoc; no global optimum or independent confirmation."
+    },
+    {
+      "id": "P058",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 208,
+      "section": "Calibration and matched fusion controls",
+      "text": "The decisive control is static fusion with the same stable and fast forecasts and fixed $w_0$. Fast-only tests one component. Equal 50/50 fusion and loss-free sharing are posthoc diagnostics; in loss-free sharing, the posterior equals the prior before the same share step. This retains attraction toward one-half while removing the expert-loss signal.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "executed_calibration",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-summary.json"
+      ],
+      "scope": "Finite grid and weighted-median calibration. Equal-weight/loss-free controls are explicitly posthoc; no global optimum or independent confirmation."
+    },
+    {
+      "id": "P059",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 212,
+      "section": "Baseline and training-budget controls",
+      "text": "Each implementation has 172 unique model--mode--entity--seed records: 160 nonspatial and 12 spatial; deterministic methods have no artificial seed replicates. Nonspatial neural models use three Source epochs, three target epochs (batch four; learning rate 0.0005), and one online epoch per eligible arrival. GCN--LSTM instead uses five initial epochs, learning rate 0.001 and single-example steps. Classical methods have separate fitting/refitting rules. Implementations are reported separately.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "executed_recipes",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "experiments/member_studies/cyber_baselines/models/graph.py",
+        "experiments/member_studies/cyber_baselines/training.py"
+      ],
+      "scope": "Nonspatial neural, spatial and classical recipes differ. Source3 and reused Source10 studies must not be pooled."
+    },
+    {
+      "id": "P060",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 214,
+      "section": "Baseline and training-budget controls",
+      "text": "The subsequent GRU study reuses Source epoch 10 and calibrates initial target epochs over $\\{3,10,30,100,300\\}$. The objective uses the first 28 scheduled origins of the four calibration entities, with equal entity and seed weights. The declared extension to 900 epochs is unused because no 300-epoch candidate wins. Target-only selects 30/100/100 epochs across 7/14/28 days; Source-initialized models select 3/3/10. The learning rate is 0.001. The twelve additional entities then evaluate these recipes.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "executed_recipes",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "experiments/member_studies/cyber_baselines/models/graph.py",
+        "experiments/member_studies/cyber_baselines/training.py"
+      ],
+      "scope": "Nonspatial neural, spatial and classical recipes differ. Source3 and reused Source10 studies must not be pooled."
+    },
+    {
+      "id": "P061",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 217,
+      "section": "Four-target chronological objectives",
+      "text": "The fixed/continuous diagnostic replays all 90 scheduled origins. The first 28 define Calibration, the next two are excluded from both score objectives, and the last 60 define Later. The two excluded objective days still belong to causal replay; they are not a claim that online model training stops. Actual Later scored-day counts are 60, 22, 22 and 22 across the four entities.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "executed_protocol",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-study-20261110/comparison-runs.csv",
+        "docs/reports/issue99-study-20261110/daily-errors.csv"
+      ],
+      "scope": "Scheduled objectives differ from actual scored-day counts. Legacy discrete compute/initialization are not matched to continuous tuning."
+    },
+    {
+      "id": "P062",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 219,
+      "section": "Four-target chronological objectives",
+      "text": "The legacy discrete comparator retains its historical three-branch recipe rather than receiving matched continuous-controller tuning. It therefore uses more compute and different initialization than a single-branch constant-coefficient method. The Later outcome is a useful recorded comparator but does not isolate controller choice at equal training and search budgets.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "executed_protocol",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-study-20261110/comparison-runs.csv",
+        "docs/reports/issue99-study-20261110/daily-errors.csv"
+      ],
+      "scope": "Scheduled objectives differ from actual scored-day counts. Legacy discrete compute/initialization are not matched to continuous tuning."
+    },
+    {
+      "id": "P063",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 222,
+      "section": "Aggregation and interpretation",
+      "text": "For scored origins $\\mathcal D_{i,s}$, unit MAE is",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "definition_and_arithmetic",
+      "sources": [
+        "tools/issue99_history_study.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Equal seeds within entity then equal scored entities. Zero denominators/nulls and dependent groups cannot become significance claims."
+    },
+    {
+      "id": "P064",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 228,
+      "section": "Aggregation and interpretation",
+      "text": "A group first averages seeds within an entity and then averages scored entities equally. All compared arms share scored origins within a unit. An unscored entity is null, not zero. We do not pool all hourly errors across unequal entities or average kWh means across namespaces with different demand scales.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "definition_and_arithmetic",
+      "sources": [
+        "tools/issue99_history_study.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Equal seeds within entity then equal scored entities. Zero denominators/nulls and dependent groups cannot become significance claims."
+    },
+    {
+      "id": "P065",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 230,
+      "section": "Aggregation and interpretation",
+      "text": "For candidate $B$ and named reference $A$, percentage reduction is $100(M_A-M_B)/M_A$. Positive reductions favor the candidate. Best displayed MAEs are bold within the stated comparison; displayed ties receive equal emphasis. Group win counts are descriptive. The 21 groups reuse entities and dates across history budgets and are not 21 independent trials.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "definition_and_arithmetic",
+      "sources": [
+        "tools/issue99_history_study.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Equal seeds within entity then equal scored entities. Zero denominators/nulls and dependent groups cannot become significance claims."
+    },
+    {
+      "id": "P066",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 234,
+      "section": "Results: transfer and backbone choice",
+      "text": "Table~\\ref{tab:baselines} compares model families within each implementation and training mode. A dash denotes an unreported mode, not zero error. Spatial support histories make GCN--LSTM a supplementary information-set comparison.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "experiments/member_studies/cyber_baselines/runs_v3.csv",
+        "experiments/member_studies/duc_baselines/runs.csv",
+        "experiments/member_studies/duc_baselines/runs_graph.csv"
+      ],
+      "scope": "All paired transfer wins and displayed MAEs are checked from ledgers. Competitive/compact is an interpretation, not universal architecture superiority or observed runtime speed."
+    },
+    {
+      "id": "P067",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 236,
+      "section": "Results: transfer and backbone choice",
+      "text": "All 60 paired neural entity--seed comparisons in each implementation favor Source initialization. Implementation A's transferred GRU is lowest at 5.3150 kWh, compared with LSTM 5.3356 and TCN 5.3447. In implementation B, official TimeXer is lowest at 5.1979, ahead of TCN 5.3027 and GRU 5.3157. The custom attention model in A is not a matched replication of official TimeXer in B.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "experiments/member_studies/cyber_baselines/runs_v3.csv",
+        "experiments/member_studies/duc_baselines/runs.csv",
+        "experiments/member_studies/duc_baselines/runs_graph.csv"
+      ],
+      "scope": "All paired transfer wins and displayed MAEs are checked from ledgers. Competitive/compact is an interpretation, not universal architecture superiority or observed runtime speed."
+    },
+    {
+      "id": "P068",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 238,
+      "section": "Results: transfer and backbone choice",
+      "text": "GRU is therefore a competitive, compact controlled backbone, not the universally best architecture. Its 52,376 parameters are fewer than the 65,368 of a same-width two-layer LSTM with the same head. This parameter count does not establish an observed runtime advantage. These small fixed-recipe benchmarks also do not provide an exhaustive hyperparameter-optimized model ranking.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "experiments/member_studies/cyber_baselines/runs_v3.csv",
+        "experiments/member_studies/duc_baselines/runs.csv",
+        "experiments/member_studies/duc_baselines/runs_graph.csv"
+      ],
+      "scope": "All paired transfer wins and displayed MAEs are checked from ledgers. Competitive/compact is an interpretation, not universal architecture superiority or observed runtime speed."
+    },
+    {
+      "id": "P069",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 260,
+      "section": "Results: transfer and backbone choice",
+      "text": "After calibrating initial training, source fine-tuning remains below target-only by 33.35\\%, 31.64\\% and 29.80\\% at 7, 14 and 28 days (Table~\\ref{tab:dev}). This supports source initialization under the tested short-history setting. Absolute errors are not compared directly with the Source3 backbone benchmark because its cohort and training recipe differ.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "experiments/member_studies/cyber_baselines/runs_v3.csv",
+        "experiments/member_studies/duc_baselines/runs.csv",
+        "experiments/member_studies/duc_baselines/runs_graph.csv"
+      ],
+      "scope": "All paired transfer wins and displayed MAEs are checked from ledgers. Competitive/compact is an interpretation, not universal architecture superiority or observed runtime speed."
+    },
+    {
+      "id": "P070",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 262,
+      "section": "Results: transfer and backbone choice",
+      "text": "The retention increment is smaller. Calibrated Fixed is lowest at seven and fourteen days; the common-bank confidence selector is lowest at twenty-eight days. At 28 days its 3.313967 kWh is 1.02\\% below the calibrated Fixed row, which selected zero retention. A retrospectively chosen constant-one trajectory scores 3.292501, below the confidence selector. That retrospective choice uses evaluated outcomes and is not a deployable replacement for calibration selection. Together these results show conditional selection benefits rather than consistent dominance.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "experiments/member_studies/cyber_baselines/runs_v3.csv",
+        "experiments/member_studies/duc_baselines/runs.csv",
+        "experiments/member_studies/duc_baselines/runs_graph.csv"
+      ],
+      "scope": "All paired transfer wins and displayed MAEs are checked from ledgers. Competitive/compact is an interpretation, not universal architecture superiority or observed runtime speed."
+    },
+    {
+      "id": "P071",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 278,
+      "section": "Results: retention adaptation",
+      "text": "The discrete comparator has the lowest recorded Later mean, 4.798259 versus calibrated Fixed 4.803054 kWh (Table~\\ref{tab:later}), approximately 0.100\\% lower. The continuous hypergradient controller gives 4.806223, which is 0.003169 kWh worse than Fixed. Its improvements on three entity means do not override the adverse equal-entity aggregate. Frozen coefficient exactly reuses Fixed where the executable configurations match; it is not an independent retraining replicate.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "observed_result",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-persistent-results-20261111.md",
+        "docs/reports/issue99-persistent-calibration-cells-20261111.csv",
+        "docs/reports/issue99-study-20261110/controller-trajectory-summary.json",
+        "docs/reports/issue99-study-20261110/comparison-verification.json"
+      ],
+      "scope": "Later and Calibration remain separate; calibration positives cannot replace adverse Later aggregate. Frozen-lambda reuses Fixed, not independent retraining."
+    },
+    {
+      "id": "P072",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 280,
+      "section": "Results: retention adaptation",
+      "text": "The continuous controller changes coefficients, but coefficient movement alone is not evidence of forecast improvement. Recorded decision values include both zero-bound contacts and positive values above the Fixed anchor. The full-90 descriptive mean favors a different ordering because it includes Calibration and Later together. We retain the registered Later objective instead of switching to that more favorable summary.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "observed_result",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-persistent-results-20261111.md",
+        "docs/reports/issue99-persistent-calibration-cells-20261111.csv",
+        "docs/reports/issue99-study-20261110/controller-trajectory-summary.json",
+        "docs/reports/issue99-study-20261110/comparison-verification.json"
+      ],
+      "scope": "Later and Calibration remain separate; calibration positives cannot replace adverse Later aggregate. Frozen-lambda reuses Fixed, not independent retraining."
+    },
+    {
+      "id": "P073",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 293,
+      "section": "Results: retention adaptation",
+      "text": "The later persistent-study Calibration is a separate execution and window (Table~\\ref{tab:persistent}). Immediate and persistent updates both have favorable Calibration means relative to Fixed. Persistent improvement is only 0.000118478 kWh, below its required 0.01 kWh promotion gain, with one accepted decision out of 57 and cost 1.614 times Fixed. The promotion criterion fails and no Later matrix follows. Neither its small favorable Calibration result nor the immediate result substitutes for a successful Later comparison.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "observed_result",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-persistent-results-20261111.md",
+        "docs/reports/issue99-persistent-calibration-cells-20261111.csv",
+        "docs/reports/issue99-study-20261110/controller-trajectory-summary.json",
+        "docs/reports/issue99-study-20261110/comparison-verification.json"
+      ],
+      "scope": "Later and Calibration remain separate; calibration positives cannot replace adverse Later aggregate. Frozen-lambda reuses Fixed, not independent retraining."
+    },
+    {
+      "id": "P074",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 331,
+      "section": "Results: historical adaptive fusion",
+      "text": "Table~\\ref{tab:cohort} places the original selector, both component experts and both fusion rules in one matched historical comparison. Bold marks the best displayed mean among these five methods per row; it does not select a different evaluation cohort.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "9/21 original selector; 18/21 adaptive and static fusion; 12/21 adaptive versus static. Previously inspected cohort; no significance/untouched-test claim."
+    },
+    {
+      "id": "P075",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 333,
+      "section": "Results: historical adaptive fusion",
+      "text": "The original confidence-gated retention selector is below fixed-one retention in 9 of 21 groups, while Fixed is lower in twelve. Its favorable namespace-level results occur in CHARGED/MEL, SPO and SZH. In the original report, all 18 finite exploratory intervals for this contrast include zero and the three UrbanEV intervals are undefined. Favorable point estimates therefore are not evidence of established statistical superiority.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "9/21 original selector; 18/21 adaptive and static fusion; 12/21 adaptive versus static. Previously inspected cohort; no significance/untouched-test claim."
+    },
+    {
+      "id": "P076",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 335,
+      "section": "Results: historical adaptive fusion",
+      "text": "Adaptive fusion is below single Fixed in 18 of 21 groups. All eighteen CHARGED groups improve, with reductions of 0.23--7.77\\%. All three UrbanEV groups worsen: approximately 0.88\\%, 0.32\\% and 0.45\\% for 7, 14 and 28 days. The result is eighteen namespace--history wins, not eighteen cities, and not improvement at every entity or every forecast day.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "9/21 original selector; 18/21 adaptive and static fusion; 12/21 adaptive versus static. Previously inspected cohort; no significance/untouched-test claim."
+    },
+    {
+      "id": "P077",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 337,
+      "section": "Results: historical adaptive fusion",
+      "text": "Static fusion also beats single Fixed in 18 of 21 groups, while Fast-only wins sixteen. This makes the static control essential: the broader success against single Fixed is largely a property of the complementary forecast family. It cannot all be assigned to the adaptive weight update.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "9/21 original selector; 18/21 adaptive and static fusion; 12/21 adaptive versus static. Previously inspected cohort; no significance/untouched-test claim."
+    },
+    {
+      "id": "P078",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 344,
+      "section": "Results: historical adaptive fusion",
+      "text": "Adaptive fusion beats matched static fusion in twelve groups and loses in nine. UrbanEV, JHB, LOA and SPO favor adaptive weights at all three histories; AMS, MEL and CHARGED/SZH favor static weights. Even where adaptive weights improve the UrbanEV mixture, the mixture remains worse than single Fixed. Figure~\\ref{fig:cohort} uses separate, explicitly labeled color scales for the large family effect and the smaller weighting increment. Positive reduction is blue; adverse reduction is red.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "9/21 original selector; 18/21 adaptive and static fusion; 12/21 adaptive versus static. Previously inspected cohort; no significance/untouched-test claim."
+    },
+    {
+      "id": "P079",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 357,
+      "section": "Results: historical adaptive fusion",
+      "text": "Against posthoc equal-weight and loss-free sharing controls, adaptive fusion is lower in all 21 group means (Table~\\ref{tab:controls}). The increments are small. Their consistent signs on this inspected cohort suggest a contribution from the loss signal, but do not establish a large or statistically significant controller effect. Against calibrated static fusion, the sign remains mixed.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "9/21 original selector; 18/21 adaptive and static fusion; 12/21 adaptive versus static. Previously inspected cohort; no significance/untouched-test claim."
+    },
+    {
+      "id": "P080",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 359,
+      "section": "Results: historical adaptive fusion",
+      "text": "A separate check on the twelve additional Development entities at fourteen days gives single Fixed 3.267000, Fast-only 3.419880, static fusion 3.303021 and adaptive fusion 3.291048 kWh. Adaptive weighting improves that mixture but does not beat single Fixed. The analogous seven- and twenty-eight-day fusion cells for these twelve entities were not executed; historical-cohort values cannot fill those cells.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "9/21 original selector; 18/21 adaptive and static fusion; 12/21 adaptive versus static. Previously inspected cohort; no significance/untouched-test claim."
+    },
+    {
+      "id": "P081",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 363,
+      "section": "What the results establish",
+      "text": "The strongest repeated finding concerns source initialization. Both independent neural baseline implementations favor transfer in every paired entity--seed cell, and the calibrated twelve-entity study retains roughly 30\\% improvement over target-only training. This provides a reason to study transfer for short-history targets under the tested protocol. It does not mean every source will help every new location.",
+      "status": [
+        "inferred"
+      ],
+      "claim_type": "inference_from_observed_results",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Conditional interpretation of the recorded comparisons only. No universally optimal backbone or controller claim."
+    },
+    {
+      "id": "P082",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 365,
+      "section": "What the results establish",
+      "text": "The backbone evidence supports GRU as a controlled, competitive and compact implementation. It also records a stronger official TimeXer result in one implementation. Selecting GRU for the retention analysis is therefore justified by its competitiveness and manageable standard architecture, not by asserting that all alternative models lose.",
+      "status": [
+        "inferred"
+      ],
+      "claim_type": "inference_from_observed_results",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Conditional interpretation of the recorded comparisons only. No universally optimal backbone or controller claim."
+    },
+    {
+      "id": "P083",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 367,
+      "section": "What the results establish",
+      "text": "For the original source-retention question, the evidence is conditional. Confidence-based selection can improve some comparisons, including the 28-day common-bank result and the four-target discrete Later result. It does not consistently improve on the relevant Fixed comparator. A local hypergradient supplies an explicit continuous update formula but does not produce a better Later aggregate in the completed study.",
+      "status": [
+        "inferred"
+      ],
+      "claim_type": "inference_from_observed_results",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Conditional interpretation of the recorded comparisons only. No universally optimal backbone or controller claim."
+    },
+    {
+      "id": "P084",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 369,
+      "section": "What the results establish",
+      "text": "The fusion extension provides the broadest historical win count, but changes the mechanism. It retains both source-initialized trajectories and adjusts their forecast contribution. It cannot demonstrate that a single model has discovered the optimal source-retention coefficient or that confidence gating produced eighteen wins. Its matched static control shows how much improvement already comes from combining complementary errors.",
+      "status": [
+        "inferred"
+      ],
+      "claim_type": "inference_from_observed_results",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Conditional interpretation of the recorded comparisons only. No universally optimal backbone or controller claim."
+    },
+    {
+      "id": "P085",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 372,
+      "section": "When source influence should be reduced",
+      "text": "A lower stable-expert weight means less contribution from that source-retaining forecast relative to the recent-window forecast. It is a predictor-level statement. A lower lambda means less explicit latent constraint during training. It is an optimization-level statement. Neither is a direct measurement of how much source information remains in the network.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "definition_and_hypothesis",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "ev_control/hypergradient.py",
+        "ev_control/confidence.py"
+      ],
+      "scope": "w is prediction contribution; lambda is an optimization coefficient. Suggested explanations for losses are hypotheses, not causally verified diagnoses."
+    },
+    {
+      "id": "P086",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 374,
+      "section": "When source influence should be reduced",
+      "text": "The executed controllers use retrospective evidence to make future decisions. A completed block may be unrepresentative of the next block, and a current local validation gradient may poorly predict the next training trajectory. These are possible reasons why plausible update rules can fail to improve a carefully calibrated constant. They are interpretations of the observed pattern, not newly verified causal explanations of each loss.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "definition_and_hypothesis",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "ev_control/hypergradient.py",
+        "ev_control/confidence.py"
+      ],
+      "scope": "w is prediction contribution; lambda is an optimization coefficient. Suggested explanations for losses are hypotheses, not causally verified diagnoses."
+    },
+    {
+      "id": "P087",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 377,
+      "section": "Limitations and reproducibility",
+      "text": "The baseline sample is small, recipes are fixed rather than equally optimized, and spatial support changes the information set. The coefficient diagnostics use four previously inspected entities in one namespace. The twelve-entity study expands Development coverage but still reuses an inspected data environment. The historical mixture comparison revisits previously exposed entities and dates. None is an untouched prospective confirmation.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "verification_boundary",
+      "sources": [
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json",
+        "docs/reports/issue99-teacher-review-20261111/baseline-verification.json",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "docs/reports/issue99-teacher-review-20261111/duc-reused-audit-receipt.md",
+        "docs/reports/issue99-persistent-results-20261111.md",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Code/ledger/saved-vector verification does not reproduce training, certify raw publishers, reconstruct all bootstrap draws, or supply an untouched test."
+    },
+    {
+      "id": "P088",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 379,
+      "section": "Limitations and reproducibility",
+      "text": "The units and groups are dependent. Three seeds share the same entity data; histories overlap; missingness changes scored coverage. Win counts and mean reductions do not by themselves provide confidence intervals or significance. Original bootstrap decision evidence concerns completed blocks and offers no across-block sequential safety guarantee.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "verification_boundary",
+      "sources": [
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json",
+        "docs/reports/issue99-teacher-review-20261111/baseline-verification.json",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "docs/reports/issue99-teacher-review-20261111/duc-reused-audit-receipt.md",
+        "docs/reports/issue99-persistent-results-20261111.md",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Code/ledger/saved-vector verification does not reproduce training, certify raw publishers, reconstruct all bootstrap draws, or supply an untouched test."
+    },
+    {
+      "id": "P089",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 381,
+      "section": "Limitations and reproducibility",
+      "text": "Costs differ between one branch, three reforked branches, differentiable virtual updates and two continuously trained experts. The persistent follow-up records its own 1.614-fold cost, but total source pretraining, all exploration and end-to-end costs are not jointly measured across every study. Equal-cost superiority is unestablished.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "verification_boundary",
+      "sources": [
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json",
+        "docs/reports/issue99-teacher-review-20261111/baseline-verification.json",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "docs/reports/issue99-teacher-review-20261111/duc-reused-audit-receipt.md",
+        "docs/reports/issue99-persistent-results-20261111.md",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Code/ledger/saved-vector verification does not reproduce training, certify raw publishers, reconstruct all bootstrap draws, or supply an untouched test."
+    },
+    {
+      "id": "P090",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 383,
+      "section": "Limitations and reproducibility",
+      "text": "Metric readbacks, file identities, matched scoring origins and model/code bindings support artifact correctness. The historical fusion audit checks 810 saved-cell hashes and independently reconstructs 66,492 consumed feedback events and 67,293 scored vectors per arm. Baseline A has an independent saved-output and label readback; baseline B reuses its published audit on unchanged ledgers. These checks do not constitute full retraining reproduction, physical issuance-time verification, reconstruction of every historical bootstrap draw, or fresh authentication of publisher raw archives.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "verification_boundary",
+      "sources": [
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json",
+        "docs/reports/issue99-teacher-review-20261111/baseline-verification.json",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "docs/reports/issue99-teacher-review-20261111/duc-reused-audit-receipt.md",
+        "docs/reports/issue99-persistent-results-20261111.md",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Code/ledger/saved-vector verification does not reproduce training, certify raw publishers, reconstruct all bootstrap draws, or supply an untouched test."
+    },
+    {
+      "id": "P091",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 385,
+      "section": "Limitations and reproducibility",
+      "text": "Reproducibility materials include full-precision result ledgers, configuration locks, method implementations and saved-output verification receipts. A companion source manifest identifies the inputs to the reported tables and figures. Checkpoints and large run artifacts are retained separately from the manuscript source.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "verification_boundary",
+      "sources": [
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json",
+        "docs/reports/issue99-teacher-review-20261111/baseline-verification.json",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "docs/reports/issue99-teacher-review-20261111/duc-reused-audit-receipt.md",
+        "docs/reports/issue99-persistent-results-20261111.md",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Code/ledger/saved-vector verification does not reproduce training, certify raw publishers, reconstruct all bootstrap draws, or supply an untouched test."
+    },
+    {
+      "id": "P092",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 388,
+      "section": "Conclusion",
+      "text": "Transferred GRU forecasting remains competitive after stronger target-only calibration, with 29.8--33.4\\% lower Development MAE from source fine-tuning. Confidence-guided retention offers conditional improvements rather than consistent superiority to Fixed; the completed continuous-coefficient study does not beat its calibrated Fixed Later result. Two-GRU adaptive fusion beats single Fixed in 18 of 21 historical groups, but static fusion does so as well. The adaptive increment wins twelve groups and loses nine, while all three UrbanEV groups still favor single Fixed. The completed evidence supports transfer and complementary adaptation trajectories, and identifies the retention decision itself as the more limited contribution requiring independent confirmation.",
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "synthesis",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json"
+      ],
+      "scope": "Empirical summaries are restricted to these executed cohorts. Motivations and research questions are not results; no universal transfer/controller superiority follows."
+    },
+    {
+      "id": "P093",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 397,
+      "section": "Initial-training calibration",
+      "text": "Figure~\\ref{fig:calibration} contains every declared initial-epoch candidate. Stars indicate selected measured candidates, not global optima. The target-only and source-initialized panels use the same MAE scale. The curves use four calibration entities; the main transfer table uses twelve additional entities. This separation prevents target-only undertraining from being used as the sole explanation for the transfer advantage.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "measured_calibration",
+      "sources": [
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "tools/issue99_manuscript_figures.py"
+      ],
+      "scope": "All five measured epoch choices shown. Calibration entities differ from the twelve evaluation entities; finite minima only."
+    },
+    {
+      "id": "P094",
+      "report_file": "report/rebuilt-review-20261112/main.tex",
+      "line": 404,
+      "section": "Recorded forecast-weight examples",
+      "text": "The two fourteen-day-history traces use seed 42. Within JHB and UrbanEV separately, the upper median of seed-averaged percentage gain among entities with Fixed MAE above $10^{-4}$ kWh selects JHB entity 13 and UrbanEV entity 1272. This documented rule supplies a favorable and an adverse namespace example; it is not a search for the most attractive trajectory. Individual signs need not match namespace means. Dates denote forecast origins, and cumulative errors use scored origins only. Separate error axes preserve each entity's energy scale.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "recorded_trace_selection",
+      "sources": [
+        "tools/issue99_manuscript_figures.py",
+        "report/teacher-review-20261111/trajectory-data.csv",
+        "report/teacher-review-20261111/trajectory-selection.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Recorded seed42 upper-median examples, not best-case or measured confidence envelopes. Source cells rehashed in the fresh readback."
+    },
+    {
+      "id": "P095",
+      "report_file": "report/rebuilt-review-20261112/model-equations.tex",
+      "line": 1,
+      "section": "Architecture and latent state",
+      "text": "The encoder has two GRU layers with hidden width 64 and zero dropout. Using within-window step $\\tau$, the recurrence is",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "id": "P096",
+      "report_file": "report/rebuilt-review-20261112/model-equations.tex",
+      "line": 13,
+      "section": "Architecture and latent state",
+      "text": "These are the PyTorch gate conventions \\cite{pytorch211}; in particular, the reset gate is applied after the recurrent affine transformation in the candidate state. Hidden state is reset for each input window and is not passed between entities.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "id": "P097",
+      "report_file": "report/rebuilt-review-20261112/model-equations.tex",
+      "line": 15,
+      "section": "Architecture and latent state",
+      "text": "The last-layer final state $h_{24}\\in\\mathbb R^{64}$ is concatenated with the 120 flattened future-calendar values. The head applies a width-64 linear layer, ReLU, a 24-output linear layer and Softplus. The primary forecaster has 52,376 trainable parameters. A same-width, two-layer LSTM with this head would have 65,368; this is a parameter-count comparison, not a measured speed or accuracy advantage.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "id": "P098",
+      "report_file": "report/rebuilt-review-20261112/model-equations.tex",
+      "line": 18,
+      "section": "Forecast loss and latent retention",
+      "text": "Let $B$ be a batch of complete examples for one target, and let $\\widetilde y$ and $\\widehat{\\widetilde y}$ denote normalized labels and predictions. Forecast training uses",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "id": "P099",
+      "report_file": "report/rebuilt-review-20261112/model-equations.tex",
+      "line": 23,
+      "section": "Forecast loss and latent retention",
+      "text": "Let $h(x;\\theta_s)$ be the frozen Source encoder output and $s_k$ the population standard deviation of its $k$th latent coordinate on the permitted Source training population. The retention term is",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "id": "P100",
+      "report_file": "report/rebuilt-review-20261112/model-equations.tex",
+      "line": 28,
+      "section": "Forecast loss and latent retention",
+      "text": "with $\\epsilon_R=0.001$. The reference and scales receive no target gradients. Division occurs before squaring. The total target objective is",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "id": "P101",
+      "report_file": "report/rebuilt-review-20261112/model-equations.tex",
+      "line": 32,
+      "section": "Forecast loss and latent retention",
+      "text": "Lambda controls an explicit representation penalty; it is neither the optimizer learning rate nor a percentage of retained knowledge. Setting lambda to zero removes the penalty while preserving transferred initialization.",
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    }
+  ],
+  "equations_tables_figures": [
+    {
+      "label": "fig:model",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 27,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "implementation_and_executed_configuration",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "docs/reports/issue99-stable-fast-20261110/summary.json"
+      ],
+      "scope": "Stable and fast differ in retention and update memory. Their lambda values stay fixed; training updates the full forecasters."
+    },
+    {
+      "label": "tab:scopes",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 63,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "recorded_protocol_and_arithmetic",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-history-review-20261110/source-record-counts.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Counts refer to prepared IDs, examples and recorded scored origins. Namespaces/history groups are not cities or independent replications."
+    },
+    {
+      "label": "eq:fixedselection",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 105,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "measured_calibration",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-study-20261110/fixed-regimes.csv",
+        "docs/reports/issue99-study-20261110/fixed-diagnostics.csv",
+        "tools/issue99_study.py"
+      ],
+      "scope": "Best measured candidate only. Domain multipliers, surrogate and acquisition-grid settings are engineering choices; sampled regimes are not continuous thresholds."
+    },
+    {
+      "label": "eq:ratio",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 114,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "measured_calibration",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-study-20261110/fixed-regimes.csv",
+        "docs/reports/issue99-study-20261110/fixed-diagnostics.csv",
+        "tools/issue99_study.py"
+      ],
+      "scope": "Best measured candidate only. Domain multipliers, surrogate and acquisition-grid settings are engineering choices; sampled regimes are not continuous thresholds."
+    },
+    {
+      "label": "fig:fixed",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 120,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "measured_calibration",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-study-20261110/fixed-regimes.csv",
+        "docs/reports/issue99-study-20261110/fixed-diagnostics.csv",
+        "tools/issue99_study.py"
+      ],
+      "scope": "Best measured candidate only. Domain multipliers, surrogate and acquisition-grid settings are engineering choices; sampled regimes are not continuous thresholds."
+    },
+    {
+      "label": "fig:retention",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 131,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_executed_configuration",
+      "sources": [
+        "ev_control/confidence.py",
+        "ev_runner/engine.py",
+        "docs/reports/issue99-study-20261110/controller-lock.json"
+      ],
+      "scope": "Formula, shared draws, tie and trained-state continuation match the implementation. No sequential or next-block improvement guarantee."
+    },
+    {
+      "label": "eq:lcb",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 140,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_executed_configuration",
+      "sources": [
+        "ev_control/confidence.py",
+        "ev_runner/engine.py",
+        "docs/reports/issue99-study-20261110/controller-lock.json"
+      ],
+      "scope": "Formula, shared draws, tie and trained-state continuation match the implementation. No sequential or next-block improvement guarantee."
+    },
+    {
+      "label": "eq:hypergradient",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 160,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_executed_configuration",
+      "sources": [
+        "ev_control/hypergradient.py",
+        "ev_control/continuous.py",
+        "ev_runner/continuous.py",
+        "docs/reports/issue99-study-20261110/controller-selection.json",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "One virtual Adam step from a fixed real starting state, not differentiation through the entire online history. U and step-size selection are project choices."
+    },
+    {
+      "label": "eq:fusion",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 184,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Exponential update followed by share-to-other. Weight w is not lambda or a confidence probability. Fresh independent reconstruction checks the recorded events."
+    },
+    {
+      "label": "eq:fixedshare",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 196,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Exponential update followed by share-to-other. Weight w is not lambda or a confidence probability. Fresh independent reconstruction checks the recorded events."
+    },
+    {
+      "label": "eq:mae",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 227,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "definition_and_arithmetic",
+      "sources": [
+        "tools/issue99_history_study.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv"
+      ],
+      "scope": "Equal seeds within entity then equal scored entities. Zero denominators/nulls and dependent groups cannot become significance claims."
+    },
+    {
+      "label": "fig:backbones",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 242,
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "experiments/member_studies/cyber_baselines/runs_v3.csv",
+        "experiments/member_studies/duc_baselines/runs.csv",
+        "experiments/member_studies/duc_baselines/runs_graph.csv"
+      ],
+      "scope": "All paired transfer wins and displayed MAEs are checked from ledgers. Competitive/compact is an interpretation, not universal architecture superiority or observed runtime speed."
+    },
+    {
+      "label": "tab:dev",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 247,
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "experiments/member_studies/cyber_baselines/runs_v3.csv",
+        "experiments/member_studies/duc_baselines/runs.csv",
+        "experiments/member_studies/duc_baselines/runs_graph.csv"
+      ],
+      "scope": "All paired transfer wins and displayed MAEs are checked from ledgers. Competitive/compact is an interpretation, not universal architecture superiority or observed runtime speed."
+    },
+    {
+      "label": "tab:later",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 267,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "observed_result",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-persistent-results-20261111.md",
+        "docs/reports/issue99-persistent-calibration-cells-20261111.csv",
+        "docs/reports/issue99-study-20261110/controller-trajectory-summary.json",
+        "docs/reports/issue99-study-20261110/comparison-verification.json"
+      ],
+      "scope": "Later and Calibration remain separate; calibration positives cannot replace adverse Later aggregate. Frozen-lambda reuses Fixed, not independent retraining."
+    },
+    {
+      "label": "tab:persistent",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 284,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "observed_result",
+      "sources": [
+        "docs/reports/issue99-study-20261110/protocol-lock.json",
+        "docs/reports/issue99-study-20261110/fixed-trials.csv",
+        "docs/reports/issue99-study-20261110/fixed-selection.json",
+        "docs/reports/issue99-study-20261110/controller-lock.json",
+        "docs/reports/issue99-study-20261110/method-summary.csv",
+        "docs/reports/issue99-persistent-results-20261111.md",
+        "docs/reports/issue99-persistent-calibration-cells-20261111.csv",
+        "docs/reports/issue99-study-20261110/controller-trajectory-summary.json",
+        "docs/reports/issue99-study-20261110/comparison-verification.json"
+      ],
+      "scope": "Later and Calibration remain separate; calibration positives cannot replace adverse Later aggregate. Frozen-lambda reuses Fixed, not independent retraining."
+    },
+    {
+      "label": "tab:cohort",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 298,
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "9/21 original selector; 18/21 adaptive and static fusion; 12/21 adaptive versus static. Previously inspected cohort; no significance/untouched-test claim."
+    },
+    {
+      "label": "fig:cohort",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 341,
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "9/21 original selector; 18/21 adaptive and static fusion; 12/21 adaptive versus static. Previously inspected cohort; no significance/untouched-test claim."
+    },
+    {
+      "label": "tab:controls",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 348,
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "ev_control/expert_mix.py",
+        "tools/issue99_stable_fast.py",
+        "tools/issue99_full_scope.py",
+        "docs/reports/issue99-stable-fast-20261110/selection-lock.json",
+        "docs/reports/issue99-stable-fast-20261110/verification.json",
+        "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "9/21 original selector; 18/21 adaptive and static fusion; 12/21 adaptive versus static. Previously inspected cohort; no significance/untouched-test claim."
+    },
+    {
+      "label": "fig:calibration",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 395,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "measured_calibration",
+      "sources": [
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "tools/issue99_manuscript_figures.py"
+      ],
+      "scope": "All five measured epoch choices shown. Calibration entities differ from the twelve evaluation entities; finite minima only."
+    },
+    {
+      "label": "fig:traces",
+      "file": "report/rebuilt-review-20261112/main.tex",
+      "line": 402,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "recorded_trace_selection",
+      "sources": [
+        "tools/issue99_manuscript_figures.py",
+        "report/teacher-review-20261111/trajectory-data.csv",
+        "report/teacher-review-20261111/trajectory-selection.json",
+        "docs/reports/issue99-full-scope-20261110/cells.csv",
+        "docs/reports/issue99-full-scope-20261110/group-results.csv",
+        "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json",
+        "report/full-results.csv",
+        "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json"
+      ],
+      "scope": "Recorded seed42 upper-median examples, not best-case or measured confidence envelopes. Source cells rehashed in the fresh readback."
+    },
+    {
+      "label": "eq:gates",
+      "file": "report/rebuilt-review-20261112/model-equations.tex",
+      "line": 6,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "label": "eq:hidden",
+      "file": "report/rebuilt-review-20261112/model-equations.tex",
+      "line": 12,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "label": "eq:forecastloss",
+      "file": "report/rebuilt-review-20261112/model-equations.tex",
+      "line": 22,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "label": "eq:retention",
+      "file": "report/rebuilt-review-20261112/model-equations.tex",
+      "line": 27,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "label": "eq:total",
+      "file": "report/rebuilt-review-20261112/model-equations.tex",
+      "line": 31,
+      "status": [
+        "verified"
+      ],
+      "claim_type": "equation_and_implementation",
+      "sources": [
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "ev_runner/diagnostics.py",
+        "report/rebuilt-review-20261112/references.bib"
+      ],
+      "scope": "Equations match code and parameter counts. Gradient magnitude is not an empirical claim about retained knowledge."
+    },
+    {
+      "label": "tab:baselines",
+      "file": "report/rebuilt-review-20261112/tables/baselines.tex",
+      "line": 3,
+      "status": [
+        "verified",
+        "inferred"
+      ],
+      "claim_type": "observed_result_and_interpretation",
+      "sources": [
+        "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/duc-summary.csv",
+        "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json",
+        "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json",
+        "experiments/member_studies/duc_baselines/session.json",
+        "docs/reports/issue99-history-review-20261110/cells.csv",
+        "docs/reports/issue99-history-review-20261110/verified-summary.json",
+        "docs/reports/issue99-history-review-20261110/14d-registration.json",
+        "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json",
+        "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json",
+        "ev_models/model.py",
+        "ev_models/training.py",
+        "experiments/member_studies/cyber_baselines/runs_v3.csv",
+        "experiments/member_studies/duc_baselines/runs.csv",
+        "experiments/member_studies/duc_baselines/runs_graph.csv"
+      ],
+      "scope": "All paired transfer wins and displayed MAEs are checked from ledgers. Competitive/compact is an interpretation, not universal architecture superiority or observed runtime speed."
+    }
+  ],
+  "source_sha256": {
+    "docs/reports/issue99-controller-identity-audit-20261112/saved-mixture-readback.json": "3402d272220ee73ade88f1d5c5f6a506d964623bc6834dd7e6f816977b982185",
+    "docs/reports/issue99-full-scope-20261110/cells.csv": "8553ff3cf47dfd444e5d86e57f7f7895d5f9919d783707b45a87fafb3ac987c1",
+    "docs/reports/issue99-full-scope-20261110/execution-lock-v3.json": "b783a7a5b212ec1c5958f6500f4d8689ba6ec2ef301accdf4a096a6fcd117f51",
+    "docs/reports/issue99-full-scope-20261110/group-results.csv": "fc8858772128fcd52c440c4b73015937585a14a59a86d7cf1d98d5027f5036ea",
+    "docs/reports/issue99-history-review-20261110/14d-epoch-lock.json": "05b40ad7b9b4f3d2c63124610b4a92895dca7a88ba82c12d2260ca06bf5b5a4f",
+    "docs/reports/issue99-history-review-20261110/14d-registration.json": "76c6df5d431164dfbc8cb7ad9181d7a57f9944f174b635158502107ef934d4f3",
+    "docs/reports/issue99-history-review-20261110/14d-selection-lock.json": "f9daaa61dc2d7362ee2cf0d46b03fbc04f3ecd1f041636dcbac48867a4fe4da9",
+    "docs/reports/issue99-history-review-20261110/28d-epoch-lock.json": "2953feb24d32f1247719aa7541eaa19dc29f7dec90a0490a70ad6e2fbfe76609",
+    "docs/reports/issue99-history-review-20261110/28d-selection-lock.json": "af03002ec01ad5552b350b838745674debfc29e48233b13dd1b19f1c9bd251ec",
+    "docs/reports/issue99-history-review-20261110/7d-epoch-lock.json": "a330ead07d57618533a761e891bacadd2ba188e037b51e1a7012b3e541ec0caf",
+    "docs/reports/issue99-history-review-20261110/7d-selection-lock.json": "879c84fdaf17e66feec88a423fa405032ca38550760f3b54a53b22ca0b0fbab8",
+    "docs/reports/issue99-history-review-20261110/cells.csv": "3751f2427ae9783ae82f2fd0da1e5963120deba4d38a1190df60d7a3fb1a4f1c",
+    "docs/reports/issue99-history-review-20261110/source-record-counts.json": "5081160726d80f932afe525616faa40c7599911df6bdbffdb22b06fced370a53",
+    "docs/reports/issue99-history-review-20261110/verified-summary.json": "3049b2ceca7025db293e871e4c8a4604dad909f7567e150231cbf04ec477dc99",
+    "docs/reports/issue99-persistent-calibration-cells-20261111.csv": "f741d9680cb5d31be1e8c002f8c05d803c34e371c24ab3db189a1fc3d4571a6a",
+    "docs/reports/issue99-persistent-results-20261111.md": "2a237e082fb53af4cc87842b557eff7afc20b2b24ea54c7dc41aa7b05aaeba91",
+    "docs/reports/issue99-stable-fast-20261110/selection-lock.json": "766c10663be0d63f4fa52e473ce5828a9b0980964738b8370f1ebef58692957d",
+    "docs/reports/issue99-stable-fast-20261110/summary.json": "4a8ba28597f53752e9212d71a31f736972c07b63bd3aef3ac2abb16b5469cec9",
+    "docs/reports/issue99-stable-fast-20261110/verification.json": "652f084897bb6ac66375a09b01935851ab5af3357edc1fb72cd36bbed6e0d691",
+    "docs/reports/issue99-study-20261110/comparison-runs.csv": "945d5ddfe9057b758624f4543de7c703cc1085d53a6eda3d024fcfb89cd69648",
+    "docs/reports/issue99-study-20261110/comparison-verification.json": "d1715a081a4346197f1fefd7e87f5dc6f1ecc1e673098286b6631d2a4d0d8911",
+    "docs/reports/issue99-study-20261110/controller-lock.json": "09dabc0498ee769b45b06dc44c8840a376885272f68d62e5655a8c6680a4eab3",
+    "docs/reports/issue99-study-20261110/controller-selection.json": "e36c6ac7e29d5b91fcee996e176bd0d6b576dfa06f3f26e38b2a4bc4edef0b91",
+    "docs/reports/issue99-study-20261110/controller-trajectory-summary.json": "93b7a36c0b59c41f07ea6ecf05e895d1b85f4db98ba126a751e26337e7819560",
+    "docs/reports/issue99-study-20261110/daily-errors.csv": "ab1a7bce9b9a219f103e0d541bc1776ca6c9f9a3e67e26fabff118f2498f41f8",
+    "docs/reports/issue99-study-20261110/fixed-diagnostics.csv": "e28905217617e6ae429320e8dad6985f04a5eea26bcf9a249b5f0b27161abd38",
+    "docs/reports/issue99-study-20261110/fixed-regimes.csv": "632889ed8cebcc79d29027879b89dd20a17e9fa9e4b77a3f7309291128c06341",
+    "docs/reports/issue99-study-20261110/fixed-selection.json": "efbf08ba229c7e6d49b17e6577193ae270f15e4acbb1f03d32fed31f7006f353",
+    "docs/reports/issue99-study-20261110/fixed-trials.csv": "5c15e7fd02429746ae35431be8d388f1a3da12255c8fe5f1c7571313179c3fe9",
+    "docs/reports/issue99-study-20261110/local-byte-verification.json": "fd2cb91b69c32ba94f7fec8c9cdd6a6d251ba3ef49b6591f14c85ab53978240e",
+    "docs/reports/issue99-study-20261110/method-summary.csv": "45b1189b29295f758abb4c94223b9877758352be8d91841ee082609aba582388",
+    "docs/reports/issue99-study-20261110/protocol-lock.json": "645393d4c7a29b644a00da6251957b4c3bc5dea011c4ba30f0b989ae14532752",
+    "docs/reports/issue99-teacher-review-20261111/baseline-provenance.json": "ee9bf89cbe7a4257a05de48144e6fa6405bc86d84ef44a6315f24aa2a4eeeb01",
+    "docs/reports/issue99-teacher-review-20261111/baseline-verification.json": "66472e149206dad7c40489e6b70a9f74546bc42be56ffb86c38e7a79fa81308a",
+    "docs/reports/issue99-teacher-review-20261111/cyber-summary.csv": "2d3f5bd4030a46c1332426df0ffbd941d475b420912bcea18039ad672b640f11",
+    "docs/reports/issue99-teacher-review-20261111/duc-reused-audit-receipt.md": "b678410704bc2c32ebe8d7bbdd416a507baa911c0cdf54bb336d8b10838ba308",
+    "docs/reports/issue99-teacher-review-20261111/duc-summary.csv": "4923b754702e6866291cef596813e0869e13c531f6f3003a7cba31f85ee17d54",
+    "docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv": "30578d6a07295f77a9f974b19dc11cefc39d1b5a86a6729b031dc28bb4b1abb7",
+    "docs/reports/issue99-teacher-review-20261111/fusion-controls-summary.json": "4df5c8a811513e0c7b9550e1ad37a9758d5e685a48461806f805b2d485ce86bc",
+    "ev_control/confidence.py": "27b8d7709fc07442cc4461082e4d6599108ed70591f4398c5c5cc062980c7174",
+    "ev_control/continuous.py": "375851541a96957465fca00227bb718a0c3a654524c37ad4f70d0f81e2b7d8ca",
+    "ev_control/expert_mix.py": "46ac24ef0713881c94d7edfff5eec4ab74036e291963bc6b0a4ed8cdc66216f2",
+    "ev_control/hypergradient.py": "2597ea4343fad02bebfdbb678abcd2c992d7c17bed2f24330fe186930c0cea56",
+    "ev_control/persistent.py": "e1da1a24350f45145b3467744a1189f399f85bb2b4fb92a8de3a7b25f23ab648",
+    "ev_inputs/features.py": "a9bf5fddd64d2641f9b50f9ad8a027e5336e80eb6b6b2a3af267fe4eef91f379",
+    "ev_inputs/loader.py": "d46f9ae9e0b5431bc3d7c5113eef49afca92db7b165f7a45f98801f625254dd0",
+    "ev_inputs/scaling.py": "dbdc205c0700ca9cdfbf6965c45150be6adb4d9a596dcc5ee7a1134fd831da9b",
+    "ev_inputs/splits.py": "cf52ec982f2c97002b67b7f3bfaacc8aba4bf7ca4143e4e4a771b66c041bf8e0",
+    "ev_inputs/windows.py": "262c78344305227e4772297107bc1a369da6a92767fb3ba72a64f395cd57a94f",
+    "ev_models/model.py": "c427576885c322c9d604573740a2174a5717ed0b41b98aff9142d3d9af5be7c4",
+    "ev_models/training.py": "c2c95d96e04bf64762a5e506e25c45eb366c788a011289cac4bd62b555f71227",
+    "ev_runner/continuous.py": "9c4d524e9e3cf77f07fc3218249dab038189d5c4a953afee378de76b86b89941",
+    "ev_runner/diagnostics.py": "47a64b9d1e1e79a6652abfe2ad2360f6f303ed397f7d37ff8ec369299f5535ac",
+    "ev_runner/engine.py": "2028daf8e503a382788093bb53200feffc40c2742f722b31ae8a7e9273cb6976",
+    "ev_runner/replay.py": "bce437ea37aa12b16d5930004e95258ae9c32926ce635a3daff56968f4206173",
+    "experiments/member_studies/cyber_baselines/artifacts_v3/environment.json": "33574eefd5e514085f8a00ff4c8539de470bad1130fa460ca71dbb52295fe256",
+    "experiments/member_studies/cyber_baselines/models/graph.py": "fe37a7c91f81eacc7cddcb2a0a979fbd8625fb220ea281514960336a02d2f9b3",
+    "experiments/member_studies/cyber_baselines/runs_v3.csv": "ec01c134066586721faa600bffafd8d459b13f5d8eb3967af7881fcd94e670d1",
+    "experiments/member_studies/cyber_baselines/training.py": "9386764ac0cb0037800c643418d49457f35b3818654c9ab5fc333c6d6d0d440b",
+    "experiments/member_studies/duc_baselines/runs.csv": "bcda78d79351ab17fd4225c168ce5511783f4507781a8c5146ff150e597cf95a",
+    "experiments/member_studies/duc_baselines/runs_graph.csv": "695a4f2adfd0f5ee8c5c636b8efb8665201a60fbdc0ff160c326a060492786ae",
+    "experiments/member_studies/duc_baselines/session.json": "043f608db7ff17328f3b007b6d84e284a4fa51c680993a22faadf1b25f984b57",
+    "report/full-results.csv": "94004c2f3a3cb9824f9034960673b3a2a6a1df8b6735b868a44adafb26e354a9",
+    "report/rebuilt-review-20261112/references.bib": "1f2416b5973b7a044ac9023f11819abc56c58c21fcff6987ff422d0396ff656e",
+    "report/teacher-review-20261111/trajectory-data.csv": "c9845bce2a5ecbccdc1a890d8a8a6c2868dba19dac66031f0a19bde68acf7585",
+    "report/teacher-review-20261111/trajectory-selection.json": "3f00a7aac6ec9f14a42b43741e598651b148fed46f8b8d6bcaf930924804c8c8",
+    "tools/issue99_full_scope.py": "d20a252d4d8207434435f0a06541d4717ea0fc9e9a06a77e04d9d0d9fc616656",
+    "tools/issue99_history_study.py": "fce128e9604fff17703824f987afe2ded692d597a7662b0cd834b755f8df7cab",
+    "tools/issue99_manuscript_figures.py": "677e9bf55c45cad7daf21d0cbbd534f090551d49aa2297bd414d2d1f77e10d20",
+    "tools/issue99_stable_fast.py": "9dbffcf3d01cf2f030727bd235d229764cc0bd2664e31d0fe511b0d73f73abb0",
+    "tools/issue99_study.py": "7da43b20db2b3652dadb1db86b4e9bec3cabdb6783b3fe56b40f51c4061ac859"
+  }
+}

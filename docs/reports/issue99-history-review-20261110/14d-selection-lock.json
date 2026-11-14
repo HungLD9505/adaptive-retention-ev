@@ -1,0 +1,398 @@
+{
+  "epochs": {
+    "target_only": {
+      "epochs": 100,
+      "calibration_mae": 8.138066158572185,
+      "curve": {
+        "3": 9.60352888511716,
+        "10": 8.783662090627752,
+        "30": 8.168160641229244,
+        "100": 8.138066158572185,
+        "300": 8.432751648750664
+      },
+      "upper_boundary_unresolved": false
+    },
+    "source_finetune": {
+      "epochs": 3,
+      "calibration_mae": 5.443627361534285,
+      "curve": {
+        "3": 5.443627361534285,
+        "10": 5.449210315465161,
+        "30": 5.841077025566604,
+        "100": 6.331724651325268,
+        "300": 6.5306107702034835
+      },
+      "upper_boundary_unresolved": false
+    }
+  },
+  "bank_calibration": [
+    {
+      "target": "1405",
+      "seed": 42,
+      "epochs": 3,
+      "lambda": 0.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1405-42-0",
+      "days": 27,
+      "mae": 5.541084070056697
+    },
+    {
+      "target": "1405",
+      "seed": 43,
+      "epochs": 3,
+      "lambda": 0.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1405-43-0",
+      "days": 27,
+      "mae": 6.172854843859871
+    },
+    {
+      "target": "1405",
+      "seed": 44,
+      "epochs": 3,
+      "lambda": 0.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1405-44-0",
+      "days": 27,
+      "mae": 5.625496519096135
+    },
+    {
+      "target": "2152",
+      "seed": 42,
+      "epochs": 3,
+      "lambda": 0.0,
+      "source_initialization": true,
+      "folder": "bank-cal-2152-42-0",
+      "days": 28,
+      "mae": 6.11616348224561
+    },
+    {
+      "target": "2152",
+      "seed": 43,
+      "epochs": 3,
+      "lambda": 0.0,
+      "source_initialization": true,
+      "folder": "bank-cal-2152-43-0",
+      "days": 28,
+      "mae": 6.262800170444178
+    },
+    {
+      "target": "2152",
+      "seed": 44,
+      "epochs": 3,
+      "lambda": 0.0,
+      "source_initialization": true,
+      "folder": "bank-cal-2152-44-0",
+      "days": 28,
+      "mae": 6.408049188596324
+    },
+    {
+      "target": "1153",
+      "seed": 42,
+      "epochs": 3,
+      "lambda": 0.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1153-42-0",
+      "days": 28,
+      "mae": 6.986357152462005
+    },
+    {
+      "target": "1153",
+      "seed": 43,
+      "epochs": 3,
+      "lambda": 0.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1153-43-0",
+      "days": 28,
+      "mae": 6.771307516429159
+    },
+    {
+      "target": "1153",
+      "seed": 44,
+      "epochs": 3,
+      "lambda": 0.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1153-44-0",
+      "days": 28,
+      "mae": 6.797125025755828
+    },
+    {
+      "target": "1693",
+      "seed": 42,
+      "epochs": 3,
+      "lambda": 0.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1693-42-0",
+      "days": 28,
+      "mae": 2.995629587079312
+    },
+    {
+      "target": "1693",
+      "seed": 43,
+      "epochs": 3,
+      "lambda": 0.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1693-43-0",
+      "days": 28,
+      "mae": 2.817716242804895
+    },
+    {
+      "target": "1693",
+      "seed": 44,
+      "epochs": 3,
+      "lambda": 0.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1693-44-0",
+      "days": 28,
+      "mae": 2.8289445395814012
+    },
+    {
+      "target": "1405",
+      "seed": 42,
+      "epochs": 3,
+      "lambda": 0.1,
+      "source_initialization": true,
+      "folder": "bank-cal-1405-42-0.1",
+      "days": 27,
+      "mae": 5.734943901027737
+    },
+    {
+      "target": "1405",
+      "seed": 43,
+      "epochs": 3,
+      "lambda": 0.1,
+      "source_initialization": true,
+      "folder": "bank-cal-1405-43-0.1",
+      "days": 27,
+      "mae": 6.067457518595045
+    },
+    {
+      "target": "1405",
+      "seed": 44,
+      "epochs": 3,
+      "lambda": 0.1,
+      "source_initialization": true,
+      "folder": "bank-cal-1405-44-0.1",
+      "days": 27,
+      "mae": 5.547896986949502
+    },
+    {
+      "target": "2152",
+      "seed": 42,
+      "epochs": 3,
+      "lambda": 0.1,
+      "source_initialization": true,
+      "folder": "bank-cal-2152-42-0.1",
+      "days": 28,
+      "mae": 6.182898385749014
+    },
+    {
+      "target": "2152",
+      "seed": 43,
+      "epochs": 3,
+      "lambda": 0.1,
+      "source_initialization": true,
+      "folder": "bank-cal-2152-43-0.1",
+      "days": 28,
+      "mae": 6.256969914051546
+    },
+    {
+      "target": "2152",
+      "seed": 44,
+      "epochs": 3,
+      "lambda": 0.1,
+      "source_initialization": true,
+      "folder": "bank-cal-2152-44-0.1",
+      "days": 28,
+      "mae": 6.482193523903567
+    },
+    {
+      "target": "1153",
+      "seed": 42,
+      "epochs": 3,
+      "lambda": 0.1,
+      "source_initialization": true,
+      "folder": "bank-cal-1153-42-0.1",
+      "days": 28,
+      "mae": 6.930443978971904
+    },
+    {
+      "target": "1153",
+      "seed": 43,
+      "epochs": 3,
+      "lambda": 0.1,
+      "source_initialization": true,
+      "folder": "bank-cal-1153-43-0.1",
+      "days": 28,
+      "mae": 6.8172815653185035
+    },
+    {
+      "target": "1153",
+      "seed": 44,
+      "epochs": 3,
+      "lambda": 0.1,
+      "source_initialization": true,
+      "folder": "bank-cal-1153-44-0.1",
+      "days": 28,
+      "mae": 6.722378283739089
+    },
+    {
+      "target": "1693",
+      "seed": 42,
+      "epochs": 3,
+      "lambda": 0.1,
+      "source_initialization": true,
+      "folder": "bank-cal-1693-42-0.1",
+      "days": 28,
+      "mae": 2.805642006567094
+    },
+    {
+      "target": "1693",
+      "seed": 43,
+      "epochs": 3,
+      "lambda": 0.1,
+      "source_initialization": true,
+      "folder": "bank-cal-1693-43-0.1",
+      "days": 28,
+      "mae": 2.756404336486788
+    },
+    {
+      "target": "1693",
+      "seed": 44,
+      "epochs": 3,
+      "lambda": 0.1,
+      "source_initialization": true,
+      "folder": "bank-cal-1693-44-0.1",
+      "days": 28,
+      "mae": 2.9332929979422246
+    },
+    {
+      "target": "1405",
+      "seed": 42,
+      "epochs": 3,
+      "lambda": 1.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1405-42-1",
+      "days": 27,
+      "mae": 5.34085936029438
+    },
+    {
+      "target": "1405",
+      "seed": 43,
+      "epochs": 3,
+      "lambda": 1.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1405-43-1",
+      "days": 27,
+      "mae": 5.637677384544208
+    },
+    {
+      "target": "1405",
+      "seed": 44,
+      "epochs": 3,
+      "lambda": 1.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1405-44-1",
+      "days": 27,
+      "mae": 5.346557035157587
+    },
+    {
+      "target": "2152",
+      "seed": 42,
+      "epochs": 3,
+      "lambda": 1.0,
+      "source_initialization": true,
+      "folder": "bank-cal-2152-42-1",
+      "days": 28,
+      "mae": 6.434002345493191
+    },
+    {
+      "target": "2152",
+      "seed": 43,
+      "epochs": 3,
+      "lambda": 1.0,
+      "source_initialization": true,
+      "folder": "bank-cal-2152-43-1",
+      "days": 28,
+      "mae": 6.422601865228038
+    },
+    {
+      "target": "2152",
+      "seed": 44,
+      "epochs": 3,
+      "lambda": 1.0,
+      "source_initialization": true,
+      "folder": "bank-cal-2152-44-1",
+      "days": 28,
+      "mae": 6.37904667778624
+    },
+    {
+      "target": "1153",
+      "seed": 42,
+      "epochs": 3,
+      "lambda": 1.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1153-42-1",
+      "days": 28,
+      "mae": 6.576603445741866
+    },
+    {
+      "target": "1153",
+      "seed": 43,
+      "epochs": 3,
+      "lambda": 1.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1153-43-1",
+      "days": 28,
+      "mae": 6.492454954319529
+    },
+    {
+      "target": "1153",
+      "seed": 44,
+      "epochs": 3,
+      "lambda": 1.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1153-44-1",
+      "days": 28,
+      "mae": 6.5887471822400885
+    },
+    {
+      "target": "1693",
+      "seed": 42,
+      "epochs": 3,
+      "lambda": 1.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1693-42-1",
+      "days": 28,
+      "mae": 2.8745113070609927
+    },
+    {
+      "target": "1693",
+      "seed": 43,
+      "epochs": 3,
+      "lambda": 1.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1693-43-1",
+      "days": 28,
+      "mae": 2.873716305647157
+    },
+    {
+      "target": "1693",
+      "seed": 44,
+      "epochs": 3,
+      "lambda": 1.0,
+      "source_initialization": true,
+      "folder": "bank-cal-1693-44-1",
+      "days": 28,
+      "mae": 3.0376884476448933
+    }
+  ],
+  "bank_means": {
+    "0.0": 5.443627361534285,
+    "0.1": 5.436483616608501,
+    "1.0": 5.333705525929847
+  },
+  "fixed_level": 1.0,
+  "epoch_lock_sha256": "05b40ad7b9b4f3d2c63124610b4a92895dca7a88ba82c12d2260ca06bf5b5a4f",
+  "locked_before_evaluation": true
+}

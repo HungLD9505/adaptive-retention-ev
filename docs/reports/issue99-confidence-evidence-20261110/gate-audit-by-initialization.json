@@ -1,0 +1,22 @@
+{
+  "confidence_gate": {
+    "accepted_beneficial": 56,
+    "accepted_harmful": 37,
+    "rejected_beneficial": 72,
+    "rejected_harmful": 56,
+    "no_recommendation": 211,
+    "no_future_labels": 0,
+    "reduce_recommendations": 108,
+    "reduce_beneficial": 61
+  },
+  "confidence_gate_fixed_start": {
+    "accepted_beneficial": 55,
+    "accepted_harmful": 29,
+    "rejected_beneficial": 57,
+    "rejected_harmful": 53,
+    "no_recommendation": 238,
+    "no_future_labels": 0,
+    "reduce_recommendations": 118,
+    "reduce_beneficial": 67
+  }
+}

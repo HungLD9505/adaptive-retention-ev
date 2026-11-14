@@ -1,0 +1,541 @@
+{
+  "archive_sha256": "5b40c1b3a0d3185193a517fa6ca2e4034cb6242d3115cc7ef8fbe17bac1e0af7",
+  "archive_size_bytes": 63978876,
+  "summary_sha256": "26467891765dfb6b02083eb211632a52b2134cd7ae66f41483fb5eebd231e922",
+  "summary": {
+    "schema": "issue99-qyroven-bounded-t4-pilot-v1",
+    "scope": "10-tick implementation and hypergradient-scale diagnostics only; no scored objective or selected study hyperparameters",
+    "code_commit": "96cd96e23194475a0cb9c8fee92cff09f6463975",
+    "runtime": {
+      "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+      "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+      "torch": "2.14.1+cu130",
+      "cuda": "13.0",
+      "gpu": "Tesla T4",
+      "payload_sha256": "15b00649adf388bfe7218fb12c54d0455096467239f13e78f678f6e199a4d68e"
+    },
+    "tests": {
+      "run": 36,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "config": {
+      "schema": "issue99-study-v1",
+      "phase": "pilot",
+      "targets": [
+        "1405",
+        "2152",
+        "1153",
+        "1693"
+      ],
+      "initial_training": {
+        "seed": 42,
+        "epochs": 3,
+        "batch_size": 64,
+        "learning_rate": 0.001,
+        "epsilon": 0.001,
+        "head_width": 64
+      },
+      "online_training": {
+        "seed": 42,
+        "epochs": 1,
+        "batch_size": 64,
+        "learning_rate": 0.001,
+        "epsilon": 0.001,
+        "head_width": 64
+      },
+      "window_rule": {
+        "older_count": 2,
+        "newer_count": 1,
+        "upper_bound": 10.0,
+        "meta_step_size": 0.01,
+        "epsilon": 0.001
+      },
+      "initial_lambda": 1.0,
+      "cadence": 1,
+      "frozen_lambda": false,
+      "replay_days": 90,
+      "protocol_sha256": null,
+      "objective_origins": []
+    },
+    "input_manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+    "source_population_sha256": "c77778935190a7acd3cc00c35d7940a5c9bd59fa3dc0dca14b86505ead87b760",
+    "ticks_per_cell": 10,
+    "matrix_wall_seconds": 66.12527404599999,
+    "rows": [
+      {
+        "seed": 42,
+        "entity": "1405",
+        "issued_days": 10,
+        "scored_days": 8,
+        "actual_steps": 8,
+        "virtual_steps": 6,
+        "controller_decisions": 6,
+        "final_lambda": 0.9999938398265658,
+        "invocation_wall_seconds": 5.262410442999993,
+        "cost_seconds": {
+          "inference_seconds": 0.013608097000002317,
+          "actual_update_seconds": 0.11293931600002338,
+          "meta_seconds": 0.6746197709999819
+        },
+        "mae_kwh": null,
+        "gpu_peak_allocated_bytes": 86871040,
+        "gpu_peak_reserved_bytes": 92274688,
+        "hypergradients": [
+          4.790003731613979e-05,
+          -0.00031405629124492407,
+          -0.0005004730774089694,
+          -3.172794822603464e-05,
+          0.0005061269039288163,
+          0.000908247719053179
+        ],
+        "lambda_min": 0.9999938398265658,
+        "lambda_max": 1.0000079835727955,
+        "bound_hits": 0,
+        "run_json_sha256": "69a0da82477ec93f4622904d44c99ec7547d38570c6c0b1dc90ea55620b06df3"
+      },
+      {
+        "seed": 42,
+        "entity": "2152",
+        "issued_days": 10,
+        "scored_days": 9,
+        "actual_steps": 9,
+        "virtual_steps": 7,
+        "controller_decisions": 7,
+        "final_lambda": 0.9999902011037558,
+        "invocation_wall_seconds": 6.202397325999982,
+        "cost_seconds": {
+          "inference_seconds": 0.013460205000029646,
+          "actual_update_seconds": 0.11095035400001052,
+          "meta_seconds": 0.7714600459999872
+        },
+        "mae_kwh": null,
+        "gpu_peak_allocated_bytes": 88629760,
+        "gpu_peak_reserved_bytes": 92274688,
+        "hypergradients": [
+          3.611983629525639e-05,
+          0.00036851418553851545,
+          0.0002465368597768247,
+          -0.0008088991744443774,
+          0.0006914794794283807,
+          0.000785164418630302,
+          -0.00033902598079293966
+        ],
+        "lambda_min": 0.9999868108439479,
+        "lambda_max": 1.0000015772829285,
+        "bound_hits": 0,
+        "run_json_sha256": "cec978f9fb5343edddb1e1656dc3eb0ef7dff44a42450ac406d42cb2fe2135e8"
+      },
+      {
+        "seed": 42,
+        "entity": "1153",
+        "issued_days": 10,
+        "scored_days": 9,
+        "actual_steps": 9,
+        "virtual_steps": 7,
+        "controller_decisions": 7,
+        "final_lambda": 1.0000478353720976,
+        "invocation_wall_seconds": 5.046063908999997,
+        "cost_seconds": {
+          "inference_seconds": 0.013949312999955055,
+          "actual_update_seconds": 0.12089906500017378,
+          "meta_seconds": 0.7608901900000546
+        },
+        "mae_kwh": null,
+        "gpu_peak_allocated_bytes": 88850432,
+        "gpu_peak_reserved_bytes": 92274688,
+        "hypergradients": [
+          -0.0012240636860951781,
+          4.6268425649032e-05,
+          -0.001530790701508522,
+          -0.00031049613608047366,
+          -0.00014410191215574741,
+          -0.0002664639614522457,
+          -0.001353889238089323
+        ],
+        "lambda_min": 1.0,
+        "lambda_max": 1.0000478353720976,
+        "bound_hits": 0,
+        "run_json_sha256": "1d8f04913125d0e4fed1ecb2b3ff85c04bbe04f5fb86f97420f27e30f3f1afc3"
+      },
+      {
+        "seed": 42,
+        "entity": "1693",
+        "issued_days": 10,
+        "scored_days": 9,
+        "actual_steps": 9,
+        "virtual_steps": 7,
+        "controller_decisions": 7,
+        "final_lambda": 0.9999317983272799,
+        "invocation_wall_seconds": 5.954507521999972,
+        "cost_seconds": {
+          "inference_seconds": 0.01730834199986475,
+          "actual_update_seconds": 0.14803087799998593,
+          "meta_seconds": 1.0046763640000336
+        },
+        "mae_kwh": null,
+        "gpu_peak_allocated_bytes": 88850432,
+        "gpu_peak_reserved_bytes": 92274688,
+        "hypergradients": [
+          6.041332767381391e-09,
+          1.690821136435261e-06,
+          3.007639026719744e-09,
+          0.002784774173051119,
+          0.002585749374702573,
+          0.0021643806248903275,
+          -0.0007164367707446218
+        ],
+        "lambda_min": 0.9999246339595724,
+        "lambda_max": 1.0,
+        "bound_hits": 0,
+        "run_json_sha256": "5cbdc2691567757cbd94fb97d2f88c9153cefe6623b04cbaf4b68cf3717a9e1f"
+      },
+      {
+        "seed": 43,
+        "entity": "1405",
+        "issued_days": 10,
+        "scored_days": 8,
+        "actual_steps": 8,
+        "virtual_steps": 6,
+        "controller_decisions": 6,
+        "final_lambda": 0.9999939370206268,
+        "invocation_wall_seconds": 5.007665341999996,
+        "cost_seconds": {
+          "inference_seconds": 0.013584884000010788,
+          "actual_update_seconds": 0.10144554799984462,
+          "meta_seconds": 0.6772861329999387
+        },
+        "mae_kwh": null,
+        "gpu_peak_allocated_bytes": 86871040,
+        "gpu_peak_reserved_bytes": 92274688,
+        "hypergradients": [
+          -0.0005636346759274602,
+          -0.0004020337946712971,
+          7.818445737939328e-05,
+          0.0008651030366308987,
+          0.0005012429901398718,
+          0.00012743592378683388
+        ],
+        "lambda_min": 0.9999939370206268,
+        "lambda_max": 1.000009656684706,
+        "bound_hits": 0,
+        "run_json_sha256": "a38a141dfa5d9aec0b95eb3870ae0a4589bc7f734e887903b09d4def79dcfb14"
+      },
+      {
+        "seed": 43,
+        "entity": "2152",
+        "issued_days": 10,
+        "scored_days": 9,
+        "actual_steps": 9,
+        "virtual_steps": 7,
+        "controller_decisions": 7,
+        "final_lambda": 0.999999645826174,
+        "invocation_wall_seconds": 5.402269032999982,
+        "cost_seconds": {
+          "inference_seconds": 0.015288974999918992,
+          "actual_update_seconds": 0.14819274200010568,
+          "meta_seconds": 0.9883583659999999
+        },
+        "mae_kwh": null,
+        "gpu_peak_allocated_bytes": 88629760,
+        "gpu_peak_reserved_bytes": 92274688,
+        "hypergradients": [
+          0.0019745351746678352,
+          0.0006195278256200254,
+          0.0001476641627959907,
+          -0.0005261683836579323,
+          -0.001263743033632636,
+          0.00042444991413503885,
+          -0.001340848277322948
+        ],
+        "lambda_min": 0.9999725827283692,
+        "lambda_max": 1.0,
+        "bound_hits": 0,
+        "run_json_sha256": "3ea1ba91328acedafc69fddb69303c6bccbf0962918060d1cfd666306c117c8b"
+      },
+      {
+        "seed": 43,
+        "entity": "1153",
+        "issued_days": 10,
+        "scored_days": 9,
+        "actual_steps": 9,
+        "virtual_steps": 7,
+        "controller_decisions": 7,
+        "final_lambda": 1.000018903402588,
+        "invocation_wall_seconds": 5.733948800000007,
+        "cost_seconds": {
+          "inference_seconds": 0.013575356000103511,
+          "actual_update_seconds": 0.12053991500010852,
+          "meta_seconds": 0.7640711780001084
+        },
+        "mae_kwh": null,
+        "gpu_peak_allocated_bytes": 88850432,
+        "gpu_peak_reserved_bytes": 92274688,
+        "hypergradients": [
+          8.012707985471934e-05,
+          1.2880758731625974e-05,
+          -0.0016168494476005435,
+          3.526174259604886e-05,
+          1.2183366379758809e-05,
+          -1.647510362090543e-05,
+          -0.0003974686551373452
+        ],
+        "lambda_min": 0.9999990699216141,
+        "lambda_max": 1.000018903402588,
+        "bound_hits": 0,
+        "run_json_sha256": "5d901d8f79e4f7d0f48addb3ee48368aeb375da4826a45a6ec6a4f0ad4c1190a"
+      },
+      {
+        "seed": 43,
+        "entity": "1693",
+        "issued_days": 10,
+        "scored_days": 9,
+        "actual_steps": 9,
+        "virtual_steps": 7,
+        "controller_decisions": 7,
+        "final_lambda": 0.999958518233305,
+        "invocation_wall_seconds": 5.065107903000012,
+        "cost_seconds": {
+          "inference_seconds": 0.013302805999956036,
+          "actual_update_seconds": 0.1156031499999699,
+          "meta_seconds": 0.7758796999999618
+        },
+        "mae_kwh": null,
+        "gpu_peak_allocated_bytes": 88850432,
+        "gpu_peak_reserved_bytes": 92274688,
+        "hypergradients": [
+          8.727405656827614e-06,
+          0.0014320977497845888,
+          1.0706406783356215e-07,
+          0.0009306009742431343,
+          0.0011069760657846928,
+          0.0004395403666421771,
+          0.00023012704332359135
+        ],
+        "lambda_min": 0.999958518233305,
+        "lambda_max": 1.0,
+        "bound_hits": 0,
+        "run_json_sha256": "aa49119033ec8bcea41323f02bd6efbc75241299899b4538504cddd5e71a653c"
+      },
+      {
+        "seed": 44,
+        "entity": "1405",
+        "issued_days": 10,
+        "scored_days": 8,
+        "actual_steps": 8,
+        "virtual_steps": 6,
+        "controller_decisions": 6,
+        "final_lambda": 1.000013802364374,
+        "invocation_wall_seconds": 6.0395836380000105,
+        "cost_seconds": {
+          "inference_seconds": 0.014646707000110837,
+          "actual_update_seconds": 0.1067768469999919,
+          "meta_seconds": 0.6652775250000218
+        },
+        "mae_kwh": null,
+        "gpu_peak_allocated_bytes": 86871040,
+        "gpu_peak_reserved_bytes": 92274688,
+        "hypergradients": [
+          1.693394369794987e-05,
+          -9.601157944416627e-05,
+          -0.0006639381754212081,
+          -0.00017144059529528022,
+          -0.0009377406095154583,
+          0.0004719605785794556
+        ],
+        "lambda_min": 0.999999830660563,
+        "lambda_max": 1.0000185219701598,
+        "bound_hits": 0,
+        "run_json_sha256": "43fd4bdf1b77c3c83cf083b9d3ef25aa1a68c473f8042556f0060594e18491cf"
+      },
+      {
+        "seed": 44,
+        "entity": "2152",
+        "issued_days": 10,
+        "scored_days": 9,
+        "actual_steps": 9,
+        "virtual_steps": 7,
+        "controller_decisions": 7,
+        "final_lambda": 0.9999957443480888,
+        "invocation_wall_seconds": 5.06199897099998,
+        "cost_seconds": {
+          "inference_seconds": 0.013243576999968809,
+          "actual_update_seconds": 0.11590504800005874,
+          "meta_seconds": 0.7668932599999607
+        },
+        "mae_kwh": null,
+        "gpu_peak_allocated_bytes": 88629760,
+        "gpu_peak_reserved_bytes": 92274688,
+        "hypergradients": [
+          0.0009860916761681437,
+          -0.00017094255599658936,
+          0.00030049800989218056,
+          -0.000529393320903182,
+          0.00038960998062975705,
+          -0.0005766099784523249,
+          2.6311379770049825e-05
+        ],
+        "lambda_min": 0.9999888435286993,
+        "lambda_max": 1.0,
+        "bound_hits": 0,
+        "run_json_sha256": "10eb31f74e122d704f7cb7fb56d0c5f0b773696bd81af2adb256f5438245f139"
+      },
+      {
+        "seed": 44,
+        "entity": "1153",
+        "issued_days": 10,
+        "scored_days": 9,
+        "actual_steps": 9,
+        "virtual_steps": 7,
+        "controller_decisions": 7,
+        "final_lambda": 1.0000144182499209,
+        "invocation_wall_seconds": 6.076281670000014,
+        "cost_seconds": {
+          "inference_seconds": 0.015058380000027682,
+          "actual_update_seconds": 0.12827352500005418,
+          "meta_seconds": 0.7866229289999751
+        },
+        "mae_kwh": null,
+        "gpu_peak_allocated_bytes": 88850432,
+        "gpu_peak_reserved_bytes": 92274688,
+        "hypergradients": [
+          -0.00017341453349217772,
+          8.157202682923526e-05,
+          -0.0016416757134720683,
+          8.708029054105282e-05,
+          -3.5521661629900336e-06,
+          0.0002196846471633762,
+          -1.1519543477334082e-05
+        ],
+        "lambda_min": 1.0,
+        "lambda_max": 1.0000173351822015,
+        "bound_hits": 0,
+        "run_json_sha256": "54d9e2238c5ef65f9187bae9eaeed9f22970153a830616f7cb29297282125ae4"
+      },
+      {
+        "seed": 44,
+        "entity": "1693",
+        "issued_days": 10,
+        "scored_days": 9,
+        "actual_steps": 9,
+        "virtual_steps": 7,
+        "controller_decisions": 7,
+        "final_lambda": 0.9999792269557355,
+        "invocation_wall_seconds": 5.100576590000003,
+        "cost_seconds": {
+          "inference_seconds": 0.013426269999968099,
+          "actual_update_seconds": 0.1200407099999552,
+          "meta_seconds": 0.7671713029999978
+        },
+        "mae_kwh": null,
+        "gpu_peak_allocated_bytes": 88850432,
+        "gpu_peak_reserved_bytes": 92274688,
+        "hypergradients": [
+          -6.798191520829278e-08,
+          -4.6732818503869566e-08,
+          -2.6082377146963154e-08,
+          0.00023099620011635125,
+          5.837167691424838e-07,
+          0.002083497354760766,
+          -0.00023763204808346927
+        ],
+        "lambda_min": 0.9999768506352547,
+        "lambda_max": 1.000000001407971,
+        "bound_hits": 0,
+        "run_json_sha256": "db4d16c4fa5797ea40bb290f15bbeaa5a0142712014e742164d01243c8f6310c"
+      }
+    ]
+  },
+  "local_verification": {
+    "status": "PASS",
+    "scope": "Read-only pilot saved-prediction/arrived-label metric recomputation and commit-chain validation; no method comparison objective",
+    "pilot_summary_sha256": "26467891765dfb6b02083eb211632a52b2134cd7ae66f41483fb5eebd231e922",
+    "cells": [
+      {
+        "seed": 42,
+        "entity": "1405",
+        "issued": 10,
+        "scores_recomputed": 8,
+        "commit_chain": "e615a92e1720ff05fc0aa6583a3c76f4c387efd8ba50f6be57e200ea9f6a42e3"
+      },
+      {
+        "seed": 42,
+        "entity": "2152",
+        "issued": 10,
+        "scores_recomputed": 9,
+        "commit_chain": "87708a5e1adfc105c1d909ebec4cab0c69b8ccaa71383162fbf88335838c3d1b"
+      },
+      {
+        "seed": 42,
+        "entity": "1153",
+        "issued": 10,
+        "scores_recomputed": 9,
+        "commit_chain": "35709f0110164dc914df4dd7727a76a5ff89608fad85ecce7d4569ed174daaa3"
+      },
+      {
+        "seed": 42,
+        "entity": "1693",
+        "issued": 10,
+        "scores_recomputed": 9,
+        "commit_chain": "80bf5b9edf484d0a0707e72525d5076d263f1f979904dabeed4b6669b573c0b8"
+      },
+      {
+        "seed": 43,
+        "entity": "1405",
+        "issued": 10,
+        "scores_recomputed": 8,
+        "commit_chain": "71c31a715d5ebbca7bf6ceba0610a25c248e0ef8a5b0c737ac67f0cb2c2ad9f8"
+      },
+      {
+        "seed": 43,
+        "entity": "2152",
+        "issued": 10,
+        "scores_recomputed": 9,
+        "commit_chain": "b0a869e15d5947912b9c01b7fae664e5ed821935bae27c6ff1d706b1478ae80c"
+      },
+      {
+        "seed": 43,
+        "entity": "1153",
+        "issued": 10,
+        "scores_recomputed": 9,
+        "commit_chain": "dcd6ff8d97acc670e1d961d9e0db94b6f6a94ffc8e452fae39a1c4c2b353c713"
+      },
+      {
+        "seed": 43,
+        "entity": "1693",
+        "issued": 10,
+        "scores_recomputed": 9,
+        "commit_chain": "c9a022cb2454521e41c47862c00583a45cd7b7c018782b95d7cbe48617ad1955"
+      },
+      {
+        "seed": 44,
+        "entity": "1405",
+        "issued": 10,
+        "scores_recomputed": 8,
+        "commit_chain": "36120ac167561ce52039722a2790897104f37cedfbfdd237333e84641aa3867e"
+      },
+      {
+        "seed": 44,
+        "entity": "2152",
+        "issued": 10,
+        "scores_recomputed": 9,
+        "commit_chain": "c7dd944e62f7cb669d2b0210a61998e72db908d4af328b2e814af2c06feb09f5"
+      },
+      {
+        "seed": 44,
+        "entity": "1153",
+        "issued": 10,
+        "scores_recomputed": 9,
+        "commit_chain": "085d5913d0d81250b18a4ad2270e26e17b2635e7917dee5a778508ba94e18cf8"
+      },
+      {
+        "seed": 44,
+        "entity": "1693",
+        "issued": 10,
+        "scores_recomputed": 9,
+        "commit_chain": "1444b1efa329f6b37de36a0abb40afab6567fd6ec5ca6754394e0e4b022121a4"
+      }
+    ]
+  }
+}

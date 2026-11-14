@@ -1,0 +1,30 @@
+{
+  "report_commit": "45a9de0e477b90a29fc75f9fcae90629f0f6636f",
+  "root_suite": {
+    "ran": 1041,
+    "skipped": 12,
+    "seconds": 42.133,
+    "result": "pass",
+    "worktree": "clean"
+  },
+  "initial_root_run": {
+    "result": "one provenance error with uncommitted report files",
+    "root_cause": "tools/hung_proxy_calibration.py rejects nonempty worktree_status",
+    "tests_or_fixtures_changed": false
+  },
+  "fixed_adaptation_tests": 9,
+  "confidence_controller_tests": 12,
+  "ruff_lint": "pass",
+  "ruff_format_files": 665,
+  "release_assets": 17,
+  "historical_source_pins": 92,
+  "source_catalog": "pass",
+  "source_zip_entries": 15,
+  "source_zip_independent_compile": "matching all 16 page texts; no overfull or unresolved references",
+  "final_render_check": "all 16 PNGs byte-identical to inspected pages",
+  "fresh_training": false,
+  "fresh_raw_archive_check": false,
+  "external_artifact_suite_rerun": false,
+  "overleaf_web_ui_exercised": false,
+  "latest_head_ci": "separate pending GitHub check"
+}

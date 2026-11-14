@@ -1,0 +1,76 @@
+{
+  "status": "completed",
+  "macro_mae": {
+    "stable_fixed": 3.2669999266187126,
+    "fast_only": 3.4198799774019424,
+    "static_mix": 3.303020734429099,
+    "fixed_share": 3.291048172930262
+  },
+  "cells": 36,
+  "selection": {
+    "selected_fast": {
+      "window": 7,
+      "learning_rate": 0.001,
+      "static_weight": 0.4307815378871372,
+      "mae": 5.2441853305983175,
+      "fast_mae": 5.297293754774884,
+      "stable_mae": 5.333705525929847
+    },
+    "controller": {
+      "eta": 0.1,
+      "share": 0.1,
+      "mae": 5.243265613475963
+    },
+    "all_controller_candidates": [
+      {
+        "eta": 0.1,
+        "share": 0.001,
+        "mae": 5.244174727949807
+      },
+      {
+        "eta": 0.1,
+        "share": 0.01,
+        "mae": 5.243487106086524
+      },
+      {
+        "eta": 0.1,
+        "share": 0.1,
+        "mae": 5.243265613475963
+      },
+      {
+        "eta": 1.0,
+        "share": 0.001,
+        "mae": 5.245079169082071
+      },
+      {
+        "eta": 1.0,
+        "share": 0.01,
+        "mae": 5.244330138708734
+      },
+      {
+        "eta": 1.0,
+        "share": 0.1,
+        "mae": 5.243337846623677
+      },
+      {
+        "eta": 10.0,
+        "share": 0.001,
+        "mae": 5.255179700128999
+      },
+      {
+        "eta": 10.0,
+        "share": 0.01,
+        "mae": 5.25368614614259
+      },
+      {
+        "eta": 10.0,
+        "share": 0.1,
+        "mae": 5.244395162952235
+      }
+    ],
+    "registration_sha256": "9fc26ce7137ea450dedb92c31ed6965aa9fe1711d98392372e36ae834b88e7de",
+    "locked_before_evaluation": true
+  },
+  "wall_seconds": 60.4596172090387,
+  "results_sha256": "24081f36d7b1541975c4dfebd476469be798a558d5fa01f5fc19d86900582623"
+}

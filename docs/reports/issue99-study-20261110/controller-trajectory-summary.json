@@ -1,0 +1,113 @@
+{
+  "scope": "All completed decision events, including final label flush; forecast-only coefficients are in lambda-trajectories.csv.",
+  "rows": [
+    {
+      "target": "1405",
+      "seed": 42,
+      "decisions": 87,
+      "bound_hits": 0,
+      "observed_decision_lambda_min": 0.7830628700713766,
+      "observed_decision_lambda_max": 2.4128400287808285,
+      "final_lambda": 2.3550414490496956
+    },
+    {
+      "target": "1405",
+      "seed": 43,
+      "decisions": 87,
+      "bound_hits": 0,
+      "observed_decision_lambda_min": 0.6196224231733568,
+      "observed_decision_lambda_max": 1.6889456143924124,
+      "final_lambda": 1.6207580083720676
+    },
+    {
+      "target": "1405",
+      "seed": 44,
+      "decisions": 87,
+      "bound_hits": 0,
+      "observed_decision_lambda_min": 0.42145053992371395,
+      "observed_decision_lambda_max": 1.610284786958956,
+      "final_lambda": 1.045447073357967
+    },
+    {
+      "target": "2152",
+      "seed": 42,
+      "decisions": 50,
+      "bound_hits": 6,
+      "observed_decision_lambda_min": 0.0,
+      "observed_decision_lambda_max": 1.7154423631243954,
+      "final_lambda": 1.2098869688751064
+    },
+    {
+      "target": "2152",
+      "seed": 43,
+      "decisions": 50,
+      "bound_hits": 0,
+      "observed_decision_lambda_min": 0.01982933843747138,
+      "observed_decision_lambda_max": 1.2348973828039878,
+      "final_lambda": 1.0508163829376596
+    },
+    {
+      "target": "2152",
+      "seed": 44,
+      "decisions": 50,
+      "bound_hits": 0,
+      "observed_decision_lambda_min": 0.28543127097048004,
+      "observed_decision_lambda_max": 2.1596260198483668,
+      "final_lambda": 2.063924196982308
+    },
+    {
+      "target": "1153",
+      "seed": 42,
+      "decisions": 50,
+      "bound_hits": 0,
+      "observed_decision_lambda_min": 1.065405265601393,
+      "observed_decision_lambda_max": 1.9756846945912954,
+      "final_lambda": 1.9756846945912954
+    },
+    {
+      "target": "1153",
+      "seed": 43,
+      "decisions": 50,
+      "bound_hits": 0,
+      "observed_decision_lambda_min": 0.7811540502362643,
+      "observed_decision_lambda_max": 1.9742616957325092,
+      "final_lambda": 1.844613276766891
+    },
+    {
+      "target": "1153",
+      "seed": 44,
+      "decisions": 50,
+      "bound_hits": 0,
+      "observed_decision_lambda_min": 0.8193872498141845,
+      "observed_decision_lambda_max": 1.5348669368645573,
+      "final_lambda": 1.5288807796173296
+    },
+    {
+      "target": "1693",
+      "seed": 42,
+      "decisions": 50,
+      "bound_hits": 1,
+      "observed_decision_lambda_min": 0.0,
+      "observed_decision_lambda_max": 7.731275733360233,
+      "final_lambda": 7.607665363185216
+    },
+    {
+      "target": "1693",
+      "seed": 43,
+      "decisions": 50,
+      "bound_hits": 10,
+      "observed_decision_lambda_min": 0.0,
+      "observed_decision_lambda_max": 1.574287525223285,
+      "final_lambda": 1.276814883647389
+    },
+    {
+      "target": "1693",
+      "seed": 44,
+      "decisions": 50,
+      "bound_hits": 8,
+      "observed_decision_lambda_min": 0.0,
+      "observed_decision_lambda_max": 1.4787916208887852,
+      "final_lambda": 1.2926452700300453
+    }
+  ]
+}

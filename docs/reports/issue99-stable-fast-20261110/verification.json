@@ -1,0 +1,33 @@
+{
+  "status": "verified",
+  "scope": "Exposed UrbanEV/SZH Development, 14d, stable-fast forecast fusion; not lambda controller",
+  "macro_mae": {
+    "stable_fixed": 3.2669999266187126,
+    "fast_only": 3.4198799774019424,
+    "static_mix": 3.303020734429099,
+    "fixed_share": 3.291048172930262
+  },
+  "station_wins": {
+    "stable_fixed": {
+      "lower": 2,
+      "higher": 10
+    },
+    "static_mix": {
+      "lower": 11,
+      "higher": 1
+    },
+    "fast_only": {
+      "lower": 11,
+      "higher": 1
+    }
+  },
+  "authenticated_fast_runs": 108,
+  "rolling_updates_checked": 4734,
+  "independent_weight_updates": 2628,
+  "forecast_day_vectors_checked": 10656,
+  "daily_expert_oracle_mae_hindsight_only": 3.0909500201550384,
+  "registration_sha256": "9fc26ce7137ea450dedb92c31ed6965aa9fe1711d98392372e36ae834b88e7de",
+  "results_sha256": "24081f36d7b1541975c4dfebd476469be798a558d5fa01f5fc19d86900582623",
+  "final_mix_code_sha256": "46ac24ef0713881c94d7edfff5eec4ab74036e291963bc6b0a4ed8cdc66216f2",
+  "executed_mix_code_sha256": "8b4f00606a81f9519d036453b8b70eae0d9917240d54d81080dcc31d6a3d9a18"
+}
