@@ -1,0 +1,12 @@
+{
+  "scope": "Parity only on previously exposed UrbanEV Development 1691/seed42; no selected confirmation ID decoded",
+  "status": "PASS",
+  "compared_days": 52,
+  "maximum_absolute_kwh_difference": {
+    "stable": 0.0,
+    "fast": 0.0
+  },
+  "script_sha256": "513a8c563af8d4e3e92d71bb45cab8d2c07f4c855848b9e85bf52ff9f8a6558a",
+  "executed_source_snapshot_sha256": "513a8c563af8d4e3e92d71bb45cab8d2c07f4c855848b9e85bf52ff9f8a6558a",
+  "run_expert_ast_unchanged_after_adding_lock_validation": true
+}

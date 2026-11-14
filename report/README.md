@@ -1,8 +1,8 @@
 # Research manuscript sources
 
-Current reader: [rewritten report](evidence-review-20261113/adaptive-transfer-learning-ev.pdf)
-and [Overleaf source](evidence-review-20261113/README.md). This report integrates the
-completed baseline, retention and fusion evidence, with native equations, editable
+Current reader: [rewritten report](confirmation-review-20261113/adaptive-transfer-learning-ev.pdf)
+and [Overleaf source](confirmation-review-20261113/README.md). This report integrates the
+completed baseline, retention and fusion evidence plus the locked 46-ID confirmation, with native equations, editable
 flows, all 21 historical groups in the main results and separate experiment scopes. Figure 1 presents the stable/fast system in native LaTeX/TikZ, with flat
 sequence/GRU marks and editable vector feedback connections; the historical selector is separately labeled.
 

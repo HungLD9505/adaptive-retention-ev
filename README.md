@@ -6,7 +6,7 @@ When should a target model retain knowledge from its source, and when should it
 adapt? This research repository implements and evaluates fixed and adaptive
 source-retention strategies under causal 24→24 forecasting.
 
-[**Current manuscript**](report/evidence-review-20261113/adaptive-transfer-learning-ev.pdf) ·
+[**Current manuscript**](report/confirmation-review-20261113/adaptive-transfer-learning-ev.pdf) ·
 [**Original report**](report/Adaptive_Retention_Report.pdf) ·
 [**Supplement**](report/Adaptive_Retention_Supplement.pdf) ·
 [**System diagrams**](docs/diagrams/README.md) ·
@@ -47,6 +47,12 @@ and [full-precision tables](report/full-results.csv).
 
 Evaluation scope, coverage and comparisons are documented in the report and
 supplement. Results from experiments with different settings are reported separately.
+
+A separately locked fourteen-day evaluation covers 46 new Development identifiers
+relative to the checked execution history. Adaptive reduces equal-namespace MAE
+by 0.67% against single Fixed and 0.36% against matched static, but both primary
+intervals include zero: the dual-comparator confirmation criterion is not met.
+See the [new-identifier evidence](docs/reports/issue119-confirmation-20261113/README.md).
 
 ## Reproduce and inspect
 
