@@ -4,6 +4,19 @@ This directory contains technical evidence, explicit limitations and small files
 consumed by verification code/configuration/tests. It is not a current task queue.
 The report PDFs and exact tables live under [report/](../../report/README.md).
 
+## Current reviewed handoff
+
+Start with the [23-page manuscript](../../report/confirmation-review-20261113/adaptive-transfer-learning-ev.pdf),
+the [locked 46-ID evaluation](issue119-confirmation-20261113/README.md) and
+the [bounded weighting stopping decision](issue123-bounded-weighting-20261113/README.md).
+The completed studies preserve the failed confirmation/progression criteria;
+passing implementation checks do not upgrade those scientific outcomes.
+The [JSONL/practical-win supplement](issue121-jsonl-review-20261113/README.md)
+and [current claim register](issue119-confirmation-20261113/claim-evidence.json)
+record the review corrections and source identities.
+
+## Evidence by study
+
 | Evidence | Read first |
 |---|---|
 | Controller identity and apparently conflicting results | [Method/cohort audit](issue99-controller-identity-audit-20261112/README.md), [fresh arithmetic](issue99-controller-identity-audit-20261112/identity-audit.json) |

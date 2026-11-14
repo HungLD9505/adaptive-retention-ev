@@ -1,20 +1,28 @@
-# Research manuscript sources
+# Research manuscripts
 
-Current reader: [rewritten report](confirmation-review-20261113/adaptive-transfer-learning-ev.pdf)
-and [Overleaf source](confirmation-review-20261113/README.md). This report integrates the
-completed baseline, retention and fusion evidence plus the locked 46-ID confirmation, with native equations, editable
-flows, all 21 historical groups in the main results and separate experiment scopes. Figure 1 presents the stable/fast system in native LaTeX/TikZ, with flat
-sequence/GRU marks and editable vector feedback connections; the historical selector is separately labeled.
+## Reviewed manuscript
 
-The original confidence-gated retention selector and the later two-GRU fusion
-are different mechanisms. Fusion wins 18/21 against single Fixed; matched static
-fusion also wins 18/21, and adaptive weights beat static in 12/21. The rewritten
-report presents these comparisons alongside the positive and negative coefficient
-studies, rather than attributing every gain to one retention controller.
+**Adaptive Transfer Learning for Cold-Start Electric Vehicle Charging Demand Forecasting**
 
-See the [new uncertainty and related-work evidence](../docs/reports/issue117-evidence-20261113/README.md),
-the [rewrite verification](../docs/reports/issue99-report-rebuild-20261112/README.md)
-and the [method/cohort audit](../docs/reports/issue99-controller-identity-audit-20261112/README.md).
+[Read the PDF](confirmation-review-20261113/adaptive-transfer-learning-ev.pdf) ·
+[LaTeX and Overleaf source](confirmation-review-20261113/README.md) ·
+[Evidence index](../docs/reports/README.md)
+
+The reviewed version contains **23 pages, native equations, eight vector figures,
+twelve tables and sixteen scientific references**. Its source and PDF remain
+frozen at the reviewed research snapshot. The documentation landing page does
+not change the manuscript or experimental outcomes.
+
+| Study | Evidence and conclusion |
+|---|---|
+| Transfer, backbones and historical retention/fusion | [Method/cohort audit](../docs/reports/issue99-controller-identity-audit-20261112/README.md); source transfer is supported under the tested protocol, while retention and online-weighting gains are conditional. |
+| Locked 46-ID evaluation | [Results and verification](../docs/reports/issue119-confirmation-20261113/README.md); both primary intervals include zero and the dual-comparator criterion failed. |
+| JSONL/practical-win review | [Audit supplement](../docs/reports/issue121-jsonl-review-20261113/README.md); recorded-use limits and negligible AMS differences remain explicit. |
+| Bounded weighting study | [Stopping decision](../docs/reports/issue123-bounded-weighting-20261113/README.md); AdaHedge remains worse than Fixed and no new cohort or model is promoted. |
+
+Historical fusion results retain both **18/21 adaptive-vs-Fixed wins** and
+**18/21 static-vs-Fixed wins**, with a mixed **12/21 adaptive-vs-static** increment.
+The confidence-guided retention selector is a separate mechanism.
 
 ## Original frozen report
 
