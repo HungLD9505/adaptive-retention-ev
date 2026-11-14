@@ -13,6 +13,6 @@ The index below links the research findings, technical contracts and supporting 
 | Repository changes | [Workflow](WORKFLOW.md), [working rules](../AGENTS.md) |
 | Archived evidence | [Archive index](ARCHIVE_INDEX.md), [file/hash manifest](archive-manifest.json) |
 
-Only evidence actually recorded is claimed. Schematics describe implemented
-relationships, not live activity or proven superiority. The original experiment
-snapshot remains distinct from later verification and documentation changes.
+Schematics describe the implemented methods. Numerical findings and their
+limitations are documented in the linked study reports. Original experiment
+snapshots remain distinct from later verification and documentation changes.
