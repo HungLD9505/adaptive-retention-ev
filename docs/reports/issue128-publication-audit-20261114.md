@@ -56,13 +56,17 @@ are presentation limitations, not newly established scientific errors.
 - All 46 asset/evidence SHA-256 entries in the current manuscript manifest match.
 - All 108 local file links in the six reviewed landing/handoff documents resolve.
 - Root README has no member roster or assistant attribution.
-- Main's post-merge Foundation checks passed at the baseline commit; see
-  [run 43584473879](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/43584473879).
+- Main's post-merge Foundation checks passed on baseline commit
+  `0cab33388ec015992bd4d008404ab302945094ec`: [run 43584468530](https://github.com/HungLD9505/adaptive-retention-ev/actions/runs/43584468530)
+  completed successfully on Ubuntu and Windows.
 - Relevant local check outcomes for the editorial commit are recorded in its PR.
 
 The PDF and its complete source package are unchanged. No new training,
 external-artifact replay, raw-archive download, fresh literature verification
 or scientific confirmation was performed. This audit checks presentation and
 consistency with the retained evidence; passing it does not strengthen the
-reported statistical conclusions. The editorial PR requires current-head CI
-and peer approval before integration.
+reported statistical conclusions. For the six Markdown files at `65409f7`, the
+project owner recorded a one-time waiver of additional peer review in
+[PR #129](https://github.com/HungLD9505/adaptive-retention-ev/pull/129); current-head
+Ubuntu and Windows CI passed before #129 and #130 merged. The waiver does not
+apply to later changes or replace the repository's ordinary review policy.
