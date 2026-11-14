@@ -1,0 +1,32 @@
+The encoder has two GRU layers with hidden width 64 and zero dropout. Using within-window step $\tau$, the recurrence is
+\begingroup\small
+\begin{equation}\begin{aligned}
+r_\tau&=\sigma(W_{ir}x_\tau+b_{ir}+W_{hr}h_{\tau-1}+b_{hr}),\\
+z_\tau&=\sigma(W_{iz}x_\tau+b_{iz}+W_{hz}h_{\tau-1}+b_{hz}),
+\end{aligned}\label{eq:gates}\end{equation}
+\endgroup
+\begin{equation}\begin{aligned}
+n_\tau&=\tanh\!\left(W_{in}x_\tau+b_{in}\right.\\
+&\qquad\left.+r_\tau\odot(W_{hn}h_{\tau-1}+b_{hn})\right),\\
+h_\tau&=(1-z_\tau)\odot n_\tau+z_\tau\odot h_{\tau-1}.
+\end{aligned}\label{eq:hidden}\end{equation}
+These are the PyTorch gate conventions \cite{pytorch211}; in particular, the reset gate is applied after the recurrent affine transformation in the candidate state. Hidden state is reset for each input window and is not passed between entities.
+
+The last-layer final state $h_{24}\in\mathbb R^{64}$ is concatenated with the 120 flattened future-calendar values. The head applies a width-64 linear layer, ReLU, a 24-output linear layer and Softplus. The primary forecaster has 52,376 trainable parameters. A same-width, two-layer LSTM with this head would have 65,368; this is a parameter-count comparison, not a measured speed or accuracy advantage.
+
+\subsection{Forecast loss and latent retention}
+Let $B$ be a batch of complete examples for one target, and let $\widetilde y$ and $\widehat{\widetilde y}$ denote normalized labels and predictions. Forecast training uses
+\begin{equation}
+F_B(\theta)=\frac{1}{24|B|}\sum_{j\in B}\sum_{q=1}^{24}
+\left|\widehat{\widetilde y}_{j,q}(\theta)-\widetilde y_{j,q}\right|.
+\label{eq:forecastloss}\end{equation}
+Let $h(x;\theta_s)$ be the frozen Source encoder output and $s_k$ the population standard deviation of its $k$th latent coordinate on the permitted Source training population. The retention term is
+\begin{equation}\begin{aligned}
+R_B(\theta)&=\frac{1}{64|B|}\sum_{j\in B}\sum_{k=1}^{64}u_{j,k}^{2},\\
+u_{j,k}&=\frac{h_k(x_j;\theta)-h_k(x_j;\theta_s)}{s_k+\epsilon_R}.
+\end{aligned}\label{eq:retention}\end{equation}
+with $\epsilon_R=0.001$. The reference and scales receive no target gradients. Division occurs before squaring. The total target objective is
+\begin{equation}
+L_B(\theta,\lambda)=F_B(\theta)+\lambda R_B(\theta).
+\label{eq:total}\end{equation}
+Lambda controls an explicit representation penalty; it is neither the optimizer learning rate nor a percentage of retained knowledge. Setting lambda to zero removes the penalty while preserving transferred initialization.

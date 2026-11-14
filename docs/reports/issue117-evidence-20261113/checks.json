@@ -1,0 +1,53 @@
+{
+  "schema": "issue117-checks-v1",
+  "tested_clean_commit": "7fc0e9ced8eec1c2e25ad32cad776a8d7a78707a",
+  "root": {
+    "tests": 1053,
+    "skipped": 12,
+    "seconds": 39.533,
+    "status": "PASS"
+  },
+  "fixed_adaptation": {
+    "tests": 9,
+    "status": "PASS"
+  },
+  "confidence_controller": {
+    "tests": 12,
+    "status": "PASS"
+  },
+  "new_focused_fixtures": 12,
+  "ruff_lint": "PASS",
+  "ruff_format": {
+    "status": "PASS",
+    "files": 682
+  },
+  "release_check": {
+    "status": "PASS",
+    "frozen_assets": 17,
+    "historical_pins": 92
+  },
+  "sources_catalog": "PASS; no archive authentication",
+  "whitespace": "PASS outside byte-preserved new vendor copies; clean-checkout git diff --check PASS",
+  "source_zip_compile": {
+    "pages": 20,
+    "matching_reader_page_texts": 20,
+    "overfull_missing_glyphs_unresolved_references": false,
+    "underfull_warnings": true
+  },
+  "external_artifact_tests_rerun": false,
+  "confirmation_training_started": false,
+  "logs_sha256": {
+    "root-tests.log": "238aa3afde9f64080ea3a4738a7342415f7a5960e26c7c5936d80572afa7c922",
+    "fixed-tests.log": "c0b7e4212cdc3e1f65312765e0cfab28a1f9d5e8e7f867fac3cb9b11fd39bf01",
+    "confidence-tests.log": "0c0541dba51ded30a42f756422b47c6d4b9623023d7ea6e15087bfb7410e7cc1",
+    "final-release.log": "e7aea993c5840b586eab942d7fb674a84b1009e318cbc3112605e7b9027c639c",
+    "sources.log": "7a248fbf44ed1660f5ab58818d569a987ac1eece1fc746400f224b9bcef47823",
+    "compile.log": "5e280a123e23022d5e34bbbc444c02e3396312c431c9ef1166a40e554bae0652",
+    "zip-compile.log": "319eb16b0756436a9655c6c8e25690bc7bd278f356995b56c33c4a31eacc9dd7"
+  },
+  "external_audit_scripts_sha256": {
+    "build-report-assets.py": "63184e3484c0bd1ae0761396d314816307ad3022058b0f2f8c86fe822fb00ab6",
+    "independent-check.py": "864baf76acabc14e674ec22c40528b623bd7e2c5046a5c50fa223177d473da14",
+    "claim-map.py": "f17fe30c0686951df012988b5c734246c20fb282e4051404f6fa9c4447053020"
+  }
+}

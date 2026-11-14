@@ -1,0 +1,116 @@
+{
+  "schema": "confirmation-eligibility-inventory-v1",
+  "code_commit": "b7ae4a756d64eb1f3a8bfb0e9f9ff1a7368e2723",
+  "script_sha256": "afd113b534f23c69ae65aabab1c41bb0739b3c9436031265a9b14a9db3f81609",
+  "prior_registry_sha256": "b267416dd9b3f21a124ff9f49070ec754359a3c4cf3c6b2ddf2929c3c53fb940",
+  "scope": "Outcome-blind metadata inventory; bounded local prior-reference scan, not complete exposure certification",
+  "namespaces": {
+    "charged-AMS": {
+      "exposure_unresolved": 943,
+      "excluded_source": 1496,
+      "excluded_prior_target_or_support": 10
+    },
+    "charged-JHB": {
+      "excluded_source": 26,
+      "exposure_unresolved": 11,
+      "excluded_prior_target_or_support": 10
+    },
+    "charged-LOA": {
+      "exposure_unresolved": 82,
+      "excluded_source": 137,
+      "excluded_prior_target_or_support": 10
+    },
+    "charged-MEL": {
+      "excluded_source": 34,
+      "excluded_prior_target_or_support": 10,
+      "exposure_unresolved": 19
+    },
+    "charged-SPO": {
+      "excluded_source": 29,
+      "exposure_unresolved": 8,
+      "excluded_prior_target_or_support": 10
+    },
+    "charged-SZH": {
+      "exposure_unresolved": 549,
+      "excluded_source": 886,
+      "excluded_prior_target_or_support": 10
+    },
+    "urbanev-SZH": {
+      "exposure_unresolved": 558,
+      "excluded_source": 981,
+      "excluded_not_ready_or_no_prefix_examples": 87,
+      "excluded_prior_target_or_support": 56
+    }
+  },
+  "total_entities": 5962,
+  "certified_untouched": 0,
+  "metadata_eligible_exposure_unresolved": 2170,
+  "confirmation_started": false,
+  "acceptance_status": "Inventory complete; confirmatory cohort not certified",
+  "files_read": "Prepared manifests/entities and identified repository evidence only; no raw archive, label vector, forecast vector or checkpoint read",
+  "limits": "IDs may denote colocated sites; untracked/local/remote studies and earlier human inspection are not exhaustively observable. Absence from scanned ledgers is not absence of exposure. No entity selection, new outcome or protocol promotion occurs.",
+  "prepared_metadata": [
+    {
+      "namespace": "charged-AMS",
+      "manifest_sha256": "ad041d1ee3eb6f379abfc3fb2abae6939df1b29e802b121aef6db10863045b9a",
+      "entities_sha256": "5490ec7a29bb7c58ae4c4e4835a9468ebc2266c180945b1e5b7c7390071fa090",
+      "entities_path": "/Users/quyenmanh/Developer/TFL-EV/data/inputs/issue18-input-handoff-v1-20261019/charged-AMS-14d/entities.jsonl"
+    },
+    {
+      "namespace": "charged-JHB",
+      "manifest_sha256": "27bc5b4779a02213fd84dd2c87290b38b35616563f2281e37eed16e3afed98fb",
+      "entities_sha256": "3450814c3ed7ed6b32e5a1ce7bc951bfd3f94356ceaeb8f0eb6a7b0a7d718765",
+      "entities_path": "/Users/quyenmanh/Developer/TFL-EV/data/inputs/issue18-input-handoff-v1-20261019/charged-JHB-14d/entities.jsonl"
+    },
+    {
+      "namespace": "charged-LOA",
+      "manifest_sha256": "de2b529b207a20378976e5fa84564c3b4ab5826ae1795047fb17dc6023e3b55c",
+      "entities_sha256": "6d8618337c22c256f0aad71c6622d87a0f623fe947ae2380622bdd43537cf8f6",
+      "entities_path": "/Users/quyenmanh/Developer/TFL-EV/data/inputs/issue18-input-handoff-v1-20261019/charged-LOA-14d/entities.jsonl"
+    },
+    {
+      "namespace": "charged-MEL",
+      "manifest_sha256": "d68bfc4fbbe3092be9edb26d90ffe643b526528ef64aed0a4ab8a4b56228f2de",
+      "entities_sha256": "d4d40e2018c3b597105f9f720e69288c9b0f646a754e0013241fe2071bf53a51",
+      "entities_path": "/Users/quyenmanh/Developer/TFL-EV/data/inputs/issue18-input-handoff-v1-20261019/charged-MEL-14d/entities.jsonl"
+    },
+    {
+      "namespace": "charged-SPO",
+      "manifest_sha256": "83b9f000e325ad4465a6263aadd862f4ac112d94e4940467da241c6747f63570",
+      "entities_sha256": "e0539f225cb4f3bf87f7ce49fc3f08c57afb4ca42f66a39629eda1eb6fe9af6a",
+      "entities_path": "/Users/quyenmanh/Developer/TFL-EV/data/inputs/issue18-input-handoff-v1-20261019/charged-SPO-14d/entities.jsonl"
+    },
+    {
+      "namespace": "charged-SZH",
+      "manifest_sha256": "82f962287c897d5ddade229da891e60829181ca2314380c5a8eb104c082a429f",
+      "entities_sha256": "21929ab0208cc3bc6c1fbf88a96c0c6084c54d87a06a2140a38d097879e00b59",
+      "entities_path": "/Users/quyenmanh/Developer/TFL-EV/data/inputs/issue18-input-handoff-v1-20261019/charged-SZH-14d/entities.jsonl"
+    },
+    {
+      "namespace": "urbanev-SZH",
+      "manifest_sha256": "66c82dd38bd6e2c50af06bd1363605b033878289283997fe11f314bf8c2418d9",
+      "entities_sha256": "e7c9dd4cb0b6f95cdfb1a0939fcadbc69edd1af6e9fb0fa30c861c4d7a38953e",
+      "entities_path": "/Users/quyenmanh/Developer/TFL-EV/data/inputs/issue18-input-handoff-v1-20261019/urbanev-SZH-14d/entities.jsonl"
+    }
+  ],
+  "prior_evidence_sha256": {
+    "docs/reports/issue99-confidence-evidence-20261110/cells.csv": "ffde27d74f06fd421abcd751a2d65ecc19f4dfa7050660ad1e89f93630aa4c3b",
+    "docs/reports/issue99-expanded-development-20261110/cells.csv": "722a6e83bebcf8b6ee03beebc2b4185317e73a312cacf04eb3967e9ba03f00c1",
+    "docs/reports/issue99-history-review-20261110/cells.csv": "3751f2427ae9783ae82f2fd0da1e5963120deba4d38a1190df60d7a3fb1a4f1c",
+    "docs/reports/issue99-persistent-calibration-cells-20261111.csv": "f741d9680cb5d31be1e8c002f8c05d803c34e371c24ab3db189a1fc3d4571a6a",
+    "docs/reports/issue99-selective-retention-20261110/cells.csv": "833628db4f9cc781593310278932f5a68ed5f7d5e10fc6efdf714e7643be19cb",
+    "docs/reports/issue99-selective-retention-20261110/summary.csv": "d7ffa1f0d1a1b6ef12af700c95603e69765e97735ffef6106796ec4bf63808a8",
+    "docs/reports/issue99-study-20261110/comparison-runs.csv": "945d5ddfe9057b758624f4543de7c703cc1085d53a6eda3d024fcfb89cd69648",
+    "docs/reports/issue99-study-20261110/daily-errors.csv": "ab1a7bce9b9a219f103e0d541bc1776ca6c9f9a3e67e26fabff118f2498f41f8",
+    "docs/reports/issue99-study-20261110/fixed-diagnostics.csv": "e28905217617e6ae429320e8dad6985f04a5eea26bcf9a249b5f0b27161abd38",
+    "docs/reports/issue99-study-20261110/fixed-station-seed.csv": "0e6a6c87c782be3af1779987e25d7d7e5a8becf48e8d34e6064eb66ceb057bd2",
+    "experiments/member_studies/cyber_baselines/historical_v1/runs_v1.csv": "73e1d38775e7eb0d6679cbf555c2e1c3b6807447acaf171af0f67a0471e1e88a",
+    "experiments/member_studies/cyber_baselines/historical_v2/runs_v2.csv": "9e429c2c29a4dd609bb86ab89bf62319f887f366fd2a2d48a85d954a887b7099",
+    "experiments/member_studies/cyber_baselines/runs_v3.csv": "ec01c134066586721faa600bffafd8d459b13f5d8eb3967af7881fcd94e670d1",
+    "experiments/member_studies/duc_baselines/runs.csv": "bcda78d79351ab17fd4225c168ce5511783f4507781a8c5146ff150e597cf95a",
+    "experiments/member_studies/duc_baselines/runs_graph.csv": "695a4f2adfd0f5ee8c5c636b8efb8665201a60fbdc0ff160c326a060492786ae",
+    "configs/issue23/final-execution-lock-candidate-v2.json": "98b0d3e14fa49404aca2fa1ed95e7ed6924d2b6cc39562474bbbdd71ce76e7d3",
+    "docs/reports/issue99-history-review-20261110/14d-registration.json": "76c6df5d431164dfbc8cb7ad9181d7a57f9944f174b635158502107ef934d4f3",
+    "experiments/member_studies/duc_baselines/session.json": "043f608db7ff17328f3b007b6d84e284a4fa51c680993a22faadf1b25f984b57"
+  }
+}

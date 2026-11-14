@@ -1,7 +1,7 @@
 # Research manuscript sources
 
-Current reader: [rewritten report](rebuilt-review-20261112/adaptive-transfer-learning-ev.pdf)
-and [Overleaf source](rebuilt-review-20261112/README.md). This report integrates the
+Current reader: [rewritten report](evidence-review-20261113/adaptive-transfer-learning-ev.pdf)
+and [Overleaf source](evidence-review-20261113/README.md). This report integrates the
 completed baseline, retention and fusion evidence, with native equations, editable
 flows, all 21 historical groups in the main results and separate experiment scopes. Figure 1 presents the stable/fast system in native LaTeX/TikZ, with flat
 sequence/GRU marks and editable vector feedback connections; the historical selector is separately labeled.
@@ -12,7 +12,8 @@ fusion also wins 18/21, and adaptive weights beat static in 12/21. The rewritten
 report presents these comparisons alongside the positive and negative coefficient
 studies, rather than attributing every gain to one retention controller.
 
-See the [rewrite verification](../docs/reports/issue99-report-rebuild-20261112/README.md)
+See the [new uncertainty and related-work evidence](../docs/reports/issue117-evidence-20261113/README.md),
+the [rewrite verification](../docs/reports/issue99-report-rebuild-20261112/README.md)
 and the [method/cohort audit](../docs/reports/issue99-controller-identity-audit-20261112/README.md).
 
 ## Original frozen report

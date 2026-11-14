@@ -1,0 +1,1262 @@
+[
+  {
+    "namespace": "charged-AMS",
+    "history_days": 7,
+    "reference": "fixed",
+    "reference_mae_kwh": 6.148281155064238,
+    "candidate_mae_kwh": 6.1309521431801075,
+    "gap_kwh": -0.017329011884130274,
+    "reduction_percent": 0.2818513247374293,
+    "gap_interval_kwh": [
+      -0.028282619079475022,
+      -0.00791746717631625
+    ],
+    "reduction_interval_percent": [
+      0.21523988220074644,
+      0.32969009422250156
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 10,
+    "entity_equal": 0,
+    "entity_higher": 0,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-AMS",
+    "history_days": 7,
+    "reference": "static_mix",
+    "reference_mae_kwh": 6.129360480149745,
+    "candidate_mae_kwh": 6.1309521431801075,
+    "gap_kwh": 0.0015916630303625112,
+    "reduction_percent": -0.025967848285595133,
+    "gap_interval_kwh": [
+      0.00010586188243236762,
+      0.0032718554904932226
+    ],
+    "reduction_interval_percent": [
+      -0.04217526177913921,
+      -0.0026396804952676387
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 2,
+    "entity_equal": 0,
+    "entity_higher": 8,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-AMS",
+    "history_days": 14,
+    "reference": "fixed",
+    "reference_mae_kwh": 6.148169591992657,
+    "candidate_mae_kwh": 6.1321296764976925,
+    "gap_kwh": -0.01603991549496442,
+    "reduction_percent": 0.2608892818417813,
+    "gap_interval_kwh": [
+      -0.02698120854601882,
+      -0.006494202768063217
+    ],
+    "reduction_interval_percent": [
+      0.16379876506072555,
+      0.3361159387891551
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 10,
+    "entity_equal": 0,
+    "entity_higher": 0,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-AMS",
+    "history_days": 14,
+    "reference": "static_mix",
+    "reference_mae_kwh": 6.130497897949056,
+    "candidate_mae_kwh": 6.1321296764976925,
+    "gap_kwh": 0.0016317785486368308,
+    "reduction_percent": -0.026617390231595033,
+    "gap_interval_kwh": [
+      0.00015762253782014568,
+      0.003265212525526895
+    ],
+    "reduction_interval_percent": [
+      -0.04285443015098253,
+      -0.003946284429853059
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 2,
+    "entity_equal": 0,
+    "entity_higher": 8,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-AMS",
+    "history_days": 28,
+    "reference": "fixed",
+    "reference_mae_kwh": 6.148167168695577,
+    "candidate_mae_kwh": 6.13425009510359,
+    "gap_kwh": -0.013917073591986906,
+    "reduction_percent": 0.22636134005672484,
+    "gap_interval_kwh": [
+      -0.025692153242367732,
+      -0.003608304510622329
+    ],
+    "reduction_interval_percent": [
+      0.0807471027731448,
+      0.33685323388300503
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 8,
+    "entity_equal": 0,
+    "entity_higher": 2,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-AMS",
+    "history_days": 28,
+    "reference": "static_mix",
+    "reference_mae_kwh": 6.133101142838618,
+    "candidate_mae_kwh": 6.13425009510359,
+    "gap_kwh": 0.00114895226497147,
+    "reduction_percent": -0.01873362656529897,
+    "gap_interval_kwh": [
+      -0.0006808307593786367,
+      0.0029778498845867358
+    ],
+    "reduction_interval_percent": [
+      -0.04236138829624444,
+      0.013842749202661868
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 2,
+    "entity_equal": 0,
+    "entity_higher": 8,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-JHB",
+    "history_days": 7,
+    "reference": "fixed",
+    "reference_mae_kwh": 1.3205531638513825,
+    "candidate_mae_kwh": 1.2179044012742837,
+    "gap_kwh": -0.10264876257709887,
+    "reduction_percent": 7.773163957876909,
+    "gap_interval_kwh": [
+      -0.23390090254288354,
+      0.01496210445903251
+    ],
+    "reduction_interval_percent": [
+      -1.6259748793811446,
+      17.385752365464654
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 8,
+    "entity_equal": 0,
+    "entity_higher": 2,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-JHB",
+    "history_days": 7,
+    "reference": "static_mix",
+    "reference_mae_kwh": 1.2230377588570516,
+    "candidate_mae_kwh": 1.2179044012742837,
+    "gap_kwh": -0.0051333575827678946,
+    "reduction_percent": 0.4197219215509012,
+    "gap_interval_kwh": [
+      -0.01795614526613943,
+      0.006581288280201652
+    ],
+    "reduction_interval_percent": [
+      -0.9140506665078082,
+      1.3742814432155965
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 3,
+    "entity_equal": 0,
+    "entity_higher": 7,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-JHB",
+    "history_days": 14,
+    "reference": "fixed",
+    "reference_mae_kwh": 1.3227412832523586,
+    "candidate_mae_kwh": 1.2269226407578586,
+    "gap_kwh": -0.0958186424945,
+    "reduction_percent": 7.243944353116503,
+    "gap_interval_kwh": [
+      -0.2091258988064113,
+      -0.004674882761220741
+    ],
+    "reduction_interval_percent": [
+      0.5400153539375041,
+      19.52066334575184
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 9,
+    "entity_equal": 0,
+    "entity_higher": 1,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-JHB",
+    "history_days": 14,
+    "reference": "static_mix",
+    "reference_mae_kwh": 1.2340851992613875,
+    "candidate_mae_kwh": 1.2269226407578586,
+    "gap_kwh": -0.007162558503528871,
+    "reduction_percent": 0.5803941662873628,
+    "gap_interval_kwh": [
+      -0.023828951200598414,
+      0.0088029293354501
+    ],
+    "reduction_interval_percent": [
+      -1.4845772711939234,
+      1.48422897713684
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 3,
+    "entity_equal": 0,
+    "entity_higher": 7,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-JHB",
+    "history_days": 28,
+    "reference": "fixed",
+    "reference_mae_kwh": 1.291883018124986,
+    "candidate_mae_kwh": 1.1924369695862063,
+    "gap_kwh": -0.09944604853877981,
+    "reduction_percent": 7.697759560545495,
+    "gap_interval_kwh": [
+      -0.24365057322227499,
+      0.013000694681048586
+    ],
+    "reduction_interval_percent": [
+      -1.4525922850253135,
+      17.700503765238913
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 8,
+    "entity_equal": 0,
+    "entity_higher": 2,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-JHB",
+    "history_days": 28,
+    "reference": "static_mix",
+    "reference_mae_kwh": 1.1926116827713205,
+    "candidate_mae_kwh": 1.1924369695862063,
+    "gap_kwh": -0.00017471318511419476,
+    "reduction_percent": 0.014649628847187426,
+    "gap_interval_kwh": [
+      -0.011826555163308772,
+      0.012721976124568051
+    ],
+    "reduction_interval_percent": [
+      -1.6528899185071015,
+      1.0130944965103004
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 3,
+    "entity_equal": 0,
+    "entity_higher": 7,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-LOA",
+    "history_days": 7,
+    "reference": "fixed",
+    "reference_mae_kwh": 1.3220251251387207,
+    "candidate_mae_kwh": 1.2803461801817169,
+    "gap_kwh": -0.04167894495700386,
+    "reduction_percent": 3.1526590655854947,
+    "gap_interval_kwh": [
+      -0.08914906475654846,
+      -0.0040944676471248815
+    ],
+    "reduction_interval_percent": [
+      0.3943876374173551,
+      6.606137194126833
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 6,
+    "entity_equal": 0,
+    "entity_higher": 4,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-LOA",
+    "history_days": 7,
+    "reference": "static_mix",
+    "reference_mae_kwh": 1.2806662551687094,
+    "candidate_mae_kwh": 1.2803461801817169,
+    "gap_kwh": -0.00032007498699249126,
+    "reduction_percent": 0.024992849284556654,
+    "gap_interval_kwh": [
+      -0.004838936890841955,
+      0.005157856948027897
+    ],
+    "reduction_interval_percent": [
+      -0.42596477569512964,
+      0.43495695007563
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 4,
+    "entity_equal": 0,
+    "entity_higher": 6,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-LOA",
+    "history_days": 14,
+    "reference": "fixed",
+    "reference_mae_kwh": 1.3334037204909293,
+    "candidate_mae_kwh": 1.2888874152366259,
+    "gap_kwh": -0.04451630525430339,
+    "reduction_percent": 3.338546650965807,
+    "gap_interval_kwh": [
+      -0.09234138091752706,
+      -0.005140265033812098
+    ],
+    "reduction_interval_percent": [
+      0.5074949708820162,
+      6.437466450145288
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 7,
+    "entity_equal": 0,
+    "entity_higher": 3,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-LOA",
+    "history_days": 14,
+    "reference": "static_mix",
+    "reference_mae_kwh": 1.2895198953997247,
+    "candidate_mae_kwh": 1.2888874152366259,
+    "gap_kwh": -0.0006324801630988031,
+    "reduction_percent": 0.049047724300736534,
+    "gap_interval_kwh": [
+      -0.005206860693762521,
+      0.00426605418173831
+    ],
+    "reduction_interval_percent": [
+      -0.32232873765792475,
+      0.4948647022279835
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 4,
+    "entity_equal": 0,
+    "entity_higher": 6,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-LOA",
+    "history_days": 28,
+    "reference": "fixed",
+    "reference_mae_kwh": 1.3264985034661478,
+    "candidate_mae_kwh": 1.2759179123767066,
+    "gap_kwh": -0.05058059108944124,
+    "reduction_percent": 3.8130907013670865,
+    "gap_interval_kwh": [
+      -0.10597321782403497,
+      -0.007064333080771223
+    ],
+    "reduction_interval_percent": [
+      0.7046310350741224,
+      7.480158273712226
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 7,
+    "entity_equal": 0,
+    "entity_higher": 3,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-LOA",
+    "history_days": 28,
+    "reference": "static_mix",
+    "reference_mae_kwh": 1.2765387039452911,
+    "candidate_mae_kwh": 1.2759179123767066,
+    "gap_kwh": -0.0006207915685845222,
+    "reduction_percent": 0.048630845791505874,
+    "gap_interval_kwh": [
+      -0.004816882455327612,
+      0.0037545578540965794
+    ],
+    "reduction_interval_percent": [
+      -0.2959095963832584,
+      0.4488950450368113
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 4,
+    "entity_equal": 0,
+    "entity_higher": 6,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-MEL",
+    "history_days": 7,
+    "reference": "fixed",
+    "reference_mae_kwh": 52.848216155226545,
+    "candidate_mae_kwh": 51.64427488301563,
+    "gap_kwh": -1.203941272210912,
+    "reduction_percent": 2.2781114667611075,
+    "gap_interval_kwh": [
+      -3.2879797458669415,
+      -0.04368992303370699
+    ],
+    "reduction_interval_percent": [
+      0.4148795311312118,
+      2.5840019227239117
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 7,
+    "entity_equal": 0,
+    "entity_higher": 3,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-MEL",
+    "history_days": 7,
+    "reference": "static_mix",
+    "reference_mae_kwh": 51.63839552826455,
+    "candidate_mae_kwh": 51.64427488301563,
+    "gap_kwh": 0.005879354751080257,
+    "reduction_percent": -0.0113856263172665,
+    "gap_interval_kwh": [
+      -0.048691207289104275,
+      0.07746307510979872
+    ],
+    "reduction_interval_percent": [
+      -0.06563537716265146,
+      0.42655135173427156
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 7,
+    "entity_equal": 0,
+    "entity_higher": 3,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-MEL",
+    "history_days": 14,
+    "reference": "fixed",
+    "reference_mae_kwh": 54.36550625655451,
+    "candidate_mae_kwh": 52.264933703868245,
+    "gap_kwh": -2.100572552686266,
+    "reduction_percent": 3.863796545503544,
+    "gap_interval_kwh": [
+      -5.882702051946268,
+      -0.06941501289193687
+    ],
+    "reduction_interval_percent": [
+      0.6494161528855047,
+      4.3095402759401935
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 8,
+    "entity_equal": 0,
+    "entity_higher": 2,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-MEL",
+    "history_days": 14,
+    "reference": "static_mix",
+    "reference_mae_kwh": 52.222188050375316,
+    "candidate_mae_kwh": 52.264933703868245,
+    "gap_kwh": 0.042745653492929137,
+    "reduction_percent": -0.08185343259017644,
+    "gap_interval_kwh": [
+      -0.037001777821236814,
+      0.16980167154466838
+    ],
+    "reduction_interval_percent": [
+      -0.13762484919874435,
+      0.29684374402867864
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 7,
+    "entity_equal": 0,
+    "entity_higher": 3,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-MEL",
+    "history_days": 28,
+    "reference": "fixed",
+    "reference_mae_kwh": 54.24233896562765,
+    "candidate_mae_kwh": 52.193403684834365,
+    "gap_kwh": -2.0489352807932875,
+    "reduction_percent": 3.777372657347352,
+    "gap_interval_kwh": [
+      -5.635351600455189,
+      -0.07778812417473879
+    ],
+    "reduction_interval_percent": [
+      0.7085774774865835,
+      4.254573247330144
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 7,
+    "entity_equal": 0,
+    "entity_higher": 3,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-MEL",
+    "history_days": 28,
+    "reference": "static_mix",
+    "reference_mae_kwh": 52.14436685659221,
+    "candidate_mae_kwh": 52.193403684834365,
+    "gap_kwh": 0.04903682824215849,
+    "reduction_percent": -0.0940405094514234,
+    "gap_interval_kwh": [
+      -0.027284757583291252,
+      0.1662716014838587
+    ],
+    "reduction_interval_percent": [
+      -0.14324202711077333,
+      0.23778009433837452
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 6,
+    "entity_equal": 0,
+    "entity_higher": 4,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-SPO",
+    "history_days": 7,
+    "reference": "fixed",
+    "reference_mae_kwh": 2.0217387517015615,
+    "candidate_mae_kwh": 1.9234246836920306,
+    "gap_kwh": -0.09831406800953091,
+    "reduction_percent": 4.862847285624147,
+    "gap_interval_kwh": [
+      -0.29406715629921054,
+      0.00989153531535058
+    ],
+    "reduction_interval_percent": [
+      -0.7526366470404988,
+      8.180832313561536
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 7,
+    "entity_equal": 0,
+    "entity_higher": 3,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-SPO",
+    "history_days": 7,
+    "reference": "static_mix",
+    "reference_mae_kwh": 1.928416950819943,
+    "candidate_mae_kwh": 1.9234246836920306,
+    "gap_kwh": -0.004992267127912342,
+    "reduction_percent": 0.25887903162174974,
+    "gap_interval_kwh": [
+      -0.024666296611782157,
+      0.014796636801853946
+    ],
+    "reduction_interval_percent": [
+      -0.6027447881131452,
+      1.9857406635335526
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 3,
+    "entity_equal": 0,
+    "entity_higher": 7,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-SPO",
+    "history_days": 14,
+    "reference": "fixed",
+    "reference_mae_kwh": 1.9893239358939059,
+    "candidate_mae_kwh": 1.8869237124124745,
+    "gap_kwh": -0.10240022348143141,
+    "reduction_percent": 5.1474886333892975,
+    "gap_interval_kwh": [
+      -0.27335319424983834,
+      0.014154549293765539
+    ],
+    "reduction_interval_percent": [
+      -1.2672886999086714,
+      18.179387687214177
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 8,
+    "entity_equal": 0,
+    "entity_higher": 2,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-SPO",
+    "history_days": 14,
+    "reference": "static_mix",
+    "reference_mae_kwh": 1.888682774308235,
+    "candidate_mae_kwh": 1.8869237124124745,
+    "gap_kwh": -0.001759061895760583,
+    "reduction_percent": 0.09313696930416872,
+    "gap_interval_kwh": [
+      -0.017767178554785705,
+      0.012850058262824201
+    ],
+    "reduction_interval_percent": [
+      -0.9282175920604006,
+      1.3374462936031168
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 2,
+    "entity_equal": 0,
+    "entity_higher": 8,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-SPO",
+    "history_days": 28,
+    "reference": "fixed",
+    "reference_mae_kwh": 2.0256065145648963,
+    "candidate_mae_kwh": 1.9125747950504093,
+    "gap_kwh": -0.11303171951448698,
+    "reduction_percent": 5.580141982252974,
+    "gap_interval_kwh": [
+      -0.29478021666663756,
+      0.013527039952772437
+    ],
+    "reduction_interval_percent": [
+      -1.312442947556908,
+      17.072638061847144
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 8,
+    "entity_equal": 0,
+    "entity_higher": 2,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-SPO",
+    "history_days": 28,
+    "reference": "static_mix",
+    "reference_mae_kwh": 1.9133082620089492,
+    "candidate_mae_kwh": 1.9125747950504093,
+    "gap_kwh": -0.00073346695853993,
+    "reduction_percent": 0.0383350123502733,
+    "gap_interval_kwh": [
+      -0.018261862571018028,
+      0.01582636657190805
+    ],
+    "reduction_interval_percent": [
+      -1.3163160260336098,
+      1.3647756741607067
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 2,
+    "entity_equal": 0,
+    "entity_higher": 8,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-SZH",
+    "history_days": 7,
+    "reference": "fixed",
+    "reference_mae_kwh": 91.82111259012014,
+    "candidate_mae_kwh": 85.91660339727227,
+    "gap_kwh": -5.904509192847868,
+    "reduction_percent": 6.43044832097056,
+    "gap_interval_kwh": [
+      -16.313819333656028,
+      -0.22415536648772905
+    ],
+    "reduction_interval_percent": [
+      5.686754152736157,
+      21.238046298615547
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 9,
+    "entity_equal": 0,
+    "entity_higher": 1,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-SZH",
+    "history_days": 7,
+    "reference": "static_mix",
+    "reference_mae_kwh": 85.70264505850368,
+    "candidate_mae_kwh": 85.91660339727227,
+    "gap_kwh": 0.21395833876859172,
+    "reduction_percent": -0.24965196654378186,
+    "gap_interval_kwh": [
+      0.012269705665449505,
+      0.5070549336926347
+    ],
+    "reduction_interval_percent": [
+      -3.1091004523834194,
+      -0.15796002805712694
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 4,
+    "entity_equal": 0,
+    "entity_higher": 6,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-SZH",
+    "history_days": 14,
+    "reference": "fixed",
+    "reference_mae_kwh": 90.84357211017445,
+    "candidate_mae_kwh": 85.19072283928185,
+    "gap_kwh": -5.652849270892602,
+    "reduction_percent": 6.222618881649509,
+    "gap_interval_kwh": [
+      -15.424260320646383,
+      -0.23595157575983983
+    ],
+    "reduction_interval_percent": [
+      5.492256166997719,
+      22.600070679317803
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 9,
+    "entity_equal": 0,
+    "entity_higher": 1,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-SZH",
+    "history_days": 14,
+    "reference": "static_mix",
+    "reference_mae_kwh": 85.03008337660779,
+    "candidate_mae_kwh": 85.19072283928185,
+    "gap_kwh": 0.16063946267405527,
+    "reduction_percent": -0.18892073992514513,
+    "gap_interval_kwh": [
+      0.014321995924894393,
+      0.3403469367883274
+    ],
+    "reduction_interval_percent": [
+      -3.4532418367787465,
+      -0.08989136050311354
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 3,
+    "entity_equal": 0,
+    "entity_higher": 7,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-SZH",
+    "history_days": 28,
+    "reference": "fixed",
+    "reference_mae_kwh": 90.88534367017762,
+    "candidate_mae_kwh": 84.86478560992344,
+    "gap_kwh": -6.020558060254174,
+    "reduction_percent": 6.624344275027165,
+    "gap_interval_kwh": [
+      -16.54031046773194,
+      -0.21373614773926555
+    ],
+    "reduction_interval_percent": [
+      5.426656480071839,
+      22.95967154370773
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 9,
+    "entity_equal": 0,
+    "entity_higher": 1,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "charged-SZH",
+    "history_days": 28,
+    "reference": "static_mix",
+    "reference_mae_kwh": 84.66750803285225,
+    "candidate_mae_kwh": 84.86478560992344,
+    "gap_kwh": 0.19727757707119054,
+    "reduction_percent": -0.23300269684876504,
+    "gap_interval_kwh": [
+      0.009159212998405853,
+      0.4500450845438111
+    ],
+    "reduction_interval_percent": [
+      -3.4515101861049198,
+      -0.1273920752528867
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 10,
+    "scheduled_days": 90,
+    "entity_lower": 3,
+    "entity_equal": 0,
+    "entity_higher": 7,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "urbanev-SZH",
+    "history_days": 7,
+    "reference": "fixed",
+    "reference_mae_kwh": 8.039986091840161,
+    "candidate_mae_kwh": 8.111110057858353,
+    "gap_kwh": 0.07112396601819171,
+    "reduction_percent": -0.8846279733042813,
+    "gap_interval_kwh": [
+      0.0012937510256699094,
+      0.17058384099733895
+    ],
+    "reduction_interval_percent": [
+      -2.5841924533405796,
+      -0.025761327351637605
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 29,
+    "scheduled_days": 90,
+    "entity_lower": 15,
+    "entity_equal": 0,
+    "entity_higher": 14,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "urbanev-SZH",
+    "history_days": 7,
+    "reference": "static_mix",
+    "reference_mae_kwh": 8.1509947259589,
+    "candidate_mae_kwh": 8.111110057858353,
+    "gap_kwh": -0.039884668100548026,
+    "reduction_percent": 0.4893227077368266,
+    "gap_interval_kwh": [
+      -0.06953086384485943,
+      -0.016222427581039922
+    ],
+    "reduction_interval_percent": [
+      0.3011688371259124,
+      0.8571146538752458
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 29,
+    "scheduled_days": 90,
+    "entity_lower": 22,
+    "entity_equal": 0,
+    "entity_higher": 7,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "urbanev-SZH",
+    "history_days": 14,
+    "reference": "fixed",
+    "reference_mae_kwh": 7.975750983786746,
+    "candidate_mae_kwh": 8.001586074816935,
+    "gap_kwh": 0.02583509103018855,
+    "reduction_percent": -0.32392048200484946,
+    "gap_interval_kwh": [
+      -0.07041773398599771,
+      0.13062499914849887
+    ],
+    "reduction_interval_percent": [
+      -2.272920102062033,
+      0.6368162567325488
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 29,
+    "scheduled_days": 90,
+    "entity_lower": 14,
+    "entity_equal": 0,
+    "entity_higher": 15,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "urbanev-SZH",
+    "history_days": 14,
+    "reference": "static_mix",
+    "reference_mae_kwh": 8.036056856593442,
+    "candidate_mae_kwh": 8.001586074816935,
+    "gap_kwh": -0.03447078177650731,
+    "reduction_percent": 0.4289514421270507,
+    "gap_interval_kwh": [
+      -0.06093223772222225,
+      -0.013907397464652724
+    ],
+    "reduction_interval_percent": [
+      0.22515893498938308,
+      0.8267024863662599
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 29,
+    "scheduled_days": 90,
+    "entity_lower": 22,
+    "entity_equal": 0,
+    "entity_higher": 7,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "urbanev-SZH",
+    "history_days": 28,
+    "reference": "fixed",
+    "reference_mae_kwh": 7.915858941137677,
+    "candidate_mae_kwh": 7.95124643028073,
+    "gap_kwh": 0.03538748914305323,
+    "reduction_percent": -0.44704547423336594,
+    "gap_interval_kwh": [
+      -0.0505957919543655,
+      0.1512092880443863
+    ],
+    "reduction_interval_percent": [
+      -2.5411841090536753,
+      0.6548662793240927
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 29,
+    "scheduled_days": 90,
+    "entity_lower": 17,
+    "entity_equal": 0,
+    "entity_higher": 12,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  },
+  {
+    "namespace": "urbanev-SZH",
+    "history_days": 28,
+    "reference": "static_mix",
+    "reference_mae_kwh": 7.987886964645698,
+    "candidate_mae_kwh": 7.95124643028073,
+    "gap_kwh": -0.036640534364967614,
+    "reduction_percent": 0.4587012125626993,
+    "gap_interval_kwh": [
+      -0.06722118201390156,
+      -0.013305553076467958
+    ],
+    "reduction_interval_percent": [
+      0.23875699199116734,
+      0.9037315349177746
+    ],
+    "undefined_replicates": 0,
+    "undefined_percentage_replicates": 0,
+    "entity_count": 29,
+    "scheduled_days": 90,
+    "entity_lower": 21,
+    "entity_equal": 0,
+    "entity_higher": 8,
+    "resamples": 5000,
+    "seed": 20261113,
+    "alpha": 0.05,
+    "segment_days": null,
+    "profile": "paired-entity",
+    "limits": "Posthoc, selected cohort, fixed paired seeds/models; marginal intervals, no multiplicity correction or independent-test guarantee"
+  }
+]
