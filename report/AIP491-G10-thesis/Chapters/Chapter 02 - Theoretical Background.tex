@@ -47,7 +47,7 @@ Online transfer methods can revise the use of earlier models as target observati
 \begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}\toprule
 Method & Decision & Evidence and timing\\\midrule
 Fixed retention & Keep one training coefficient & Set before evaluation by the study protocol or calibration.\\
-Past MAE & Select a coefficient trajectory & Rank candidates by errors on completed days at a decision boundary.\\
+Online-best & Select a coefficient trajectory & Rank candidates by errors on completed days at a decision boundary.\\
 Confidence rule & Keep or switch the active candidate & Compare paired daily errors at the boundary using a lower bound on improvement.\\
 Static fusion & Combine two forecasts at a constant weight & Choose the weight on calibration data before evaluation.\\
 Adaptive fusion & Update the two forecast weights & Use observed expert errors after complete feedback arrives.\\\bottomrule

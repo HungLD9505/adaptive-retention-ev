@@ -48,7 +48,6 @@ Random forest had the lowest target-only MAE in both implementations. With sourc
 \subsection{Transfer after calibrating the target training budget}
 A target-only neural model may need more initial training than a pretrained one. We compared 3, 10, 30, 100 and 300 initial epochs on four calibration targets. The lowest calibration MAE occurred at 30, 100 and 100 epochs for target-only training with 7, 14 and 28 days of history, respectively. With source initialization, the corresponding values were 3, 3 and 10 epochs. We evaluated these settings on twelve additional targets. Both models used the same architecture and scored days. Source fine-tuning used zero latent penalty, so the comparison measures the benefit of starting from a source checkpoint under the separately calibrated budgets.
 
-
 Figure~\ref{fig:budget-curves} shows why the two initialization modes received different training budgets. Open circles mark the lowest calibration MAE on each curve. Table~\ref{tab:res-transfer} reports the subsequent evaluation on twelve additional targets.
 \begin{figure}[htbp]\centering
 \includegraphics[width=.97\linewidth]{Images/budget-curves.pdf}
@@ -65,8 +64,7 @@ History & Target-only MAE & Transfer MAE & Reduction & Targets improved\\\midrul
 \bottomrule\end{tabular}
 \end{table}
 
-At 14 days, for example, source initialization reduced mean error by 1.5295 kWh per hour (Table~\ref{tab:res-transfer}). The advantage persisted at 28 days despite allowing the target-only model 100 initial epochs. The last column counts targets with lower transfer MAE after averaging over paired seeds. Each history budget uses the same twelve targets. They provide a reason to retain source initialization when studying the smaller effects of regularization and online decisions. The four-target backbone benchmark also used a different source training budget (three epochs versus ten here), so its absolute MAEs should be interpreted within that benchmark.
-\clearpage
+At 14 days, transfer reduced mean hourly MAE by 1.5295 kWh (Table~\ref{tab:res-transfer}). The last column counts targets with lower seed-averaged MAE among the same twelve sites at each budget. We report descriptive reductions without uncertainty intervals. These results motivated using source initialization in the retention experiments. The four-target backbone benchmark used three source epochs, compared with ten here.
 \section{Fixed and adaptive retention}
 \subsection{Measured retention strength on the calibration targets}
 For each tested coefficient, the encoder gradient ratio compares the weighted retention gradient with the forecast gradient on the same parameters,
@@ -104,7 +102,7 @@ The \href{https://github.com/HungLD9505/adaptive-retention-ev/blob/52a91d3/repor
 \begin{table}[H]\centering\small
 \caption{Selection from a common bank on twelve targets (MAE in kWh).}\label{tab:res-bank}
 \begin{tabular}{lrrr}\toprule
-History & Calibrated Fixed & Past MAE & Confidence rule\\\midrule
+History & Calibrated Fixed & Online-best & Confidence rule\\\midrule
 7 days & \textbf{3.3186} & 3.3234 & 3.3234\\
 14 days & \textbf{3.2670} & 3.2904 & 3.2755\\
 28 days & 3.3482 & 3.3252 & \textbf{3.3140}\\
@@ -115,16 +113,15 @@ The confidence rule improved on calibrated Fixed only at 28 days, where calibrat
 
 On the four previously inspected calibration targets, a separate experiment allocated the first 28 scheduled days to calibration, two to an embargo and the final 60 to evaluation. The embargo days remained part of causal replay. The four targets contributed 60, 22, 22 and 22 scored days in that final window, with equal weight per target after averaging seeds. Discrete selection reached 4.7983 kWh, calibrated Fixed 4.8031 and continuous selection 4.8062. Continuous exceeded Fixed by 0.00317 kWh. The discrete method used three branches and a different initialization and tuning budget, so this comparison cannot isolate the effect of coefficient continuity.
 
-A separate \href{https://github.com/HungLD9505/adaptive-retention-ev/blob/52a91d3/docs/reports/issue99-decision-probe-20261110/handoff.md}{one-step decision experiment} cloned the current state before an update and compared following the continuous controller with holding its coefficient. Following reduced the next forecast error in 153 of 294 paired forecasts. The equal-target mean difference (follow minus hold) was $-0.000182$ kWh on these previously inspected calibration targets. In the persistent-shadow calibration, one of 57 completed decisions accepted a proposed change, from 69 proposals overall. Its mean MAE reduction against Fixed was 0.000118 kWh. Neither diagnostic establishes a practically useful decision threshold.
-
-
 At station 1693 the trajectory for seed 42 reached about 7.7, illustrating how the same rule can yield different paths across seeds. Figure~\ref{fig:issued-lambda} shows the coefficient recorded at each issued forecast for all four targets and all three seeds. Each point denotes an issued forecast; gaps indicate days without one. The dashed horizontal line marks the calibrated Fixed coefficient. These trajectories show how much the controller moved; the later-window MAEs above measure the forecasting consequence.
-\begin{figure}[htbp]\centering
+\begin{figure}[H]\centering
 \includegraphics[width=.97\linewidth]{Images/issued-lambda.pdf}
 \caption{Continuous retention coefficients at issued forecasts.}\label{fig:issued-lambda}
 \end{figure}
 
-\section{Combining two forecasts and adapting their weights}
+A separate \href{https://github.com/HungLD9505/adaptive-retention-ev/blob/52a91d3/docs/reports/issue99-decision-probe-20261110/handoff.md}{one-step decision experiment} cloned the current state before an update and compared following the continuous controller with holding its coefficient. Across four calibration targets and three seeds, the two branches issued 294 matched next-day forecasts. Following the proposed update reduced error in 153 pairs. The equal-target mean difference (follow minus hold) was $-0.000182$ kWh on these previously inspected calibration targets. In the persistent-shadow calibration, 69 proposed changes yielded one acceptance and 56 rejections. Twelve proposals still awaited a decision at the end of calibration. Its mean MAE reduction against Fixed was 0.000118 kWh. Neither diagnostic establishes a practically useful decision threshold.
+
+\section{Fusion of stable and fast forecasts}
 The stable and fast GRUs differ in retention strength and in the history used for online updates. Static and adaptive fusion combine the same two forecast streams. Comparing either with single Fixed measures the overall change from using two experts. The calibrated static blend holds the stable weight at approximately 0.430782. Comparing adaptive with that blend measures the combined effect of loss feedback and the sharing step that draws the weights toward one half.
 
 \begin{figure}[H]\centering
