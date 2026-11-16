@@ -30,7 +30,7 @@ To study retention, we measured both forecast error and the relative strength of
 
 The experiments use hourly charging energy from UrbanEV and CHARGED~\cite{urbanev2025,charged2025}. Source and target locations belong to the same dataset and city within each transfer experiment. We report MAE in kWh. Cold start denotes a restriction on the observed target history. The beginning of that history can fall after a station's opening date.
 
-The independent backbone benchmark covers four UrbanEV targets. The historical retention and fusion comparisons cover seven dataset--city groups at three history budgets. These groups were revisited during development. A follow-up evaluation specified its recipe and 46 additional Development identifiers before scoring forecasts at the 14-day budget. It assesses performance on additional locations within the same groups and calendar period.
+The backbone benchmark and coefficient calibration share four UrbanEV targets in Shenzhen. The comparison of source initialization with calibrated target-only training uses twelve other targets from the same dataset and city. The historical retention and fusion comparisons cover seven dataset--city groups at three history budgets. These groups were revisited during development. A follow-up evaluation specified its recipe and 46 additional Development identifiers before scoring forecasts at the 14-day budget. It assesses performance on additional locations within the same groups and calendar period.
 
 \section{Structure of the Thesis}
 

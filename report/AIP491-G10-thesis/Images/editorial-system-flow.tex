@@ -10,7 +10,7 @@
 \node[box] (init) at (5.3,3.9) {\textbf{Target adaptation}\\Source initialization\\(7, 14 or 28 days initially)};
 \draw[pathline] (src)--(init);
 \node[box] (input) at (10.6,3.9) {\textbf{Each forecast origin}\\Previous 24 hours ($24\times7$)\\Next-day calendar ($24\times5$)};
-\node[box] (st) at (2.65,1.50) {\textbf{Stable GRU}\\$F+R$, frozen source reference\\Train on the newly arrived day};
+\node[box] (st) at (2.65,1.50) {\textbf{Stable GRU}\\$F+R$ ($\lambda_S=1$), frozen source reference\\Train on the newly arrived day};
 \node[warm] (fa) at (7.95,1.50) {\textbf{Fast GRU}\\$F$, no retention penalty\\Train on up to seven recent days};
 \coordinate (shared) at (5.3,2.65);
 \draw[draw=black!70,line width=.65pt] (init.south)--(shared);

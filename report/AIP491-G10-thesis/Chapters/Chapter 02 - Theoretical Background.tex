@@ -6,7 +6,7 @@ Consider a station at midnight after seven days of recorded demand. Its initial 
 
 Transfer learning uses observations from established locations, the source, to initialize a model for the station of interest, the target. Fine-tuning then adjusts that model using eligible target examples. A target-only model learns from the same local data starting from a random initialization. This comparison gives negative transfer a precise meaning: using source information increases target error relative to learning without it under comparable conditions~\cite{wang2019negative}. Two source-initialized models with different errors can both improve on target-only training. Their relative performance answers a separate question about how to adapt after transfer.
 
-\section{Mathematical or Theoretical Basis}
+\section{Recurrent Forecasting and Source Retention}
 
 \subsection{Gated recurrent units}
 A gated recurrent unit processes one feature vector $x_\tau$ at a time \cite{cho2014}. Given the previous hidden state $h_{\tau-1}$, the reset gate $r_\tau$ controls its contribution to the candidate state $n_\tau$. The update gate $z_\tau$ determines how much of the previous state carries forward. With learned weights $W$, biases $b$, sigmoid $\sigma$ and elementwise multiplication $\odot$, the PyTorch implementation uses the following recurrence \cite{pytorch211}.
@@ -36,7 +36,7 @@ Li et al.\ used pretrained parameters as a reference when fine-tuning a network~
 \begin{equation}
 L=F+\lambda R.
 \end{equation}
-Here $F$ is the normalized forecast loss and $R$ measures the scaled squared distance between the source and target encodings of the same input. The coefficient $\lambda$ sets the cost of that distance. At $\lambda=0$, training starts from the transferred weights and follows the forecast loss alone. A larger coefficient assigns more cost to a given departure. The actual change in the encoder also depends on the gradients of both terms. Chapter~4 defines the coordinate scales and the full batch objective.
+Here $F$ is the normalized forecast loss and $R$ measures the scaled squared distance between the source and target encodings of the same input. The coefficient $\lambda$ sets the cost of that distance. At $\lambda=0$, training starts from the transferred weights and follows the forecast loss alone. A larger coefficient assigns more cost to a given departure. The actual change in the encoder also depends on the gradients of both terms. Chapter~\ref{chap:methodology} defines the coordinate scales and the full batch objective.
 
 \section{Existing Frameworks and Algorithms}\label{sec:exist_frameworks_algorithms}
 
@@ -53,10 +53,10 @@ Static fusion & Combine two forecasts at a constant weight & Choose the weight o
 Adaptive fusion & Update the two forecast weights & Use observed expert errors after complete feedback arrives.\\\bottomrule
 \end{tabularx}\end{table}
 
-In fusion, both experts forecast the same hour. If their predictions are 8 and 12 kWh, equal weights give 10 kWh. Raising the first weight to three quarters gives 9 kWh, even with both forecasts held fixed. This arithmetic illustrates why a static mixture is the direct control for adaptive weighting. The online update in Chapter~4 draws on the fixed-share approach to tracking experts~\cite{herbster1998}. By contrast, changing $\lambda$ affects what an expert learns at its next training step.
+In fusion, both experts forecast the same hour. If their predictions are 8 and 12 kWh, equal weights give 10 kWh. Raising the first weight to three quarters gives 9 kWh, even with both forecasts held fixed. This arithmetic illustrates why a static mixture is the direct control for adaptive weighting. The online update in Chapter~\ref{chap:methodology} draws on the fixed-share approach to tracking experts~\cite{herbster1998}. By contrast, changing $\lambda$ affects what an expert learns at its next training step.
 
 \section{Limitations and Research Motivation}
 
 For each completed day, subtract the challenger's error from the active model's error. Positive differences favour the challenger. Pairing exposes both models to the same demand, yet a run of unusually busy days can influence several successive differences.
 
-A moving-block bootstrap resamples short runs of observations together to preserve local dependence~\cite{kunsch1989}. Each resample gives a mean paired difference. The historical controller requires enough complete days and a positive lower quantile of these means before switching. Whether this predicts an advantage on subsequent days must be tested on forecasts issued after the decision. Chapter~3 describes how the hourly records determine when each forecast can be scored.
+A moving-block bootstrap resamples short runs of observations together to preserve local dependence~\cite{kunsch1989}. Each resample gives a mean paired difference. The historical controller requires enough complete days and a positive lower quantile of these means before switching. Whether this predicts an advantage on subsequent days must be tested on forecasts issued after the decision. Chapter~\ref{chap:data} describes how the hourly records determine when each forecast can be scored.

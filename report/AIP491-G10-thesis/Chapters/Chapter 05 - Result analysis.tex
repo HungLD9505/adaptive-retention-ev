@@ -19,7 +19,7 @@ MAE measures the absolute error in hourly energy, in kWh. Lower values indicate 
 \clearpage
 \section{Source transfer and backbone choice}
 \subsection{Independent backbone benchmarks}
-Two implementations evaluated models on the same four UrbanEV targets with 14 days of initial history. Table~\ref{tab:baselines} gives the mean error in each training mode. Bold marks the lowest MAE in each column. A dash denotes a mode without a reported result. Custom attention in A and official TimeXer in B \cite{wang2024timexer} are distinct architectures. The separate spatial benchmark uses histories from supporting locations. Its MAE is reported once per implementation.
+Two implementations evaluated models on the same four UrbanEV targets with 14 days of initial history. Table~\ref{tab:baselines} gives the mean error in each training mode. Bold marks the lowest MAE in each column. A dash denotes a mode without a reported result. Custom attention in A and official TimeXer in B \cite{wang2024timexer} are distinct architectures. The separate spatial benchmark uses histories from supporting locations. Its MAE is reported once per implementation. A and B differ in their MLP and TCN architectures. Their daily naive scores also differ slightly; exact agreement of scored origins across implementations has not been established. We therefore rank models within each implementation.
 \begin{table}[H]
 \centering\small
 \caption{Independent baseline MAE on four UrbanEV targets (kWh).}\label{tab:baselines}
@@ -43,7 +43,7 @@ GCN--LSTM (spatial) & \multicolumn{2}{c}{7.1288} & \multicolumn{2}{c}{7.1790}\\
 \bottomrule\end{tabular*}
 \end{table}
 
-Random forest had the lowest target-only MAE in both implementations. With source initialization, GRU ranked first in A (5.3150 kWh), narrowly ahead of LSTM (5.3356). In B, TimeXer ranked first (5.1979), followed by TCN (5.3027) and GRU (5.3157). Across both implementations, all 60 paired neural model--entity--seed comparisons per implementation favored source initialization. The GRU provided a competitive backbone with 52,376 trainable parameters for the controlled retention experiments. The ranking applies to the training settings and four targets tested here.
+Random forest had the lowest target-only MAE in both implementations. With source initialization, GRU ranked first in A (5.3150 kWh), narrowly ahead of LSTM (5.3356). In B, TimeXer ranked first (5.1979), followed by TCN (5.3027) and GRU (5.3157). Across both implementations, all 60 paired neural model--entity--seed comparisons per implementation favored source initialization. We retained the competitive 52,376-parameter GRU so all retention experiments shared the same encoder and forecast head. The ranking applies to the training settings and four targets tested here.
 
 \subsection{Transfer after calibrating the target training budget}
 A target-only neural model may need more initial training than a pretrained one. We compared 3, 10, 30, 100 and 300 initial epochs on four calibration targets. The lowest calibration MAE occurred at 30, 100 and 100 epochs for target-only training with 7, 14 and 28 days of history, respectively. With source initialization, the corresponding values were 3, 3 and 10 epochs. We evaluated these settings on twelve additional targets. Both models used the same architecture and scored days. Source fine-tuning used zero latent penalty, so the comparison measures the benefit of starting from a source checkpoint under the separately calibrated budgets.
@@ -57,15 +57,15 @@ Figure~\ref{fig:budget-curves} shows why the two initialization modes received d
 
 \begin{table}[H]\centering\small
 \caption{GRU initialization on twelve UrbanEV targets (MAE in kWh).}\label{tab:res-transfer}
-\begin{tabular}{lrrr}\toprule
-Initial history & Target-only MAE & Transfer MAE & Reduction\\\midrule
-7 days & 5.0521 & \textbf{3.3671} & 33.35\%\\
-14 days & 4.8341 & \textbf{3.3046} & 31.64\%\\
-28 days & 4.7697 & \textbf{3.3482} & 29.80\%\\
+\begin{tabular}{lrrrr}\toprule
+History & Target-only MAE & Transfer MAE & Reduction & Targets improved\\\midrule
+7 days & 5.0521 & \textbf{3.3671} & 33.35\% & 12/12\\
+14 days & 4.8341 & \textbf{3.3046} & 31.64\% & 12/12\\
+28 days & 4.7697 & \textbf{3.3482} & 29.80\% & 11/12\\
 \bottomrule\end{tabular}
 \end{table}
 
-At 14 days, for example, source initialization reduced mean error by 1.5295 kWh per hour (Table~\ref{tab:res-transfer}). The advantage persisted at 28 days despite allowing the target-only model 100 initial epochs. These reductions describe the mean over the selected UrbanEV targets at each budget. They provide a reason to retain source initialization when studying the smaller effects of regularization and online decisions. The four-target backbone benchmark also used a different source training budget (three epochs versus ten here), so its absolute MAEs should be interpreted within that benchmark.
+At 14 days, for example, source initialization reduced mean error by 1.5295 kWh per hour (Table~\ref{tab:res-transfer}). The advantage persisted at 28 days despite allowing the target-only model 100 initial epochs. The last column counts targets with lower transfer MAE after averaging over paired seeds. Each history budget uses the same twelve targets. They provide a reason to retain source initialization when studying the smaller effects of regularization and online decisions. The four-target backbone benchmark also used a different source training budget (three epochs versus ten here), so its absolute MAEs should be interpreted within that benchmark.
 \clearpage
 \section{Fixed and adaptive retention}
 \subsection{Measured retention strength on the calibration targets}
@@ -93,7 +93,7 @@ Among the twenty positive coefficients, five had a median gradient ratio below o
 Figure~\ref{fig:res-fixed} plots the 20 positive coefficients on a logarithmic axis. The dashed lines mark zero-retention MAE in (a) and equal gradient norms in (b). The selected coefficient reduced calibration MAE by 0.111925 kWh.
 
 \subsection{Does switching retention reduce forecast error?}
-The historical selector could switch among three coefficients after a completed block. The candidates used $\lambda\in\{0,0.1,1\}$. Its comparator held $\lambda=1$. Figure~\ref{fig:res-selector} compares the percentage reduction in group MAE against Fixed and Online-best. Positive values favor switching. Against Fixed, all three histories favored switching in CHARGED/MEL, SPO and SZH, giving nine wins. All three favored Fixed in UrbanEV/SZH, AMS, JHB and LOA. Against Online-best, which selects by past error without a confidence gate, the historical confidence rule yielded lower MAE in eleven of 21 groups. In each comparison all eighteen finite exploratory intervals included zero. The three UrbanEV intervals were undefined in each comparison.
+The historical selector could switch among three coefficients after a completed block. The candidates used $\lambda\in\{0,0.1,1\}$. It adapted initially at $\lambda=0.1$, while Fixed used $\lambda=1$ from the first update. Their comparison includes both the initialization and later switching decisions. Figure~\ref{fig:res-selector} compares the percentage reduction in group MAE against Fixed and Online-best. Positive values favor switching. Against Fixed, all three histories favored switching in CHARGED/MEL, SPO and SZH, giving nine wins. All three favored Fixed in UrbanEV/SZH, AMS, JHB and LOA. Against Online-best, which shares the initial state and candidate training but selects by past error alone, the historical confidence rule yielded lower MAE in eleven of 21 groups. In each comparison all eighteen finite exploratory intervals included zero. All three UrbanEV intervals were undefined in each comparison. Some resampled calendars contained no scored day for a sampled station, leaving its mean error undefined.
 
 \begin{figure}[H]\centering
 \includegraphics[width=\linewidth]{Images/selector-gains.pdf}
@@ -118,14 +118,14 @@ On the four previously inspected calibration targets, a separate experiment allo
 A separate \href{https://github.com/HungLD9505/adaptive-retention-ev/blob/52a91d3/docs/reports/issue99-decision-probe-20261110/handoff.md}{one-step decision experiment} cloned the current state before an update and compared following the continuous controller with holding its coefficient. Following reduced the next forecast error in 153 of 294 paired forecasts. The equal-target mean difference (follow minus hold) was $-0.000182$ kWh on these previously inspected calibration targets. In the persistent-shadow calibration, one of 57 completed decisions accepted a proposed change, from 69 proposals overall. Its mean MAE reduction against Fixed was 0.000118 kWh. Neither diagnostic establishes a practically useful decision threshold.
 
 
-Figure~\ref{fig:issued-lambda} shows the coefficient recorded at each issued forecast for all four targets and all three seeds. Each point denotes an issued forecast; gaps indicate days without one. The dashed horizontal line marks the calibrated Fixed coefficient. These trajectories show how much the controller moved; the later-window MAEs above measure the forecasting consequence.
+At station 1693 the trajectory for seed 42 reached about 7.7, illustrating how the same rule can yield different paths across seeds. Figure~\ref{fig:issued-lambda} shows the coefficient recorded at each issued forecast for all four targets and all three seeds. Each point denotes an issued forecast; gaps indicate days without one. The dashed horizontal line marks the calibrated Fixed coefficient. These trajectories show how much the controller moved; the later-window MAEs above measure the forecasting consequence.
 \begin{figure}[htbp]\centering
 \includegraphics[width=.97\linewidth]{Images/issued-lambda.pdf}
 \caption{Continuous retention coefficients at issued forecasts.}\label{fig:issued-lambda}
 \end{figure}
 
 \section{Combining two forecasts and adapting their weights}
-The stable and fast GRUs differ in retention strength and in the history used for online updates. Static and adaptive fusion combine the same two forecast streams. Comparing either with single Fixed measures the overall change from using two experts. Comparing adaptive with static isolates the effect of updating their weights.
+The stable and fast GRUs differ in retention strength and in the history used for online updates. Static and adaptive fusion combine the same two forecast streams. Comparing either with single Fixed measures the overall change from using two experts. The calibrated static blend holds the stable weight at approximately 0.430782. Comparing adaptive with that blend measures the combined effect of loss feedback and the sharing step that draws the weights toward one half.
 
 \begin{figure}[H]\centering
 \includegraphics[width=.95\linewidth]{Images/cohort-comparisons.pdf}
@@ -135,7 +135,6 @@ Both mixtures improved on single Fixed in 18 of 21 historical groups. Adaptive f
 
 At 14 days in UrbanEV/SZH, adaptive weighting improved the static mean from 8.0361 to 8.0016 kWh, yet single Fixed reached 7.9758. In CHARGED/MEL, adaptive fusion reached 52.2649 kWh compared with 54.3655 for single Fixed and 52.2222 for static fusion. The two examples show why a win count depends on the control. Posthoc resampling across entities gave intervals spanning zero in thirteen of the 21 adaptive-versus-static comparisons.
 
-\clearpage
 \subsection{Examples across forecast dates}
 
 \begin{figure}[H]\centering
@@ -144,9 +143,28 @@ At 14 days in UrbanEV/SZH, adaptive weighting improved the static mean from 8.03
 
 Figure~\ref{fig:res-traces} follows JHB identifier 13 and UrbanEV identifier 1272 at 14 days with seed 42. Within each group, the selection rule used the upper median of the entity-level gains against Fixed among targets with Fixed MAE above $10^{-4}$ kWh. The displayed seed illustrates the trajectory. Target selection used gains averaged across seeds. Weights at each forecast origin use only feedback available by that time. The running mean divides the sum of daily MAEs by the number of scored origins to date. Each trace illustrates one target, while the group comparisons average over targets and seeds.
 
+\subsection{How much does loss feedback contribute?}\label{sec:weight-controls}
+Table~\ref{tab:weight-controls} compares forecasts on the same twelve UrbanEV Development targets with fourteen days of history. The mixtures use the same stable and fast predictions. Each target receives equal weight after averaging its three seeds.
+
+\begin{table}[H]\centering\small
+\caption{Weighting controls on twelve UrbanEV targets.}\label{tab:weight-controls}
+\begin{tabular}{llr}\toprule
+Method & Stable expert weight & MAE (kWh)\\\midrule
+Single Fixed & Stable expert alone & \textbf{3.267000}\\
+Calibrated static & Constant 0.430782 (rounded) & 3.303021\\
+Equal mixture & Constant 0.5 & 3.291055\\
+Sharing alone & Moves toward 0.5 without loss feedback & 3.291239\\
+Loss feedback alone & Updates by loss without sharing & 3.302131\\
+Adaptive fusion & Loss feedback followed by sharing & 3.291048\\
+\bottomrule\end{tabular}
+\end{table}
+
+Equal weighting reproduced almost all of the improvement over the calibrated static blend on these targets. Adaptive fusion reduced MAE by less than 0.000007 kWh relative to equal weighting. Sharing alone also approached the adaptive score. Single Fixed had the lowest error of these controls.
+
+On the historical cohort, a post hoc comparison gave adaptive fusion lower MAE than equal weighting in all 21 groups, with reductions of 0.00084--0.263\%. Relative to sharing alone, reductions ranged from 0.00097\% to 0.227\%, again across all 21 groups. These small differences are consistent with a contribution from loss feedback on the inspected forecasts. The separately locked evaluation below compares adaptive fusion with single Fixed and the calibrated static blend.
+
 A bounded follow-up on the twelve Development targets at 14 days compared alternative weight updates. AdaHedge \cite{rooij2014} reduced MAE from 3.291048 to 3.284880 kWh relative to the original adaptive rule. Single Fixed achieved 3.267000 kWh, so the alternative did not meet its criterion for further evaluation.
 
-\clearpage
 \section{Evaluation on additional Development targets}
 The follow-up fixed both controls, the forecast recipe and the 46 target identifiers before evaluating their outcomes. At the 14-day budget, 3,948 of 4,140 scheduled identifier--day pairs had complete outcomes. These targets came from the same seven dataset--city groups and evaluation calendar, so the follow-up tests performance on additional identifiers within that setting. Table~\ref{tab:res-confirm} shows group MAE in kWh and percentage reductions relative to each control. Bold marks the lowest MAE in each row.
 
@@ -164,14 +182,12 @@ CHARGED/SZH & 10 & 4.2698 & 4.3512 & 4.1675 & \textbf{4.1578} & +2.62 & +0.23\\
 \bottomrule\end{tabular}}
 \end{table}
 
-Adaptive fusion improved on single Fixed in five of seven groups and on static fusion in five of seven. The groups differed between comparisons. In UrbanEV/SZH, it reduced error by 1.43\% against static fusion but increased it by 8.00\% against Fixed. In SPO, it reduced error by 7.79\% against Fixed and increased it by 0.53\% against static. SPO and JHB each contributed one identifier, so each of those group means describes a single target.
+Adaptive fusion improved on single Fixed in five of seven groups and on static fusion in five of seven. The groups differed between comparisons. At identifier level, adaptive had strictly lower MAE than Fixed for 35 of 46 IDs and lower MAE than static for 28 of 46. Four gains over Fixed were about $1.43\times10^{-9}$ kWh each. A post hoc count requiring a reduction above $10^{-6}$ kWh gives 31 of 46 against Fixed. The primary analysis uses the prespecified group-level contrasts. In UrbanEV/SZH, adaptive fusion reduced error by 1.43\% against static fusion but increased it by 8.00\% against Fixed. In SPO, it reduced error by 7.79\% against Fixed and increased it by 0.53\% against static. SPO and JHB each contributed one identifier, so each of those group means describes a single target.
 
 Figure~\ref{fig:locked-intervals} shows both primary intervals on the same scale. Positive values favour adaptive fusion.
-\begin{figure}[htbp]\centering
+\begin{figure}[H]\centering
 \includegraphics[width=.97\linewidth]{Images/locked-intervals.pdf}
 \caption{Adaptive fusion on 46 targets: estimates and nominal 97.5\% intervals.}\label{fig:locked-intervals}
 \end{figure}
 
-Giving each dataset--city group equal weight, adaptive fusion reduced MAE by 0.6653\% relative to single Fixed and 0.3610\% relative to static. 
-
-The paired resampling analysis gave nominal 97.5\% intervals of $[-3.6209,3.3176]\%$ and $[-0.0449,0.8399]\%$, respectively. The prespecified criterion required both lower bounds to exceed zero. The prespecified three-day sensitivity intervals also included zero. At fourteen days each comparison had two undefined replicates out of 10,000, leaving both sensitivity intervals undefined. Both primary intervals include zero, so the evaluation did not establish superiority to both controls. The more consistent empirical finding across the chapter is the benefit of source initialization under short target histories. The added benefit of adapting retention or forecast weights depends on the target group and the comparator.
+Averaging percentage reductions equally across groups gave $0.6653\%$ against Fixed (nominal 97.5\% interval $[-3.6209,3.3176]\%$) and $0.3610\%$ against calibrated static ($[-0.0449,0.8399]\%$). Both intervals cross zero. The prespecified criterion required two positive lower bounds. Three-day bootstrap blocks also gave intervals crossing zero. With fourteen-day bootstrap blocks, two of 10,000 replicates were undefined for each comparison, leaving both sensitivity intervals undefined.

@@ -17,7 +17,6 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{tabularx}
-\usepackage{longtable}
 \usepackage{float}
 \usepackage{amsmath, amssymb}
 \usepackage{array}
@@ -32,7 +31,6 @@
 \renewcommand{\arraystretch}{1.05}       % row height (optional)
 
 % ---------- Lists & Formatting ----------
-\usepackage{enumitem}
 \setlist{leftmargin=2em}
 \usepackage{hyperref}
 \hypersetup{
@@ -49,11 +47,9 @@
 \usepackage[none]{hyphenat} % disable automatic word hyphenation globally
 \sloppy % relax justification rules to reduce overfull boxes
 
-% ---------- Custom Commands ----------
-\newcommand{\todo}[1]{\textbf{\color{red}[TODO: #1]}}
-
 % ---------- frame of title page ----------
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
 \newcommand{\pageframe}{%
   \begin{tikzpicture}[remember picture,overlay]
     \draw[line width=0.8pt]
@@ -91,6 +87,8 @@
 % ---------- References ----------
 \appendix
 \input{Chapters/Appendix - Continuous retention}
+
+\input{Chapters/Appendix - Evidence index}
 
 \bibliographystyle{IEEEtran}
 \renewcommand{\bibname}{References}

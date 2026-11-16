@@ -44,7 +44,7 @@ Historical evaluation & Final & 90 & 7, 14, 28\\
 Follow-up evaluation & Development & 46 & 14\\\bottomrule
 \end{tabular}\end{table}
 
-The backbone benchmark and calibrated transfer comparison used separate UrbanEV targets. The historical Final cohort included 30 UrbanEV identifiers and ten from each CHARGED group. UrbanEV identifier 2193 had no scored outcome. Crossing seven dataset--city groups with three history budgets yielded 21 comparison groups. Seeds 42, 43 and 44 repeated runs on the same entity data. Later exploratory comparisons revisited these Final outcomes.
+UrbanEV stations 1153, 1405, 1693 and 2152 served in both the backbone benchmark and coefficient calibration. Twelve other stations supplied the transfer comparison. The historical Final cohort included 30 UrbanEV identifiers and ten from each CHARGED group. UrbanEV identifier 2193 had no scored outcome. Crossing seven dataset--city groups with three history budgets yielded 21 comparison groups. Seeds 42, 43 and 44 repeated runs on the same entity data. Later exploratory comparisons revisited these Final outcomes.
 
 For the follow-up comparison, the team excluded identifiers with recorded prior use, required at least one complete initial training example, and fixed the cohort before examining its outcomes. In the row order of Table~\ref{tab:scope}, the seven groups contributed 10, 10, 1, 10, 4, 1 and 10 targets. This comparison evaluates additional Development targets at 14 days. Within each group, eligible IDs were ranked by the SHA-256 hash of the study identifier, group and local ID. The first ten were selected, or all eligible IDs when fewer than ten remained. The exclusion audit covers recorded use, and the evaluation shares calendar dates with earlier experiments.
 
@@ -71,9 +71,23 @@ The 14-day Development record for station 1001 begins its fit window at midnight
 
 At 00:00 on 30 November the normalized input is 0.67153, corresponding to approximately 13.42 kWh, with mask one. The released target series on 1 December records zero energy at 06:00 and 1.75 kWh at 07:00. Both values contribute to the eventual score. The label for the final hour becomes available at midnight on 2 December under the replay clock. This example explains the timing of an input and its labels; Figure~\ref{fig:window} plots observations on both sides of the origin.
 
-\par\penalty-200\begingroup\interlinepenalty=10000 Across the 90 requested daily origins for this identifier, 31 have entirely missing histories and 59 produce forecast inputs. Of these, 52 have complete label vectors for evaluation. Figure~\ref{fig:replay-coverage} locates these outcomes on the replay calendar, including the seven issued forecasts with incomplete labels. Counting the three stages separately preserves the distinction between scheduled demand forecasts, usable inputs and observed outcomes. The next chapter uses this hourly interface to define source training, target adaptation and online feedback.\par\endgroup
+\par\penalty-200\begingroup\interlinepenalty=10000 Across the 90 requested daily origins for this identifier, 31 have entirely missing histories and 59 produce forecast inputs. Of these, 52 have complete label vectors for evaluation. Figure~\ref{fig:replay-coverage} locates these outcomes on the replay calendar, including the seven issued forecasts with incomplete labels. \par\endgroup
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=.98\linewidth]{Images/replay-coverage.pdf}
 \caption{Daily forecast availability at station 1001.}\label{fig:replay-coverage}
 \end{figure}
+
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+\tikzset{stage/.style={draw=blue!50!black,fill=blue!4,align=center,text width=3.3cm,minimum height=1.18cm,inner sep=3pt,font=\small}}
+\node[stage] (a) at (0,0) {\textbf{Before first forecast}\\14 days of target history};
+\node[stage] (b) at (4.3,0) {\textbf{Daily replay}\\90 scheduled origins};
+\node[stage] (c) at (8.6,0) {\textbf{After replay}\\Paired error analysis};
+\draw[->,semithick](a.east)--(b.west);
+\draw[->,semithick](b.east)--(c.west);
+\end{tikzpicture}
+\caption{Timeline for the locked 46-target evaluation.}\label{fig:locked-timeline}
+\end{figure}
+
+In Figure~\ref{fig:locked-timeline}, forecasts precede the next day's observations. The paired analysis uses seven-day calendar blocks, with three- and fourteen-day sensitivity checks. All 36 CHARGED targets had 90 scored days. UrbanEV coverage ranged from 51 to 90 days. Each target mean describes its observed days; the cause of missing observations is unknown.

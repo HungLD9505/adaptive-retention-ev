@@ -2,7 +2,9 @@
 
 ## Capstone thesis for team review
 
-[Read the 42-page thesis](AIP491-G10-thesis/main.pdf) · [Download the Overleaf project](AIP491-G10-thesis/AIP491-G10-Overleaf.zip)
+[Read the capstone thesis](AIP491-G10-thesis/main.pdf) · [Download the Overleaf project](AIP491-G10-thesis/AIP491-G10-Overleaf.zip)
+
+The review PDF was built with Tectonic (XeTeX). In Overleaf, select XeLaTeX and compile `main.tex`.
 
 ## Reviewed manuscript
 
