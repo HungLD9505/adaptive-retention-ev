@@ -1,0 +1,16 @@
+\chapter{Experimental evidence index}\label{app:evidence}
+The linked records give the run-level errors or aggregates used in Chapter~\ref{chap:results}. Each link points to the same repository revision so the reported results can be traced to a fixed snapshot.
+
+\begin{table}[H]\centering\small
+\caption{Result tables, figures and supporting records.}
+\begin{tabularx}{\linewidth}{@{}l l X@{}}\toprule
+Comparison & Location & Evidence\\\midrule
+Backbone MAE & Table~\ref{tab:baselines} & \href{https://github.com/HungLD9505/adaptive-retention-ev/tree/0167b5189ed519490ba8361a70e0656c6d7e5850/docs/reports/issue99-teacher-review-20261111}{Independent benchmark summaries}\\
+Source initialization & Table~\ref{tab:res-transfer} & \href{https://github.com/HungLD9505/adaptive-retention-ev/blob/0167b5189ed519490ba8361a70e0656c6d7e5850/docs/reports/issue99-history-review-20261110/cells.csv}{MAE by history, target, seed and method}\\
+Retention calibration & Figure~\ref{fig:res-fixed} & \href{https://github.com/HungLD9505/adaptive-retention-ev/blob/0167b5189ed519490ba8361a70e0656c6d7e5850/docs/reports/issue99-study-20261110/fixed-trials.csv}{Measured coefficients and gradient ratios}\\
+Retention switching & Figure~\ref{fig:res-selector} & \href{https://github.com/HungLD9505/adaptive-retention-ev/blob/0167b5189ed519490ba8361a70e0656c6d7e5850/report/full-results.csv}{Historical group scores and intervals}\\
+Historical fusion & Figure~\ref{fig:res-fusion} & \href{https://github.com/HungLD9505/adaptive-retention-ev/blob/0167b5189ed519490ba8361a70e0656c6d7e5850/docs/reports/issue99-full-scope-20261110/group-results.csv}{Group MAEs and paired reductions}\\
+Historical controls & Section~\ref{sec:weight-controls} & \href{https://github.com/HungLD9505/adaptive-retention-ev/blob/0167b5189ed519490ba8361a70e0656c6d7e5850/docs/reports/issue99-teacher-review-20261111/fusion-controls-groups.csv}{Equal weighting and sharing alone}\\
+Development controls & Table~\ref{tab:weight-controls} & \href{https://github.com/HungLD9505/adaptive-retention-ev/blob/0167b5189ed519490ba8361a70e0656c6d7e5850/docs/reports/issue123-bounded-weighting-20261113/development-mae.csv}{Target- and seed-level weighting results}\\
+Locked evaluation & Table~\ref{tab:res-confirm} & \href{https://github.com/HungLD9505/adaptive-retention-ev/tree/0167b5189ed519490ba8361a70e0656c6d7e5850/docs/reports/issue119-confirmation-20261113}{Group and identifier results, intervals and verification}\\
+\bottomrule\end{tabularx}\end{table}

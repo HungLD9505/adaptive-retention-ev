@@ -1,0 +1,39 @@
+\chapter{Introduction}\label{chap:introduction}
+
+\section{Background and Motivation}
+
+Suppose a charging station has recorded one week of hourly energy use. At midnight it needs a demand forecast for each hour of the coming day. Its records contain at most one example of each weekday. If charging peaked at noon last Tuesday, the forecaster has little local evidence to tell whether that peak will recur. Records from established locations offer a way to learn daily patterns before fitting a model to the station.
+
+In transfer learning, the established locations supply the source data and the station receiving the forecast is the target. Source training gives the target model a starting point. A separate decision arises as local measurements arrive: how closely should the model continue to follow the representation learned at the source? A short run of forecast errors might reveal a persistent difference between locations, or it might reflect a few unusual charging days. The distinction matters because changing the model in response affects forecasts issued before the next day's demand is known.
+
+\section{Literature Review}
+
+Narayana Gowda et al.\ compared transfer learning, model-agnostic meta-learning and conventional LSTM training for aggregate EV charging load with 10 or 20 days of target data~\cite{gowda2026}. Their results support using observations from other settings when the local record is short. Ali et al.\ examined transfer at the charging-site level with a temporal convolutional network that predicts several load quantiles~\cite{ali2024}. With two weeks of local data at the NREL site, they reported prediction interval coverage of 96.88\%. Coverage measures how often observations fall inside a forecast interval. The decision studied here requires a different quantity: the difference in hourly forecast error between two retention settings on the same dates.
+
+Zafar et al.\ grouped charging behaviour with K-means, fine-tuned source models within each cluster and transferred the resulting models to targets with limited data~\cite{zafar2025}. Their study addresses which source model to transfer. Here, a target starts from a source model trained within its dataset and city. As local outcomes arrive, we measure whether keeping the target representation close to that source improves the next forecast.
+
+Recent work also considers how a station's demand changes over time. Chenghan Li et al.\ compared recent charging behaviour with longer-term station patterns to guide probabilistic forecasts one and four hours ahead, updating the model as observations arrived~\cite{li2026behavior}. A change in charging behaviour alone leaves open which retention setting will forecast the next day more accurately. We therefore compare candidate settings on the same completed days before deciding whether to switch.
+
+A precedent for controlling source influence during fine-tuning comes from Li et al., who regularized a target network toward its pretrained parameters~\cite{li2018}. Our experiment instead measures how far the target encoder's representation of a given input moves from the source encoder's representation. This gives the study two distinct comparisons. Training from scratch tests the value of the starting point. Holding the retention penalty constant tests whether recent target errors justify changing its strength.
+
+\section{Problem Statement}
+
+At each daily forecast origin, the model receives the preceding 24 hourly observations and calendar information known for the coming day. It predicts the energy delivered in each of the next 24 hours. The target has 7, 14 or 28 days of history for initial adaptation. These three budgets determine how much local evidence is available before forecasting begins. Subsequent updates use complete daily outcomes only after they become available.
+
+The first research question is how much source initialization changes mean absolute error (MAE) relative to training the same gated recurrent unit (GRU) on the target alone. The second is whether a rule that accounts for uncertainty in recent paired errors can select a better retention coefficient than either a fixed coefficient or a rule that selects the lowest past error. As an extension, we ask whether updating the weights of two GRU forecasts improves on combining those same forecasts with constant weights.
+
+\section{Objectives and Contributions}
+
+To measure the benefit of initialization, we benchmarked several forecasting architectures and calibrated the initial training budget separately for the target-only and transferred GRUs. We then compared them on additional targets at matched forecast dates. This design allows a model trained from scratch more epochs when its calibration results warrant them.
+
+To study retention, we measured both forecast error and the relative strength of the retention gradient across candidate coefficients. We evaluated decisions to switch using only feedback available at the time of the decision. For the two-model extension, we retained both a single fixed-retention GRU and a static mixture as controls. The static mixture uses the same two forecast streams as the adaptive mixture, making the contribution of changing their weights measurable.
+
+\section{Scope and Limitations}
+
+The experiments use hourly charging energy from UrbanEV and CHARGED~\cite{urbanev2025,charged2025}. Source and target locations belong to the same dataset and city within each transfer experiment. We report MAE in kWh. Cold start denotes a restriction on the observed target history. The beginning of that history can fall after a station's opening date.
+
+The backbone benchmark and coefficient calibration share four UrbanEV targets in Shenzhen. The comparison of source initialization with calibrated target-only training uses twelve other targets from the same dataset and city. The historical retention and fusion comparisons cover seven dataset--city groups at three history budgets. These groups were revisited during development. A follow-up evaluation specified its recipe and 46 additional Development identifiers before scoring forecasts at the 14-day budget. It assesses performance on additional locations within the same groups and calendar period.
+
+\section{Structure of the Thesis}
+
+Chapter 2 introduces recurrent forecasting, transfer learning and online adaptation. Chapter 3 describes how the charging records become hourly inputs and next-day targets. Chapter 4 defines the models, retention penalty and decision rules. Chapter 5 evaluates transfer, retention selection and forecast fusion against their respective controls. Chapter 6 discusses what the results establish and how future work could test retention decisions at newly opened stations.

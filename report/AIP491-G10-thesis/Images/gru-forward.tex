@@ -1,0 +1,16 @@
+\begingroup\def\baselinestretch{1}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,
+ box/.style={draw=blue!45!black,fill=blue!3,align=center,text width=3.25cm,inner sep=5pt,font=\small},
+ a/.style={->,semithick,draw=black!70}]
+\node[box] (x) at (0,0) {Hourly history\\$X_t:24\times7$};
+\node[box] (c) at (0,-2.35) {Known calendar\\$C_t:24\times5$};
+\node[box] (h) at (4.4,0) {Stacked GRU (2 layers)\\Final state: 64};
+\node[box] (f) at (4.4,-2.35) {Flatten calendar\\120 values};
+\node[box] (cat) at (8.8,-1.15) {Concatenate\\184 values};
+\node[box] (out) at (4.4,-4.25) {24 hourly estimates\\Softplus output};
+\node[box] (head) at (8.8,-4.25) {Linear $184\to64$, ReLU\\Linear $64\to24$};
+\draw[a](x)--(h);\draw[a](c)--(f);\draw[a](h.east)--([yshift=3pt]cat.west);
+\draw[a](f.east)--([yshift=-3pt]cat.west);
+\draw[a](cat.south)--(head.north);
+\draw[a](head)--(out);
+\end{tikzpicture}\endgroup

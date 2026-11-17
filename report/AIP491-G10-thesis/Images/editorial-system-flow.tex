@@ -1,0 +1,29 @@
+\definecolor{evBlue}{HTML}{205B82}
+\definecolor{evRust}{HTML}{A74731}
+\begingroup\def\baselinestretch{1}
+\begin{tikzpicture}[x=1cm,y=1.55cm,>=Latex,
+ box/.style={draw=evBlue!65,fill=evBlue!4,rounded corners=2pt,text width=4.10cm,align=center,inner sep=5pt,minimum height=1.18cm,font=\small},
+ warm/.style={box,draw=evRust!65,fill=evRust!4},
+ pathline/.style={->,draw=black!70,line width=.65pt},
+ lab/.style={font=\scriptsize,fill=white,inner sep=2pt}]
+\node[box] (src) at (0,3.9) {\textbf{Source training}\\Established sites\\GRU encoder and forecast head};
+\node[box] (init) at (5.3,3.9) {\textbf{Target adaptation}\\Source initialization\\(7, 14 or 28 days initially)};
+\draw[pathline] (src)--(init);
+\node[box] (input) at (10.6,3.9) {\textbf{Each forecast origin}\\Previous 24 hours ($24\times7$)\\Next-day calendar ($24\times5$)};
+\node[box] (st) at (2.65,1.50) {\textbf{Stable GRU}\\$F+R$ ($\lambda_S=1$), frozen source reference\\Train on the newly arrived day};
+\node[warm] (fa) at (7.95,1.50) {\textbf{Fast GRU}\\$F$, no retention penalty\\Train on up to seven recent days};
+\coordinate (shared) at (5.3,2.65);
+\draw[draw=black!70,line width=.65pt] (init.south)--(shared);
+\draw[draw=black!70,line width=.65pt] (input.south) |- (shared);
+\fill[black!70] (shared) circle (1.3pt);
+\draw[pathline] (shared)--++(0,-.22) -| (st.north);
+\draw[pathline] (shared)--++(0,-.22) -| (fa.north);
+\node[box] (mix) at (5.3,-.70) {\textbf{Issue 24 hourly estimates}\\$\hat y_t=w_t\hat y_{S,t}+(1-w_t)\hat y_{F,t}$};
+\draw[pathline] (st.south) |- ([yshift=2pt]mix.west);
+\draw[pathline] (fa.south) |- ([yshift=2pt]mix.east);
+\node[box] (score) at (5.3,-2.65) {\textbf{Score the saved expert forecasts}\\24 labels arrive\\Compute normalized daily MAE};
+\draw[pathline] (mix)--(score);
+\node[warm] (next) at (10.6,-2.65) {\textbf{Next forecast weight}\\Update with expert losses\\$w^+=0.1+0.8p$};
+\draw[pathline] (score)--(next);
+\draw[pathline,draw=evRust] (next.north) |- ([yshift=-4pt]mix.east);
+\end{tikzpicture}\endgroup
