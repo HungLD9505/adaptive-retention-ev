@@ -40,7 +40,7 @@ CHARGED/SZH &1445&886&288&271\\\bottomrule
 Comparison & Partition & Selected IDs & History (days)\\\midrule
 Backbone benchmark & Development & 4 & 14\\
 Calibrated transfer comparison & Development & 12 & 7, 14, 28\\
-Historical evaluation & Final & 90 & 7, 14, 28\\
+Historical evaluation (exploratory) & Final & 90 & 7, 14, 28\\
 Follow-up evaluation & Development & 46 & 14\\\bottomrule
 \end{tabular}\end{table}
 
@@ -62,7 +62,7 @@ Figure~\ref{fig:locked-timeline} shows how fourteen days of initial station hist
 \caption{Timeline for the locked 46-target evaluation.}\label{fig:locked-timeline}
 \end{figure}
 
-All 36 CHARGED targets contributed 90 scored days each. For five of the ten UrbanEV targets, the last scored forecast was on 21 January 2023, day 52 of replay. Four contributed 52 days and one contributed 51. Their MAEs describe the observed part of the calendar. The last 38 days contribute no errors to those means. The cause of the missing observations is unknown.
+All 36 CHARGED targets contributed 90 scored days each. For five of the ten UrbanEV targets, the last scored forecast was on 21 January 2023, day 52 of replay. Four contributed 52 days and one contributed 51. Their MAEs describe the observed part of the calendar. The last 38 days contribute no errors to those means. The other five UrbanEV targets contributed 449 of 450 possible days: target 1112 had 89 and the other four had 90. Together with the 259 days above and 3,240 CHARGED days, this gives 3,948 scored target--days. The cause of the missing observations is unknown.
 
 \section{From an hourly series to a forecast example}
 For a target with valid observations in its permitted prefix, the energy scale is the 95th percentile of available valid hourly energy using linear interpolation. A zero percentile uses a scale of one. An empty valid prefix leaves the scale undefined and blocks forecasting. The fitted scale remains fixed through replay. For an observed hour, the energy feature is energy divided by this scale and the observation mask equals one. Missing or unavailable historical energy uses a zero placeholder with mask zero. Thus an observed zero and a missing observation produce different inputs.

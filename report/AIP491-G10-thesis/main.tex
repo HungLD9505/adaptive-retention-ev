@@ -49,6 +49,7 @@
 % ---------- frame of title page ----------
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning}
+\tikzset{every node/.append style={execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}}}
 \newcommand{\pageframe}{%
   \begin{tikzpicture}[remember picture,overlay]
     \draw[line width=0.8pt]

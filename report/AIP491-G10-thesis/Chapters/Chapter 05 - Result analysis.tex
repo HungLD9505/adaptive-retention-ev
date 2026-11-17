@@ -9,7 +9,7 @@ Comparison & Target identifiers & History (days)\\\midrule
 Backbone benchmark & 4 UrbanEV Development & 14\\
 GRU initialization & 12 additional UrbanEV Development & 7, 14, 28\\
 Coefficient calibration & 4 UrbanEV Development & 14\\
-Historical selection and fusion & 90 selected across 7 dataset--city groups, Final partition & 7, 14, 28\\
+Historical selection and fusion & 90 selected across 7 groups, historical Final (exploratory) & 7, 14, 28\\
 Follow-up fusion evaluation & 46 additional Development IDs across 7 groups & 14\\
 \bottomrule\end{tabular}
 \end{table}
@@ -97,7 +97,7 @@ The historical selector could switch among three coefficients after a completed 
 \includegraphics[width=\linewidth]{Images/selector-gains.pdf}
 \caption{Historical retention switching versus Fixed and Online-best.}\label{fig:res-selector}\end{figure}
 
-The \href{https://github.com/HungLD9505/adaptive-retention-ev/blob/52a91d3/report/full-results.csv}{historical results by group} give both contrasts for each history. The twelve-target Development study used a different control. Its fixed trajectory was selected on calibration targets and then compared with two selectors drawing on the same bank of independent trajectories. The past-MAE rule selected using past errors, while the confidence rule required evidence for switching.
+The \href{https://github.com/HungLD9505/adaptive-retention-ev/blob/52a91d3/report/full-results.csv}{historical results by group} give both contrasts for each history. The twelve-target Development study used a different control. Its fixed trajectory was selected on calibration targets and then compared with two selectors drawing on the same bank of independent trajectories. Online-best selected using past errors, while the confidence rule required evidence for switching.
 
 \begin{table}[H]\centering\small
 \caption{Selection from a common bank on twelve targets (MAE in kWh).}\label{tab:res-bank}

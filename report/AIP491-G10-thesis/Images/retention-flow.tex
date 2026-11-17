@@ -1,6 +1,6 @@
 \definecolor{FlowBlue}{HTML}{2166AC}
 \definecolor{FlowRed}{HTML}{B2182B}
-\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\footnotesize,align=center},
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,every node/.style={font=\footnotesize,align=center,execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
 box/.style={draw=black!40,rounded corners=2pt,fill=white,inner sep=6pt,text width=3.5cm,minimum height=1.1cm},
 flow/.style={->,draw=black!65,line width=.7pt}]
 \node[box,fill=FlowBlue!7,draw=FlowBlue!65] (start) at (0,0) {\textbf{Selected trained state}\\Model and Adam moments};
