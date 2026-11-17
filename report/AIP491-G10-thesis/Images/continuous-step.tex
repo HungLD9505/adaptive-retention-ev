@@ -1,0 +1,12 @@
+\begingroup\def\baselinestretch{1}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,
+ box/.style={draw=black!55,align=center,text width=3.5cm,minimum height=1.0cm,inner sep=4pt,font=\small},
+ a/.style={->,semithick,draw=black!70}]
+\node[box,fill=blue!4] (a) at (0,0) {Two older days $A$\\Training loss $F_A+\lambda R_A$};
+\node[box,fill=blue!4] (v) at (4.5,0) {Virtual Adam step\\Copy current state};
+\node[box,fill=blue!4] (g) at (9,0) {Newer arrived day $V$\\Differentiate validation MAE};
+\node[box,fill=orange!6] (lambda) at (9,-2.15) {Update coefficient\\Project onto $[0,U]$};
+\node[box,fill=orange!6] (real) at (4.5,-2.15) {Real training step\\Use the updated coefficient};
+\node[box,fill=orange!6] (issue) at (0,-2.15) {Issue next forecast\\Save prediction and $\lambda$};
+\draw[a](a)--(v);\draw[a](v)--(g);\draw[a](g)--(lambda);\draw[a](lambda)--(real);\draw[a](real)--(issue);
+\end{tikzpicture}\endgroup
